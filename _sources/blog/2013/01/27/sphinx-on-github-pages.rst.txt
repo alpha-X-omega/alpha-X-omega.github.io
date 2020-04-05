@@ -1,0 +1,26 @@
+######################
+Sphinx on GitHub Pages
+######################
+
+Everything in :doc:`the previous approach to blogging
+</blog/2013/01/26/blogging-with-docker>` still applies.  The new item on the
+menu is replacing Google App Engine (GAE) with `GitHub Pages`_.  The reason
+for this change is GAE's new policy of requiring a billing account to use
+their free quota service.
+
+.. _GitHub Pages: https://pages.github.com/
+
+Head over to GitHub and create a new repository named *username*.github.io,
+where *username* is your username (or organization name) on GitHub.
+
+.. code:: bash
+
+   # This command assumes you added SSH keys to your GitHub account
+   git clone git@github.com:*username*/*username*.github.io
+   cd *username*.github.io
+   # Bypass Jekyll processing on GitHub Pages
+   touch .nojekyll
+   cp -r /path/to/gae/www/* .
+   git add .
+   git commit -m "Initial commit"
+   git push -u origin master
