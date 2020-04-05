@@ -1,0 +1,79 @@
+#######################################################################################
+Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem
+#######################################################################################
+
+Motivation(s)
+=============
+
+Given the perspective projection of three points constituting the vertices of a
+known triangle in :math:`\mathbb{R}^3`, it is possible to determine the position
+of each of the vertices as well as the projectivity (a.k.a. absolute
+orientation).  The generalization of this problem, Perspective-n-Point (PnP), is
+important in both photogrammetry and computer vision.  However,
+photogrammetrists no longer consider direct solutions important with the advent
+of iterative solutions because in most photogrammetry situations, scale and
+distances are known to within 10% and angle is known to within :math:`15^\circ`.
+In contrast, the direct solution method is more important computer vision
+because approximate solutions are not known.
+
+Proposed Solution(s)
+====================
+
+The authors present all of the major direction solutions under a unified P3P
+algebraic framework (i.e. law of cosines).  They also propose a linear solution
+for the absolute orientation problem: given three points in the 3D camera
+coordinate system and their corresponding three points in 3D world coordinate
+system, find a Euclidean transformation mapping camera coordinates to world
+coordinates.
+
+Evaluation(s)
+=============
+
+Figure 2 shows the differences of algebraic derivations among the six solution
+techniques.  Excluding the techniques of Fischler and Linnainmaa, the remaining
+solutions suffer from algebraic singularity (Table I).  This issue manifests
+itself in the danger cylinder, specifically when the center of perspectivity and
+the vertices of a triangle are concylic.
+
+To characterize the numerical sensitivity of the solutions, the authors tested
+those techniques on randomly generated 3D triangles.  The results of random
+permutation of six solutions in double precision and single precision indicate
+that Finsterwalder's solution gives the best accuracy.  However, the best and
+worst mean absolute distance error in single precision show that Grunert's
+and Fischler's solution give similar accuracy.  Furthermore, the histogram of
+absolute distance error reveals these three techniques exhibit uniformly good
+behavior over many trials.
+
+Future Direction(s)
+===================
+
+- How to modify Fischler's solution to achieve higher accuracy in double
+  precision?
+
+Question(s)
+===========
+
+- Does algebraic singularity matter in practice compared to accuracy?
+
+Analysis
+========
+
+Given the camera intrinsics, the pose of the camera can be recovered under the
+P3P framework.
+
+Note that Finsterwalder's solution in the paper contains some typos
+:cite:`ochoa2014p3p`.  Furthermore, the benefits of the proposed absolute
+orientation linear solution is doubtful when :cite:`umeyama1991least` had
+already proposed an optimal solution.
+
+One surprising experimental result is that the accuracy of each solution when
+switching to double precision varies by several orders of magnitude.  However,
+the relative accuracy ordering did not change.
+
+The section on numerical stability and rounding errors contains techniques that
+could be useful in analyzing other PnP solutions.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

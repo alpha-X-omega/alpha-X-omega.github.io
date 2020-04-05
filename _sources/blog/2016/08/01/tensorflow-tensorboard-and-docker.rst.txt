@@ -1,0 +1,107 @@
+###################################
+TensorFlow, TensorBoard, and Docker
+###################################
+
+Docker
+======
+
+Docker comes in two flavors: `Enterprise and Community`_.  When in doubt, pick
+the latter because Docker's business model is akin to Linux's freemium model.
+The `installation process`_ is straightforward, and `post-installation steps`_
+are only necessary to manage Docker as a non-root user.
+
+.. _Enterprise and Community: https://blog.docker.com/2017/03/docker-enterprise-edition/
+.. _installation process: https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/
+.. _post-installation steps: https://docs.docker.com/engine/installation/linux/linux-postinstall/
+
+At the moment, Docker can only `limit the CPU and memory`_ a container uses.  It
+does not have good support for GPUs.  This is where `nvidia-docker`_ comes in:
+it is a thin wrapper on top of :command:`docker` and acts as a drop-in
+replacement for the :command:`docker` CLI.  :command:`nvidia-docker` only
+modified the behavior of the Docker commands *create* and *run*;
+all the other commands are passed directly to :command:`docker`.  The modified
+commands automatically detects and `configures the GPUs`_.
+Nvidia also provides `CUDA images`_ with
+:doc:`CUDA Toolkit preinstalled </blog/2013/01/09/install-graphics-and-compute-linux-mint>`.
+The only prerequisite for running the CUDA container is the
+:doc:`Nvidia driver </blog/2013/01/03/install-nvidia-drivers-on-linux-mint>`.
+
+.. _limit the CPU and memory: https://docs.docker.com/engine/admin/resource_constraints/#cpu
+.. _nvidia-docker: https://github.com/NVIDIA/nvidia-docker
+.. _configures the GPUs: https://github.com/NVIDIA/nvidia-docker/wiki/nvidia-docker
+.. _CUDA images: https://github.com/NVIDIA/nvidia-docker/wiki/CUDA
+
+.. code:: bash
+
+   # Test nvidia-smi with the latest official CUDA image
+   docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
+   # Test nvidia-smi using only the first two GPUs
+   docker run --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=0,1 --rm nvidia/cuda nvidia-smi
+
+When an operator executes `docker run`_, the container process that runs is
+isolated in that it has its own file system, its own networking, and its own
+isolated process tree separate from the host.  The Nvidia *runtime* was
+`registered during the installation`_ of :command:`nvidia-docker`.
+*--rm* instructs docker to automatically remove the container when it
+exits.  :file:`nvidia/cuda` is the image the container derives from.  Container
+images are typically stored at `Docker Hub`_ or `Docker Store`_.  *-e*
+sets the environment variables before creating the container.  In the case of
+CUDA images, :envvar:`NVIDIA_VISIBLE_DEVICES=all` is the default setting.
+
+.. _docker run: https://docs.docker.com/engine/reference/commandline/run
+.. _registered during the installation: https://github.com/nvidia/nvidia-container-runtime#docker-engine-setup
+.. _Docker Hub: https://hub.docker.com/
+.. _Docker Store: https://store.docker.com/
+
+TensorFlow
+==========
+
+Assuming the Nvidia driver and the CUDA Toolkit are installed,
+`using TensorFlow with Docker`_ is literally just launching one of two
+containers:
+
+.. _using TensorFlow with Docker: https://www.tensorflow.org/install/install_linux#installing_with_docker
+
+.. code:: bash
+
+   # Run TensorFlow programs in a Jupyter notebook without GPU support
+   docker run -it -p 8888:8888 gcr.io/tensorflow/tensorflow
+   # Run TensorFlow programs in a Jupyter notebook with GPU support
+   nvidia-docker run -it -p 8888:8888 gcr.io/tensorflow/tensorflow:latest-gpu
+
+*-it* instructs Docker to allocate a pseudo-TTY connected to the
+container’s stdin.  *-p* publishes the container’s port(s) to the host.
+
+Capture TensorFlow Console Output
+---------------------------------
+
+Currently Tensorflow does not have a way to redirect its console output to the
+Jupyter notebook.  The following function is a solution contingent on the
+**with** statement context manager.
+
+.. include:: capture.py
+   :code: python
+
+TensorBoard
+===========
+
+`Running TensorBoard`_ requires a little bit more effort:
+
+.. _Running TensorBoard: https://www.tensorflow.org/get_started/summaries_and_tensorboard#launching_tensorboard
+
+.. code:: bash
+
+   <docker_command> run -d --name <container_name> -e PASSWORD=<your_desired_pw> -p 8888:8888 -p 6006:6006 <image>
+   # Initialize TensorBoard
+   docker exec -it <container_name> bash
+   tensorboard --logdir /tmp/tensorflow/logs
+
+*-d* instructs Docker to run the container as a background process and
+print the container's ID.  *--name* assign a name to the container
+instead of relying on Docker's automatic name generator.  `docker exec`_ runs
+the desired command in a running container.
+:envvar:`PASSWORD=\<your_desired_pw\>` is an
+`undocumented feature in TensorFlow`_ that avoids the security token.
+
+.. _docker exec: https://docs.docker.com/engine/reference/commandline/exec
+.. _undocumented feature in TensorFlow: https://github.com/tensorflow/tensorflow/blob/master/tensorflow/tools/docker/jupyter_notebook_config.py

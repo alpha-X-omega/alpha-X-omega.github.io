@@ -1,0 +1,99 @@
+####################################
+Do Deep Nets Really Need to be Deep?
+####################################
+
+Motivation(s)
+=============
+
+Given a million labeled points, a shallow neural network with a single fully
+connected feed-forward hidden layer is capable of attaining 86% accuracy on
+test data.  Adding a convolutional layer, a pooling layer, and two additional
+fully connected feed-forward hidden layer achieves 91% accuracy on the same test
+set.  This baffling result have spurred many research groups to investigate why
+deep nets have better accuracy than shallow ones.
+
+The representational capacity of neural nets have been shown to only require a
+single hidden layer, but existing empirical works could not directly train
+shallow nets to be as accurate as deep nets.  However, a single neural network
+of modest size could be trained to mimic a much larger ensemble of models via
+model compression.  The idea is to pass unlabeled data through the large,
+accurate model to collect the scores produced by that model.  This synthetically
+labeled data is then used to train the smaller mimic model.  Note that the mimic
+model is trained to learn the function that was learned by the larger model.
+
+Proposed Solution(s)
+====================
+
+The authors explore how to train the shallowest possible models to mimic deep
+models in order to better understand the importance of model depth in learning.
+
+Evaluation(s)
+=============
+
+They use model compression to train shallow mimic nets using data labeled by
+state of the art deep models, which were trained on either the TIMIT or CIFAR-10
+dataset.  The mimic models are trained on the log probability values (a.k.a.
+logits) before the softmax activation.  This regression on logits outperformed
+all the other loss functions (e.g. KL divergence, :math:`L_2` on probabilities).
+Note that for the CIFAR-10 dataset, the corresponding mimic model has an
+additional layer of convolution and pooling to act as a feature extractor to
+create invariance to small translations in the pixel domain.
+
+Besides using the usual backpropagation with stochastic gradient descent, the
+authors added a linear layer with :math:`k` linear hidden units in between the
+inputs and the single hidden layer.  This additional layer can be interpreted as
+learning a factorized weight matrix; it trades off representational power for
+faster convergence speed.
+
+The experiments show that a shallow mimic failed to achieve the accuracy of its
+teacher model because there is not enough unlabeled data.  When a mimic is
+trained on an ensemble of deep models, it is able to match or exceed the
+accuracy of non-ensemble deep nets with the same number of parameters.
+
+The authors also tried to train a single layer neural net with :math:`10x`
+the number of parameters on the original datasets.  In both scenarios, the net
+began to overfit while the mimic did not exhibit any signs of overfitting.
+
+It is worthwhile to point out these shallow mimic models only took one to two
+hours to train.
+
+Future Direction(s)
+===================
+
+- How to partition the single hidden layer into groupings and train?
+- How to visualize the difference between a regular single layer net and a
+  mimic during their respective training process?
+- Can a mimic model improve the teacher model in the sense of a generative
+  adversarial network?
+
+Question(s)
+===========
+
+- The mimic models used synthetic labels, which contains more information than
+  the original binary label.  If the original label has additional labels
+  similar to this extra information, can the mimic be trained directly?
+
+Analysis
+========
+
+A large single hidden layer without a topology custom designed for the problem
+is able to reach the performance of a deep convolutional neural net that was
+carefully engineered with prior structure and weight-sharing without any
+increase in the number of training examples, even though the same architecture
+trained on the original data could not.
+
+The authors mention that model compression works best when the unlabeled set is
+very large, and when the unlabeled samples do not fall on train points where the
+teacher model is likely to have overfit.  One additional experiment the authors
+should have looked into is the accuracy of mimic models from different teacher
+models i.e. how accurate does a teacher model need to be and how useful are
+ensemble teacher models?
+
+One of the interesting points is the claim that there is not enough unlabeled
+data for model compression.  One solution is to use synthetic images and see
+whether the mimic can even surpass the teacher model.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

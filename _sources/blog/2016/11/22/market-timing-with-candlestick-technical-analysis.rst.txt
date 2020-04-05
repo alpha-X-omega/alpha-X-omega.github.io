@@ -1,0 +1,98 @@
+#################################################
+Market Timing with Candlestick Technical Analysis
+#################################################
+
+Motivation(s)
+=============
+
+The majority of academic literature have demonstrated that technical analysis
+centering around trading rules (e.g. moving average, support and resistance,
+range break-out) does not have value once transaction costs and risk adjustment
+are taken into account.  In contrast, the entire investment industry have
+adopted candlestick technical analysis for short-term horizons.
+
+Proposed Solution(s)
+====================
+
+The authors analyze the profitability of candlestick technical analysis in order
+to reconcile the disparity between academia and industry.
+
+Evaluation(s)
+=============
+
+The authors examine holding periods of two, five, and ten days using stocks
+from the DJIA during the 1992 - 2002 period.  The price data came from Reuters
+and dividend data were sourced from CRSP.  Note that the different holding
+periods produced similar results.
+
+The analysis focused on :math:`t`-statistics: compare the returns following a
+technical analysis signal to returns when there is no signal.  Returns were
+measured on a daily basis as the log difference of price relatives.  To handle
+skewness and leptokurtosis, they applied the bootstrapping methodology and
+fitted the data to null models such as random walk, AR(1), GARCH-M, and EGARCH.
+Note that the different models produced similar and consistent results.
+
+The authors used a 10-day EMA to determine bullish and bearish reversal
+patterns.  They executed their trades at the close on the day after a signal;
+entering at the open price on the day after a signal gave similar results.
+
+The proportion of times that a trading rule produces more profit on the
+bootstrapped series than on the original series following a signal is a
+simulated :math:`p`-value for the null hypothesis that the trading rule has no
+value.  For instance a bullish candlestick has statistically significant
+forecasting power at the 1% level if the simulated :math:`p`-value is less than
+0.01.  Put another way, more profit should be produced on the random series than
+the original less than 1% of the time.  For a bearish candlestick to have
+forecasting power at the 1% level the simulated :math:`p`-value should be more
+than 0.99.  In other words, there should be more profit on the random series
+than on the original more than 99% of the time.
+
+The results show that candlestick patterns do not yield statistically
+significant returns except for the Opening White Marubozu, Long Black, and Black
+Marubozu.  The returns following Opening White Marubozu are negative, which is
+the opposite to what candlestick technical analysis theory suggests.  Likewise,
+contrary to candlestick theory, the bearish Long Black and Black Marubozu
+indicate higher than average returns over the next ten days.  Note that none of
+the bootstrap results are statistically significant; this indicates that the
+:math:`t`-statistic's assumptions is being violated, and thus the foregoing
+three patterns may be a coincidence.
+
+Future Direction(s)
+===================
+
+- Technical analysis is widely used by humans and possibly algorithms.  How
+  to incorporate this self-fulfilling prophecy into a neural network or
+  contextual bandit strategy?
+
+Question(s)
+===========
+
+- The authors mentioned that it is not appropriate to consider the daily returns
+  of candlestick technical analysis on an annual basis.  Why wouldn't
+  backtesting with this strategy be a reasonable binary indicator of profits?
+
+Analysis
+========
+
+Candlestick lines and patterns are supposed to predict larger than normal
+positive returns, but sometimes actually predict smaller than normal returns;
+the converse also holds.  However, there are only weak evidence suggesting
+candlestick lines and patterns generate predictability in prices.
+
+The analysis is centered around :doc:`statistical significance </blog/2016/09/18/the-standard-error-of-regressions>`
+of each candlestick pattern and completely ignores the possible use of each
+pattern as an indicator.  The paper would be more interesting if the authors
+examined how these weak indicators could be combined to predict trends instead
+of prices (e.g. :doc:`contrarian </blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction>`
+and :doc:`momentum </blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations>`
+strategies).
+
+One interesting point is that three of the candlestick patterns contradicts the
+original candlestick theory, which seems to hint that technical analysis should
+be more data-driven.  The summary statistics demonstrate that instead of trying
+out different statistics, just focus on profit margins.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

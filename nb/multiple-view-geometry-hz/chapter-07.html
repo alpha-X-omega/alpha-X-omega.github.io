@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Computation of the Camera Matrix \(\mathtt{P}\) &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="More Single View Geometry" href="chapter-08.html" />
+    <link rel="prev" title="Camera Models" href="chapter-06.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Computation of the Camera Matrix <span class="math notranslate nohighlight">\(\mathtt{P}\)</span></a><ul>
+<li><a class="reference internal" href="#(i)">(i)</a></li>
+<li><a class="reference internal" href="#(ii)">(ii)</a></li>
+<li><a class="reference internal" href="#(iii)">(iii)</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+<li><a class="reference internal" href="#(d)">(d)</a></li>
+<li><a class="reference internal" href="#(e)">(e)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#(iv)-Conflation-of-Focal-Length-and-Position-on-Principal-Axis">(iv) Conflation of Focal Length and Position on Principal Axis</a><ul>
+<li><a class="reference internal" href="#\Delta-f"><span class="math notranslate nohighlight">\(\Delta f\)</span></a></li>
+<li><a class="reference internal" href="#\Delta-t_3"><span class="math notranslate nohighlight">\(\Delta t_3\)</span></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#(v)-Pushbroom-Camera-Computation">(v) Pushbroom Camera Computation</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="chapter-06.html" title="Previous Chapter: Camera Models"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Camera Models</span>
+    </a>
+  </li>
+  <li>
+    <a href="chapter-08.html" title="Next Chapter: More Single View Geometry"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">More Single V... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="Computation-of-the-Camera-Matrix-\mathtt{P}">
+<h1>Computation of the Camera Matrix <span class="math notranslate nohighlight">\(\mathtt{P}\)</span><a class="headerlink" href="#Computation-of-the-Camera-Matrix-\mathtt{P}" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="(i)">
+<span id="hartley2004-ex-7-i"></span><h2>(i)<a class="headerlink" href="#(i)" title="Permalink to this headline">¶</a></h2>
+<p><span class="math notranslate nohighlight">\(\mathtt{K}\)</span> provides the transformation between an image point and a ray
+in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>.  Once <span class="math notranslate nohighlight">\(\mathtt{K}\)</span> is known, the camera is termed
+calibrated.  A calibrated camera is a direction sensor, able to measure the
+direction of rays — like a 2D protractor (8.7).</p>
+<p>Suppose the camera matrix has zero skew:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathtt{P}
+ &amp;= \mathtt{K} \mathtt{R}
+    \left[
+      \begin{array}{c|c} \mathtt{I} &amp; -\tilde{\mathbf{C}} \end{array}
+    \right]
+    &amp; \quad &amp; \text{(6.11)}\\
+ &amp;= \begin{bmatrix}
+      \alpha_x &amp; s        &amp; x_0\\
+               &amp; \alpha_y &amp; y_0\\
+               &amp;          &amp; 1
+    \end{bmatrix}
+    \begin{bmatrix}
+      \mathbf{r}_1^\top &amp; -\mathbf{r}_1^\top \tilde{\mathbf{C}}\\
+      \mathbf{r}_2^\top &amp; -\mathbf{r}_2^\top \tilde{\mathbf{C}}\\
+      \mathbf{r}_3^\top &amp; -\mathbf{r}_3^\top \tilde{\mathbf{C}}
+    \end{bmatrix}
+    &amp; \quad &amp; \text{(6.9), (6.16)}\\
+ &amp;= \begin{bmatrix}
+      \alpha_x \mathbf{r}_1^\top +
+          s \mathbf{r}_2^\top + x_0 \mathbf{r}_3^\top
+        &amp; -\alpha_x \mathbf{r}_1^\top \tilde{\mathbf{C}} -
+              s \mathbf{r}_2^\top \tilde{\mathbf{C}} -
+              x_0 \mathbf{r}_3^\top \tilde{\mathbf{C}}\\
+      \alpha_y \mathbf{r}_2^\top + y_0 \mathbf{r}_3^\top
+        &amp; -\alpha_y \mathbf{r}_2^\top \tilde{\mathbf{C}} -
+              y_0 \mathbf{r}_3^\top \tilde{\mathbf{C}}\\
+      \mathbf{r}_3^\top &amp; -\mathbf{r}_3^\top \tilde{\mathbf{C}}
+    \end{bmatrix}\\
+ &amp;= \begin{bmatrix}
+      \alpha_x \mathbf{r}_1^\top + x_0 \mathbf{r}_3^\top
+        &amp; -\alpha_x \mathbf{r}_1^\top \tilde{\mathbf{C}} -
+              x_0 \mathbf{r}_3^\top \tilde{\mathbf{C}}\\
+      \alpha_y \mathbf{r}_2^\top + y_0 \mathbf{r}_3^\top
+        &amp; -\alpha_y \mathbf{r}_2^\top \tilde{\mathbf{C}} -
+              y_0 \mathbf{r}_3^\top \tilde{\mathbf{C}}\\
+      \mathbf{r}_3^\top &amp; -\mathbf{r}_3^\top \tilde{\mathbf{C}}
+    \end{bmatrix}
+    &amp; \quad &amp; s = 0.\end{split}\]</div>
+<p>Recall that one notion of degrees of freedom is the number of free parameters
+minus the number of constraints.  The degrees of freedom of a fitting procedure
+describes the effective number of parameters used by this procedure, and hence
+provides a quantitative measure of estimator complexity <a class="bibtex reference internal" href="#ryantibs2014dof" id="id1">[Tib]</a>.</p>
+<p>Although <span class="math notranslate nohighlight">\(\mathtt{P}\)</span> has twelve free parameters, the use of homogeneous
+coordinates requires constraining
+<span class="math notranslate nohighlight">\(\left\Vert \mathtt{P} \right\Vert_F = 1\)</span> to obtain a unique solution.
+Hence there are eleven degrees of freedom, and that remains unchanged even when
+the skew is known because the entries of <span class="math notranslate nohighlight">\(\mathtt{P}\)</span> are still quadratic
+in the unknowns
+<span class="math notranslate nohighlight">\(\left\{ \mathtt{K}, \mathtt{R}, \tilde{\mathbf{C}} \right\}\)</span>.</p>
+<p>As demonstrated in <em>Least-squares Minimization</em> (Appendix 5), the minimal
+solution requires 5.5 point correspondences.  The corresponding DLT</p>
+<div class="math notranslate nohighlight">
+\[\mathtt{A} \mathbf{p} = \boldsymbol{0}
+\qquad (7.2)\]</div>
+<p>has rank eleven due to the use of homogeneous coordinates.  What follows is one
+way to extract the intrinsic parameters <a class="bibtex reference internal" href="#marmcits4402cc" id="id2">[MR]</a>.  Suppose the DLT
+estimates <span class="math notranslate nohighlight">\(\mathtt{P}\)</span> up to some unknown scale <span class="math notranslate nohighlight">\(\rho\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[\mathtt{P} =
+\begin{bmatrix} M &amp; \mathbf{c} \end{bmatrix} =
+\rho^{-1} \left[
+  \begin{array}{c|c}
+    \mathtt{K} \mathtt{R} &amp; -\mathtt{K} \mathtt{R} \tilde{\mathbf{C}}
+  \end{array}
+\right].\]</div>
+<p>Observe that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}B = M M^\top
+ &amp;= \rho^{-2} \mathtt{K} \mathtt{R} \mathtt{R}^\top \mathtt{K}^\top\\
+ &amp;= \rho^{-2} \mathtt{K} \mathtt{K}^\top
+    &amp; \quad &amp; \mathtt{R} \in \mathcal{SO}(3)\\
+ &amp;= \rho^{-2} \begin{bmatrix}
+      \alpha_x^2 + s^2 + x_0^2 &amp; s \alpha_y + x_0 y_0 &amp; x_0\\
+      s \alpha_y + x_0 y_0     &amp; \alpha_y^2 + y_0^2   &amp; y_0\\
+      x_0                      &amp; y_0                  &amp; 1
+    \end{bmatrix}.\end{split}\]</div>
+<p>The first step is to normalize <span class="math notranslate nohighlight">\(B\)</span> to cancel out <span class="math notranslate nohighlight">\(\rho^{-2}\)</span>.  Let
+<span class="math notranslate nohighlight">\(\tilde{B}\)</span> denote the normalized version of <span class="math notranslate nohighlight">\(B\)</span>.  The intrinsic
+parameters can be extracted as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\rho &amp;= \pm \sqrt{B_{33}} = \pm \left\Vert \mathbf{m}_3 \right\Vert_2^{-1}\\
+\begin{bmatrix} x_0\\ x_y\\ 1 \end{bmatrix}
+ &amp;= \begin{bmatrix} \tilde{B}_{13}\\ \tilde{B}_{23}\\ 1 \end{bmatrix}
+  = \rho^2 M \mathbf{m}_3\\
+\alpha_y &amp;= \sqrt{\tilde{B}_{22} - y_0^2} &amp; \quad &amp; \alpha_y &gt; 0\\
+s &amp;= \frac{\tilde{B}_{12} - x_0 y_0}{\alpha_y}\\
+\alpha_x &amp;= \sqrt{\tilde{B}_{11} - s^2 - x_0^2} &amp; \quad &amp; \alpha_x &gt; 0.\end{split}\]</div>
+<p>The extrinsic parameters can be calculated as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{r}_3 &amp;= \rho \mathbf{m}_3\\
+\mathbf{r}_1 &amp;= \frac{
+                  \mathbf{m}_2 \times \mathbf{m}_3
+                }{
+                  \left\Vert \mathbf{m}_2 \times \mathbf{m}_3 \right\Vert
+                }\\
+\mathbf{r}_2 &amp;= \mathbf{r}_3 \times \mathbf{r}_1\\
+\tilde{\mathbf{C}}
+ &amp;= -M^{-1} \mathbf{c}
+  = -\mathtt{R}^\top \mathtt{K}^{-1} \mathbf{c}.\end{split}\]</div>
+<p>Solving for <span class="math notranslate nohighlight">\(\tilde{\mathbf{C}}\)</span> without decomposing <span class="math notranslate nohighlight">\(M\)</span> gives an
+unambiguous solution because <span class="math notranslate nohighlight">\(\rho\)</span> cancels out.  However, if <span class="math notranslate nohighlight">\(M\)</span> is
+singular, then <span class="math notranslate nohighlight">\(\tilde{\mathbf{C}} = \mathbf{d}\)</span> where
+<span class="math notranslate nohighlight">\(M \mathbf{d} = \boldsymbol{0}\)</span> because the camera centre is the right
+null vector of <span class="math notranslate nohighlight">\(\mathtt{P}\)</span>.  The foregoing illustrates that
+<span class="math notranslate nohighlight">\(\mathtt{R}\)</span> is the reason behind the four different solutions.</p>
+<p>Given the intrinsic matrix <span class="math notranslate nohighlight">\(\mathtt{K}\)</span>, the problem is reduced to
+<a class="reference internal" href="#hartley2004-ex-7-ii"><span class="std std-ref">P3P</span></a>.  <a class="bibtex reference internal" href="#fischler1981random" id="id3">[FB81]</a> describes a unique
+solution when the number of point correspondences is at least six.  However, it
+will fail when all of them are coplanar.  These are known as critical
+configurations: all 3D points including the camera centre must lie on a special
+twisted cubic space curve (the horopter) that wraps around a circular cylinder
+(the dangerous cylinder).  Notable degenerate cases of this geometry include:</p>
+<ol class="lowerroman simple">
+<li><p>all object points at infinity (camera translation not estimable);</p></li>
+<li><p>the projection center is coplanar with any three of the four object points;</p></li>
+<li><p>a 3D line and a circle in an orthogonal plane touching the line.</p></li>
+</ol>
+<p>The last case is particularly troublesome for pose from any three points, or
+from a square or rectangle of four coplanar points, when the camera is in the
+region directly above the points.</p>
+<p><a class="bibtex reference internal" href="#triggs1999camera" id="id4">[Tri99]</a> explores the accuracy and robustness of P4P and P5P
+with partially uncalibrated intrinsics.  The former assumes the focal length is
+the only unknown calibration parameter while the latter assumes neither the
+focal length nor the principal point.  The proposed approach separates the
+problem into DLT and multiresultant.  The results indicate one should not
+bother with P4P and P5P.  The accuracy is not as good as <span class="math notranslate nohighlight">\(6+\)</span> points, and
+the robustness is not even close to RANSAC P3P.</p>
+</div>
+<div class="section" id="(ii)">
+<span id="hartley2004-ex-7-ii"></span><h2>(ii)<a class="headerlink" href="#(ii)" title="Permalink to this headline">¶</a></h2>
+<p><a class="bibtex reference internal" href="../../blog/2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html#haralick1994review" id="id5">[HLONolle94]</a> is an excellent introduction to Perspective-n-Point
+(PnP).  An instance of PnP where <span class="math notranslate nohighlight">\(n = 3\)</span> has in general four solutions.
+See <a class="bibtex reference internal" href="#haavardsholmpnp" id="id6">[Haa]</a><a class="bibtex reference internal" href="#parkls3tcr" id="id7">[Par]</a> for better illustrations.</p>
+</div>
+<div class="section" id="(iii)">
+<h2>(iii)<a class="headerlink" href="#(iii)" title="Permalink to this headline">¶</a></h2>
+<p>What follows are linear algorithms for estimating the finite projective camera
+<span class="math notranslate nohighlight">\(\mathtt{P}\)</span> under different conditions.  Once <span class="math notranslate nohighlight">\(\mathtt{P}\)</span> is
+known, the intrinsics and extrinsics can be extracted using the
+<a class="reference internal" href="#hartley2004-ex-7-i"><span class="std std-ref">classical formulation</span></a>.</p>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>Given the camera location <span class="math notranslate nohighlight">\(\tilde{\mathbf{C}}\)</span>, the minimal
+solution needs to satisfy</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\newcommand{\skew}[1]{\left[#1\right]_{\times}}
+\boldsymbol{0}
+ &amp;= \skew{\mathbf{x}_i} \mathtt{P} \mathbf{X}_i\\
+ &amp;= \skew{\mathbf{x}_i}
+    \mathtt{K}
+    \begin{bmatrix}
+      1 &amp; 0 &amp; 0 &amp; 0\\
+      0 &amp; 1 &amp; 0 &amp; 0\\
+      0 &amp; 0 &amp; 1 &amp; 0
+    \end{bmatrix}
+    \begin{bmatrix}
+      \mathtt{R} &amp; \boldsymbol{0}\\
+      \boldsymbol{0}^\top &amp; 1
+    \end{bmatrix}
+    \begin{bmatrix}
+      \mathtt{I} &amp; -\tilde{\mathbf{C}}\\
+      \boldsymbol{0}^\top &amp; 1
+    \end{bmatrix}
+    \mathbf{X}_i
+    &amp; \quad &amp; \text{6.2.5}\\
+ &amp;= \skew{\mathbf{x}_i}
+    \mathtt{K}
+    \begin{bmatrix}
+      \mathtt{R} &amp; \boldsymbol{0}
+    \end{bmatrix}
+    \tilde{\mathbf{X}}_i
+    &amp; \quad &amp; \tilde{\mathbf{X}}_i =
+              \begin{bmatrix} \tilde{\mathbf{x}}_i\\ 1 \end{bmatrix} =
+              \begin{bmatrix}
+                \mathtt{I} &amp; -\tilde{\mathbf{C}}\\
+                \boldsymbol{0}^\top &amp; 1
+              \end{bmatrix} \mathbf{X}_i\\
+ &amp;= \begin{bmatrix}
+      \boldsymbol{0}^\top &amp; -w_i \tilde{\mathbf{x}}_i^\top &amp;
+        y_i \tilde{\mathbf{x}}_i^\top\\
+      w_i \tilde{\mathbf{x}}_i^\top &amp; \boldsymbol{0}^\top &amp;
+        -x_i \tilde{\mathbf{x}}_i^\top\\
+      -y_i \tilde{\mathbf{x}}_i^\top &amp; x_i \tilde{\mathbf{x}}_i^\top &amp;
+        \boldsymbol{0}^\top
+    \end{bmatrix}
+    \begin{bmatrix}
+      \mathbf{p}_1^\top\\
+      \mathbf{p}_2^\top\\
+      \mathbf{p}_3^\top
+    \end{bmatrix}
+    &amp; \quad &amp; \text{(7.2)}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{p}_i^\top\)</span> is a 3-vector, the <span class="math notranslate nohighlight">\(i\text{-th}\)</span> row of
+<span class="math notranslate nohighlight">\(\mathtt{P}\)</span>.</p>
+<p>By inspection, the camera matrix <span class="math notranslate nohighlight">\(\mathtt{P}\)</span> has nine free parameters
+remaining.  Imposing <span class="math notranslate nohighlight">\(\left\Vert \mathtt{K} \mathtt{R} \right\Vert_F = 1\)</span>
+yields a unique solution, and hence only four point correspondences are needed
+to constrain the eight degrees of freedom.</p>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>Recall that <span class="math notranslate nohighlight">\(\mathbf{v} = \det(M) \mathbf{m}_3\)</span> is a vector in the
+direction of the principal axis, directed towards the front of the camera.</p>
+<p>Given the direction of the camera’s principal ray <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>, the
+minimal solution needs to satisfy</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{0}
+ &amp;= \skew{\mathbf{x}_i} \mathtt{P} \mathbf{X}_i
+    &amp; \quad &amp; \mathbf{X}_i =
+              \begin{bmatrix} \tilde{\mathbf{x}}_i\\ 1 \end{bmatrix}\\
+ &amp;= \begin{bmatrix}
+      \boldsymbol{0}^\top &amp; -w_i \tilde{\mathbf{X}}_i^\top &amp;
+        y_i \tilde{\mathbf{X}}_i^\top\\
+      w_i \tilde{\mathbf{X}}_i^\top &amp; \boldsymbol{0}^\top &amp;
+        -x_i \tilde{\mathbf{X}}_i^\top\\
+      -y_i \tilde{\mathbf{X}}_i^\top &amp; x_i \tilde{\mathbf{X}}_i^\top &amp;
+        \boldsymbol{0}^\top
+    \end{bmatrix}
+    \begin{bmatrix}
+      \mathbf{p}_1^\top\\
+      \mathbf{p}_2^\top\\
+      \mathbf{p}_3^\top
+    \end{bmatrix}
+    &amp; \quad &amp; \text{(7.2)}\\
+\begin{bmatrix}
+  -y_i \tilde{\mathbf{x}}_i^\top \mathbf{m}_3\\
+  x_i \tilde{\mathbf{x}}_i^\top \mathbf{m}_3\\
+  0
+\end{bmatrix}
+ &amp;= \begin{bmatrix}
+      \boldsymbol{0}^\top &amp; -w_i \tilde{\mathbf{X}}_i^\top &amp; y_i\\
+      w_i \tilde{\mathbf{X}}_i^\top &amp; \boldsymbol{0}^\top &amp; -x_i\\
+      -y_i \tilde{\mathbf{X}}_i^\top &amp; x_i \tilde{\mathbf{X}}_i^\top &amp; 0
+    \end{bmatrix}
+    \begin{bmatrix}
+      \mathbf{p}_1^\top\\
+      \mathbf{p}_2^\top\\
+      p_{34}
+    \end{bmatrix}
+    &amp; \quad &amp; \mathbf{p}_3 =
+              \begin{bmatrix} \mathbf{m}_3\\ p_{34} \end{bmatrix}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{p}_i^\top\)</span> is a 4-vector, the <span class="math notranslate nohighlight">\(i\text{-th}\)</span> row of
+<span class="math notranslate nohighlight">\(\mathtt{P}\)</span>.</p>
+<p>By inspection, <span class="math notranslate nohighlight">\(\mathtt{P}\)</span> has nine free parameters remaining, and the
+DLT is no longer a homogeneous system of linear equations.  A least squares
+approximate solution can be obtained when there are at least 4.5 point
+correspondences constraining the nine degrees of freedom.</p>
+</div>
+<div class="section" id="(c)">
+<h3>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h3>
+<p>Given the camera location <span class="math notranslate nohighlight">\(\tilde{\mathbf{C}}\)</span> and the direction of the
+camera’s principal ray <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>, the minimal solution needs to satisfy</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{0}
+ &amp;= \skew{\mathbf{x}_i}
+    \begin{bmatrix}
+      \mathtt{K} \mathtt{R} &amp; \boldsymbol{0}
+    \end{bmatrix}
+    \tilde{\mathbf{X}}_i
+    &amp; \quad &amp; \text{(a)}\\
+\begin{bmatrix}
+  -y_i \tilde{\mathbf{x}}_i^\top \mathbf{m}_3\\
+  x_i \tilde{\mathbf{x}}_i^\top \mathbf{m}_3\\
+  0
+\end{bmatrix}
+ &amp;= \begin{bmatrix}
+      \boldsymbol{0}^\top &amp; -w_i \tilde{\mathbf{x}}_i^\top\\
+      w_i \tilde{\mathbf{x}}_i^\top &amp; \boldsymbol{0}^\top\\
+      -y_i \tilde{\mathbf{x}}_i^\top &amp; x_i \tilde{\mathbf{x}}_i^\top
+    \end{bmatrix}
+    \begin{bmatrix}
+      \mathbf{p}_1^\top\\
+      \mathbf{p}_2^\top
+    \end{bmatrix}
+    &amp; \quad &amp; \text{(b).}\end{split}\]</div>
+<p>By inspection, <span class="math notranslate nohighlight">\(\mathtt{P}\)</span> has six free parameters remaining, and the DLT
+is no longer a homogeneous system of linear equations.  A least squares
+approximate solution can be obtained when there are at least three point
+correspondences constraining the six degrees of freedom.</p>
+</div>
+<div class="section" id="(d)">
+<h3>(d)<a class="headerlink" href="#(d)" title="Permalink to this headline">¶</a></h3>
+<p>Given the camera location <span class="math notranslate nohighlight">\(\tilde{\mathbf{C}}\)</span> and orientation
+<span class="math notranslate nohighlight">\(\mathtt{R}\)</span>, the minimal solution needs to satisfy</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{0}
+ &amp;= \skew{\mathbf{x}_i}
+    \mathtt{K}
+    \tilde{\mathbf{x}}_i
+    &amp; \quad &amp; \tilde{\mathbf{x}}_i =
+              \begin{bmatrix}
+                \mathtt{R} &amp; -\mathtt{R} \tilde{\mathbf{C}}
+              \end{bmatrix} \mathbf{X}_i\\
+ &amp;= \skew{\mathbf{x}_i}
+    \begin{bmatrix}
+      f m_x &amp; s &amp; m_x p_x\\
+      0 &amp; f m_y &amp; m_y p_y\\
+      0 &amp; 0 &amp; 1
+    \end{bmatrix}
+    \tilde{\mathbf{x}}_i
+    &amp; \quad &amp; \text{(6.10)}\\
+ &amp;= \begin{bmatrix}
+      \boldsymbol{0}^\top &amp; -w_i \tilde{\mathbf{x}}_i^\top &amp;
+        y_i \tilde{\mathbf{x}}_i^\top\\
+      w_i \tilde{\mathbf{x}}_i^\top &amp; \boldsymbol{0}^\top &amp;
+        -x_i \tilde{\mathbf{x}}_i^\top\\
+      -y_i \tilde{\mathbf{x}}_i^\top &amp; x_i \tilde{\mathbf{x}}_i^\top &amp;
+        \boldsymbol{0}^\top
+    \end{bmatrix}
+    \begin{bmatrix}
+      \mathbf{k}_1^\top\\
+      \mathbf{k}_2^\top\\
+      \mathbf{k}_3^\top
+    \end{bmatrix}
+    &amp; \quad &amp; \text{(4.3)}\\
+\begin{bmatrix}
+  -y_i \tilde{z}_i\\
+  x_i \tilde{z}_i^\top\\
+  0
+\end{bmatrix}
+ &amp;= \begin{bmatrix}
+      \boldsymbol{0}^\top &amp; -w_i \tilde{y}_i &amp; -w_i \tilde{z}_i\\
+      w_i \tilde{\mathbf{x}}_i^\top &amp; 0 &amp; 0\\
+      -y_i \tilde{\mathbf{x}}_i^\top &amp; x_i \tilde{y}_i &amp; x_i \tilde{z}_i
+    \end{bmatrix}
+    \begin{bmatrix}
+      \mathbf{k}_1^\top\\
+      k_{22}\\
+      k_{23}
+    \end{bmatrix}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{k}_i^\top\)</span> is the <span class="math notranslate nohighlight">\(i\text{-th}\)</span> row of
+<span class="math notranslate nohighlight">\(\mathtt{K}\)</span>.</p>
+<p>By inspection, <span class="math notranslate nohighlight">\(\mathtt{P}\)</span> has five free parameters remaining, and the
+DLT is no longer a homogeneous system of linear equations.  A least squares
+approximate solution can be obtained when there are at least 2.5 point
+correspondences constraining the five degrees of freedom.</p>
+<p>Note that in terms of rank deficiency, the second and third row equations is
+more robust than the first and second row equations.</p>
+</div>
+<div class="section" id="(e)">
+<h3>(e)<a class="headerlink" href="#(e)" title="Permalink to this headline">¶</a></h3>
+<p>Given the setup in (d) and some subset of the internal camera parameters, the
+minimal solution needs to satisfy</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{bmatrix}
+  -y_i \tilde{z}_i\\
+  x_i \tilde{z}_i\\
+  0
+\end{bmatrix} =
+\begin{bmatrix}
+  -w_i \tilde{y}_i \alpha_y - w_i \tilde{z}_i y_0\\
+  w_i \tilde{x}_i \alpha_x + w_i \tilde{y}_i s + w_i \tilde{z}_i x_0\\
+  -y_i \tilde{x}_i \alpha_x - y_i \tilde{y}_i s - y_i \tilde{z}_i x_0 +
+    x_i \tilde{y}_i \alpha_y + x_i \tilde{z}_i y_0
+\end{bmatrix}
+\qquad \text{(7.6)}.\end{split}\]</div>
+<p>By inspection, <span class="math notranslate nohighlight">\(\mathtt{P}\)</span> has less than five free parameters remaining,
+and the DLT is no longer a homogeneous system of linear equations.  Suppose
+there are <span class="math notranslate nohighlight">\(N\)</span> degrees of freedom.  A least squares approximate solution
+can be obtained when there are at least <span class="math notranslate nohighlight">\(N / 2\)</span> point correspondences.
+The rest of the linear algorithm proceeds as in (d).</p>
+</div>
+</div>
+<div class="section" id="(iv)-Conflation-of-Focal-Length-and-Position-on-Principal-Axis">
+<h2>(iv) Conflation of Focal Length and Position on Principal Axis<a class="headerlink" href="#(iv)-Conflation-of-Focal-Length-and-Position-on-Principal-Axis" title="Permalink to this headline">¶</a></h2>
+<p>The finite projective camera is defined as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathtt{P}_0
+ &amp;= \mathtt{K} \mathtt{R} \left[
+      \begin{array}{c|c} \mathtt{I} &amp; -\tilde{\mathbf{C}} \end{array}
+    \right]
+    &amp; \quad &amp; \text{(6.16)}\\
+ &amp;= \begin{bmatrix}
+      f \mathtt{I} &amp; \tilde{\mathbf{x}}_0\\
+      \boldsymbol{0}^\top &amp; 1
+    \end{bmatrix}
+      \begin{bmatrix}
+        \mathbf{r}_1^\top &amp; -\mathbf{r}_1^\top \tilde{\mathbf{C}}\\
+        \mathbf{r}_2^\top &amp; -\mathbf{r}_2^\top \tilde{\mathbf{C}}\\
+        \mathbf{r}_3^\top &amp; -\mathbf{r}_3^\top \tilde{\mathbf{C}}
+      \end{bmatrix}
+    &amp; \quad &amp; s = 0 \text{ and } \alpha_x = \alpha_y = f.\end{split}\]</div>
+<p>Given a 3D point represented in homogeneous coordinate as
+<span class="math notranslate nohighlight">\(\mathbf{X} =
+\begin{bmatrix} \bar{\mathbf{x}}^\top &amp; 1 \end{bmatrix}^\top\)</span>, the imaged
+position is at</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathtt{P}_0 \mathbf{X} =
+\mathtt{K} \begin{bmatrix} \tilde{\mathbf{x}}\\ \delta \end{bmatrix} =
+\begin{bmatrix}
+  f \tilde{\mathbf{x}} + \delta \tilde{\mathbf{x}}_0\\
+  \delta
+\end{bmatrix}
+\quad \text{where} \quad
+\tilde{\mathbf{x}} =
+\begin{bmatrix}
+  \mathbf{r}_1^\top \bar{\mathbf{x}} - \mathbf{r}_1^\top \tilde{\mathbf{C}}\\
+  \mathbf{r}_2^\top \bar{\mathbf{x}} - \mathbf{r}_2^\top \tilde{\mathbf{C}}
+\end{bmatrix}
+\quad \text{and} \quad
+\delta =
+\mathbf{r}_3^\top \bar{\mathbf{x}} - \mathbf{r}_3^\top \tilde{\mathbf{C}}.\end{split}\]</div>
+<p>The imaged point after dehomogenizing is given by
+<span class="math notranslate nohighlight">\(\mathbf{x} = \tilde{\mathbf{x}}_0 + \frac{f}{\delta} \tilde{\mathbf{x}}\)</span>.</p>
+<div class="section" id="\Delta-f">
+<h3><span class="math notranslate nohighlight">\(\Delta f\)</span><a class="headerlink" href="#\Delta-f" title="Permalink to this headline">¶</a></h3>
+<p>The imaged position of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> after an increase in camera focal
+length is at</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathtt{P}_f \mathbf{X} =
+\mathtt{K}_f \begin{bmatrix} \tilde{\mathbf{x}}\\ \delta \end{bmatrix} =
+\begin{bmatrix}
+  (f + \Delta f) \tilde{\mathbf{x}} + \delta \tilde{\mathbf{x}}_0\\
+  \delta
+\end{bmatrix}
+\quad \text{where} \quad
+\mathtt{K}_f =
+\begin{bmatrix}
+  (f + \Delta f) \mathtt{I} &amp; \tilde{\mathbf{x}}_0\\
+  \boldsymbol{0}^\top &amp; 1
+\end{bmatrix}.\end{split}\]</div>
+<p>The imaged point after dehomogenizing is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{x}'
+ &amp;= \tilde{\mathbf{x}}_0 + \frac{f + \Delta f}{\delta} \tilde{\mathbf{x}}\\
+ &amp;= \mathbf{x} + \frac{\Delta f}{\delta} \tilde{\mathbf{x}}\\
+ &amp;= \mathbf{x} + k^f \left( \mathbf{x} - \tilde{\mathbf{x}}_0 \right)
+    &amp; \quad &amp; k^f = \frac{\Delta f}{f}.\end{split}\]</div>
+</div>
+<div class="section" id="\Delta-t_3">
+<h3><span class="math notranslate nohighlight">\(\Delta t_3\)</span><a class="headerlink" href="#\Delta-t_3" title="Permalink to this headline">¶</a></h3>
+<p>The camera matrix after a displacement <span class="math notranslate nohighlight">\(\Delta t_3\)</span> backwards along the
+principal axis is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathtt{P}_t =
+\mathtt{K}
+  \begin{bmatrix}
+    \mathbf{r}_1^\top &amp; -\mathbf{r}_1^\top \tilde{\mathbf{C}}\\
+    \mathbf{r}_2^\top &amp; -\mathbf{r}_2^\top \tilde{\mathbf{C}}\\
+    \mathbf{r}_3^\top &amp; d_t
+  \end{bmatrix}
+\qquad \text{(6.17)}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(d_t = -\mathbf{r}_3^\top \tilde{\mathbf{C}} + \Delta t_3\)</span>.  The
+image position is at</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathtt{P}_t \mathbf{X} =
+\mathtt{K} \begin{bmatrix} \tilde{\mathbf{x}}\\ \delta_t \end{bmatrix} =
+\begin{bmatrix}
+  f \tilde{\mathbf{x}} + \delta_t \tilde{\mathbf{x}}_0\\
+  \delta_t
+\end{bmatrix}
+\quad \text{where} \quad
+\tilde{\mathbf{x}} =
+\begin{bmatrix}
+  \mathbf{r}_1^\top \bar{\mathbf{x}} - \mathbf{r}_1^\top \tilde{\mathbf{C}}\\
+  \mathbf{r}_2^\top \bar{\mathbf{x}} - \mathbf{r}_2^\top \tilde{\mathbf{C}}
+\end{bmatrix}
+\quad \text{and} \quad
+\delta_t = \mathbf{r}_3^\top \bar{\mathbf{x}} + d_t.\end{split}\]</div>
+<p>The imaged point after dehomogenizing is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{x}'
+ &amp;= \tilde{\mathbf{x}}_0 + \frac{f}{\delta_t} \tilde{\mathbf{x}}\\
+ &amp;= \mathbf{x} - \frac{f}{\delta} \tilde{\mathbf{x}} +
+    \frac{f}{\delta_t} \tilde{\mathbf{x}}\\
+ &amp;= \mathbf{x} +
+    \left(
+      \frac{f}{\delta + \Delta t_3} - \frac{f}{\delta}
+    \right) \tilde{\mathbf{x}}\\
+ &amp;= \mathbf{x} -
+    \frac{f \Delta t_3}{\delta (\delta + \Delta t_3)} \tilde{\mathbf{x}}\\
+ &amp;= \mathbf{x} + k^{t_3} \left( \mathbf{x} - \tilde{\mathbf{x}}_0 \right)
+    &amp; \quad &amp; k^{t_3} = -\frac{\Delta t_3}{\delta + \Delta t_3}.\end{split}\]</div>
+<p>Since the imaged position of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> is given at depth <span class="math notranslate nohighlight">\(d\)</span>,
+by (6.15), <span class="math notranslate nohighlight">\(\delta = d\)</span>.</p>
+</div>
+</div>
+<div class="section" id="(v)-Pushbroom-Camera-Computation">
+<h2>(v) Pushbroom Camera Computation<a class="headerlink" href="#(v)-Pushbroom-Camera-Computation" title="Permalink to this headline">¶</a></h2>
+<p><a class="bibtex reference internal" href="#gupta1997linear" id="id8">[GH97]</a> describes how the LP camera can be computed using a DLT
+method with a minimum of seven points.</p>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-nb/multiple-view-geometry-hz/chapter-07-0"><dl class="citation">
+<dt class="bibtex label" id="fischler1981random"><span class="brackets"><a class="fn-backref" href="#id3">FB81</a></span></dt>
+<dd><p>Martin A Fischler and Robert C Bolles. Random sample consensus: a paradigm for model fitting with applications to image analysis and automated cartography. <em>Communications of the ACM</em>, 24(6):381–395, 1981.</p>
+</dd>
+<dt class="bibtex label" id="gupta1997linear"><span class="brackets"><a class="fn-backref" href="#id8">GH97</a></span></dt>
+<dd><p>Rajiv Gupta and Richard I Hartley. Linear pushbroom cameras. <em>IEEE Transactions on pattern analysis and machine intelligence</em>, 19(9):963–975, 1997.</p>
+</dd>
+<dt class="bibtex label" id="haavardsholmpnp"><span class="brackets"><a class="fn-backref" href="#id6">Haa</a></span></dt>
+<dd><p>Trym Vegard Haavardsholm. Pose from known 3d points. <span><a class="reference external" href="#"></a></span>http://www.uio.no/studier/emner/matnat/its/UNIK4690/v16/forelesninger/lecture_5_2_pose_from_known_3d_points.pdf. Accessed on 2017-09-14.</p>
+</dd>
+<dt class="bibtex label" id="marmcits4402cc"><span class="brackets"><a class="fn-backref" href="#id2">MR</a></span></dt>
+<dd><p>Ajmal Mian and Mehdi Ravanbakhsh. Cits 4402 computer vision: camera calibration. <span><a class="reference external" href="#"></a></span>http://teaching.csse.uwa.edu.au/units/CITS4402/lectures/Lecture08-CameraCalibration.pdf. Accessed on 2017-09-14.</p>
+</dd>
+<dt class="bibtex label" id="parkls3tcr"><span class="brackets"><a class="fn-backref" href="#id7">Par</a></span></dt>
+<dd><p>HyunSoo Park. Least square ++ 3d triangulation + camera registration. <span><a class="reference external" href="#"></a></span>http://cis.upenn.edu/ cis580/Spring2015/Lectures/cis580-13-LeastSq-PnP.pdf. Accessed on 2017-09-14.</p>
+</dd>
+<dt class="bibtex label" id="ryantibs2014dof"><span class="brackets"><a class="fn-backref" href="#id1">Tib</a></span></dt>
+<dd><p>Ryan Tibshirani. Degrees of freedom. <span><a class="reference external" href="#"></a></span>http://www.stat.cmu.edu/ ryantibs/advmethods/notes/df.pdf. Accessed on 2017-09-14.</p>
+</dd>
+<dt class="bibtex label" id="triggs1999camera"><span class="brackets"><a class="fn-backref" href="#id4">Tri99</a></span></dt>
+<dd><p>Bill Triggs. Camera pose and calibration from 4 or 5 known 3d points. In <em>Computer Vision, 1999. The Proceedings of the Seventh IEEE International Conference on</em>, volume 1, 278–284. IEEE, 1999.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/nb/multiple-view-geometry-hz/chapter-07.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

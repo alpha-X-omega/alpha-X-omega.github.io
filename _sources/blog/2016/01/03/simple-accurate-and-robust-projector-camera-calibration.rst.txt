@@ -1,0 +1,58 @@
+#########################################################
+Simple, Accurate, and Robust Projector-Camera Calibration
+#########################################################
+
+Motivation(s)
+=============
+
+* Does it solve the people problem i.e. a pain point for the world at large?
+* Does it solve the technical problem i.e. why doesn't the people problem have a
+  trivial solution or why are the previous solutions inadequate? 
+
+Proposed Solution(s)
+====================
+
+* Why is it believed that this solution will work?
+* Why is it better than previous solutions?
+
+Evaluation(s)
+=============
+
+* What argument, implementation, and/or experiment makes the case for the value
+  of the ideas?
+* What problems or benefits are identified?
+
+Future Direction(s)
+===================
+
+* What ideas did you come up with while reading the paper?
+
+Question(s)
+===========
+
+* What do you find confusing or difficult to understand?
+
+Analysis
+========
+
+* What are the main implications of the paper you would like to remember?
+* Is this a good idea?
+* How does it relate to other papers if any?
+* What flaws (e.g. assumptions, claims, methodology, interpretations of data) do
+  you perceive?
+* What are the most interesting points?
+* What are the most controversial points?
+* Beyond the insights on the research question, what else could be valuable
+  (e.g. ideas, software, techniques, survey)?
+* Is this really going to work in practice?
+* Who would want it?
+* What is needed to make this a reality?
+* When might this become a reality?
+
+Notes
+=====
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

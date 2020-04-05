@@ -1,0 +1,96 @@
+###########################################################
+Blogging with RestructuredText, a Google Domain, and Sphinx
+###########################################################
+
+The :doc:`previous approach to blogging
+</blog/2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican>`
+will suffice for non-technical materials, but will quickly become cumbersome
+when one has to deal with `bibtex`_, `Jupyter`_, and `documentation`_.  Luckily,
+the only component that needs to change is Pelican; the other instructions still
+apply.
+
+.. _bibtex: http://www.bibtex.org
+.. _Jupyter: http://jupyter.org
+.. _documentation: http://www.sphinx-doc.org/en/stable
+
+The replacement component, Sphinx, only requires a single configuration file:
+
+.. include:: conf.py
+   :code: python
+
+There may be a lot of settings, but the majority of them are
+`automatically generated`_ via
+
+.. code:: bash
+
+   pip install sphinx sphinxcontrib-bibtex nbsphinx sphinx_bootstrap_theme sphinx_sitemap
+   sphinx-quickstart
+
+.. _automatically generated: http://www.sphinx-doc.org/en/stable/tutorial.html
+
+The extensions are meant to address the issues raised earlier:
+
+- `sphinxcontrib-bibtex`_ enables proper citations,
+- `nbsphinx`_ provides an `.ipynb`_ source parser,
+- `sphinx_bootstrap_theme`_ replaces the default documentation theme, and
+- `sphinx_sitemap`_ generates a *sitemap.xml* for search engine web crawlers.
+
+.. _sphinxcontrib-bibtex: http://sphinxcontrib-bibtex.readthedocs.io/en/latest/quickstart.html
+.. _nbsphinx: https://github.com/spatialaudio/nbsphinx
+.. _.ipynb: https://ipython.org/ipython-doc/3/api/generated/IPython.sphinxext.ipython_directive.html
+.. _sphinx_bootstrap_theme: https://github.com/ryan-roemer/sphinx-bootstrap-theme
+.. _sphinx_sitemap: https://github.com/jdillard/sphinx-sitemap
+
+Besides the configuration file, Sphinx requires a `master_doc`_
+(e.g. :file:`source/index.rst`) to describe the relations between the individual
+files.  The sample :file:`conf.py` will generate the files under
+:file:`source/_templates/` assuming the following project layout:
+
+.. include:: blog-layout.txt
+   :code: bash
+
+.. _master_doc: http://www.sphinx-doc.org/en/stable/markup/toctree.html
+
+One way to get Sphinx to distinguish between document groupings is to organize
+each group (e.g. :file:`nb/some-notebook/index.rst`) under a different toctree
+(e.g. :file:`toctree-nb-some-notebook`) and reference the group from the
+:guilabel:`master_doc`.
+
+Running the following command with the sample :file:`conf.py` will scan the
+folders :file:`blog` and :file:`nb` for content, generate a static site, and
+launch a local web server:
+
+.. code:: bash
+
+   sphinx-build -b html source gae/www
+   pushd gae/www; python3 -m http.server
+
+To watch a Sphinx directory and rebuild the documentation when a change is
+detected, install and run `sphinx-autobuild`_.
+
+.. _sphinx-autobuild: https://github.com/GaretJax/sphinx-autobuild
+
+.. code:: bash
+
+   pip install sphinx-autobuild
+   sphinx-autobuild -b html source gae/www
+
+To generate printable HTML slides from ReStructured Text, check out the
+Sphinx extension `Hieroglyph`_.
+
+.. _Hieroglyph: http://docs.hieroglyph.io/en/latest/
+
+Handling Graphical Elements
+===========================
+
+As part of documentation, one may want to include graphic elements that are
+`generated programmatically`_.  Unfortunately, there are no good Sphinx
+extension that handles this properly.  The sample :file:`conf.py` includes a
+function that uses :program:`asymptote`, :program:`epstopdf`, and
+:program:`pdf2svg` to
+:doc:`generate SVG graphics </blog/2013/01/15/generate-svg-graphics>`.
+
+For any kind of flowcharts, use `graphviz`_.
+
+.. _generated programmatically: https://en.wikibooks.org/wiki/LaTeX/Introducing_Procedural_Graphics
+.. _graphviz: http://graphviz.readthedocs.io/en/stable/manual.html

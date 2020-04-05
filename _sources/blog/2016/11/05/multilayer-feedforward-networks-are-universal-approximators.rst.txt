@@ -1,0 +1,81 @@
+###########################################################
+Multilayer Feedforward Networks are Universal Approximators
+###########################################################
+
+Motivation(s)
+=============
+
+Two decades after the two-layer perceptron was demonstrated to be incapable of
+approximating functions outside a narrow and special class, researchers have
+begun to explore the ability of multilayer feedforward networks to approximate
+general mappings from one finite dimensional space to another.  Its success
+across a wide variety of applications raises questions over its ultimate
+capabilities.  Contrary to these successes, researchers have recently found that
+a single hidden layer feedforward network using the monotone cosine squasher is
+capable of embedding as a special case a Fourier network.  Such networks possess
+all the approximation properties of Fourier series representations.
+
+Proposed Solution(s)
+====================
+
+The authors use the Stone-Weierstrass Theorem and the cosine squasher to
+establish multi-output multilayer feedforward networks as a class of universal
+approximators.
+
+Evaluation(s)
+=============
+
+The authors present a very thorough yet comprehensible proof using
+mathematical analysis.  Note that the results do not address how many hidden
+units are needed to attain a given degree of approximation for a fixed input
+dimension.
+
+Future Direction(s)
+===================
+
+- How would one analyze the effects of using different activation functions at
+  different parts of each hidden layer?
+- How does a network's topology affect the number of hidden units, layers, and
+  learning efficiency?
+
+Question(s)
+===========
+
+- Since there are no restrictions on the connections between the hidden layers,
+  does this mean the network is still a universal approximator with a
+  configuration such as :math:`h_i > h_{i + 1} \land h_{i + 2} > h_i` where
+  :math:`h_\cdot` denotes the number of hidden units at layer :math:`i`?
+
+Analysis
+========
+
+Standard multilayer feedforward network architectures using arbitrary squashing
+activation functions can approximate any measurable function of interest to any
+desired degree of accuracy, provided sufficiently many hidden units are
+available.  Thus, failures in applications can be attributed to inadequate
+learning, inadequate number of hidden units, or the presence of a stochastic
+rather than a deterministic relation between input and target.
+
+In a later work, this analysis was extended to handle non-squashing activation
+functions (see Theorem 2.1 and 2.2) :cite:`stinchcombe1989universal`.  Provided
+that sufficiently many hidden units are available, if the activation function is
+continuous, bounded and nonconstant, then continuous mappings can be learned
+uniformly over compact input sets :cite:`hornik1991approximation`.  Even though
+these proofs do not deal with the learnability of hidden units
+(e.g. empirical risk minimization), the results indicate that it is not the
+specific choice of the activation function, but rather the multilayer
+feedforward architecture itself which gives neural networks the potential of
+being universal learning machines.
+
+One peculiar issue is how researchers cite this paper.  This paper does not
+discount deep feedforward networks, yet researchers emphasize that very point
+rather than focus on details the paper neglect (e.g. the number of hidden
+layers and units, network topology).
+
+Another valuable contribution of this paper is the mathematical appendix of
+elegant proofs and theorems.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

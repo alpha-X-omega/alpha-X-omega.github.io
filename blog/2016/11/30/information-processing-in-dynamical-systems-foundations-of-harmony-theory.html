@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Information Processing in Dynamical Systems: Foundations of Harmony Theory &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="An Introduction to the Conjugate Gradient Method Without the Agonizing Pain" href="../29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html" />
+    <link rel="prev" title="Structuring a Renderer: \(\varphi\)-Ray" href="../../12/01/structuring-a-renderer-phi-ray.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a><ul>
+<li><a class="reference internal" href="#motivation-s">Motivation(s)</a></li>
+<li><a class="reference internal" href="#proposed-solution-s">Proposed Solution(s)</a></li>
+<li><a class="reference internal" href="#evaluation-s">Evaluation(s)</a></li>
+<li><a class="reference internal" href="#future-direction-s">Future Direction(s)</a></li>
+<li><a class="reference internal" href="#question-s">Question(s)</a></li>
+<li><a class="reference internal" href="#analysis">Analysis</a></li>
+<li><a class="reference internal" href="#notes">Notes</a><ul>
+<li><a class="reference internal" href="#schema-theory-and-self-consistency">Schema Theory and Self-Consistency</a></li>
+<li><a class="reference internal" href="#harmony-theory">Harmony Theory</a></li>
+<li><a class="reference internal" href="#restricted-boltzmann-machine-rbm">Restricted Boltzmann Machine (RBM)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../../12/01/structuring-a-renderer-phi-ray.html" title="Previous Chapter: Structuring a Renderer: \(\varphi\)-Ray"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Structuring a...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html" title="Next Chapter: An Introduction to the Conjugate Gradient Method Without the Agonizing Pain"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">An Introducti... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="information-processing-in-dynamical-systems-foundations-of-harmony-theory">
+<h1>Information Processing in Dynamical Systems: Foundations of Harmony Theory<a class="headerlink" href="#information-processing-in-dynamical-systems-foundations-of-harmony-theory" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="motivation-s">
+<h2>Motivation(s)<a class="headerlink" href="#motivation-s" title="Permalink to this headline">¶</a></h2>
+<p>The theory of information processing is a theory in the mathematical sense, not
+the scientific sense.  It provides a set of definitions, axioms, theorems, and
+analytic techniques to understand the mind.  One well-developed part of this
+theory is the theory of computation, which started from mathematical logic.</p>
+<p>In a similar manner, the mathematical theory of symbolic computation have been
+proposed for cognitive science.  The strategy of the symbolic paradigm is to
+conceptualize cognitive processing in the intermediate levels as symbol
+manipulation.  The highest cognitive levels are already handled by formal logic,
+and the lowest levels of sensory processing are addressed by natural science.</p>
+</div>
+<div class="section" id="proposed-solution-s">
+<h2>Proposed Solution(s)<a class="headerlink" href="#proposed-solution-s" title="Permalink to this headline">¶</a></h2>
+<p>The author proposes an alternative paradigm for cognitive science, the
+subsymbolic paradigm, that focuses on concepts such as the spread of activation,
+relaxation, and statistical correlation.  The accompanying mathematical
+framework introduced as harmony theory builds upon probability theory and the
+theory of dynamical systems.  Models of higher level processes are derived from
+models of lower level computational processes, while lower level descriptions of
+these models are derived from higher level theoretical descriptions.  The
+processing in the intermediate levels can be viewed as completing an internal
+representation of the external world.</p>
+<p>The goal of harmony theory is to complement the existing theory of (symbolic)
+computation by providing a language to describe and study the relation between
+micro- and macro-accounts of cognition.  The purely symbolic approach cannot
+easily generalize existing contexts and knowledge base and to novel combinations
+of contexts (e.g. headache in a restaurant, letter-perception model).</p>
+</div>
+<div class="section" id="evaluation-s">
+<h2>Evaluation(s)<a class="headerlink" href="#evaluation-s" title="Permalink to this headline">¶</a></h2>
+<p>The author constructs a harmonium, a two layer Boltzmann machine where the
+connections are restricted to go only between the hidden and visible units.
+A Boltzmann machine could also be viewed as a special case of the harmonium
+where knowledge atoms connected to more than two features are forbidden.  The
+goal of the system is the completion task, a general inferential task that
+tries to assign likely values given partial input.</p>
+<p>The idealized decision making experiment demonstrates that the system recognized
+which binary state the environment is in.  The system broke the symmetry between
+the equally good answers and entered the ordered phase.  The author validated
+the result through observing the phase transition from high (disordered) to low
+(ordered) temperatures.</p>
+<p>Another validation experiment is the electric circuit application.  The system
+successfully detected the physical phenomena such as Ohm’s law.  The author in
+this case verified the result through observing the system’s specific heat
+because specific heat indicates a phase transition.</p>
+</div>
+<div class="section" id="future-direction-s">
+<h2>Future Direction(s)<a class="headerlink" href="#future-direction-s" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Could the vanishing gradients be interpreted as cell death and hence be
+removed from its current hidden layer?</p></li>
+<li><p>Could the exploding gradients be interpreted as a signal for cell division in
+the current hidden layer?</p></li>
+<li><p>When the accuracy of a system stagnates, what features would be learned by
+introducing a new hidden layer whose units are fully connected to all the
+other units with join units but are trained without changing the other units?
+The goal is to determine how to grow each layer as well as introduce a deeper
+layer.  A join unit signifies a particular hidden unit wants to join that
+particular layer.</p></li>
+<li><p>What are the benefits of going beyond binary representations?</p></li>
+</ul>
+</div>
+<div class="section" id="question-s">
+<h2>Question(s)<a class="headerlink" href="#question-s" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Why did the author craft input features instead of feeding the system raw
+measurements of circuit components?</p></li>
+</ul>
+</div>
+<div class="section" id="analysis">
+<h2>Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">¶</a></h2>
+<p>Shannon established a link between statistical physics and information theory
+by mapping entropy onto information content.  Harmony theory extends that by
+mapping self-consistency (i.e. harmony) onto energy and stochasticity of
+inference (computational temperature) onto physical temperature.  The result is
+a restricted Boltzmann machine with two fully connected layers.</p>
+<p>The paper would be vastly better if the author focused less on jargon
+(e.g. productions).  There were too much repetitious details and the core ideas
+could be summarized more succinctly.  Various terms (e.g. distal environment,
+transducers, and endogeneous features) were introduced only to be discarded
+without futher analysis.  Furthermore, the derivations in the appendix are too
+obscure compared to contemporary notes on RBMs
+<a class="bibtex reference internal" href="#cmaddisonrbm" id="id1">[Mad]</a><a class="bibtex reference internal" href="#makeie4105rbm" id="id2">[Mak]</a><a class="bibtex reference internal" href="#aerbmnotes" id="id3">[Eda]</a><a class="bibtex reference internal" href="#sohie598rbm" id="id4">[Oh]</a>.</p>
+<p>Nonetheless, one of the interesting points is that vertically hierarchical
+networks of many layers can be embedded as horizontally hierarchical networks
+within a two-layer harmony network.  A <a class="reference internal" href="../10/do-deep-nets-really-need-to-be-deep.html"><span class="doc">similar question</span></a>
+has been explored for deep neural networks.  The latest research in deep
+learning emphasize <a class="reference internal" href="../11/distilling-the-knowledge-in-a-neural-network.html"><span class="doc">depth as a mechanism</span></a>
+to achieve combinatorial representations instead of solving the harder problem
+of how to learn combinatorially with a <a class="reference internal" href="../05/multilayer-feedforward-networks-are-universal-approximators.html"><span class="doc">single hidden layer</span></a>.</p>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="schema-theory-and-self-consistency">
+<h3>Schema Theory and Self-Consistency<a class="headerlink" href="#schema-theory-and-self-consistency" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>The mathematics of harmony theory is founded on familiar concepts of cognitive
+science: inference through activation of schemata.</p></li>
+<li><p>Schemata are knowledge structures that embody our knowledge of objects, words,
+and other concepts of comparable complexity.</p>
+<ul>
+<li><p>The elementary constituents of a schemata are called knowledge atoms.</p></li>
+</ul>
+</li>
+<li><p>At the time of inference, stored knowledge atoms are dynamically assembled
+into context-sensitive schemata.</p></li>
+<li><p>Schemata are coherent assemblies of knowledge atoms; only these can support
+inference.</p></li>
+<li><p>The Harmony Principle: the cognitive system is an engine for activating
+coherent assemblies of atoms and drawing inferences that are consistent with
+the knowledge represented by the activated atoms.</p>
+<ul>
+<li><p>Subassemblies of activated atoms that tend to recur exactly or approximately
+are the schemata.</p></li>
+</ul>
+</li>
+<li><p>Knowledge atoms are fragments of representations that accumulate experience.</p></li>
+<li><p>Assembly of schemata (activation of atoms) and inference (completing missing
+parts of the representation) are both achieved by finding maximally
+self-consistent states of the system that are also consistent with the input.</p></li>
+<li><p>The self-consistency of a possible state of the cognitive system can be
+assigned a quantitative value by a harmony function <span class="math notranslate nohighlight">\(H\)</span>.</p></li>
+<li><p>Each schema encodes the statistical relations among a few representational
+features.  During inference, the probabilistic information in many active
+schemata are dynamically folded together to find the most probable state of
+the environment.</p></li>
+<li><p>The relationship between the harmony function <span class="math notranslate nohighlight">\(H\)</span> and the estimated
+probabilities takes the form of a Boltzmann distribution where <span class="math notranslate nohighlight">\(T\)</span>
+measures the computational temperature, or scale, of the cognitive system.</p>
+<ul>
+<li><p>As <span class="math notranslate nohighlight">\(T \rightarrow 0\)</span>, the estimated probability of all states is zero,
+except for the ones with maximal harmony.  The uniform probability
+distribution among these states is called the zero temperature distribution.</p></li>
+<li><p>The exponential relation between harmony and probability stems from
+maximizing missing information (a.k.a. maximum entropy) subject to the given
+information.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="harmony-theory">
+<h3>Harmony Theory<a class="headerlink" href="#harmony-theory" title="Permalink to this headline">¶</a></h3>
+<p>A representational state of the cognitive system is determined by a collection
+of values grouped into a representational vector
+<span class="math notranslate nohighlight">\(\mathbf{r} \in \{+1, -1\}^n\)</span>.  Each atom <span class="math notranslate nohighlight">\(\alpha\)</span> is characterized
+by a knowledge vector <span class="math notranslate nohighlight">\(\mathbf{k}_\alpha \in \{+1, 0, -1\}^n\)</span> that
+specifies what value each representational variable <span class="math notranslate nohighlight">\(r_i\)</span> should have.
+Associated with each knowledge atom <span class="math notranslate nohighlight">\(\alpha\)</span> are its activation variable
+<span class="math notranslate nohighlight">\(a_\alpha\)</span> and strength (frequency of occurrence) <span class="math notranslate nohighlight">\(\sigma_\alpha\)</span>.
+Over the entire set of atoms, the activation and strength are stacked into their
+respective vectors <span class="math notranslate nohighlight">\(\mathbf{a}\)</span> and <span class="math notranslate nohighlight">\(\boldsymbol{\sigma}\)</span>.</p>
+<p>The harmony function</p>
+<div class="math notranslate nohighlight">
+\[H_\mathbf{K}(\mathbf{r}, \mathbf{a}) =
+\sum_\alpha \sigma_\alpha a_\alpha h_\kappa(\mathbf{r}, \mathbf{k}_\alpha)
+\quad \text{with} \quad
+h_{\kappa}(\mathbf{r}, \mathbf{k}_\alpha) =
+\frac{
+  \mathbf{r} \cdot \mathbf{k}_\alpha
+}{
+  \left\Vert \mathbf{k}_\alpha \right\Vert_1
+} - \kappa\]</div>
+<p>must be an extensive quantity i.e. additive under decompositions of the system.
+This means if a network <span class="math notranslate nohighlight">\(\{ \mathbf{r}, \mathbf{a} \}\)</span> can be partitioned
+into two unconnected networks <span class="math notranslate nohighlight">\(\{ \mathbf{r}_1, \mathbf{a}_1 \}\)</span> and
+<span class="math notranslate nohighlight">\(\{ \mathbf{r}_2, \mathbf{a}_2 \}\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[H(\mathbf{r}, \mathbf{a}) =
+H(\mathbf{r}_1, \mathbf{a}_1) + H(\mathbf{r}_2, \mathbf{a}_2).\]</div>
+<p>Note that even though <span class="math notranslate nohighlight">\(\kappa \in (-1, 1)\)</span>, by induction, the perfect
+matching limit <span class="math notranslate nohighlight">\(\kappa \rightarrow 1\)</span> is lower bounded by
+<span class="math notranslate nohighlight">\(\kappa &gt; 1 - \frac{2}{n}\)</span>.  The harmony function as defined is invariant
+under the exchange of <span class="math notranslate nohighlight">\(+\)</span> and <span class="math notranslate nohighlight">\(-\)</span> at any representational variable.
+This invariance becomes more complicated if one chooses different
+representational values.</p>
+<p>Adding the harmonies of the unconnected subnetworks’ states should correspond to
+multiplying the probabilities of their states.  This stems from the definition
+of unconnectedness: each subnetwork’s set of representational features is
+independent.</p>
+</div>
+<div class="section" id="restricted-boltzmann-machine-rbm">
+<h3>Restricted Boltzmann Machine (RBM)<a class="headerlink" href="#restricted-boltzmann-machine-rbm" title="Permalink to this headline">¶</a></h3>
+<p>Harmony theory depends upon the</p>
+<dl class="simple">
+<dt>Competence Theorem</dt><dd><p>A high, functional-level characterization of the harmonium.</p>
+</dd>
+<dt>Realizability Theorem</dt><dd><p>An implementation-level description of a kind of completion machine.</p>
+</dd>
+<dt>Learnability Theorem</dt><dd><p>A method to tune the harmony function from experience.</p>
+</dd>
+</dl>
+<p>Unfortunately, the presentation of the details is unnecessarily complicated.
+Recall that a Boltzmann machine is a network of symmetrically coupled stochastic
+binary units.  It contains a set of visible units
+<span class="math notranslate nohighlight">\(\mathbf{v} \in \{0, 1\}^{V}\)</span> and a set of hidden units
+<span class="math notranslate nohighlight">\(\mathbf{h} \in \{0, 1\}^{H}\)</span>.  The system’s energy is defined as</p>
+<div class="math notranslate nohighlight">
+\[\DeclareMathOperator{\diag}{diag}
+E(\mathbf{v}, \mathbf{h}; \theta) =
+-\frac{1}{2} \mathbf{v}^\top \mathbf{L} \mathbf{v} -
+\frac{1}{2} \mathbf{h}^\top \mathbf{J} \mathbf{h} -
+\mathbf{v}^\top \mathbf{W} \mathbf{h} -
+\mathbf{v}^\top \mathbf{b}^v - \mathbf{h}^\top \mathbf{b}^h\]</div>
+<p>where <span class="math notranslate nohighlight">\(\theta = \left\{ \mathbf{W}, \mathbf{L}, \mathbf{J}, \mathbf{b}^v,
+\mathbf{b}^h \right\}\)</span> denotes the model parameters.  Observe that
+<span class="math notranslate nohighlight">\(\diag(\mathbf{L}) = \diag(\mathbf{J}) = \boldsymbol{0}\)</span> because there are
+no self-connections.</p>
+<p>A RBM is a Boltzmann machine with a bi-partite graph structure with no
+intra-layer connections i.e. <span class="math notranslate nohighlight">\(\mathbf{L} = \boldsymbol{0}\)</span> and
+<span class="math notranslate nohighlight">\(\mathbf{J} = \boldsymbol{0}\)</span>.  The system’s energy is reduced to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}E(\mathbf{v}, \mathbf{h}; \theta)
+ &amp;= -\mathbf{v}^\top \mathbf{W} \mathbf{h} -
+    \mathbf{v}^\top \mathbf{b}^v -
+    \mathbf{h}^\top \mathbf{b}^h\\
+ &amp;= -\sum_i \sum_j w_{ij} v_i h_j - \sum_i b_i^v v_i - \sum_j b_j^h h_j.\end{split}\]</div>
+<p>This formulation is known as the Bernoulli-Bernoulli RBM.  The corresponding
+joint distribution of the system is given by</p>
+<div class="math notranslate nohighlight">
+\[p(\mathbf{v}, \mathbf{h}) =
+Z^{-1} \exp\left\{ \frac{-E(\mathbf{v}, \mathbf{h}; \theta)}{T} \right\}\]</div>
+<p>where <span class="math notranslate nohighlight">\(T\)</span> is the temperature at thermal equilibrium and the partition
+function</p>
+<div class="math notranslate nohighlight">
+\[Z = \sum_{\mathbf{v}'} \sum_{\mathbf{h}'}
+      \exp\left\{ \frac{-E(\mathbf{v}', \mathbf{h}'; \theta)}{T} \right\}.\]</div>
+<p>The marginal distribution over the visible units is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator{\softplus}{softplus}
+p(\mathbf{v}) &amp;= \sum_{\mathbf{h}} p(\mathbf{v}, \mathbf{h})\\
+ &amp;= Z^{-1} \sum_{\mathbf{h}}
+      \exp\left\{ \frac{-E(\mathbf{v}, \mathbf{h}; \theta)}{T} \right\}\\
+ &amp;= Z^{-1} \exp\left\{ \mathbf{v}^\top \mathbf{b}^v \right\}^{1 / T}
+    \sum_{h_1} \sum_{h_2} \cdots \sum_{h_M} \prod_j
+      \exp\left\{
+        \langle \mathbf{v}, \mathbf{W}_{\cdot j} \rangle h_j + b_j^h h_j
+      \right\}^{1 / T}\\
+ &amp;= Z^{-1} \exp\left\{ \mathbf{v}^\top \mathbf{b}^v \right\}^{1 / T}
+    \left(
+      \sum_{h_1}
+        \exp\left\{
+          \langle \mathbf{v}, \mathbf{W}_{\cdot 1} \rangle h_1 + b_1^h h_1
+        \right\}^{1 / T}
+    \right)
+    \cdots
+    \left(
+      \sum_{h_M}
+        \exp\left\{
+          \langle \mathbf{v}, \mathbf{W}_{\cdot M} \rangle h_M + b_M^h h_M
+        \right\}^{1 / T}
+    \right)\\
+ &amp;= Z^{-1} \exp\left\{ \mathbf{v}^\top \mathbf{b}^v \right\}^{1 / T}
+    \prod_j \sum_{h_j}
+      \exp\left\{
+        \langle \mathbf{v}, \mathbf{W}_{\cdot j} \rangle h_j + b_j^h h_j
+      \right\}^{1 / T}\\
+ &amp;= Z^{-1} \exp\left\{ \mathbf{v}^\top \mathbf{b}^v \right\}^{1 / T}
+    \prod_j 1 +
+      \exp\left\{
+        \langle \mathbf{v}, \mathbf{W}_{\cdot j} \rangle + b_j^h
+      \right\}^{1 / T}\\
+ &amp;= Z^{-1} \exp\left\{
+      T^{-1} \mathbf{v}^\top \mathbf{b}^v +
+      \sum_j \log\left(
+        1 +
+        \exp\left\{
+          \langle \mathbf{v}, \mathbf{W}_{\cdot j} \rangle + b_j^h
+        \right\}^{1 / T}
+      \right)
+    \right\}\\
+ &amp;= Z^{-1} \exp\left\{
+      T^{-1} \mathbf{v}^\top \mathbf{b}^v +
+      \sum_j
+        \softplus\left(
+          \frac{\langle \mathbf{v}, \mathbf{W}_{\cdot j} \rangle + b_j^h}{T}
+        \right)
+    \right\}
+    &amp; \quad &amp; \softplus(x) = \log\left( 1 + e^x \right).\end{split}\]</div>
+<p>By d-separation, the conditional probability distributions are</p>
+<div class="math notranslate nohighlight">
+\[p(\mathbf{h} \mid \mathbf{v}) = \prod_j p(h_j \mid \mathbf{v})
+\quad \text{and} \quad
+p(\mathbf{v} \mid \mathbf{h}) = \prod_i p(v_i \mid \mathbf{h})\]</div>
+<p>with</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  p(h_j = 1 \mid \mathbf{v})
+   &amp;= p(h_j = 1, \mathbf{v}) / p(\mathbf{v})\\
+   &amp;= \frac{
+        p(h_j = 1, \mathbf{v}) / p(h_j = 0, \mathbf{v})
+      }{
+        1 + p(h_j = 1, \mathbf{v}) / p(h_j = 0, \mathbf{v})
+      }\\
+   &amp;= \frac{
+        \exp\left\{ \sum_i w_{ij} v_i + b_j^h \right\}^{1 / T}
+      }{
+        1 + \exp\left\{ \sum_i w_{ij} v_i + b_j^h \right\}^{1 / T}
+      }\\
+   &amp;= \sigma\left(
+        \frac{\langle \mathbf{v}, \mathbf{W}_{\cdot j} \rangle + b_j^h}{T}
+      \right)
+\end{aligned}
+\qquad \qquad
+\begin{aligned}
+  p(v_i = 1 \mid \mathbf{h})
+   &amp;= p(v_i = 1, \mathbf{h}) / p(\mathbf{h})\\
+   &amp;= \frac{
+        p(v_i = 1, \mathbf{h}) / p(v_i = 0, \mathbf{h})
+      }{
+        1 + p(v_i = 1, \mathbf{h}) / p(v_i = 0, \mathbf{h})
+      }\\
+   &amp;= \frac{
+        \exp\left\{ \sum_j w_{ij} h_j + b_i^v \right\}^{1 / T}
+      }{
+        1 + \exp\left\{ \sum_j w_{ij} h_j + b_i^v \right\}^{1 / T}
+      }\\
+   &amp;= \sigma\left(
+        \frac{\langle \mathbf{W}_{i \cdot}, \mathbf{h} \rangle + b_i^v}{T}
+      \right)
+\end{aligned}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma(u) = \frac{1}{1 + \exp(-u)}\)</span>.</p>
+<p>The derivation of the learning rule is similar to that of a Boltzmann machine.
+Given independent and identically distributed random samples
+<span class="math notranslate nohighlight">\(\mathbf{v}^1, \mathbf{v}^2, \ldots, \mathbf{v}^C \in D \subset \{0, 1\}^{V}\)</span>
+from the approximate data distribution</p>
+<div class="math notranslate nohighlight">
+\[q(\mathbf{v}) =
+C^{-1} \sum_{c = 1}^C \delta\left( \mathbf{v} - \mathbf{v}^c \right),\]</div>
+<p>a RBM can learn a distribution <span class="math notranslate nohighlight">\(p(\mathbf{v})\)</span> using <span class="math notranslate nohighlight">\(q\)</span>.
+One objective to consider is the Kullback-Leiber divergence of <span class="math notranslate nohighlight">\(q\)</span>
+with respect to <span class="math notranslate nohighlight">\(p\)</span> because minimizing the relative entropy
+<a class="reference internal" href="../23/training-products-of-experts-by-minimizing-contrastive-divergence.html"><span class="doc">is equivalent</span></a>
+to maximizing the log-likelihood of <span class="math notranslate nohighlight">\(p\)</span> averaged over the data
+distribution.  Thus the objective of the learning rules is realized as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\max_\theta C^{-1} \sum_{c = 1}^C \log p(\mathbf{v}^c \mid \theta)
+ &amp;= \max_\theta C^{-1} \sum_{c = 1}^C
+      \log \sum_{\mathbf{h}} p(\mathbf{v}^c, \mathbf{h} \mid \theta)\\
+ &amp;= \max_\theta C^{-1} \sum_{c = 1}^C \log
+      Z^{-1}
+      \sum_{\mathbf{h}}
+        \exp\left\{ \frac{-E(\mathbf{v}^c, \mathbf{h}; \theta)}{T} \right\}\\
+ &amp;= \max_\theta C^{-1} \sum_{c = 1}^C
+      \log \sum_{\mathbf{h}}
+        \exp\left\{ \frac{-E(\mathbf{v}^c, \mathbf{h}; \theta)}{T} \right\} -
+      \log Z.\end{split}\]</div>
+<p>Denote <span class="math notranslate nohighlight">\(E(\mathbf{v}^c, \mathbf{h}; \theta) \equiv E^c\)</span> and
+<span class="math notranslate nohighlight">\(E(\mathbf{v}', \mathbf{h}'; \theta) \equiv E'\)</span>.  The log-likelihood
+gradient for a single sample is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial}{\partial \theta} \log p(\mathbf{v}^c \mid \theta)
+ &amp;= \left(
+      \sum_{\mathbf{h}}
+        \exp\left\{ \frac{-E^c}{T} \right\}
+    \right)^{-1}
+      \sum_{\mathbf{h}}
+        \exp\left\{ \frac{-E^c}{T} \right\}
+        \frac{-T^{-1} \partial E^c}{\partial \theta} -
+    Z^{-1} \sum_{\mathbf{v}', \mathbf{h}'}
+             \exp\left\{ \frac{-E'}{T} \right\}
+             \frac{-T^{-1} \partial E'}{\partial \theta}\\
+ &amp;= -T^{-1} \sum_{\mathbf{h}} p(\mathbf{h} \mid \mathbf{v}^c)
+      \frac{\partial E^c}{\partial \theta} +
+    T^{-1} \sum_{\mathbf{v}', \mathbf{h}'} p(\mathbf{v}', \mathbf{h}')
+      \frac{\partial E'}{\partial \theta}\\
+ &amp;= -T^{-1} \left\langle
+      \frac{\partial E^c}{\partial \theta}
+    \right\rangle_{p(\mathbf{h} \mid \mathbf{v}^c)} +
+    T^{-1} \left\langle
+      \frac{\partial E'}{\partial \theta}
+    \right\rangle_{p(\mathbf{v}', \mathbf{h}')}.\end{split}\]</div>
+<p>The learning rules themselves obey</p>
+<div class="math notranslate nohighlight">
+\[\Delta \theta \approx
+\frac{\partial}{\partial \theta} \log p(\mathbf{v}^c \mid \theta)\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}T \frac{\partial}{\partial w_{ij}} \log p(\mathbf{v}^c \mid \theta)
+ &amp;= \left\langle
+      v^c_i h_j
+    \right\rangle_{p(\mathbf{h} \mid \mathbf{v}^c)} -
+    \left\langle
+      v'_i h'_j
+    \right\rangle_{p(\mathbf{v}', \mathbf{h}')}\\
+ &amp;= v^c_i \sum_{h_j} p(h_j \mid \mathbf{v}^c) h_j
+        \sum_{\mathbf{h}_{\setminus j}}
+            p(\mathbf{h}_{\setminus j} \mid \mathbf{v}^c) -
+    \sum_{\mathbf{v}'}  \sum_{h'_j} \sum_{\mathbf{h}'_{\setminus j}}
+        p(\mathbf{v}') p(h'_j \mid \mathbf{v}')
+        p(\mathbf{h}'_{\setminus j} \mid \mathbf{v}') v'_i h'_j\\
+ &amp;= v^c_i p(h_j = 1 \mid \mathbf{v}^c) -
+    \sum_{\mathbf{v}'} p(\mathbf{v}') p(h'_j = 1 \mid \mathbf{v}') v'_i,\\\\
+T \frac{\partial}{\partial b_i^v} \log p(\mathbf{v}^c \mid \theta)
+ &amp;= \left\langle
+      v^c_i
+    \right\rangle_{p(\mathbf{h} \mid \mathbf{v}^c)} -
+    \left\langle
+      v'_i
+    \right\rangle_{p(\mathbf{v}', \mathbf{h}')}\\
+ &amp;= v^c_i \sum_{\mathbf{h}} p(\mathbf{h} \mid \mathbf{v}^c) -
+    \sum_{\mathbf{v}'} \sum_{\mathbf{h}'}
+        p(\mathbf{v}', \mathbf{h}') v'_i\\
+ &amp;= v^c_i - \sum_{\mathbf{v}'} p(\mathbf{v}') v'_i,\\\\
+T \frac{\partial}{\partial b_j^h} \log p(\mathbf{v}^c \mid \theta)
+ &amp;= \left\langle
+      h_j
+    \right\rangle_{p(\mathbf{h} \mid \mathbf{v}^c)} -
+    \left\langle
+      h'_j
+    \right\rangle_{p(\mathbf{v}', \mathbf{h}')}\\
+ &amp;= \sum_{h_j} p(h_j \mid \mathbf{v}^c) h_j
+        \sum_{\mathbf{h}_{\setminus j}}
+            p(\mathbf{h}_{\setminus j} \mid \mathbf{v}^c) -
+    \sum_{\mathbf{h}'} \sum_{\mathbf{v}'}
+        p(\mathbf{v}', \mathbf{h}') h'_j\\
+ &amp;= p(h_j = 1 \mid \mathbf{v}^c) -
+    \sum_{\mathbf{h}'} p(\mathbf{h}') h'_j.\end{split}\]</div>
+<p>Hence the learning rules in vector notation are</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}T \nabla_{\mathbf{W}} \log p(\mathbf{v}^c \mid \theta)
+ &amp;= \left\langle
+      \mathbf{v}^c \mathbf{h}^\top
+    \right\rangle_{p(\mathbf{h} \mid \mathbf{v}^c)} -
+    \left\langle
+      \mathbf{v}' {\mathbf{h}'}^\top
+    \right\rangle_{p(\mathbf{v}', \mathbf{h}')}
+ &amp;= \mathbf{v}^c \sigma\left(
+      {\mathbf{v}^c}^\top \mathbf{W} + \mathbf{b}^h
+    \right)^\top -
+    \left\langle
+      \mathbf{v}' {\mathbf{h}'}^\top
+    \right\rangle_{p(\mathbf{v}', \mathbf{h}')},\\\\
+T \nabla_{\mathbf{b}^v} \log p(\mathbf{v}^c \mid \theta)
+ &amp;= \left\langle
+      \mathbf{v}^c
+    \right\rangle_{p(\mathbf{h} \mid \mathbf{v}^c)} -
+    \left\langle
+      \mathbf{v}'
+    \right\rangle_{p(\mathbf{v}', \mathbf{h}')}
+ &amp;= \mathbf{v}^c -
+    \left\langle
+      \mathbf{v}'
+    \right\rangle_{p(\mathbf{v}', \mathbf{h}')},\\\\
+T \nabla_{\mathbf{b}^h} \log p(\mathbf{v}^c \mid \theta)
+ &amp;= \left\langle
+      \mathbf{h}
+    \right\rangle_{p(\mathbf{h} \mid \mathbf{v}^c)} -
+    \left\langle
+      \mathbf{h}'
+    \right\rangle_{p(\mathbf{v}', \mathbf{h}')}
+ &amp;= \sigma\left(
+      {\mathbf{v}^c}^\top \mathbf{W} + \mathbf{b}^h
+    \right) -
+    \left\langle
+      \mathbf{h}'
+    \right\rangle_{p(\mathbf{v}', \mathbf{h}')}.\end{split}\]</div>
+<p>Notice that the second term (<span class="math notranslate nohighlight">\(E'\)</span>) of each learning rule requires the RBM
+to be at thermal equilibrium.  <a class="reference internal" href="../28/a-learning-algorithm-for-boltzmann-machines.html"><span class="doc">One approximation</span></a>
+is</p>
+<div class="math notranslate nohighlight">
+\[\left\langle
+  \mathbf{v}' {\mathbf{h}'}^\top
+\right\rangle_{p(\mathbf{v}', \mathbf{h}')} \approx
+M^{-1} \sum_{m = 1}^m \mathbf{v}_m^\infty {\mathbf{h}_m^\infty}^\top\]</div>
+<p>where the <span class="math notranslate nohighlight">\(M\)</span> samples are generated using block Gibbs sampling:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{v}_m^0 &amp;\sim q(\mathbf{v})\\
+\mathbf{h}_m^k &amp;\sim p(\mathbf{h} \mid \mathbf{v}_m^k) \text{ for } k \geq 0\\
+\mathbf{v}_m^k &amp;\sim p(\mathbf{v} \mid \mathbf{h}_m^{k - 1}) \text{ for } k \geq 1.\end{split}\]</div>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory-0"><dl class="citation">
+<dt class="bibtex label" id="aerbmnotes"><span class="brackets"><a class="fn-backref" href="#id3">Eda</a></span></dt>
+<dd><p>Abbas Edalat. Restricted boltzmann machines. <span><a class="reference external" href="#"></a></span>http://www.doc.ic.ac.uk/ ae/papers/RBM-notes.pdf. Accessed on 2017-05-05.</p>
+</dd>
+<dt class="bibtex label" id="cmaddisonrbm"><span class="brackets"><a class="fn-backref" href="#id1">Mad</a></span></dt>
+<dd><p>Chris J. Maddison. Tutorial: restricted boltzmann machines. <span><a class="reference external" href="#"></a></span>http://www.cs.toronto.edu/ tijmen/csc321/documents/maddison_rbmtutorial.pdf. Accessed on 2017-05-05.</p>
+</dd>
+<dt class="bibtex label" id="makeie4105rbm"><span class="brackets"><a class="fn-backref" href="#id2">Mak</a></span></dt>
+<dd><p>M.W. Mak. Restricted boltzmann machines - supplementary notes to eie4105. <span><a class="reference external" href="#"></a></span>http://www.eie.polyu.edu.hk/ mwmak/papers/RBM.pdf. Accessed on 2017-05-05.</p>
+</dd>
+<dt class="bibtex label" id="sohie598rbm"><span class="brackets"><a class="fn-backref" href="#id4">Oh</a></span></dt>
+<dd><p>Sewoong Oh. Restricted boltzmann machines. <span><a class="reference external" href="#"></a></span>http://swoh.web.engr.illinois.edu/courses/IE598/handout/rbm.pdf. Accessed on 2017-05-05.</p>
+</dd>
+<dt class="bibtex label" id="smolensky1986information"><span class="brackets">Smo86</span></dt>
+<dd><p>Paul Smolensky. Information processing in dynamical systems: foundations of harmony theory. Technical Report, DTIC Document, 1986.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

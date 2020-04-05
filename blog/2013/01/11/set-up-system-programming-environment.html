@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Set Up System Programming Environment &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="The Rise and Fall of React, Flux, Redux, and Cycle" href="../10/the-rise-and-fall-of-react-flux-redux-and-cycle.html" />
+    <link rel="prev" title="Svegan Lifestyle" href="../12/svegan-lifestyle.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Set Up System Programming Environment</a><ul>
+<li><a class="reference internal" href="#top-level-directory">Top Level Directory</a></li>
+<li><a class="reference internal" href="#macros">Macros</a><ul>
+<li><a class="reference internal" href="#check-coverage">check_coverage</a></li>
+<li><a class="reference internal" href="#check-sanitizer">check_sanitizer</a></li>
+<li><a class="reference internal" href="#enable-code-hardening">enable_code_hardening</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#find-package">find_package</a></li>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
+<li><a class="reference internal" href="#code-coverage-and-tests">Code Coverage and Tests</a><ul>
+<li><a class="reference internal" href="#define-coverage">define_coverage</a></li>
+<li><a class="reference internal" href="#compile-tests">compile_tests</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#clangformat">ClangFormat</a></li>
+<li><a class="reference internal" href="#glsl">GLSL</a></li>
+<li><a class="reference internal" href="#c-lint">C++ Lint</a></li>
+<li><a class="reference internal" href="#python-lint">Python Lint</a></li>
+<li><a class="reference internal" href="#clangtidy">ClangTidy</a></li>
+<li><a class="reference internal" href="#source-code-organization">Source Code Organization</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../12/svegan-lifestyle.html" title="Previous Chapter: Svegan Lifestyle"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Svegan Lifestyle</span>
+    </a>
+  </li>
+  <li>
+    <a href="../10/the-rise-and-fall-of-react-flux-redux-and-cycle.html" title="Next Chapter: The Rise and Fall of React, Flux, Redux, and Cycle"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">The Rise and ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="set-up-system-programming-environment">
+<h1>Set Up System Programming Environment<a class="headerlink" href="#set-up-system-programming-environment" title="Permalink to this headline">¶</a></h1>
+<p>The following <a class="reference external" href="https://cmake.org/download/">CMake</a> setup <a class="reference download internal" download="" href="../../../../_downloads/1fe764b439d248c09c533598854be1a4/example.zip"><code class="xref download docutils literal notranslate"><span class="pre">example</span></code></a> is for a single
+project:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>.
+├── cmake
+│   ├── coverage.cmake
+│   ├── coverage-report.cmake
+│   ├── docs.cmake
+│   ├── FindDoctest.cmake
+│   ├── FindEGL.cmake
+│   ├── FindEigen.cmake
+│   ├── FindGLEW.cmake
+│   ├── FindGLFW.cmake
+│   ├── FindNanoFlann.cmake
+│   ├── FindOpenGL.cmake
+│   ├── FindOpenMesh.cmake
+│   ├── format-cpp.cmake
+│   ├── glsl.cmake
+│   ├── glsl-make-shaders.cmake
+│   ├── lint-cpp-style.cmake
+│   ├── lint-python-style.cmake
+│   ├── macros.cmake
+│   └── tidy-cpp.cmake
+├── docs
+│   ├── proto
+│   │   └── system
+│   │       └── clock.rst
+│   ├── _static
+│   ├── _templates
+│   ├── conf.py
+│   └── index.rst
+├── include
+│   └── proto
+│       ├── dgp
+│       │   └── tensor.hpp
+│       └── system
+│           ├── clock.hpp
+│           └── log.hpp
+├── resources
+│   ├── data
+│   │   └── point-correspondences.txt
+│   ├── scripts
+│   │   ├── clang_tidy_suppression.py
+│   │   ├── cpp_include_directive.py
+│   │   └── obj_to_profile_image.py
+│   └── shaders
+│       ├── common
+│       │   └── projection.glsl
+│       ├── comp
+│       ├── frag
+│       │   ├── rgb2yuv.frag
+│       │   └── per-pixel-ray-cast.glsl
+│       ├── geom
+│       ├── tesc
+│       ├── tese
+│       └── vert
+│           └── fullscreen-triangle.vert
+├── src
+│   ├── dgp
+│   │   ├── tests
+│   │   │   ├── main.cpp
+│   │   │   └── tensor.cpp
+│   │   ├── CMakeLists.txt
+│   │   └── tensor.cpp
+│   ├── system
+│   │   ├── tests
+│   │   │   └── game-loop.cpp
+│   │   ├── clock.cpp
+│   │   ├── CMakeLists.txt
+│   │   └── log.cpp
+│   ├── CMakeLists.txt
+│   └── main.cpp
+├── third-party
+│   ├── include
+│   │   ├── doctest
+│   │   │   └── doctest.h
+│   │   ├── EGL
+│   │   │   ├── eglext.h
+│   │   │   ├── egl.h
+│   │   │   ├── eglplatform.h
+│   │   │   └── khrplatform.h
+│   │   └── GL
+│   │       ├── glcorearb.h
+│   │       ├── glext.h
+│   │       ├── glxext.h
+│   │       └── wglext.h
+│   ├── cpplint.py
+│   └── run-clang-tidy.py
+└── CMakeLists.txt
+</pre></div>
+</div>
+<div class="section" id="top-level-directory">
+<h2>Top Level Directory<a class="headerlink" href="#top-level-directory" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.10.2</span> <span class="s">FATAL_ERROR</span><span class="p">)</span>
+
+<span class="c"># must be declared before project()</span>
+<span class="nb">find_program</span><span class="p">(</span><span class="s">ClangCompiler</span> <span class="s2">&quot;clang&quot;</span><span class="p">)</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">ClangCompiler</span><span class="p">)</span>
+    <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_COMPILER</span> <span class="o">${</span><span class="nv">ClangCompiler</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+<span class="nb">unset</span><span class="p">(</span><span class="s">ClangCompiler</span> <span class="s">CACHE</span><span class="p">)</span>
+
+<span class="nb">find_program</span><span class="p">(</span><span class="s">ClangPlusPlusCompiler</span> <span class="s2">&quot;clang++&quot;</span><span class="p">)</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">ClangPlusPlusCompiler</span><span class="p">)</span>
+    <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_COMPILER</span> <span class="o">${</span><span class="nv">ClangPlusPlusCompiler</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+<span class="nb">unset</span><span class="p">(</span><span class="s">ClangPlusPlusCompiler</span> <span class="s">CACHE</span><span class="p">)</span>
+
+<span class="nb">project</span><span class="p">(</span><span class="s">proto</span> <span class="s">LANGUAGES</span> <span class="s">C</span> <span class="s">CXX</span><span class="p">)</span>
+
+<span class="nb">if</span><span class="p">(</span><span class="s">MSVC</span><span class="p">)</span>
+    <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_RUNTIME_OUTPUT_DIRECTORY</span> <span class="o">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="o">}</span><span class="s">/bin</span><span class="p">)</span>
+    <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS</span> <span class="s">TRUE</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span> <span class="s">17</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD_REQUIRED</span> <span class="s">ON</span><span class="p">)</span>
+
+<span class="c"># execute only once at ${CMAKE_SOURCE_DIR}</span>
+<span class="nb">option</span><span class="p">(</span><span class="s">BUILD_TESTING</span> <span class="s2">&quot;Enable/Disable unit tests.&quot;</span> <span class="s">ON</span><span class="p">)</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">BUILD_TESTING</span><span class="p">)</span>
+    <span class="nb">enable_testing</span><span class="p">()</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">BUILD_SHARED_LIBS</span> <span class="s">TRUE</span> <span class="s">CACHE</span>
+    <span class="s">BOOL</span> <span class="s2">&quot;If this value is on, makefiles will generate a shared library.&quot;</span><span class="p">)</span>
+
+<span class="nb">list</span><span class="p">(</span><span class="s">APPEND</span> <span class="s">CMAKE_MODULE_PATH</span> <span class="o">${</span><span class="nv">CMAKE_SOURCE_DIR</span><span class="o">}</span><span class="s">/cmake</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="s">macros</span><span class="p">)</span>
+
+<span class="nb">enable_code_hardening</span><span class="p">()</span>
+<span class="nb">check_coverage</span><span class="p">(</span><span class="s">CoverageFlags</span><span class="p">)</span>
+<span class="nb">check_sanitizer</span><span class="p">(</span><span class="s">SanitizerFlags</span><span class="p">)</span>
+<span class="nb">check_compiler_settings</span><span class="p">(</span><span class="s">CoverageFlags</span> <span class="s">SanitizerFlags</span><span class="p">)</span>
+
+<span class="nb">find_package</span><span class="p">(</span><span class="s">Doctest</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">OpenGL</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">EGL</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="c">#find_package(Eigen REQUIRED)</span>
+<span class="c">#find_package(OpenMesh REQUIRED)</span>
+<span class="c">#find_package(NanoFlann REQUIRED)</span>
+<span class="c">#find_package(GLEW REQUIRED)</span>
+<span class="c">#find_package(GLFW REQUIRED)</span>
+<span class="nb">include_directories</span><span class="p">(</span><span class="s">SYSTEM</span> <span class="o">${</span><span class="nv">DOCTEST_INCLUDE_DIR</span><span class="o">}</span>
+<span class="c">#                           ${EIGEN_INCLUDE_DIR}</span>
+<span class="c">#                           ${NANOFLANN_INCLUDE_DIR}</span>
+<span class="c">#                           ${GLEW_INCLUDE_DIR} ${GLFW_INCLUDE_DIR}</span>
+                           <span class="o">${</span><span class="nv">OPENGL_INCLUDE_DIR</span><span class="o">}</span> <span class="o">${</span><span class="nv">EGL_INCLUDE_DIR</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">include</span><span class="p">(</span><span class="s">docs</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="s">coverage</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="s">format-cpp</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="s">glsl</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="s">lint-cpp-style</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="s">lint-python-style</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="s">tidy-cpp</span><span class="p">)</span>
+
+<span class="nb">include_directories</span><span class="p">(</span><span class="s">include</span><span class="p">)</span>
+<span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">src</span><span class="p">)</span>
+
+<span class="c"># each shared library will append its target to ${PROJECT_LIBRARIES}</span>
+<span class="nb">define_coverage</span><span class="p">(</span><span class="s">PROJECT_LIBRARIES</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">PROJECT_LIBRARIES</span> <span class="o">${</span><span class="nv">PROJECT_LIBRARIES</span><span class="o">}</span>
+<span class="c">#                      ${OPENMESH_LIBRARIES}</span>
+<span class="c">#                      ${GLEW_LIBRARIES} ${GLFW_LIBRARIES}</span>
+                      <span class="o">${</span><span class="nv">OPENGL_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">EGL_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">Mains</span> <span class="s">src/headless_gl.cpp</span><span class="p">)</span>
+<span class="nb">make_standalones</span><span class="p">(</span><span class="s">PROJECT_LIBRARIES</span> <span class="o">${</span><span class="nv">Mains</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="macros">
+<h2>Macros<a class="headerlink" href="#macros" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">function</span><span class="p">(</span><span class="s">list2string</span> <span class="s">TARGET</span> <span class="s">DELIMITER</span><span class="p">)</span>
+    <span class="nb">foreach</span><span class="p">(</span><span class="s">arg</span> <span class="o">${</span><span class="nv">ARGN</span><span class="o">}</span><span class="p">)</span>
+        <span class="nb">if</span><span class="p">(</span><span class="s">tmp</span><span class="p">)</span>
+            <span class="nb">set</span><span class="p">(</span><span class="s">tmp</span> <span class="s2">&quot;${tmp}${DELIMITER}${arg}&quot;</span><span class="p">)</span>
+        <span class="nb">else</span><span class="p">()</span>
+            <span class="nb">set</span><span class="p">(</span><span class="s">tmp</span> <span class="s2">&quot;${arg}&quot;</span><span class="p">)</span>
+        <span class="nb">endif</span><span class="p">()</span>
+    <span class="nb">endforeach</span><span class="p">()</span>
+    <span class="nb">set</span><span class="p">(</span><span class="o">${</span><span class="nv">TARGET</span><span class="o">}</span> <span class="s2">&quot;${tmp}&quot;</span> <span class="s">PARENT_SCOPE</span><span class="p">)</span>
+<span class="nb">endfunction</span><span class="p">(</span><span class="s">list2string</span><span class="p">)</span>
+
+<span class="nb">function</span><span class="p">(</span><span class="s">make_standalones</span> <span class="s">LIBS</span><span class="p">)</span>
+    <span class="nb">foreach</span><span class="p">(</span><span class="s">file_path</span> <span class="o">${</span><span class="nv">ARGN</span><span class="o">}</span><span class="p">)</span>
+        <span class="nb">get_filename_component</span><span class="p">(</span><span class="s">file_name</span> <span class="o">${</span><span class="nv">file_path</span><span class="o">}</span> <span class="s">NAME</span><span class="p">)</span>
+        <span class="nb">string</span><span class="p">(</span><span class="s">REPLACE</span> <span class="s2">&quot;.cpp&quot;</span> <span class="s2">&quot;&quot;</span> <span class="s">bin</span> <span class="o">${</span><span class="nv">file_name</span><span class="o">}</span><span class="p">)</span>
+
+        <span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">bin</span><span class="o">}</span> <span class="o">${</span><span class="nv">file_path</span><span class="o">}</span><span class="p">)</span>
+        <span class="nb">foreach</span><span class="p">(</span><span class="s">lib</span> <span class="o">${</span><span class="nv">PROJECT_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+            <span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">bin</span><span class="o">}</span> <span class="o">${</span><span class="nv">lib</span><span class="o">}</span><span class="p">)</span>
+        <span class="nb">endforeach</span><span class="p">()</span>
+    <span class="nb">endforeach</span><span class="p">()</span>
+<span class="nb">endfunction</span><span class="p">(</span><span class="s">make_standalones</span><span class="p">)</span>
+
+<span class="nb">macro</span><span class="p">(</span><span class="s">check_coverage</span> <span class="s">FLAGS</span><span class="p">)</span>
+    <span class="nb">option</span><span class="p">(</span><span class="s">CODE_COVERAGE</span> <span class="s2">&quot;Enable/Disable code coverage instrumentation.&quot;</span> <span class="s">OFF</span><span class="p">)</span>
+    <span class="nb">if</span><span class="p">(</span><span class="s">CODE_COVERAGE</span><span class="p">)</span>
+        <span class="nb">set</span><span class="p">(</span><span class="o">${</span><span class="nv">FLAGS</span><span class="o">}</span> <span class="s">-g</span> <span class="s">-O0</span> <span class="s">-fprofile-instr-generate</span> <span class="s">-fcoverage-mapping</span><span class="p">)</span>
+    <span class="nb">else</span><span class="p">()</span>
+        <span class="nb">set</span><span class="p">(</span><span class="o">${</span><span class="nv">FLAGS</span><span class="o">}</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="nb">endif</span><span class="p">()</span>
+<span class="nb">endmacro</span><span class="p">(</span><span class="s">check_coverage</span><span class="p">)</span>
+
+<span class="nb">macro</span><span class="p">(</span><span class="s">check_sanitizer</span> <span class="s">FLAGS</span><span class="p">)</span>
+    <span class="nb">set</span><span class="p">(</span><span class="s">CLANG_SANITIZER</span> <span class="s2">&quot;None&quot;</span> <span class="s">CACHE</span> <span class="s">STRING</span>
+        <span class="s2">&quot;Choose the type of sanitizer, options are: None ASan MSan TSan&quot;</span><span class="p">)</span>
+    <span class="nb">set</span><span class="p">(</span><span class="o">${</span><span class="nv">FLAGS</span><span class="o">}</span> <span class="s">-g</span> <span class="s">-O1</span> <span class="s">-fno-optimize-sibling-calls</span> <span class="s">-fno-omit-frame-pointer</span><span class="p">)</span>
+    <span class="nb">if</span><span class="p">(</span><span class="s">CLANG_SANITIZER</span> <span class="s">STREQUAL</span> <span class="s2">&quot;ASan&quot;</span><span class="p">)</span>
+        <span class="nb">set</span><span class="p">(</span><span class="o">${</span><span class="nv">FLAGS</span><span class="o">}</span> <span class="o">${</span><span class="nv">${FLAGS</span><span class="o">}</span><span class="s">}</span> <span class="s">-fsanitize=undefined,integer,address</span><span class="p">)</span>
+    <span class="nb">elseif</span><span class="p">(</span><span class="s">CLANG_SANITIZER</span> <span class="s">STREQUAL</span> <span class="s2">&quot;MSan&quot;</span><span class="p">)</span>
+        <span class="nb">set</span><span class="p">(</span><span class="o">${</span><span class="nv">FLAGS</span><span class="o">}</span> <span class="o">${</span><span class="nv">${FLAGS</span><span class="o">}</span><span class="s">}</span> <span class="s">-fsanitize=undefined,integer,memory</span><span class="p">)</span>
+    <span class="nb">elseif</span><span class="p">(</span><span class="s">CLANG_SANITIZER</span> <span class="s">STREQUAL</span> <span class="s2">&quot;TSan&quot;</span><span class="p">)</span>
+        <span class="nb">set</span><span class="p">(</span><span class="o">${</span><span class="nv">FLAGS</span><span class="o">}</span> <span class="o">${</span><span class="nv">${FLAGS</span><span class="o">}</span><span class="s">}</span> <span class="s">-fsanitize=undefined,integer,thread</span><span class="p">)</span>
+    <span class="nb">else</span><span class="p">()</span>
+        <span class="nb">set</span><span class="p">(</span><span class="o">${</span><span class="nv">FLAGS</span><span class="o">}</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="nb">endif</span><span class="p">()</span>
+<span class="nb">endmacro</span><span class="p">(</span><span class="s">check_sanitizer</span><span class="p">)</span>
+
+<span class="nb">function</span><span class="p">(</span><span class="s">enable_code_hardening</span><span class="p">)</span>
+    <span class="nb">option</span><span class="p">(</span><span class="s">CODE_HARDENING</span> <span class="s2">&quot;Enable/Disable secure code instrumentation.&quot;</span> <span class="s">OFF</span><span class="p">)</span>
+    <span class="nb">if</span><span class="p">(</span><span class="s">CMAKE_CXX_COMPILER_ID</span> <span class="s">STREQUAL</span> <span class="s2">&quot;Clang&quot;</span> <span class="s">AND</span> <span class="s">CODE_HARDENING</span><span class="p">)</span>
+<span class="c">#        add_definitions(-D_FORTIFY_SOURCE=2)</span>
+
+        <span class="nb">set</span><span class="p">(</span><span class="s">CompilerFlags</span> <span class="s">-fstack-protector</span>
+                          <span class="s">-flto</span> <span class="s">-fvisibility=default</span> <span class="s">-fsanitize=cfi</span>
+                          <span class="s">-fsanitize=safe-stack</span><span class="p">)</span>
+
+        <span class="c"># Use -fPIC and -fPIE for all targets by default, including static libs</span>
+        <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_POSITION_INDEPENDENT_CODE</span> <span class="s">ON</span> <span class="s">PARENT_SCOPE</span><span class="p">)</span>
+
+        <span class="c"># CMake doesn&#39;t add &quot;-pie&quot; by default for executables</span>
+        <span class="nb">set</span><span class="p">(</span><span class="s">LinkerFlags</span> <span class="s">-pie</span> <span class="s">-Wl,--strip-all</span>
+                        <span class="s">-Wl,-z,relro</span>
+                        <span class="s">-Wl,-z,now</span>
+                        <span class="s">-Wl,-z,nodlopen</span> <span class="s">-Wl,-z,nodump</span> <span class="s">-Wl,-z,noexecstack</span><span class="p">)</span>
+    <span class="nb">endif</span><span class="p">()</span>
+
+    <span class="nb">list2string</span><span class="p">(</span><span class="s">CompilerFlags</span> <span class="s2">&quot; &quot;</span> <span class="o">${</span><span class="nv">CompilerFlags</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_FLAGS</span> <span class="s2">&quot;${CMAKE_C_FLAGS} ${CompilerFlags}&quot;</span> <span class="s">PARENT_SCOPE</span><span class="p">)</span>
+    <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_FLAGS</span> <span class="s2">&quot;${CMAKE_CXX_FLAGS} ${CompilerFlags}&quot;</span> <span class="s">PARENT_SCOPE</span><span class="p">)</span>
+
+    <span class="nb">list2string</span><span class="p">(</span><span class="s">LinkerFlags</span> <span class="s2">&quot; &quot;</span> <span class="o">${</span><span class="nv">LinkerFlags</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_EXE_LINKER_FLAGS</span>
+        <span class="s2">&quot;${CMAKE_EXE_LINKER_FLAGS} ${LinkerFlags}&quot;</span> <span class="s">PARENT_SCOPE</span><span class="p">)</span>
+<span class="nb">endfunction</span><span class="p">(</span><span class="s">enable_code_hardening</span><span class="p">)</span>
+
+<span class="nb">function</span><span class="p">(</span><span class="s">check_compiler_settings</span> <span class="s">SANITIZER</span> <span class="s">COVERAGE</span><span class="p">)</span>
+    <span class="nb">if</span><span class="p">(</span><span class="s">CMAKE_CXX_COMPILER_ID</span> <span class="s">STREQUAL</span> <span class="s2">&quot;Clang&quot;</span><span class="p">)</span>
+        <span class="nb">set</span><span class="p">(</span><span class="s">Flags</span> <span class="s">-std=c++1z</span> <span class="s">-stdlib=libc++</span> <span class="s">-Werror</span> <span class="s">-Weverything</span>
+                  <span class="s">-Wno-c++98-compat</span> <span class="s">-Wno-c++98-compat-pedantic</span>
+<span class="c">#                  -Wno-format-nonliteral -Wno-unreachable-code</span>
+<span class="c">#                  -Wno-double-promotion -fno-exceptions</span>
+<span class="c">#                  -Wno-documentation-unknown-command</span>
+                  <span class="o">${</span><span class="nv">${COVERAGE</span><span class="o">}</span><span class="s">}</span> <span class="o">${</span><span class="nv">${SANITIZER</span><span class="o">}</span><span class="s">}</span><span class="p">)</span>
+    <span class="nb">endif</span><span class="p">()</span>
+
+    <span class="nb">list2string</span><span class="p">(</span><span class="s">Flags</span> <span class="s2">&quot; &quot;</span> <span class="o">${</span><span class="nv">Flags</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_FLAGS</span> <span class="s2">&quot;${CMAKE_C_FLAGS} ${Flags}&quot;</span> <span class="s">PARENT_SCOPE</span><span class="p">)</span>
+    <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_FLAGS</span> <span class="s2">&quot;${CMAKE_CXX_FLAGS} ${Flags}&quot;</span> <span class="s">PARENT_SCOPE</span><span class="p">)</span>
+
+    <span class="nb">if</span><span class="p">(</span><span class="s">MSVC</span><span class="p">)</span>
+        <span class="c"># Useless warnings</span>
+        <span class="nb">add_compile_options</span><span class="p">(</span><span class="s">/wd4138</span><span class="p">)</span>
+
+        <span class="c"># Disable warnings related to Eigen</span>
+        <span class="nb">add_compile_options</span><span class="p">(</span><span class="s">/wd4996</span><span class="p">)</span>
+
+        <span class="c"># OpenMesh requires this definition</span>
+        <span class="nb">add_definitions</span><span class="p">(</span><span class="s">-D_USE_MATH_DEFINES</span><span class="p">)</span>
+    <span class="nb">endif</span><span class="p">()</span>
+<span class="nb">endfunction</span><span class="p">(</span><span class="s">check_compiler_settings</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="check-coverage">
+<h3>check_coverage<a class="headerlink" href="#check-coverage" title="Permalink to this headline">¶</a></h3>
+<p>The proposed code coverage tool consists of <a class="reference external" href="http://llvm.org/docs/CommandGuide/llvm-cov.html">llvm-cov</a> and <a class="reference external" href="http://llvm.org/docs/CommandGuide/llvm-profdata.html">llvm-profdata</a>,
+which can be installed via</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install llvm
+</pre></div>
+</div>
+<p><strong class="program">llvm-cov</strong> also supports an output format put forth by <a class="reference external" href="https://gcc.gnu.org/onlinedocs/gcc/Gcov.html">gcov</a>, which
+in turn can be visualized by <a class="reference external" href="http://ltp.sourceforge.net/coverage/lcov.php">lcov</a>.  If one prefers to use these tools with
+<a class="reference external" href="https://clang.llvm.org/docs/SourceBasedCodeCoverage.html">clang</a>, then replace the existing
+<code class="code bash docutils literal notranslate"><span class="pre">-fprofile-instr-generate</span> <span class="pre">-fcoverage-mapping</span></code> with
+<code class="code bash docutils literal notranslate"><span class="pre">-fprofile-arcs</span> <span class="pre">-ftest-coverage</span></code>, which is equivalent to specifying
+<code class="code bash docutils literal notranslate"><span class="pre">--coverage</span></code>.</p>
+</div>
+<div class="section" id="check-sanitizer">
+<h3>check_sanitizer<a class="headerlink" href="#check-sanitizer" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://clang.llvm.org/docs/AddressSanitizer.html">ASan</a>, <a class="reference external" href="https://clang.llvm.org/docs/MemorySanitizer.html">MSan</a>, and <a class="reference external" href="https://clang.llvm.org/docs/ThreadSanitizer.html">TSan</a> are mutually exclusive and cannot be used
+together.  The proposed configuration enables <a class="reference external" href="https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html">UBSan</a> by default.  Note that
+<a class="reference external" href="https://clang.llvm.org/docs/LeakSanitizer.html">LSan</a> only works on Linux and is enabled by default when using <a class="reference external" href="https://clang.llvm.org/docs/AddressSanitizer.html">ASan</a>.
+Furthermore, MSan requires an <a class="reference external" href="https://github.com/google/sanitizers/wiki/MemorySanitizerLibcxxHowTo">instrumented C++ standard library</a>.</p>
+</div>
+<div class="section" id="enable-code-hardening">
+<h3>enable_code_hardening<a class="headerlink" href="#enable-code-hardening" title="Permalink to this headline">¶</a></h3>
+<p><em>_FORTIFY_SOURCE</em> is not supported by Clang at the moment.  <a class="reference external" href="https://clang.llvm.org/docs/SafeStack.html">SafeStack</a> is the
+only instrumentation that works out of the box.  The <a class="reference external" href="https://clang.llvm.org/docs/ControlFlowIntegrity.html">Control Flow Integrity</a>
+(CFI) sanitizer assumes the <a class="reference external" href="http://llvm.org/docs/GoldPlugin.html">LLVMgold plugin</a> is already installed e.g. via</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install llvm-5.0-dev
+</pre></div>
+</div>
+<p>The correct usage of CFI requires <code class="xref std std-option docutils literal notranslate"><span class="pre">-fvisibility=hidden</span></code>, but that will
+make the source code incompatible with MSVC.</p>
+<p>Enabling <a class="reference external" href="https://en.wikipedia.org/wiki/Address_space_layout_randomization">ASLR</a> requires <a class="reference external" href="https://gitlab.kitware.com/cmake/cmake/issues/14983#note_363197">hacking CMake a bit</a>.  To check whether the
+<a class="reference external" href="https://www.owasp.org/index.php/C-Based_Toolchain_Hardening">security hardening features</a> have been enabled, use <strong class="program">hardening-check</strong>
+to examine the ELF binary.  Unfortunately, these <a class="reference external" href="https://blog.quarkslab.com/clang-hardening-cheat-sheet.html">bare minimum features</a> are
+the only ones supported by Clang.</p>
+</div>
+</div>
+<div class="section" id="find-package">
+<h2>find_package<a class="headerlink" href="#find-package" title="Permalink to this headline">¶</a></h2>
+<p><code class="file docutils literal notranslate"><span class="pre">FindOpenGL.cmake</span></code> and <code class="file docutils literal notranslate"><span class="pre">FindEGL.cmake</span></code> are mandatory while
+<code class="file docutils literal notranslate"><span class="pre">FindGLEW.cmake</span></code> and <code class="file docutils literal notranslate"><span class="pre">FindGLFW.cmake</span></code> have become
+<a class="reference internal" href="../09/install-graphics-and-compute-linux-mint.html"><span class="doc">optional conveniences for OpenGL</span></a>.</p>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>The proposed <code class="file docutils literal notranslate"><span class="pre">docs</span></code> setup is no different from a
+<a class="reference internal" href="../14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html"><span class="doc">blog</span></a>.
+Two extra things to take care of are:</p>
+<ul>
+<li><p><code class="file docutils literal notranslate"><span class="pre">conf.py</span></code> should contain</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">primary_domain</span><span class="o">=</span><span class="s1">&#39;cpp&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">index.rst</span></code> should contain</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="gh">Indices and tables</span>
+<span class="gh">==================</span>
+
+<span class="m">*</span> <span class="na">:ref:</span><span class="nv">`genindex`</span>
+<span class="m">*</span> <span class="na">:ref:</span><span class="nv">`modindex`</span>
+<span class="m">*</span> <span class="na">:ref:</span><span class="nv">`search`</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>The reason behind this is to keep documentation separate from code.  Code
+comments do not count as documentation.  This separation enables full
+utilization of a <a class="reference external" href="http://www.sphinx-doc.org/en/1.5.1/domains.html">documentation tool</a> to design the artifact before writing any
+code.  Note that the mantra of self-documentating code is also applicable during
+this design phase.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">find_program</span><span class="p">(</span><span class="s">SPHINX_BUILD</span> <span class="s2">&quot;sphinx-build&quot;</span><span class="p">)</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">SPHINX_BUILD</span><span class="p">)</span>
+    <span class="nb">set</span><span class="p">(</span><span class="s">DocsSrcDir</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/docs</span><span class="p">)</span>
+    <span class="nb">set</span><span class="p">(</span><span class="s">DocsDstDir</span> <span class="o">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="o">}</span><span class="s">/docs</span><span class="p">)</span>
+
+    <span class="nb">add_custom_target</span><span class="p">(</span><span class="s">docs</span>
+                      <span class="s">COMMAND</span> <span class="o">${</span><span class="nv">SPHINX_BUILD</span><span class="o">}</span> <span class="s">-b</span> <span class="s">html</span>
+                              <span class="o">${</span><span class="nv">DocsSrcDir</span><span class="o">}</span> <span class="o">${</span><span class="nv">DocsDstDir</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">set_property</span><span class="p">(</span><span class="s">DIRECTORY</span> <span class="s">APPEND</span> <span class="s">PROPERTY</span>
+                 <span class="s">ADDITIONAL_MAKE_CLEAN_FILES</span> <span class="o">${</span><span class="nv">DocsDstDir</span><span class="o">}</span><span class="p">)</span>
+
+    <span class="nb">unset</span><span class="p">(</span><span class="s">DocsSrcDir</span><span class="p">)</span>
+    <span class="nb">unset</span><span class="p">(</span><span class="s">DocsDstDir</span><span class="p">)</span>
+<span class="nb">else</span><span class="p">()</span>
+    <span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;docs require sphinx-build.&quot;</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="code-coverage-and-tests">
+<h2>Code Coverage and Tests<a class="headerlink" href="#code-coverage-and-tests" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">find_program</span><span class="p">(</span><span class="s">COV</span> <span class="s">NAMES</span> <span class="s">llvm-cov-5.0</span> <span class="s">llvm-cov</span><span class="p">)</span>
+<span class="nb">find_program</span><span class="p">(</span><span class="s">PROFDATA</span> <span class="s">NAMES</span> <span class="s">llvm-profdata-5.0</span> <span class="s">llvm-profdata</span><span class="p">)</span>
+
+<span class="nb">if</span><span class="p">(</span><span class="s">CODE_COVERAGE</span> <span class="s">AND</span> <span class="s">COV</span> <span class="s">AND</span> <span class="s">PROFDATA</span><span class="p">)</span>
+    <span class="nb">add_custom_target</span><span class="p">(</span><span class="s">coverage</span><span class="p">)</span>
+<span class="nb">elseif</span><span class="p">(</span><span class="s">CODE_COVERAGE</span> <span class="s">AND</span> <span class="s">BUILD_TESTING</span><span class="p">)</span>
+    <span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Code coverage requires llvm-cov and llvm-profdata.&quot;</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="nb">function</span><span class="p">(</span><span class="s">define_coverage</span> <span class="s">MODULES</span><span class="p">)</span>
+    <span class="nb">set</span><span class="p">(</span><span class="s">CoverageResultsDir</span> <span class="o">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="o">}</span><span class="s">/coverage-results</span><span class="p">)</span>
+    <span class="nb">set</span><span class="p">(</span><span class="s">MergedCoverageData</span> <span class="s">merged-coverage.profdata</span><span class="p">)</span>
+
+    <span class="nb">if</span><span class="p">(</span><span class="s">CODE_COVERAGE</span> <span class="s">AND</span> <span class="s">COV</span> <span class="s">AND</span> <span class="s">PROFDATA</span><span class="p">)</span>
+        <span class="nb">foreach</span><span class="p">(</span><span class="s">module</span> <span class="o">${</span><span class="nv">${MODULES</span><span class="o">}</span><span class="s">}</span><span class="p">)</span>
+            <span class="nb">set</span><span class="p">(</span><span class="s">TargetLibraries</span> <span class="o">${</span><span class="nv">TargetLibraries</span><span class="o">}</span> <span class="o">$&lt;</span><span class="nv">TARGET_FILE:${module}</span><span class="o">&gt;</span><span class="p">)</span>
+        <span class="nb">endforeach</span><span class="p">()</span>
+        <span class="nb">list2string</span><span class="p">(</span><span class="s">TargetLibraries</span> <span class="s2">&quot;,&quot;</span> <span class="o">${</span><span class="nv">TargetLibraries</span><span class="o">}</span><span class="p">)</span>
+
+        <span class="nb">add_custom_command</span><span class="p">(</span><span class="s">TARGET</span> <span class="s">coverage</span> <span class="s">POST_BUILD</span>
+            <span class="s">COMMAND</span> <span class="o">${</span><span class="nv">CMAKE_COMMAND</span><span class="o">}</span>
+                    <span class="s">-D</span> <span class="s">COV=</span><span class="o">${</span><span class="nv">COV</span><span class="o">}</span>
+                    <span class="s">-D</span> <span class="s">PROFDATA=</span><span class="o">${</span><span class="nv">PROFDATA</span><span class="o">}</span>
+                    <span class="s">-D</span> <span class="s">ProfDataDir=</span><span class="o">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="o">}</span>
+                    <span class="s">-D</span> <span class="s">TargetLibraries=</span><span class="o">${</span><span class="nv">TargetLibraries</span><span class="o">}</span>
+                    <span class="s">-D</span> <span class="s">CoverageResultsDir=</span><span class="o">${</span><span class="nv">CoverageResultsDir</span><span class="o">}</span>
+                    <span class="s">-D</span> <span class="s">MergedCoverageData=</span><span class="o">${</span><span class="nv">MergedCoverageData</span><span class="o">}</span> <span class="s">-P</span>
+                    <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/cmake/coverage-report.cmake</span><span class="p">)</span>
+
+        <span class="nb">set_property</span><span class="p">(</span><span class="s">DIRECTORY</span> <span class="s">APPEND</span> <span class="s">PROPERTY</span> <span class="s">ADDITIONAL_MAKE_CLEAN_FILES</span>
+                     <span class="o">${</span><span class="nv">CoverageResultsDir</span><span class="o">}</span> <span class="o">${</span><span class="nv">MergedCoverageData</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">endif</span><span class="p">()</span>
+<span class="nb">endfunction</span><span class="p">(</span><span class="s">define_coverage</span><span class="p">)</span>
+
+<span class="nb">function</span><span class="p">(</span><span class="s">compile_test</span> <span class="s">MODULE_NAME</span> <span class="s">SOURCE</span> <span class="s">LIBS</span> <span class="s">EXTERNAL_LIBS</span><span class="p">)</span>
+    <span class="nb">if</span><span class="p">(</span><span class="s">BUILD_TESTING</span><span class="p">)</span>
+        <span class="nb">set</span><span class="p">(</span><span class="s">CoverageResultsDir</span> <span class="o">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="o">}</span><span class="s">/coverage-results</span><span class="p">)</span>
+
+        <span class="nb">set</span><span class="p">(</span><span class="s">test_binary</span> <span class="s">test-</span><span class="o">${</span><span class="nv">MODULE_NAME</span><span class="o">}</span><span class="p">)</span>
+        <span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">test_binary</span><span class="o">}</span> <span class="o">${</span><span class="nv">SOURCE</span><span class="o">}</span><span class="p">)</span>
+
+        <span class="nb">foreach</span><span class="p">(</span><span class="s">lib</span> <span class="o">${</span><span class="nv">LIBS</span><span class="o">}</span><span class="p">)</span>
+            <span class="nb">add_dependencies</span><span class="p">(</span><span class="o">${</span><span class="nv">test_binary</span><span class="o">}</span> <span class="o">${</span><span class="nv">lib</span><span class="o">}</span><span class="p">)</span>
+            <span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">test_binary</span><span class="o">}</span> <span class="o">${</span><span class="nv">lib</span><span class="o">}</span><span class="p">)</span>
+        <span class="nb">endforeach</span><span class="p">()</span>
+
+        <span class="nb">foreach</span><span class="p">(</span><span class="s">lib</span> <span class="o">${</span><span class="nv">EXTERNAL_LIBS</span><span class="o">}</span><span class="p">)</span>
+            <span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">test_binary</span><span class="o">}</span> <span class="o">${</span><span class="nv">lib</span><span class="o">}</span><span class="p">)</span>
+        <span class="nb">endforeach</span><span class="p">()</span>
+
+        <span class="nb">add_test</span><span class="p">(</span><span class="s">NAME</span> <span class="s2">&quot;${MODULE_NAME}&quot;</span>
+                 <span class="s">WORKING_DIRECTORY</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/resources</span>
+                 <span class="s">COMMAND</span> <span class="o">${</span><span class="nv">test_binary</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">endif</span><span class="p">()</span>
+
+    <span class="nb">if</span><span class="p">(</span><span class="s">BUILD_TESTING</span> <span class="s">AND</span> <span class="s">CODE_COVERAGE</span> <span class="s">AND</span> <span class="s">COV</span> <span class="s">AND</span> <span class="s">PROFDATA</span><span class="p">)</span>
+        <span class="nb">set</span><span class="p">(</span><span class="s">raw_profile</span> <span class="o">${</span><span class="nv">CMAKE_CURRENT_BINARY_DIR</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">test_binary</span><span class="o">}</span><span class="s">.profraw</span><span class="p">)</span>
+        <span class="nb">set</span><span class="p">(</span><span class="s">prof_data</span> <span class="o">${</span><span class="nv">CMAKE_CURRENT_BINARY_DIR</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">test_binary</span><span class="o">}</span><span class="s">.profdata</span><span class="p">)</span>
+
+        <span class="nb">target_compile_options</span><span class="p">(</span><span class="o">${</span><span class="nv">test_binary</span><span class="o">}</span> <span class="s">PRIVATE</span>
+            <span class="s">-fprofile-instr-generate=</span><span class="o">${</span><span class="nv">raw_profile</span><span class="o">}</span><span class="p">)</span>
+
+        <span class="nb">foreach</span><span class="p">(</span><span class="s">lib</span> <span class="o">${</span><span class="nv">LIBS</span><span class="o">}</span><span class="p">)</span>
+            <span class="nb">set</span><span class="p">(</span><span class="s">BINS</span> <span class="o">${</span><span class="nv">BINS</span><span class="o">}</span> <span class="o">$&lt;</span><span class="nv">TARGET_FILE:${lib}</span><span class="o">&gt;</span><span class="p">)</span>
+        <span class="nb">endforeach</span><span class="p">()</span>
+ 
+        <span class="nb">add_custom_command</span><span class="p">(</span><span class="s">TARGET</span> <span class="o">${</span><span class="nv">test_binary</span><span class="o">}</span> <span class="s">POST_BUILD</span>
+            <span class="s">WORKING_DIRECTORY</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/resources</span>
+            <span class="s">COMMAND</span> <span class="o">${</span><span class="nv">test_binary</span><span class="o">}</span>
+            <span class="s">COMMAND</span> <span class="o">${</span><span class="nv">PROFDATA</span><span class="o">}</span> <span class="s">merge</span> <span class="s">-sparse</span> <span class="s">-o</span> <span class="o">${</span><span class="nv">prof_data</span><span class="o">}</span> <span class="o">${</span><span class="nv">raw_profile</span><span class="o">}</span>
+            <span class="s">COMMAND</span> <span class="o">${</span><span class="nv">COV</span><span class="o">}</span> <span class="s">show</span> <span class="s">-format=html</span>
+                        <span class="s">-instr-profile=</span><span class="o">${</span><span class="nv">prof_data</span><span class="o">}</span> <span class="s">-object</span> <span class="o">${</span><span class="nv">BINS</span><span class="o">}</span>
+                        <span class="s">-output-dir=</span><span class="o">${</span><span class="nv">CoverageResultsDir</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">MODULE_NAME</span><span class="o">}</span><span class="p">)</span>
+        <span class="nb">add_dependencies</span><span class="p">(</span><span class="s">coverage</span> <span class="o">${</span><span class="nv">test_binary</span><span class="o">}</span><span class="p">)</span>
+
+        <span class="nb">set_property</span><span class="p">(</span><span class="s">DIRECTORY</span> <span class="s">APPEND</span> <span class="s">PROPERTY</span>
+             <span class="s">ADDITIONAL_MAKE_CLEAN_FILES</span> <span class="o">${</span><span class="nv">raw_profile</span><span class="o">}</span> <span class="o">${</span><span class="nv">prof_data</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">endif</span><span class="p">()</span>
+<span class="nb">endfunction</span><span class="p">(</span><span class="s">compile_test</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Since <a class="reference internal" href="../24/profiling-on-linux.html"><span class="doc">performance analysis tools</span></a>
+are orthogonal to code coverage and tests, it will not be included in the build
+system.</p>
+<div class="section" id="define-coverage">
+<h3>define_coverage<a class="headerlink" href="#define-coverage" title="Permalink to this headline">¶</a></h3>
+<p>This will compile the total code coverage over the specified library modules
+via <code class="file docutils literal notranslate"><span class="pre">coverage-report.cmake</span></code>.  The script invocation is needed in order to
+glob all the individual coverage reports.  Note that <code class="file docutils literal notranslate"><span class="pre">default.profraw</span></code> is
+the default file name unless <code class="code bash docutils literal notranslate"><span class="name variable"><span class="pre">LLVM_PROFILE_FILE</span></span><span class="operator"><span class="pre">=</span></span><span class="literal string double"><span class="pre">”&lt;name&gt;.profraw”</span></span></code> or
+<code class="code bash docutils literal notranslate"><span class="pre">-fprofile-instr-generate</span><span class="operator"><span class="pre">=</span></span><span class="pre">&lt;name&gt;.profraw</span></code> is specified.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">file</span><span class="p">(</span><span class="s">REMOVE</span> <span class="o">${</span><span class="nv">MergedCoverageData</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">file</span><span class="p">(</span><span class="s">GLOB_RECURSE</span> <span class="s">IndexedProfiles</span> <span class="o">${</span><span class="nv">ProfDataDir</span><span class="o">}</span><span class="s">/*.profdata</span><span class="p">)</span>
+
+<span class="nb">execute_process</span><span class="p">(</span><span class="s">COMMAND</span> <span class="o">${</span><span class="nv">PROFDATA</span><span class="o">}</span> <span class="s">merge</span> <span class="s">-sparse</span> <span class="o">${</span><span class="nv">IndexedProfiles</span><span class="o">}</span>
+                <span class="s">-o</span> <span class="o">${</span><span class="nv">MergedCoverageData</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">execute_process</span><span class="p">(</span><span class="s">COMMAND</span> <span class="o">${</span><span class="nv">COV</span><span class="o">}</span> <span class="s">show</span>
+                <span class="s">-instr-profile</span> <span class="o">${</span><span class="nv">MergedCoverageData</span><span class="o">}</span> <span class="s">-object</span> <span class="o">${</span><span class="nv">TargetLibraries</span><span class="o">}</span>
+                <span class="s">-format=html</span> <span class="s">-output-dir=</span><span class="o">${</span><span class="nv">CoverageResultsDir</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="compile-tests">
+<h3>compile_tests<a class="headerlink" href="#compile-tests" title="Permalink to this headline">¶</a></h3>
+<p>This will make the tests, possibly with code coverage instrumentation.  The
+test source code are embedded in the <a class="reference external" href="https://github.com/onqtam/doctest">doctest</a> framework.</p>
+</div>
+</div>
+<div class="section" id="clangformat">
+<h2>ClangFormat<a class="headerlink" href="#clangformat" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://clang.llvm.org/docs/ClangFormat.html">clang-format</a> is a tool that will automatically format C/C++/Java/JavaScript
+code.  One should avoid globbing files because new files will not be added to
+the existing glob.  The solution to recompute the glob is
+<code class="code bash docutils literal notranslate"><span class="pre">touch_nocreate</span></code>.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">file</span><span class="p">(</span><span class="s">GLOB_RECURSE</span> <span class="s">CxxIncludeFiles</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/include/*.[ch]pp</span><span class="p">)</span>
+<span class="nb">file</span><span class="p">(</span><span class="s">GLOB_RECURSE</span> <span class="s">CxxSourceFiles</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/*.[ch]pp</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">AllCxxSourceFiles</span> <span class="o">${</span><span class="nv">CxxIncludeFiles</span><span class="o">}</span> <span class="o">${</span><span class="nv">CxxSourceFiles</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">find_program</span><span class="p">(</span><span class="s">CLANG_FORMAT</span> <span class="s">NAMES</span> <span class="s">clang-format-5.0</span> <span class="s">clang-format</span><span class="p">)</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">CLANG_FORMAT</span><span class="p">)</span>
+    <span class="nb">add_custom_target</span><span class="p">(</span><span class="s">format-cpp</span>
+                      <span class="s">COMMAND</span> <span class="o">${</span><span class="nv">CMAKE_COMMAND</span><span class="o">}</span> <span class="s">-E</span> <span class="s">touch_nocreate</span>
+                              <span class="o">${</span><span class="nv">CMAKE_CURRENT_LIST_FILE</span><span class="o">}</span>
+                      <span class="s">COMMAND</span> <span class="o">${</span><span class="nv">CLANG_FORMAT</span><span class="o">}</span> <span class="s">-i</span> <span class="s">-style=google</span>
+                              <span class="o">${</span><span class="nv">AllCxxSourceFiles</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">else</span><span class="p">()</span>
+    <span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;format-cpp requires clang-format.&quot;</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="nb">unset</span><span class="p">(</span><span class="s">AllCxxSourceFiles</span><span class="p">)</span>
+<span class="nb">unset</span><span class="p">(</span><span class="s">CxxIncludeFiles</span><span class="p">)</span>
+<span class="nb">unset</span><span class="p">(</span><span class="s">CxxSourceFiles</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="glsl">
+<h2>GLSL<a class="headerlink" href="#glsl" title="Permalink to this headline">¶</a></h2>
+<p>Since <a class="reference external" href="https://en.wikipedia.org/wiki/OpenGL_Shading_Language">GLSL</a> is C-like, one can use <a class="reference external" href="https://clang.llvm.org/docs/ClangFormat.html">clang-format</a> to enforce a coding style.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="s">SrcDir</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/resources</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">DstDir</span> <span class="o">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="o">}</span><span class="s">/resources</span><span class="p">)</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">ShaderSrcDir</span> <span class="o">${</span><span class="nv">SrcDir</span><span class="o">}</span><span class="s">/shaders</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">ShaderDstDir</span> <span class="o">${</span><span class="nv">DstDir</span><span class="o">}</span><span class="s">/shaders</span><span class="p">)</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">PreprocessorScript</span> <span class="o">${</span><span class="nv">SrcDir</span><span class="o">}</span><span class="s">/scripts/cpp_include_directive.py</span><span class="p">)</span>
+
+<span class="nb">find_program</span><span class="p">(</span><span class="s">CLANG_FORMAT</span> <span class="s2">&quot;clang-format&quot;</span><span class="p">)</span>
+<span class="nb">find_program</span><span class="p">(</span><span class="s">PYTHON3</span> <span class="s2">&quot;python3&quot;</span><span class="p">)</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">CLANG_FORMAT</span> <span class="s">AND</span> <span class="s">PYTHON3</span><span class="p">)</span>
+    <span class="nb">add_custom_target</span><span class="p">(</span><span class="s">glsl</span>
+                      <span class="s">COMMAND</span> <span class="o">${</span><span class="nv">CMAKE_COMMAND</span><span class="o">}</span>
+                              <span class="s">-D</span> <span class="s">CLANG_FORMAT=</span><span class="o">${</span><span class="nv">CLANG_FORMAT</span><span class="o">}</span>
+                              <span class="s">-D</span> <span class="s">ShaderSrcDir=</span><span class="o">${</span><span class="nv">ShaderSrcDir</span><span class="o">}</span>
+                              <span class="s">-D</span> <span class="s">ShaderDstDir=</span><span class="o">${</span><span class="nv">ShaderDstDir</span><span class="o">}</span>
+                              <span class="s">-D</span> <span class="s">PreprocessorScript=</span><span class="o">${</span><span class="nv">PreprocessorScript</span><span class="o">}</span>
+                              <span class="s">-D</span> <span class="s">PYTHON3=</span><span class="o">${</span><span class="nv">PYTHON3</span><span class="o">}</span> <span class="s">-P</span>
+                              <span class="o">${</span><span class="nv">CMAKE_CURRENT_LIST_DIR</span><span class="o">}</span><span class="s">/glsl-make-shaders.cmake</span><span class="p">)</span>
+    <span class="nb">set_property</span><span class="p">(</span><span class="s">DIRECTORY</span> <span class="s">APPEND</span> <span class="s">PROPERTY</span>
+                 <span class="s">ADDITIONAL_MAKE_CLEAN_FILES</span> <span class="o">${</span><span class="nv">ShaderDstDir</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">else</span><span class="p">()</span>
+    <span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;glsl requires clang-format and python3.&quot;</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="nb">unset</span><span class="p">(</span><span class="s">SrcDir</span><span class="p">)</span>
+<span class="nb">unset</span><span class="p">(</span><span class="s">DstDir</span><span class="p">)</span>
+<span class="nb">unset</span><span class="p">(</span><span class="s">ShaderSrcDir</span><span class="p">)</span>
+<span class="nb">unset</span><span class="p">(</span><span class="s">ShaderDstDir</span><span class="p">)</span>
+<span class="nb">unset</span><span class="p">(</span><span class="s">PreprocessorScript</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Once again, invoking the script <code class="file docutils literal notranslate"><span class="pre">glsl-make-shaders.cmake</span></code> is needed to
+glob all the individual shaders.  The current setup does not search for files
+with a <code class="file docutils literal notranslate"><span class="pre">.glsl</span></code> extension.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">file</span><span class="p">(</span><span class="s">REMOVE_RECURSE</span> <span class="o">${</span><span class="nv">ShaderDstDir</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">file</span><span class="p">(</span><span class="s">GLOB_RECURSE</span> <span class="s">ShaderFiles</span> <span class="o">${</span><span class="nv">ShaderSrcDir</span><span class="o">}</span><span class="s">/*</span><span class="p">)</span>
+
+<span class="nb">if</span><span class="p">(</span><span class="o">${</span><span class="nv">ShaderFiles</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">execute_process</span><span class="p">(</span><span class="s">COMMAND</span> <span class="o">${</span><span class="nv">CLANG_FORMAT</span><span class="o">}</span> <span class="s">-i</span> <span class="s">-style=google</span> <span class="o">${</span><span class="nv">ShaderFiles</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">ComputeShaderExt</span> <span class="s">comp</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">VertexShaderExt</span> <span class="s">vert</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">TessellationControlShaderExt</span> <span class="s">tesc</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">TessellationEvaluationShaderExt</span> <span class="s">tese</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">GeometryShaderExt</span> <span class="s">geom</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">FragmentShaderExt</span> <span class="s">frag</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">AllShaderExtensions</span>
+    <span class="o">${</span><span class="nv">ComputeShaderExt</span><span class="o">}</span>
+    <span class="o">${</span><span class="nv">VertexShaderExt</span><span class="o">}</span>
+    <span class="o">${</span><span class="nv">TessellationControlShaderExt</span><span class="o">}</span> <span class="o">${</span><span class="nv">TessellationEvaluationShaderExt</span><span class="o">}</span>
+    <span class="o">${</span><span class="nv">GeometryShaderExt</span><span class="o">}</span>
+    <span class="o">${</span><span class="nv">FragmentShaderExt</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">foreach</span><span class="p">(</span><span class="s">ext</span> <span class="o">${</span><span class="nv">AllShaderExtensions</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">file</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">glob</span> <span class="o">${</span><span class="nv">ShaderSrcDir</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">ext</span><span class="o">}</span><span class="s">/*.</span><span class="o">${</span><span class="nv">ext</span><span class="o">}</span><span class="p">)</span>
+
+    <span class="nb">file</span><span class="p">(</span><span class="s">MAKE_DIRECTORY</span> <span class="o">${</span><span class="nv">ShaderDstDir</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">ext</span><span class="o">}</span><span class="p">)</span>
+
+    <span class="nb">foreach</span><span class="p">(</span><span class="s">shader</span> <span class="o">${</span><span class="nv">glob</span><span class="o">}</span><span class="p">)</span>
+        <span class="nb">get_filename_component</span><span class="p">(</span><span class="s">file_name</span> <span class="o">${</span><span class="nv">shader</span><span class="o">}</span> <span class="s">NAME</span><span class="p">)</span>
+        <span class="nb">execute_process</span><span class="p">(</span><span class="s">COMMAND</span> <span class="o">${</span><span class="nv">PYTHON3</span><span class="o">}</span> <span class="o">${</span><span class="nv">PreprocessorScript</span><span class="o">}</span>
+                        <span class="o">${</span><span class="nv">shader</span><span class="o">}</span> <span class="o">${</span><span class="nv">ShaderDstDir</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">ext</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">file_name</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">endforeach</span><span class="p">()</span>
+<span class="nb">endforeach</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/OpenGL_Shading_Language">GLSL</a> does not support the include preprocessor directive, but it’s quite easy
+to implement one in Python.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Implements the include directive of cpp.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+
+
+<span class="k">def</span> <span class="nf">find_first_match</span><span class="p">(</span><span class="n">idirs</span><span class="p">,</span> <span class="n">ifile</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the first file that matches or None.&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">idir</span> <span class="ow">in</span> <span class="n">idirs</span><span class="p">:</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">idir</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="n">ifile</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">_</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="kc">None</span>
+
+
+<span class="k">def</span> <span class="nf">process_include</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">infile</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Recursively process include directive.&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">infile</span><span class="p">:</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">_</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#include&#39;</span><span class="p">):</span>
+            <span class="n">include_file</span> <span class="o">=</span> <span class="n">_</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">include_file</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;&lt;&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">include_file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;&gt;&#39;</span><span class="p">):</span>
+                <span class="c1"># do not search in local file directory</span>
+                <span class="n">include_dirs</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">include_dirs</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># search local file directory first</span>
+                <span class="n">_</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">infile</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">resolve</span><span class="p">()),</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">infile</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">resolve</span><span class="p">())]</span>
+                <span class="n">include_dirs</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">include_dirs</span> <span class="o">+</span> <span class="n">_</span>
+
+            <span class="c1"># remove &lt;&gt; and &quot;&quot;</span>
+            <span class="n">include_file</span> <span class="o">=</span> <span class="n">include_file</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="n">match</span> <span class="o">=</span> <span class="n">find_first_match</span><span class="p">(</span><span class="n">include_dirs</span><span class="p">,</span> <span class="n">include_file</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">match</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">_</span> <span class="o">=</span> <span class="s1">&#39;Cannot find </span><span class="si">{}</span><span class="s1"> while searching in </span><span class="si">{}</span><span class="s1">.&#39;</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">include_file</span><span class="p">,</span> <span class="n">include_dirs</span><span class="p">))</span>
+                <span class="k">continue</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Including </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">match</span><span class="p">))</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">match</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">match_infile</span><span class="p">:</span>
+                <span class="n">process_include</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">match_infile</span><span class="p">)</span>
+            <span class="n">args</span><span class="o">.</span><span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">args</span><span class="o">.</span><span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Imitate cpp include directive.&quot;&quot;&quot;</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">main</span><span class="o">.</span><span class="vm">__doc__</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">_</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;infile&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">FileType</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">),</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;input to run preprocessor on&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;outfile&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">FileType</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">),</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;destination to store generated outputs&#39;</span><span class="p">)</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="s1">&#39;directories to be searched for include directive&#39;</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-I&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;include_dirs&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                        <span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">help</span><span class="o">=</span><span class="n">_</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">process_include</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">infile</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="c-lint">
+<h2>C++ Lint<a class="headerlink" href="#c-lint" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/google/styleguide/tree/gh-pages/cpplint">cpplint</a> is an additional set of style checks that one can apply after
+<a class="reference external" href="https://clang.llvm.org/docs/ClangFormat.html">clang-format</a>.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="s">StyleLinter</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/third-party/cpplint.py</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">Filters</span> <span class="s">-legal/copyright</span>
+            <span class="s">-build/c++11</span><span class="p">)</span>
+<span class="nb">list2string</span><span class="p">(</span><span class="s">Filters</span> <span class="s2">&quot;,&quot;</span> <span class="o">${</span><span class="nv">Filters</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">CxxIncludeDir</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/include</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CxxSourceDir</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src</span><span class="p">)</span>
+
+<span class="nb">find_program</span><span class="p">(</span><span class="s">PYTHON3</span> <span class="s2">&quot;python3&quot;</span><span class="p">)</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">PYTHON3</span><span class="p">)</span>
+    <span class="nb">add_custom_target</span><span class="p">(</span><span class="s">lint-cpp-style</span>
+                      <span class="s">COMMAND</span> <span class="o">${</span><span class="nv">PYTHON3</span><span class="o">}</span> <span class="o">${</span><span class="nv">StyleLinter</span><span class="o">}</span>
+                              <span class="s">--filter=</span><span class="o">${</span><span class="nv">Filters</span><span class="o">}</span>
+                              <span class="s">--root=</span><span class="o">${</span><span class="nv">CxxIncludeDir</span><span class="o">}</span>
+                              <span class="s">--recursive</span> <span class="o">${</span><span class="nv">CxxIncludeDir</span><span class="o">}</span>
+                      <span class="s">COMMAND</span> <span class="o">${</span><span class="nv">PYTHON3</span><span class="o">}</span> <span class="o">${</span><span class="nv">StyleLinter</span><span class="o">}</span>
+                              <span class="s">--filter=</span><span class="o">${</span><span class="nv">Filters</span><span class="o">}</span>
+                              <span class="s">--root=</span><span class="o">${</span><span class="nv">CxxSourceDir</span><span class="o">}</span>
+                              <span class="s">--recursive</span> <span class="o">${</span><span class="nv">CxxSourceDir</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">else</span><span class="p">()</span>
+    <span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;lint-cpp-style style checker requires python3.&quot;</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="nb">unset</span><span class="p">(</span><span class="s">StyleLinter</span><span class="p">)</span>
+<span class="nb">unset</span><span class="p">(</span><span class="s">Filters</span><span class="p">)</span>
+<span class="nb">unset</span><span class="p">(</span><span class="s">CxxIncludeDir</span><span class="p">)</span>
+<span class="nb">unset</span><span class="p">(</span><span class="s">CxxSourceDir</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="python-lint">
+<h2>Python Lint<a class="headerlink" href="#python-lint" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/PyCQA/pycodestyle">pycodestyle</a> and <a class="reference external" href="https://github.com/PyCQA/pydocstyle">pydocstyle</a> are mandatory when coding in Python.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="s">ScriptsDir</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/resources/scripts</span><span class="p">)</span>
+
+<span class="nb">find_program</span><span class="p">(</span><span class="s">PY_CODE_STYLE</span> <span class="s2">&quot;pycodestyle&quot;</span> <span class="s">DOC</span> <span class="s2">&quot;PEP 8 Style Checker&quot;</span><span class="p">)</span>
+<span class="nb">find_program</span><span class="p">(</span><span class="s">PY_DOC_STYLE</span> <span class="s2">&quot;pydocstyle&quot;</span> <span class="s">DOC</span> <span class="s2">&quot;PEP 257 Style Checker&quot;</span><span class="p">)</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">PY_CODE_STYLE</span> <span class="s">AND</span> <span class="s">PY_DOC_STYLE</span><span class="p">)</span>
+    <span class="nb">add_custom_target</span><span class="p">(</span><span class="s">lint-python-style</span>
+                      <span class="s">COMMAND</span> <span class="o">${</span><span class="nv">PY_CODE_STYLE</span><span class="o">}</span> <span class="o">${</span><span class="nv">ScriptsDir</span><span class="o">}</span>
+                      <span class="s">COMMAND</span> <span class="o">${</span><span class="nv">PY_DOC_STYLE</span><span class="o">}</span> <span class="o">${</span><span class="nv">ScriptsDir</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">else</span><span class="p">()</span>
+    <span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;lint-python-style requires pycodestyle and pydocstyle.&quot;</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="nb">unset</span><span class="p">(</span><span class="s">ScriptsDir</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="clangtidy">
+<h2>ClangTidy<a class="headerlink" href="#clangtidy" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://clang-analyzer.llvm.org/">Clang Static Analyzer</a> tries to find bugs without executing the program.  It
+can be invoked via <code class="code bash docutils literal notranslate"><span class="pre">clang</span> <span class="pre">--analyze</span></code> or the <a class="reference external" href="https://clang-analyzer.llvm.org/scan-build.html">scan-build</a> script.
+The former runs the static analyzer and generates text reports.  The latter has
+the option to generate a nice looking html report.</p>
+<p><a class="reference external" href="http://clang.llvm.org/extra/clang-tidy/">clang-tidy</a> is a front end to <a class="reference external" href="https://clang-analyzer.llvm.org/scan-build.html">scan-build</a>.  Note that a
+<a class="reference external" href="http://clang.llvm.org/extra/clang-tidy/#choosing-the-right-place-for-your-check">static analyzer check is different from a clang-tidy check</a>; it just so
+happens that <a class="reference external" href="http://clang.llvm.org/extra/clang-tidy/">clang-tidy</a> implements the default suite of static analyzer
+checks.  A custom clang-tidy check should be implemented using <a class="reference external" href="http://clang.llvm.org/docs/ClangCheck.html">clang-check</a>.</p>
+<p>Prefer <code class="code bash docutils literal notranslate"><span class="pre">run-clang-tidy-5.0.py</span></code> to <code class="code bash docutils literal notranslate"><span class="pre">clang-tidy-5.0</span></code> because the
+former will use multithreading while the latter is single-threaded.  The
+following uses a modified version that accepts line filters, which can be
+generated using <code class="file docutils literal notranslate"><span class="pre">clang_tidy_suppression.py</span></code>.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">if</span><span class="p">(</span><span class="s">CMAKE_BUILD_TYPE</span> <span class="s">STREQUAL</span> <span class="s2">&quot;Debug&quot;</span><span class="p">)</span>
+    <span class="nb">set</span><span class="p">(</span><span class="s">TidyChecks</span> <span class="s">-google-readability-namespace-comments</span>
+                   <span class="s">-cppcoreguidelines-pro-type-reinterpret-cast</span>
+                   <span class="s">-cppcoreguidelines-pro-bounds-pointer-arithmetic</span>
+                   <span class="s">-cppcoreguidelines-pro-bounds-array-to-pointer-decay</span>
+                   <span class="s">-cppcoreguidelines-pro-bounds-constant-array-index</span><span class="p">)</span>
+<span class="nb">else</span><span class="p">()</span>
+    <span class="nb">set</span><span class="p">(</span><span class="s">TidyChecks</span> <span class="s">-google-readability-namespace-comments</span>
+                   <span class="s">-cppcoreguidelines-pro-bounds-pointer-arithmetic</span>
+                   <span class="s">-cppcoreguidelines-pro-bounds-array-to-pointer-decay</span>
+                   <span class="s">-cppcoreguidelines-pro-bounds-constant-array-index</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="nb">list2string</span><span class="p">(</span><span class="s">ClangTidyChecks</span> <span class="s2">&quot;,&quot;</span> <span class="o">${</span><span class="nv">TidyChecks</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">find_program</span><span class="p">(</span><span class="s">CLANG_TIDY</span> <span class="s">NAMES</span> <span class="s">run-clang-tidy.py</span>
+             <span class="s">PATHS</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/third-party</span>
+                   <span class="s">/usr/bin</span><span class="p">)</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">CLANG_TIDY</span><span class="p">)</span>
+    <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_EXPORT_COMPILE_COMMANDS</span> <span class="s">ON</span><span class="p">)</span>
+    <span class="nb">file</span><span class="p">(</span><span class="s">READ</span> <span class="o">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="o">}</span><span class="s">/line_filter.json</span> <span class="s">LineFilter</span><span class="p">)</span>
+    <span class="nb">add_custom_target</span><span class="p">(</span><span class="s">tidy-cpp</span>
+                      <span class="s">WORKING_DIRECTORY</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span>
+                      <span class="s">COMMAND</span> <span class="o">${</span><span class="nv">CLANG_TIDY</span><span class="o">}</span>
+                              <span class="s">-p</span> <span class="o">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="o">}</span>
+                              <span class="s">-header-filter=</span><span class="s2">&quot;^${PROJECT_SOURCE_DIR}/include&quot;</span>
+                              <span class="s">-checks=*,-*llvm*,</span><span class="o">${</span><span class="nv">ClangTidyChecks</span><span class="o">}</span>
+                              <span class="s">-line-filter=</span><span class="o">${</span><span class="nv">LineFilter</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">else</span><span class="p">()</span>
+    <span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;tidy-cpp requires clang-tidy.&quot;</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="source-code-organization">
+<h2>Source Code Organization<a class="headerlink" href="#source-code-organization" title="Permalink to this headline">¶</a></h2>
+<p>The current layout is arbitrary and is merely one way to decompose a system into
+subsystems.</p>
+<p><code class="file docutils literal notranslate"><span class="pre">src/CMakeLists.txt</span></code> determines the overall system decomposition.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="s">ModuleName</span> <span class="s">system</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">Libs</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">ExternalLibs</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">add_subdirectory</span><span class="p">(</span><span class="o">${</span><span class="nv">ModuleName</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">list</span><span class="p">(</span><span class="s">APPEND</span> <span class="s">Modules</span> <span class="o">${</span><span class="nv">ModuleName</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">ModuleName</span> <span class="s">dgp</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">Libs</span> <span class="s">system</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">ExternalLibs</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">add_subdirectory</span><span class="p">(</span><span class="o">${</span><span class="nv">ModuleName</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">list</span><span class="p">(</span><span class="s">APPEND</span> <span class="s">Modules</span> <span class="o">${</span><span class="nv">ModuleName</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">PROJECT_LIBRARIES</span> <span class="o">${</span><span class="nv">Modules</span><span class="o">}</span> <span class="s">PARENT_SCOPE</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="file docutils literal notranslate"><span class="pre">src/system/CMakeLists.txt</span></code> generates the subsystem and the corresponding
+tests, both of which could depend on other subsystems.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="s">LocalSource</span>  <span class="s">clock.cpp</span>
+                 <span class="s">log.cpp</span><span class="p">)</span>
+
+<span class="nb">add_library</span><span class="p">(</span><span class="o">${</span><span class="nv">ModuleName</span><span class="o">}</span> <span class="o">${</span><span class="nv">LocalSource</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">set_target_properties</span><span class="p">(</span><span class="o">${</span><span class="nv">ModuleName</span><span class="o">}</span> <span class="s">PROPERTIES</span> <span class="s">DEBUG_POSTFIX</span> <span class="s2">&quot;d&quot;</span><span class="p">)</span>
+
+<span class="nb">foreach</span><span class="p">(</span><span class="s">lib</span> <span class="o">${</span><span class="nv">Libs</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">add_dependencies</span><span class="p">(</span><span class="o">${</span><span class="nv">ModuleName</span><span class="o">}</span> <span class="o">${</span><span class="nv">lib</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">ModuleName</span><span class="o">}</span> <span class="o">${</span><span class="nv">lib</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">endforeach</span><span class="p">()</span>
+
+<span class="nb">foreach</span><span class="p">(</span><span class="s">lib</span> <span class="o">${</span><span class="nv">ExternalLibs</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">ModuleName</span><span class="o">}</span> <span class="o">${</span><span class="nv">lib</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">endforeach</span><span class="p">()</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">LocalTestSource</span> <span class="s">tests/main.cpp</span>
+                    <span class="s">tests/clock.cpp</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">Libs</span> <span class="o">${</span><span class="nv">Libs</span><span class="o">}</span> <span class="o">${</span><span class="nv">ModuleName</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">compile_test</span><span class="p">(</span><span class="s2">&quot;${ModuleName}&quot;</span> <span class="s2">&quot;${LocalTestSource}&quot;</span> <span class="s2">&quot;${Libs}&quot;</span> <span class="s2">&quot;${ExternalLibs}&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/blog/2013/01/11/set-up-system-programming-environment.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

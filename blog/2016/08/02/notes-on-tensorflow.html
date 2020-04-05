@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Notes on TensorFlow &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="TensorFlow, TensorBoard, and Docker" href="../01/tensorflow-tensorboard-and-docker.html" />
+    <link rel="prev" title="The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings" href="../../09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Notes on TensorFlow</a><ul>
+<li><a class="reference internal" href="#raw-data-to-tfrecords">Raw Data to TFRecords</a></li>
+<li><a class="reference internal" href="#processing-tfrecords">Processing TFRecords</a></li>
+<li><a class="reference internal" href="#modular-network-architecture">Modular Network Architecture</a></li>
+<li><a class="reference internal" href="#tuning-hyperparameters">Tuning Hyperparameters</a></li>
+<li><a class="reference internal" href="#monitor-training-session">Monitor Training Session</a></li>
+<li><a class="reference internal" href="#transfer-learning">Transfer Learning</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../../09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html" title="Previous Chapter: The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; The Experimen...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../01/tensorflow-tensorboard-and-docker.html" title="Next Chapter: TensorFlow, TensorBoard, and Docker"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">TensorFlow, T... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="notes-on-tensorflow">
+<h1>Notes on TensorFlow<a class="headerlink" href="#notes-on-tensorflow" title="Permalink to this headline">¶</a></h1>
+<p>After <a class="reference internal" href="../01/tensorflow-tensorboard-and-docker.html"><span class="doc">getting TensorFlow up and running</span></a>,
+one would expect the <a class="reference external" href="https://www.tensorflow.org/get_started/">Getting Started</a> and <a class="reference external" href="https://www.tensorflow.org/programmers_guide/">Programmer’s Guide</a> would be
+enough to start cranking out results.  Unfortunately, those expositions are only
+meant to be overview.  These notes are based on the
+<a class="reference external" href="https://www.tensorflow.org/tutorials/deep_cnn">Convolutional Neural Networks Tutorial</a> specifically the
+<a class="reference external" href="https://github.com/tensorflow/models/tree/master/tutorials/image/cifar10_estimator">cifar10 estimator source code</a>, which uses functionalities available in
+<a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/contrib">tf.contrib</a> that are volatile or experimental.  If any of this seems too
+complicated, it is.  The solution is <a class="reference external" href="http://pytorch.org/">PyTorch</a>.  Alternative solutions like
+<a class="reference external" href="http://mxnet.io/">MXNet</a> and <a class="reference external" href="https://keras.io/">Keras</a> are not as user-friendly.</p>
+<div class="section" id="raw-data-to-tfrecords">
+<h2>Raw Data to TFRecords<a class="headerlink" href="#raw-data-to-tfrecords" title="Permalink to this headline">¶</a></h2>
+<p>Currently Docker requires all <a class="reference external" href="https://docs.docker.com/engine/admin/volumes/volumes/">volumes</a> to be configured when the container
+starts.  The following will create a volume per dataset because containers are
+very quick to create.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create named volume</span>
+docker volume create &lt;volume_name&gt;
+<span class="c1"># Create container</span>
+&lt;docker_command&gt; run -d --name &lt;container_name&gt; -e <span class="nv">PASSWORD</span><span class="o">=</span>&lt;your_desired_pw&gt; -v &lt;volume_name&gt;:&lt;abs_dst_path&gt; -p <span class="m">8888</span>:8888 -p <span class="m">6006</span>:6006 &lt;image&gt;
+<span class="c1"># Login to container</span>
+docker <span class="nb">exec</span> -it tensor bash
+apt-get update
+apt-get install wget
+wget https://raw.githubusercontent.com/tensorflow/models/master/tutorials/image/cifar10_estimator/generate_cifar10_tfrecords.py
+<span class="c1"># Convert raw data to TFRecord</span>
+python generate_cifar10_tfrecords.py --data-dir<span class="o">=</span>&lt;abs_dst_path&gt;
+</pre></div>
+</div>
+<p>Everything in <a class="reference download internal" download="" href="../../../../_downloads/b1a6f179a2cb42f89bea4b4f02ce7825/generate_cifar10_tfrecords.py"><code class="xref download docutils literal notranslate"><span class="pre">generate_cifar10_tfrecords.py</span></code></a> is specific to parsing
+CIFAR-10 except for</p>
+<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>47
+48
+49
+50
+51
+52</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_int64_feature</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Feature</span><span class="p">(</span><span class="n">int64_list</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Int64List</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="p">[</span><span class="n">value</span><span class="p">]))</span>
+
+
+<span class="k">def</span> <span class="nf">_bytes_feature</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Feature</span><span class="p">(</span><span class="n">bytes_list</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">BytesList</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)]))</span>
+</pre></div>
+</td></tr></table></div>
+<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>80
+81
+82
+83
+84
+85</pre></div></td><td class="code"><div class="highlight"><pre><span></span>        <span class="n">example</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Example</span><span class="p">(</span><span class="n">features</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Features</span><span class="p">(</span>
+            <span class="n">feature</span><span class="o">=</span><span class="p">{</span>
+                <span class="s1">&#39;image&#39;</span><span class="p">:</span> <span class="n">_bytes_feature</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()),</span>
+                <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">_int64_feature</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="p">}))</span>
+        <span class="n">record_writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">example</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">())</span>
+</pre></div>
+</td></tr></table></div>
+<p>The preceding code packs each image and its corresponding label into a single
+TFRecord.  The binary serialization of a TFRecord uses Protobuf and supports
+only <a class="reference external" href="https://github.com/tensorflow/tensorflow/blob/r1.4/tensorflow/core/example/feature.proto">three Feature types</a>: bytes, float, and int64.</p>
+</div>
+<div class="section" id="processing-tfrecords">
+<h2>Processing TFRecords<a class="headerlink" href="#processing-tfrecords" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference download internal" download="" href="../../../../_downloads/576e2d64f9d9d3615c75e2565bd247d8/cifar10.py"><code class="xref download docutils literal notranslate"><span class="pre">cifar10.py</span></code></a> serves as a template for parsing TFRecords,
+preprocessing each image, and batching the results up for execution.  The
+proposed template abstracts away how to scale up batching and instead focuses
+on what operations to perform on each data item:</p>
+<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>72
+73
+74
+75
+76
+77
+78</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    <span class="n">filenames</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_filenames</span><span class="p">()</span>
+    <span class="c1"># Repeat infinitely.</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TFRecordDataset</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>
+
+    <span class="c1"># Parse records.</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parser</span><span class="p">,</span> <span class="n">num_parallel_calls</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
+    <span class="n">dataset</span><span class="o">.</span><span class="n">prefetch</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">batch_size</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>As illustrated in the above code snippet, the list of filenames are just blobs
+that could be stored on a distributed file system.</p>
+</div>
+<div class="section" id="modular-network-architecture">
+<h2>Modular Network Architecture<a class="headerlink" href="#modular-network-architecture" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference download internal" download="" href="../../../../_downloads/8d014582d1a282d174e392f70c8000d1/model_base.py"><code class="xref download docutils literal notranslate"><span class="pre">model_base.py</span></code></a> implements all the variations of a
+<a class="reference internal" href="../../12/12/deep-residual-learning-for-image-recognition.html"><span class="doc">residual block</span></a>
+while <a class="reference download internal" download="" href="../../../../_downloads/dd31bf0843d22652596ef45e9ca27ff0/cifar10_model.py"><code class="xref download docutils literal notranslate"><span class="pre">cifar10_model.py</span></code></a> defines a computation graph for the forward
+propagation using those building blocks.  The backward propagation of gradients
+is handled by <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/train/Optimizer">TensorFlow’s optimizers</a> using
+<a class="reference internal" href="../../11/07/automatic-differentiation-in-machine-learning-a-survey.html"><span class="doc">automatic differentiation</span></a>.
+However, if a <a class="reference external" href="https://www.tensorflow.org/extend/adding_an_op#implement_the_gradient_in_python">custom operation</a> is not constructed purely out of TensorFlow’s
+built-in primitives, the gradient of that operation must be provided.  Take the
+following TensorFlow implementation of a sigmoid function as an example.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">sess</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([</span><span class="mf">3.0</span><span class="p">])</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([</span><span class="mf">0.1</span><span class="p">])</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">tf</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span> <span class="o">*</span> <span class="n">k</span><span class="p">))</span>
+    <span class="n">gr</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">gradients</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="p">])</span>
+    <span class="n">init_op</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">global_variables_initializer</span><span class="p">()</span>
+
+    <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">init_op</span><span class="p">)</span>
+
+    <span class="n">_</span> <span class="o">=</span> <span class="s1">&#39;x: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">k: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">y: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">dx: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">dk: </span><span class="si">{}</span><span class="s1">&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">eval</span><span class="p">(),</span> <span class="n">k</span><span class="o">.</span><span class="n">eval</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">eval</span><span class="p">(),</span>
+                   <span class="n">gr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">eval</span><span class="p">(),</span> <span class="n">gr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">eval</span><span class="p">()))</span>
+</pre></div>
+</div>
+<p>TensorFlow will automatically compute <span class="math notranslate nohighlight">\(\frac{\partial y}{\partial x}\)</span> and
+<span class="math notranslate nohighlight">\(\frac{\partial y}{\partial k}\)</span>.  The alternative is to define the sigmoid
+function as an operation using <a class="reference external" href="https://github.com/tensorflow/tensorflow/issues/1095#issuecomment-239406220">some experimental features</a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="k">def</span> <span class="nf">py_func</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span> <span class="n">Tout</span><span class="p">,</span> <span class="n">stateful</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">grad</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">unique_name</span> <span class="o">=</span> <span class="s1">&#39;PyFuncGrad&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1E+8</span><span class="p">))</span>
+
+    <span class="n">tf</span><span class="o">.</span><span class="n">RegisterGradient</span><span class="p">(</span><span class="n">unique_name</span><span class="p">)(</span><span class="n">grad</span><span class="p">)</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_default_graph</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">g</span><span class="o">.</span><span class="n">gradient_override_map</span><span class="p">({</span><span class="s2">&quot;PyFunc&quot;</span><span class="p">:</span> <span class="n">unique_name</span><span class="p">}):</span>
+        <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">py_func</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span> <span class="n">Tout</span><span class="p">,</span> <span class="n">stateful</span><span class="o">=</span><span class="n">stateful</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">tf_sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="hll">    <span class="k">def</span> <span class="nf">np_sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+</span>        <span class="n">_</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span> <span class="o">*</span> <span class="n">k</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">_</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="hll">    <span class="k">def</span> <span class="nf">tf_sigmoid_gradient</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">grad</span><span class="p">):</span>
+</span>        <span class="n">x</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">inputs</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">tf</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span> <span class="o">*</span> <span class="n">k</span><span class="p">))</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">f</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">f</span><span class="p">)</span>
+        <span class="n">dfdx</span><span class="p">,</span> <span class="n">dfdk</span> <span class="o">=</span> <span class="n">k</span> <span class="o">*</span> <span class="n">df</span><span class="p">,</span> <span class="n">x</span> <span class="o">*</span> <span class="n">df</span>
+
+        <span class="k">return</span> <span class="n">grad</span> <span class="o">*</span> <span class="n">dfdx</span><span class="p">,</span> <span class="n">grad</span> <span class="o">*</span> <span class="n">dfdk</span>
+
+    <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">name_scope</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;sigmoid&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="p">])</span> <span class="k">as</span> <span class="n">name</span><span class="p">:</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">py_func</span><span class="p">(</span><span class="n">np_sigmoid</span><span class="p">,</span>
+                    <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="p">],</span>
+                    <span class="p">[</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">],</span>
+                    <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                    <span class="n">grad</span><span class="o">=</span><span class="n">tf_sigmoid_gradient</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">sess</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([</span><span class="mf">3.0</span><span class="p">])</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([</span><span class="mf">0.1</span><span class="p">])</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">tf_sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="n">gr</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">gradients</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="p">])</span>
+    <span class="n">init_op</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">global_variables_initializer</span><span class="p">()</span>
+
+    <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">init_op</span><span class="p">)</span>
+
+    <span class="n">_</span> <span class="o">=</span> <span class="s1">&#39;x: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">k: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">y: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">dx: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">dk: </span><span class="si">{}</span><span class="s1">&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">eval</span><span class="p">(),</span> <span class="n">k</span><span class="o">.</span><span class="n">eval</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">eval</span><span class="p">(),</span>
+                   <span class="n">gr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">eval</span><span class="p">(),</span> <span class="n">gr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">eval</span><span class="p">()))</span>
+</pre></div>
+</div>
+<p><strong>np_sigmoid</strong> should not use any TensorFlow primitives while
+<strong>tf_sigmoid_gradient</strong> should be implemented purely in TensorFlow.  Otherwise
+some odd errors may appear.</p>
+</div>
+<div class="section" id="tuning-hyperparameters">
+<h2>Tuning Hyperparameters<a class="headerlink" href="#tuning-hyperparameters" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference download internal" download="" href="../../../../_downloads/daa6f3bc0652f56a71be695ce7a723b1/cifar10_main.py"><code class="xref download docutils literal notranslate"><span class="pre">cifar10_main.py</span></code></a> and <a class="reference download internal" download="" href="../../../../_downloads/c5e7836698f149def4d35b4db6dac1e0/cifar10_utils.py"><code class="xref download docutils literal notranslate"><span class="pre">cifar10_utils.py</span></code></a> serve as the glue
+for the preceding code <a class="bibtex reference internal" href="#cheng2017tensorflow" id="id1">[CHH+17]</a>.  Those provides default
+values for the initial learning rate, learning rate schedule, and optimizer.
+The default configuration is able to train on a single host with CPUs or GPUs,
+and automatically write some summaries for TensorBoard.  Training using multiple
+hosts requires the following code to be added to <a class="reference download internal" download="" href="../../../../_downloads/daa6f3bc0652f56a71be695ce7a723b1/cifar10_main.py"><code class="xref download docutils literal notranslate"><span class="pre">cifar10_main.py</span></code></a>:</p>
+<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383</pre></div></td><td class="code"><div class="highlight"><pre><span></span>  <span class="c1"># Cluster setup must be defined before RunConfig</span>
+  <span class="k">if</span> <span class="n">replica_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">cluster</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;master&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;localhost:2222&#39;</span><span class="p">],</span>
+                 <span class="s1">&#39;ps&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;localhost:2223&#39;</span><span class="p">],</span>
+                 <span class="s1">&#39;worker&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;localhost:2224&#39;</span><span class="p">]}</span>
+      <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TF_CONFIG&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+          <span class="p">{</span>
+              <span class="s1">&#39;cluster&#39;</span><span class="p">:</span> <span class="n">cluster</span><span class="p">,</span>
+              <span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="n">replica_type</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+              <span class="s1">&#39;environment&#39;</span><span class="p">:</span> <span class="s1">&#39;cloud&#39;</span>
+          <span class="p">}</span>
+      <span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>517
+518
+519
+520
+521
+522</pre></div></td><td class="code"><div class="highlight"><pre><span></span>  <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+      <span class="s1">&#39;--replica-type&#39;</span><span class="p">,</span>
+      <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;master&#39;</span><span class="p">,</span> <span class="s1">&#39;worker&#39;</span><span class="p">,</span> <span class="s1">&#39;ps&#39;</span><span class="p">],</span>
+      <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+      <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Cluster configuration.&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>Note that the default initial learning rate is too large for the full
+pre-activation residual unit.  Make sure to half it before training, otherwise
+the result will be <strong>ERROR:tensorflow:Model diverged with loss = NaN</strong>.</p>
+</div>
+<div class="section" id="monitor-training-session">
+<h2>Monitor Training Session<a class="headerlink" href="#monitor-training-session" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference download internal" download="" href="../../../../_downloads/dd31bf0843d22652596ef45e9ca27ff0/cifar10_model.py"><code class="xref download docutils literal notranslate"><span class="pre">cifar10_model.py</span></code></a> has been modified to visualize the intermediate
+outputs between layers.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="k">def</span> <span class="nf">visualize_tensor_as_images</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_outputs</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_format</span> <span class="o">!=</span> <span class="s1">&#39;channels_last&#39;</span><span class="p">:</span>
+      <span class="c1">#convert NCHW -&gt; NHWC</span>
+      <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># Maps value range to [0, 1]</span>
+    <span class="n">x_min</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_min</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x_max</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">x_max</span> <span class="o">-</span> <span class="n">x_min</span><span class="p">)</span>
+
+    <span class="n">_</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">//</span> <span class="n">channels</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">_</span><span class="p">):</span>
+      <span class="n">tf</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">-</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="n">layer</span><span class="p">,</span> <span class="n">max_outputs</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Even though the <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/summary">tensor summary operations</a> can be called from anywhere, the
+preceding solution requires direct access to the outputs.  An alternative is</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_default_graph</span><span class="p">()</span><span class="o">.</span><span class="n">get_tensor_by_name</span><span class="p">(</span><span class="s1">&#39;resnet/tower_0/Relu:0&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where <em>‘resnet/tower_0/Relu:0’</em> can be found by manual inspection:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_collection</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">GraphKeys</span><span class="o">.</span><span class="n">GLOBAL_VARIABLES</span><span class="p">):</span>
+  <span class="n">tf</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Correspondingy, when a weight variable is not named, TensorFlow provides a
+default name under the current variable scope.  Consider the first convolutional
+layer of any network.  TensorFlow would specify <em>conv2d</em> as the default name and
+set the corresponding weight’s name to <em>kernel</em>.  Passing
+<em>scope=’conv2d/kernel’</em> to <strong>tf.get_collection</strong> would return a list of
+variables whose name contains <em>conv2d/kernel</em>.  The name of a convolutional
+layer beyond the first layer takes the form of <em>conv2d_i</em> where <span class="math notranslate nohighlight">\(i\)</span> is a
+decimal.  However, this scheme is not in any specification.  Thus,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_collection</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">GraphKeys</span><span class="o">.</span><span class="n">TRAINABLE_VARIABLES</span><span class="p">):</span>
+  <span class="n">tf</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>along with should only be used for non-production purposes.  Furthermore,
+visualizing the filter weights seems to have fallen out of fashion after
+<a class="reference internal" href="../../12/12/deep-residual-learning-for-image-recognition.html"><span class="doc">VGGNet</span></a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Original at https://gist.github.com/kukuruza/03731dc494603ceab0c5</span>
+<span class="k">def</span> <span class="nf">tensor_to_grid</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">factorize</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)),</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="o">//</span> <span class="n">i</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Number of output filters cannot be a prime number&#39;</span><span class="p">)</span>
+
+  <span class="p">(</span><span class="n">grid_Y</span><span class="p">,</span> <span class="n">grid_X</span><span class="p">)</span> <span class="o">=</span> <span class="n">factorize</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+  <span class="c1"># Maps value range to [0, 1]</span>
+  <span class="n">x_min</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_min</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
+  <span class="n">x_max</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_max</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">tensor</span> <span class="o">-</span> <span class="n">x_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">x_max</span> <span class="o">-</span> <span class="n">x_min</span><span class="p">)</span>
+
+  <span class="c1"># Add padding to each filter</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="p">[[</span><span class="n">padding</span><span class="p">,</span> <span class="n">padding</span><span class="p">],</span> <span class="p">[</span><span class="n">padding</span><span class="p">,</span> <span class="n">padding</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+  <span class="n">Y</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">padding</span>
+  <span class="n">X</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">padding</span>
+  <span class="n">channels</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+  <span class="c1"># Move number output channels to the 1st dimension</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+  <span class="c1"># Organize grid on Y-axis</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">grid_X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">*</span> <span class="n">grid_Y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">channels</span><span class="p">]))</span>
+
+  <span class="c1"># Swap X and Y axes</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+  <span class="c1"># Organize grid on X-axis</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">X</span> <span class="o">*</span> <span class="n">grid_X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">*</span> <span class="n">grid_Y</span><span class="p">,</span> <span class="n">channels</span><span class="p">]))</span>
+
+  <span class="c1"># Convert back to (height, width, input channels, output channels) order</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+  <span class="c1"># Convert to (batch size = 1, height, width, channels)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+
+  <span class="k">return</span> <span class="n">x</span>
+
+<span class="k">def</span> <span class="nf">summarize_tensor</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">tensor</span><span class="p">):</span>
+  <span class="n">dim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">dim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">scalar</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">tensor</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+      <span class="n">tf</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">scalar</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="n">tensor</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+  <span class="k">elif</span> <span class="n">dim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">tensor</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">tensor_to_grid</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+      <span class="n">tf</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">grid</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">//</span> <span class="mi">3</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+      <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">grid</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">_</span><span class="p">):</span>
+        <span class="n">tf</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">-</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="n">grid</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">visualize_weights</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+  <span class="n">_</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_collection</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">GraphKeys</span><span class="o">.</span><span class="n">TRAINABLE_VARIABLES</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="n">_</span><span class="p">:</span>
+    <span class="n">summarize_tensor</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">tensor</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">visualize_gradients</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">as_scalar</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_default_graph</span><span class="p">()</span><span class="o">.</span><span class="n">get_tensor_by_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+  <span class="n">dl_dx</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">gradients</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">])</span>
+  <span class="k">for</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="n">dl_dx</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">as_scalar</span><span class="p">:</span>
+      <span class="n">_</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">_</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">summarize_tensor</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/gradients">tf.gradients</a> returns the gradient with respect to the loss.  This means
+if the loss function is a sum of per-example losses, then the gradient is also
+the sum of per-example loss gradients.  To get per-example gradients, use a
+batch size of one or loop through each example in the batch.</p>
+</div>
+<div class="section" id="transfer-learning">
+<h2>Transfer Learning<a class="headerlink" href="#transfer-learning" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/tensorflow/models/tree/master/research/slim">TF-slim</a> contains a lot of pre-trained models that can be extracted as
+follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Original model at http://download.tensorflow.org/models/inception_resnet_v2_2016_08_30.tar.gz</span>
+<span class="c1"># Extraction code at https://github.com/tensorflow/models/blob/master/research/slim/nets/inception_resnet_v2.py</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">inception_resnet_v2</span> <span class="k">import</span> <span class="n">inception_resnet_v2</span><span class="p">,</span> <span class="n">inception_resnet_v2_arg_scope</span>
+
+<span class="n">width</span> <span class="o">=</span> <span class="n">inception_resnet_v2</span><span class="o">.</span><span class="n">default_image_size</span>
+<span class="n">height</span> <span class="o">=</span> <span class="n">width</span>
+<span class="n">channels</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">channels</span><span class="p">])</span>
+
+<span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">slim</span><span class="o">.</span><span class="n">arg_scope</span><span class="p">(</span><span class="n">inception_resnet_v2_arg_scope</span><span class="p">()):</span>
+  <span class="c1"># Specify X as the input to the network.</span>
+  <span class="n">last_layer</span><span class="p">,</span> <span class="n">end_points</span> <span class="o">=</span> <span class="n">inception_resnet_v2</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">is_training</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">saver</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Saver</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">sess</span><span class="p">:</span>
+  <span class="n">saver</span><span class="o">.</span><span class="n">restore</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span> <span class="s1">&#39;inception_resnet_v2_2016_08_30.ckpt&#39;</span><span class="p">)</span>
+  <span class="n">saver</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span> <span class="s1">&#39;./my-test-model&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here tf-slim dynamically creates the graph for the pre-trained model to enable
+different configurations.  The alternative is to explicitly load in a model’s
+graph:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+<span class="n">saver</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">import_meta_graph</span><span class="p">(</span><span class="s1">&#39;my-test-model.meta&#39;</span><span class="p">)</span>
+<span class="n">saver</span><span class="o">.</span><span class="n">restore</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">latest_checkpoint</span><span class="p">(</span><span class="s1">&#39;./&#39;</span><span class="p">))</span>
+
+<span class="c1"># Query the desired op.</span>
+<span class="n">_</span> <span class="o">=</span> <span class="s1">&#39;InceptionResnetV2/Conv2d_7b_1x1/weights:0&#39;</span>
+<span class="n">last_conv_layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_default_graph</span><span class="p">()</span><span class="o">.</span><span class="n">get_tensor_by_name</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
+
+<span class="c1"># Instruct TensorFlow to not change any weights before this op.</span>
+<span class="n">last_conv_layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">stop_gradient</span><span class="p">(</span><span class="n">last_conv_layer</span><span class="p">)</span>
+
+<span class="c1"># Optionally augment the model</span>
+
+<span class="c1"># Feed in new data for evaluation or fine-tuning</span>
+<span class="n">width</span> <span class="o">=</span> <span class="mi">299</span>
+<span class="n">height</span> <span class="o">=</span> <span class="n">width</span>
+<span class="n">channels</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random_normal</span><span class="p">([</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">channels</span><span class="p">])</span>
+<span class="n">resized_image</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">resize_images</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">[</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">])</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">channels</span><span class="p">])</span>
+
+<span class="c1"># Convert Tensor to numpy to avoid</span>
+<span class="c1">#   ValueError: setting an array element with a sequence.</span>
+<span class="n">example</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">resized_image</span><span class="p">)</span>
+
+<span class="c1"># Get the current value of the desired op.</span>
+<span class="n">before</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">last_conv_layer</span><span class="p">)</span>
+
+<span class="c1"># Get the value after running </span>
+<span class="n">after</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">last_conv_layer</span><span class="p">,</span> <span class="n">feed_dict</span><span class="o">=</span><span class="p">{</span><span class="n">X</span><span class="p">:</span> <span class="p">[</span><span class="n">example</span><span class="p">]})</span>
+</pre></div>
+</div>
+<p>Once the model is loaded, there is nothing special about
+<a class="reference external" href="https://www.tensorflow.org/extend/estimators">augmenting the existing model</a>.</p>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-blog/2016/08/02/notes-on-tensorflow-0"><dl class="citation">
+<dt class="bibtex label" id="cheng2017tensorflow"><span class="brackets"><a class="fn-backref" href="#id1">CHH+17</a></span></dt>
+<dd><p>Heng-Tze Cheng, Zakaria Haque, Lichan Hong, Mustafa Ispir, Clemens Mewald, Illia Polosukhin, Georgios Roumpos, D Sculley, Jamie Smith, David Soergel, and others. Tensorflow estimators: managing simplicity vs. flexibility in high-level machine learning frameworks. In <em>Proceedings of the 23rd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining</em>, 1763–1771. ACM, 2017.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/blog/2016/08/02/notes-on-tensorflow.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

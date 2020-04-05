@@ -1,0 +1,69 @@
+#################################################
+The EM Algorithm for Mixtures of Factor Analyzers
+#################################################
+
+Motivation(s)
+=============
+
+Local dimensionality reduction is a statistical method which concurrently
+performs clustering and, within each cluster, dimensionality reduction.  These
+learning algorithms typically use EM to fit the mixture components and gradient
+descent to fit each individual factor model.
+
+Proposed Solution(s)
+====================
+
+The author derives a new EM approximation for mixture of factor analyzers.
+
+Evaluation(s)
+=============
+
+The derivations are in the paper's appendix.  No experiments were carried out to
+compare the performance with previous approximations.  However, an
+implementation is publicly available.  Model selection, the number of factor
+analyzers and the number of factor in each analyzer are not handled.
+
+Future Direction(s)
+===================
+
+- Given a sufficiently difficult optimization problem, how does EM compare with
+  other approaches?  Bayesian analysis and cross-validation have been suggested
+  to select the appropriate model.
+
+Question(s)
+===========
+
+- I don't understand why the mixing proportions were estimated as such.  Is
+  (12) an appropriate approximation?
+
+Analysis
+========
+
+A brilliant application of marginalization to include several latent variables,
+which resulted in a simpler EM approximation.
+
+The mathematical framework of combining these two different techniques is quite
+elegant and extensible.  I would have appreciated a more structured derivation
+so that I don't have to waste time rederiving the results.
+
+Read this after finishing up
+:doc:`Modeling complex data densities </nb/computer-vision-models-learning-and-inference-prince/chapter-07>`.
+
+Notes
+=====
+
+.. math::
+
+   P(\mathbf{x}) &= \sum_{j = 1}^m P(\mathbf{x}, \omega = j)\\
+    &= \sum_{j = 1}^m \int P(\mathbf{x}, \omega_j, \mathbf{z}) d\mathbf{z}\\
+    &= \sum_{j = 1}^m
+         \int P(\mathbf{x} \mid \mathbf{z}, \omega_j)
+              P(\mathbf{z} \mid \omega_j) P(\omega_j) d\mathbf{z}
+
+The latent variables are :math:`\mathbf{h} = \{ \mathbf{z}, \omega \}`.
+:math:`P(\mathbf{z} \mid \omega_j)` can be complicated or as simple as (8).
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

@@ -1,0 +1,125 @@
+###############################################################################
+Profitability of Momentum Strategies: An Evaluation of Alternative Explanations
+###############################################################################
+
+Motivation(s)
+=============
+
+Momentum strategies earn profits of about one percent per month for the
+following year through buying stocks with high returns over the previous three
+to twelve months and selling stocks with poor returns over the same time period.
+Due to a lack of data, several theories have emerged in an attempt to explain
+the source of the profits; they can categorized under
+
+- Behavior Model: Market Inefficiency
+
+  - Representative Heuristic
+
+    - The tendency of individuals to identify an uncertain event, or a sample,
+      by the degree to which it is similar to the parent population.
+    - In the context of stocks, investors mistakenly conclude that firms
+      realizing extraordinary earnings growths will continue to experience
+      similar extraordinary growth in the future.
+    - When coupled with conservatism bias, the idea that individuals underweight
+      new information in updating their priors, this behavioral tendency can
+      lead to long horizon negative returns despite previously high returns.
+
+  - Self-attribution Bias
+
+    - Overconfident investors push up the prices of the winners above their
+      fundamental values.
+    - The delayed overreaction in this model leads to momentum profits that are
+      eventually reversed as prices revert to their fundamentals.
+
+  - Partial Information
+
+    - Informed investors (i.e. news watchers) obtain signals about future cash
+      flows but ignore information in the past history of prices.
+    - Technical traders extrapolate based on past prices without observing
+      fundamental information and tend to push prices of past winners above
+      their fundamental values.
+    - The partial incorporation of information contributes to market
+      underreaction resulting in momentum profits; return reversals occur when
+      prices eventually revert to their fundamentals.
+
+- Rational Model: Compensation for Risk / Product of Data Mining
+
+  - Stock prices follow random walks with drifts, and the unconditional drifts
+    vary across stocks.
+  - The differences in unconditional drifts across stocks explain momentum
+    profits.
+  - Predicts that the stocks on the long side of the momentum portfolio should
+    continue to outperform stocks on the short side by the same magnitude in any
+    postranking period.
+
+Proposed Solution(s)
+====================
+
+The authors propose evaluating the various explanations using out-of-sample
+tests on the additional data collected over the past nine years.  The advantage
+of an out-of-sample test is that it significantly reduces the number of
+strategies that researchers can potentially search over, thus increasing the
+informativeness of the tests.
+
+Evaluation(s)
+=============
+
+The dataset consisted of all stocks traded on the NYSE, AMEX, and Nasdaq.
+Stocks priced below $5 were excluded to ensure the results are not driven
+primarily by small and illiquid stocks or by bid-ask bounce.  
+
+Following Jegadeesh and Titman (1993), the stocks are ranked at the end of each
+based on their past six-month returns and then grouped into 10 equally weighted
+portfolios based on these ranks.  Each portfolio was held for six months
+following the ranking month.
+
+The monthly positive returns in the first twelve months following the formation
+period over the 1965 to 1989 sample period confirms the results in
+Jegadeesh and Titman (1993).  However, the January momentum profits are
+significantly smaller than the momentum profits in other calendar months in all
+sample periods.  Both winners and losers tend to be smaller firms than the
+average stock in the sample because smaller firms have more volatile returns and
+are thus more likely to be in the extreme return sorted portfolios.  The average
+size rank for the winner portfolio is larger than that for the loser portfolio,
+and the market betas for winners and losers are virtually equal.
+
+More evidence in favor of behavioral theories can be found in the negative
+cumulative return in the post-holding period (months thirteen to sixty).  The
+evidence here indicates that the losers as well as winners experience negative
+abnormal returns in years two through five; this contradicts the idea that the
+momentum in loser returns is generated as a result of positive feedback trading
+that is later reversed.  One can also rest assured that the momentum profits are
+not entirely due to data snooping biases.
+
+The analysis presented in this paper should be treated with caution because the
+evidence of negative postholding period returns tends to depend on the
+composition of the sample, the sample period, and whether the postholding period
+returns are risk adjusted.  At best, the behavioral models provide a partial
+explanation for the momentum profits.
+
+Future Direction(s)
+===================
+
+- What are some good indicators to estimate the duration of a stock's momentum?
+- How come index funds fail to achieve the proposed returns?
+- Would including foreign stocks affect the returns?
+
+Question(s)
+===========
+
+- This approach sounds like index funds?
+
+Analysis
+========
+
+Momentum strategies have been shown to yield on average monthly returns of one
+percent for the following year.  The source of the profits can be partially
+explained through behavioral theories.  The analysis should have included
+graphics alongside the tables since the focus is the trend.  Overall, it is good
+to know that stocks are more consistent with behavior models than rational
+models.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

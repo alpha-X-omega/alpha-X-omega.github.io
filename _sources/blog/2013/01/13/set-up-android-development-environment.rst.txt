@@ -1,0 +1,115 @@
+######################################
+Set Up Android Development Environment
+######################################
+
+`Android Studio`_ is now mandatory if one needs to use *aar* files (e.g. VR
+SDK).  Outside of that use case, the IDE is not needed.  Despite Google
+forcefully pushing an extremely slow IDE compared to CLI, this has simplified
+the installation process.  During the `installation`_, select :guilabel:`Custom`
+to choose where the Android SDK will be installed.  Once the installer
+completes, run :file:`./bin/studio.sh` to launch an instance of the IDE.
+Navigate to :menuselection:`Configure --> SDK Manager --> SDK Tools` and toggle
+the :guilabel:`NDK` checkbox in order to utilize C/C++ in the application.  At
+the time of writing this post, one should prefer using `Oracle's JDK`_ over
+`OpenJDK`_.
+
+.. _Android Studio: https://developer.android.com/studio/index.html
+.. _installation: https://developer.android.com/studio/install.html
+.. _Oracle's JDK: http://www.oracle.com/technetwork/java/javase/downloads/index.html
+.. _OpenJDK: http://openjdk.java.net/
+
+All SDK/NDK updates should occur through Android Studio.  It is highly
+recommended that native Android applications handle all UI interactions in the
+SDK Java layer and minimize the number of JNI calls.  The alternative is to use
+the NDK's NativeActivity wrapper, but NativeActivity itself is based on Java, so
+there is no such thing as a completely native C++ application.  Moreover, the
+fact that the NDK is a strict subset of the SDK implies its sole purpose is to
+speed up the code that the JVM's JIT compiler failed to optimize.
+
+The following is an example of using a shell script to compile and install an
+Android application:
+
+.. code:: bash
+
+   #!/bin/bash
+
+   #set to default values if not defined
+   ANDROID_SDK=${ANDROID_SDK-/absolute/path/to/android/sdk}
+   ANDROID_NDK=${ANDROID_NDK-/absolute/path/to/android/ndk}
+   JAVA_HOME=${JAVA_HOME-/absolute/path/to/jdk}
+
+   #add to path if not already there
+   if [[ ":$PATH:" != *$ANDROID_SDK* ]]; then
+       PATH=$ANDROID_SDK/platform-tools:$ANDROID_SDK/tools:$PATH
+   fi
+
+   if [[ ":$PATH:" != *$ANDROID_NDK* ]]; then
+       PATH=$ANDROID_NDK:$PATH
+   fi
+
+   if [[ ":$PATH:" != *$JAVA_HOME* ]]; then
+       PATH=$JAVA_HOME/bin:$PATH
+   fi
+
+   #initialize Android project
+   if [[ ! -f "build.xml" ]]; then
+       echo "Initializing Android project"
+       android update project --path . --target android-<version-number>
+   fi
+
+   ndk-build -j<number-threads>;
+   ant debug;
+
+   adb uninstall <some-app-package-name>;
+   adb install <path-to-apk>;
+
+Android.mk to Gradle
+====================
+
+Google is pushing :program:`Gradle` as the build tool for Android development.
+What follows is an example application that uses the NDK and Daydream SDK.
+
+.. include:: android-studio-project-layout.txt
+   :code: bash
+
+The :file:`build.gradle` at the root directory defines the global scope.
+
+.. include:: build.gradle
+   :code: groovy
+
+A :file:`build.gradle` can be defined for each module (e.g. :file:`app`).
+
+.. include:: module-build.gradle
+   :code: groovy
+
+Lastly, the :file:`settings.gradle` specifies which modules belong to the build.
+
+.. include:: settings.gradle
+   :code: groovy
+
+Enable Root Capabilities
+========================
+
+.. code:: bash
+
+   adb root
+   adb shell mount -o rw,remount /system
+
+Note that :guilabel:`rw` can be replaced with :guilabel:`ro` to make the file
+system read-only.
+
+Resolve adb / fastboot *no permissions* Error
+=============================================
+
+Add the following rules to :file:`/etc/udev/rules.d/51-android.rules`
+
+.. include:: 51-android.rules
+   :code: text
+
+and run the following commands
+
+.. code:: bash
+
+   sudo chmod a+r /etc/udev/rules.d/51-android.rules
+   sudo service udev restart
+   sudo killall adb

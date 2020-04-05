@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Deep Residual Learning for Image Recognition &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Optimal Step Nonrigid ICP Algorithms for Surface Registration" href="../11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html" />
+    <link rel="prev" title="Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift" href="../13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Deep Residual Learning for Image Recognition</a><ul>
+<li><a class="reference internal" href="#motivation-s">Motivation(s)</a></li>
+<li><a class="reference internal" href="#proposed-solution-s">Proposed Solution(s)</a></li>
+<li><a class="reference internal" href="#evaluation-s">Evaluation(s)</a></li>
+<li><a class="reference internal" href="#future-direction-s">Future Direction(s)</a></li>
+<li><a class="reference internal" href="#question-s">Question(s)</a></li>
+<li><a class="reference internal" href="#analysis">Analysis</a></li>
+<li><a class="reference internal" href="#notes">Notes</a><ul>
+<li><a class="reference internal" href="#identity-mappings">Identity Mappings</a></li>
+<li><a class="reference internal" href="#convolutional-layer">Convolutional Layer</a><ul>
+<li><a class="reference internal" href="#convolutional-to-fully-connected">Convolutional to Fully-Connected</a></li>
+<li><a class="reference internal" href="#fully-connected-to-convolutional">Fully-Connected to Convolutional</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pooling-layer">Pooling Layer</a></li>
+<li><a class="reference internal" href="#vggnet">VGGNet</a></li>
+<li><a class="reference internal" href="#googlenet">GoogLeNet</a><ul>
+<li><a class="reference internal" href="#inception-v3">Inception-v3</a></li>
+<li><a class="reference internal" href="#inception-v4">Inception-v4</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#resnext">ResNeXt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html" title="Previous Chapter: Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Batch Normali...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html" title="Next Chapter: Optimal Step Nonrigid ICP Algorithms for Surface Registration"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Optimal Step ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="deep-residual-learning-for-image-recognition">
+<h1>Deep Residual Learning for Image Recognition<a class="headerlink" href="#deep-residual-learning-for-image-recognition" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="motivation-s">
+<h2>Motivation(s)<a class="headerlink" href="#motivation-s" title="Permalink to this headline">¶</a></h2>
+<p>Recent experiments reveal that network depth is crucial in attaining high
+accuracy.  However, with the network depth increasing, accuracy gets saturated
+and then degrades rapidly.  Such degradation is not caused by overfitting
+because adding more layers to a suitably deep model leads to higher training
+error.</p>
+<p>Consider a shallow architecture and its deeper counterpart that adds more layers
+onto it.  Suppose the added layers are identity mappings and the other layers
+are copied from the learned shallower model.  By inspection, the deeper model
+should produce no higher training error than its shallower counterpart.
+Counterintuitively, experiments show that current solvers on hand are unable to
+find solutions that are comparably good or better than the constructed solution
+within the same duration of time.  The degradation problem suggests that the
+solvers might have difficulties in approximating identity mappings by multiple
+nonlinear layers.</p>
+</div>
+<div class="section" id="proposed-solution-s">
+<h2>Proposed Solution(s)<a class="headerlink" href="#proposed-solution-s" title="Permalink to this headline">¶</a></h2>
+<p>The authors propose a deep residual learning framework to address the
+degradation problem.</p>
+<p>Consider <span class="math notranslate nohighlight">\(\mathcal{H}(\mathbf{x})\)</span> as an underlying mapping to be fit by a
+few stacked layers (not necessarily the entire net) with <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>
+denoting the inputs to the first of these layers.  The goal is to have the
+stacked layers approximate a residual function
+<span class="math notranslate nohighlight">\(\mathcal{F}(\mathbf{x}) \doteq \mathcal{H}(\mathbf{x}) - \mathbf{x}\)</span> by
+explicitly defining a building block</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{y}_l = h(\mathbf{x}_l) + \mathcal{F}(\mathbf{x}_l, \mathcal{W}_l)
+\quad \text{and} \quad
+\mathbf{x}_{l + 1} = f(\mathbf{y}_l)\]</div>
+<p>where <span class="math notranslate nohighlight">\(f\)</span> is the ReLU activation function,
+<span class="math notranslate nohighlight">\(\mathcal{W}_l = \left\{ W_{l, k} \right\}_{k = 1}^K\)</span>, and <span class="math notranslate nohighlight">\(K\)</span> is
+the number of layers in a Residual Unit.  The shortcut connection
+<span class="math notranslate nohighlight">\(h(\mathbf{x}_l) = \mathbf{x}_l\)</span> introduces zero additional parameters and
+negligible computational cost.  When the dimensions of <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and
+<span class="math notranslate nohighlight">\(\mathcal{F}\)</span> are not equal, the building block needs to learn an
+additional a linear projection <span class="math notranslate nohighlight">\(W_s\)</span> such that
+<span class="math notranslate nohighlight">\(h(\mathbf{x}_l) = W_s \mathbf{x}_l\)</span>.</p>
+<p>There are no guarantees that identity mappings are optimal, but the hope is that
+it will act as a preconditioner.  This concept of residual representations are
+widely used in multigrid methods.  The theory of shortcut connections is well
+studied and have been used to address vanishing/exploding gradients.</p>
+</div>
+<div class="section" id="evaluation-s">
+<h2>Evaluation(s)<a class="headerlink" href="#evaluation-s" title="Permalink to this headline">¶</a></h2>
+<p>As a baseline, the authors constructed a plain model that has fewer filters and
+lower complexity than VGG nets.  The plain network augmented with shortcut
+connections every two layers is dubbed ResNet.  Both networks applied batch
+normalization (BN) with no dropout.</p>
+<p>The experiments on ImageNet 2012 demonstrates that vanishing gradients is an
+unlikely cause of the plain network’s degradation.  The backward propagated
+gradients exhibit healthy norms because BN ensures forward propagated signals
+have non-zero variances.  Furthermore, the authors still observed the
+degradation problem even with more training iterations.  The degradation problem
+is mitigated with ResNet’s shortcut connections, which also boosted the overall
+convergence rate.</p>
+<p>To handle dimension mismatch in ResNet, the authors explored identity shortcuts
+and projection shortcuts.  The former performs an identity mapping with extra
+zero entries padded for increasing dimensions, while the latter used
+<span class="math notranslate nohighlight">\(1 \times 1\)</span> convolutions to match dimensions.  The results indicate that
+projection shortcuts gave trivial gains over identity shortcuts.  This is
+important for exploring bottleneck building blocks, which outperforms state of
+the art despite having has lower complexity than VGG.</p>
+<p>Experiments on CIFAR-10, PASCAL VOC, and COCO also signal the consistent
+benefit of deep residual networks.  When there are more layers, the analysis of
+layer responses show that an individual layer of ResNets tends to modify the
+signal less.  Compared to their plain counterparts, ResNets have generally
+smaller magnitudes of responses.</p>
+<p>Even though the proposed method succeeded in training ResNet-1202 till
+convergence, the accuracy of ResNet-1202 is inferior to ResNet-110.</p>
+</div>
+<div class="section" id="future-direction-s">
+<h2>Future Direction(s)<a class="headerlink" href="#future-direction-s" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>What is the performance of residual networks without batch normalization?
+How does dropout improve it?</p></li>
+<li><p><a class="bibtex reference internal" href="#he2016identity" id="id1">[HZRS16b]</a> only looked at dropout as a shortcut connection.  How
+well does dropout perform when used on the indirect flow path i.e. within the
+residual unit?</p></li>
+<li><p>The proposed deep residual framework eschews any kind of
+<a class="reference internal" href="../08/a-fast-learning-algorithm-for-deep-belief-nets.html"><span class="doc">unsupervised pre-training</span></a>.
+How much does pre-training help ResNets?</p></li>
+</ul>
+</div>
+<div class="section" id="question-s">
+<h2>Question(s)<a class="headerlink" href="#question-s" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Multiple nonlinear layers can asymptotically approximate complicated functions
+when the <a class="reference internal" href="../../11/05/multilayer-feedforward-networks-are-universal-approximators.html"><span class="doc">activation function is continuous, bounded and nonconstant</span></a>?</p></li>
+</ul>
+</div>
+<div class="section" id="analysis">
+<h2>Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">¶</a></h2>
+<p>When designing a new building block for neural networks, ensure there is a
+direct path for propagating information throughout the entire network.</p>
+<p>One flaw in the analysis is the authors’ assertion that ResNet-1202’s low
+accuracy is due to overfitting because the dataset is too small and a strong
+regularizer like dropout is needed.  <a class="bibtex reference internal" href="#he2016identity" id="id2">[HZRS16b]</a> is a follow-up work
+that invalidates this claim.</p>
+<p>A questionable result that <a class="bibtex reference internal" href="#he2016identity" id="id3">[HZRS16b]</a> presents is the practicality
+of a one thousand layers deep network.  For a ten-fold increase in complexity,
+one is able to reduce the error by one percent, which is certainly inefficient.
+Nevertheless, the formulation, derivations, and illustrations of the Residual
+Unit are very useful in the design of future network architectures.</p>
+<p>The predecessors of ResNet are LeNet, AlexNet, VGGNet, and GoogLeNet.  The ideas
+presented in LeNet and AlexNet have become so widespread in the deep learning
+literature such that reading the original works
+<a class="bibtex reference internal" href="#krizhevsky2012imagenet" id="id4">[KSH12]</a><a class="bibtex reference internal" href="#lecun1998gradient" id="id5">[LBBH98]</a> may not be fruitful.  VGGNet is
+still worthwhile to read to understand the motivation behind the current design
+of convolutional layers <a class="bibtex reference internal" href="#simonyan2014very" id="id6">[SZ14]</a>, which can be summarized as</p>
+<ol class="lowerroman simple">
+<li><p>For the same output feature map size, the layers have the same number of
+filters.</p></li>
+<li><p>If the feature map size is halved, the number of filters is doubled to
+preserve the time complexity per layer.</p></li>
+</ol>
+<p>Likewise, GoogLeNet’s Inception (network within a network) module popularized
+the use of <span class="math notranslate nohighlight">\(1 \times 1\)</span> convolutional layers to reduce the computations of
+stackable local network topologies <a class="bibtex reference internal" href="#szegedy2015going" id="id7">[SLJ+15]</a>.  One issue with the
+Inception architecture is the handcrafted stage-by-stage network topology
+designs.  To resolve this issue, ResNeXt homogenized each block’s topology
+<a class="bibtex reference internal" href="#xie2017aggregated" id="id8">[XGDollar+17]</a>.  However, ResNeXt did not investigate the channel
+relationship aspect of neural network design.</p>
+<p>Exploiting the fact that convolutional filters are expected to be informative
+combinations by fusing spatial and channel-wise information together within
+local receptive fields, <a class="bibtex reference internal" href="#hu2018squeeze" id="id9">[HSS18]</a> proposes SENet: explicitly model
+the interdependencies between the channels of convolutional features via a
+Squeeze-and-Excitation (SE) block.  The authors argue that the mechanism allows
+the network to perform feature recalibration: early layers learn to excite
+informative features in a class agnostic manner, and later layers learn
+increasingly specialised class-specific features.  Their experiments defined the
+SE block as
+<span class="menuselection">Global Pooling ‣ FC ‣ ReLU ‣ FC ‣ Sigmoid ‣ Scale</span>
+where scale is scaling each channel of the original input.  SENet achieves
+2.251% error versus the previous 2.991% error in the ILSVRC 2017 classification
+task at the cost of an additional 10% overhead in computation and parameters.
+Furthermore, the designer of the network now has to choose the reduction ratio
+i.e. the capacity and computational cost of each SE block in the model.</p>
+<p>All of the neural network architectures described thus far are designed by hand.
+A growing trend is to have the network design itself for the desired task.
+Neural architecture search is a recent technique that capitalizes on the
+repeated motifs CNNs are built upon (e.g. convolutional filter banks,
+nonlinearities, selection of connections) .  NASNet is an example neural
+architecture that achieved state of the art performance
+<a class="bibtex reference internal" href="#zoph2018learning" id="id10">[ZVSL18]</a>.  NASNet consists of two motifs: normal cells and
+reduction cells.  The former are convolutional cells that return a feature map
+of the same dimension while the latter return a feature map where the height and
+width are reduced by a factor of two.  Although these cells are designed via the
+search space optimization, the optimization only explores a predefined set of
+operations and heuristics (e.g. double the number of filters in the output to
+maintain roughly constant hidden state dimension).  The authors found that
+reinforcement learning is slightly more efficient than random search in the
+NASNet search space.  The idea is to use a controller RNN that samples child
+networks with different architectures.  Each network is trained to convergence
+to obtain some accuracy on a held-out validation set.  The resulting accuracies
+are used to update the controller weights (via policy gradient) so that the
+controller will generate better architectures over time.  Even though NASNet
+slightly beats state of the art in terms of accuracy with half the number of
+parameters and multiply-add operations, it requires over four days using 500
+P100 GPUs to find this instance of NASNet trained on CIFAR-10.  However, the
+only hyperparameters to tune are the number of cell repeats and the number of
+filters in the initial convolutional cell.</p>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="identity-mappings">
+<h3>Identity Mappings<a class="headerlink" href="#identity-mappings" title="Permalink to this headline">¶</a></h3>
+<p><a class="bibtex reference internal" href="#he2016identity" id="id11">[HZRS16b]</a> investigates the propagation formulations behind the
+connection mechanisms of deep residual networks, focusing on creating a “direct”
+path for propagating information through the entire network.</p>
+<p>The original Residual Unit takes the form of
+weight -&gt; BN -&gt; ReLU -&gt; weight -&gt; BN -&gt; addition.  BN is used after each weight
+layer, and ReLU is applied after BN except that the last ReLU in a Residual Unit
+is after an element-wise addition.  Although BN normalizes the signal, this is
+soon added to the shortcut and thus the merged signal is not normalized.  This
+unnormalized signal is then used as the input of the next weight layer.</p>
+<p>The authors observed that using asymmetric after-addition activation is
+equivalent to constructing a pre-activation Residual Unit.  Hence, they
+rearranged the layers to
+BN -&gt; ReLU -&gt; weight -&gt; BN -&gt; ReLU -&gt; weight -&gt; addition.  Mathematically, this
+is defining an identity mapping <span class="math notranslate nohighlight">\(f(\mathbf{y}_l) = \mathbf{y}_l\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{x}_L =
+\mathbf{x}_l + \sum_{i = l}^{L - 1} \mathcal{F}(\mathbf{x}_i, \mathcal{W}_i)\]</div>
+<p>for any deeper unit <span class="math notranslate nohighlight">\(L\)</span> and any shallower unit <span class="math notranslate nohighlight">\(l\)</span>.  Analyzing the
+gradients of the proposed formulation (i.e.
+<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{E}}{\partial \mathbf{x}_l}\)</span>) reveals that
+information is directly propagated back to any shallower unit <span class="math notranslate nohighlight">\(l\)</span>.  This
+implies that the gradient of a layer does not vanish even when the weights are
+arbitrarily small.</p>
+<p>The full pre-activation Residual Unit enabled ResNet-1001 to outperform all
+previous models on CIFAR-10, CIFAR-100, ILSVRC 2012.  Furthermore, ResNet-200
+achieved a better result than Inception v3 when using scale and aspect ratio
+augmentation.</p>
+<p>For non-identity shortcuts, even though they have stronger representational
+abilities, they often impede information propagation that causes optimization
+issues.  The CIFAR-10 experiments show that skip connections of scaling, gating,
+dropout, and <span class="math notranslate nohighlight">\(1 \times 1\)</span> convolutions lead to higher training loss and
+error.  The earlier results with <span class="math notranslate nohighlight">\(1 \times 1\)</span> convolutions in
+<a class="bibtex reference internal" href="#he2016deep" id="id12">[HZRS16a]</a> are misleading because that network is only 34-layers deep.</p>
+<p>An extreme variation of ResNet’s shortcut connections has been explored
+in DenseNet <a class="bibtex reference internal" href="#huang2016densely" id="id13">[HLWvdM16]</a>.  DenseNet achieved
+higher accuracy and efficiency than ResNet with pre-activation residual units
+by defining the residual function to be</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{F}(\mathbf{x}_l, \mathcal{W}_l) =
+-h(\mathbf{x}_l) +
+\mathop{\mathcal{F}}\left(
+  \begin{matrix}
+    \mathbf{x}_0, \mathcal{W}_0\\
+    \vdots\\
+    \mathbf{x}_l, \mathcal{W}_l
+  \end{matrix}
+\right).\end{split}\]</div>
+<p>Instead of combining features through summation before they are passed into a
+layer, the proposed dense block combines features by concatenating them.  Each
+application of the residual function now produces <span class="math notranslate nohighlight">\(k\)</span> feature maps.  The
+hyperparameter <span class="math notranslate nohighlight">\(k\)</span> describes the growth rate of the network.  Within
+a dense block is a stack of bottleneck layers, each performing
+BN-ReLU-Conv(<span class="math notranslate nohighlight">\(1 \times 1\)</span>)-BN-ReLU-Conv(<span class="math notranslate nohighlight">\(3 \times 3\)</span>).  The
+<span class="math notranslate nohighlight">\(n\)</span> layers in the stack are connected in a manner analogous to a Markov
+chain of order <span class="math notranslate nohighlight">\(n\)</span>.  Between each dense block is a transition layer that
+does the typical BN-ReLU-Conv(<span class="math notranslate nohighlight">\(1 \times 1\)</span>)-Pooling.</p>
+</div>
+<div class="section" id="convolutional-layer">
+<h3>Convolutional Layer<a class="headerlink" href="#convolutional-layer" title="Permalink to this headline">¶</a></h3>
+<p>A convolutional (conv) layer accepts a volume of size
+<span class="math notranslate nohighlight">\(W_i \times H_i \times D_i\)</span>.  The hyperparameters to tune are</p>
+<ul class="simple">
+<li><p>number of filters <span class="math notranslate nohighlight">\(K\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(F \times F\)</span> spatial extent,</p></li>
+<li><p>stride <span class="math notranslate nohighlight">\(S\)</span>, and</p></li>
+<li><p>amount of zero padding <span class="math notranslate nohighlight">\(P\)</span>.</p></li>
+</ul>
+<p>The conv layer produces a volume of size
+<span class="math notranslate nohighlight">\(W_{i + 1} \times H_{i + 1} \times D_{i + 1}\)</span> where</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(W_{i + 1} = \frac{W_i - F + 2P}{S} + 1\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(H_{i + 1} = \frac{H_i - F + 2P}{S} + 1\)</span>, and</p></li>
+<li><p><span class="math notranslate nohighlight">\(D_{i + 1} = K\)</span>.</p></li>
+</ul>
+<p>With parameter sharing, a conv layer introduces <span class="math notranslate nohighlight">\(F^2 D_i\)</span> weights plus
+a bias per filter.  The total number of parameters is <span class="math notranslate nohighlight">\(F^2 D_i K\)</span> weights
+and <span class="math notranslate nohighlight">\(K\)</span> biases.</p>
+<div class="section" id="convolutional-to-fully-connected">
+<h4>Convolutional to Fully-Connected<a class="headerlink" href="#convolutional-to-fully-connected" title="Permalink to this headline">¶</a></h4>
+<p>Given the preceding configuration, the conv layer can be implemented by a
+fully-connected layer as follows.</p>
+<ol class="arabic">
+<li><p>Reshape the input volume to a vector
+<span class="math notranslate nohighlight">\(\mathbf{x}_i \in \mathbb{R}^{W_i H_i D_i + 1}\)</span>.  The last component is
+always set to one to incorporate the filter kernel’s bias term.</p></li>
+<li><p>Transform filter <span class="math notranslate nohighlight">\(k\)</span> with weights
+<span class="math notranslate nohighlight">\(\mathbf{H}_{i, k} \in \mathbb{R}^{F \times F \times D_i}\)</span> and bias
+<span class="math notranslate nohighlight">\(b_{i, k} \in \mathbb{R}\)</span> to</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{H}_{i, k} =
+\left\{
+  \mathbf{h}_{i, k, j} \in \mathbb{R}^{W_i H_i D_i + 1}
+\right\}_{j = 1}^{W_{i + 1} H_{i + 1}}.\]</div>
+<p>Each vector <span class="math notranslate nohighlight">\(\mathbf{h}_{i, k, j}\)</span> is sparse and encodes the discrete
+convolution operation in one region of the image.  Many of the entries are
+equal due to parameter sharing, and the last entry contains the bias term.
+By inspection, the structure of <span class="math notranslate nohighlight">\(\mathcal{H}_{i, k}\)</span> is akin to a
+Toeplitz matrix.  Stacking
+<span class="math notranslate nohighlight">\(\mathcal{H}_i = \left\{ \mathcal{H}_{i, k} \right\}_{k = 1}^K\)</span> into a
+sparse block matrix gives the desired fully-connected layer.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="fully-connected-to-convolutional">
+<h4>Fully-Connected to Convolutional<a class="headerlink" href="#fully-connected-to-convolutional" title="Permalink to this headline">¶</a></h4>
+<p>Consider a fully-connected layer with <span class="math notranslate nohighlight">\(N\)</span> hidden units looking at some
+input volume of size <span class="math notranslate nohighlight">\(W_i \times H_i \times D_i\)</span>.  Each hidden unit will
+have <span class="math notranslate nohighlight">\(W_i H_i D_i\)</span> weights.  If the hidden units are treated as separate
+filters, the fully-connected layer can be implemented by a conv layer as
+follows: <span class="math notranslate nohighlight">\(K = N\)</span>, <span class="math notranslate nohighlight">\(S = 1\)</span>, <span class="math notranslate nohighlight">\(P = 0\)</span>, and the spatial extent is
+<span class="math notranslate nohighlight">\(W_i \times H_i\)</span>.</p>
+</div>
+</div>
+<div class="section" id="pooling-layer">
+<h3>Pooling Layer<a class="headerlink" href="#pooling-layer" title="Permalink to this headline">¶</a></h3>
+<p>A pooling layer accepts a volume of size <span class="math notranslate nohighlight">\(W_i \times H_i \times D_i\)</span>.  The
+hyperparameters to tune are</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(F \times F\)</span> spatial extent, and</p></li>
+<li><p>stride <span class="math notranslate nohighlight">\(S\)</span>.</p></li>
+</ul>
+<p>The pooling layer produces a volume of size
+<span class="math notranslate nohighlight">\(W_{i + 1} \times H_{i + 1} \times D_{i + 1}\)</span> where</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(W_{i + 1} = \frac{W_i - F}{S} + 1\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(H_{i + 1} = \frac{H_i - F}{S} + 1\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(D_{i + 1} = D_i\)</span></p></li>
+</ul>
+<p>Since it computes a fixed function of the input, this layer introduces zero
+parameters.</p>
+</div>
+<div class="section" id="vggnet">
+<h3>VGGNet<a class="headerlink" href="#vggnet" title="Permalink to this headline">¶</a></h3>
+<p>The experiments and analysis of <a class="bibtex reference internal" href="#simonyan2014very" id="id14">[SZ14]</a> standardized the
+hyperparameters of a conv layer.  They deliberately restricted the spatial
+extent of each filter to <span class="math notranslate nohighlight">\(3 \times 3\)</span> because that is the smallest size
+to capture the notion of left, right, up, down, and center.  The stride is fixed
+to one, and the zero padding is set to one to preserve the spatial resolution
+after the convolution.  When stacking conv layers, each layer has the same
+number of filters.  Downsampling is handled via max pooling over a
+<span class="math notranslate nohighlight">\(2 \times 2\)</span> pixel window with a stride of two.</p>
+<p>Their analysis on receptive fields and nonlinearity indicates that larger
+filters are undesirable.  Since the input volume’s spatial resolution is
+preserved when stacking conv layers, each additional <span class="math notranslate nohighlight">\(3 \times 3\)</span> conv
+layer extends the effective receptive field by two.  A stack of two
+<span class="math notranslate nohighlight">\(3 \times 3\)</span> conv layers gives each neuron an effective receptive field of
+<span class="math notranslate nohighlight">\(5 \times 5\)</span>.  Likewise, three such layers have a <span class="math notranslate nohighlight">\(7 \times 7\)</span>
+effective receptive field.  Assuming that both the input and the output of a
+three-layer <span class="math notranslate nohighlight">\(3 \times 3\)</span> convolution stack has <span class="math notranslate nohighlight">\(C\)</span> channels, the
+stack is parameterized by <span class="math notranslate nohighlight">\(3 (3^2 C^2) = 27 C^2\)</span> instead of
+<span class="math notranslate nohighlight">\(7^2 C^2 = 49 C^2\)</span> that a single <span class="math notranslate nohighlight">\(7 \times 7\)</span> conv layer would
+require.  Furthermore, in between each conv layer is a nonlinear activation
+function that makes the decision function more discriminative.</p>
+<p><a class="bibtex reference internal" href="#simonyan2014very" id="id15">[SZ14]</a> also explored <span class="math notranslate nohighlight">\(1 \times 1\)</span> conv filters as a way
+to increase the nonlinearity of the decision function without affecting the
+receptive fields of the conv layers.  The filters did not give as good a result
+compared to spatial conv filters.</p>
+</div>
+<div class="section" id="googlenet">
+<h3>GoogLeNet<a class="headerlink" href="#googlenet" title="Permalink to this headline">¶</a></h3>
+<p>The Inception architecture focuses on how an optimal local sparse structure of a
+convolutional vision network can be approximated efficiently by readily
+available hardware <a class="bibtex reference internal" href="#szegedy2015going" id="id16">[SLJ+15]</a>.  It assumes that if the probability
+distribution of the dataset is representable by a large, very sparse deep neural
+network, then the optimal network topology can be constructed layer after layer
+by analyzing the correlation statistics of the preceding layer activations and
+clustering neurons with highly correlated outputs.</p>
+<p>In the lower layers that are closer to the input, correlated units would
+concentrate in local regions.  Thus, the clusters concentrated in a single
+region can be covered by a layer of <span class="math notranslate nohighlight">\(1 \times 1\)</span> convolutions in the next
+layer.  However, there will be a smaller number of more spatially spread out
+clusters that can be covered by convolutions over larger patches, in addition to
+a decreasing number of patches over larger and larger regions.</p>
+<p>In order to avoid patch-alignment issues, the Inception architecture uses only
+convolutions of size <span class="math notranslate nohighlight">\(1 \times 1\)</span>, <span class="math notranslate nohighlight">\(3 \times 3\)</span>, <span class="math notranslate nohighlight">\(5 \times 5\)</span>,
+and a <span class="math notranslate nohighlight">\(3 \times 3\)</span> max pooling.  Their output filter banks are
+concatenated into a single output stack forming the input of the next stage.
+Together, these components form the Inception module.  Unfortunately, stacking
+these modules is computationally expensive because the total depth of a module
+can only grow at each layer.</p>
+<p>To reduce the computational bottleneck, <a class="bibtex reference internal" href="#szegedy2015going" id="id17">[SLJ+15]</a> performs
+dimensionality reduction using <span class="math notranslate nohighlight">\(1 \times 1\)</span> convolutions, assuming low
+dimensional embeddings still contain a lot of information about a relatively
+large image patch.  Furthermore, they used ReLUs to impose sparsity on the
+embedding.  In order to train this stack of modules, the intermediate Inception
+layers required auxiliary classifiers to backpropagate gradients to the lower
+stages.</p>
+<div class="section" id="inception-v3">
+<h4>Inception-v3<a class="headerlink" href="#inception-v3" title="Permalink to this headline">¶</a></h4>
+<p>The second and third generations of the Inception architecture focused on
+scaling up convolutional networks to meet the demands of big-data
+<a class="bibtex reference internal" href="#szegedy2016rethinking" id="id18">[SVI+16]</a>.  The architectural modifications can be
+summarized as:</p>
+<ol class="arabic simple">
+<li><p>Avoid representational bottlenecks, especially early in the network.  The
+representation size should gently decrease from the inputs to the outputs
+before reaching the final representation used for the task at hand.</p></li>
+<li><p>Increasing the activations per tile in a convolutional network allows for
+more disentangled features, which results in faster training.</p></li>
+<li><p>Spatial aggregation can be done over lower dimensional embeddings with tiny
+loss in representational power due to the strong correlation between adjacent
+units.</p></li>
+<li><p>Balance the width and depth of the network.  The optimal performance of the
+network can be reached by balancing the number of filters per stage and the
+depth of the network.</p></li>
+</ol>
+<p>The following optimizations are necessary to increase the depth of the network
+while keeping the computational complexity acceptable:</p>
+<ul class="simple">
+<li><p>When dealing with lower resolution input with constant network complexity, one
+can reduce the receptive field after the first layer and still achieve roughly
+the same accuracy.</p></li>
+<li><p>Instead of the typical max pooling layer, one can modify the Inception module
+to use a stride of two for both the pooling layer and spatial convolutions.
+On a related note, <a class="bibtex reference internal" href="#springenberg2014striving" id="id19">[SDBR14]</a> presents some empirical
+evidence that when a pooling layer is replaced with a strided convolution
+layer, performance stabilizes and even improves on the base model.  However,
+removing the pooling layer and just increasing the stride of the previous
+layer results in diminished performance in all settings.</p></li>
+<li><p>Instead of replacing higher order convolutions with stacks of
+<span class="math notranslate nohighlight">\(3 \times 3\)</span> convolutions, consider the computationally cheaper
+asymmetric convolutions: replace a <span class="math notranslate nohighlight">\(n \times n\)</span> convolution with a
+<span class="math notranslate nohighlight">\(n \times 1\)</span> convolution followed by a <span class="math notranslate nohighlight">\(1 \times n\)</span> convolution.
+The experiments indicate factorizing convolutions works well on feature maps
+of size twelve to twenty.</p></li>
+<li><p>Removing the lower auxiliary classifiers did not have any adverse effect on
+the final quality of the network.  The virtually identical training
+progression demonstrates that <a class="bibtex reference internal" href="#szegedy2015going" id="id20">[SLJ+15]</a> incorrectly
+hypothesized that these branches help evolve the low-level features.</p></li>
+</ul>
+</div>
+<div class="section" id="inception-v4">
+<h4>Inception-v4<a class="headerlink" href="#inception-v4" title="Permalink to this headline">¶</a></h4>
+<p>The fourth generation of the Inception architecture focused on simplifying the
+architecture to take advantage of residual connections
+<a class="bibtex reference internal" href="#szegedy2017inception" id="id21">[SIVA17]</a>.  The Inception-Residual block is essentially the
+Residual block with the indirect path flowing through the Inception block
+followed by an activation scaling module.</p>
+<p>The scaling module was manually configured to scale the residuals before adding
+them to the accumulated layer activations.  Without this hack, the residual
+variants started to exhibit instabilities and died early in the training when
+the number of filters exceeded one thousand.  In this case, dying means the last
+layer before the average pooling started to produce only zeros after a few tens
+of thousands of iterations.</p>
+<p>The experiments reveal that the residual connections lead to dramatically
+improved training speed for the Inception architecture.  However, the accuracy
+of the hybrid network is only fractionally higher than the Inception-v4
+architecture that does not have residual connections.  Furthermore, each
+network’s gains on single frame performance does not translate into large gains
+on ensembles: an ensemble of ResNet-151 achieves comparable accuracy.</p>
+</div>
+</div>
+<div class="section" id="resnext">
+<h3>ResNeXt<a class="headerlink" href="#resnext" title="Permalink to this headline">¶</a></h3>
+<p>ResNeXt combines VGG’s strategy of repeating layers with Inception’s customized
+stage-by-stage split-transform-merge strategy under the residual learning
+framework <a class="bibtex reference internal" href="#xie2017aggregated" id="id22">[XGDollar+17]</a>.  The underlying concept is
+Network-in-Neuron: define the residual function such that</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{F}(\mathbf{x}) = \sum_{i = 1}^C \mathcal{T}_i(\mathbf{x})\]</div>
+<p>where <span class="math notranslate nohighlight">\(\left\{ \mathcal{T}_i(\mathbf{x}) \right\}_{i = 1}^C\)</span> is a set of
+arbitrary (heterogeneous) functions.  Here the cardinality <span class="math notranslate nohighlight">\(C\)</span> refers to
+the size of the set of transformations.</p>
+<p>ResNeXt is fundamentally a ResNet whose residual bottleneck block template
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+1 \times 1, d\\ 3 \times 3, d\\ 1 \times 1, 4d
+\end{bmatrix}\)</span> is replaced with grouped convolutions
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+1 \times 1, 2d\\ 3 \times 3, 2d, C = 32\\ 1 \times 1, 4d
+\end{bmatrix}\)</span>.  In a grouped convolutional layer, the <span class="math notranslate nohighlight">\(2d\)</span> input and
+output channels are divided into <span class="math notranslate nohighlight">\(C\)</span> groups, and convolutions are
+separately performed within each group <a class="bibtex reference internal" href="#krizhevsky2012imagenet" id="id23">[KSH12]</a>.  Each
+group’s activation maps are then concatenated into a single output tensor.  Two
+more explicit, albeit slower, reformulations are</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{bmatrix}
+  1 \times 1, 2d\\ 3 \times 3, 2d, C = 32\\ 1 \times 1, 4d
+\end{bmatrix} =
+\begin{bmatrix}
+  1 \times 1, \frac{2d}{C} &amp; \cdots &amp; 1 \times 1, \frac{2d}{C}\\
+  3 \times 3, \frac{2d}{C} &amp; \cdots &amp; 3 \times 3, \frac{2d}{C}\\
+  &amp; \text{concatenation} &amp;\\
+  &amp; 1 \times 1, 4d &amp;
+\end{bmatrix} =
+\begin{bmatrix}
+  1 \times 1, \frac{2d}{C} &amp; \cdots &amp; 1 \times 1, \frac{2d}{C}\\
+  3 \times 3, \frac{2d}{C} &amp; \cdots &amp; 3 \times 3, \frac{2d}{C}\\
+  1 \times 1, 4d &amp; \cdots &amp; 1 \times 1, 4d\\
+  &amp; \text{aggregated transformation}
+\end{bmatrix}.\end{split}\]</div>
+<p>The experiments indicate that increasing cardinality as the model size and
+the number of parameters are kept constant is a more effective way of gaining
+accuracy, especially for shallow networks, than going deeper or wider.  Here
+width refers to the number of channels in a layer.  When tuning <span class="math notranslate nohighlight">\(C\)</span>, it is
+often not worthwhile to make <span class="math notranslate nohighlight">\(\frac{2d}{C} &lt; 4\)</span>.  Moreover, a ResNeXt
+block must be at least three layers deep to produce nontrivial topologies.  When
+the block’s depth is two, the aggregated transformation leads to a trivially
+wide, dense module.</p>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-blog/2016/12/12/deep-residual-learning-for-image-recognition-0"><dl class="citation">
+<dt class="bibtex label" id="he2016deep"><span class="brackets"><a class="fn-backref" href="#id12">HZRS16a</a></span></dt>
+<dd><p>Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition. In <em>Proceedings of the IEEE conference on computer vision and pattern recognition</em>, 770–778. 2016.</p>
+</dd>
+<dt class="bibtex label" id="he2016identity"><span class="brackets">HZRS16b</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id3">3</a>,<a href="#id11">4</a>)</span></dt>
+<dd><p>Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Identity mappings in deep residual networks. In <em>European Conference on Computer Vision</em>, 630–645. Springer, 2016.</p>
+</dd>
+<dt class="bibtex label" id="hu2018squeeze"><span class="brackets"><a class="fn-backref" href="#id9">HSS18</a></span></dt>
+<dd><p>Jie Hu, Li Shen, and Gang Sun. Squeeze-and-excitation networks. In <em>Proceedings of the IEEE conference on computer vision and pattern recognition</em>, 7132–7141. 2018.</p>
+</dd>
+<dt class="bibtex label" id="huang2016densely"><span class="brackets"><a class="fn-backref" href="#id13">HLWvdM16</a></span></dt>
+<dd><p>Gao Huang, Zhuang Liu, Kilian Q Weinberger, and Laurens van der Maaten. Densely connected convolutional networks. <em>arXiv preprint arXiv:1608.06993</em>, 2016.</p>
+</dd>
+<dt class="bibtex label" id="krizhevsky2012imagenet"><span class="brackets">KSH12</span><span class="fn-backref">(<a href="#id4">1</a>,<a href="#id23">2</a>)</span></dt>
+<dd><p>Alex Krizhevsky, Ilya Sutskever, and Geoffrey E Hinton. Imagenet classification with deep convolutional neural networks. In <em>Advances in neural information processing systems</em>, 1097–1105. 2012.</p>
+</dd>
+<dt class="bibtex label" id="lecun1998gradient"><span class="brackets"><a class="fn-backref" href="#id5">LBBH98</a></span></dt>
+<dd><p>Yann LeCun, Léon Bottou, Yoshua Bengio, and Patrick Haffner. Gradient-based learning applied to document recognition. <em>Proceedings of the IEEE</em>, 86(11):2278–2324, 1998.</p>
+</dd>
+<dt class="bibtex label" id="simonyan2014very"><span class="brackets">SZ14</span><span class="fn-backref">(<a href="#id6">1</a>,<a href="#id14">2</a>,<a href="#id15">3</a>)</span></dt>
+<dd><p>Karen Simonyan and Andrew Zisserman. Very deep convolutional networks for large-scale image recognition. <em>arXiv preprint arXiv:1409.1556</em>, 2014.</p>
+</dd>
+<dt class="bibtex label" id="springenberg2014striving"><span class="brackets"><a class="fn-backref" href="#id19">SDBR14</a></span></dt>
+<dd><p>Jost Tobias Springenberg, Alexey Dosovitskiy, Thomas Brox, and Martin Riedmiller. Striving for simplicity: the all convolutional net. <em>arXiv preprint arXiv:1412.6806</em>, 2014.</p>
+</dd>
+<dt class="bibtex label" id="szegedy2017inception"><span class="brackets"><a class="fn-backref" href="#id21">SIVA17</a></span></dt>
+<dd><p>Christian Szegedy, Sergey Ioffe, Vincent Vanhoucke, and Alexander A Alemi. Inception-v4, inception-resnet and the impact of residual connections on learning. In <em>AAAI</em>, 4278–4284. 2017.</p>
+</dd>
+<dt class="bibtex label" id="szegedy2015going"><span class="brackets">SLJ+15</span><span class="fn-backref">(<a href="#id7">1</a>,<a href="#id16">2</a>,<a href="#id17">3</a>,<a href="#id20">4</a>)</span></dt>
+<dd><p>Christian Szegedy, Wei Liu, Yangqing Jia, Pierre Sermanet, Scott Reed, Dragomir Anguelov, Dumitru Erhan, Vincent Vanhoucke, and Andrew Rabinovich. Going deeper with convolutions. In <em>Proceedings of the IEEE conference on computer vision and pattern recognition</em>, 1–9. 2015.</p>
+</dd>
+<dt class="bibtex label" id="szegedy2016rethinking"><span class="brackets"><a class="fn-backref" href="#id18">SVI+16</a></span></dt>
+<dd><p>Christian Szegedy, Vincent Vanhoucke, Sergey Ioffe, Jon Shlens, and Zbigniew Wojna. Rethinking the inception architecture for computer vision. In <em>Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition</em>, 2818–2826. 2016.</p>
+</dd>
+<dt class="bibtex label" id="xie2017aggregated"><span class="brackets">XGDollar+17</span><span class="fn-backref">(<a href="#id8">1</a>,<a href="#id22">2</a>)</span></dt>
+<dd><p>Saining Xie, Ross Girshick, Piotr Dollár, Zhuowen Tu, and Kaiming He. Aggregated residual transformations for deep neural networks. In <em>2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</em>, 5987–5995. IEEE, 2017.</p>
+</dd>
+<dt class="bibtex label" id="zoph2018learning"><span class="brackets"><a class="fn-backref" href="#id10">ZVSL18</a></span></dt>
+<dd><p>Barret Zoph, Vijay Vasudevan, Jonathon Shlens, and Quoc V Le. Learning transferable architectures for scalable image recognition. In <em>Proceedings of the IEEE conference on computer vision and pattern recognition</em>, 8697–8710. 2018.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/blog/2016/12/12/deep-residual-learning-for-image-recognition.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,144 @@
+#################################################################
+Dropout: A Simple Way to Prevent Neural Networks from Overfitting
+#################################################################
+
+Motivation(s)
+=============
+
+Deep neural networks contain multiple non-linear hidden layers to learn
+complicated mappings between their inputs and outputs.  Due to their large
+number of parameters, they need huge amounts of training data to avoid
+overfitting to the sampling noise.
+
+To avoid overfitting, several strategies have been proposed such as stopping the
+training as soon as performance on a validation set starts to get worse,
+introducing weight penalties, and soft weight sharing :cite:`prechelt1998early`.
+For instance, let :math:`E_v(t)` be the corresponding error on the validation
+set at epoch :math:`t` and :math:`E_o(t) = \min_{t' \leq t} E_v(t')`.  When the
+generalization loss :math:`L_G(t) = 100 \left( E_v(t) / E_o(t) - 1 \right)`
+exceeds a certain threshold, the training should stop.
+
+The (Bayesian) golden standard is to average the predictions of all possible
+settings of the parameters, weighting each setting by its posterior probability
+given the training data.  Clearly this requires too much computation, so
+researchers often settle for ensemble methods.  However, ensemble methods are
+merely stop-gaps since large networks are just as costly to evaluate.
+
+One recent idea to reduce overfitting is to regularize a neural network with
+noise.  This has been successfully applied in the context of Denoising
+Autoencoders where noise is added to the input units of an autoencoder and the
+network is trained to reconstruct the noise-free input.
+
+Proposed Solution(s)
+====================
+
+The authors propose dropout as a way to prevent overfitting and approximately
+combine exponentially many different neural network architectures efficiently.
+For each training example, dropout temporarily changes the topology of the
+network: each (visible or hidden) unit of a layer's output is kept with
+probability :math:`p`; it is set to zero otherwise.
+
+Note that a neural net with :math:`n` units can be seen as a collection of
+:math:`2^n` possible thinned neural networks.  These networks all share weights
+so that the total number of parameters is still :math:`\mathcal{O}(n^2)`.
+Applying dropout to a neural network amounts to sampling a thinned network from
+it.
+
+At test time, the entire neural net without dropout is used, but the weights are
+scaled.  If a unit is retained with probability :math:`p` during training, the
+outgoing weights of that unit are multiplied by :math:`p` at test time.  An
+equivalent approach to achieve the same effect without test time modifications
+is to scale up the retained activations by multiplying :math:`\frac{1}{p}` at
+training time.  This can be viewed as an equally-weighted averaging of
+exponentially many models with shared weights.
+
+Evaluation(s)
+=============
+
+The authors augment the existing feed-forward operation with Bernoulli random
+variables.  All the existing tricks (e.g. momentum, annealed learning rates,
+weight decay, pretraining) for training a neural network are used.  They noted
+that using a max-norm regularization on the incoming weight vector at each
+hidden unit improved SGD.
+
+The authors verified that dropout enabled existing state of the art methods to
+further reduce the error on the following datasets: MNIST, TIMIT, CIFAR-10,
+CIFAR-100, SVHN, ImageNet, Reuters-RCV1, and Alternative Gene Splicing.  Note
+that since dropout is approximating Bayesian neural networks, it did not achieve
+the best result for the last dataset.  Furthermore, as the data set size gets
+large, dropout exhibits diminishing returns.
+
+They argue that preventing co-adaptation of units by making the presence of
+other hidden units unreliable could be one of the reasons why dropout works.  A
+hidden unit can no longer rely on other specific units to correct its mistakes.
+A side effect of this is inducing sparsity in the activations of the hidden
+units.  Additionally, another experiment showed that dropout's weight scaling
+method achieved a prediction accuracy within one standard deviation of Monte
+Carlo model averaging.
+
+Future Direction(s)
+===================
+
+- Dropout's implementation looks very similar to russian roulette in
+  importance sampling, so perhaps that literature could be of use and possibly
+  make more sense than the intuition of averaging exponentially many submodels?
+- The authors mentioned that multiplicative Gaussian noise whose mean and
+  variance matches a Bernoulli distribution yielded equal or better performance.
+  Are there neuroscience evidence showing neurons misfire or activate according
+  to some distribution?
+
+Question(s)
+===========
+
+- Would first training the network to convergence without dropout, and then
+  retrain the converged network with dropout till convergence yield good result?
+
+Analysis
+========
+
+Dropout is an effective technique to reduce co-adaptations of hidden units at
+the cost of increasing training time due to noisy parameter updates.  This paper
+formalizes the concept of dropout, which was introduced in
+:cite:`hinton2012improving`.
+
+The paper's biological motivation for dropout is a bit off-key; the authors
+should have instead linked it to :doc:`dendritic computation </blog/2016/11/04/dendritic-computation>`.
+Their experiment on the effect of dropout rate is only insightful to the point
+of picking an appropriate value.  Should dropout try to mimic the brain's
+neuroplasticity?
+
+Nevertheless, there are valuable insights such as the formulation of Restricted
+Boltzmann Machines with dropout and the corresponding experiments to
+reillustrate dropout's benefit.  The authors also suggest some heuristics
+(akin to the :doc:`backpropagation tips </blog/2016/11/09/efficient-backprop>`)
+to train dropout networks.  Most of them just specify some range for a
+parameter, but one tip that may lead to some theoretical work is the network
+size.  If an :math:`n`-sized layer is optimal for a standard neural net on any
+given task, a good dropout net should have at least :math:`\frac{n}{p}` units
+where :math:`p` is the probability of retaining a unit.
+
+A related paper :cite:`wan2013regularization` generalizes this technique to
+dropping connection weights between fully connected layers.  The authors of
+DropConnect state that the inference step for dropout assumes
+
+.. math::
+
+   \sum_M a\left( (M \ast W) v \right) \approx
+   a\left( \sum_M (M \ast W) v \right).
+
+From inspection, this approximation is invalid for ReLU and :math:`\tanh` when
+the input is zero.  They propose an alternative approximation using moment
+matching and establish a bound for the Rademacher complexity of their model.
+The experiments illustrate DropConnect beating dropout by a miniscule amount on
+ReLU/:math:`\tanh` and losing on sigmoid.  All of the experiments focused on
+:math:`p = 0.5` and completely ignored its :doc:`regularization effects </blog/2016/11/13/dropout-training-as-adaptive-regularization>`.
+The performance results show execution times on the order of milliseconds, but
+the lack of a GPU version for dropout prevents any conclusive arguments.  Future
+works should explore :doc:`maxout networks </blog/2016/11/15/maxout-networks>`
+to see if DropConnect's tradeoff between slow convergence properties and higher
+accuracy is still worthwhile.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

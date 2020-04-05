@@ -1,0 +1,85 @@
+##################
+Profiling on Linux
+##################
+
+`perf`_
+=======
+
+.. _perf: https://perf.wiki.kernel.org/index.php/Main_Page
+
+.. code:: bash
+
+   sudo apt-get install linux-tools-common linux-tools-`uname -r`
+   pip install gprof2dot
+
+The Linux :program:`perf` command (a.k.a. `perf_events`_) is one of several
+tools available for `performance analysis`_.
+
+.. _perf_events: http://www.brendangregg.com/perf.html
+.. _performance analysis: https://github.com/brendangregg/perf-tools
+
+.. code:: bash
+
+   perf record -g <binary>
+   #perf record
+   perf script | c++filt | gprof2dot -f perf --strip | dot -Tpng -o output.png
+
+:program:`c++filt` is necessary at the moment to demangle function names.
+
+`memcheck`_
+===========
+
+.. _memcheck: http://valgrind.org/docs/manual/mc-manual.html
+
+.. code:: bash
+
+   valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --track-origins=yes <binary>
+
+`cachegrind`_
+=============
+
+.. _cachegrind: http://valgrind.org/docs/manual/cg-manual.html
+
+.. code:: bash
+
+   valgrind --tool=cachegrind <binary>
+   kcachegrind cachegrind.out.<pid>
+
+`callgrind`_
+============
+
+.. _callgrind: http://valgrind.org/docs/manual/cl-manual.html
+
+.. code:: bash
+
+   valgrind --tool=callgrind <binary>
+   kcachegrind callgrind.out.<pid>
+
+`helgrind`_
+===========
+
+.. _helgrind: http://valgrind.org/docs/manual/hg-manual.html
+
+.. code:: bash
+
+   valgrind --tool=helgrind <binary>
+
+`drd`_
+======
+
+.. _drd: http://valgrind.org/docs/manual/drd-manual.html
+
+.. code:: bash
+
+   valgrind --tool=drd <binary>
+
+`massif`_
+=========
+
+.. _massif: http://valgrind.org/docs/manual/ms-manual.html
+
+.. code:: bash
+
+   valgrind --tool=massif <binary>
+   #ms_print massif.out.<pid>
+   massif-visualizer massif.out.<pid>

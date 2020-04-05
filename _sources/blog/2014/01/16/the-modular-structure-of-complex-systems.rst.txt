@@ -1,0 +1,126 @@
+########################################
+The Modular Structure of Complex Systems
+########################################
+
+Motivation(s)
+=============
+
+The new software engineering techniques invented in academia are not being
+used in the industry.  The main reasons for the lack of adoption are:
+
+1) the techniques were not proven in practice,
+#) the academic examples are too far removed from reality, and
+#) the ideas need more refinement to fit the complexity and constraints of the
+   field.
+
+Proposed Solution(s)
+====================
+
+To resolve all three reasons, the authors applied the techniques to rewrite a
+top-of-the-line software project: Operational Flight Program.
+
+Evaluation(s)
+=============
+
+A detailed walkthrough of the A-7 OFP system is presented, which is very helpful
+in providing an application of the design techniques.
+
+Future Direction(s)
+===================
+
+- The module guide seems to be an amazing tool to have during software
+  development.  Is it possible to compute such information without having the
+  programmer do any documentation?
+- What if the programmer only labels modules as restricted, hidden, or by
+  default available for use in addition to the programming language constructs?
+- Which of the three module description categories can a compiler infer without
+  programmer documentation?  What is a good metric for this?
+
+Question(s)
+===========
+
+- Should the IDE (e.g. eclipse) be able to compute the connections between
+  modules and output a tree hierarchy (e.g. DAG)?
+- Do IDEs also allow marking of modules as restricted or hidden?
+
+Analysis
+========
+
+The previously mentioned software engineering techniques are useful but becomes
+disorganized unless a module guide constrains the design.  When writing module
+guides, it is important to focus on describing secrets than interfaces or roles.
+The information hiding principle works great if there is an additional module
+guide.  Otherwise, the responsibilities may be duplicated over several modules.
+
+Notes
+=====
+
+Three Important Software Structures
+-----------------------------------
+
+- Module
+
+  - Decomposition of the program into modules outlining all the assumptions.
+
+- Uses
+
+  - Determines the executable subsets of software.
+  - Components are programs (i.e. parts of modules).
+  - "Requires the presence of".
+
+- Process
+
+  - Decomposition of run-time activities of the system into units known as
+    processes.
+  - Processes are not programs.
+  - Some modules may include more than one process.
+  - Any process may invoke programs in several modules.
+
+Goals of Modular Structure
+--------------------------
+
+Blindly applying the information hiding principle will result in hundreds of
+small modules.  When a module change, how to track down all the modules that
+require change?  One approach is to organize the modules into a tree hierarchy.
+
+Restricted and Hidden Modules
+-----------------------------
+
+- It is not always possible to confine information to a single module.
+
+  - For example, information about hardware that could be replaced should be
+    confined, but diagonistic information about that hardware must be
+    communicated to modules that use it.
+
+- The use of modules that provide information that are susceptible are
+  restricted; the documentation indicates this with an "R".
+
+- Often the existence of certain smaller modules is itself a secret of a larger
+  module; the documentation indicates this with an "H".
+
+Module Description
+------------------
+
+- Three Categories
+
+  - Roles played by the individual modules in the overall system operation.
+  - Secrets associated with each module.
+
+    (1) Primary secrets are design decision.
+    (#) Secondary secrets are implementation decisions.
+
+  - Facilities provided by each module.
+
+- Module Guide
+
+  - Based on secrets.
+  - Tells you which module(s) will require a change.
+
+- Module Specification
+
+  - Tells you how to use that module and what that module must do.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

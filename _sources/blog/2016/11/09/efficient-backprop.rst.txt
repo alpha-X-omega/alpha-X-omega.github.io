@@ -1,0 +1,209 @@
+##################
+Efficient Backprop
+##################
+
+Motivation(s)
+=============
+
+Designing and training a neural network using backprop requires making a series
+of arbitrary choices such as training and test sets, the number and types of
+nodes, layers, and learning rates.  Although these choices are largely problem
+and data dependent, there are heuristics and some underlying theory that can
+serve as a guide.
+
+Proposed Solution(s)
+====================
+
+The authors discuss heuristics to minimize a given cost function and tricks to
+increase speed and quality of minimization.
+
+Evaluation(s)
+=============
+
+The authors derive the technical details of classical second order method to
+show it's not feasible to run on a large scale neural network.  Their eigenvalue
+analysis of the Hessian in gradient descent justifies the arbitrary parameter
+choices.  Note that some of the heuristics are based on empirical results.
+
+Future Direction(s)
+===================
+
+- Momentum and adaptive learning rates follow the intuition of: proceed in large
+  steps when far away from the minimum and anneal the learning rate when close
+  to the minimum.  In order to achieve this, more parameters are introduced.
+  Has the burden of tuning hyperparameters been reduced or merely shifted?
+- Existing optimization algorithms require input transformations, but does that
+  operation occur in the brain?
+- How does the activation function with a small linear term compare to ReLU?
+- The authors mentioned a neural network can use radial basis functions (RBFs)
+  in the upper layers (lower dimensional) and sigmoids in the lower layers
+  (higher dimensional).  Would using linear functions in the lower layers and
+  then using more nonlinear functions in the higher layers improve learning?
+- Bias versus variance is not the only decomposition of the
+  :doc:`error term </blog/2016/11/08/stochastic-gradient-descent-tricks>`, so
+  which decomposition is the most applicable?
+
+Question(s)
+===========
+
+- Is stochastic diagonal Levenberg Marquardt used in practice today?
+
+Analysis
+========
+
+Large eigenvalues will cause trouble in the training process because of
+
+- non-zero mean inputs or neuron states,
+- wide variations of the second derivatives from layer to layer, and
+- correlation between state variables.
+
+The proposed heuristics try to cope with these issues.  Note that the paper's
+approach of computing Hessians is :doc:`outdated </blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey>`.
+However, method of computing the least eigenvector and principal eigenvector may
+still be applicable.
+
+One of the interesting references is the one that shows the equivalence between
+Newton's method in an untransformed weight space and gradient descent in a
+whitened coordinate system.  Another point, albeit debatable, is the
+recommendation of normalizing each layer's outputs, which contradicts the
+trendy ReLU.  Nevertheless, the analysis and experiments in this paper could
+serve as a useful research guide.
+
+In a related paper :cite:`glorot2010understanding`, those authors provide some
+more experiments on how hidden unit activations and gradients vary across layers
+and training iterations.  Unfortunately, the scale of the experiments were too
+small to be conclusive.  They proposed a novel normalized initialization scheme
+and attained higher accuracy when the activation function was :math:`\tanh`, but
+they did not compare against existing weight initialization heuristics.  Their
+results with the softsign activation function indicate that their scheme will
+not benefit every activation function; therefore, they should have verified
+whether their proposal still yields large gains when :math:`\tanh` has an
+additional small linear term.  They assert monitoring activations and gradients
+across layers is a powerful tool, yet they make no effort towards comparing how
+the eigenvalues of the Hessian varies across layers.  Even though their scheme
+keeps gradient variance estimates across layers consistent, they did not show
+how much better their proposal is compared to normalizing the weights at each
+output layer.
+
+Notes
+=====
+
+Stochastic versus Batch Learning
+--------------------------------
+
+- Advantages of Stochastic Learning
+
+  - It expends less computational resources when the dataset has redundant or
+    similar statistics.
+  - The noisy stochastic updates enable the weights to jump into different local
+    optima of differing depths.
+  - It can adapt to a data distribution that gradually changes over time.
+
+- Advantages of Batch Learning
+
+  - Conditions of convergence are well understood.
+  - Many acceleration techniques (e.g. conjugate gradient) only operate in
+    batch learning.
+  - Theoretical analysis of weight dynamics and convergence rates are simpler.
+
+- The size of learning rates in stochastic learning corresponds to the
+  respective size of the mini batch.
+
+  - Overtraining may occur long before the noise in the parameter updates and
+    dataset becomes a problem.
+
+Shuffling the Examples
+----------------------
+
+- Choose examples with maximum information content.
+
+  - Shuffle the training set so that successive training examples never (rarely)
+    belong to the same class.
+  - Present input examples that produce a larger error more frequently than
+    examples that produce a small error.
+
+- An emphasizing scheme is a method that modifies the probability of appearance
+  of each pattern.
+
+  - This can be disastrous when applied to data containing outliers.
+
+Normalizing the Inputs
+----------------------
+
+- The average of each input variable over the training set should be close to
+  zero to avoid biasing the parameter updates in a particular direction.
+- Scale input variables so that their covariances are about the same to balance
+  out the rate at which the weights connected to the input nodes learn.
+- Input variables should be uncorrelated if possible.
+
+  - Karhunen-Loeve expansion (a.k.a. principal component analysis) can be used
+    to remove linear correlations in inputs.
+
+The Sigmoid
+-----------
+
+- Symmetric sigmoids such as hyperbolic tangent often converge faster than the
+  standard logistic function.
+- Sometimes it is helpful to add a small linear term (e.g.
+  :math:`f(x) = \tanh(x) + ax`) to avoid flat regions i.e. vanishing gradients.
+
+Choosing Target Values
+----------------------
+
+- Choose target values at the point of the maximum second derivative on the
+  sigmoid to avoid saturating the output units.
+- Setting target values to be the sigmoid's asymptotes has several drawbacks.
+
+  - The training process will drive the weights towards the target values, which
+    in the case of a sigmoid has near zero gradient.
+  - Large weights that saturate the outputs gives no indication of confidence
+    level, which makes differentiating between typical and non-typical examples
+    impossible.
+
+Initializing the Weights
+------------------------
+
+- Weights that range over the sigmoid's linear region have the advantage that
+
+  #. the gradients are large enough for learning to proceed, and
+  #. the network will learn the linear part of the mapping before the more
+     difficult nonlinear part.
+
+- Assuming the training set has been normalized and the activation function is
+  :math:`f(x) = 1.7159 \tanh \frac{2}{3} x`, the weights should be randomly
+  drawn from a distribution with mean zero and standard deviation
+  :math:`\sigma_w = m^{-1 / 2}` where :math:`m` is the fan-in.
+
+Choosing Learning Rates
+-----------------------
+
+- Equalize the learning speeds.
+
+  - Give each weight its own learning rate.
+  - Learning rates should be proportional to the square root of the unit's
+    fan-in since the gradients are a sum of more-or-less independent terms.
+  - Rates in the lower layers should typically be larger than in the higher
+    layers to compensate for the fact that the second derivative of the cost
+    function with respect to the weights in the lower layers is generally
+    smaller than that of the higher layers.
+
+Convergence of Gradient Descent
+-------------------------------
+
+- Eigenvalue analysis of the Hessian shows that a non-zero mean in the input
+  variables creates a very large eigenvalue, which in turn makes the condition
+  number that is proportional to convergence time large.
+- Inputs that have a large variation in spread along different directions of
+  the input space will have a large condition number.
+- Decorrelating the inputs is akin to aligning the Hessian's eigenvectors to
+  the coordinate axes, which decouples the weight updates.
+- Assuming the inputs are decorrelated, each input's learning rate could be
+  set to equal the inverse of the corresponding eigenvalue.
+
+  - If constrained to have a single learning rate, all weights :math:`i` must
+    satisfy :math:`\left\vert 1 - \eta \lambda_i \right\vert < 1`.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

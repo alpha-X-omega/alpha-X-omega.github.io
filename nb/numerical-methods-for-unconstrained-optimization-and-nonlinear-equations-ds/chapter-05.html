@@ -1,0 +1,1884 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Newton’s Method for Nonlinear Equations and Unconstrained Minimization &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Globally Convergent Modifications of Newton’s Method" href="chapter-06.html" />
+    <link rel="prev" title="Multivariable Calculus Background" href="chapter-04.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Newton’s Method for Nonlinear Equations and Unconstrained Minimization</a><ul>
+<li><a class="reference internal" href="#Exercise-1">Exercise 1</a></li>
+<li><a class="reference internal" href="#Exercise-2">Exercise 2</a></li>
+<li><a class="reference internal" href="#Exercise-3">Exercise 3</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+<li><a class="reference internal" href="#(d)">(d)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-4">Exercise 4</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+<li><a class="reference internal" href="#(d)">(d)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-5">Exercise 5</a></li>
+<li><a class="reference internal" href="#Exercise-6">Exercise 6</a></li>
+<li><a class="reference internal" href="#Exercise-7">Exercise 7</a><ul>
+<li><a class="reference internal" href="#\left\Vert-J(x_n)^{-1}-\right\Vert-\leq-\left\vert-f'(t_n)^{-1}-\right\vert"><span class="math notranslate nohighlight">\(\left\Vert J(x_n)^{-1} \right\Vert \leq \left\vert f'(t_n)^{-1} \right\vert\)</span></a></li>
+<li><a class="reference internal" href="#\left\Vert-x_{n-+-1}---x_n-\right\Vert-\leq-\left\vert-t_{n-+-1}---t_n-\right\vert"><span class="math notranslate nohighlight">\(\left\Vert x_{n + 1} - x_n \right\Vert \leq \left\vert t_{n + 1} - t_n \right\vert\)</span></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-8">Exercise 8</a></li>
+<li><a class="reference internal" href="#Exercise-9">Exercise 9</a></li>
+<li><a class="reference internal" href="#Exercise-10">Exercise 10</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+<li><a class="reference internal" href="#(d)">(d)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-11">Exercise 11</a></li>
+<li><a class="reference internal" href="#Exercise-12">Exercise 12</a></li>
+<li><a class="reference internal" href="#Exercise-13">Exercise 13</a></li>
+<li><a class="reference internal" href="#Exercise-14">Exercise 14</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+<li><a class="reference internal" href="#(d)">(d)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-15">Exercise 15</a></li>
+<li><a class="reference internal" href="#Exercise-16">Exercise 16</a></li>
+<li><a class="reference internal" href="#Exercise-17">Exercise 17</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-18">Exercise 18</a></li>
+<li><a class="reference internal" href="#Exercise-19">Exercise 19</a></li>
+<li><a class="reference internal" href="#Exercise-20">Exercise 20</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="chapter-04.html" title="Previous Chapter: Multivariable Calculus Background"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Multivariable...</span>
+    </a>
+  </li>
+  <li>
+    <a href="chapter-06.html" title="Next Chapter: Globally Convergent Modifications of Newton’s Method"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Globally Conv... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Newton's-Method-for-Nonlinear-Equations-and-Unconstrained-Minimization">
+<h1>Newton’s Method for Nonlinear Equations and Unconstrained Minimization<a class="headerlink" href="#Newton's-Method-for-Nonlinear-Equations-and-Unconstrained-Minimization" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Exercise-1">
+<h2>Exercise 1<a class="headerlink" href="#Exercise-1" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="k">def</span> <span class="nf">F</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asfarray</span><span class="p">([</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">8</span><span class="p">,</span>
+                           <span class="mi">5</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">9</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">J</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asfarray</span><span class="p">([[</span><span class="mi">6</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+                           <span class="p">[</span><span class="mi">10</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">6</span><span class="p">]])</span>
+
+<span class="n">x_c</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asfarray</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">s_k</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">J</span><span class="p">(</span><span class="n">x_c</span><span class="p">)),</span> <span class="o">-</span><span class="n">F</span><span class="p">(</span><span class="n">x_c</span><span class="p">))</span>
+    <span class="n">x_k</span> <span class="o">=</span> <span class="n">x_c</span> <span class="o">+</span> <span class="n">s_k</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;x_{0} = {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">x_c</span><span class="p">))</span>
+    <span class="n">x_c</span> <span class="o">=</span> <span class="n">x_k</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+x_0 = [2. 0.]
+x_1 = [1.31578947 1.05263158]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Exercise-2">
+<h2>Exercise 2<a class="headerlink" href="#Exercise-2" title="Permalink to this headline">¶</a></h2>
+<p>The Jacobian becomes ill-conditioned in the second iteration i.e. it becomes the
+zero matrix.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="k">def</span> <span class="nf">F</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">J</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asfarray</span><span class="p">([[</span><span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">0</span><span class="p">],</span>
+                           <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])]])</span>
+
+<span class="n">x_c</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asfarray</span><span class="p">([</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">J</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+    <span class="n">s_k</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">_</span><span class="p">),</span> <span class="o">-</span><span class="n">F</span><span class="p">(</span><span class="n">x_c</span><span class="p">))</span>
+    <span class="n">x_k</span> <span class="o">=</span> <span class="n">x_c</span> <span class="o">+</span> <span class="n">s_k</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Iteration {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;x_{0} = {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">x_c</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;s_{0} = {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">s_k</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;J_{0} =</span><span class="se">\n</span><span class="s1">{1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">_</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;x_{0} = {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x_k</span><span class="p">))</span>
+    <span class="n">x_c</span> <span class="o">=</span> <span class="n">x_k</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Iteration 0
+x_0 = [-10. -10.]
+s_0 = [22025.46579481 22025.46579481]
+J_0 =
+[[4.53999298e-05 0.00000000e+00]
+ [0.00000000e+00 4.53999298e-05]]
+x_1 = [22015.46579481 22015.46579481]
+Iteration 1
+x_1 = [22015.46579481 22015.46579481]
+s_1 = [nan nan]
+J_1 =
+[[inf  0.]
+ [ 0. inf]]
+x_2 = [nan nan]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Exercise-3">
+<h2>Exercise 3<a class="headerlink" href="#Exercise-3" title="Permalink to this headline">¶</a></h2>
+<p>Define <span class="math notranslate nohighlight">\(f_1(x) = x, f_2(x) = x^2 + x,\)</span> and <span class="math notranslate nohighlight">\(f_3(x) = e^x - 1\)</span>.</p>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[f'_1(x) = 1 \Rightarrow f'_1(x_* = 0) = 1\]</div>
+<div class="math notranslate nohighlight">
+\[f'_2(x) = 2x + 1 \Rightarrow f'_2(x_* = 0) = 1\]</div>
+<div class="math notranslate nohighlight">
+\[f'_3(x) = e^x \Rightarrow f'_3(x_* = 0) = 1\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>The Lipschitz constant for each derivative at the root <span class="math notranslate nohighlight">\(x_* = 0\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left| f'_1(x) - f'_1(0) \right| &amp;\leq \gamma_1 \left| x - 0 \right|\\
+\left| \frac{1 - 1}{x} \right| &amp;\leq \gamma_1\\
+0 &amp;\leq \gamma_1\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left| f'_2(x) - f'_2(0) \right| &amp;\leq \gamma_2 \left| x - 0 \right|\\
+\left| \frac{2x + 1 - 1}{x} \right| &amp;\leq \gamma_2\\
+2 &amp;\leq \gamma_2\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left| f'_3(x) - f'_3(0) \right| &amp;\leq \gamma_3 \left| x - 0 \right|\\
+\left| \frac{e^x - 1}{x} \right| &amp;\leq \gamma_3\\
+ &amp;\leq e^x \leq \gamma_3\end{split}\]</div>
+<p>The last inequality holds because the Bernoulli inequality gives</p>
+<div class="math notranslate nohighlight">
+\[1 + x \leq \left( 1 + \frac{x}{n} \right)^n
+\xrightarrow{n \rightarrow \infty} \exp x.\]</div>
+<p>Note that <span class="math notranslate nohighlight">\(e^x\)</span> is an upper bound when <span class="math notranslate nohighlight">\(x &gt; 0\)</span> and becomes a lower
+bound when <span class="math notranslate nohighlight">\(x &lt; 0\)</span>.</p>
+</div>
+<div class="section" id="(c)">
+<h3>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h3>
+<p>The derivative of each function is bounded on the interval <span class="math notranslate nohighlight">\([-a, a]\)</span>, so
+each function is Lipschitz continuous.  The bound for each derivative is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left| f'_1(x) \right| &amp;= 1\\
+ &amp;\geq \rho_1 = 1\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left| f'_2(x) \right| &amp;= \left| 2x + 1 \right|\\
+ &amp;\geq \rho_2 = 0\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left| f'_3(x) \right| &amp;= \left| e^x \right|\\
+ &amp;\geq \rho_3 = e^{-a}\end{split}\]</div>
+<p>The smallest region of convergence is defined to be
+<span class="math notranslate nohighlight">\(\eta = \min \left\{ \hat{\eta}, 2 \rho / \gamma \right\}\)</span> where
+<span class="math notranslate nohighlight">\(\hat{\eta}\)</span> is defined to be the radius of the largest open interval
+around <span class="math notranslate nohighlight">\(x_*\)</span>.</p>
+</div>
+<div class="section" id="(d)">
+<h3>(d)<a class="headerlink" href="#(d)" title="Permalink to this headline">¶</a></h3>
+<p><span class="math notranslate nohighlight">\(f_1\)</span> will converge to <span class="math notranslate nohighlight">\(x_* = 0\)</span> in the interval
+<span class="math notranslate nohighlight">\((-\infty, \infty)\)</span> since it only has one root and
+<span class="math notranslate nohighlight">\(\lim_{\gamma \rightarrow 0^+} \frac{2 \rho_1}{\gamma_1} = \infty\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(f_2\)</span> violates the assumption that <span class="math notranslate nohighlight">\(\rho_2 &gt; 0\)</span> at <span class="math notranslate nohighlight">\(x = -0.5\)</span>
+causing Newton’s method to fail because the derivative is zero.  Splitting the
+interval into <span class="math notranslate nohighlight">\((-\infty, -0.5)\)</span> and <span class="math notranslate nohighlight">\((-0.5, \infty)\)</span> sidesteps that
+issue.  Applying Theorem 2.4.3 to each region shows that any point in those
+regions will converge.</p>
+<p><span class="math notranslate nohighlight">\(f_3\)</span> will converge to <span class="math notranslate nohighlight">\(x_* = 0\)</span> in the interval
+<span class="math notranslate nohighlight">\((-\infty, \infty)\)</span> since it only has one root in theory and
+<span class="math notranslate nohighlight">\(\lim_{a \rightarrow \infty} \frac{2 \rho_3}{\gamma_3} =
+\lim_{a \rightarrow \infty} 2 e^{-2a} = 0\)</span>.  However, the floating-point
+precision restricts the region to <span class="math notranslate nohighlight">\([-6.5, 709]\)</span>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="k">def</span> <span class="nf">Newtons_Method</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f_prime</span><span class="p">,</span> <span class="n">x_c</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x_c</span> <span class="o">-</span> <span class="n">f</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span> <span class="o">/</span> <span class="n">f_prime</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="p">[</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span>
+     <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">,</span>
+     <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="p">]</span>
+<span class="n">f_prime</span> <span class="o">=</span> <span class="p">[</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+           <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+           <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span>
+<span class="n">x_c</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">7.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_c</span><span class="p">)):</span>
+        <span class="n">x_c</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">Newtons_Method</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">f_prime</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">x_c</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;x_{0} = {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x_c</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+x_1 = [0.0, -1.8000000000000003, 6.500553084370148]
+x_2 = [0.0, -1.2461538461538462, 5.502055692264317]
+x_3 = [0.0, -1.0406026962727994, 4.506134071187519]
+x_4 = [0.0, -1.0015247601944897, 3.5171751329216505]
+x_5 = [0.0, -1.000002317825395, 2.546858300770652]
+x_6 = [0.0, -1.0000000000053721, 1.6251856616292897]
+x_7 = [0.0, -1.0, 0.8220607812846256]
+x_8 = [0.0, -1.0, 0.2615857370546373]
+x_9 = [0.0, -1.0, 0.031415606703852794]
+x_10 = [0.0, -1.0, 0.0004883429491289379]
+x_11 = [0.0, -1.0, 1.192200103575106e-07]
+x_12 = [0.0, -1.0, 7.157097849691172e-15]
+x_13 = [0.0, -1.0, 5.16704920902205e-17]
+x_14 = [0.0, -1.0, 5.16704920902205e-17]
+x_15 = [0.0, -1.0, 5.16704920902205e-17]
+x_16 = [0.0, -1.0, 5.16704920902205e-17]
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="Exercise-4">
+<h2>Exercise 4<a class="headerlink" href="#Exercise-4" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}J(x) =
+\begin{bmatrix}
+  1 &amp; 0 &amp; 0\\
+  0 &amp; 2 x_2 + 1 &amp; 0\\
+  0 &amp; 0 &amp; e^{x_3}
+\end{bmatrix}\end{split}\]</div>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}J(x_*) =
+\begin{bmatrix}
+  1 &amp; 0 &amp; 0\\
+  0 &amp; 1 &amp; 0\\
+  0 &amp; 0 &amp; 1
+\end{bmatrix}\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>The Lipschitz constant on <span class="math notranslate nohighlight">\(J(x) \in \text{Lip}_\gamma(N(x_*, a))\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert J(x) - J(x_*) \right\Vert
+ &amp;\leq \gamma \left\Vert x - x_* \right\Vert
+       &amp; \quad &amp; \text{(4.1.11)}\\
+\left\Vert
+  \begin{bmatrix}
+    0 &amp; 0 &amp; 0\\
+    0 &amp; 2 x_2 &amp; 0\\
+    0 &amp; 0 &amp; e^{x_3} - 1
+  \end{bmatrix}
+\right\Vert
+ &amp;&lt; \gamma a
+    &amp; \quad &amp; d(x_*, x) &lt; a\\
+\frac{
+  \max \left\{
+    \left\vert 2 x_2 \right\vert,
+    \left\vert e^{x_3} - 1 \right\vert
+  \right\}
+}{a} &amp;&lt; \gamma
+        &amp; \quad &amp; \text{1-norm is an upper bound for the numerator}\end{split}\]</div>
+</div>
+<div class="section" id="(c)">
+<h3>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h3>
+<p>1-norm is the largest possible value for
+<span class="math notranslate nohighlight">\(\left\Vert J(x_*)^{-1} \right\Vert\)</span>, so the region of convergence is
+defined as
+<span class="math notranslate nohighlight">\(\epsilon = \min \left\{ a, \frac{1}{2 \beta \gamma} \right\}\)</span> where
+<span class="math notranslate nohighlight">\(0 &lt; \left\Vert J(x_*)^{-1} \right\Vert \leq 1 \leq \beta\)</span>.  Hence</p>
+<div class="math notranslate nohighlight">
+\[\epsilon =
+\min \left\{
+  a,
+  \frac{a}{
+    \max \left\{
+      \left\vert 4 x_2 \right\vert, \left\vert 2e^{x_3} - 2 \right\vert
+    \right\}
+  }
+\right\}\]</div>
+</div>
+<div class="section" id="(d)">
+<h3>(d)<a class="headerlink" href="#(d)" title="Permalink to this headline">¶</a></h3>
+<p>When <span class="math notranslate nohighlight">\((x_0)_3 = 0,
+\epsilon = \min \left\{ a, \frac{a}{\left\vert 4 x_2 \right\vert} \right\}\)</span>.
+When <span class="math notranslate nohighlight">\((x_0)_2 = (x_0)_3 = 0, \epsilon = a\)</span> because as
+<span class="math notranslate nohighlight">\((x_0)_2 \rightarrow 0\)</span> or <span class="math notranslate nohighlight">\((x_0)_3 \rightarrow 0\)</span>, the denominator
+grows infinitely large.</p>
+</div>
+</div>
+<div class="section" id="Exercise-5">
+<h2>Exercise 5<a class="headerlink" href="#Exercise-5" title="Permalink to this headline">¶</a></h2>
+<p>Proof by induction starts at the base case of <span class="math notranslate nohighlight">\(x_0\)</span>, so the goal is to
+show <span class="math notranslate nohighlight">\(x_1 = x_0 - J(x_0)^{-1} F(x_0)\)</span> is well-defined i.e. <span class="math notranslate nohighlight">\(J(x_0)\)</span>
+is nonsingular.</p>
+<p>Since <span class="math notranslate nohighlight">\(J(x_*)^{-1}\)</span> exists and
+<span class="math notranslate nohighlight">\(\left\Vert J(x_*)^{-1} \right\Vert \leq \beta\)</span> where <span class="math notranslate nohighlight">\(\beta &gt; 0\)</span> by
+assumption, <span class="math notranslate nohighlight">\(J(x_*)\)</span> is nonsingular.  Theorem 3.14 states that
+<span class="math notranslate nohighlight">\(J(x_0)\)</span> is nonsingular when
+<span class="math notranslate nohighlight">\(\left\Vert J(x_*)^{-1} \left( J(x_0) - J(x_*) \right) \right\Vert &lt; 1\)</span>
+holds.  Recall that <span class="math notranslate nohighlight">\(J\)</span> is Holder continuous within
+<span class="math notranslate nohighlight">\(N(x_*, r)\)</span> where <span class="math notranslate nohighlight">\(r &gt; 0\)</span> and <span class="math notranslate nohighlight">\(\alpha \in (0, 1]\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert J(x_*)^{-1} \left( J(x_0) - J(x_*) \right) \right\Vert
+ &amp;\leq \left\Vert
+         J(x_*)^{-1} \right\Vert \left\Vert J(x_0) - J(x_*)
+       \right\Vert\\
+ &amp;\leq \beta \gamma \left\Vert x_0 - x_* \right\Vert^\alpha\\
+ &amp;\leq \beta \gamma r^\alpha\end{split}\]</div>
+<p>Picking <span class="math notranslate nohighlight">\(\epsilon = \min \left\{ r,
+\left( \frac{\alpha}{(1 + \alpha) \beta \gamma} \right)^{1 / \alpha} \right\}\)</span>
+satisfies Theorem 3.14 in addition to revealing the elegant inequality
+<span class="math notranslate nohighlight">\(\beta \gamma \epsilon^\alpha \leq \frac{\alpha}{1 + \alpha} &lt; 1\)</span> that
+simplifies later derivations.  Thus <span class="math notranslate nohighlight">\(J(x_0)\)</span> is nonsingular and its
+induced matrix norm is bounded above by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert J(x_0) \right\Vert
+ &amp;\leq \frac{
+         \left\Vert J(x_*)^{-1} \right\Vert
+       }{
+         1 -
+         \left\Vert J(x_*)^{-1} \left( J(x_0) - J(x_*) \right) \right\Vert
+       }
+       &amp; \quad &amp; \text{perturbation relation 3.1.20}\\
+ &amp;\leq \beta \frac{1}{1 - \beta \gamma \epsilon^\alpha}\\
+ &amp;\leq \beta (1 + \alpha).\end{split}\]</div>
+<p>Observe that the sequence <span class="math notranslate nohighlight">\(x_1, x_2, \ldots\)</span> converges to <span class="math notranslate nohighlight">\(x_*\)</span>
+because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x_1 - x_* &amp;= x_0 - J(x_0)^{-1} F(x_0) - x_*\\
+ &amp;= x_0 - J(x_0)^{-1} \lbrack F(x_0) - F(x_*) \rbrack - x_*
+    &amp; \quad &amp; F(x_*) = 0\\
+ &amp;= J(x_0)^{-1} \lbrack F(x_*) - F(x_0) - J(x_0) (x_* - x_0) \rbrack\\
+\left\Vert x_1 - x_* \right\Vert
+ &amp;= \left\Vert
+      J(x_0)^{-1} \lbrack F(x_*) - F(x_0) - J(x_0) (x_* - x_0) \rbrack
+    \right\Vert\\
+\left\Vert x_1 - x_* \right\Vert
+ &amp;\leq \left\Vert J(x_0)^{-1} \right\Vert
+       \left\Vert F(x_*) - F(x_0) - J(x_0) (x_* - x_0) \right\Vert
+       &amp; \quad &amp; \text{(3.1.10)}\\
+ &amp;\leq \beta (1 + \alpha)
+       \left\Vert x_* - x_0 \right\Vert^{1 + \alpha}
+       \frac{\gamma}{1 + \alpha}
+       &amp; \quad &amp; p = x_* - x_0\\
+ &amp;= \beta \gamma \left\Vert x_0 - x_* \right\Vert^{1 + \alpha}
+    &amp; \quad &amp; \text{(3.1.1b).}\end{split}\]</div>
+<p>To understand why <span class="math notranslate nohighlight">\(p = x_* - x_0\)</span>, see <a class="reference internal" href="chapter-04.html#dennis1996numerical-ex-4-8"><span class="std std-ref">Exercise 4.8</span></a>.</p>
+</div>
+<div class="section" id="Exercise-6">
+<span id="dennis1996numerical-ex-5-6"></span><h2>Exercise 6<a class="headerlink" href="#Exercise-6" title="Permalink to this headline">¶</a></h2>
+<p>By definition of differentiability and continuity,</p>
+<div class="math notranslate nohighlight">
+\[f(t) = \frac{\gamma}{2} t^2 - \frac{t}{\beta} + \frac{\eta}{\beta}\]</div>
+<p>is continuously differentiable <span class="math notranslate nohighlight">\(\forall t \in \mathbb{R}\)</span>,
+<span class="math notranslate nohighlight">\(\gamma, \eta \in \mathbb{R}^+_0\)</span>, and <span class="math notranslate nohighlight">\(\beta \in \mathbb{R}^+\)</span>.
+Assuming <span class="math notranslate nohighlight">\(t_0 = 0\)</span>, <span class="math notranslate nohighlight">\(N(t_0, r)\)</span> is satisfied
+<span class="math notranslate nohighlight">\(\forall r \in (0, \infty)\)</span>.</p>
+<p>Since <span class="math notranslate nohighlight">\(f(t): \mathbb{R} \rightarrow \mathbb{R}\)</span>, the vector norm and
+induced operator norm reduce respectively to an absolute value and
+<span class="math notranslate nohighlight">\(J(t) = f'(t) = \gamma t - \frac{1}{\beta}\)</span>.</p>
+<p>Notice that <span class="math notranslate nohighlight">\(J \in \text{Lip}_\gamma(N(t_0, r))\)</span> because
+<span class="math notranslate nohighlight">\(\left\vert f'(t) \right\vert &lt;
+\left\vert \gamma r \right\vert + \left\vert \frac{1}{\beta} \right\vert\)</span>.</p>
+<p>The initial conditions for the induced operator norms</p>
+<div class="math notranslate nohighlight">
+\[\left\Vert J(t_0)^{-1} \right\Vert =
+\left\vert \left( \gamma t_0 - \frac{1}{\beta} \right)^{-1} \right\vert =
+\beta\]</div>
+<div class="math notranslate nohighlight">
+\[\left\Vert J(t_0)^{-1} F(t_0) \right\Vert =
+\left\vert
+  \left( \gamma t_0 - \frac{1}{\beta} \right)^{-1}
+  \left(
+    \frac{\gamma}{2} t_0^2 - \frac{t_0}{\beta} + \frac{\eta}{\beta}
+  \right)
+\right\vert =
+\eta\]</div>
+<p>are satisfied by definition of <span class="math notranslate nohighlight">\(f(t)\)</span>.</p>
+<p>Define <span class="math notranslate nohighlight">\(\gamma_\text{Rel} = \beta \gamma, \alpha = \gamma_\text{Rel} \eta\)</span>
+for ease of notation.  Analytically solving for the roots of the univariate
+quadratic function <span class="math notranslate nohighlight">\(f(t_*) = 0\)</span> gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t_*
+ &amp;= \frac{
+      \beta^{-1} \pm \sqrt{\beta^{-2} - 2 \gamma \eta \beta^{-1}}
+    }{\gamma}\\
+ &amp;= \frac{\beta^{-1} \pm \sqrt{\frac{1 - 2 \alpha}{\beta^2}}}{\gamma}\\
+ &amp;= \frac{1 \pm \sqrt{1 - 2 \alpha}}{\beta \gamma}.\end{split}\]</div>
+<p>Thus <span class="math notranslate nohighlight">\(\alpha \leq \frac{1}{2}\)</span> is a necessary condition for <span class="math notranslate nohighlight">\(f(t)\)</span>
+to have real roots.</p>
+<p>The following results will be useful in proving <span class="math notranslate nohighlight">\(\{t_k\}\)</span> converges.</p>
+<p>Proof of <span class="math notranslate nohighlight">\(\left\vert f'(t_{k + 1}) \right\vert \geq
+\left\vert \frac{f'(t_k)}{2} \right\vert\)</span> via induction.  The following shows
+that the base case holds:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\vert f'(t_1) \right\vert
+ &amp;= \left\vert \gamma t_1 - \frac{1}{\beta}\right\vert\\
+ &amp;= \left\vert
+      \gamma \left( t_0 - J(t_0)^{-1} F(t_0) \right) - \frac{1}{\beta}
+    \right\vert\\
+ &amp;= \left\vert \gamma \eta - \frac{1}{\beta}\right\vert\\
+ &amp;= \left\vert \frac{\alpha - 1}{\beta}\right\vert\\
+ &amp;= \frac{1 - \alpha}{\beta}\\
+ &amp;\geq \left\vert \frac{f'(t_0)}{2} \right\vert
+       &amp; \quad &amp; \frac{1}{2 \beta} \leq
+                 \frac{1 - \alpha}{\beta} \leq \frac{1}{\beta}\end{split}\]</div>
+<p>Assume <span class="math notranslate nohighlight">\(\left\vert f'(t_k) \right\vert \geq
+\left\vert \frac{f'(t_{k - 1})}{2} \right\vert\)</span> holds.  The inductive step holds
+because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\vert f'(t_{k + 1}) \right\vert
+ &amp;= \left\vert \gamma t_{k + 1} - \frac{1}{\beta}\right\vert\\
+ &amp;= \left\vert
+      \gamma \left( t_k - J(t_k)^{-1} F(t_k) \right) - \frac{1}{\beta}
+    \right\vert\\
+ &amp;= \left\vert
+      \gamma \left(
+        t_k -
+        \left( \frac{\beta \gamma t_k - 1}{\beta} \right)^{-1}
+            \left(
+              \frac{\beta \gamma t_k^2 - 2 t_k + 2 \eta}{2 \beta}
+            \right)
+      \right) -
+      \frac{1}{\beta}
+    \right\vert\\
+ &amp;= \left\vert
+      \gamma t_k -
+      \frac{
+        \frac{\beta \gamma^2 t_k^2}{2} - \gamma t_k + \gamma \eta
+      }{\beta \gamma t_k - 1} -
+      \frac{1}{\beta}
+    \right\vert\\
+ &amp;= \left\vert
+      \gamma t_k -
+      \frac{
+        \frac{\gamma_\text{Rel}^2 t_k^2}{2} -
+        \gamma_\text{Rel} t_k + \alpha + \gamma_\text{Rel} t_k - 1
+      }{\beta \gamma_\text{Rel} t_k - \beta}
+    \right\vert\\
+ &amp;= \left\vert
+      \gamma t_k +
+      \frac{
+        1 - \alpha - \frac{\gamma_\text{Rel}^2 t_k^2}{2}
+      }{\beta \gamma_\text{Rel} t_k - \beta}
+    \right\vert\\
+ &amp;= \left\vert
+      \gamma t_k +
+      \frac{
+        1 - \alpha -
+        \left( \beta^2 \gamma t_k - \beta \right) \frac{\gamma t_k}{2} -
+        \frac{\beta \gamma t_k}{2}
+      }{\beta^2 \gamma t_k - \beta}
+ \right\vert\\
+ &amp;= \left\vert
+      \frac{\gamma t_k}{2} -
+      \frac{
+        1 - \alpha - \frac{\gamma_\text{Rel} t_k}{2}
+      }{\beta \left( 1 - \gamma_\text{Rel} t_k \right)}
+    \right\vert\\
+ &amp;= \left\vert
+      \frac{\gamma t_k}{2} -
+      \frac{1}{2 \beta}
+          \frac{
+            2 - 2 \alpha - \gamma_\text{Rel} t_k
+          }{1 - \gamma_\text{Rel} t_k}
+    \right\vert\\
+ &amp;\geq \left\vert \frac{\gamma t_k}{2} - \frac{1}{2 \beta} \right\vert\\
+ &amp;= \left\vert \frac{f'(t_k)}{2} \right\vert.\end{split}\]</div>
+<p>The last step can be proven via contradiction.  Assume
+<span class="math notranslate nohighlight">\(0 \leq \alpha \leq \frac{1}{2}\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[\left\vert \gamma_\text{Rel} t_k - 1 \right\vert &gt;
+\left\vert
+  \gamma_\text{Rel} t_k -
+  \frac{2 - 2 \alpha - \gamma_\text{Rel} t_k}{1 - \gamma_\text{Rel} t_k}
+\right\vert.\]</div>
+<p>Given <span class="math notranslate nohighlight">\(x = \gamma_\text{Rel} t_k\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\vert x - 1 \right\vert
+ &amp;&gt; \left\vert x - \frac{2 - 2 \alpha - x}{1 - x} \right\vert\\
+\left\vert x - 1 \right\vert \left\vert 1 - x \right\vert
+ &amp;&gt; \left\vert x - x^2 - 2 + 2 \alpha + x \right\vert\\
+\left\vert x - 1 \right\vert^4
+ &amp;&gt; \left\vert x - x^2 - 2 + 2 \alpha + x \right\vert^2\\
+(4 \alpha - 2) x^2 + (4 - 8 \alpha) x - 4 \alpha^2 + 8 \alpha - 3 &amp;&gt; 0\\
+(2 \alpha - 1) (2x^2 - 4x + 3 - 2 \alpha) &amp;&gt; 0.\end{split}\]</div>
+<p>Solving for roots of the quadratic equation yields</p>
+<div class="math notranslate nohighlight">
+\[x =
+\frac{-(-4) \pm \sqrt{(-4)^2 - 4 (2) (3 - 2 \alpha)}}{2 (2)} =
+1 \pm \sqrt{\alpha - \frac{1}{2}}\]</div>
+<p>which means <span class="math notranslate nohighlight">\(\alpha &gt; \frac{1}{2}\)</span> must hold to yield a real solution, but
+this contradicts the assumption that <span class="math notranslate nohighlight">\(\alpha \leq \frac{1}{2}\)</span>.  Therefore</p>
+<div class="math notranslate nohighlight">
+\[\left\vert \gamma_\text{Rel} t_k - 1 \right\vert
+ \leq \left\vert
+        \gamma_\text{Rel} t_k -
+        \frac{
+          2 - 2 \alpha - \gamma_\text{Rel} t_k
+        }{1 - \gamma_\text{Rel} t_k}
+      \right\vert
+\quad \text{and} \quad
+\left\vert f'(t_{k + 1}) \right\vert
+ \geq \left\vert 2^{-(k + 1)} \beta^{-1} \right\vert.\]</div>
+<p>The upper bound <span class="math notranslate nohighlight">\(\left\vert f'(t_{k + 1}) \right\vert \leq
+\left\vert f'(t_k) \right\vert\)</span> can also be derived as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}2 \left\vert x - 1 \right\vert
+ &amp;\geq \left\vert x - \frac{2 - 2 \alpha - x}{1 - x} \right\vert\\
+3x^4 - 12x^3 + (16 + 4 \alpha)x^2 - (8 + 8 \alpha)x +
+    8 \alpha - 4 \alpha^2 &amp;\geq 0\\
+(x^2 - 2x + 2 \alpha) (3x^2 - 6x + 4 - 2 \alpha) &amp;\geq 0.\end{split}\]</div>
+<p>Solving for roots of the quartic equation yields</p>
+<div class="math notranslate nohighlight">
+\[x = \frac{-(-2) \pm \sqrt{(-2)^2 - 4 (1) (2 \alpha)}}{2 (1)} =
+1 \pm \sqrt{1 - 2 \alpha}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[x = \frac{-(-6) \pm \sqrt{(-6)^2 - 4 (3) (4 - 2 \alpha)}}{2 (3)} =
+1 \pm \sqrt{\frac{2 \alpha - 1}{3}}.\]</div>
+<p>Since <span class="math notranslate nohighlight">\(0 \leq \alpha \leq \frac{1}{2}\)</span>, the second quadratic formula is
+inconsequential for real roots.  Therefore the sequence <span class="math notranslate nohighlight">\(\{ t_k \}\)</span> is
+well-defined with <span class="math notranslate nohighlight">\(N(t_0, r)\)</span> because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t_{k + 1} - t_* &amp;= t_k - J(t_k)^{-1} F(t_k) - t_*\\
+ &amp;= J(t_k)^{-1} \left[ F(t_*) - F(t_k) - J(t_k) (t_* - t_k) \right]\\
+\left\vert t_{k + 1} - t_* \right\vert
+ &amp;\leq 2^k \beta \frac{\gamma}{2} \left\vert t_* - t_k \right\vert^2
+       &amp; \quad &amp; \text{Lemma 4.1.12}\\
+ &amp;= 2^{k - 1} \beta \gamma \left\vert t_k - t_* \right\vert^2
+    &amp; \quad &amp; \text{(3.1.1b)}\\
+ &amp;\leq 2^{k - 1} r^2 \frac{\eta}{\alpha}.\end{split}\]</div>
+<p>This inequality can be further simplified assuming <span class="math notranslate nohighlight">\(r \geq r_0\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\vert t_1 - t_* \right\vert &amp;\leq 2^{-1} r^2 \frac{\eta}{\alpha}\\
+ &amp;\leq 2^{-1} \left( 1 - \sqrt{1 - 2 \alpha} \right)^2 \frac{\eta}{\alpha}.\end{split}\]</div>
+<p>Unrolling the recursion for <span class="math notranslate nohighlight">\(t_k\)</span> yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\vert t_k - t_* \right\vert
+ &amp;\leq 2^{-k} \left( 1 - \sqrt{1 - 2 \alpha} \right)^{2^k}
+       \frac{\eta}{\alpha}\\
+ &amp;\leq (2 \alpha)^{2^k} \frac{\eta}{\alpha}.\end{split}\]</div>
+<p>The last step can be proven via induction.  The base case when <span class="math notranslate nohighlight">\(k = 0\)</span>
+gives <span class="math notranslate nohighlight">\(1 - \sqrt{1 - 2 \alpha} \leq 2 \alpha\)</span>.  Let us prove this via
+contradiction: assume <span class="math notranslate nohighlight">\(0 \leq \alpha \leq \frac{1}{2}\)</span> and
+<span class="math notranslate nohighlight">\(1 - \sqrt{1 - 2 \alpha} &gt; 2 \alpha\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}1 - \sqrt{1 - 2 \alpha} &amp;&gt; 2 \alpha\\
+\left( 1 - 2 \alpha \right)^2 &amp;&gt; \sqrt{1 - 2 \alpha}^2\\
+4 \alpha^2 - 4 \alpha + 1 &amp;&gt; 1 - 2 \alpha\\
+4 \alpha^2 - 2 \alpha &gt; 0\\
+\alpha (2\alpha - 1) &gt; 0\end{split}\]</div>
+<p>shows that <span class="math notranslate nohighlight">\(\alpha &gt; \frac{1}{2}\)</span> must hold to satisfy the inequality, but
+this contradicts the assumption that <span class="math notranslate nohighlight">\(\alpha \leq \frac{1}{2}\)</span>.  Thus the
+base case is true.</p>
+<p>For the inductive step, assume
+<span class="math notranslate nohighlight">\(2^{-k} \left( 1 - \sqrt{1 - 2 \alpha} \right)^{2^k} \leq
+\left( 2 \alpha \right)^{2^k}\)</span> for <span class="math notranslate nohighlight">\(0 \leq \alpha \leq \frac{1}{2}\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}2^{-(k + 1)} \left( 1 - \sqrt{1 - 2 \alpha} \right)^{2^{k + 1}}
+ &amp;\leq \left( 2 \alpha \right)^{2^{k + 1}}\\
+-(k + 1) + 2^{k + 1} \log_2 \left( 1 - \sqrt{1 - 2 \alpha} \right)
+ &amp;\leq 2^{k + 1} \log_2 \left( 2 \alpha \right)\\
+\frac{-(k + 1)}{2^{k + 1}} + \log_2 \left( 1 - \sqrt{1 - 2 \alpha} \right)
+ &amp;\leq \log_2 \left( 2 \alpha \right)\\
+2^{\frac{-(k + 1)}{2^{k + 1}}} \left( 1 - \sqrt{1 - 2 \alpha} \right)
+ &amp;\leq 2 \alpha\\
+c \left( 1 - \sqrt{1 - 2 \alpha} \right)
+ &amp;\leq 2 \alpha
+       &amp; \quad &amp; c = 2^{\frac{-(k + 1)}{2^{k + 1}}} &gt; 0.\end{split}\]</div>
+<p>By inspection, as <span class="math notranslate nohighlight">\(k \rightarrow \infty\)</span>, <span class="math notranslate nohighlight">\(c \rightarrow 1\)</span>,
+which completes the inductive step.</p>
+</div>
+<div class="section" id="Exercise-7">
+<span id="dennis1996numerical-ex-5-7"></span><h2>Exercise 7<a class="headerlink" href="#Exercise-7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="\left\Vert-J(x_n)^{-1}-\right\Vert-\leq-\left\vert-f'(t_n)^{-1}-\right\vert">
+<h3><span class="math notranslate nohighlight">\(\left\Vert J(x_n)^{-1} \right\Vert \leq \left\vert f'(t_n)^{-1} \right\vert\)</span><a class="headerlink" href="#\left\Vert-J(x_n)^{-1}-\right\Vert-\leq-\left\vert-f'(t_n)^{-1}-\right\vert" title="Permalink to this headline">¶</a></h3>
+<p>When <span class="math notranslate nohighlight">\(n = 0\)</span>, <a class="reference internal" href="#dennis1996numerical-ex-5-6"><span class="std std-ref">Exercise 6</span></a> shows that
+<span class="math notranslate nohighlight">\(\left\vert f'(t_0)^{-1} \right\vert = \beta\)</span> and <span class="math notranslate nohighlight">\(F\)</span> is presumed to
+satisfy the assumptions of the Kantorovich theorem</p>
+<div class="math notranslate nohighlight">
+\[\left\Vert J(x_0)^{-1} \right\Vert \leq \left\vert f'(t_0)^{-1} \right\vert.\]</div>
+<p>For the inductive step <span class="math notranslate nohighlight">\(n = k\)</span>, recall Theorem 3.14 states that
+<span class="math notranslate nohighlight">\(J(x_k)\)</span> is nonsingular when
+<span class="math notranslate nohighlight">\(\left\Vert J(x_0)^{-1} \left( J(x_k) - J(x_0) \right) \right\Vert &lt; 1\)</span>
+holds.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert J(x_0)^{-1} \left( J(x_k) - J(x_0) \right) \right\Vert
+ &amp;\leq \left\Vert
+         J(x_0)^{-1} \right\Vert \left\Vert J(x_k) - J(x_0)
+       \right\Vert\\
+ &amp;\leq \beta \gamma r
+       &amp; \quad &amp; J \in \text{Lip}_\gamma(N(x_0, r &gt; 0))\end{split}\]</div>
+<p>Picking <span class="math notranslate nohighlight">\(r = \frac{1 - \sqrt{1 - 2 \alpha}}{\beta \gamma}\)</span> where
+<span class="math notranslate nohighlight">\(0 \leq \alpha \leq \frac{1}{2}\)</span> satisfies Theorem 3.14.  Thus
+<span class="math notranslate nohighlight">\(J(x_k)\)</span> is nonsingular and its induced matrix norm is bounded above by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert J(x_k)^{-1} \right\Vert
+ &amp;\leq \frac{
+         \left\Vert J(x_0)^{-1} \right\Vert
+       }{
+         1 -
+         \left\Vert J(x_0)^{-1} \left( J(x_k) - J(x_0) \right) \right\Vert
+       }
+       &amp; \quad &amp; \text{(3.1.20)}\\
+ &amp;\leq \frac{\left\vert f'(t_0)^{-1} \right\vert}{ 1 - c}
+       &amp; \quad &amp; 0 \leq c = 1 -
+       \left\Vert
+         J(x_0)^{-1} \left( J(x_k) - J(x_0) \right)
+       \right\Vert &lt; 1\\
+ &amp;\leq \frac{\left\vert f'(t_k)^{-1} \right\vert}{1 - c}\\
+(1 - c) \left\Vert J(x_k)^{-1} \right\Vert
+ &amp;\leq \left\vert f'(t_k)^{-1} \right\vert.\end{split}\]</div>
+<p>The second to last inequality is explained in
+<a class="reference internal" href="#dennis1996numerical-ex-5-6"><span class="std std-ref">Exercise 6</span></a>.</p>
+</div>
+<div class="section" id="\left\Vert-x_{n-+-1}---x_n-\right\Vert-\leq-\left\vert-t_{n-+-1}---t_n-\right\vert">
+<h3><span class="math notranslate nohighlight">\(\left\Vert x_{n + 1} - x_n \right\Vert \leq \left\vert t_{n + 1} - t_n \right\vert\)</span><a class="headerlink" href="#\left\Vert-x_{n-+-1}---x_n-\right\Vert-\leq-\left\vert-t_{n-+-1}---t_n-\right\vert" title="Permalink to this headline">¶</a></h3>
+<p>When <span class="math notranslate nohighlight">\(n = 0\)</span>, <a class="reference internal" href="#dennis1996numerical-ex-5-6"><span class="std std-ref">Exercise 6</span></a> shows that
+<span class="math notranslate nohighlight">\(\left\Vert J(t_0)^{-1} F(t_0) \right\Vert = \eta\)</span> and <span class="math notranslate nohighlight">\(F\)</span> is
+presumed to satisfy the assumptions of the Kantorovich theorem</p>
+<div class="math notranslate nohighlight">
+\[\left\Vert x_1 - x_0 \right\Vert \leq \left\vert t_1 - t_0 \right\vert.\]</div>
+<p>The following relations will be useful for the induction.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert F(x_k) \right\Vert
+ &amp;= \left\Vert
+      F(x_k) - F(x_{k - 1}) - J(x_{k - 1}) (x_k - x_{k -  1})
+    \right\Vert
+    &amp; \quad &amp; \text{(4.1.10)}\\
+ &amp;= \left\Vert F(x_{k - 1} + p) - F(x_{k - 1}) - J(x_{k - 1}) p \right\Vert
+    &amp; \quad &amp; p = x_k - x_{k - 1}\\
+ &amp;\leq \frac{\gamma}{2} \left\Vert x_k - x_{k - 1} \right\Vert^2
+       &amp; \quad &amp; \text{Lemma 4.1.12}\end{split}\]</div>
+<p>Applying the same analysis to
+<span class="math notranslate nohighlight">\(f(t_k) = \frac{\gamma}{2} (t_k - t_{k - 1})^2\)</span> gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\vert f(t_k) \right\vert
+ &amp;= \left\vert
+      f(t_k) - f(t_{k - 1}) - f'(t_{k - 1}) (t_k - t_{k - 1})
+    \right\vert
+    &amp; \quad &amp; \text{(4.1.10)}\\
+ &amp;= \left\vert
+      \frac{\gamma}{2} t_k^2 - \frac{t_k}{\beta} + \frac{\eta}{\beta} -
+      \frac{\gamma}{2} t_{k - 1}^2 + \frac{t_{k - 1}}{\beta} -
+      \frac{\eta}{\beta} -
+      \left( \gamma t_{k - 1} - \frac{1}{\beta} \right) (t_k - t_{k - 1})
+    \right\vert\\
+ &amp;= \left\vert
+      \frac{\gamma}{2} t_k^2 - \frac{t_k}{\beta} -
+      \frac{\gamma}{2} t_{k - 1}^2 + \frac{t_{k - 1}}{\beta} -
+      \gamma t_{k - 1} t_k + \gamma t_{k - 1}^2 + \frac{t_k}{\beta} -
+      \frac{t_{k - 1}}{\beta}
+    \right\vert\\
+ &amp;= \left\vert
+      \frac{\gamma}{2} t_k^2 - \gamma t_k t_{k - 1} +
+      \frac{\gamma}{2} t_{k - 1}^2
+    \right\vert\\
+ &amp;= \frac{\gamma}{2} \left( t_k - t_{k - 1} \right)^2.\end{split}\]</div>
+<p>The inductive step for <span class="math notranslate nohighlight">\(n = k\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x_{k + 1} &amp;= x_k - J(x_k)^{-1} F(x_k)\\
+\left\Vert x_{k + 1} - x_k \right\Vert
+ &amp;= \left\Vert -J(x_k)^{-1} F(x_k) \right\Vert\\
+ &amp;\leq \left\vert f'(t_k)^{-1} \right\vert \left\Vert F(x_k) \right\Vert\\
+ &amp;= \left\vert t_{k + 1} - t_k \right\vert
+    \frac{\left\Vert F(x_k) \right\Vert}{\left\vert f(t_k) \right\vert}
+    &amp; \quad &amp; \left\vert t_{k + 1} - t_k \right\vert =
+              \left\vert f'(t_k)^{-1} f(t_k)\right\vert\\
+ &amp;\leq \left\vert t_{k + 1} - t_k \right\vert
+       &amp; \quad &amp; \text{ratio is less than one by the inductive step.}\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-8">
+<h2>Exercise 8<a class="headerlink" href="#Exercise-8" title="Permalink to this headline">¶</a></h2>
+<p>As stated in the section after Theorem 5.3.1,
+<a class="reference internal" href="#dennis1996numerical-ex-5-6"><span class="std std-ref">Exercise 6</span></a> and
+<a class="reference internal" href="#dennis1996numerical-ex-5-7"><span class="std std-ref">Exercise 7</span></a> shows that
+<span class="math notranslate nohighlight">\(\left\Vert x_* - x_k \right\Vert\)</span> is bounded above by
+<span class="math notranslate nohighlight">\(\left\vert t_* - t_k \right\vert\)</span>; hence it is a convergent sequence.
+Every convergent sequence is a Cauchy sequence, so <span class="math notranslate nohighlight">\(\{ x_k \}\)</span> is a Cauchy
+sequence that will converge to some <span class="math notranslate nohighlight">\(x_*\)</span>.  This technique of proof is
+known as majorization where <span class="math notranslate nohighlight">\(\{ t_k \}\)</span> is said to majorize
+<span class="math notranslate nohighlight">\(\{ x_k \}\)</span>.</p>
+<p>See <a class="bibtex reference internal" href="#ortega1968newton" id="id5">[Ort68]</a> for a very concise and formal proof.</p>
+</div>
+<div class="section" id="Exercise-9">
+<h2>Exercise 9<a class="headerlink" href="#Exercise-9" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="bibtex reference internal" href="#bryan1968approximate" id="id6">[Bry68]</a> for an elegant and concise proof that enables
+the evaluation of nonlinear integral equations using numerical quadrature.</p>
+</div>
+<div class="section" id="Exercise-10">
+<span id="dennis1996numerical-ex-5-10"></span><h2>Exercise 10<a class="headerlink" href="#Exercise-10" title="Permalink to this headline">¶</a></h2>
+<p>The contractive mapping theorem is also known as the Banach fixed-point theorem
+or the contraction mapping principle.</p>
+<p>Given <span class="math notranslate nohighlight">\(G: D \rightarrow D\)</span> where <span class="math notranslate nohighlight">\(D\)</span> is a closed subset of
+<span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, for any starting point <span class="math notranslate nohighlight">\(x_0 \in D\)</span>, the sequence
+<span class="math notranslate nohighlight">\(\{ x_k \}\)</span> generated by <span class="math notranslate nohighlight">\(x_{k + 1} = G(x_k)\)</span> remains in <span class="math notranslate nohighlight">\(D\)</span>
+for <span class="math notranslate nohighlight">\(k = 0, 1, \ldots\)</span>.</p>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>Observe that recursively applying</p>
+<div class="math notranslate nohighlight">
+\[\left\Vert x_{k + 1} - x_k \right\Vert =
+\left\Vert G(x_k) - G(x_{k - 1}) \right\Vert \leq
+\alpha \left\Vert x_k - x_{k - 1} \right\Vert\]</div>
+<p>yields</p>
+<div class="math notranslate nohighlight">
+\[\left\Vert x_{k + 1} - x_k \right\Vert \leq
+\alpha^k \left\Vert x_1 - x_0 \right\Vert\]</div>
+<p>where <span class="math notranslate nohighlight">\(\alpha \in [0,1)\)</span>.</p>
+<p>For any <span class="math notranslate nohighlight">\(j \geq 0\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\sum_{i = 0}^j \left\Vert x_{i + 1} - x_i \right\Vert
+ &amp;\leq \left\Vert x_1 - x_0 \right\Vert \sum_{i = 0}^j \alpha^i\\
+ &amp;= \left\Vert x_1 - x_0 \right\Vert \frac{1 - \alpha^{j + 1}}{1 - \alpha}
+    &amp; \quad &amp; \text{geometric series formula}\\
+ &amp;\leq \frac{\left\Vert x_1 - x_0 \right\Vert}{1 - \alpha}
+       &amp; \quad &amp; \text{as } j \rightarrow \infty.\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>Recall that a sequence <span class="math notranslate nohighlight">\(\{ x_i \}\)</span> is called a Cauchy sequence if
+<span class="math notranslate nohighlight">\(\forall \epsilon &gt; 0 \, \exists N \in \mathbb{N}\)</span> such that
+<span class="math notranslate nohighlight">\(\forall \, m, n \geq N\)</span>, then
+<span class="math notranslate nohighlight">\(\left\Vert x_m - x_n \right\Vert &lt; \epsilon\)</span>.</p>
+<p>Without loss of generality, let <span class="math notranslate nohighlight">\(m \leq n\)</span> with <span class="math notranslate nohighlight">\(k = n - m \geq 0\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert x_m - x_n \right\Vert
+ &amp;= \left\Vert x_m - x_{m + k} \right\Vert\\
+ &amp;= \left\Vert
+      (x_m - x_{m + 1}) + (x_{m + 1} - x_{m + 2}) + \ldots +
+      (x_{m + k - 1} - x_{m + k})
+    \right\Vert\\
+ &amp;\leq \left\Vert x_{m + 1} - x_m \right\Vert +
+       \left\Vert x_{m + 2} - x_{m + 1} \right\Vert + \ldots +
+       \left\Vert x_{m + k} - x_{m + k - 1} \right\Vert
+       &amp; \quad &amp; \text{triangle inequality (3.1.1b)}\\
+ &amp;\leq \left\Vert x_1 - x_0 \right\Vert \sum_{i = m}^{m + k - 1} \alpha^i
+       &amp; \quad &amp; \text{(a)}\\
+ &amp;= \left\Vert x_1 - x_0 \right\Vert
+    \frac{\alpha^m - \alpha^{m + k}}{1 - \alpha}
+    &amp; \quad &amp; \text{geometric series formula}\\
+ &amp;\leq \left\Vert x_1 - x_0 \right\Vert \frac{\alpha^N}{1 - \alpha}.\end{split}\]</div>
+<p>Hence <span class="math notranslate nohighlight">\(\{ x_i \}\)</span> is a Cauchy sequence as long as <span class="math notranslate nohighlight">\(N\)</span> satisfies</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert x_1 - x_0 \right\Vert \frac{\alpha^N}{1 - \alpha}
+ &amp;&lt; \epsilon\\
+\alpha^N &amp;&lt; \epsilon \frac{1 - \alpha}{\left\Vert x_1 - x_0 \right\Vert}\\
+N &amp;&gt; \log_{\alpha}\left(
+       \epsilon \frac{1 - \alpha}{\left\Vert x_1 - x_0 \right\Vert}
+     \right).\end{split}\]</div>
+<p>The following observations will be useful in proving <span class="math notranslate nohighlight">\(G\)</span> has a fixpoint
+<span class="math notranslate nohighlight">\(x_*\)</span> where a fixed point (a.k.a. fixpoint, invariant point) of a function
+is defined as <span class="math notranslate nohighlight">\(G(x_*) = x_*\)</span>.</p>
+<p>A function is said to be a contraction map if it satisfies the assumptions of
+the Contractive Mapping Theorem.  Notice that the inequality (5.3.2) is a
+restricted definition of Lipschitz continuity, which means a contraction map is
+continuous on <span class="math notranslate nohighlight">\(D\)</span>.</p>
+<p>As shown in (a), <span class="math notranslate nohighlight">\(\{ x_k \}\)</span> converges to some <span class="math notranslate nohighlight">\(x_*\)</span> because
+<span class="math notranslate nohighlight">\(\lim_{k \rightarrow \infty} \alpha^k = 0\)</span>.  Therefore,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\lim_{k \rightarrow \infty} x_{k + 1}
+ &amp;= \lim_{k \rightarrow \infty} G(x_k)\\
+ &amp;= G(\lim_{k \rightarrow \infty} x_k)
+    &amp; \quad &amp; \text{G is continuous}\\
+x_* &amp;= G(x_*).\end{split}\]</div>
+</div>
+<div class="section" id="(c)">
+<h3>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h3>
+<p>Proof by contradiction is the easily method to show that <span class="math notranslate nohighlight">\(x_* \in D\)</span> is
+unique.</p>
+<p>Assume that <span class="math notranslate nohighlight">\(\exists \, y_* \in D\)</span> such that <span class="math notranslate nohighlight">\(y_* \neq x_*\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert G(x_*) - G(y_*) \right\Vert
+ &amp;\leq \alpha \left\Vert x_* - y_* \right\Vert
+       &amp; \quad &amp; \text{(5.3.2)}\\
+\left\Vert x_* - y_* \right\Vert
+ &amp;\leq \alpha \left\Vert x_* - y_* \right\Vert
+       &amp; \quad &amp; \text{(b)}\\
+(1 - \alpha) \left\Vert x_* - y_* \right\Vert &amp;\leq 0.\end{split}\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\alpha \in [0, 1)\)</span>, <span class="math notranslate nohighlight">\(\left\Vert x_* - y_* \right\Vert = 0\)</span>,
+but this contradicts the assumption <span class="math notranslate nohighlight">\(y_* \neq x_*\)</span>.  Thus a contraction
+map has a unique fixed point.</p>
+<p>By definition</p>
+<div class="math notranslate nohighlight">
+\[\left\Vert x_{k + 1} - x_* \right\Vert =
+\left\Vert G(x_k) - G(x_*) \right\Vert \leq
+\alpha \left\Vert x_k - x_* \right\Vert,\]</div>
+<p><span class="math notranslate nohighlight">\(\{ x_k \}\)</span> converges q-linearly to <span class="math notranslate nohighlight">\(x_*\)</span>.</p>
+<p>By applying the results of (b) with <span class="math notranslate nohighlight">\(m = k\)</span> as
+<span class="math notranslate nohighlight">\(n \rightarrow \infty\)</span>, the error bound can be derived as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\lim_{n \rightarrow \infty} \left\Vert x_k - x_n \right\Vert
+ &amp;\leq \lim_{n \rightarrow \infty} \left\Vert x_1 - x_0 \right\Vert
+       \frac{\alpha^k - \alpha^{n}}{1 - \alpha}\\
+\left\Vert x_k - x_* \right\Vert
+ &amp;\leq \frac{\eta \alpha^k}{1 - \alpha}
+       &amp; \quad &amp; \left\Vert x_1 - x_0 \right\Vert \leq \eta.\end{split}\]</div>
+<p>The last inequality holds because the norm’s continuity enables moving the
+limit inside.</p>
+</div>
+<div class="section" id="(d)">
+<h3>(d)<a class="headerlink" href="#(d)" title="Permalink to this headline">¶</a></h3>
+<p>As shown in <a class="bibtex reference internal" href="#petersd466fp" id="id11">[Pet]</a>, the other version of the Contractive Mapping
+Theorem no longer assumes a self-map.</p>
+<p>Let <span class="math notranslate nohighlight">\(G \colon D \rightarrow \mathbb{R}^n\)</span> where <span class="math notranslate nohighlight">\(D\)</span> is a closed
+subset of <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.  If for some norm
+<span class="math notranslate nohighlight">\(\left\Vert \cdot \right\Vert\)</span>, there exists <span class="math notranslate nohighlight">\(\alpha \in [0, 1)\)</span>
+such that</p>
+<div class="math notranslate nohighlight">
+\[\left\Vert G(x) - G(y) \right\Vert \leq \alpha \left\Vert x - y \right\Vert
+\qquad \forall \, x, y \in D,\]</div>
+<p>then the rest of the Contractive Mapping Theorem still holds.  The goal is to
+show the sequence <span class="math notranslate nohighlight">\(\{ x_k \}\)</span> generated by <span class="math notranslate nohighlight">\(x_{k + 1} = G(x_k)\)</span>
+remains in <span class="math notranslate nohighlight">\(D\)</span> for <span class="math notranslate nohighlight">\(k = 0, 1, \ldots\)</span> with <span class="math notranslate nohighlight">\(x_0 \in D\)</span>.</p>
+<p>Since <span class="math notranslate nohighlight">\(D\)</span> is a closed subset and the results of (c) defines a closed
+neighborhood of radius <span class="math notranslate nohighlight">\(\frac{\eta \alpha^k}{1 - \alpha}\)</span> around
+<span class="math notranslate nohighlight">\(x_*\)</span>, as long as each subsequent element in the sequence are within that
+iteration’s specified neighborhood, the original assumptions of the Contractive
+Mapping Theorem are satisfied and the sequence will converge to <span class="math notranslate nohighlight">\(x_*\)</span>.</p>
+</div>
+</div>
+<div class="section" id="Exercise-11">
+<h2>Exercise 11<a class="headerlink" href="#Exercise-11" title="Permalink to this headline">¶</a></h2>
+<p>Define <span class="math notranslate nohighlight">\(x_{i + 1} = G(x_i) = x_i - \frac{f(x_i)}{a}\)</span> where
+<span class="math notranslate nohighlight">\(f(x) = x^2 - 1\)</span> and <span class="math notranslate nohighlight">\(a &gt; 1\)</span>.  By inspection, the roots of <span class="math notranslate nohighlight">\(f\)</span>
+are at <span class="math notranslate nohighlight">\(x = \pm 1\)</span> and <span class="math notranslate nohighlight">\(G \colon \mathbb{R} \rightarrow \mathbb{R}\)</span>,
+but <span class="math notranslate nohighlight">\(x_i\)</span> will not converge to the roots
+<span class="math notranslate nohighlight">\(\forall x_0 \in \mathbb{R}\)</span>.  The goal is to find
+<span class="math notranslate nohighlight">\(D \in \mathbb{R}\)</span> such that <span class="math notranslate nohighlight">\(x_0 \in D\)</span> will converge to
+<span class="math notranslate nohighlight">\(x_* = 1\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert G(x_0) - G(x_*) \right\Vert
+ &amp;= \left\vert x_0 - \frac{f(x_0)}{a} - x_*\right\vert\\
+ &amp;= \left\vert x_0 - x_* - \frac{x_0^2 - 1}{a} \right\vert\\
+ &amp;= \left\vert x_0 - x_* \right\vert
+    \left\vert 1 - \frac{x_0 + x_*}{a} \right\vert
+    &amp; \quad &amp; x_* = 1\\
+ &amp;&lt; \left\vert x_0 - x_* \right\vert.\end{split}\]</div>
+<p>In order to establish the last inequality, <span class="math notranslate nohighlight">\(x_0\)</span> needs to satisfy</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\vert 1 - \frac{x_0 + x_*}{a} \right\vert &amp;&lt; 1\\
+1 - \frac{2 (x_0 + x_*)}{a} + \frac{(x_0 + x_*)^2}{a^2} &amp;&lt; 1\\
+0 &amp;&lt; -(x_0 + x_*)^2 + 2a (x_0 + x_*)\\
+0 &amp;&lt; -x_0^2 + (2a - 2x_*) x_0 + 2ax_* - x_*^2.\end{split}\]</div>
+<p>Solving the quadratic equation for the <span class="math notranslate nohighlight">\(x_0\)</span> yields</p>
+<div class="math notranslate nohighlight">
+\[x_0 =
+\frac{
+  -(2a - 2x_*) \pm \sqrt{(2a - 2x_*)^2 - 4 (-1) (2ax_* - x_*^2)}
+}{2 (-1)} =
+a - x_* \pm (-a).\]</div>
+<p>Hence the inequality will be satisfied i.e. <span class="math notranslate nohighlight">\(\exists \, \alpha \in [0, 1)\)</span>
+such that <span class="math notranslate nohighlight">\(\left\Vert G(x_0) - G(x_*) \right\Vert
+\leq \alpha \left\vert x_0 - x_* \right\vert\)</span> when
+<span class="math notranslate nohighlight">\(x_0 \in (-x_*, 2a - x_*)\)</span>.</p>
+<p>To show <span class="math notranslate nohighlight">\(G \colon D \rightarrow D\)</span> holds by principle of induction, assume</p>
+<div class="math notranslate nohighlight">
+\[\left\Vert x_i - x_* \right\Vert =
+\left\Vert G(x_{i - 1}) - G(x_*) \right\Vert \leq
+\alpha \left\vert x_{i - 1} - x_* \right\vert.\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert G(x_i) - G(x_*) \right\Vert
+ &amp;= \left\vert x_i - \frac{f(x_i)}{a} - x_* \right\vert\\
+ &amp;= \left\vert x_i - x_* - \frac{(x_i + x_*) (x_i - x_*)}{a} \right\vert
+    &amp; \quad &amp; x_* = 1\\
+ &amp;= \left\vert x_i - x_* \right\vert
+    \left\vert 1 - \frac{(x_i + x_*)}{a} \right\vert\\
+ &amp;&lt; \left\vert x_i - x_* \right\vert.\end{split}\]</div>
+<p>Consequently,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\vert 1 - \frac{(x_i + x_*)}{a} \right\vert &amp;&lt; 1\\
+1 - \frac{2 (x_i + x_*)}{a} + \frac{(x_i + x_*)^2}{a^2} &amp;&lt; 1\\
+0 &amp;&lt; -(x_i + x_*)^2 + 2a (x_i + x_*)\\
+0 &amp;&lt; -x_i^2 + (2a - 2x_*) x_i + 2ax_* - x_*^2\\
+0 &amp;&lt; -\left( x_{i - 1} - \frac{x_{i - 1}^2 - 1}{a} \right)^2 +
+     (2a - 2x_*) \left( x_{i - 1} - \frac{x_{i - 1}^2 - 1}{a} \right) +
+     2ax_* - x_*^2\\
+0 &amp;&lt; -\frac{\left( -ax_{i - 1} - ax_* + x_{i - 1}^2 - 1 \right)
+     \left( 2a^2 - ax_{i - 1} - ax_* + x_{i - 1}^2 - 1 \right)}{a^2}\\
+0 &amp;&lt; \frac{ \left( x_{i - 1} + 1 \right) \left( a - x_{i - 1} + 1 \right)
+     \left( 2a^2 - ax_{i - 1} - a + x_{i - 1}^2 - 1 \right)}{a^2}
+     &amp; \quad &amp; x_* = 1.\end{split}\]</div>
+<p>Since <span class="math notranslate nohighlight">\(a &gt; 1\)</span>, <span class="math notranslate nohighlight">\(\left\Vert G(x_i) - G(x_*) \right\Vert
+\leq \alpha \left\vert x_i - x_* \right\vert\)</span> when
+<span class="math notranslate nohighlight">\(x_{i - 1} \in (-1, a + 1)\)</span>.</p>
+<p>Thus defining <span class="math notranslate nohighlight">\(\delta = \min\left\{ 2, a + 1, 2a - 1 \right\}\)</span> and
+applying the results of <a class="reference internal" href="#dennis1996numerical-ex-5-10"><span class="std std-ref">Exercise 10d</span></a> proves
+that the sequence <span class="math notranslate nohighlight">\(\{ x_i \}\)</span> converges q-linearly to <span class="math notranslate nohighlight">\(x_* = 1\)</span> with</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\lim_{i \rightarrow \infty}
+  \left\vert \frac{x_{i + 1} - x_*}{x_i - x_*} \right\vert
+ &amp;= \lim_{i \rightarrow \infty}
+      \left\vert
+        \frac{x_i - \frac{x_i^2 - 1}{a} - x_*}{x_i - x_*}
+      \right\vert\\
+ &amp;= \lim_{i \rightarrow \infty}
+      \left\vert 1 - \frac{x_i^2 - 1}{a (x_i - x_*)} \right\vert\\
+ &amp;= \lim_{i \rightarrow \infty} \left\vert 1 - \frac{x_i + 1}{a} \right\vert
+    &amp; \quad &amp;  x_* = 1\\
+ &amp;= \left\vert 1 - \lim_{i \rightarrow \infty} \frac{x_i + 1}{a} \right\vert
+    &amp; \quad &amp; \text{absolute value is continuous}\\
+ &amp;= \left\vert 1 - \frac{2}{a} \right\vert\\
+ &amp;&gt; 0 &amp; \quad &amp; \text{unless } a = 2.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-12">
+<h2>Exercise 12<a class="headerlink" href="#Exercise-12" title="Permalink to this headline">¶</a></h2>
+<p>If <span class="math notranslate nohighlight">\(\lim_{k \rightarrow \infty} h_k = 0\)</span>, then the convergence is
+q-superlinear.</p>
+<p>The proof is similar to the one in the text up to applying Lemma 4.2.1.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert x_k - x_* \right\Vert
+ &amp;\leq \left\Vert A^{-1}_k \right\Vert
+       \left(
+         \left\Vert F(x_*) - F(x_k) - J(x_k) (x_* - x_k) \right\Vert +
+         \left\Vert A_k - J(x_k) \right\Vert \left\Vert x_* - x_k \right\Vert
+       \right)\\
+ &amp;\leq 2 \beta
+       \left(
+         \frac{\gamma}{2} \left\Vert x_* - x_k \right\Vert^2 +
+         \frac{\gamma \left\vert h_k \right\vert}{2}
+             \left\Vert x_* - x_k \right\Vert
+       \right)
+       &amp; \quad &amp; \text{Lemma 4.2.1}\\
+ &amp;= c_k \left\Vert x_* - x_k \right\Vert
+    &amp; \quad &amp; c_k = \beta \gamma \left( \left\Vert x_* - x_k \right\Vert +
+                    \left\vert h_k \right\vert \right).\end{split}\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\lim_{k \rightarrow \infty} x_k = x_*\)</span> and by assumption
+<span class="math notranslate nohighlight">\(\lim_{k \rightarrow \infty} h_k = 0\)</span>,
+<span class="math notranslate nohighlight">\(\lim_{k \rightarrow \infty} c_k = 0\)</span> i.e.
+<span class="math notranslate nohighlight">\(\{ x_k \}\)</span> converges q-superlinearly.</p>
+<p>Notice that the expressions (5.4.2) and (5.4.3) are equivalent via Lemma 4.1.16:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\vert h_k \right\vert
+ &amp;\leq c_2 \left\Vert F(x_k) \right\Vert
+        &amp; \quad &amp; \text{(5.4.3)}\\
+ &amp;= c_2 \left\Vert F(x_k) - F(x_*) \right\Vert
+    &amp; \quad &amp; F(x_*) = 0\\
+ &amp;\leq c_2 \beta \left\Vert x_k - x_* \right\Vert
+       &amp; \quad &amp; 4.1.16\\
+ &amp;= c_1 \left\Vert x_k - x_* \right\Vert
+    &amp; \quad &amp; c_1 = c_2 \beta.\end{split}\]</div>
+<p>To show q-quadratic convergence, the proof consists of applying the assumption
+that either (5.4.2) or (5.4.3) holds.</p>
+</div>
+<div class="section" id="Exercise-13">
+<h2>Exercise 13<a class="headerlink" href="#Exercise-13" title="Permalink to this headline">¶</a></h2>
+<p>Given <span class="math notranslate nohighlight">\(x_k = \begin{pmatrix} 10^7 &amp; 10^{-7} \end{pmatrix}^\top\)</span>,
+the analytical solution for <span class="math notranslate nohighlight">\(J(x_k)\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}J(x_k) = \nabla F(x_k)^\top =
+\begin{bmatrix}
+  2 x_1 &amp; 0\\
+  0 &amp; 2 x_2
+\end{bmatrix}.\end{split}\]</div>
+<p>Approximating <span class="math notranslate nohighlight">\(J(x_k)\)</span> with (5.4.1) gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A(x_k) =
+\frac{1}{h_k}
+  \begin{bmatrix}
+    \left( x_1 + h_k \right)^2 - \left( x_1 \right)^2 &amp;
+        \left( x_1 \right)^2 - \left( x_1 \right)^2\\
+    \left( x_2 \right)^2 - \left( x_2 \right)^2 &amp;
+        \left( x_2 + h_k \right)^2 - \left( x_2 \right)^2
+  \end{bmatrix} =
+\begin{bmatrix}
+  2 x_1 + h_k &amp; 0\\
+  0 &amp; 2 x_2 + h_k
+\end{bmatrix}.\end{split}\]</div>
+<p>When <span class="math notranslate nohighlight">\(h_k = 1\)</span>, the approximation</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A(x_k) = \begin{bmatrix} 2 x_1 + 1 &amp; 0\\ 0 &amp; 2 x_2 + 1 \end{bmatrix}\end{split}\]</div>
+<p>has a relative error of</p>
+<div class="math notranslate nohighlight">
+\[\frac{
+  \left\vert 2 x_1 - \left( 2 x_1 + 1 \right) \right\vert
+}{\left\vert 2 x_1 \right\vert} =
+\frac{1}{2} 10^{-7}
+\quad \text{and} \quad
+\frac{
+  \left\vert 2 x_2 - \left( 2 x_2 + 1 \right) \right\vert
+}{\left\vert 2 x_2 \right\vert} =
+\frac{1}{2} 10^7.\]</div>
+<p>When <span class="math notranslate nohighlight">\(h_k = 10^{-14}\)</span>, the approximation</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A(x_k) =
+\begin{bmatrix} 2 x_1 + 10^{-14} &amp; 0\\ 0 &amp; 2 x_2 + 10^{-14} \end{bmatrix}\end{split}\]</div>
+<p>has a relative error of</p>
+<div class="math notranslate nohighlight">
+\[\frac{
+  \left\vert 2 x_1 - \left( 2 x_1 + 10^{-14} \right) \right\vert
+}{\left\vert 2 x_1 \right\vert} =
+\frac{1}{2} 10^{-21}
+\quad \text{and} \quad
+\frac{
+  \left\vert 2 x_2 - \left( 2 x_2 + 10^{-14} \right) \right\vert
+}{\left\vert 2 x_2 \right\vert} =
+\frac{1}{2} 10^{-7}.\]</div>
+<p>Recall that a computer with <span class="math notranslate nohighlight">\(14\)</span> base-<span class="math notranslate nohighlight">\(10\)</span> digits has a machine
+epsilon <span class="math notranslate nohighlight">\(\eta \approx 10^{-14}\)</span>.  The first approximation incorrectly
+computed <span class="math notranslate nohighlight">\(J(x_k)_{22}\)</span> while the second approximation will experience
+underflow during the evaluation of <span class="math notranslate nohighlight">\(A(x_k)_{22}\)</span>.  Setting</p>
+<div class="math notranslate nohighlight">
+\[h_k =
+\text{sign}(x_k) \sqrt{\eta} \max\{ \vert x_k \vert, \text{typ}x_k \}\]</div>
+<p>is a good compromise.</p>
+</div>
+<div class="section" id="Exercise-14">
+<h2>Exercise 14<a class="headerlink" href="#Exercise-14" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(p \in \mathbb{R}, p \neq 0\)</span>.  The step size proposed in (5.4.10) is</p>
+<div class="math notranslate nohighlight">
+\[h_j = \sqrt{\eta} \max\{ |x_j|, \text{typ}x_j \} \text{sign}(x_j)\]</div>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(\hat{F} = f_1(x) = x^p\)</span> and
+<span class="math notranslate nohighlight">\(\gamma = f_1''(x) = p (p - 1) x^p\)</span>.  The optimal step size given in
+(5.4.13) is</p>
+<div class="math notranslate nohighlight">
+\[h_* =
+\left( \frac{4 (\eta + \epsilon)}{\gamma} \hat{F} \right)^{1/2} =
+\left( \frac{4 (\eta + \epsilon)}{p^2 - p} \right)^{1/2} =
+\frac{2}{\sqrt{p^2 - p}} \sqrt{\eta + \epsilon}.\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(\hat{F} = f_2(x) = e^{px}\)</span> and
+<span class="math notranslate nohighlight">\(\gamma = f_2''(x) = p^2 e^{px}\)</span>.  The optimal step size given in
+(5.4.13) is</p>
+<div class="math notranslate nohighlight">
+\[h_* =
+\left( \frac{4 (\eta + \epsilon)}{\gamma} \hat{F} \right)^{1/2} =
+\left( \frac{4 (\eta + \epsilon)}{p^2} \right)^{1/2} =
+\frac{2}{p} \sqrt{\eta + \epsilon}.\]</div>
+</div>
+<div class="section" id="(c)">
+<h3>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h3>
+<p>Both step sizes are scale independent, which is not ideal.</p>
+</div>
+<div class="section" id="(d)">
+<h3>(d)<a class="headerlink" href="#(d)" title="Permalink to this headline">¶</a></h3>
+<p>The forward finite-difference approximation to <span class="math notranslate nohighlight">\(f_2'(x) = p e^{px}\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\frac{f_2(x + h) - f_2(x)}{h} = e^{px} \frac{e^{ph} - 1}{h}\]</div>
+<p>with a relative error of</p>
+<div class="math notranslate nohighlight">
+\[\frac{
+  \left\vert
+    p e^{px} - \left( e^{px} \frac{e^{ph} - 1}{h} \right)
+  \right\vert
+}{
+  \left\vert p e^{px} \right\vert
+} =
+\left\vert 1 - \frac{e^{ph} - 1}{ph} \right\vert.\]</div>
+<p>Good step sizes will tend to make <span class="math notranslate nohighlight">\(e^{ph} \rightarrow 1\)</span>, so the quantity
+will either be <span class="math notranslate nohighlight">\(0\)</span> or a very small constant compared to <span class="math notranslate nohighlight">\(e^{px}\)</span>.
+This means when <span class="math notranslate nohighlight">\(x\)</span> is a very large positive number, either overflow
+occurs or the approximation will be off as described by the relative error.</p>
+</div>
+</div>
+<div class="section" id="Exercise-15">
+<h2>Exercise 15<a class="headerlink" href="#Exercise-15" title="Permalink to this headline">¶</a></h2>
+<p>Lemma 4.3.1 asserts that a minimizer of</p>
+<div class="math notranslate nohighlight">
+\[f(x) = f(x_1, x_2) = \frac{1}{2} (x_1^2 - x_2)^2 + \frac{1}{2} (1 - x_1)^2\]</div>
+<p>needs to satisfy</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\nabla f(x) =
+\begin{bmatrix}
+  2 x_1^3 - 2 x_1 x_2 + x_1 - 1\\
+  x_2 - x_1^2
+\end{bmatrix} = 0.\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(x = [1, 1]\)</span> is one such minimizer.  By definition 4.1.4, the Hessian is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\nabla^2 f(x) =
+\begin{bmatrix} 6 x_1^2 - 2 x_2 + 1 &amp; -2 x_1\\ -2 x_1 &amp; 1 \end{bmatrix} = 0.\end{split}\]</div>
+<p>Based on the results of <span class="math notranslate nohighlight">\(f(x_0)\)</span> and <span class="math notranslate nohighlight">\(f(x_1)\)</span>, it does seem like a
+good step.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">flat</span>
+    <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="k">def</span> <span class="nf">fp</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">flat</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+                           <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="k">def</span> <span class="nf">fpp</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">flat</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([[</span><span class="mi">6</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+                           <span class="p">[</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="n">x_k</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;x_{0}: {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">x_k</span><span class="p">)))</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">x_k</span> <span class="o">-</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">fpp</span><span class="p">(</span><span class="n">x_k</span><span class="p">))</span> <span class="o">*</span> <span class="n">fp</span><span class="p">(</span><span class="n">x_k</span><span class="p">)</span>
+    <span class="n">x_k</span> <span class="o">=</span> <span class="n">_</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+x_0: 2.5
+x_1: 0.3208000000000001
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Exercise-16">
+<h2>Exercise 16<a class="headerlink" href="#Exercise-16" title="Permalink to this headline">¶</a></h2>
+<p>Given <span class="math notranslate nohighlight">\(f(x) = \sin(x)\)</span>, <span class="math notranslate nohighlight">\(f'(x) = \cos(x)\)</span> and
+<span class="math notranslate nohighlight">\(f''(x) = -\sin(x)\)</span>.</p>
+<p>Applying Newton’s method yields</p>
+<div class="math notranslate nohighlight">
+\[x_1 = x_0 - \frac{\cos(x_0)}{-sin(x_0)} = x_0 + \frac{1}{\tan(x_0)}.\]</div>
+<p>Define <span class="math notranslate nohighlight">\(0 &lt; \epsilon \ll 1\)</span>.  When <span class="math notranslate nohighlight">\(x_0 = -\epsilon\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x_1 &amp;= -\epsilon + \frac{1}{\tan(-\epsilon)}\\
+ &amp;\cong -\epsilon - \frac{1}{\epsilon}
+        &amp; \quad &amp; \text{small-angle approximation of tangent}\\
+ &amp;= -\frac{\epsilon^2 + 1}{\epsilon}\\
+ &amp;\cong -\frac{1}{\epsilon}.\end{split}\]</div>
+<p>When <span class="math notranslate nohighlight">\(x_0 = \epsilon\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x_1 &amp;= \epsilon - \frac{1}{\tan(\epsilon)}\\
+ &amp;\cong \epsilon - \frac{1}{\epsilon}
+        &amp; \quad &amp; \text{small-angle approximation of tangent}\\
+ &amp;= \frac{\epsilon^2 - 1}{\epsilon}\\
+ &amp;\cong -\frac{1}{\epsilon}.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-17">
+<h2>Exercise 17<a class="headerlink" href="#Exercise-17" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>The gradient and Hessian of <span class="math notranslate nohighlight">\(f_1(x) = -x_1^2 - x_2^2\)</span> are respectively</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\nabla f_1(x) = \begin{bmatrix} -2 x_1\\ -2 x_2 \end{bmatrix}
+\quad \text{and} \quad
+\nabla^2 f_1(x) = \begin{bmatrix} -2 &amp; 0\\ 0 &amp; -2 \end{bmatrix}.\end{split}\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\nabla^2 f_1(x)\)</span> has an eigenvalue <span class="math notranslate nohighlight">\(\lambda = -2\)</span> of
+multiplicity <span class="math notranslate nohighlight">\(2\)</span>, it is not positive definite.  This means</p>
+<div class="math notranslate nohighlight">
+\[H_k = \nabla^2 f_1(x) + \mu_k I = (\mu_k - 2) I
+\quad \Rightarrow \quad
+H_k^{-1} = \frac{1}{\mu_k - 2} I\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x_{k + 1} = x_k - H_k^{-1}(x_k) \nabla f_1(x_k) =
+\begin{bmatrix}
+  x_{k_1} + x_{k_1} \left( \frac{\mu_k}{2} - 1 \right)^{-1}\\
+  x_{k_2} + x_{k_2} \left( \frac{\mu_k}{2} - 1 \right)^{-1}
+\end{bmatrix}.\end{split}\]</div>
+<p>From the assumption of algorithm A5.5.1, the denominator is positive.  Thus
+the algorithm will grow towards to <span class="math notranslate nohighlight">\(\pm \infty\)</span> depending on
+<span class="math notranslate nohighlight">\(\text{sgn}(x_0)\)</span> unless <span class="math notranslate nohighlight">\(x_0 = x_*\)</span>.</p>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>The gradient and Hessian of <span class="math notranslate nohighlight">\(f_2(x) = x_1^2 - x_2^2\)</span> are respectively</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\nabla f_2(x) = \begin{bmatrix} 2 x_1\\ -2 x_2 \end{bmatrix}
+\quad \text{and} \quad
+\nabla^2 f_2(x) = \begin{bmatrix} 2 &amp; 0\\ 0 &amp; -2 \end{bmatrix}.\end{split}\]</div>
+<p>Since the eigenvalues of <span class="math notranslate nohighlight">\(\nabla^2 f_2(x)\)</span> are <span class="math notranslate nohighlight">\(\lambda_0 = 2\)</span> and
+<span class="math notranslate nohighlight">\(\lambda_1 = -2\)</span>, it is not positive definite.  This means</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}H_k = \nabla^2 f_2(x) + \mu_k I
+\quad \Rightarrow \quad
+H_k^{-1} =
+\begin{bmatrix}
+  \frac{1}{\mu_k + 2} &amp; 0\\
+  0 &amp; \frac{1}{\mu_k -2}
+\end{bmatrix}\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x_{k + 1} = x_k - H_k^{-1}(x_k) \nabla f_1(x_k) =
+\begin{bmatrix}
+  x_{k_1} - x_{k_1} \left( \frac{\mu_k}{2} + 1 \right)^{-1}\\
+  x_{k_2} + x_{k_2} \left( \frac{\mu_k}{2} - 1 \right)^{-1}
+\end{bmatrix}\end{split}\]</div>
+<p>From the assumption of algorithm A5.5.1, the denominator is positive.  Thus
+the algorithm will grow towards to <span class="math notranslate nohighlight">\(\pm \infty\)</span> depending on
+<span class="math notranslate nohighlight">\(\text{sgn}(x_0)\)</span> unless <span class="math notranslate nohighlight">\(x_{0_2} = 0\)</span>.</p>
+</div>
+</div>
+<div class="section" id="Exercise-18">
+<h2>Exercise 18<a class="headerlink" href="#Exercise-18" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="k">def</span> <span class="nf">fp</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">flat</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+                           <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="k">def</span> <span class="nf">fpp</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">flat</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([[</span><span class="mi">6</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+                           <span class="p">[</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="k">def</span> <span class="nf">afpp</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">root_eta</span><span class="p">):</span>
+    <span class="n">x_c</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">flat</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">root_eta</span> <span class="o">*</span> <span class="n">x_c</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">asfarray</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asfarray</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])]</span>
+
+    <span class="n">A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]])</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_c</span> <span class="o">+</span> <span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">e</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">h</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">e</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+            <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">-=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_c</span> <span class="o">+</span> <span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">e</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">-=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_c</span> <span class="o">+</span> <span class="n">h</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">e</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+            <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+            <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">/=</span> <span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">h</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">A</span>
+
+<span class="n">x_k</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="n">solutions</span> <span class="o">=</span> <span class="p">[[],</span> <span class="p">[],</span> <span class="p">[]]</span>
+
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">x_k</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="o">==</span> <span class="n">s</span><span class="p">:</span>
+            <span class="n">A</span> <span class="o">=</span> <span class="n">fpp</span><span class="p">(</span><span class="n">x_k</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">s</span><span class="p">:</span>
+            <span class="n">A</span> <span class="o">=</span> <span class="n">afpp</span><span class="p">(</span><span class="n">x_k</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">A</span> <span class="o">=</span> <span class="n">afpp</span><span class="p">(</span><span class="n">x_k</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">x_k</span> <span class="o">-</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">*</span> <span class="n">fp</span><span class="p">(</span><span class="n">x_k</span><span class="p">)</span>
+        <span class="n">x_k</span> <span class="o">=</span> <span class="n">_</span>
+        <span class="n">solutions</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x_k</span><span class="p">)</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">row_layout</span> <span class="o">=</span> <span class="s1">&#39;{0:&lt;25} {1:&lt;25} {2:&lt;25}&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">row_layout</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;Analytic&#39;</span><span class="p">,</span> <span class="s1">&#39;macheps^(1/2)&#39;</span><span class="p">,</span> <span class="s1">&#39;macheps^(1/3)&#39;</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">solutions</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">row_layout</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">solutions</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">solutions</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">solutions</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">i</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Analytic                  macheps^(1/2)             macheps^(1/3)
+0.3208000000000001        0.3208000000000001        0.32080752264304735
+0.1522899437566909        0.1203483182966636        0.1522190630342569
+0.00048098909417033226    0.012308840948738988      0.00048274254706565654
+4.6037027257078434e-07    0.0005726840749779877     4.6389527426665865e-07
+4.471929271276434e-15     6.465667087177092e-07     5.707975194043212e-15
+3.944304526105059e-29     9.628815678752908e-13     1.369421165569959e-23
+0.0                       2.77706417041588e-24      2.465190328815662e-32
+0.0                       0.0                       0.0
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Exercise-19">
+<h2>Exercise 19<a class="headerlink" href="#Exercise-19" title="Permalink to this headline">¶</a></h2>
+<p>Recall that the Hessian of <span class="math notranslate nohighlight">\(f \colon \mathbb{R}^n \rightarrow \mathbb{R}\)</span>
+is equal to the Jacobian of <span class="math notranslate nohighlight">\(\nabla f\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x_+ - x_* &amp;= x_c - A_c^{-1} g_c - x_*\\
+ &amp;= A_c^{-1} [ A_c (x_c - x_*) - g_c ]\\
+ &amp;= A_c^{-1}
+    \left[
+      \left( A_c - \nabla^2 f(x_c) \right) (x_c - x_*) - g_c +
+      \nabla^2 f(x_c) (x_c - x_*)
+    \right]\\
+ &amp;= A_c^{-1}
+    \left[
+      \left( A_c - \nabla^2 f(x_c) \right) (x_c - x_*) -
+      (g_c - \nabla f(x_c)) + \nabla f(x_*) - \nabla f(x_c) -
+      \nabla^2 f(x_c) (x_* - x_c)
+    \right]\\
+\left\Vert x_+ - x_* \right\Vert
+ &amp;= \left\Vert A_c^{-1}
+    \left[
+      \left( A_c - \nabla^2 f(x_c) \right) (x_c - x_*) -
+      (g_c - \nabla f(x_c)) + \nabla f(x_*) - \nabla f(x_c) -
+      \nabla^2 f(x_c) (x_* - x_c)
+    \right] \right\Vert\\
+\left\Vert x_+ - x_* \right\Vert
+ &amp;\leq \left\Vert A_c^{-1} \right\Vert
+       \left[
+         \left\Vert A_c - \nabla^2 f(x_c) \right\Vert
+         \left\Vert x_c - x_* \right\Vert +
+         \left\Vert -(g_c - \nabla f(x_c)) \right\Vert +
+         \left\Vert
+           \nabla f(x_*) - \nabla f(x_c) - \nabla^2 f(x_c) (x_* - x_c)
+         \right\Vert
+       \right]\\
+\left\Vert x_+ - x_* \right\Vert
+ &amp;\leq \left\Vert A_c^{-1} \right\Vert
+       \left[
+         \left\Vert g_c - \nabla f(x_c) \right\Vert +
+         \left\Vert A_c - \nabla^2 f(x_c) \right\Vert
+             \left\Vert e_c \right\Vert +
+         \frac{\gamma}{2} \left\Vert e_c^2 \right\Vert
+       \right]
+       &amp; \quad &amp; \text{Lemma 4.1.12.}\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-20">
+<h2>Exercise 20<a class="headerlink" href="#Exercise-20" title="Permalink to this headline">¶</a></h2>
+<p>A5.6.3, A5.6.4, and A5.6.2 uses <span class="math notranslate nohighlight">\(n + 1\)</span>, <span class="math notranslate nohighlight">\(2n\)</span>, and
+<span class="math notranslate nohighlight">\(1 + 2n + n^2 / 2\)</span> function evaluations respectively.  The overlap between
+each of these algorithms is at most <span class="math notranslate nohighlight">\(n\)</span> function evaluations.  Therefore,</p>
+<div class="math notranslate nohighlight">
+\[\text{A5.6.3} + \text{A5.6.2} =
+(n + 1) + (1 + 2n + n^2 / 2) - n = 2 + 2n + n^2 / 2\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\text{A5.6.4} + \text{A5.6.2} =
+(2n) + (1 + 2n + n^2 / 2) - n = 1 + 3n + n^2 / 2.\]</div>
+<p>The combined algorithm may yield answers with less accuracy and possibly lose
+cache locality due to more complex code.</p>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/chapter-05-0"><dl class="citation">
+<dt class="bibtex label" id="bryan1968approximate"><span class="brackets"><a class="fn-backref" href="#id6">Bry68</a></span></dt>
+<dd><p>Charles A Bryan. Approximate solutions to nonlinear integral equations. <em>SIAM Journal on Numerical Analysis</em>, 5(1):151–155, 1968.</p>
+</dd>
+<dt class="bibtex label" id="ortega1968newton"><span class="brackets"><a class="fn-backref" href="#id5">Ort68</a></span></dt>
+<dd><p>James M Ortega. The newton-kantorovich theorem. <em>The American Mathematical Monthly</em>, 75(6):658–660, 1968.</p>
+</dd>
+<dt class="bibtex label" id="petersd466fp"><span class="brackets"><a class="fn-backref" href="#id11">Pet</a></span></dt>
+<dd><p>Tobias von Petersdorf. Fixed point iteration and contraction mapping theorem. <span><a class="reference external" href="#"></a></span>http://terpconnect.umd.edu/ petersd/466/fixedpoint.pdf. Accessed on 2017-04-10.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/chapter-05.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

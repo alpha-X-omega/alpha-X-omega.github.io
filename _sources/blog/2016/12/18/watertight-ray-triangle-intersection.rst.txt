@@ -1,0 +1,127 @@
+####################################
+Watertight Ray/Triangle Intersection
+####################################
+
+Motivation(s)
+=============
+
+In large and complex scenes, many triangles are small and far away from the
+camera.  In the case of triangles whose perimeter is small compared to the
+magnitude of their coordinates as well as for the needle-shaped triangles, a
+naive implementation of ray-triangle intersection may incorrectly let a ray pass
+through microscopic cracks between objects due to limited accuracy in
+floating-point arithmetic that mixes very large and very small values.  Going
+beyond 32-bit floating-point representations both incurs a disproportional
+performance reduction on many architectures and does not solve the underlying
+numerical problem.  Furthermore, higher tessellation rates will generally lead
+to ever smaller and thinner triangles.
+
+If performance is not an issue, there are two approaches that guarantee
+watertightness: interval arithmetic with a fallback to arbitrary precision
+calculations and recursive refinement for watertight intersection of free-form
+surfaces.  The former requires frequent switching of rounding modes while the
+latter performs subdivision down to epsilon-sized bounds.  Other techniques that
+emphasize performance do not guarantee watertightness:
+
+- Calculating the world space hit location and then performing 2D edge tests
+  fails to achieve watertightness of adjoining triangles because the world space
+  hit location is dependent on the entire triangle surface, not just the shared
+  edge between two triangles.  Thus, two triangles sharing the same edge will
+  end up with slightly different calculations for the shared edge’s edge test.
+- Directly solving a linear system of equations (via Cramer’s rule) and using
+  determinants for edge tests makes the results inconsistent because the same
+  shared edge could be computed in one way in one triangle, but with a different
+  test in the neighboring triangle.
+- Plücker coordinates guarantee watertightness along an edge by making the edge
+  tests anti-commutative under floating-point operations, but the edges can
+  still fail to meet exactly at the vertex.
+
+There exists a fixed point ray-triangle intersection algorithm based on the
+Chirkov test that is provably watertight.  A key idea is to guarantee that the
+intersected triangle is larger than the original one.  This approach of
+enlarging the triangle and testing the edge equations against a small positive
+epsilon is a very common workaround for watertightness problems.  Alas, how to
+calculate such an epsilon is unknown, and a large constant epsilon can cause
+issues with self-shadowing of the surface along the edges.
+
+Proposed Solution(s)
+====================
+
+The authors observed that for rasterization, the watertight and robust handling
+of triangles is a solved problem.  Hardware implementations of rasterization
+project triangles onto a 2D domain and snap their vertices to fixed-point
+numbers.  A direct adoption of this technique not possible in general for ray
+tracing because rays are not always starting at the same origin and aligned
+inside a bounded frustum.
+
+The proposed solution splits the intersection algorithm into two stages.  In the
+first stage, an affine transformation is applied to the ray and the vertices of
+the triangle to reduce the problem to 2D.  In the second stage, the algorithm
+performs 2D edge tests with a fallback to double precision.  Floating-point
+rounding errors in the first stage do not destroy the watertightness of an input
+mesh, as long as the mesh contains no T-vertices.
+
+Evaluation(s)
+=============
+
+The authors compare their algorithm against the standard Möller-Trumbore as well
+as the other preceding techniques.  Their intersection algorithm is roughly as
+fast as Möller-Trumbore on standard scenes (e.g. Fairy Forrest, Conference,
+Dragon, Power Plant).
+
+To test false negatives, they traced visibility rays from the interior of unit
+spheres with different origins and tessellations.  Their algorithm reduced the
+chance of failure to one in fifty million.  To achieve zero false negatives in
+the test scenes, the authors propose a conservative traversal for ray-box tests,
+which reduces the overall performance by 10%.
+
+Future Direction(s)
+===================
+
+- Would enlarging the AABB during BVH construction be equivalent to the proposed
+  ray-box test?
+
+Question(s)
+===========
+
+- Why not test on some production scenes?
+
+Analysis
+========
+
+The Möller-Trumbore algorithm is fast at the cost of many false negatives.  The
+authors propose a fast single-precision floating-point algorithm for
+ray-triangle intersection.
+
+The algorithm is numerically stable because it does all of its calculations in
+2D.  However, this claim only applies to the test scenes.  The authors do not
+have a watertightness proof for their algorithm.  Moreover, their fallback to
+double precision gets triggered about once per million intersection.
+
+Although their use of conservative traversal reduced the false negatives on the
+test scenes to zero, the modified ray-box intersection does not seem tenable
+when stacked against other BVH acceleration structures.  Nevertheless, the
+source code and the calculation of maximal error using interval-arithmetic
+notation are very useful for future research.
+
+The paper would be even better if the authors did not leave it to the reader to
+figure out what **sign_mask** and **xorf** did.  **sign_mask** returns a signed
+zero i.e. either a positive zero or a negative zero.  Consequently,
+**xorf(det, sign_det) = abs(det)** such that:
+
+.. code:: c
+
+    auto xorf_T = std::abs(T);
+    if(std::signbit(T) != std::signbit(det))
+      xorf_T = -xorf_T;
+
+    auto ray_near = 0.0f;
+    auto hit_t = std::numeric_limits<float_t>::infinity();
+    auto abs_det = std::abs(det);
+    if(xorf_T < ray_near * abs_det || hit_t * abs_det < xorf_T)
+      return;
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

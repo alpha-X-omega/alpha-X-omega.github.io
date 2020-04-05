@@ -1,0 +1,87 @@
+########################################
+Predicate Logic for Software Engineering
+########################################
+
+Motivation(s)
+=============
+
+Many researchers are developing mathematical methods for software development.
+One can view the design documents as predicates on the observable behavior of
+the system.  The end goal is to determine if the observed behavior satisfies a
+specification.  Dijkstra's cand operators allow partial functions, but requires
+understanding the entire expression and cannot be processed piece by piece.
+Three-valued logic is invalid for documentation because a specification requires
+a binary true/false answer.  Bounded quantification puts limits on domains to
+handle partial functions at the cost of more complex expressions.
+
+Proposed Solution(s)
+====================
+
+The author propose a modified version of basic set theory to handle predicate
+expressions.  A universal quantifier is denoted with an underscore.  The
+universal reflection property :math:`f(x) = f(x)` is replaced with
+:math:`f(x) = f(x)` is false if :math:`x` is not in the domain of :math:`f`.
+Parentheses are used to group expressions and introduce variable scope.
+
+Evaluation(s)
+=============
+
+The author applied the technique to describe several simple scenarios:
+
+- finding an element in an array,
+- matching elements in two arrays,
+- common matching elements in three arrays, and
+- checking for palindromes.
+
+This documentation is actually much clearer than reading comments.
+
+Future Direction(s)
+===================
+
+- Would describing the program state over time be more useful than using
+  tabular structure to examine the possible outcomes?
+- How would one structure these mathematical documentation so that it is clearer
+  and less work than writing the actual program itself?
+- How would one patch up the documentation once the program changes?
+
+Question(s)
+===========
+
+- Isn't TLA++ a precise documentation method for software that can also be used
+  to verify programs?
+
+Analysis
+========
+
+Documentation needs to clearly express the correct state of the program.
+
+The analysis lacked examples demonstrating the proposed technique scales up to
+complicated expressions.  Furthermore, the programmer needs to maintain
+delicate documentations in addition to code complexity.
+
+One noteworthy insight the paper puts forth is total functions
+(i.e. functions defined on a domain that includes all possible values
+of their arguments) versus partial functions (i.e. functions whose
+value has not been defined for certain values of the arguments).  The
+conventional formal interpretation of logical expressions assumes that
+all functions are total.
+
+I personally believe documentation should also be used to generate automatic
+tests for programs.  On a tangent note, :cite:`parnas1994some` is a rehash of
+this paper.
+
+Given all of these precise documentation, a question now arises: how to present
+it to programmers in a helpful manner?  :cite:`parnas1994precise` introduces the
+concept of a display method that requires designers and implementers to present
+their well-structured programs as sets of displays.  A modern example is
+`sphinx-doc`_.  Software architects can include anything from a specification
+for the program (and the components it invokes) to correctness proofs.  One
+outstanding issue is how to use these documentations to automatically
+verify a system's integrity.
+
+.. _sphinx-doc: http://www.sphinx-doc.org/en/stable/
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

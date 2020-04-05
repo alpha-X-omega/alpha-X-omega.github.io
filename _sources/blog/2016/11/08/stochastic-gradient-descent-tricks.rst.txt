@@ -1,0 +1,138 @@
+##################################
+Stochastic Gradient Descent Tricks
+##################################
+
+Motivation(s)
+=============
+
+A typical supervised learning problem consists of minimizing the expected risk
+
+.. math::
+
+   E(f_w) = \int \mathcal{l}(f_w(x), y) dP(x, y)
+
+where :math:`x` is some arbitrary input and :math:`y` is some scalar output.
+Since the distribution :math:`dP(x, y)` is unknown, one must make do with the
+empirical risk
+
+.. math::
+
+   E_n(f_w) = n^{-1} \sum_{i = 1}^n \mathcal{l}(f_w(x_i), y_i).
+
+The minimization of the empirical risk via gradient descent (GD) have been shown
+to exhibit linear to quadratic convergence given the initial parameter estimates
+are sufficiently close to the optimum.  Each iteration updates the weights
+:math:`w` on the basis of the gradient,
+
+.. math::
+
+   w_{t + 1} = w_t +
+     \gamma \frac{1}{n} \sum_{i = 1}^n \nabla_w \mathcal{l}(f_{w_t}(x_i), y_i),
+
+where :math:`\gamma` is the learning rate.  Unfortunately, updating the
+parameter estimates becomes computationally expensive as the training dataset
+gets large.  To handle large scale learning, researchers restricted GD to a
+single randomly selected example for each update
+
+.. math::
+
+   w_{t + 1} = w_t +
+     \gamma_t \nabla_w \mathcal{l}(f_{w_t}(x_t), y_t).
+
+This stochastic process is known as stochastic gradient descent (SGD).  SGD's
+convergence speed is limited by the noisy approximation of the true gradient.
+For example, when the Hessian matrix of the cost function at the optimum is
+strictly positive definite, the best convergence speed is achieved using
+learning rates :math:`\gamma_t \sim t^{-1}`.  Note that performing a second
+order SGD does not reduce the stochastic noise, so while it may improve
+convergence, the expectation of the residual error still decreases on the order
+of :math:`\mathcal{O}(t^{-1})`.  Nevertheless, SGD will almost surely converge
+as long as the learning rates satisfy the conditions
+:math:`\sum_t \gamma_t^2 < \infty` and :math:`\sum_t \gamma_t = \infty`.
+
+Proposed Solution(s)
+====================
+
+The author explains why SGD is a good learning algorithm when the training set
+is large, and provides useful recommendations.
+
+Evaluation(s)
+=============
+
+The authors benchmarked SGD and ASGD against the winners of the RCV1,
+Pascal 2008, and CONLL 2000 dataset.  The results on the RCV1 dataset showed
+that SGD ran an order of magnitude faster while achieving a lower test error.
+The other benchmarks indicate that ASGD achieved near optimal test error within
+one to five epochs.  These experiments are reflective of the asymptotic of
+large-scale learning (see Table 2).  Although SGD and its variants are the worst
+optimization algorithms compared to GD, they achieve the fastest convergence
+speed on the expected risk.
+
+Future Direction(s)
+===================
+
+- How does SGD compare with conjugate gradient for mini-batch training?
+
+Question(s)
+===========
+
+- Is SGD still state of the art?
+
+Analysis
+========
+
+SGD is a viable solution to large-scale learning.  :cite:`bousquet2008tradeoffs`
+provides more derivation details about the proposed bounds in Table 2.
+
+The paper would be better if it included more comparisons against different
+stochastic optimization techniques.  Even so, it provided some insights into why
+more complicated (possibly higher-order) methods are not used.  The
+recommendations do appear to go beyond SGD and should be useful to other
+stochastic processes.  The only unsatisfying point is the lack of a more
+theoretically sound way of choosing learning rates and averaging rates.
+
+Notes
+=====
+
+When to use Stochastic Gradient Descent?
+----------------------------------------
+
+- Use stochastic gradient descent when training time is the bottleneck.
+- The excess error of a supervised learning problem can be decomposed into
+  three terms.
+
+  - The approximation error measures how closely functions in
+    :math:`\mathcal{F}` can approximate the optimal solution :math:`f^*`; it can
+    be reduced by choosing a larger family of functions.
+  - The estimation error measures the effect of minimizing the empirical risk
+    instead of the expected risk; it can be reduced by choosing a smaller family
+    of functions or by increasing the size of the training set.
+  - The optimization error measures the impact of the approximate optimization
+    on the expected risk; it can be reduced by increasing the number of epochs.
+
+General Recommendations
+-----------------------
+
+- Randomly shuffle the training examples.
+- Use preconditioning techniques.
+- Monitor both the training cost and the validation error.
+- Check whether the gradients are computed correctly using finite differences.
+- Experiment with the learning rates :math:`\gamma_t` using a small sample of
+  the training set.
+
+Linear Models with :math:`L_2` Regularization
+---------------------------------------------
+
+- Leverage the sparsity of the training example i.e. reformulate your update
+  equations to make use of sparse matrix operations.
+- Use learning rates of the form
+  :math:`\gamma_t = \gamma_0 (1 + \gamma_0 \lambda t)^{-1}` where
+  :math:`\gamma_0` is determined using a small training data sample.
+- Try averaged stochastic gradient with learning rates
+  :math:`\gamma_t = \gamma_0 (1 + \gamma_0 \lambda t)^{-3 / 4}` and
+  averaging rates :math:`\mu_t = 1 / \max\{1, t - d, t - n\}`.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

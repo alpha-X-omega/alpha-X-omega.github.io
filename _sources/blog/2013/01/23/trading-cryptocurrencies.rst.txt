@@ -1,0 +1,50 @@
+########################
+Trading Cryptocurrencies
+########################
+
+Gains and losses from virtual currencies are taxed as `capital assets`_.  It
+are less complicated than :doc:`options </blog/2013/01/06/options-trading>`
+because only the IRS' 8949 form is involved.
+
+.. _capital assets: https://bitcoin.tax/faq
+
+Wallet(s) and Mining
+====================
+
+A cryptocurrency wallet is used to store the virtual coins.  It is preferred to
+keep this separate from the cryptocurrency exchanges in order to mine them.  An
+example of a wallet is `MyEtherWallet`_, which is used to store `ETH`_.  Mining
+ETH is only feasible by joining a mining pool (e.g. `ethermine`_).
+
+.. _MyEtherWallet: https://www.myetherwallet.com/
+.. _ETH: https://coinmarketcap.com/currencies/ethereum/
+.. _ethermine: https://ethermine.org/
+
+Another example is `LTC`_ and `LiteVault`_, but it's much more complicated to
+mine it.  One needs to have :doc:`CUDA installed </blog/2013/01/09/install-graphics-and-compute-linux-mint>`,
+compile `ccminer`_ (possibly modifying the `nvcc_ARCH`_ flag), and then choosing
+a `mining pool`_ that has not been hacked.
+
+.. _LTC: https://coinmarketcap.com/currencies/litecoin/
+.. _LiteVault: https://www.litevault.net/
+.. _ccminer: https://github.com/tpruvot/ccminer/blob/linux/INSTALL
+.. _nvcc_ARCH: https://github.com/tpruvot/ccminer/wiki/Compatibility
+.. _mining pool: https://github.com/tpruvot/ccminer/blob/windows/README.txt
+
+It is important to know what coins are still `worthwhile to mine`_ i.e. the
+`mining probability`_.
+
+.. _worthwhile to mine: https://whattomine.com/
+.. _mining probability: https://bitinfocharts.com/
+
+Exchange(s)
+===========
+
+There are many `cryptocurrency exchanges`_ to choose from.  `GDAX`_ allows the
+purchase of virtual currency with fiat while `Bittrex`_ allows trading between
+virtual currencies.  All exchanges have issues, but these are the best of the
+worst.
+
+.. _cryptocurrency exchanges: https://cryptocoincharts.info/markets/info
+.. _GDAX: https://cryptocoincharts.info/markets/show/coinbase
+.. _Bittrex: https://cryptocoincharts.info/markets/show/bittrex

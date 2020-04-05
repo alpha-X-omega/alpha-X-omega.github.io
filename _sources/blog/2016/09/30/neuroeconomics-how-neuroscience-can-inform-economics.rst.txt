@@ -1,0 +1,207 @@
+#####################################################
+Neuroeconomics: How Neuroscience Can Inform Economics
+#####################################################
+
+Motivation(s)
+=============
+
+The foundations of economic theory were constructed assuming that the details of
+the brain's black box would not be known.  In order to sidestep this limitation,
+economists combined subjective expected utility with the rational choice theory
+and the revealed preference theory from psychology; the latter theory simply
+equated unobserved preferences with observed choices.  This resulted in the
+establishment of behavioral economics whose theories are reasonable as long as
+the brain remained a black box, but the brain is slowly being demystified as
+recent advances in neuroscience start to enable direct measurement of thoughts
+and feelings.
+
+Proposed Solution(s)
+====================
+
+The authors assert neuroscience can make incremental and radical contributions
+to economics.  The former enhances existing models of decision making (e.g.
+dynamic cross-partial effects in utility for commodity bundles, environmental
+cues trigger unpleasant cravings and increase demand) while the latter forms a
+different foundation for economic theory.  This foundation has been branded as
+neuroeconomics and focuses on the interaction between controlled and automatic
+processes, and between cognitive and affective systems unlike the existing
+theory that represents decisions in a deliberative equilibrium.
+
+Evaluation(s)
+=============
+
+The authors' goal is to showcase some key findings and neuroscience and
+stimulate the reader's curiosity about the implications for economics.  The
+latest advancements (e.g. EEG, PET, fMRI, TMS, EBS, DTI, electrophysiology,
+psychophysical) indicate neural functioning can be described in terms of
+cognitive, affective, controlled, and automatic processes.  The survey of
+experimental findings provide possible alternative explanations that are more
+sound than economic models with arbitrary assumptions.
+
+Future Direction(s)
+===================
+
+- How to apply Bayesian models and likelihoods to simulate specialized functions
+  such as the mentalizing module?
+- Monitor the brain activity of day traders at different experience levels.
+
+Question(s)
+===========
+
+- How consistent are the proposed methods of evaluation?
+
+Analysis
+========
+
+Neuroscience provides a way to replace the arbitrary assumptions in economic
+models with consistent parameters reflective of neurological functions.  Since
+the suggestive evidence are still being studied further, the authors should have
+tried to incorporate these findings into economic models and evaluate the
+impact.
+
+One of the interesting points was that companies have already made use of the
+fact consumers have a preference for prepayment (even though it is financially
+irrational), and they will go to great lengths to avoid having consumers think
+about marginal cost.
+
+Some of the experiments, such as measuring cognitive load, are quite
+questionable.  How can memorizing digits of differing lengths and choosing to
+eat a cake or fruit salad have any implications on self-control?  Furthermore,
+the authors raised the question of whether Bayesian modeling is appropriate to
+describe specialized neurological functions.  Wouldn't a completely precise
+process be even more unlikely?
+
+Notes
+=====
+
+Economic Constructs
+-------------------
+
+- Economists assume the following characteristics are stable within an
+  individual and consistent across activities: time preference, risk preference,
+  and altruism.
+- Empirical evidence shows these dimensions are very weakly correlated or
+  uncorrelated across situations since preferences are state-contingent and that
+  people may not recognize state-contingency.
+
+Domain-Specific Expertise
+-------------------------
+
+- Economics implicitly assumes people have general cognitive capabilities that
+  can be applied to any type of problem and will perform equivalently on
+  problems that have similar structures.
+- The existence of systems that evolved to perform specific functions
+  (e.g. the mentalizing module) suggests that performance will depend critically
+  on whether a problem that one confronts can be processed by a specialized
+  system that is well adapted to that form of processing.
+
+Utility for Money
+-----------------
+
+- The canonical economic model assumes that the utility for money is indirect
+  i.e. that money is a mere counter, only valued for the goods and services it
+  can procure.
+- Neural evidence suggests that the same dopaminergic reward circuitry of the
+  brain in the midbrain (mesolimbic system) is activated for a wide variety of
+  different reinforcers e.g. attractive faces, funny cartoons, cultural
+  objects, drugs, money.
+
+  - Asset pricing models that incorporated stock returns exhibited increased
+    descriptive power in explaining returns patterns.
+
+Wanting and Liking
+------------------
+
+- Economists view behavior as a search for pleasure and people will be better
+  off when they get what they want.
+- Neuroscience argues that decision making involves the interaction between
+  the liking system (e.g. pleasure pain) and the wanting system (e.g.
+  motivation).
+
+  - When these systems diverge, the welfare economists' assumptions are invalid.
+
+Cognitive Inaccessibility
+-------------------------
+
+- People lack introspective access to the source of their own judgements of
+  behavior leads to discriminatory biases, self-deception, self-manipulation,
+  and failure to understand the reasons behind their choices.
+
+Intertemporal Choice and Self-Control
+-------------------------------------
+
+- Economists view intertemporal choice as a trade-off of utility at different
+  points in time.
+
+  - Individual differences in the way that people make this tradeoff are
+    captured by the arbitrary notion of a discount rate, a rate at which people
+    discount future utilities as a function of when they occur.
+
+- Empirical neuroscience research suggested intertemporal choice can be viewed
+  as a splice of two processes: an impulsive, affective, cognitive process and
+  a more far-sighted deliberate process guided by the prefrontal cortex.
+
+  - Greater relative activity in affective systems was associated with choosing
+    earlier rewards more often.
+
+- Individual automatic processes involving pattern matching, recognition, and
+  categorization also influences choice e.g. a preference for sequences of
+  outcomes that improve over time, a preference for flat sequences, a preference
+  for immediate rewards.
+
+Decision-Making under Risk and Uncertainty
+------------------------------------------
+
+- People's deliberative selves are not at peace with their visceral reactions to
+  risks e.g. fear unleashes preprogrammed sequences of behavior that aren't
+  always beneficial.
+- Insufficient fear can produce nonmaximizing behavior when risker options have
+  negative value.
+- When guessing probabilities, the left hemisphere of the brain is more active;
+  but when answering logic questions, the right hemisphere is more active.
+
+Game Theory
+-----------
+
+- The classic theory assumes the players:
+
+  #. have accurate beliefs about what others will do i.e. players are in
+     equilibrium;
+  #. have no emotions or concern about how much others earn;
+  #. plan ahead;
+  #. and learn from experience.
+
+- fMRI studies seem to suggest that game theory may need some modifications.
+
+  - The insula is a neural locus activated by the distaste for inequality or
+    unfair treatment posited by models of social utility.
+  - The oxytocin hormone level, which rises during social bonding, affects how
+    one perceives the trustyworthyness of others.
+  - Circadian rhythms affect people's ability to suppress or avoid acting on
+    unwanted feelings.
+  - A good reputation (perception) may be neurally encoded in a way similar to
+    rewarding stimuli.
+
+- Backward induction means figuring out what to do today by and reasoning how
+  others will behave at all possible future points and working backward.
+
+  - Economists are inclided to characterize this as cognitively costly.
+  - Studies have shown that this can be learned and automated.
+
+- Camerer-Ho reinforcement two process theory and Glimcher's parietal neuron
+  measurements suggest that neurons are encoding expected reward values.
+
+Labor-Market Discrimination
+---------------------------
+
+- Economists assume labor-market discrimination against minorities is either a
+  distaste for working with minorities, or a belief that minority workers are
+  less productive.
+- Through the use of implicit association tests (IATs), neuroscience suggests
+  discrimination involves rapid, automatic, associations between social
+  categories, stereotypes, and affect.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

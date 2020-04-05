@@ -1,0 +1,10 @@
+######################################################
+Fundamentals of Electric Circuits - Alexander & Sadiku
+######################################################
+
+.. include:: /_templates/toctree-nb-fundamentals-of-electric-circuits-as
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

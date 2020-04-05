@@ -1,0 +1,2586 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Sensitivity and Parametric Analyses &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Implementation Issues" href="chapter-08.html" />
+    <link rel="prev" title="The Simplex Method in Matrix Notation" href="chapter-06.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Sensitivity and Parametric Analyses</a><ul>
+<li><a class="reference internal" href="#3.-The-Parametric-Self-Dual-Simplex-Method">3. The Parametric Self-Dual Simplex Method</a></li>
+<li><a class="reference internal" href="#Exercise-7.1">Exercise 7.1</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a><ul>
+<li><a class="reference internal" href="#Iteration-1">Iteration 1</a></li>
+<li><a class="reference internal" href="#Iteration-2">Iteration 2</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a><ul>
+<li><a class="reference internal" href="#Iteration-1">Iteration 1</a></li>
+<li><a class="reference internal" href="#Iteration-2">Iteration 2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-7.2">Exercise 7.2</a><ul>
+<li><a class="reference internal" href="#\Delta-c-=-\begin{bmatrix}-1-&amp;-0-&amp;-0-&amp;-0-&amp;-0-&amp;-0-&amp;-0-\end{bmatrix}^\top"><span class="math notranslate nohighlight">\(\Delta c = \begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \end{bmatrix}^\top\)</span></a></li>
+<li><a class="reference internal" href="#\Delta-c-=-\begin{bmatrix}-0-&amp;-1-&amp;-0-&amp;-0-&amp;-0-&amp;-0-&amp;-0-\end{bmatrix}^\top"><span class="math notranslate nohighlight">\(\Delta c = \begin{bmatrix} 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \end{bmatrix}^\top\)</span></a></li>
+<li><a class="reference internal" href="#\Delta-c-=-\begin{bmatrix}-0-&amp;-0-&amp;-1-&amp;-0-&amp;-0-&amp;-0-&amp;-0-\end{bmatrix}^\top"><span class="math notranslate nohighlight">\(\Delta c = \begin{bmatrix} 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \end{bmatrix}^\top\)</span></a></li>
+<li><a class="reference internal" href="#\Delta-c-=-\begin{bmatrix}-0-&amp;-0-&amp;-0-&amp;-1-&amp;-0-&amp;-0-&amp;-0-\end{bmatrix}^\top"><span class="math notranslate nohighlight">\(\Delta c = \begin{bmatrix} 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \end{bmatrix}^\top\)</span></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-7.3">Exercise 7.3</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-7.4">Exercise 7.4</a><ul>
+<li><a class="reference internal" href="#Iteration-1">Iteration 1</a></li>
+<li><a class="reference internal" href="#Iteration-2">Iteration 2</a></li>
+<li><a class="reference internal" href="#Iteration-3">Iteration 3</a></li>
+<li><a class="reference internal" href="#Iteration-4">Iteration 4</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-7.5">Exercise 7.5</a><ul>
+<li><a class="reference internal" href="#Iteration-1">Iteration 1</a></li>
+<li><a class="reference internal" href="#Iteration-2">Iteration 2</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-7.6">Exercise 7.6</a><ul>
+<li><a class="reference internal" href="#Iteration-1">Iteration 1</a></li>
+<li><a class="reference internal" href="#Iteration-2">Iteration 2</a></li>
+<li><a class="reference internal" href="#Iteration-3">Iteration 3</a></li>
+<li><a class="reference internal" href="#Iteration-4">Iteration 4</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-7.7">Exercise 7.7</a></li>
+<li><a class="reference internal" href="#Exercise-7.8">Exercise 7.8</a><ul>
+<li><a class="reference internal" href="#Iteration-1">Iteration 1</a></li>
+<li><a class="reference internal" href="#Iteration-2">Iteration 2</a></li>
+<li><a class="reference internal" href="#Iteration-3">Iteration 3</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-7.9">Exercise 7.9</a></li>
+<li><a class="reference internal" href="#Exercise-7.10">Exercise 7.10</a></li>
+<li><a class="reference internal" href="#Exercise-7.11">Exercise 7.11</a><ul>
+<li><a class="reference internal" href="#Iteration-1">Iteration 1</a></li>
+<li><a class="reference internal" href="#Iteration-2">Iteration 2</a></li>
+<li><a class="reference internal" href="#Iteration-3">Iteration 3</a></li>
+<li><a class="reference internal" href="#Iteration-4">Iteration 4</a></li>
+<li><a class="reference internal" href="#Iteration-5">Iteration 5</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="chapter-06.html" title="Previous Chapter: The Simplex Method in Matrix Notation"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; The Simplex M...</span>
+    </a>
+  </li>
+  <li>
+    <a href="chapter-08.html" title="Next Chapter: Implementation Issues"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Implementation Issues &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="Sensitivity-and-Parametric-Analyses">
+<h1>Sensitivity and Parametric Analyses<a class="headerlink" href="#Sensitivity-and-Parametric-Analyses" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference external" href="http://www.princeton.edu/~rvdb/JAVA/pivot/advanced.html">Advanced Simplex Pivot Tool</a> is useful for verifying the application of
+the self-dual simplex method.</p>
+<div class="section" id="3.-The-Parametric-Self-Dual-Simplex-Method">
+<h2>3. The Parametric Self-Dual Simplex Method<a class="headerlink" href="#3.-The-Parametric-Self-Dual-Simplex-Method" title="Permalink to this headline">¶</a></h2>
+<p>Figure 7.1 incorrectly lists the <span class="math notranslate nohighlight">\(arg\,max\)</span> criterion.  <a class="bibtex reference internal" href="#aengau5593" id="id1">[Eng]</a>
+illustrates in Figure 4.2 that it is more appropriate to take the
+<span class="math notranslate nohighlight">\(arg\,min\)</span> and only select among the ratios with a positive denominator.</p>
+</div>
+<div class="section" id="Exercise-7.1">
+<h2>Exercise 7.1<a class="headerlink" href="#Exercise-7.1" title="Permalink to this headline">¶</a></h2>
+<p>The matrix form of the original dictionary is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{5, 6, 7\} \quad &amp; \quad \mathcal{N} &amp;= \{1, 2, 3, 4\}\\
+B &amp;= \mathbf{I}_3 \quad &amp; \quad
+  N &amp;= \begin{bmatrix}
+         2 &amp; 1 &amp; 5 &amp; 1\\
+         2 &amp; 2 &amp; 0 &amp; 4\\
+         3 &amp; 1 &amp; 2 &amp; 0
+       \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= B^{-1} b = \begin{bmatrix} 8\\ 12\\ 18 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;=
+  \left( B^{-1} N \right)^\top c_\mathcal{B} - c_\mathcal{N} =
+  \begin{bmatrix} -1\\ -2\\ -1\\ -1 \end{bmatrix}.\end{split}\]</div>
+<p>The matrix form of the final dictionary is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{2, 3, 7\} \quad &amp; \quad \mathcal{N} &amp;= \{1, 5, 6, 4\}\\
+B &amp;= \begin{bmatrix}
+       1 &amp; 5 &amp; 0\\
+       2 &amp; 0 &amp; 0\\
+       1 &amp; 2 &amp; 1
+     \end{bmatrix} \quad &amp; \quad
+  N &amp;= \begin{bmatrix}
+         2 &amp; 1 &amp; 0 &amp; 1\\
+         2 &amp; 0 &amp; 1 &amp; 4\\
+         3 &amp; 0 &amp; 0 &amp; 0
+       \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= B^{-1} b = \begin{bmatrix} 6\\ 0.4\\ 11.2 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;=
+  \left( B^{-1} N \right)^\top c_\mathcal{B} - c_\mathcal{N} =
+  \begin{bmatrix} 1.2\\ 0.2\\ 0.9\\ 2.8 \end{bmatrix}.\end{split}\]</div>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>Changing the original objective function to <span class="math notranslate nohighlight">\(3 x_1 + 2 x_2 + x_3 + x_4\)</span>
+requires recomputing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} =
+\left( B^{-1} N \right)^\top c_\mathcal{B} - c_\mathcal{N} =
+\left( B^{-1} N \right)^\top \begin{bmatrix} 2\\ 1\\ 0 \end{bmatrix} -
+  \begin{bmatrix} 3\\ 0\\ 0\\ 1 \end{bmatrix} =
+\begin{bmatrix} -0.8\\ 0.2\\ 0.9\\ 2.8 \end{bmatrix}.\end{split}\]</div>
+<div class="section" id="Iteration-1">
+<h4>Iteration 1<a class="headerlink" href="#Iteration-1" title="Permalink to this headline">¶</a></h4>
+<dl>
+<dt>Step 1</dt><dd><p>Since <span class="math notranslate nohighlight">\(z^*_\mathcal{N}\)</span> has some negative components, the current
+solution is not optimal.</p>
+</dd>
+<dt>Step 2</dt><dd><p>Applying Bland’s rule restricts the entering variable index to
+<span class="math notranslate nohighlight">\(j = 1 \in \mathcal{N}\)</span>.</p>
+</dd>
+<dt>Step 3</dt><dd><p>The primal step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} = B^{-1} N e_j =
+\begin{bmatrix}
+  1 &amp; 0 &amp; 0.5 &amp; 2\\
+  0.2 &amp; 0.2 &amp; -0.1 &amp; -0.2\\
+  1.6 &amp; -0.4 &amp; -0.3 &amp; -1.6
+\end{bmatrix}
+  \begin{bmatrix} 1\\ 0\\ 0\\ 0 \end{bmatrix} =
+\begin{bmatrix} 1\\ 0.2\\ 1.6 \end{bmatrix}.\end{split}\]</div>
+</dd>
+<dt>Step 4</dt><dd><p>The primal step length is</p>
+<div class="math notranslate nohighlight">
+\[t = \left( \max_{i \in \mathcal{B}} \frac{\Delta x_i}{x^*_i} \right)^{-1} =
+\left( \max \left\{
+  \frac{1}{6}, \frac{0.2}{0.4}, \frac{1.6}{11.2}
+\right\} \right)^{-1} =
+2.\]</div>
+</dd>
+<dt>Step 5</dt><dd><p>The leaving variable index is <span class="math notranslate nohighlight">\(i = 3 \in \mathcal{B}\)</span>.</p>
+</dd>
+<dt>Step 6</dt><dd><p>The dual step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+-\left( B^{-1} N \right)^\top \mathbf{e}_i =
+-\begin{bmatrix}
+   1 &amp; 0.2 &amp; 1.6\\
+   0 &amp; 0.2 &amp; -0.4\\
+   0.5 &amp; -0.1 &amp; -0.3\\
+   2 &amp; -0.2 &amp; -1.6
+ \end{bmatrix} \begin{bmatrix} 0\\ 1\\ 0 \end{bmatrix} =
+\begin{bmatrix} -0.2\\ -0.2\\ 0.1\\ 0.2 \end{bmatrix}.\end{split}\]</div>
+</dd>
+<dt>Step 7</dt><dd><p>The dual step length is</p>
+<div class="math notranslate nohighlight">
+\[s = \frac{z^*_j}{\Delta z_j} = \frac{-0.8}{-0.2} = 4.\]</div>
+</dd>
+<dt>Step 8</dt><dd><p>The current primal and dual solutions are updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x^*_\mathcal{B} \leftarrow
+x^*_\mathcal{B} - t \Delta x_\mathcal{B} =
+\begin{bmatrix} 6\\ 0.4\\ 11.2 \end{bmatrix} -
+  2 \begin{bmatrix} 1\\ 0.2\\ 1.6 \end{bmatrix} =
+\begin{bmatrix} 4\\ 0\\ 8 \end{bmatrix}
+\quad \land \quad
+x^*_j \leftarrow t = 2\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} \leftarrow
+z^*_\mathcal{N} - s \Delta z_\mathcal{N} =
+\begin{bmatrix} -0.8\\ 0.2\\ 0.9\\ 2.8 \end{bmatrix} -
+  4 \begin{bmatrix} -0.2\\ -0.2\\ 0.1\\ 0.2 \end{bmatrix} =
+\begin{bmatrix} 0\\ 1\\ 0.5\\ 2 \end{bmatrix}
+\quad \land \quad
+z^*_i \leftarrow s = 4.\end{split}\]</div>
+</dd>
+<dt>Step 9</dt><dd><p>The current basis is updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{2, 1, 7\} \quad &amp; \quad \mathcal{N} &amp;= \{3, 5, 6, 4\}\\
+B &amp;= \begin{bmatrix}
+       1 &amp; 2 &amp; 0\\
+       2 &amp; 2 &amp; 0\\
+       1 &amp; 3 &amp; 1
+     \end{bmatrix} \quad &amp; \quad
+  N &amp;= \begin{bmatrix}
+         5 &amp; 1 &amp; 0 &amp; 1\\
+         0 &amp; 0 &amp; 1 &amp; 4\\
+         2 &amp; 0 &amp; 0 &amp; 0
+       \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= B^{-1} b = \begin{bmatrix} 4\\ 2\\ 8 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;=
+  \left( B^{-1} N \right)^\top c_\mathcal{B} - c_\mathcal{N} =
+  \begin{bmatrix} 4\\ 1\\ 0.5\\ 2 \end{bmatrix}.\end{split}\]</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="Iteration-2">
+<h4>Iteration 2<a class="headerlink" href="#Iteration-2" title="Permalink to this headline">¶</a></h4>
+<dl>
+<dt>Step 1</dt><dd><p>Since <span class="math notranslate nohighlight">\(z^*_\mathcal{N}\)</span> has all non-negative components, the current
+solution is optimal.  The optimal objective function value is</p>
+<div class="math notranslate nohighlight">
+\[\zeta^* = 3 x_1^* + 2 x_2^* + x_3^* + x_4^* = 14.\]</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>Changing the original objective function to <span class="math notranslate nohighlight">\(x_1 + 2 x_2 + 0.5 x_3 + x_4\)</span>
+requires recomputing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} =
+\left( B^{-1} N \right)^\top c_\mathcal{B} - c_\mathcal{N} =
+\left( B^{-1} N \right)^\top \begin{bmatrix} 2\\ 0.5\\ 0 \end{bmatrix} -
+  \begin{bmatrix} 1\\ 0\\ 0\\ 1 \end{bmatrix} =
+\begin{bmatrix} 1.1\\ 0.1\\ 0.95\\ 2.9 \end{bmatrix}.\end{split}\]</div>
+<p>Since <span class="math notranslate nohighlight">\(z^*_\mathcal{N}\)</span> has all non-negative components, the current
+solution is optimal.  The optimal objective function value is</p>
+<div class="math notranslate nohighlight">
+\[\zeta^* = x_1^* + 2 x_2^* + 0.5 x_3^* + x_4^* = 12.2.\]</div>
+</div>
+<div class="section" id="(c)">
+<h3>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h3>
+<p>Changing the original second constraint’s RHS to <span class="math notranslate nohighlight">\(26\)</span>
+requires recomputing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x^*_\mathcal{B} =
+B^{-1} b =
+B^{-1} \begin{bmatrix} 8\\ 26\\ 18 \end{bmatrix} =
+\begin{bmatrix} 13\\ -1\\ 7 \end{bmatrix}.\end{split}\]</div>
+<div class="section" id="Iteration-1">
+<h4>Iteration 1<a class="headerlink" href="#Iteration-1" title="Permalink to this headline">¶</a></h4>
+<dl>
+<dt>Step 1</dt><dd><p>Since <span class="math notranslate nohighlight">\(x^*_\mathcal{B}\)</span> has some negative components, the current
+solution is not optimal.</p>
+</dd>
+<dt>Step 2</dt><dd><p>Applying Bland’s rule restricts the entering variable index to
+<span class="math notranslate nohighlight">\(i = 3 \in \mathcal{B}\)</span>.</p>
+</dd>
+<dt>Step 3</dt><dd><p>The dual step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+-\left( B^{-1} N \right)^\top \mathbf{e}_i =
+-\begin{bmatrix}
+   1 &amp; 0.2 &amp; 1.6\\
+   0 &amp; 0.2 &amp; -0.4\\
+   0.5 &amp; -0.1 &amp; -0.3\\
+   2 &amp; -0.2 &amp; -1.6
+ \end{bmatrix}
+ \begin{bmatrix} 0\\ 1\\ 0 \end{bmatrix} =
+\begin{bmatrix} -0.2\\ -0.2\\ 0.1\\ 0.2 \end{bmatrix}.\end{split}\]</div>
+</dd>
+<dt>Step 4</dt><dd><p>The dual step length is</p>
+<div class="math notranslate nohighlight">
+\[s = \left( \max_{j \in \mathcal{N}} \frac{\Delta z_j}{z^*_j} \right)^{-1} =
+\left( \max \left\{
+  \frac{-0.2}{1.2}, \frac{-0.2}{0.2}, \frac{0.1}{0.9}, \frac{0.2}{2.8}
+\right\} \right)^{-1} =
+9.\]</div>
+</dd>
+<dt>Step 5</dt><dd><p>The leaving variable index is <span class="math notranslate nohighlight">\(j = 6 \in \mathcal{N}\)</span>.</p>
+</dd>
+<dt>Step 6</dt><dd><p>The primal step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} = B^{-1} N e_j =
+\begin{bmatrix}
+  1 &amp; 0 &amp; 0.5 &amp; 2\\
+  0.2 &amp; 0.2 &amp; -0.1 &amp; -0.2\\
+  1.6 &amp; -0.4 &amp; -0.3 &amp; -1.6
+\end{bmatrix}
+  \begin{bmatrix} 0\\ 0\\ 1\\ 0 \end{bmatrix} =
+\begin{bmatrix} 0.5\\ -0.1\\ -0.3 \end{bmatrix}.\end{split}\]</div>
+</dd>
+<dt>Step 7</dt><dd><p>The primal step length is</p>
+<div class="math notranslate nohighlight">
+\[t = \frac{x^*_i}{\Delta x_i} = \frac{-1}{-0.1} = 10.\]</div>
+</dd>
+<dt>Step 8</dt><dd><p>The current primal and dual solutions are updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x^*_\mathcal{B} \leftarrow
+x^*_\mathcal{B} - t \Delta x_\mathcal{B} =
+\begin{bmatrix} 13\\ -1\\ 7 \end{bmatrix} -
+  (10) \begin{bmatrix} 0.5\\ -0.1\\ -0.3 \end{bmatrix} =
+\begin{bmatrix} 8\\ 0\\ 10 \end{bmatrix}
+\quad \land \quad
+x^*_j \leftarrow t = 10\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} \leftarrow
+z^*_\mathcal{N} - s \Delta z_\mathcal{N} =
+\begin{bmatrix} 1.2\\ 0.2\\ 0.9\\ 2.8 \end{bmatrix} -
+  (9) \begin{bmatrix} -0.2\\ -0.2\\ 0.1\\ 0.2 \end{bmatrix} =
+\begin{bmatrix} 3\\ 2\\ 0\\ 1 \end{bmatrix}
+\quad \land \quad
+z^*_i \leftarrow s = 9.\end{split}\]</div>
+</dd>
+<dt>Step 9</dt><dd><p>The current basis is updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{2, 6, 7\} \quad &amp; \quad \mathcal{N} &amp;= \{1, 5, 3, 4\}\\
+B &amp;= \begin{bmatrix}
+       1 &amp; 0 &amp; 0\\
+       2 &amp; 1 &amp; 0\\
+       1 &amp; 0 &amp; 1
+     \end{bmatrix} \quad &amp; \quad
+  N &amp;= \begin{bmatrix}
+         2 &amp; 1 &amp; 5 &amp; 1\\
+         2 &amp; 0 &amp; 0 &amp; 4\\
+         3 &amp; 0 &amp; 2 &amp; 0
+       \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= B^{-1} b = \begin{bmatrix} 8\\ 10\\ 10 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;=
+  \left( B^{-1} N \right)^\top c_\mathcal{B} - c_\mathcal{N} =
+  \begin{bmatrix} 3\\ 2\\ 9\\ 1 \end{bmatrix}.\end{split}\]</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="Iteration-2">
+<h4>Iteration 2<a class="headerlink" href="#Iteration-2" title="Permalink to this headline">¶</a></h4>
+<dl>
+<dt>Step 1</dt><dd><p>Since <span class="math notranslate nohighlight">\(x^*_\mathcal{B}\)</span> has all non-negative components, the current
+solution is optimal.  The optimal objective function value is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\zeta^* =
+c_\mathcal{B}^\top B^{-1} b =
+\begin{bmatrix} 2 &amp; 0 &amp; 0 \end{bmatrix} B^{-1}
+  \begin{bmatrix} 8\\ 26\\ 18 \end{bmatrix} =
+16.\end{split}\]</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="section" id="Exercise-7.2">
+<h2>Exercise 7.2<a class="headerlink" href="#Exercise-7.2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="\Delta-c-=-\begin{bmatrix}-1-&amp;-0-&amp;-0-&amp;-0-&amp;-0-&amp;-0-&amp;-0-\end{bmatrix}^\top">
+<h3><span class="math notranslate nohighlight">\(\Delta c = \begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \end{bmatrix}^\top\)</span><a class="headerlink" href="#\Delta-c-=-\begin{bmatrix}-1-&-0-&-0-&-0-&-0-&-0-&-0-\end{bmatrix}^\top" title="Permalink to this headline">¶</a></h3>
+<p>Partitioning <span class="math notranslate nohighlight">\(\Delta c\)</span> according to the final optimal basis gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta c_\mathcal{B} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}
+\quad \text{and} \quad
+\Delta c_\mathcal{N} = \begin{bmatrix} 1 \\ 0 \\ 0 \\ 0 \end{bmatrix}.\end{split}\]</div>
+<p>Applying (7.1) yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+\left( B^{-1} N \right)^\top \Delta c_\mathcal{B} - \Delta c_\mathcal{N} =
+\begin{bmatrix}
+  1 &amp; 0.2 &amp; 1.6\\
+  0 &amp; 0.2 &amp; -0.4\\
+  0.5 &amp; -0.1 &amp; -0.3\\
+  2 &amp; -0.2 &amp; -1.6
+\end{bmatrix} \begin{bmatrix} 0\\ 0\\ 0 \end{bmatrix} -
+  \begin{bmatrix} 1\\ 0\\ 0\\ 0 \end{bmatrix} =
+\begin{bmatrix} -1 \\ 0 \\ 0 \\ 0 \end{bmatrix}\end{split}\]</div>
+<p>The current basis will remain optimal as long as (7.2)</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} + t \Delta z_\mathcal{N} =
+\begin{bmatrix} 1.2\\ 0.2\\ 0.9\\ 2.8 \end{bmatrix} +
+  t \begin{bmatrix} -1 \\ 0 \\ 0 \\ 0 \end{bmatrix} \geq 0
+\quad \iff \quad
+t \leq 1.2.\end{split}\]</div>
+</div>
+<div class="section" id="\Delta-c-=-\begin{bmatrix}-0-&amp;-1-&amp;-0-&amp;-0-&amp;-0-&amp;-0-&amp;-0-\end{bmatrix}^\top">
+<h3><span class="math notranslate nohighlight">\(\Delta c = \begin{bmatrix} 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \end{bmatrix}^\top\)</span><a class="headerlink" href="#\Delta-c-=-\begin{bmatrix}-0-&-1-&-0-&-0-&-0-&-0-&-0-\end{bmatrix}^\top" title="Permalink to this headline">¶</a></h3>
+<p>Partitioning <span class="math notranslate nohighlight">\(\Delta c\)</span> according to the final optimal basis gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta c_\mathcal{B} = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}
+\quad \text{and} \quad
+\Delta c_\mathcal{N} = \begin{bmatrix} 0 \\ 0 \\ 0 \\ 0 \end{bmatrix}.\end{split}\]</div>
+<p>Applying (7.1) yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+\left( B^{-1} N \right)^\top \Delta c_\mathcal{B} - \Delta c_\mathcal{N} =
+\begin{bmatrix}
+  1 &amp; 0.2 &amp; 1.6\\
+  0 &amp; 0.2 &amp; -0.4\\
+  0.5 &amp; -0.1 &amp; -0.3\\
+  2 &amp; -0.2 &amp; -1.6
+\end{bmatrix} \begin{bmatrix} 1\\ 0\\ 0 \end{bmatrix} -
+  \begin{bmatrix} 0\\ 0\\ 0\\ 0 \end{bmatrix} =
+\begin{bmatrix} 1 \\ 0 \\ 0.5 \\ 2 \end{bmatrix}\end{split}\]</div>
+<p>The current basis will remain optimal as long as (7.2)</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} + t \Delta z_\mathcal{N} =
+\begin{bmatrix} 1.2\\ 0.2\\ 0.9\\ 2.8 \end{bmatrix} +
+  t \begin{bmatrix} 1 \\ 0 \\ 0.5 \\ 2 \end{bmatrix} \geq 0
+\quad \iff \quad
+-1.2 \leq t.\end{split}\]</div>
+</div>
+<div class="section" id="\Delta-c-=-\begin{bmatrix}-0-&amp;-0-&amp;-1-&amp;-0-&amp;-0-&amp;-0-&amp;-0-\end{bmatrix}^\top">
+<h3><span class="math notranslate nohighlight">\(\Delta c = \begin{bmatrix} 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \end{bmatrix}^\top\)</span><a class="headerlink" href="#\Delta-c-=-\begin{bmatrix}-0-&-0-&-1-&-0-&-0-&-0-&-0-\end{bmatrix}^\top" title="Permalink to this headline">¶</a></h3>
+<p>Partitioning <span class="math notranslate nohighlight">\(\Delta c\)</span> according to the final optimal basis gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta c_\mathcal{B} = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}
+\quad \text{and} \quad
+\Delta c_\mathcal{N} = \begin{bmatrix} 0 \\ 0 \\ 0 \\ 0 \end{bmatrix}.\end{split}\]</div>
+<p>Applying (7.1) yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+\left( B^{-1} N \right)^\top \Delta c_\mathcal{B} - \Delta c_\mathcal{N} =
+\begin{bmatrix}
+  1 &amp; 0.2 &amp; 1.6\\
+  0 &amp; 0.2 &amp; -0.4\\
+  0.5 &amp; -0.1 &amp; -0.3\\
+  2 &amp; -0.2 &amp; -1.6
+\end{bmatrix} \begin{bmatrix} 0\\ 1\\ 0 \end{bmatrix} -
+  \begin{bmatrix} 0\\ 0\\ 0\\ 0 \end{bmatrix} =
+\begin{bmatrix} 0.2 \\ 0.2 \\ -0.1 \\ -0.2 \end{bmatrix}\end{split}\]</div>
+<p>The current basis will remain optimal as long as (7.2)</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} + t \Delta z_\mathcal{N} =
+\begin{bmatrix} 1.2\\ 0.2\\ 0.9\\ 2.8 \end{bmatrix} +
+  t \begin{bmatrix} 0.2 \\ 0.2 \\ -0.1 \\ -0.2 \end{bmatrix} \geq 0
+\quad \iff \quad
+-1 \leq t \leq 9.\end{split}\]</div>
+</div>
+<div class="section" id="\Delta-c-=-\begin{bmatrix}-0-&amp;-0-&amp;-0-&amp;-1-&amp;-0-&amp;-0-&amp;-0-\end{bmatrix}^\top">
+<h3><span class="math notranslate nohighlight">\(\Delta c = \begin{bmatrix} 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \end{bmatrix}^\top\)</span><a class="headerlink" href="#\Delta-c-=-\begin{bmatrix}-0-&-0-&-0-&-1-&-0-&-0-&-0-\end{bmatrix}^\top" title="Permalink to this headline">¶</a></h3>
+<p>Partitioning <span class="math notranslate nohighlight">\(\Delta c\)</span> according to the final optimal basis gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta c_\mathcal{B} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}
+\quad \text{and} \quad
+\Delta c_\mathcal{N} = \begin{bmatrix} 0 \\ 0 \\ 0 \\ 1 \end{bmatrix}.\end{split}\]</div>
+<p>Applying (7.1) yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+\left( B^{-1} N \right)^\top \Delta c_\mathcal{B} - \Delta c_\mathcal{N} =
+\begin{bmatrix}
+  1 &amp; 0.2 &amp; 1.6\\
+  0 &amp; 0.2 &amp; -0.4\\
+  0.5 &amp; -0.1 &amp; -0.3\\
+  2 &amp; -0.2 &amp; -1.6
+\end{bmatrix} \begin{bmatrix} 0\\ 0\\ 0 \end{bmatrix} -
+  \begin{bmatrix} 0\\ 0\\ 0\\ 1 \end{bmatrix} =
+\begin{bmatrix} 0\\ 0\\ 0\\ -1 \end{bmatrix}\end{split}\]</div>
+<p>The current basis will remain optimal as long as (7.2)</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} + t \Delta z_\mathcal{N} =
+\begin{bmatrix} 1.2\\ 0.2\\ 0.9\\ 2.8 \end{bmatrix} +
+  t \begin{bmatrix} 0\\ 0\\ 0\\ -1 \end{bmatrix} \geq 0
+\quad \iff \quad
+t \leq 2.8.\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-7.3">
+<h2>Exercise 7.3<a class="headerlink" href="#Exercise-7.3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>The range of optimality is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  -1 + 2 \mu &amp;\geq 0, \quad &amp; \quad 3 - \mu &amp;\geq 0,\\
+  -1 + \mu &amp;\geq 0, \quad &amp; \quad -4 + 3 \mu &amp;\geq 0,
+\end{aligned}
+\quad \iff \quad
+\frac{4}{3} \leq \mu \leq 3.\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>The entering variable is <span class="math notranslate nohighlight">\(x_{j = 3 \in \mathcal{N}}\)</span> because the maximum
+is <span class="math notranslate nohighlight">\(\mu^* = 3\)</span>.</p>
+<p>Since</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} =
+B^{-1} N e_j =
+\begin{bmatrix} -1 &amp; 1\\ -3 &amp; 2\\ -1 &amp; -1 \end{bmatrix}
+  \begin{bmatrix} 0\\ 1 \end{bmatrix} =
+\begin{bmatrix} 1\\ 2\\ -1 \end{bmatrix}\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\DeclareMathOperator*{\argmax}{arg\,max}
+\argmax_{i \in \mathcal{B}} \frac{\Delta x_i}{x^*_i + \mu^* \bar{x}_i} =
+\argmax_{i \in \mathcal{B}} \left\{
+  \frac{1}{2}, \frac{2}{5}, \frac{-1}{2}
+\right\},\]</div>
+<p>the leaving variable is <span class="math notranslate nohighlight">\(x_4\)</span>.</p>
+</div>
+</div>
+<div class="section" id="Exercise-7.4">
+<h2>Exercise 7.4<a class="headerlink" href="#Exercise-7.4" title="Permalink to this headline">¶</a></h2>
+<p>Rewriting <a class="reference internal" href="chapter-02.html#vanderbei2014linear-ex-2-3"><span class="std std-ref">Exercise 2.3</span></a> into matrix form
+yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 4, 5 \} \quad &amp; \quad \mathcal{N} &amp;= \{ 1, 2, 3 \}\\
+B &amp;= \mathbf{I}_2 \quad &amp; \quad
+  N &amp;= \begin{bmatrix} -1 &amp; -1 &amp; -1\\ 2 &amp; -1 &amp; 1 \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= b = \begin{bmatrix} -2\\ 1 \end{bmatrix} \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= -c_\mathcal{N} =
+      \begin{bmatrix} -2\\ 6\\ 0 \end{bmatrix}.\end{split}\]</div>
+<p>Since both <span class="math notranslate nohighlight">\(x^*_\mathcal{B}\)</span> and <span class="math notranslate nohighlight">\(z^*_\mathcal{N}\)</span> have some
+negative components, define</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\bar{x}_\mathcal{B} = \begin{bmatrix} 1\\ 1 \end{bmatrix}
+\quad \text{and} \quad
+\bar{z}_\mathcal{N} = \begin{bmatrix} 1\\ 1\\ 1 \end{bmatrix}.\end{split}\]</div>
+<div class="section" id="Iteration-1">
+<h3>Iteration 1<a class="headerlink" href="#Iteration-1" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{-2}{1}, -\frac{6}{1}, -\frac{0}{1}
+      \right\},
+      \max\left\{
+        -\frac{-2}{1}, -\frac{1}{1}
+      \right\}
+    \right\}\\
+ &amp;= 2\end{split}\]</div>
+<p>shows that one can select either <span class="math notranslate nohighlight">\(x_1\)</span> to be the entering variable or
+<span class="math notranslate nohighlight">\(x_4\)</span> to be the leaving variable.  Applying Bland’s rule selects
+<span class="math notranslate nohighlight">\(x_1\)</span> to be the entering variable.</p>
+</dd>
+<dt>Step 2</dt><dd><p>The maximum is achieved by <span class="math notranslate nohighlight">\(j = 1 \in \mathcal{N}\)</span>, so do one step of
+the primal simplex method.</p>
+<p>The primal step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} =
+B^{-1} N e_j =
+\begin{bmatrix} -1 &amp; -1 &amp; -1\\ 2 &amp; -1 &amp; 1 \end{bmatrix}
+  \begin{bmatrix} 1\\ 0\\ 0 \end{bmatrix} =
+\begin{bmatrix} -1\\ 2 \end{bmatrix}.\end{split}\]</div>
+<p>The index of the leaving variable is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator*{\argmin}{arg\,min}
+\argmin_{i \in \mathcal{B}}
+  \left\{
+    \frac{x^*_i + \mu^* \bar{x}_i}{\Delta x_i} \colon \Delta x_i &gt; 0
+  \right\}
+ &amp;= \argmin_{i \in \mathcal{B}}\left\{
+      \frac{1 + \mu^*}{2}
+    \right\}\\
+ &amp;= 5.\end{split}\]</div>
+<p>The dual step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+-\left( B^{-1} N \right)^\top e_i =
+-\begin{bmatrix} -1 &amp; 2\\ -1 &amp; -1\\ -1 &amp; 1 \end{bmatrix}
+  \begin{bmatrix} 0\\ 1 \end{bmatrix} =
+\begin{bmatrix} -2\\ 1\\ -1 \end{bmatrix}.\end{split}\]</div>
+</dd>
+<dt>Step 3</dt><dd><p>The step length adjustments are given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t &amp;= \frac{x^*_i}{\Delta x_i} = \frac{1}{2} = 0.5
+  \quad &amp; \quad
+  \bar{t} = \frac{\bar{x}_i}{\Delta x_i} = \frac{1}{2} = 0.5\\
+s &amp;= \frac{z^*_j}{\Delta z_j} = \frac{-2}{-2} = 1
+  \quad &amp; \quad
+  \bar{s} = \frac{\bar{z}_j}{\Delta z_j} = \frac{1}{-2} = -0.5.\end{split}\]</div>
+</dd>
+<dt>Step 4</dt><dd><p>The current primal and dual solutions are updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x^*_\mathcal{B} &amp;\leftarrow x^*_\mathcal{B} - t \Delta x_\mathcal{B} =
+    \begin{bmatrix} -2\\ 1 \end{bmatrix} -
+      0.5 \begin{bmatrix} -1\\ 2 \end{bmatrix} =
+    \begin{bmatrix} -1.5\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  x^*_j &amp;\leftarrow t = 0.5\\
+\bar{x}_\mathcal{B} &amp;\leftarrow
+      \bar{x}_\mathcal{B} - \bar{t} \Delta x_\mathcal{B} =
+    \begin{bmatrix} 1\\ 1 \end{bmatrix} -
+      0.5 \begin{bmatrix} -1\\ 2 \end{bmatrix} =
+    \begin{bmatrix} 1.5\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{x}_j &amp;\leftarrow \bar{t} = 0.5\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} &amp;\leftarrow z^*_\mathcal{N} - s \Delta z_\mathcal{N} =
+    \begin{bmatrix} -2\\ 6\\ 0 \end{bmatrix} -
+      (1) \begin{bmatrix} -2\\ 1\\ -1 \end{bmatrix} =
+    \begin{bmatrix} 0\\ 5\\ 1 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_i &amp;\leftarrow s = 1\\
+\bar{z}_\mathcal{N} &amp;\leftarrow
+      \bar{z}_\mathcal{N} - \bar{s} \Delta z_\mathcal{N} =
+    \begin{bmatrix} 1\\ 1\\ 1 \end{bmatrix} -
+      (-0.5) \begin{bmatrix} -2\\ 1\\ -1 \end{bmatrix} =
+    \begin{bmatrix} 0\\ 1.5\\ 0.5 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_i &amp;\leftarrow \bar{s} = -0.5.\end{split}\]</div>
+</dd>
+<dt>Step 5</dt><dd><p>The current basis is updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 4, 1 \} \quad &amp; \quad \mathcal{N} &amp;= \{ 5, 2, 3 \}\\
+B &amp;= \begin{bmatrix} 1 &amp; -1\\ 0 &amp; 2 \end{bmatrix} \quad &amp; \quad
+  N &amp;= \begin{bmatrix} 0 &amp; -1 &amp; -1\\ 1 &amp; -1 &amp; 1 \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= \begin{bmatrix} -1.5\\ 0.5 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= \begin{bmatrix} 1\\ 5\\ 1 \end{bmatrix}\\
+\bar{x}_\mathcal{B} &amp;= \begin{bmatrix} 1.5\\ 0.5 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_\mathcal{N} &amp;= \begin{bmatrix} -0.5\\ 1.5\\ 0.5 \end{bmatrix}.\end{split}\]</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="Iteration-2">
+<h3>Iteration 2<a class="headerlink" href="#Iteration-2" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{5}{3 / 2}, -\frac{1}{1 / 2}
+      \right\},
+      \max\left\{
+        -\frac{-3 / 2}{3 / 2}, -\frac{1 / 2}{1 / 2}
+      \right\}
+    \right\}\\
+ &amp;= 1\end{split}\]</div>
+<p>shows that <span class="math notranslate nohighlight">\(x_4\)</span> is the leaving variable.</p>
+</dd>
+<dt>Step 2</dt><dd><p>The maximum is achieved by <span class="math notranslate nohighlight">\(i = 4 \in \mathcal{B}\)</span>, so do one step of
+the dual simplex method.</p>
+<p>The dual step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+-\left( B^{-1} N \right)^\top e_i =
+-\begin{bmatrix} 0.5 &amp; 0.5\\ -1.5 &amp; -0.5\\ -0.5 &amp; 0.5 \end{bmatrix}
+  \begin{bmatrix} 1\\ 0 \end{bmatrix} =
+\begin{bmatrix} -0.5\\ 1.5\\ 0.5 \end{bmatrix}.\end{split}\]</div>
+<p>The index of the entering variable is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator*{\argmin}{arg\,min}
+\argmin_{j \in \mathcal{N}}
+  \left\{
+    \frac{z^*_j + \mu^* \bar{z}_j}{\Delta z_j} \colon \Delta z_j &gt; 0
+  \right\}
+ &amp;= \argmin_{j \in \mathcal{N}}\left\{
+      \frac{5 + \mu^* (1.5)}{1.5}, \frac{1 + \mu^* (0.5)}{0.5}
+    \right\}\\
+ &amp;= 3.\end{split}\]</div>
+<p>The primal step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} =
+B^{-1} N e_j =
+\begin{bmatrix} 0.5 &amp; -1.5 &amp; -0.5\\ 0.5 &amp; -0.5 &amp; 0.5 \end{bmatrix}
+  \begin{bmatrix} 0\\ 0\\ 1 \end{bmatrix} =
+\begin{bmatrix} -0.5\\ 0.5 \end{bmatrix}.\end{split}\]</div>
+</dd>
+<dt>Step 3</dt><dd><p>The step length adjustments are given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t &amp;= \frac{x^*_i}{\Delta x_i} = \frac{-1.5}{-0.5} = 3
+  \quad &amp; \quad
+  \bar{t} = \frac{\bar{x}_i}{\Delta x_i} = \frac{1.5}{-0.5} = -3\\
+s &amp;= \frac{z^*_j}{\Delta z_j} = \frac{1}{0.5} = 2
+  \quad &amp; \quad
+  \bar{s} = \frac{\bar{z}_j}{\Delta z_j} = \frac{0.5}{0.5} = 1.\end{split}\]</div>
+</dd>
+<dt>Step 4</dt><dd><p>The current primal and dual solutions are updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x^*_\mathcal{B} &amp;\leftarrow x^*_\mathcal{B} - t \Delta x_\mathcal{B} =
+    \begin{bmatrix} -1.5\\ 0.5 \end{bmatrix} -
+      (3) \begin{bmatrix} -0.5\\ 0.5 \end{bmatrix} =
+    \begin{bmatrix} 0\\ -1 \end{bmatrix}
+  \quad &amp; \quad
+  x^*_j &amp;\leftarrow t = 3\\
+\bar{x}_\mathcal{B} &amp;\leftarrow
+      \bar{x}_\mathcal{B} - \bar{t} \Delta x_\mathcal{B} =
+    \begin{bmatrix} 1.5\\ 0.5 \end{bmatrix} -
+      (-3) \begin{bmatrix} -0.5\\ 0.5 \end{bmatrix} =
+    \begin{bmatrix} 0\\ 2 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{x}_j &amp;\leftarrow \bar{t} = -3\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} &amp;\leftarrow z^*_\mathcal{N} - s \Delta z_\mathcal{N} =
+    \begin{bmatrix} 1\\ 5\\ 1 \end{bmatrix} -
+      (2) \begin{bmatrix} -0.5\\ 1.5\\ 0.5 \end{bmatrix} =
+    \begin{bmatrix} 2\\ 2\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_i &amp;\leftarrow s = 2\\
+\bar{z}_\mathcal{N} &amp;\leftarrow
+      \bar{z}_\mathcal{N} - \bar{s} \Delta z_\mathcal{N} =
+    \begin{bmatrix} -0.5\\ 1.5\\ 0.5 \end{bmatrix} -
+      (1) \begin{bmatrix} -0.5\\ 1.5\\ 0.5 \end{bmatrix} =
+    \begin{bmatrix} 0\\ 0\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_i &amp;\leftarrow \bar{s} = 1.\end{split}\]</div>
+</dd>
+<dt>Step 5</dt><dd><p>The current basis is updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 3, 1 \} \quad &amp; \quad \mathcal{N} &amp;= \{ 5, 2, 4 \}\\
+B &amp;= \begin{bmatrix} -1 &amp; -1\\ 1 &amp; 2 \end{bmatrix} \quad &amp; \quad
+  N &amp;= \begin{bmatrix} 0 &amp; -1 &amp; 1\\ 1 &amp; -1 &amp; 0 \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= \begin{bmatrix} 3\\ -1 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= \begin{bmatrix} 2\\ 2\\ 2 \end{bmatrix}\\
+\bar{x}_\mathcal{B} &amp;= \begin{bmatrix} -3\\ 2 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_\mathcal{N} &amp;= \begin{bmatrix} 0\\ 0\\ 1 \end{bmatrix}.\end{split}\]</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="Iteration-3">
+<h3>Iteration 3<a class="headerlink" href="#Iteration-3" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{2}{1}
+      \right\},
+      \max\left\{
+        -\frac{-1}{2}
+      \right\}
+    \right\}\\
+ &amp;= 0.5\end{split}\]</div>
+<p>shows that <span class="math notranslate nohighlight">\(x_1\)</span> is the leaving variable.</p>
+</dd>
+<dt>Step 2</dt><dd><p>The maximum is achieved by <span class="math notranslate nohighlight">\(i = 1 \in \mathcal{B}\)</span>, so do one step of
+the dual simplex method.</p>
+<p>The dual step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+-\left( B^{-1} N \right)^\top e_i =
+-\begin{bmatrix} -1 &amp; 1\\ 3 &amp; -2\\ -2 &amp; 1 \end{bmatrix}
+  \begin{bmatrix} 0\\ 1 \end{bmatrix} =
+\begin{bmatrix} -1\\ 2\\ -1 \end{bmatrix}.\end{split}\]</div>
+<p>The index of the entering variable is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator*{\argmin}{arg\,min}
+\argmin_{j \in \mathcal{N}}
+  \left\{
+    \frac{z^*_j + \mu^* \bar{z}_j}{\Delta z_j} \colon \Delta z_j &gt; 0
+  \right\}
+ &amp;= \argmin_{j \in \mathcal{N}}\left\{
+      \frac{2 + \mu^* (0)}{2}
+    \right\}\\
+ &amp;= 2.\end{split}\]</div>
+<p>The primal step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} =
+B^{-1} N e_j =
+\begin{bmatrix} -1 &amp; 3 &amp; -2\\ 1 &amp; -2 &amp; 1 \end{bmatrix}
+  \begin{bmatrix} 0\\ 1\\ 0 \end{bmatrix} =
+\begin{bmatrix} 3\\ -2 \end{bmatrix}.\end{split}\]</div>
+</dd>
+<dt>Step 3</dt><dd><p>The step length adjustments are given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t &amp;= \frac{x^*_i}{\Delta x_i} = \frac{-1}{-2} = 0.5
+  \quad &amp; \quad
+  \bar{t} = \frac{\bar{x}_i}{\Delta x_i} = \frac{2}{-2} = -1\\
+s &amp;= \frac{z^*_j}{\Delta z_j} = \frac{2}{2} = 1
+  \quad &amp; \quad
+  \bar{s} = \frac{\bar{z}_j}{\Delta z_j} = \frac{0}{2} = 0.\end{split}\]</div>
+</dd>
+<dt>Step 4</dt><dd><p>The current primal and dual solutions are updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x^*_\mathcal{B} &amp;\leftarrow x^*_\mathcal{B} - t \Delta x_\mathcal{B} =
+    \begin{bmatrix} 3\\ -1 \end{bmatrix} -
+      (0.5) \begin{bmatrix} 3\\ -2 \end{bmatrix} =
+    \begin{bmatrix} 1.5\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  x^*_j &amp;\leftarrow t = 0.5\\
+\bar{x}_\mathcal{B} &amp;\leftarrow
+      \bar{x}_\mathcal{B} - \bar{t} \Delta x_\mathcal{B} =
+    \begin{bmatrix} -3\\ 2 \end{bmatrix} -
+      (-1) \begin{bmatrix} 3\\ -2 \end{bmatrix} =
+    \begin{bmatrix} 0\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{x}_j &amp;\leftarrow \bar{t} = -1\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} &amp;\leftarrow z^*_\mathcal{N} - s \Delta z_\mathcal{N} =
+    \begin{bmatrix} 2\\ 2\\ 2 \end{bmatrix} -
+      (1) \begin{bmatrix} -1\\ 2\\ -1 \end{bmatrix} =
+    \begin{bmatrix} 3\\ 0\\ 3 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_i &amp;\leftarrow s = 1\\
+\bar{z}_\mathcal{N} &amp;\leftarrow
+      \bar{z}_\mathcal{N} - \bar{s} \Delta z_\mathcal{N} =
+    \begin{bmatrix} 0\\ 0\\ 1 \end{bmatrix} -
+      (0) \begin{bmatrix} -1\\ 2\\ -1 \end{bmatrix} =
+    \begin{bmatrix} 0\\ 0\\ 1 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_i &amp;\leftarrow \bar{s} = 0.\end{split}\]</div>
+</dd>
+<dt>Step 5</dt><dd><p>The current basis is updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 3, 2 \} \quad &amp; \quad \mathcal{N} &amp;= \{ 5, 1, 4 \}\\
+B &amp;= \begin{bmatrix} -1 &amp; -1\\ 1 &amp; -1 \end{bmatrix} \quad &amp; \quad
+  N &amp;= \begin{bmatrix} 0 &amp; -1 &amp; 1\\ 1 &amp; 2 &amp; 0 \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= \begin{bmatrix} 1.5\\ 0.5 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= \begin{bmatrix} 3\\ 1\\ 3 \end{bmatrix}\\
+\bar{x}_\mathcal{B} &amp;= \begin{bmatrix} 0\\ -1 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_\mathcal{N} &amp;= \begin{bmatrix} 0\\ 0\\ 1 \end{bmatrix}.\end{split}\]</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="Iteration-4">
+<h3>Iteration 4<a class="headerlink" href="#Iteration-4" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{3}{1}
+      \right\}
+    \right\}\\
+ &amp;= -3\end{split}\]</div>
+<p>shows that the current solution is optimal.  The optimal objective function
+value is</p>
+<div class="math notranslate nohighlight">
+\[\zeta^* = 2 x_1^* - 6 x_2^* = -3.\]</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="Exercise-7.5">
+<h2>Exercise 7.5<a class="headerlink" href="#Exercise-7.5" title="Permalink to this headline">¶</a></h2>
+<p>Rewriting <a class="reference internal" href="chapter-02.html#vanderbei2014linear-ex-2-4"><span class="std std-ref">Exercise 2.4</span></a> into matrix form
+yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 4, 5 \} \quad &amp; \quad \mathcal{N} &amp;= \{ 1, 2, 3 \}\\
+B &amp;= \mathbf{I}_2 \quad &amp; \quad
+  N &amp;= \begin{bmatrix} 2 &amp; -5 &amp; 1\\ 2 &amp; -1 &amp; 2 \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= b = \begin{bmatrix} -5\\ 4 \end{bmatrix} \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= -c_\mathcal{N} =
+      \begin{bmatrix} 1\\ 3\\ 1 \end{bmatrix}.\end{split}\]</div>
+<p>Since only <span class="math notranslate nohighlight">\(x^*_\mathcal{B}\)</span> has some negative components, the problem is
+dual feasible.  Nevertheless, define</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\bar{x}_\mathcal{B} = \begin{bmatrix} 1\\ 1 \end{bmatrix}
+\quad \text{and} \quad
+\bar{z}_\mathcal{N} = \begin{bmatrix} 1\\ 1\\ 1 \end{bmatrix}.\end{split}\]</div>
+<div class="section" id="Iteration-1">
+<h3>Iteration 1<a class="headerlink" href="#Iteration-1" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{1}{1}, -\frac{3}{1}, -\frac{1}{1}
+      \right\},
+      \max\left\{
+        -\frac{-5}{1}, -\frac{4}{1}
+      \right\}
+    \right\}\\
+ &amp;= 5\end{split}\]</div>
+<p>shows that <span class="math notranslate nohighlight">\(x_4\)</span> is the leaving variable.</p>
+</dd>
+<dt>Step 2</dt><dd><p>The maximum is achieved by <span class="math notranslate nohighlight">\(i = 4 \in \mathcal{B}\)</span>, so do one step of
+the dual simplex method.</p>
+<p>The dual step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+-\left( B^{-1} N \right)^\top e_i =
+-\begin{bmatrix} 2 &amp; 2\\ -5 &amp; -1\\ 1 &amp; 2 \end{bmatrix}
+  \begin{bmatrix} 1\\ 0 \end{bmatrix} =
+\begin{bmatrix} -2\\ 5\\ -1 \end{bmatrix}.\end{split}\]</div>
+<p>The index of the entering variable is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator*{\argmin}{arg\,min}
+\argmin_{j \in \mathcal{N}}
+  \left\{
+    \frac{z^*_j + \mu^* \bar{z}_j}{\Delta z_j} \colon \Delta z_j &gt; 0
+  \right\}
+ &amp;= \argmin_{j \in \mathcal{N}}\left\{
+      \frac{3 + \mu^*}{5}
+    \right\}\\
+ &amp;= 2.\end{split}\]</div>
+<p>The primal step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} =
+B^{-1} N e_j =
+\begin{bmatrix} 2 &amp; -5 &amp; 1\\ 2 &amp; -1 &amp; 2 \end{bmatrix}
+  \begin{bmatrix} 0\\ 1\\ 0 \end{bmatrix} =
+\begin{bmatrix} -5\\ -1 \end{bmatrix}.\end{split}\]</div>
+</dd>
+<dt>Step 3</dt><dd><p>The step length adjustments are given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t &amp;= \frac{x^*_i}{\Delta x_i} = \frac{-5}{-5} = 1
+  \quad &amp; \quad
+  \bar{t} = \frac{\bar{x}_i}{\Delta x_i} = \frac{1}{-5} = -0.2\\
+s &amp;= \frac{z^*_j}{\Delta z_j} = \frac{3}{5} = 0.6
+  \quad &amp; \quad
+  \bar{s} = \frac{\bar{z}_j}{\Delta z_j} = \frac{1}{5} = 0.2.\end{split}\]</div>
+</dd>
+<dt>Step 4</dt><dd><p>The current primal and dual solutions are updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x^*_\mathcal{B} &amp;\leftarrow x^*_\mathcal{B} - t \Delta x_\mathcal{B} =
+    \begin{bmatrix} -5\\ 4 \end{bmatrix} -
+      (1) \begin{bmatrix} -5\\ -1 \end{bmatrix} =
+    \begin{bmatrix} 0\\ 5 \end{bmatrix}
+  \quad &amp; \quad
+  x^*_j &amp;\leftarrow t = 1\\
+\bar{x}_\mathcal{B} &amp;\leftarrow
+      \bar{x}_\mathcal{B} - \bar{t} \Delta x_\mathcal{B} =
+    \begin{bmatrix} 1\\ 1 \end{bmatrix} -
+      (-0.2) \begin{bmatrix} -5\\ -1 \end{bmatrix} =
+    \begin{bmatrix} 0\\ 0.8 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{x}_j &amp;\leftarrow \bar{t} = -0.2\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} &amp;\leftarrow z^*_\mathcal{N} - s \Delta z_\mathcal{N} =
+    \begin{bmatrix} 1\\ 3\\ 1 \end{bmatrix} -
+      (0.6) \begin{bmatrix} -2\\ 5\\ -1 \end{bmatrix} =
+    \begin{bmatrix} 2.2\\ 0\\ 1.6 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_i &amp;\leftarrow s = 0.6\\
+\bar{z}_\mathcal{N} &amp;\leftarrow
+      \bar{z}_\mathcal{N} - \bar{s} \Delta z_\mathcal{N} =
+    \begin{bmatrix} 1\\ 1\\ 1 \end{bmatrix} -
+      (0.2) \begin{bmatrix} -2\\ 5\\ -1 \end{bmatrix} =
+    \begin{bmatrix} 1.4\\ 0\\ 1.2 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_i &amp;\leftarrow \bar{s} = 0.2.\end{split}\]</div>
+</dd>
+<dt>Step 5</dt><dd><p>The current basis is updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 2, 5 \} \quad &amp; \quad \mathcal{N} &amp;= \{ 1, 4, 3 \}\\
+B &amp;= \begin{bmatrix} -5 &amp; 0\\ -1 &amp; 1 \end{bmatrix} \quad &amp; \quad
+  N &amp;= \begin{bmatrix} 2 &amp; 1 &amp; 1\\ 2 &amp; 0 &amp; 2 \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= \begin{bmatrix} 1\\ 5 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= \begin{bmatrix} 2.2\\ 0.6\\ 1.6 \end{bmatrix}\\
+\bar{x}_\mathcal{B} &amp;= \begin{bmatrix} -0.2\\ 0.8 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_\mathcal{N} &amp;= \begin{bmatrix} 1.4\\ 0.2\\ 1.2 \end{bmatrix}.\end{split}\]</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="Iteration-2">
+<h3>Iteration 2<a class="headerlink" href="#Iteration-2" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{2.2}{1.4}, -\frac{0.6}{0.2}, -\frac{1.6}{1.2}
+      \right\},
+      \max\left\{
+        -\frac{5}{0.8}
+      \right\},
+    \right\}\\
+ &amp;= -1.\bar{3}\end{split}\]</div>
+<p>shows that the current solution is optimal.  The optimal objective function
+value is</p>
+<div class="math notranslate nohighlight">
+\[\zeta^* = -x_1^* - 3 x_2^* - x_3^* = -3.\]</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="Exercise-7.6">
+<h2>Exercise 7.6<a class="headerlink" href="#Exercise-7.6" title="Permalink to this headline">¶</a></h2>
+<p>Rewriting <a class="reference internal" href="chapter-02.html#vanderbei2014linear-ex-2-6"><span class="std std-ref">Exercise 2.6</span></a> into matrix form
+yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 3, 4, 5 \} \quad &amp; \quad \mathcal{N} &amp;= \{ 1, 2 \}\\
+B &amp;= \mathbf{I}_3 \quad &amp; \quad
+  N &amp;= \begin{bmatrix} -1 &amp; -1\\ -1 &amp; 1\\ 1 &amp; 2 \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= b = \begin{bmatrix} -3\\ -1\\ 2 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= -c_\mathcal{N} = \begin{bmatrix} -1\\ -3 \end{bmatrix}.\end{split}\]</div>
+<p>Since both <span class="math notranslate nohighlight">\(x^*_\mathcal{B}\)</span> and <span class="math notranslate nohighlight">\(z^*_\mathcal{N}\)</span> have some
+negative components, define</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\bar{x}_\mathcal{B} = \begin{bmatrix} 1\\ 1\\ 1 \end{bmatrix}
+\quad \text{and} \quad
+\bar{z}_\mathcal{N} = \begin{bmatrix} 1\\ 1 \end{bmatrix}.\end{split}\]</div>
+<div class="section" id="Iteration-1">
+<h3>Iteration 1<a class="headerlink" href="#Iteration-1" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{-1}{1}, -\frac{-3}{1}
+      \right\},
+      \max\left\{
+        -\frac{-3}{1}, -\frac{-1}{1}, -\frac{2}{1}
+      \right\}
+    \right\}\\
+ &amp;= 3\end{split}\]</div>
+<p>shows that one can select either <span class="math notranslate nohighlight">\(x_2\)</span> to be the entering variable or
+<span class="math notranslate nohighlight">\(x_3\)</span> to be the leaving variable.  Applying Bland’s rule selects
+<span class="math notranslate nohighlight">\(x_2\)</span> to be the entering variable.</p>
+</dd>
+<dt>Step 2</dt><dd><p>The maximum is achieved by <span class="math notranslate nohighlight">\(j = 2 \in \mathcal{N}\)</span>, so do one step of
+the primal simplex method.</p>
+<p>The primal step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} =
+B^{-1} N e_j =
+\begin{bmatrix} -1 &amp; -1\\ -1 &amp; 1\\ 1 &amp; 2 \end{bmatrix}
+  \begin{bmatrix} 0\\ 1 \end{bmatrix} =
+\begin{bmatrix} -1\\ 1\\ 2 \end{bmatrix}.\end{split}\]</div>
+<p>The index of the leaving variable is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator*{\argmin}{arg\,min}
+\argmin_{i \in \mathcal{B}}
+  \left\{
+    \frac{x^*_i + \mu^* \bar{x}_i}{\Delta x_i} \colon \Delta x_i &gt; 0
+  \right\}
+ &amp;= \argmin_{i \in \mathcal{B}}\left\{
+      \frac{-1 + \mu^*}{1}, \frac{2 + \mu^*}{2}
+    \right\}\\
+ &amp;= 4.\end{split}\]</div>
+<p>The dual step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+-\left( B^{-1} N \right)^\top e_i =
+-\begin{bmatrix} -1 &amp; -1 &amp; 1\\ -1 &amp; 1 &amp; 2 \end{bmatrix}
+  \begin{bmatrix} 0\\ 1\\ 0 \end{bmatrix} =
+\begin{bmatrix} 1\\ -1 \end{bmatrix}.\end{split}\]</div>
+</dd>
+<dt>Step 3</dt><dd><p>The step length adjustments are given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t &amp;= \frac{x^*_i}{\Delta x_i} = \frac{-1}{1} = -1
+  \quad &amp; \quad
+  \bar{t} = \frac{\bar{x}_i}{\Delta x_i} = \frac{1}{1} = 1\\
+s &amp;= \frac{z^*_j}{\Delta z_j} = \frac{-3}{-1} = 3
+  \quad &amp; \quad
+  \bar{s} = \frac{\bar{z}_j}{\Delta z_j} = \frac{1}{-1} = -1.\end{split}\]</div>
+</dd>
+<dt>Step 4</dt><dd><p>The current primal and dual solutions are updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x^*_\mathcal{B} &amp;\leftarrow x^*_\mathcal{B} - t \Delta x_\mathcal{B} =
+    \begin{bmatrix} -3\\ -1\\ 2 \end{bmatrix} -
+      (-1) \begin{bmatrix} -1\\ 1\\ 2 \end{bmatrix} =
+    \begin{bmatrix} -4\\ 0\\ 4 \end{bmatrix}
+  \quad &amp; \quad
+  x^*_j &amp;\leftarrow t = -1\\
+\bar{x}_\mathcal{B} &amp;\leftarrow
+      \bar{x}_\mathcal{B} - \bar{t} \Delta x_\mathcal{B} =
+    \begin{bmatrix} 1\\ 1\\ 1 \end{bmatrix} -
+      (1) \begin{bmatrix} -1\\ 1\\ 2 \end{bmatrix} =
+    \begin{bmatrix} 2\\ 0\\ -1 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{x}_j &amp;\leftarrow \bar{t} = 1\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} &amp;\leftarrow z^*_\mathcal{N} - s \Delta z_\mathcal{N} =
+    \begin{bmatrix} -1\\ -3 \end{bmatrix} -
+      (3) \begin{bmatrix} 1\\ -1 \end{bmatrix} =
+    \begin{bmatrix} -4\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_i &amp;\leftarrow s = 3\\
+\bar{z}_\mathcal{N} &amp;\leftarrow
+      \bar{z}_\mathcal{N} - \bar{s} \Delta z_\mathcal{N} =
+    \begin{bmatrix} 1\\ 1 \end{bmatrix} -
+      (-1) \begin{bmatrix} 1\\ -1 \end{bmatrix} =
+    \begin{bmatrix} 2\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_i &amp;\leftarrow \bar{s} = -1.\end{split}\]</div>
+</dd>
+<dt>Step 5</dt><dd><p>The current basis is updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 3, 2, 5 \} \quad &amp; \quad \mathcal{N} &amp;= \{ 1, 4 \}\\
+B &amp;= \begin{bmatrix}
+       1 &amp; -1 &amp; 0\\ 0 &amp; 1 &amp; 0\\ 0 &amp; 2 &amp; 1
+     \end{bmatrix} \quad &amp; \quad
+  N &amp;= \begin{bmatrix} -1 &amp; 0\\ -1 &amp; 1\\ 1 &amp; 0 \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= \begin{bmatrix} -4\\ -1\\ 4 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= \begin{bmatrix} -4\\ 3 \end{bmatrix}\\
+\bar{x}_\mathcal{B} &amp;= \begin{bmatrix} 2\\ 1\\ -1 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_\mathcal{N} &amp;= \begin{bmatrix} 2\\ -1 \end{bmatrix}.\end{split}\]</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="Iteration-2">
+<h3>Iteration 2<a class="headerlink" href="#Iteration-2" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{-4}{2}
+      \right\},
+      \max\left\{
+        -\frac{-4}{2}, -\frac{-1}{1}
+      \right\},
+    \right\}\\
+ &amp;= 2\end{split}\]</div>
+<p>shows that one can select either <span class="math notranslate nohighlight">\(x_1\)</span> to be the entering variable or
+<span class="math notranslate nohighlight">\(x_3\)</span> to be the leaving variable.  Applying Bland’s rule selects
+<span class="math notranslate nohighlight">\(x_1\)</span> to be the entering variable.</p>
+</dd>
+<dt>Step 2</dt><dd><p>The maximum is achieved by <span class="math notranslate nohighlight">\(j = 1 \in \mathcal{N}\)</span>, so do one step of
+the primal simplex method.</p>
+<p>The primal step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} =
+B^{-1} N e_j =
+\begin{bmatrix} -2 &amp; 1\\ -1 &amp; 1\\ 3 &amp; -2 \end{bmatrix}
+  \begin{bmatrix} 1\\ 0 \end{bmatrix} =
+\begin{bmatrix} -2\\ -1\\ 3 \end{bmatrix}.\end{split}\]</div>
+<p>The index of the leaving variable is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator*{\argmin}{arg\,min}
+\argmin_{i \in \mathcal{B}}
+  \left\{
+    \frac{x^*_i + \mu^* \bar{x}_i}{\Delta x_i} \colon \Delta x_i &gt; 0
+  \right\}
+ &amp;= \argmin_{i \in \mathcal{B}}\left\{
+      \frac{4 + \mu^* (-1)}{3}
+    \right\}\\
+ &amp;= 5.\end{split}\]</div>
+<p>The dual step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+-\left( B^{-1} N \right)^\top e_i =
+-\begin{bmatrix} -2 &amp; -1 &amp; 3\\ 1 &amp; 1 &amp; -2 \end{bmatrix}
+  \begin{bmatrix} 0\\ 0\\ 1 \end{bmatrix} =
+\begin{bmatrix} -3\\ 2 \end{bmatrix}.\end{split}\]</div>
+</dd>
+<dt>Step 3</dt><dd><p>The step length adjustments are given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t &amp;= \frac{x^*_i}{\Delta x_i} = \frac{4}{3} = 1.\bar{3}
+  \quad &amp; \quad
+  \bar{t} = \frac{\bar{x}_i}{\Delta x_i} = \frac{-1}{3} = -0.\bar{3}\\
+s &amp;= \frac{z^*_j}{\Delta z_j} = \frac{-4}{-3} = 1.\bar{3}
+  \quad &amp; \quad
+  \bar{s} = \frac{\bar{z}_j}{\Delta z_j} = \frac{2}{-3} = -0.\bar{6}.\end{split}\]</div>
+</dd>
+<dt>Step 4</dt><dd><p>The current primal and dual solutions are updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x^*_\mathcal{B} &amp;\leftarrow x^*_\mathcal{B} - t \Delta x_\mathcal{B} =
+    \begin{bmatrix} -4\\ -1\\ 4 \end{bmatrix} -
+      (1.\bar{3}) \begin{bmatrix} -2\\ -1\\ 3 \end{bmatrix} =
+    \begin{bmatrix} -1.\bar{3}\\ 0.\bar{3}\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  x^*_j &amp;\leftarrow t = 1.\bar{3}\\
+\bar{x}_\mathcal{B} &amp;\leftarrow
+      \bar{x}_\mathcal{B} - \bar{t} \Delta x_\mathcal{B} =
+    \begin{bmatrix} 2\\ 1\\ -1 \end{bmatrix} -
+      (-0.\bar{3}) \begin{bmatrix} -2\\ -1\\ 3 \end{bmatrix} =
+    \begin{bmatrix} 1.\bar{3}\\ 0.\bar{6}\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{x}_j &amp;\leftarrow \bar{t} = -0.\bar{3}\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} &amp;\leftarrow z^*_\mathcal{N} - s \Delta z_\mathcal{N} =
+    \begin{bmatrix} -4\\ 3 \end{bmatrix} -
+      (1.\bar{3}) \begin{bmatrix} -3\\ 2 \end{bmatrix} =
+    \begin{bmatrix} 0\\ 0.\bar{3} \end{bmatrix}
+  \quad &amp; \quad
+  z^*_i &amp;\leftarrow s = 1.\bar{3}\\
+\bar{z}_\mathcal{N} &amp;\leftarrow
+      \bar{z}_\mathcal{N} - \bar{s} \Delta z_\mathcal{N} =
+    \begin{bmatrix} 2\\ -1 \end{bmatrix} -
+      (-0.\bar{6}) \begin{bmatrix} -3\\ 2 \end{bmatrix} =
+    \begin{bmatrix} 0\\ 0.\bar{3} \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_i &amp;\leftarrow \bar{s} = -0.\bar{6}.\end{split}\]</div>
+</dd>
+<dt>Step 5</dt><dd><p>The current basis is updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 3, 2, 1 \} \quad &amp; \quad \mathcal{N} &amp;= \{ 5, 4 \}\\
+B &amp;= \begin{bmatrix}
+       1 &amp; -1 &amp; -1\\ 0 &amp; 1 &amp; -1\\ 0 &amp; 2 &amp; 1
+     \end{bmatrix} \quad &amp; \quad
+  N &amp;= \begin{bmatrix} 0 &amp; 0\\ 0 &amp; 1\\ 1 &amp; 0 \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= \begin{bmatrix}
+                     -1.\bar{3}\\ 0.\bar{3}\\ 1.\bar{3}
+                   \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= \begin{bmatrix} 1.\bar{3}\\ 0.\bar{3} \end{bmatrix}\\
+\bar{x}_\mathcal{B} &amp;= \begin{bmatrix}
+                         1.\bar{3}\\ 0.\bar{6}\\ -0.\bar{3}
+                       \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_\mathcal{N} &amp;= \begin{bmatrix}
+                           -0.\bar{6}\\ 0.\bar{3}
+                         \end{bmatrix}.\end{split}\]</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="Iteration-3">
+<h3>Iteration 3<a class="headerlink" href="#Iteration-3" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{0.\bar{3}}{0.\bar{3}}
+      \right\},
+      \max\left\{
+        -\frac{-1.\bar{3}}{1.\bar{3}}, -\frac{0.\bar{3}}{0.\bar{6}}
+      \right\},
+    \right\}\\
+ &amp;= 1\end{split}\]</div>
+<p>shows that <span class="math notranslate nohighlight">\(x_3\)</span> is the leaving variable.</p>
+</dd>
+<dt>Step 2</dt><dd><p>The maximum is achieved by <span class="math notranslate nohighlight">\(i = 3 \in \mathcal{B}\)</span>, so do one step of
+the dual simplex method.</p>
+<p>The dual step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+-\left( B^{-1} N \right)^\top e_i =
+-\begin{bmatrix}
+   0.\bar{6} &amp; 0.\bar{3} &amp; 0.\bar{3}\\
+   -0.\bar{3} &amp; 0.\bar{3} &amp; -0.\bar{6}
+ \end{bmatrix} \begin{bmatrix} 1\\ 0\\ 0 \end{bmatrix} =
+\begin{bmatrix} -0.\bar{6}\\ 0.\bar{3} \end{bmatrix}.\end{split}\]</div>
+<p>The index of the entering variable is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator*{\argmin}{arg\,min}
+\argmin_{j \in \mathcal{N}}
+  \left\{
+    \frac{z^*_j + \mu^* \bar{z}_j}{\Delta z_j} \colon \Delta z_j &gt; 0
+  \right\}
+ &amp;= \argmin_{j \in \mathcal{N}}\left\{
+      \frac{0.\bar{3} + \mu^* (0.\bar{3})}{0.\bar{3}},
+    \right\}\\
+ &amp;= 4.\end{split}\]</div>
+<p>The primal step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} =
+B^{-1} N e_j =
+\begin{bmatrix}
+  0.\bar{6} &amp; -0.\bar{3}\\
+  0.\bar{3} &amp; 0.\bar{3}\\
+  0.\bar{3} &amp; -0.\bar{6}
+\end{bmatrix}
+  \begin{bmatrix} 0\\ 1 \end{bmatrix} =
+\begin{bmatrix} -0.\bar{3}\\ 0.\bar{3}\\ -0.\bar{6} \end{bmatrix}.\end{split}\]</div>
+</dd>
+<dt>Step 3</dt><dd><p>The step length adjustments are given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t &amp;= \frac{x^*_i}{\Delta x_i} = \frac{-1.\bar{3}}{-0.\bar{3}} = 4
+  \quad &amp; \quad
+  \bar{t} = \frac{\bar{x}_i}{\Delta x_i} =
+      \frac{1.\bar{3}}{-0.\bar{3}} = -4\\
+s &amp;= \frac{z^*_j}{\Delta z_j} = \frac{0.\bar{3}}{0.\bar{3}} = 1
+  \quad &amp; \quad
+  \bar{s} = \frac{\bar{z}_j}{\Delta z_j} =
+      \frac{0.\bar{3}}{0.\bar{3}} = 1.\end{split}\]</div>
+</dd>
+<dt>Step 4</dt><dd><p>The current primal and dual solutions are updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x^*_\mathcal{B} &amp;\leftarrow x^*_\mathcal{B} - t \Delta x_\mathcal{B} =
+    \begin{bmatrix} -1.\bar{3}\\ 0.\bar{3}\\ 1.\bar{3} \end{bmatrix} -
+      (4) \begin{bmatrix}
+            -0.\bar{3}\\ 0.\bar{3}\\ -0.\bar{6}
+          \end{bmatrix} =
+    \begin{bmatrix} 0\\ -1\\ 4 \end{bmatrix}
+  \quad &amp; \quad
+  x^*_j &amp;\leftarrow t = 4\\
+\bar{x}_\mathcal{B} &amp;\leftarrow
+      \bar{x}_\mathcal{B} - \bar{t} \Delta x_\mathcal{B} =
+    \begin{bmatrix} 1.\bar{3}\\ 0.\bar{6}\\ -0.\bar{3} \end{bmatrix} -
+      (-4) \begin{bmatrix}
+            -0.\bar{3}\\ 0.\bar{3}\\ -0.\bar{6}
+          \end{bmatrix} =
+    \begin{bmatrix} 0\\ 2\\ -3 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{x}_j &amp;\leftarrow \bar{t} = -4\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} &amp;\leftarrow z^*_\mathcal{N} - s \Delta z_\mathcal{N} =
+    \begin{bmatrix} 1.\bar{3}\\ 0.\bar{3} \end{bmatrix} -
+      (1) \begin{bmatrix} -0.\bar{6}\\ 0.\bar{3} \end{bmatrix} =
+    \begin{bmatrix} 2\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_i &amp;\leftarrow s = 1\\
+\bar{z}_\mathcal{N} &amp;\leftarrow
+      \bar{z}_\mathcal{N} - \bar{s} \Delta z_\mathcal{N} =
+    \begin{bmatrix} -0.\bar{6}\\ 0.\bar{3} \end{bmatrix} -
+      (1) \begin{bmatrix} -0.\bar{6}\\ 0.\bar{3} \end{bmatrix} =
+    \begin{bmatrix} 0\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_i &amp;\leftarrow \bar{s} = 1.\end{split}\]</div>
+</dd>
+<dt>Step 5</dt><dd><p>The current basis is updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 4, 2, 1 \} \quad &amp; \quad \mathcal{N} &amp;= \{ 5, 3 \}\\
+B &amp;= \begin{bmatrix}
+       0 &amp; -1 &amp; -1\\
+       1 &amp; 1 &amp; -1\\
+       0 &amp; 2 &amp; 1
+     \end{bmatrix} \quad &amp; \quad
+  N &amp;= \begin{bmatrix} 0 &amp; 1\\ 0 &amp; 0\\ 1 &amp; 0 \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= \begin{bmatrix} 4\\ -1\\ 4 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= \begin{bmatrix} 2\\ 1 \end{bmatrix}\\
+\bar{x}_\mathcal{B} &amp;= \begin{bmatrix} -4\\ 2\\ -3 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_\mathcal{N} &amp;= \begin{bmatrix} 0\\ 1 \end{bmatrix}.\end{split}\]</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="Iteration-4">
+<h3>Iteration 4<a class="headerlink" href="#Iteration-4" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{1}{1}
+      \right\},
+      \max\left\{
+        -\frac{-1}{2}
+      \right\},
+    \right\}\\
+ &amp;= 0.5\end{split}\]</div>
+<p>shows that <span class="math notranslate nohighlight">\(x_2\)</span> is the leaving variable.</p>
+</dd>
+<dt>Step 2</dt><dd><p>The maximum is achieved by <span class="math notranslate nohighlight">\(i = 2 \in \mathcal{B}\)</span>, so do one step of
+the dual simplex method.</p>
+<p>The dual step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+-\left( B^{-1} N \right)^\top e_i =
+-\begin{bmatrix} -2 &amp; 1 &amp; -1\\ -3 &amp; 1 &amp; -2 \end{bmatrix}
+  \begin{bmatrix} 0\\ 1\\ 0 \end{bmatrix} =
+\begin{bmatrix} -1\\ -1 \end{bmatrix}.\end{split}\]</div>
+<p>The index of the entering variable is</p>
+<div class="math notranslate nohighlight">
+\[\DeclareMathOperator*{\argmin}{arg\,min}
+\argmin_{j \in \mathcal{N}}
+  \left\{
+    \frac{z^*_j + \mu^* \bar{z}_j}{\Delta z_j} \colon \Delta z_j &gt; 0
+  \right\} = \emptyset.\]</div>
+<p>Therefore, the dual is unbounded i.e. the primal is infeasible.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="Exercise-7.7">
+<h2>Exercise 7.7<a class="headerlink" href="#Exercise-7.7" title="Permalink to this headline">¶</a></h2>
+<p>The previous exercises were solved using the proposed tool.</p>
+</div>
+<div class="section" id="Exercise-7.8">
+<h2>Exercise 7.8<a class="headerlink" href="#Exercise-7.8" title="Permalink to this headline">¶</a></h2>
+<p>Rewriting the standard form LP into matrix form yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 3, 4 \} \quad &amp; \quad \mathcal{N} &amp;= \{ 1, 2 \}\\
+B &amp;= \mathbf{I}_2 \quad &amp; \quad
+  N &amp;= \begin{bmatrix} 1 &amp; -1\\ -1 &amp; 1 \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= b = \begin{bmatrix} 1\\ -4 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= -c_\mathcal{N} = \begin{bmatrix} -3\\ 1 \end{bmatrix}.\end{split}\]</div>
+<p>Since both <span class="math notranslate nohighlight">\(x^*_\mathcal{B}\)</span> and <span class="math notranslate nohighlight">\(z^*_\mathcal{N}\)</span> have some
+negative components, define</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\bar{x}_\mathcal{B} = \begin{bmatrix} 1\\ 1 \end{bmatrix}
+\quad \text{and} \quad
+\bar{z}_\mathcal{N} = \begin{bmatrix} 1\\ 1 \end{bmatrix}.\end{split}\]</div>
+<div class="section" id="Iteration-1">
+<h3>Iteration 1<a class="headerlink" href="#Iteration-1" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{-3}{1}, -\frac{1}{1}
+      \right\},
+      \max\left\{
+        -\frac{1}{1}, -\frac{-4}{1}
+      \right\}
+    \right\}\\
+ &amp;= 3\end{split}\]</div>
+<p>shows that <span class="math notranslate nohighlight">\(x_4\)</span> is the leaving variable.</p>
+</dd>
+<dt>Step 2</dt><dd><p>The maximum is achieved by <span class="math notranslate nohighlight">\(i = 4 \in \mathcal{B}\)</span>, so do one step of
+the dual simplex method.</p>
+<p>The dual step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+-\left( B^{-1} N \right)^\top e_i =
+-\begin{bmatrix} 1 &amp; -1\\ -1 &amp; 1 \end{bmatrix}
+  \begin{bmatrix} 0\\ 1 \end{bmatrix} =
+\begin{bmatrix} 1\\ -1 \end{bmatrix}.\end{split}\]</div>
+<p>The index of the entering variable is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator*{\argmin}{arg\,min}
+\argmin_{j \in \mathcal{N}}
+  \left\{
+    \frac{z^*_j + \mu^* \bar{z}_j}{\Delta z_j} \colon \Delta z_j &gt; 0
+  \right\}
+ &amp;= \argmin_{j \in \mathcal{N}}\left\{
+      \frac{-3 + \mu^*}{1}
+    \right\}\\
+ &amp;= 1.\end{split}\]</div>
+<p>The primal step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} =
+B^{-1} N e_j =
+\begin{bmatrix} 1 &amp; -1\\ -1 &amp; 1 \end{bmatrix}
+  \begin{bmatrix} 1\\ 0 \end{bmatrix} =
+\begin{bmatrix} 1\\ -1 \end{bmatrix}.\end{split}\]</div>
+</dd>
+<dt>Step 3</dt><dd><p>The step length adjustments are given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t &amp;= \frac{x^*_i}{\Delta x_i} = \frac{-4}{-1} = 4
+  \quad &amp; \quad
+  \bar{t} = \frac{\bar{x}_i}{\Delta x_i} = \frac{1}{-1} = -1\\
+s &amp;= \frac{z^*_j}{\Delta z_j} = \frac{-3}{1} = -3
+  \quad &amp; \quad
+  \bar{s} = \frac{\bar{z}_j}{\Delta z_j} = \frac{1}{1} = 1.\end{split}\]</div>
+</dd>
+<dt>Step 4</dt><dd><p>The current primal and dual solutions are updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x^*_\mathcal{B} &amp;\leftarrow x^*_\mathcal{B} - t \Delta x_\mathcal{B} =
+    \begin{bmatrix} 1\\ -4 \end{bmatrix} -
+      (4) \begin{bmatrix} 1\\ -1 \end{bmatrix} =
+    \begin{bmatrix} -3\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  x^*_j &amp;\leftarrow t = 4\\
+\bar{x}_\mathcal{B} &amp;\leftarrow
+      \bar{x}_\mathcal{B} - \bar{t} \Delta x_\mathcal{B} =
+    \begin{bmatrix} 1\\ 1 \end{bmatrix} -
+      (-1) \begin{bmatrix} 1\\ -1 \end{bmatrix} =
+    \begin{bmatrix} 2\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{x}_j &amp;\leftarrow \bar{t} = -1\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} &amp;\leftarrow z^*_\mathcal{N} - s \Delta z_\mathcal{N} =
+    \begin{bmatrix} -3\\ 1 \end{bmatrix} -
+      (-3) \begin{bmatrix} 1\\ -1 \end{bmatrix} =
+    \begin{bmatrix} 0\\ -2 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_i &amp;\leftarrow s = -3\\
+\bar{z}_\mathcal{N} &amp;\leftarrow
+      \bar{z}_\mathcal{N} - \bar{s} \Delta z_\mathcal{N} =
+    \begin{bmatrix} 1\\ 1 \end{bmatrix} -
+      (1) \begin{bmatrix} 1\\ -1 \end{bmatrix} =
+    \begin{bmatrix} 0\\ 2 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_i &amp;\leftarrow \bar{s} = 1.\end{split}\]</div>
+</dd>
+<dt>Step 5</dt><dd><p>The current basis is updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 3, 1 \} \quad &amp; \quad \mathcal{N} &amp;= \{ 4, 2 \}\\
+B &amp;= \begin{bmatrix} 1 &amp; 1\\ 0 &amp; -1 \end{bmatrix} \quad &amp; \quad
+  N &amp;= \begin{bmatrix} 0 &amp; -1\\ 1 &amp; 1 \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= \begin{bmatrix} -3\\ 4 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= \begin{bmatrix} -3\\ -2 \end{bmatrix}\\
+\bar{x}_\mathcal{B} &amp;= \begin{bmatrix} 2\\ -1 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_\mathcal{N} &amp;= \begin{bmatrix} 1\\ 2 \end{bmatrix}.\end{split}\]</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="Iteration-2">
+<h3>Iteration 2<a class="headerlink" href="#Iteration-2" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{-3}{1}, -\frac{-2}{2}
+      \right\},
+      \max\left\{
+        -\frac{-3}{2}
+      \right\}
+    \right\}\\
+ &amp;= 3\end{split}\]</div>
+<p>shows that <span class="math notranslate nohighlight">\(x_4\)</span> is the entering variable.</p>
+</dd>
+<dt>Step 2</dt><dd><p>The maximum is achieved by <span class="math notranslate nohighlight">\(j = 4 \in \mathcal{N}\)</span>, so do one step of
+the primal simplex method.</p>
+<p>The primal step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} =
+B^{-1} N e_j =
+\begin{bmatrix} 1 &amp; 0\\ -1 &amp; -1 \end{bmatrix}
+  \begin{bmatrix} 1\\ 0 \end{bmatrix} =
+\begin{bmatrix} 1\\ -1 \end{bmatrix}.\end{split}\]</div>
+<p>The index of the leaving variable is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator*{\argmin}{arg\,min}
+\argmin_{i \in \mathcal{B}}
+  \left\{
+    \frac{x^*_i + \mu^* \bar{x}_i}{\Delta x_i} \colon \Delta x_i &gt; 0
+  \right\}
+ &amp;= \argmin_{i \in \mathcal{B}}\left\{
+      \frac{-3 + \mu^* (2)}{1}
+    \right\}\\
+ &amp;= 3.\end{split}\]</div>
+<p>The dual step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+-\left( B^{-1} N \right)^\top e_i =
+-\begin{bmatrix} 1 &amp; -1\\ 0 &amp; -1 \end{bmatrix}
+  \begin{bmatrix} 1\\ 0 \end{bmatrix} =
+\begin{bmatrix} -1\\ 0 \end{bmatrix}.\end{split}\]</div>
+</dd>
+<dt>Step 3</dt><dd><p>The step length adjustments are given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t &amp;= \frac{x^*_i}{\Delta x_i} = \frac{-3}{1} = -3
+  \quad &amp; \quad
+  \bar{t} = \frac{\bar{x}_i}{\Delta x_i} = \frac{2}{1} = 2\\
+s &amp;= \frac{z^*_j}{\Delta z_j} = \frac{-3}{-1} = 3
+  \quad &amp; \quad
+  \bar{s} = \frac{\bar{z}_j}{\Delta z_j} = \frac{1}{-1} = -1.\end{split}\]</div>
+</dd>
+<dt>Step 4</dt><dd><p>The current primal and dual solutions are updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x^*_\mathcal{B} &amp;\leftarrow x^*_\mathcal{B} - t \Delta x_\mathcal{B} =
+    \begin{bmatrix} -3\\ 4 \end{bmatrix} -
+      (-3) \begin{bmatrix} 1\\ -1 \end{bmatrix} =
+    \begin{bmatrix} 0\\ 1 \end{bmatrix}
+  \quad &amp; \quad
+  x^*_j &amp;\leftarrow t = -3\\
+\bar{x}_\mathcal{B} &amp;\leftarrow
+      \bar{x}_\mathcal{B} - \bar{t} \Delta x_\mathcal{B} =
+    \begin{bmatrix} 2\\ -1 \end{bmatrix} -
+      (2) \begin{bmatrix} 1\\ -1 \end{bmatrix} =
+    \begin{bmatrix} 0\\ 1 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{x}_j &amp;\leftarrow \bar{t} = 2\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} &amp;\leftarrow z^*_\mathcal{N} - s \Delta z_\mathcal{N} =
+    \begin{bmatrix} -3\\ -2 \end{bmatrix} -
+      (3) \begin{bmatrix} -1\\ 0 \end{bmatrix} =
+    \begin{bmatrix} 0\\ -2 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_i &amp;\leftarrow s = 3\\
+\bar{z}_\mathcal{N} &amp;\leftarrow
+      \bar{z}_\mathcal{N} - \bar{s} \Delta z_\mathcal{N} =
+    \begin{bmatrix} 1\\ 2 \end{bmatrix} -
+      (-1) \begin{bmatrix} -1\\ 0 \end{bmatrix} =
+    \begin{bmatrix} 0\\ 2 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_i &amp;\leftarrow \bar{s} = -1.\end{split}\]</div>
+</dd>
+<dt>Step 5</dt><dd><p>The current basis is updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 4, 1 \} \quad &amp; \quad \mathcal{N} &amp;= \{ 3, 2 \}\\
+B &amp;= \begin{bmatrix} 0 &amp; 1\\ 1 &amp; -1 \end{bmatrix} \quad &amp; \quad
+  N &amp;= \begin{bmatrix} 1 &amp; -1\\ 0 &amp; 1 \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= \begin{bmatrix} -3\\ 1 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= \begin{bmatrix} 3\\ -2 \end{bmatrix}\\
+\bar{x}_\mathcal{B} &amp;= \begin{bmatrix} 2\\ 1 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_\mathcal{N} &amp;= \begin{bmatrix} -1\\ 2 \end{bmatrix}.\end{split}\]</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="Iteration-3">
+<h3>Iteration 3<a class="headerlink" href="#Iteration-3" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{-2}{2}
+      \right\},
+      \max\left\{
+        -\frac{-3}{2}, -\frac{1}{1}
+      \right\}
+    \right\}\\
+ &amp;= 1.5\end{split}\]</div>
+<p>shows that <span class="math notranslate nohighlight">\(x_4\)</span> is the leaving variable.</p>
+</dd>
+<dt>Step 2</dt><dd><p>The maximum is achieved by <span class="math notranslate nohighlight">\(i = 4 \in \mathcal{B}\)</span>, so do one step of
+the dual simplex method.</p>
+<p>The dual step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+-\left( B^{-1} N \right)^\top e_i =
+-\begin{bmatrix} 1 &amp; 1\\ 0 &amp; -1 \end{bmatrix}
+  \begin{bmatrix} 1\\ 0 \end{bmatrix} =
+\begin{bmatrix} -1\\ 0 \end{bmatrix}.\end{split}\]</div>
+<p>The index of the entering variable is</p>
+<div class="math notranslate nohighlight">
+\[\DeclareMathOperator*{\argmin}{arg\,min}
+\argmin_{j \in \mathcal{N}}
+  \left\{
+    \frac{z^*_j + \mu^* \bar{z}_j}{\Delta z_j} \colon \Delta z_j &gt; 0
+  \right\} = \emptyset.\]</div>
+<p>Therefore, the dual is unbounded i.e. the primal is infeasible.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="Exercise-7.9">
+<h2>Exercise 7.9<a class="headerlink" href="#Exercise-7.9" title="Permalink to this headline">¶</a></h2>
+<p>Notice that parametric self-dual simplex method assumes perturbations are all
+strictly positive i.e. <span class="math notranslate nohighlight">\(\bar{x}_\mathcal{B} &gt; 0\)</span> and
+<span class="math notranslate nohighlight">\(\bar{z}_\mathcal{N} &gt; 0\)</span>.</p>
+<p>The following is a proof by contradiction.  Suppose <span class="math notranslate nohighlight">\(P_\mu\)</span> is infeasible
+and <span class="math notranslate nohighlight">\(\exists \mu' \leq \mu\)</span> such that <span class="math notranslate nohighlight">\(P_{\mu'}\)</span> is infeasible.
+These statements translate to</p>
+<div class="math notranslate nohighlight">
+\[x^*_i + \mu \bar{x}_i &lt; 0
+\quad \land \quad
+x^*_i + \mu' \bar{x}_i \geq 0\]</div>
+<p>where <span class="math notranslate nohighlight">\(i \in \mathcal{B}\)</span>.  By inspection,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x^*_i + \mu' \bar{x}_i &amp;&gt; x^*_i + \mu \bar{x}_i\\
+\mu' \bar{x}_i &amp;&gt; \mu \bar{x}_i\\
+0 &amp;&gt; (\mu - \mu') \bar{x}_i,\end{split}\]</div>
+<p>which is a contradiction because neither factors are negative.  The analogous
+proof for the perturbed dual problem can be realized by replacing
+<span class="math notranslate nohighlight">\(x^*_i\)</span> with <span class="math notranslate nohighlight">\(z^*_j\)</span> and <span class="math notranslate nohighlight">\(\bar{x}_i\)</span> with <span class="math notranslate nohighlight">\(\bar{z}_j\)</span>
+where <span class="math notranslate nohighlight">\(j \in \mathcal{N}\)</span>.</p>
+</div>
+<div class="section" id="Exercise-7.10">
+<h2>Exercise 7.10<a class="headerlink" href="#Exercise-7.10" title="Permalink to this headline">¶</a></h2>
+<p>Failing to proceed during the primal simplex step implies that the primal is
+unbounded and the dual problem is infeasible (i.e. <span class="math notranslate nohighlight">\(z^*_\mathcal{N}\)</span> has
+some negative components).  Likewise, failing to proceed during the dual simplex
+step implies that the dual is unbounded and the original problem is infeasible
+i.e. (i.e. <span class="math notranslate nohighlight">\(x^*_\mathcal{B}\)</span> has some negative components).  These
+conditions can be detected when taking the
+<span class="math notranslate nohighlight">\(\argmin\)</span> gives the <span class="math notranslate nohighlight">\(\emptyset\)</span>.</p>
+</div>
+<div class="section" id="Exercise-7.11">
+<span id="vanderbei2014linear-ex-7-11"></span><h2>Exercise 7.11<a class="headerlink" href="#Exercise-7.11" title="Permalink to this headline">¶</a></h2>
+<p>Rewriting the standard form LP into matrix form yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 5, 6, 7, 8 \} \quad &amp; \quad
+  \mathcal{N} &amp;= \{ 0, 1, 2, 3, 4 \}\\
+B &amp;= \mathbf{I}_4 \quad &amp; \quad
+  N &amp;= \begin{bmatrix}
+         1 &amp; -1 &amp; 0 &amp; 0 &amp; 0\\
+         1 &amp; 0 &amp; -1 &amp; 0 &amp; 0\\
+         1 &amp; 0 &amp; 0 &amp; -1 &amp; 0\\
+         1 &amp; 0 &amp; 0 &amp; 0 &amp; -1
+       \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= b = \begin{bmatrix} 1\\ 2\\ 4\\ 8 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= -c_\mathcal{N} =
+      \begin{bmatrix} -4 + 4 \mu' \\ 2\\ 2\\ 2\\ 2 \end{bmatrix}.\end{split}\]</div>
+<p>To analyze the one parameter family of LPs, define</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\bar{x}_\mathcal{B} = \begin{bmatrix} 1\\ 1\\ 1\\ 1 \end{bmatrix}
+\quad \text{and} \quad
+\bar{z}_\mathcal{N} = \begin{bmatrix} 1\\ 1\\ 1\\ 1\\ 1 \end{bmatrix}.\end{split}\]</div>
+<p>Evaluating <span class="math notranslate nohighlight">\(x^*_\mathcal{B} + \bar{x}_\mathcal{B} \mu \geq \boldsymbol{0}\)</span>
+and <span class="math notranslate nohighlight">\(z^*_\mathcal{N} + \bar{z}_\mathcal{N} \mu \geq \boldsymbol{0}\)</span>
+reveals the current range for <span class="math notranslate nohighlight">\(\mu\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[4 - 4 \mu' \leq \mu \leq \infty.\]</div>
+<p>By inspection, the initial dictionary is optimal as long as <span class="math notranslate nohighlight">\(\mu' \geq 1\)</span>.</p>
+<div class="section" id="Iteration-1">
+<h3>Iteration 1<a class="headerlink" href="#Iteration-1" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{-4 + 4 \mu'}{1},
+        -\frac{2}{1}, -\frac{2}{1}, -\frac{2}{1}, -\frac{2}{1}
+      \right\}
+    \right\}\\
+ &amp;= 4 - 4 \mu'\end{split}\]</div>
+<p>shows that <span class="math notranslate nohighlight">\(x_0\)</span> is the entering variable for <span class="math notranslate nohighlight">\(\mu' &lt; 1\)</span>.</p>
+</dd>
+<dt>Step 2</dt><dd><p>The maximum is achieved by <span class="math notranslate nohighlight">\(j = 0 \in \mathcal{N}\)</span>, so do one step of
+the primal simplex method.</p>
+<p>The primal step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} =
+B^{-1} N e_j =
+\begin{bmatrix}
+  1 &amp; -1 &amp; 0 &amp; 0 &amp; 0\\
+  1 &amp; 0 &amp; -1 &amp; 0 &amp; 0\\
+  1 &amp; 0 &amp; 0 &amp; -1 &amp; 0\\
+  1 &amp; 0 &amp; 0 &amp; 0 &amp; -1
+\end{bmatrix} \begin{bmatrix} 1\\ 0\\ 0\\ 0\\ 0 \end{bmatrix} =
+\begin{bmatrix} 1\\ 1\\ 1\\ 1 \end{bmatrix}.\end{split}\]</div>
+<p>The index of the leaving variable is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator*{\argmin}{arg\,min}
+\argmin_{i \in \mathcal{B}}
+  \left\{
+    \frac{x^*_i + \mu^* \bar{x}_i}{\Delta x_i} \colon \Delta x_i &gt; 0
+  \right\}
+ &amp;= \argmin_{i \in \mathcal{B}}\left\{
+      \frac{1 + \mu^* (1)}{1},
+      \frac{2 + \mu^* (1)}{1},
+      \frac{4 + \mu^* (1)}{1},
+      \frac{8 + \mu^* (1)}{1}
+    \right\}\\
+ &amp;= 5.\end{split}\]</div>
+<p>The dual step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+-\left( B^{-1} N \right)^\top e_i =
+-\begin{bmatrix}
+   1 &amp; 1 &amp; 1 &amp; 1\\
+   -1 &amp; 0 &amp; 0 &amp; 0\\
+   0 &amp; -1 &amp; 0 &amp; 0\\
+   0 &amp; 0 &amp; -1 &amp; 0\\
+   0 &amp; 0 &amp; 0 &amp; -1
+ \end{bmatrix} \begin{bmatrix} 1\\ 0\\ 0\\ 0 \end{bmatrix} =
+\begin{bmatrix} -1\\ 1\\ 0\\ 0\\ 0 \end{bmatrix}.\end{split}\]</div>
+</dd>
+<dt>Step 3</dt><dd><p>The step length adjustments are given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t &amp;= \frac{x^*_i}{\Delta x_i} = \frac{1}{1} = 1
+  \quad &amp; \quad
+  \bar{t} = \frac{\bar{x}_i}{\Delta x_i} = \frac{1}{1} = 1\\
+s &amp;= \frac{z^*_j}{\Delta z_j} = \frac{-4 + 4 \mu'}{-1} = 4 - 4 \mu'
+  \quad &amp; \quad
+  \bar{s} = \frac{\bar{z}_j}{\Delta z_j} = \frac{1}{-1} = -1.\end{split}\]</div>
+</dd>
+<dt>Step 4</dt><dd><p>The current primal and dual solutions are updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x^*_\mathcal{B} &amp;\leftarrow x^*_\mathcal{B} - t \Delta x_\mathcal{B} =
+    \begin{bmatrix} 1\\ 2\\ 4\\ 8 \end{bmatrix} -
+      (1) \begin{bmatrix} 1\\ 1\\ 1\\ 1 \end{bmatrix} =
+    \begin{bmatrix} 0\\ 1\\ 3\\ 7 \end{bmatrix}
+  \quad &amp; \quad
+  x^*_j &amp;\leftarrow t = 1\\
+\bar{x}_\mathcal{B} &amp;\leftarrow
+      \bar{x}_\mathcal{B} - \bar{t} \Delta x_\mathcal{B} =
+    \begin{bmatrix} 1\\ 1\\ 1\\ 1 \end{bmatrix} -
+      (1) \begin{bmatrix} 1\\ 1\\ 1\\ 1 \end{bmatrix} =
+    \begin{bmatrix} 0\\ 0\\ 0\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{x}_j &amp;\leftarrow \bar{t} = 1\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} &amp;\leftarrow z^*_\mathcal{N} - s \Delta z_\mathcal{N} =
+    \begin{bmatrix} -4 + 4 \mu' \\ 2\\ 2\\ 2\\ 2 \end{bmatrix} -
+      (4 - 4 \mu') \begin{bmatrix} -1\\ 1\\ 0\\ 0\\ 0 \end{bmatrix} =
+    \begin{bmatrix} 0\\ -2 + 4 \mu'\\ 2\\ 2\\ 2 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_i &amp;\leftarrow s = 4 - 4 \mu'\\
+\bar{z}_\mathcal{N} &amp;\leftarrow
+      \bar{z}_\mathcal{N} - \bar{s} \Delta z_\mathcal{N} =
+    \begin{bmatrix} 1\\ 1\\ 1\\ 1\\ 1 \end{bmatrix} -
+      (-1) \begin{bmatrix} -1\\ 1\\ 0\\ 0\\ 0 \end{bmatrix} =
+    \begin{bmatrix} 0\\ 2\\ 1\\ 1\\ 1 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_i &amp;\leftarrow \bar{s} = -1.\end{split}\]</div>
+</dd>
+<dt>Step 5</dt><dd><p>The current basis is updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 0, 6, 7, 8 \} \quad &amp; \quad
+  \mathcal{N} &amp;= \{ 5, 1, 2, 3, 4 \}\\
+B &amp;= \begin{bmatrix}
+       1 &amp; 0 &amp; 0 &amp; 0\\
+       1 &amp; 1 &amp; 0 &amp; 0\\
+       1 &amp; 0 &amp; 1 &amp; 0\\
+       1 &amp; 0 &amp; 0 &amp; 1\\
+     \end{bmatrix} \quad &amp; \quad
+  N &amp;= \begin{bmatrix}
+         1 &amp; -1 &amp; 0 &amp; 0 &amp; 0\\
+         0 &amp; 0 &amp; -1 &amp; 0 &amp; 0\\
+         0 &amp; 0 &amp; 0 &amp; -1 &amp; 0\\
+         0 &amp; 0 &amp; 0 &amp; 0 &amp; -1
+       \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= \begin{bmatrix} 1\\ 1\\ 3\\ 7 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= \begin{bmatrix}
+                       4 - 4 \mu'\\ -2 + 4 \mu'\\ 2\\ 2\\ 2
+                     \end{bmatrix}\\
+\bar{x}_\mathcal{B} &amp;= \begin{bmatrix} 1\\ 0\\ 0\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_\mathcal{N} &amp;= \begin{bmatrix} -1\\ 2\\ 1\\ 1\\ 1 \end{bmatrix}.\end{split}\]</div>
+<p>The current range for <span class="math notranslate nohighlight">\(\mu\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\frac{2 - 4 \mu'}{2} \leq \mu \leq 4 - 4 \mu'.\]</div>
+<p>By inspection, the dictionary is optimal as long as
+<span class="math notranslate nohighlight">\(0.5 \leq \mu' \leq 1\)</span>.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="Iteration-2">
+<h3>Iteration 2<a class="headerlink" href="#Iteration-2" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{-2 + 4 \mu'}{2}, -\frac{2}{1}, -\frac{2}{1}, -\frac{2}{1}
+      \right\},
+      \max\left\{
+        -\frac{1}{1}
+      \right\}
+    \right\}\\
+ &amp;= 1 - 2 \mu'\end{split}\]</div>
+<p>shows that <span class="math notranslate nohighlight">\(x_1\)</span> is the entering variable for <span class="math notranslate nohighlight">\(\mu' &lt; 0.5\)</span>.</p>
+</dd>
+<dt>Step 2</dt><dd><p>The maximum is achieved by <span class="math notranslate nohighlight">\(j = 1 \in \mathcal{N}\)</span>, so do one step of
+the primal simplex method.</p>
+<p>The primal step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} =
+B^{-1} N e_j =
+\begin{bmatrix}
+  1 &amp; -1 &amp; 0 &amp; 0 &amp; 0\\
+  -1 &amp; 1 &amp; -1 &amp; 0 &amp; 0\\
+  -1 &amp; 1 &amp; 0 &amp; -1 &amp; 0\\
+  -1 &amp; 1 &amp; 0 &amp; 0 &amp; -1
+\end{bmatrix} \begin{bmatrix} 0\\ 1\\ 0\\ 0\\ 0 \end{bmatrix} =
+\begin{bmatrix} -1\\ 1\\ 1\\ 1 \end{bmatrix}.\end{split}\]</div>
+<p>The index of the leaving variable is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator*{\argmin}{arg\,min}
+\argmin_{i \in \mathcal{B}}
+  \left\{
+    \frac{x^*_i + \mu^* \bar{x}_i}{\Delta x_i} \colon \Delta x_i &gt; 0
+  \right\}
+ &amp;= \argmin_{i \in \mathcal{B}}\left\{
+      \frac{1 + \mu^* (0)}{1},
+      \frac{3 + \mu^* (0)}{1},
+      \frac{7 + \mu^* (0)}{1}
+    \right\}\\
+ &amp;= 6.\end{split}\]</div>
+<p>The dual step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+-\left( B^{-1} N \right)^\top e_i =
+-\begin{bmatrix}
+   1 &amp; -1 &amp; -1 &amp; -1\\
+   -1 &amp; 1 &amp; 1 &amp; 1\\
+   0 &amp; -1 &amp; 0 &amp; 0\\
+   0 &amp; 0 &amp; -1 &amp; 0\\
+   0 &amp; 0 &amp; 0 &amp; -1
+ \end{bmatrix} \begin{bmatrix} 0\\ 1\\ 0\\ 0 \end{bmatrix} =
+\begin{bmatrix} 1\\ -1\\ 1\\ 0\\ 0 \end{bmatrix}.\end{split}\]</div>
+</dd>
+<dt>Step 3</dt><dd><p>The step length adjustments are given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t &amp;= \frac{x^*_i}{\Delta x_i} = \frac{1}{1} = 1
+  \quad &amp; \quad
+  \bar{t} = \frac{\bar{x}_i}{\Delta x_i} = \frac{0}{1} = 0\\
+s &amp;= \frac{z^*_j}{\Delta z_j} = \frac{-2 + 4 \mu'}{-1} = 2 - 4 \mu'
+  \quad &amp; \quad
+  \bar{s} = \frac{\bar{z}_j}{\Delta z_j} = \frac{2}{-1} = -2.\end{split}\]</div>
+</dd>
+<dt>Step 4</dt><dd><p>The current primal and dual solutions are updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x^*_\mathcal{B} &amp;\leftarrow x^*_\mathcal{B} - t \Delta x_\mathcal{B} =
+    \begin{bmatrix} 1\\ 1\\ 3\\ 7 \end{bmatrix} -
+      (1) \begin{bmatrix} -1\\ 1\\ 1\\ 1 \end{bmatrix} =
+    \begin{bmatrix} 2\\ 0\\ 2\\ 6 \end{bmatrix}
+  \quad &amp; \quad
+  x^*_j &amp;\leftarrow t = 1\\
+\bar{x}_\mathcal{B} &amp;\leftarrow
+      \bar{x}_\mathcal{B} - \bar{t} \Delta x_\mathcal{B} =
+    \begin{bmatrix} 1\\ 0\\ 0\\ 0 \end{bmatrix} -
+      (0) \begin{bmatrix} -1\\ 1\\ 1\\ 1 \end{bmatrix} =
+    \begin{bmatrix} 1\\ 0\\ 0\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{x}_j &amp;\leftarrow \bar{t} = 0\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} &amp;\leftarrow z^*_\mathcal{N} - s \Delta z_\mathcal{N} =
+    \begin{bmatrix} 4 - 4 \mu' \\ -2 + 4 \mu'\\ 2\\ 2\\ 2 \end{bmatrix} -
+      (2 - 4 \mu') \begin{bmatrix} 1\\ -1\\ 1\\ 0\\ 0 \end{bmatrix} =
+    \begin{bmatrix} 2\\ 0\\ 4 \mu'\\ 2\\ 2 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_i &amp;\leftarrow s = 2 - 4 \mu'\\
+\bar{z}_\mathcal{N} &amp;\leftarrow
+      \bar{z}_\mathcal{N} - \bar{s} \Delta z_\mathcal{N} =
+    \begin{bmatrix} -1\\ 2\\ 1\\ 1\\ 1 \end{bmatrix} -
+      (-2) \begin{bmatrix} 1\\ -1\\ 1\\ 0\\ 0 \end{bmatrix} =
+    \begin{bmatrix} 1\\ 0\\ 3\\ 1\\ 1 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_i &amp;\leftarrow \bar{s} = -2.\end{split}\]</div>
+</dd>
+<dt>Step 5</dt><dd><p>The current basis is updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 0, 1, 7, 8 \} \quad &amp; \quad
+  \mathcal{N} &amp;= \{ 5, 6, 2, 3, 4 \}\\
+B &amp;= \begin{bmatrix}
+       1 &amp; -1 &amp; 0 &amp; 0\\
+       1 &amp; 0 &amp; 0 &amp; 0\\
+       1 &amp; 0 &amp; 1 &amp; 0\\
+       1 &amp; 0 &amp; 0 &amp; 1\\
+     \end{bmatrix} \quad &amp; \quad
+  N &amp;= \begin{bmatrix}
+         1 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
+         0 &amp; 1 &amp; -1 &amp; 0 &amp; 0\\
+         0 &amp; 0 &amp; 0 &amp; -1 &amp; 0\\
+         0 &amp; 0 &amp; 0 &amp; 0 &amp; -1
+       \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= \begin{bmatrix} 2\\ 1\\ 2\\ 6 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= \begin{bmatrix}
+                       2\\ 2 - 4 \mu'\\ 4 \mu'\\ 2\\ 2
+                     \end{bmatrix}\\
+\bar{x}_\mathcal{B} &amp;= \begin{bmatrix} 1\\ 0\\ 0\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_\mathcal{N} &amp;= \begin{bmatrix} 1\\ -2\\ 3\\ 1\\ 1 \end{bmatrix}.\end{split}\]</div>
+<p>The current range for <span class="math notranslate nohighlight">\(\mu\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\frac{-4 \mu'}{3} \leq \mu \leq \frac{2 - 4 \mu'}{2}.\]</div>
+<p>By inspection, the dictionary is optimal as long as
+<span class="math notranslate nohighlight">\(0 \leq \mu' \leq 0.5\)</span>.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="Iteration-3">
+<h3>Iteration 3<a class="headerlink" href="#Iteration-3" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{2}{1}, -\frac{4 \mu'}{3}, -\frac{2}{1}, -\frac{2}{1}
+      \right\},
+      \max\left\{
+        -\frac{2}{1}
+      \right\}
+    \right\}\\
+ &amp;= -\frac{4}{3} \mu'\end{split}\]</div>
+<p>shows that <span class="math notranslate nohighlight">\(x_2\)</span> is the entering variable for <span class="math notranslate nohighlight">\(\mu' &lt; 0\)</span>.</p>
+</dd>
+<dt>Step 2</dt><dd><p>The maximum is achieved by <span class="math notranslate nohighlight">\(j = 2 \in \mathcal{N}\)</span>, so do one step of
+the primal simplex method.</p>
+<p>The primal step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} =
+B^{-1} N e_j =
+\begin{bmatrix}
+  0 &amp; 1 &amp; -1 &amp; 0 &amp; 0\\
+  -1 &amp; 1 &amp; -1 &amp; 0 &amp; 0\\
+  0 &amp; -1 &amp; 1 &amp; -1 &amp; 0\\
+  0 &amp; -1 &amp; 1 &amp; 0 &amp; -1
+\end{bmatrix} \begin{bmatrix} 0\\ 0\\ 1\\ 0\\ 0 \end{bmatrix} =
+\begin{bmatrix} -1\\ -1\\ 1\\ 1 \end{bmatrix}.\end{split}\]</div>
+<p>The index of the leaving variable is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator*{\argmin}{arg\,min}
+\argmin_{i \in \mathcal{B}}
+  \left\{
+    \frac{x^*_i + \mu^* \bar{x}_i}{\Delta x_i} \colon \Delta x_i &gt; 0
+  \right\}
+ &amp;= \argmin_{i \in \mathcal{B}}\left\{
+      \frac{2 + \mu^* (0)}{1},
+      \frac{6 + \mu^* (0)}{1}
+    \right\}\\
+ &amp;= 7.\end{split}\]</div>
+<p>The dual step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+-\left( B^{-1} N \right)^\top e_i =
+-\begin{bmatrix}
+   0 &amp; -1 &amp; 0 &amp; 0\\
+   1 &amp; 1 &amp; -1 &amp; -1\\
+   -1 &amp; -1 &amp; 1 &amp; 1\\
+   0 &amp; 0 &amp; -1 &amp; 0\\
+   0 &amp; 0 &amp; 0 &amp; -1
+ \end{bmatrix} \begin{bmatrix} 0\\ 0\\ 1\\ 0 \end{bmatrix} =
+\begin{bmatrix} 0\\ 1\\ -1\\ 1\\ 0 \end{bmatrix}.\end{split}\]</div>
+</dd>
+<dt>Step 3</dt><dd><p>The step length adjustments are given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t &amp;= \frac{x^*_i}{\Delta x_i} = \frac{2}{1} = 2
+  \quad &amp; \quad
+  \bar{t} = \frac{\bar{x}_i}{\Delta x_i} = \frac{0}{1} = 0\\
+s &amp;= \frac{z^*_j}{\Delta z_j} = \frac{4 \mu'}{-1} = -4 \mu'
+  \quad &amp; \quad
+  \bar{s} = \frac{\bar{z}_j}{\Delta z_j} = \frac{3}{-1} = -3.\end{split}\]</div>
+</dd>
+<dt>Step 4</dt><dd><p>The current primal and dual solutions are updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x^*_\mathcal{B} &amp;\leftarrow x^*_\mathcal{B} - t \Delta x_\mathcal{B} =
+    \begin{bmatrix} 2\\ 1\\ 2\\ 6 \end{bmatrix} -
+      (2) \begin{bmatrix} -1\\ -1\\ 1\\ 1 \end{bmatrix} =
+    \begin{bmatrix} 4\\ 3\\ 0\\ 4 \end{bmatrix}
+  \quad &amp; \quad
+  x^*_j &amp;\leftarrow t = 2\\
+\bar{x}_\mathcal{B} &amp;\leftarrow
+      \bar{x}_\mathcal{B} - \bar{t} \Delta x_\mathcal{B} =
+    \begin{bmatrix} 1\\ 0\\ 0\\ 0 \end{bmatrix} -
+      (0) \begin{bmatrix} -1\\ -1\\ 1\\ 1 \end{bmatrix} =
+    \begin{bmatrix} 1\\ 0\\ 0\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{x}_j &amp;\leftarrow \bar{t} = 0\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} &amp;\leftarrow z^*_\mathcal{N} - s \Delta z_\mathcal{N} =
+    \begin{bmatrix} 2 \\ 2 - 4 \mu'\\ 4 \mu'\\ 2\\ 2 \end{bmatrix} -
+      (-4 \mu') \begin{bmatrix} 0\\ 1\\ -1\\ 1\\ 0 \end{bmatrix} =
+    \begin{bmatrix} 2\\ 2\\ 0\\ 2 + 4 \mu'\\ 2 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_i &amp;\leftarrow s = -4 \mu'\\
+\bar{z}_\mathcal{N} &amp;\leftarrow
+      \bar{z}_\mathcal{N} - \bar{s} \Delta z_\mathcal{N} =
+    \begin{bmatrix} 1\\ -2\\ 3\\ 1\\ 1 \end{bmatrix} -
+      (-3) \begin{bmatrix} 0\\ 1\\ -1\\ 1\\ 0 \end{bmatrix} =
+    \begin{bmatrix} 1\\ 1\\ 0\\ 4\\ 1 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_i &amp;\leftarrow \bar{s} = -3.\end{split}\]</div>
+</dd>
+<dt>Step 5</dt><dd><p>The current basis is updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 0, 1, 2, 8 \} \quad &amp; \quad
+  \mathcal{N} &amp;= \{ 5, 6, 7, 3, 4 \}\\
+B &amp;= \begin{bmatrix}
+       1 &amp; -1 &amp; 0 &amp; 0\\
+       1 &amp; 0 &amp; -1 &amp; 0\\
+       1 &amp; 0 &amp; 0 &amp; 0\\
+       1 &amp; 0 &amp; 0 &amp; 1\\
+     \end{bmatrix} \quad &amp; \quad
+  N &amp;= \begin{bmatrix}
+         1 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
+         0 &amp; 1 &amp; 0 &amp; 0 &amp; 0\\
+         0 &amp; 0 &amp; 1 &amp; -1 &amp; 0\\
+         0 &amp; 0 &amp; 0 &amp; 0 &amp; -1
+       \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= \begin{bmatrix} 4\\ 3\\ 2\\ 4 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= \begin{bmatrix}
+                       2\\ 2\\ -4 \mu'\\ 2 + 4 \mu'\\ 2
+                     \end{bmatrix}\\
+\bar{x}_\mathcal{B} &amp;= \begin{bmatrix} 1\\ 0\\ 0\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_\mathcal{N} &amp;= \begin{bmatrix} 1\\ 1\\ -3\\ 4\\ 1 \end{bmatrix}.\end{split}\]</div>
+<p>The current range for <span class="math notranslate nohighlight">\(\mu\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\frac{-2 - 4 \mu'}{4} \leq \mu \leq \frac{-4 \mu'}{3}.\]</div>
+<p>By inspection, the dictionary is optimal as long as
+<span class="math notranslate nohighlight">\(-0.5 \leq \mu' \leq 0\)</span>.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="Iteration-4">
+<h3>Iteration 4<a class="headerlink" href="#Iteration-4" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{2}{1}, -\frac{2}{1},
+        -\frac{-4 \mu'}{4}, -\frac{2 + 4 \mu'}{1}
+      \right\},
+      \max\left\{
+        -\frac{4}{1}
+      \right\}
+    \right\}\\
+ &amp;= -2 - 4 \mu'\end{split}\]</div>
+<p>shows that <span class="math notranslate nohighlight">\(x_3\)</span> is the entering variable for <span class="math notranslate nohighlight">\(\mu' &lt; -0.5\)</span>.</p>
+</dd>
+<dt>Step 2</dt><dd><p>The maximum is achieved by <span class="math notranslate nohighlight">\(j = 3 \in \mathcal{N}\)</span>, so do one step of
+the primal simplex method.</p>
+<p>The primal step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} =
+B^{-1} N e_j =
+\begin{bmatrix}
+  0 &amp; 0 &amp; 1 &amp; -1 &amp; 0\\
+  -1 &amp; 0 &amp; 1 &amp; -1 &amp; 0\\
+  0 &amp; -1 &amp; 1 &amp; -1 &amp; 0\\
+  0 &amp; 0 &amp; -1 &amp; 1 &amp; -1
+\end{bmatrix} \begin{bmatrix} 0\\ 0\\ 0\\ 1\\ 0 \end{bmatrix} =
+\begin{bmatrix} -1\\ -1\\ -1\\ 1 \end{bmatrix}.\end{split}\]</div>
+<p>The index of the leaving variable is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator*{\argmin}{arg\,min}
+\argmin_{i \in \mathcal{B}}
+  \left\{
+    \frac{x^*_i + \mu^* \bar{x}_i}{\Delta x_i} \colon \Delta x_i &gt; 0
+  \right\}
+ &amp;= \argmin_{i \in \mathcal{B}}\left\{
+      \frac{4 + \mu^* (0)}{1}
+    \right\}\\
+ &amp;= 8.\end{split}\]</div>
+<p>The dual step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+-\left( B^{-1} N \right)^\top e_i =
+-\begin{bmatrix}
+   0 &amp; -1 &amp; 0 &amp; 0\\
+   0 &amp; 0 &amp; -1 &amp; 0\\
+   1 &amp; 1 &amp; 1 &amp; -1\\
+   -1 &amp; -1 &amp; -1 &amp; 1\\
+   0 &amp; 0 &amp; 0 &amp; -1
+ \end{bmatrix} \begin{bmatrix} 0\\ 0\\ 0\\ 1 \end{bmatrix} =
+\begin{bmatrix} 0\\ 0\\ 1\\ -1\\ 1 \end{bmatrix}.\end{split}\]</div>
+</dd>
+<dt>Step 3</dt><dd><p>The step length adjustments are given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t &amp;= \frac{x^*_i}{\Delta x_i} = \frac{4}{1} = 4
+  \quad &amp; \quad
+  \bar{t} = \frac{\bar{x}_i}{\Delta x_i} = \frac{0}{1} = 0\\
+s &amp;= \frac{z^*_j}{\Delta z_j} = \frac{2 + 4 \mu'}{-1} = -2 - 4 \mu'
+  \quad &amp; \quad
+  \bar{s} = \frac{\bar{z}_j}{\Delta z_j} = \frac{4}{-1} = -4.\end{split}\]</div>
+</dd>
+<dt>Step 4</dt><dd><p>The current primal and dual solutions are updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x^*_\mathcal{B} &amp;\leftarrow x^*_\mathcal{B} - t \Delta x_\mathcal{B} =
+    \begin{bmatrix} 4\\ 3\\ 2\\ 4 \end{bmatrix} -
+      (4) \begin{bmatrix} -1\\ -1\\ -1\\ 1 \end{bmatrix} =
+    \begin{bmatrix} 8\\ 7\\ 6\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  x^*_j &amp;\leftarrow t = 4\\
+\bar{x}_\mathcal{B} &amp;\leftarrow
+      \bar{x}_\mathcal{B} - \bar{t} \Delta x_\mathcal{B} =
+    \begin{bmatrix} 1\\ 0\\ 0\\ 0 \end{bmatrix} -
+      (0) \begin{bmatrix} -1\\ -1\\ -1\\ 1 \end{bmatrix} =
+    \begin{bmatrix} 1\\ 0\\ 0\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{x}_j &amp;\leftarrow \bar{t} = 0\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} &amp;\leftarrow z^*_\mathcal{N} - s \Delta z_\mathcal{N} =
+    \begin{bmatrix} 2 \\ 2\\ -4 \mu'\\ 2 + 4 \mu'\\ 2 \end{bmatrix} -
+      (-2 - 4 \mu') \begin{bmatrix} 0\\ 0\\ 1\\ -1\\ 1 \end{bmatrix} =
+    \begin{bmatrix} 2\\ 2\\ 2\\ 0\\ 4 + 4 \mu' \end{bmatrix}
+  \quad &amp; \quad
+  z^*_i &amp;\leftarrow s = -2 - 4 \mu'\\
+\bar{z}_\mathcal{N} &amp;\leftarrow
+      \bar{z}_\mathcal{N} - \bar{s} \Delta z_\mathcal{N} =
+    \begin{bmatrix} 1\\ 1\\ -3\\ 4\\ 1 \end{bmatrix} -
+      (-4) \begin{bmatrix} 0\\ 0\\ 1\\ -1\\ 1 \end{bmatrix} =
+    \begin{bmatrix} 1\\ 1\\ 1\\ 0\\ 5 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_i &amp;\leftarrow \bar{s} = -4.\end{split}\]</div>
+</dd>
+<dt>Step 5</dt><dd><p>The current basis is updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 0, 1, 2, 3 \} \quad &amp; \quad
+  \mathcal{N} &amp;= \{ 5, 6, 7, 8, 4 \}\\
+B &amp;= \begin{bmatrix}
+       1 &amp; -1 &amp; 0 &amp; 0\\
+       1 &amp; 0 &amp; -1 &amp; 0\\
+       1 &amp; 0 &amp; 0 &amp; -1\\
+       1 &amp; 0 &amp; 0 &amp; 0\\
+     \end{bmatrix} \quad &amp; \quad
+  N &amp;= \begin{bmatrix}
+         1 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
+         0 &amp; 1 &amp; 0 &amp; 0 &amp; 0\\
+         0 &amp; 0 &amp; 1 &amp; 0 &amp; 0\\
+         0 &amp; 0 &amp; 0 &amp; 1 &amp; -1
+       \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= \begin{bmatrix} 8\\ 7\\ 6\\ 4 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= \begin{bmatrix}
+                       2\\ 2\\ 2\\ -2 - 4 \mu'\\ 4 + 4 \mu'
+                     \end{bmatrix}\\
+\bar{x}_\mathcal{B} &amp;= \begin{bmatrix} 1\\ 0\\ 0\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_\mathcal{N} &amp;= \begin{bmatrix} 1\\ 1\\ 1\\ -4\\ 5 \end{bmatrix}.\end{split}\]</div>
+<p>The current range for <span class="math notranslate nohighlight">\(\mu\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\frac{-4 - 4 \mu'}{5} \leq \mu \leq \frac{-2 - 4 \mu'}{4}.\]</div>
+<p>By inspection, the dictionary is optimal as long as
+<span class="math notranslate nohighlight">\(-1 \leq \mu' \leq -0.5\)</span>.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="Iteration-5">
+<h3>Iteration 5<a class="headerlink" href="#Iteration-5" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{2}{1}, -\frac{2}{1}, -\frac{2}{1}, -\frac{4 + 4 \mu'}{5}
+      \right\},
+      \max\left\{
+        -\frac{4}{1}
+      \right\}
+    \right\}\\
+ &amp;= -\frac{4 + 4 \mu'}{5}\end{split}\]</div>
+<p>shows that <span class="math notranslate nohighlight">\(x_4\)</span> is the entering variable for <span class="math notranslate nohighlight">\(\mu' &lt; -1\)</span>.</p>
+</dd>
+<dt>Step 2</dt><dd><p>The maximum is achieved by <span class="math notranslate nohighlight">\(j = 4 \in \mathcal{N}\)</span>, so do one step of
+the primal simplex method.</p>
+<p>The primal step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} =
+B^{-1} N e_j =
+\begin{bmatrix}
+  0 &amp; 0 &amp; 0 &amp; 1 &amp; -1\\
+  -1 &amp; 0 &amp; 0 &amp; 1 &amp; -1\\
+  0 &amp; -1 &amp; 0 &amp; 1 &amp; -1\\
+  0 &amp; 0 &amp; -1 &amp; 1 &amp; -1
+\end{bmatrix} \begin{bmatrix} 0\\ 0\\ 0\\ 0\\ 1 \end{bmatrix} =
+\begin{bmatrix} -1\\ -1\\ -1\\ -1 \end{bmatrix}.\end{split}\]</div>
+<p>The index of the leaving variable is</p>
+<div class="math notranslate nohighlight">
+\[\DeclareMathOperator*{\argmin}{arg\,min}
+\argmin_{i \in \mathcal{B}}
+  \left\{
+    \frac{x^*_i + \mu^* \bar{x}_i}{\Delta x_i} \colon \Delta x_i &gt; 0
+  \right\} = \emptyset.\]</div>
+<p>Therefore, the primal is unbounded (i.e. the dual is infeasible) when
+<span class="math notranslate nohighlight">\(\mu' &lt; -1\)</span>.</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-nb/linear-programming-vanderbei/chapter-07-0"><dl class="citation">
+<dt class="bibtex label" id="aengau5593"><span class="brackets"><a class="fn-backref" href="#id1">Eng</a></span></dt>
+<dd><p>Alexander Engau. Math 5593 linear programming lecture notes. <span><a class="reference external" href="#"></a></span>http://www.math.ucdenver.edu/ aengau/math5593/LectureNotes.pdf. Accessed on 2017-02-08.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/nb/linear-programming-vanderbei/chapter-07.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,2258 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Secant Methods for Unconstrained Minimization &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Nonlinear Least Squares" href="chapter-10.html" />
+    <link rel="prev" title="Secant Methods for Systems of Nonlinear Equations" href="chapter-08.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Secant Methods for Unconstrained Minimization</a><ul>
+<li><a class="reference internal" href="#Implementation-of-Quasi-Newton-Algorithms-Using-the-Positive-Definite-Secant-Update">Implementation of Quasi-Newton Algorithms Using the Positive Definite Secant Update</a></li>
+<li><a class="reference internal" href="#Exercise-1">Exercise 1</a></li>
+<li><a class="reference internal" href="#Exercise-2">Exercise 2</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-3">Exercise 3</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(b.1)">(b.1)</a></li>
+<li><a class="reference internal" href="#(b.2)">(b.2)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-4">Exercise 4</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-5">Exercise 5</a></li>
+<li><a class="reference internal" href="#Exercise-6">Exercise 6</a></li>
+<li><a class="reference internal" href="#Exercise-7">Exercise 7</a><ul>
+<li><a class="reference internal" href="#(1)">(1)</a></li>
+<li><a class="reference internal" href="#(2)">(2)</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+<li><a class="reference internal" href="#(d)">(d)</a></li>
+<li><a class="reference internal" href="#(e)">(e)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-8">Exercise 8</a></li>
+<li><a class="reference internal" href="#Exercise-9">Exercise 9</a></li>
+<li><a class="reference internal" href="#Exercise-10">Exercise 10</a></li>
+<li><a class="reference internal" href="#Exercise-11">Exercise 11</a></li>
+<li><a class="reference internal" href="#Exercise-12">Exercise 12</a></li>
+<li><a class="reference internal" href="#Exercise-13">Exercise 13</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-14">Exercise 14</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a><ul>
+<li><a class="reference internal" href="#(a.1)">(a.1)</a></li>
+<li><a class="reference internal" href="#(a.2)">(a.2)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-15">Exercise 15</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-16,-Exercise-17">Exercise 16, Exercise 17</a></li>
+<li><a class="reference internal" href="#Exercise-18">Exercise 18</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-19">Exercise 19</a></li>
+<li><a class="reference internal" href="#Exercise-20">Exercise 20</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-21">Exercise 21</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-22">Exercise 22</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="chapter-08.html" title="Previous Chapter: Secant Methods for Systems of Nonlinear Equations"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Secant Method...</span>
+    </a>
+  </li>
+  <li>
+    <a href="chapter-10.html" title="Next Chapter: Nonlinear Least Squares"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Nonlinear Lea... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Secant-Methods-for-Unconstrained-Minimization">
+<h1>Secant Methods for Unconstrained Minimization<a class="headerlink" href="#Secant-Methods-for-Unconstrained-Minimization" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Implementation-of-Quasi-Newton-Algorithms-Using-the-Positive-Definite-Secant-Update">
+<h2>Implementation of Quasi-Newton Algorithms Using the Positive Definite Secant Update<a class="headerlink" href="#Implementation-of-Quasi-Newton-Algorithms-Using-the-Positive-Definite-Secant-Update" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>Details to Mind</p>
+<ul class="simple">
+<li><p>Factored versus Unfactored</p></li>
+<li><p>Condition Number</p></li>
+<li><p>Positive Definite</p>
+<ul>
+<li><p>Trust Region versus Line Search</p></li>
+</ul>
+</li>
+<li><p>Noise level of each component</p></li>
+</ul>
+</li>
+<li><p>Picking an Initial Jacobian</p>
+<ul class="simple">
+<li><p>Set it to a finite difference approximation.</p></li>
+</ul>
+</li>
+<li><p>Picking an Initial Hessian</p>
+<div class="math notranslate nohighlight">
+\[\DeclareMathOperator{\typ}{typ}
+H_0 = \max \{ \lvert f(x_0) \rvert, \typ f \} \cdot D_x^2.\]</div>
+</li>
+</ul>
+</div>
+<div class="section" id="Exercise-1">
+<h2>Exercise 1<a class="headerlink" href="#Exercise-1" title="Permalink to this headline">¶</a></h2>
+<p>The Hessian is symmetric by definition.
+See <a class="reference internal" href="chapter-04.html#dennis1996numerical-ex-4-12"><span class="std std-ref">Exercise 4.12</span></a> for more
+reasons why a secant approximation to a Hessian should be symmetric.</p>
+</div>
+<div class="section" id="Exercise-2">
+<h2>Exercise 2<a class="headerlink" href="#Exercise-2" title="Permalink to this headline">¶</a></h2>
+<p>Suppose <span class="math notranslate nohighlight">\(A, B \in \mathbb{R}^{n \times n}\)</span> with <span class="math notranslate nohighlight">\(B\)</span> symmetric.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator{\tr}{tr}
+\left\Vert B - A \right\Vert_F^2
+ &amp;= \tr\left(
+      \left( B - A \right)^\top \left( B - A \right)
+    \right)\\
+ &amp;= \tr\left(B^\top B\right) - \text{tr}\left(B^\top A\right) -
+    \tr\left(A^\top B\right) +
+    \tr\left(A^\top A\right)
+    &amp; \quad &amp; \text{trace operator is a linear mapping}\\
+ &amp;= \tr\left( B^2 \right) -
+    2 \tr\left( AB \right) +
+    \tr\left(A^\top A\right)
+    &amp; \quad &amp; \text{trace cyclic/transpose property}\end{split}\]</div>
+<p>By inspection, this norm is minimized when <span class="math notranslate nohighlight">\(B = A\)</span>, which is only valid
+when <span class="math notranslate nohighlight">\(A\)</span> is also symmetric.</p>
+<p>From the results in (a) and (b), the norm can be rewritten as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert B - A \right\Vert_F^2
+ &amp;= \tr\left( B^2 \right) -
+    2 \tr\left( AB \right) +
+    \tr\left( A^\top A \right)\\
+ &amp;= \tr\left( B^2 \right) -
+    \tr\left( \left( A + A^\top \right) B \right) +
+    \tr\left( A^\top A \right).\end{split}\]</div>
+<p>Using matrix calculus to find the roots of the derivative gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial \left\Vert B - A \right\Vert_F^2}{\partial B}
+ &amp;= \tr\left( \frac{\partial B^2}{\partial B} \right) -
+    \tr\left(
+      \frac{\partial \left( A + A^\top \right) B}{\partial B}
+    \right) +
+    \tr\left( \frac{\partial A^\top A}{\partial B} \right)
+    &amp; \quad &amp; \text{linear trace operator commutes with derivative}\\
+0 &amp;= 2B - A^\top - A\\
+\frac{A + A^\top}{2} &amp;= B.\end{split}\]</div>
+<p>This root is a minimum according to the second derivative test:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial^2 \left\Vert B - A \right\Vert_F^2}{\partial B^2}
+ &amp;= \frac{\partial}{\partial B} \left( 2B - A^\top - A \right)\\
+ &amp;= 2I\\
+ &amp;\succ 0.\end{split}\]</div>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>A useful identity to recall is that for any symmetric matrix <span class="math notranslate nohighlight">\(A\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[x^\top A x = x^\top \frac{A + A^\top}{2} x.\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\tr\left( A B \right)
+ &amp;= \tr\left( A \sum_{i = 1}^n \lambda_i q_i q_i^\top \right)
+    &amp; \quad &amp; \text{eigendecomposition}\\
+ &amp;= \sum_{i = 1}^n \lambda_i \tr\left( A q_i q_i^\top \right)
+    &amp; \quad &amp; \text{trace is a linear mapping}\\
+ &amp;= \sum_{i = 1}^n \lambda_i \tr\left( q_i^\top A q_i \right)
+    &amp; \quad &amp; \text{trace cyclic property}\\
+ &amp;= \frac{1}{2} \sum_{i = 1}^n \lambda_i
+      \tr\left( q_i^\top \left( A + A^\top \right) q_i \right)
+    &amp; \quad &amp; \text{(a)}\\
+ &amp;= \frac{1}{2} \tr\left( \left( A + A^\top \right) B \right)\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-3">
+<span id="dennis1996numerical-ex-9-3"></span><h2>Exercise 3<a class="headerlink" href="#Exercise-3" title="Permalink to this headline">¶</a></h2>
+<p>Suppose <span class="math notranslate nohighlight">\(H_c \triangleq H\)</span> is symmetric, <span class="math notranslate nohighlight">\(s_c \triangleq s\)</span>
+and <span class="math notranslate nohighlight">\(y_c \triangleq y\)</span>.</p>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator{\det}{det}
+H_+ s
+ &amp;= \left(
+      H +
+      \frac{
+        \left( y - Hs \right) s^\top + s \left( y - Hs \right)^\top
+      }{s^\top s} -
+      \frac{\left( y - Hs \right)^\top s}{\left( s^\top s \right)^2} s s^\top
+    \right) s
+    &amp; \quad &amp; \text{(9.1.3)}\\
+ &amp;= Hs +
+    \frac{ys^\top - Hss^\top + sy^\top - ss^\top H^\top}{s^\top s} s -
+    \frac{y^\top s - s^\top H^\top s}{\left( s^\top s \right)^2} s s^\top s\\
+ &amp;= Hs + y - Hs +
+    \frac{sy^\top s - ss^\top Hs - y^\top ss + s^\top H ss}{s^\top s}\\
+ &amp;= y\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>Define <span class="math notranslate nohighlight">\(\Sigma \triangleq \begin{bmatrix} \sigma_1 &amp; \sigma_2\\
+\sigma_3 &amp; \sigma_4 \end{bmatrix}\)</span>.  According to <a class="bibtex reference internal" href="#rheinboldtwcqnm" id="id3">[Rhe]</a>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}H_+ - H
+ &amp;= \begin{bmatrix} y - Hs &amp; s \end{bmatrix}
+      \begin{bmatrix} \sigma_1 &amp; \sigma_2\\ \sigma_3 &amp; \sigma_4 \end{bmatrix}
+      \begin{bmatrix} \left( y - Hs \right)^\top\\ s^\top \end{bmatrix}\\
+ &amp;= \begin{bmatrix}
+      \sigma_1 \left( y - Hs \right) + \sigma_3 s &amp;
+      \sigma_2 \left( y - Hs \right) + \sigma_4 s
+    \end{bmatrix}
+      \begin{bmatrix} \left( y - Hs \right)^\top\\ s^\top \end{bmatrix}\\
+ &amp;= \sigma_1 \left( y - Hs \right) \left( y - Hs \right)^\top +
+    \sigma_3 s \left( y - Hs \right)^\top +
+    \sigma_2 \left( y - Hs \right) s^\top + \sigma_4 s s^\top\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma_1 = 0\)</span>,
+<span class="math notranslate nohighlight">\(\sigma_2 = \sigma_3 = \left( s^\top s \right)^{-1}\)</span>, and
+<span class="math notranslate nohighlight">\(\sigma_4 =
+-\frac{\left( y - Hs \right)^\top s}{\left( s^\top s \right)^2}\)</span>.</p>
+<p>By inspection, <span class="math notranslate nohighlight">\(H_+ - H = \left( H_+ - H \right)^\top\)</span>.</p>
+<p>When <span class="math notranslate nohighlight">\(\det(\Sigma) = -\left( s^\top s \right)^{-2} \neq 0\)</span>,
+<span class="math notranslate nohighlight">\(\Sigma\)</span> is a full-rank matrix.  Applying (b.1) and (b.2) shows that
+<span class="math notranslate nohighlight">\(H_+ - H\)</span> has a maximum rank of <span class="math notranslate nohighlight">\(2\)</span>.</p>
+</div>
+<div class="section" id="(b.1)">
+<h3>(b.1)<a class="headerlink" href="#(b.1)" title="Permalink to this headline">¶</a></h3>
+<p>Recall the following rank property for a matrix
+<span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\DeclareMathOperator{\rank}{rank}
+\rank\left( A^\top A \right) =
+\rank\left( A A^\top \right) =
+\rank(A) =
+\rank\left( A^\top \right).\]</div>
+<p>Define <span class="math notranslate nohighlight">\(A \triangleq \begin{bmatrix} y - Hs &amp; s \end{bmatrix}\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A^\top A
+ &amp;= \begin{bmatrix} \left( y - Hs \right)^\top\\ s^\top \end{bmatrix}
+      \begin{bmatrix} y - Hs &amp; s \end{bmatrix}\\
+ &amp;= \begin{bmatrix}
+      \left( y - Hs \right)^\top \left( y - Hs \right) &amp;
+        \left( y - Hs \right) s\\
+      s^\top \left( y - Hs \right) &amp; s^\top s
+    \end{bmatrix}\end{split}\]</div>
+<p>When <span class="math notranslate nohighlight">\(\det\left( A^\top A \right) \neq 0\)</span>, <span class="math notranslate nohighlight">\(A\)</span> is full-rank.</p>
+</div>
+<div class="section" id="(b.2)">
+<h3>(b.2)<a class="headerlink" href="#(b.2)" title="Permalink to this headline">¶</a></h3>
+<p>Recall the following rank property for a matrix
+<span class="math notranslate nohighlight">\(B \in \mathbb{R}^{n \times k}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\rank(AB) \leq \min \left\{ \rank(A), \rank(B) \right\}.\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\rank\left( A \Sigma A^\top \right)
+ &amp;\leq \min \left\{ \rank(A), \rank\left( \Sigma A^\top \right) \right\}\\
+ &amp;\leq \min \left\{
+         \rank(A),
+         \min \left\{ \rank(\Sigma), \rank\left( A^\top \right) \right\}
+       \right\}\\
+ &amp;= \min \left\{
+      \rank(A), \rank(\Sigma), \rank\left( A^\top \right)
+    \right\}\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-4">
+<h2>Exercise 4<a class="headerlink" href="#Exercise-4" title="Permalink to this headline">¶</a></h2>
+<p>Define a linearly independent set
+<span class="math notranslate nohighlight">\(S = \left\{ v_1 = s_c, v_2, \ldots, v_n \right\}\)</span> where
+<span class="math notranslate nohighlight">\(v_i \in \mathbb{R}^n\)</span> is randomly generated for <span class="math notranslate nohighlight">\(2 \leq i \leq n\)</span>.</p>
+<p>Perform Gram-Schmidt orthonormalization to generate an orthonormal set
+<span class="math notranslate nohighlight">\(Q = \left\{ q_1, q_2, \ldots, q_n \right\}\)</span> where
+<span class="math notranslate nohighlight">\(q_i = t_i \left\Vert t_i \right\Vert^{-1}\)</span> for <span class="math notranslate nohighlight">\(1 \leq i \leq n\)</span>
+with</p>
+<div class="math notranslate nohighlight">
+\[t_1 = v_1
+\quad \text{and} \quad
+t_i = v_i - \sum_{j = 1}^{i - 1} \text{proj}_{t_j}(v_i).\]</div>
+<p>Suppose <span class="math notranslate nohighlight">\(H - H_c\)</span> is a symmetric matrix with <span class="math notranslate nohighlight">\(H s_c = y_c\)</span> where
+<span class="math notranslate nohighlight">\(H_+\)</span> is given by (9.1.3) and <span class="math notranslate nohighlight">\(H \in \mathbb{R}^{n \times n}\)</span>.
+Applying the results of <a class="reference internal" href="chapter-03.html#dennis1996numerical-ex-3-11"><span class="std std-ref">Exercise 3.11</span></a> gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert H_+ - H_c \right\Vert_F^2
+ &amp;= \sum_{i = 1}^n
+      \left\Vert \left( H_+ - H_c \right) q_i \right\Vert_2^2\\
+ &amp;\leq \sum_{i = 1}^n \left\Vert \left( H - H_c \right) q_i \right\Vert_2^2
+       &amp; \quad &amp; \text{(a) and (b)}\\
+\left\Vert H_+ - H_c \right\Vert_F
+ &amp;\leq \left\Vert H - H_c \right\Vert_F.\end{split}\]</div>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left( H_+ - H_c \right) s_c
+ &amp;= \left(
+      \frac{
+        \left( y_c - H_c s_c \right) s_c^\top +
+        s_c \left( y_c - H_c s_c \right)^\top
+      }{
+        s_c^\top s_c
+      } -
+      \frac{
+        \left( y_c - H_c s_c \right)^\top s_c
+      }{
+        \left( s_c^\top s_c \right)^2
+      } s_c s_c^\top
+    \right) s_c
+    &amp; \quad &amp; \text{(9.1.3)}\\
+ &amp;= \left(
+      \frac{
+        \left( H - H_c \right) s_c s_c^\top +
+        s_c s_c^\top \left( H - H_c \right)
+      }{
+        s_c^\top s_c
+      } -
+      \frac{
+        s_c^\top \left( H - H_c \right) s_c
+      }{
+        \left( s_c^\top s_c \right)^2
+      } s_c s_c^\top
+    \right) s_c
+    &amp; \quad &amp; \text{see initial assumptions}\\
+ &amp;= \left( H - H_c \right) s_c +
+    s_c \frac{s_c^\top \left( H - H_c \right) s_c}{s_c^\top s_c} -
+    \frac{s_c^\top \left( H - H_c \right) s_c}{s_c^\top s_c} s_c\\
+ &amp;= \left( H - H_c \right) s_c\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(t \in \mathbb{R}^n\)</span> satisfy <span class="math notranslate nohighlight">\(t^\top s_c = 0\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left( H_+ - H_c \right) t
+ &amp;= \left(
+      \frac{
+        \left( y_c - H_c s_c \right) s_c^\top +
+        s_c \left( y_c - H_c s_c \right)^\top
+      }{s_c^\top s_c} -
+      \frac{
+        \left( y_c - H_c s_c \right)^\top s_c
+      }{
+        \left( s_c^\top s_c \right)^2
+      } s_c s_c^\top
+    \right) t
+    &amp; \quad &amp; \text{(9.1.3)}\\
+ &amp;= \frac{s_c \left( y_c - H_c s_c \right)^\top t}{s_c^\top s_c}
+    &amp; \quad &amp; s_c^\top t = 0\\
+ &amp;= \frac{s_c s_c^\top \left( H - H_c \right) t}{s_c^\top s_c}
+    &amp; \quad &amp; \text{see initial assumptions}\\
+\left\Vert \left( H_+ - H_c \right) t \right\Vert_2
+ &amp;= \left\Vert
+      \frac{s_c s_c^\top}{s_c^\top s_c} \left( H - H_c \right) t
+    \right\Vert_2\\
+ &amp;\leq \left\Vert \frac{s_c s_c^\top}{s_c^\top s_c} \right\Vert_F
+       \left\Vert \left( H - H_c \right) t \right\Vert_2
+       &amp; \quad &amp; \text{(3.1.16)}\\
+ &amp;\leq \left\Vert \left( H - H_c \right) t \right\Vert_2
+       &amp; \quad &amp; \text{(3.1.17)}\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-5">
+<span id="dennis1996numerical-ex-9-5"></span><h2>Exercise 5<a class="headerlink" href="#Exercise-5" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(H_+\)</span> be given by (9.1.3), <span class="math notranslate nohighlight">\(H_* = \nabla^2 f(x_*)\)</span>,
+<span class="math notranslate nohighlight">\(P_c = I - s_c s_c^\top / s_c^\top s_c\)</span>, <span class="math notranslate nohighlight">\(e_k \triangleq x_k - x_*\)</span>,
+and the assumptions of Theorem 9.1.2 hold i.e.
+<span class="math notranslate nohighlight">\(\left\Vert x_0 - x_* \right\Vert_2 &lt; \epsilon\)</span> and
+<span class="math notranslate nohighlight">\(\left\Vert H_0 - H_* \right\Vert_F &lt; \delta\)</span>.</p>
+<p>The results of
+<a class="reference internal" href="chapter-03.html#dennis1996numerical-ex-3-8"><span class="std std-ref">Exercise 3.8</span></a>,
+<a class="reference internal" href="chapter-08.html#dennis1996numerical-ex-8-7"><span class="std std-ref">Exercise 8.7</span></a>, and
+<a class="reference internal" href="chapter-04.html#dennis1996numerical-ex-4-7"><span class="std std-ref">Exercise 4.7</span></a> will be useful in the
+derivation that follows.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}H_+ - H_*
+ &amp;= H_c - H_* +
+    \frac{
+      \left( y_c - H_c s_c \right) s_c^\top +
+      s_c \left( y_c - H_c s_c \right)^\top
+    }{
+      s_c^\top s_c
+    } -
+    \frac{
+      \left( y_c - H_c s_c \right)^\top s_c
+    }{
+      \left( s_c^\top s_c \right)^2
+    } s_c s_c^\top\\
+\left\Vert H_+ - H_* \right\Vert_F
+ &amp;= \left\Vert
+      P_c (H_c - H_*) P_c +
+      \frac{(y_c - H_* s_c) s_c^\top}{s_c^\top s_c} +
+      \frac{s_c (y_c - H_* s_c)^\top P_c}{s_c^\top s_c}
+    \right\Vert_F
+    &amp; \quad \text{(9.7.1)}\\
+ &amp;\leq \left\Vert P_c (H_c - H_*) P_c \right\Vert_F +
+       \left\Vert
+         \frac{(y_c - H_* s_c) s_c^\top}{s_c^\top s_c}
+       \right\Vert_F +
+       \left\Vert
+         \frac{s_c (y_c - H_* s_c)^\top P_c}{s_c^\top s_c}
+       \right\Vert_F
+       &amp; \quad \text{Exercise 3.8}\\
+ &amp;\leq \left\Vert H_c - H_* \right\Vert_F
+         \left\Vert P_c \right\Vert_2^2 +
+       \left\Vert y_c - H_* s_c \right\Vert_2
+         \left\Vert \frac{s_c}{s_c^\top s_c} \right\Vert_2 +
+       \left\Vert \frac{s_c}{s_c^\top s_c} \right\Vert_2
+         \left\Vert y_c - H_* s_c \right\Vert_2
+         \left\Vert P_c \right\Vert_2
+       &amp; \quad &amp; \text{(3.1.15) and (3.1.17)}\\
+ &amp;\leq \left\Vert H_c - H_* \right\Vert_F +
+       2 \left\Vert y_c - H_* s_c \right\Vert_2
+         \left\Vert s \right\Vert_2^{-1}
+       &amp; \quad &amp; \text{Exercise 8.7}\\
+ &amp;\leq \left\Vert H_c - H_* \right\Vert_F +
+       \frac{\gamma}{2} \left(
+         \left\Vert x_+ - x_* \right\Vert_2 +
+         \left\Vert x_c - x_* \right\Vert_2
+       \right)
+       &amp; \quad &amp; \text{Lemma 4.1.12 and Exercise 4.7}.\end{split}\]</div>
+<p>Notice that in order to make the following derivations easier, <span class="math notranslate nohighlight">\(2 \gamma\)</span>
+was replaced with <span class="math notranslate nohighlight">\(\gamma\)</span> while the <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span> factor was kept.
+Recursively expanding (9.7.2) yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert H_k - H_* \right\Vert_F
+ &amp;\leq \left\Vert H_{k - 1} - H_* \right\Vert_F +
+       \frac{\gamma}{2} \left(
+         \left\Vert e_k \right\Vert_2 + \left\Vert e_{k - 1} \right\Vert_2
+       \right)\\
+ &amp;\leq \left\Vert H_0 - H_* \right\Vert_F +
+       \frac{\gamma}{2} \left\Vert e_k \right\Vert_2 +
+       \frac{\gamma}{2} \left\Vert e_0 \right\Vert_2 +
+       \gamma \sum_{j = 1}^{k - 1} \left\Vert e_j \right\Vert_2\\
+ &amp;\leq \delta + \gamma \sum_{j = 0}^k \left\Vert e_j \right\Vert_2.\end{split}\]</div>
+<p>If the summation is uniformly bounded above for all <span class="math notranslate nohighlight">\(k\)</span>, then the sequence
+<span class="math notranslate nohighlight">\(\left\{ \left\Vert H_k - H_* \right\Vert_F \right\}\)</span> will be bounded
+above i.e. <span class="math notranslate nohighlight">\(\lim_{k \rightarrow \infty} \left\Vert e_k \right\Vert_2 = 0\)</span>.</p>
+<p>According to Theorem 3.1.4, the symmetric secant method is well defined if</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert H_*^{-1} \left( H_k - H_* \right) \right\Vert_F
+ &amp;\leq \left\Vert H_*^{-1} \right\Vert_F \left\Vert H_k - H_* \right\Vert_F
+       &amp; \quad &amp; \text{(3.1.10)}\\
+ &amp;\leq \beta \left\Vert H_k - H_* \right\Vert_F
+       &amp; \quad &amp; H_* \text{ is nonsingular}\end{split}\]</div>
+<p>is strictly less than <span class="math notranslate nohighlight">\(1\)</span>.  If it does hold, then (3.1.20) states that</p>
+<div class="math notranslate nohighlight">
+\[\left\Vert H_k^{-1} \right\Vert_F \leq
+\frac{
+  \left\Vert H_*^{-1} \right\Vert_F
+}{
+  1 - \left\Vert H_*^{-1} \left( H_k - H_* \right) \right\Vert_F
+}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\left\Vert H_0^{-1} \right\Vert_F \leq \frac{\beta}{1 - \beta \delta}.\]</div>
+<p>Suppose <span class="math notranslate nohighlight">\(x_{k + 1}\)</span> is well defined.  Isolating <span class="math notranslate nohighlight">\(e_{k + 1}\)</span>
+according to the derivation of (8.2.1) gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x_{k + 1}
+ &amp;= x_k - H_k^{-1} \nabla f(x_k)
+    &amp; \quad &amp; \text{(9.1.4a)}\\
+x_{k + 1} - x_*
+ &amp;= x_k - x_* - H_k^{-1} \left( \nabla f(x_k) - \nabla f(x_*) \right)
+    &amp; \quad &amp; \nabla f(x_*) = 0\\
+H_k e_{k + 1} &amp;= H_k e_k - \nabla f(x_k) + \nabla f(x_*)\\
+ &amp;= \left( H_k - H_* \right) e_k +
+    \left( -\nabla f(x_k) + \nabla f(x_*) + H_* e_k \right)\\
+\left\Vert e_{k + 1} \right\Vert_2
+ &amp;\leq \left\Vert H_k^{-1} \right\Vert_F
+       \left[
+         \left\Vert -\nabla f(x_k) + \nabla f(x_*) + H_* e_k \right\Vert_2 +
+         \left\Vert H_k - H_* \right\Vert_F \left\Vert e_k \right\Vert_2
+       \right]
+       &amp; \quad &amp; \text{(3.1.16) and Exercise 3.4}\\
+ &amp;\leq \left\Vert H_k^{-1} \right\Vert_F
+       \left[
+         \frac{\gamma}{2} \left\Vert e_k \right\Vert_2 +
+         \left\Vert H_k - H_* \right\Vert_F
+       \right] \left\Vert e_k \right\Vert_2
+       &amp; \quad &amp; \text{Lemma 4.1.12 and (3.1.1b)}.\end{split}\]</div>
+<p>See <a class="reference internal" href="chapter-03.html#dennis1996numerical-ex-3-4"><span class="std std-ref">Exercise 3.4</span></a> for more details.
+One (arbitrary yet simple) way to satisfy the definition of <span class="math notranslate nohighlight">\(q\)</span>-linear
+convergence (2.3.1) is to define</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert H_k - H_* \right\Vert_F
+ &amp;\leq (2 - 2^{-k}) \delta
+       &amp; \quad &amp; \text{(8.2.7)}\\
+\left\Vert e_{k + 1} \right\Vert_2
+ &amp;\leq \frac{1}{2} \left\Vert e_k \right\Vert_2
+       &amp; \quad &amp; \text{(8.2.8).}\end{split}\]</div>
+<p>From the initial assumptions, the base case <span class="math notranslate nohighlight">\(k = 0\)</span> for (8.2.7) is
+satisfied:</p>
+<div class="math notranslate nohighlight">
+\[\left\Vert H_0 - H_* \right\Vert_F \leq
+\delta \leq (2 - 2^{-0}) \delta \leq 2 \delta.\]</div>
+<p>The base case <span class="math notranslate nohighlight">\(k = 0\)</span> for (8.2.8) is also satisfied if <span class="math notranslate nohighlight">\(\epsilon\)</span>
+and <span class="math notranslate nohighlight">\(\delta\)</span> are chosen such that <span class="math notranslate nohighlight">\(6 \beta \delta \leq 1\)</span>
+and <span class="math notranslate nohighlight">\(3 \gamma \epsilon \leq 2 \delta\)</span> where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert e_{0 + 1} \right\Vert_2
+ &amp;\leq \left\Vert H_0^{-1} \right\Vert_F
+       \left[
+         \frac{\gamma}{2} \left\Vert e_0 \right\Vert_2 +
+         \left\Vert H_0 - H_* \right\Vert_F
+       \right] \left\Vert e_0 \right\Vert_2\\
+ &amp;\leq \frac{\beta}{1 - \beta \delta}
+       \left[ \frac{\gamma}{2} \epsilon + \delta \right] \epsilon\\
+ &amp;\leq \frac{6 \beta}{5}
+       \left[ \frac{\gamma}{2} \epsilon + \delta \right] \epsilon\\
+ &amp;\leq \left[
+         \frac{3 \beta \gamma \epsilon}{5} + \frac{6 \beta \delta}{5}
+       \right] \epsilon\\
+ &amp;\leq \left[ \frac{2 \beta \delta}{5} + \frac{1}{5} \right] \epsilon\\
+ &amp;\leq \left[ \frac{1}{15} + \frac{1}{5} \right] \epsilon\\
+ &amp;\leq \frac{1}{2} \epsilon.\end{split}\]</div>
+<p>For the inductive step, assume (8.2.7) and (8.2.8) holds for
+<span class="math notranslate nohighlight">\(k = 0, \ldots, i - 1\)</span>.  When <span class="math notranslate nohighlight">\(k = i\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert H_i - H_* \right\Vert_F
+ &amp;\leq \left\Vert H_{i - 1} - H_* \right\Vert_F +
+       \frac{\gamma}{2} \left(
+         \left\Vert e_i \right\Vert_2 + \left\Vert e_{i - 1} \right\Vert_2
+       \right)\\
+ &amp;\leq (2 - 2^{-i - 1}) \delta +
+       \frac{3 \gamma}{4} \left\Vert e_{i - 1} \right\Vert_2\\
+ &amp;\leq (2 - 2^{-i - 1}) \delta + \frac{3 \gamma}{4} 2^{-(i - 1)} \epsilon\\
+ &amp;\leq (2 - 2^{-i - 1}) \delta + 2^{-i} \delta\\
+ &amp;\leq (2 - 2^{-i}) \delta.\end{split}\]</div>
+<p>To complete the proof, it is necessary to show that the symmetric secant is
+well-defined:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert H_*^{-1} \left( H_i - H_* \right) \right\Vert_F
+ &amp;\leq \beta \left\Vert H_i - H_* \right\Vert_F
+       &amp; \quad &amp; \text{see the foregoing derivation}\\
+ &amp;\leq \beta (2 - 2^{-i}) \delta\\
+ &amp;\leq 2 \beta \delta\\
+ &amp;\leq \frac{1}{3}.\end{split}\]</div>
+<p>Consequently, <span class="math notranslate nohighlight">\(\left\Vert H_i^{-1} \right\Vert_F \leq \frac{3 \beta}{2}\)</span>.
+Thus,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert e_{i + 1} \right\Vert_2
+ &amp;\leq \left\Vert H_i^{-1} \right\Vert_F
+       \left[
+         \frac{\gamma}{2} \left\Vert e_i \right\Vert_2 +
+         \left\Vert H_i - H_* \right\Vert_F
+       \right] \left\Vert e_i \right\Vert_2\\
+ &amp;\leq \frac{3 \beta}{2} \left[
+         \frac{\gamma}{2} 2^{-i} \epsilon +
+         (2 - 2^{-i}) \delta
+       \right] \left\Vert e_i \right\Vert_2\\
+ &amp;\leq \frac{3 \beta}{2} \left[
+         \frac{1}{3} 2^{-i} + (2 - 2^{-i})
+       \right] \delta \left\Vert e_i \right\Vert_2\\
+ &amp;\leq 3 \beta \delta \left\Vert e_i \right\Vert_2\\
+ &amp;\leq \frac{1}{2} \left\Vert e_i \right\Vert_2.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-6">
+<span id="dennis1996numerical-ex-9-6"></span><h2>Exercise 6<a class="headerlink" href="#Exercise-6" title="Permalink to this headline">¶</a></h2>
+<p>The proof of <span class="math notranslate nohighlight">\(q\)</span>-superlinear convergence is a combination of
+<a class="reference internal" href="chapter-08.html#dennis1996numerical-ex-8-5"><span class="std std-ref">Exercise 8.5</span></a> and page 183.</p>
+<p>Theorem 8.2.4 have shown that a sufficient condition for <span class="math notranslate nohighlight">\(\{ x_k \}\)</span> to
+converge <span class="math notranslate nohighlight">\(q\)</span>-superlinearly to <span class="math notranslate nohighlight">\(x_*\)</span> is
+<span class="math notranslate nohighlight">\(\lim_{k \rightarrow \infty}
+\frac{\left\Vert E_k s_k \right\Vert_2}{\left\Vert s_k \right\Vert_2} = 0\)</span>.</p>
+<p>Applying the results of <a class="reference internal" href="chapter-08.html#dennis1996numerical-ex-8-7"><span class="std std-ref">Exercise 8.7</span></a> and
+<a class="reference internal" href="#dennis1996numerical-ex-9-5"><span class="std std-ref">Exercise 9.5</span></a> gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert H_+ - H_* \right\Vert_F
+ &amp;\leq \left\Vert P_c E_c P_c \right\Vert_F +
+       \frac{\gamma}{2} \left(
+         \left\Vert x_+ - x_* \right\Vert_2 +
+         \left\Vert x_c - x_* \right\Vert_2
+       \right)\\
+ &amp;\leq \left\Vert P_c \right\Vert_2 \left\Vert E_c P_c \right\Vert_F +
+       \frac{\gamma}{2} \left(
+         \left\Vert x_+ - x_* \right\Vert_2 +
+         \left\Vert x_c - x_* \right\Vert_2
+       \right)
+       &amp; \quad &amp; \text{(3.1.15)}\\
+ &amp;\leq \left\Vert E_c \right\Vert_F -
+       \left( 2 \left\Vert E_c \right\Vert_F \right)^{-1}
+         \left(
+           \frac{
+             \left\Vert E_c s_c \right\Vert_2
+           }{
+             \left\Vert s_c \right\Vert_2
+           }
+         \right)^2 +
+       \frac{\gamma}{2} \left(
+         \left\Vert x_+ - x_* \right\Vert_2 +
+         \left\Vert x_c - x_* \right\Vert_2
+       \right)
+       &amp; \quad &amp; \text{Exercise 8.7 and Lemma 8.2.5}\\
+\left\Vert E_{k + 1} \right\Vert_F
+ &amp;\leq \left\Vert E_k \right\Vert_F -
+       \left( 2 \left\Vert E_k \right\Vert_F \right)^{-1}
+         \left(
+           \frac{
+             \left\Vert E_k s_k \right\Vert_2
+           }{
+             \left\Vert s_k \right\Vert_2
+           }
+         \right)^2 +
+       \frac{\gamma}{2} \left(
+         \left\Vert e_{k + 1} \right\Vert_2 + \left\Vert e_k \right\Vert_2
+       \right)
+       &amp; \quad &amp; \text{replace subscripts}\\
+\frac{\left\Vert E_k s_k \right\Vert_2^2}{\left\Vert s_k \right\Vert_2^2}
+ &amp;\leq 2 \left\Vert E_k \right\Vert_F \left(
+         \left\Vert E_k \right\Vert_F -
+         \left\Vert E_{k + 1} \right\Vert_F +
+         \frac{3 \gamma}{4} \left\Vert e_k \right\Vert_2
+       \right)
+       &amp; \quad &amp; \text{(8.2.8)}\\
+ &amp;\leq 4 (2 - 2^{-k}) \delta \left(
+         -2^{-(k + 1)} \delta +
+         \frac{3 \gamma}{4} \left\Vert e_k \right\Vert_2
+       \right)
+       &amp; \quad &amp; \text{(8.2.7)}\\
+ &amp;\leq 4 (2 - 2^{-k}) \delta \left(
+         -2^{-(k + 1)} \delta +
+         \frac{3 \gamma}{4} 2^{-k} \epsilon
+       \right)
+       &amp; \quad &amp; \text{(8.2.8)}\\
+ &amp;\leq 4 (2 - 2^{-k}) \delta \left(
+         -2^{-(k + 1)} \delta +
+         \frac{2 \delta}{4} 2^{-k}
+       \right)
+       &amp; \quad &amp; 3 \gamma \epsilon \leq 2 \delta\\
+ \frac{
+   \left\Vert E_k s_k \right\Vert_2
+ }{
+   \left\Vert s_k \right\Vert_2
+ } &amp;\leq 0.\end{split}\]</div>
+<p>Therefore</p>
+<div class="math notranslate nohighlight">
+\[\sum_{k = 0}^\infty
+  \frac{\left\Vert E_k s_k \right\Vert_2}{\left\Vert s_k \right\Vert_2}\]</div>
+<p>is finite, which satisfies the definition of <span class="math notranslate nohighlight">\(q\)</span>-superlinear convergence.</p>
+</div>
+<div class="section" id="Exercise-7">
+<h2>Exercise 7<a class="headerlink" href="#Exercise-7" title="Permalink to this headline">¶</a></h2>
+<p>The following proofs are combinations of <a class="bibtex reference internal" href="#geijnrncf" id="id6">[Gei]</a><a class="bibtex reference internal" href="#grasmairmecf" id="id7">[Gra]</a>.</p>
+<p>Recall that a matrix <span class="math notranslate nohighlight">\(H \in \mathbb{R}^{n \times n}\)</span> is symmetric positive
+definite if and only if it is symmetric and <span class="math notranslate nohighlight">\(x^\top H x &gt; 0\)</span> for all
+nonzero vectors <span class="math notranslate nohighlight">\(x \in \mathbb{R}^n\)</span>.</p>
+<div class="section" id="(1)">
+<h3>(1)<a class="headerlink" href="#(1)" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(H = J J^\top\)</span> for some nonsingular
+<span class="math notranslate nohighlight">\(J \in \mathbb{R}^{n \times n}\)</span> (i.e. columns are linearly independent).
+Applying the results of (a) shows that <span class="math notranslate nohighlight">\(H\)</span> is symmetric positive definite.</p>
+</div>
+<div class="section" id="(2)">
+<h3>(2)<a class="headerlink" href="#(2)" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(H \in \mathbb{R}^{n \times n}\)</span> be symmetric positive definite.
+<span class="math notranslate nohighlight">\(H = J J^\top\)</span> for some nonsingular <span class="math notranslate nohighlight">\(J \in \mathbb{R}^{n \times n}\)</span>
+can be satisfied if there exists a Cholesky factorization such that
+<span class="math notranslate nohighlight">\(H = L L^\top\)</span>.  Invoking (e) shows that <span class="math notranslate nohighlight">\(H\)</span> has a Cholesky
+decomposition because it is symmetric positive definite.</p>
+<div class="section" id="(a)">
+<h4>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h4>
+<p>Let <span class="math notranslate nohighlight">\(B \in \mathbb{R}^{m \times n}\)</span> have linearly independent columns
+(i.e. full column rank) and <span class="math notranslate nohighlight">\(A = B^\top B\)</span>.  <span class="math notranslate nohighlight">\(A\)</span> is symmetric
+because</p>
+<div class="math notranslate nohighlight">
+\[A^\top = \left( B^\top B \right)^\top = B^\top B = A.\]</div>
+<p>When <span class="math notranslate nohighlight">\(x \neq \mathbf{0}\)</span>, the nullspace facts from
+<a class="reference internal" href="chapter-06.html#dennis1996numerical-ex-6-17"><span class="std std-ref">Exercise 6.17</span></a> shows that <span class="math notranslate nohighlight">\(A\)</span> is also
+positive definite because</p>
+<div class="math notranslate nohighlight">
+\[v = Bx \neq \mathbf{0}
+\quad \text{and} \quad
+v^\top v = x^\top B^\top B x = x^\top A x &gt; 0.\]</div>
+</div>
+<div class="section" id="(b)">
+<h4>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h4>
+<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> be symmetric positive definite.
+Define <span class="math notranslate nohighlight">\(e_i\)</span> as a unit <span class="math notranslate nohighlight">\(n\)</span>-vector whose entries are zero except for
+a one in the <span class="math notranslate nohighlight">\(i^\text{th}\)</span> entry.  Applying the definition of positive
+definite shows that the diagonal elements of <span class="math notranslate nohighlight">\(A\)</span> are positive because</p>
+<div class="math notranslate nohighlight">
+\[e_i^\top A e_i = \alpha_{ii} &gt; 0 \text{ for } i = 1, 2, \ldots, n.\]</div>
+</div>
+<div class="section" id="(c)">
+<h4>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h4>
+<p>Let <span class="math notranslate nohighlight">\(I_p\)</span> denote a <span class="math notranslate nohighlight">\(p \times p\)</span> identity matrix,
+<span class="math notranslate nohighlight">\(I_q\)</span> denote a <span class="math notranslate nohighlight">\(q \times q\)</span> identity matrix, and
+<span class="math notranslate nohighlight">\(M \in \mathbb{R}^{(p + q) \times (p + q)}\)</span> such that
+<span class="math notranslate nohighlight">\(M = \begin{bmatrix} A &amp; B\\ C &amp; D \end{bmatrix}\)</span> where
+<span class="math notranslate nohighlight">\(A \in \mathbb{R}^{p \times p}\)</span> is invertible,
+<span class="math notranslate nohighlight">\(B \in \mathbb{R}^{p \times q}\)</span>, <span class="math notranslate nohighlight">\(C \in \mathbb{R}^{q \times p}\)</span>,
+and <span class="math notranslate nohighlight">\(D \in \mathbb{R}^{q \times q}\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{bmatrix} A &amp; B\\ C &amp; D \end{bmatrix}
+  \begin{bmatrix} I_p &amp; -A^{-1}B\\ 0 &amp; I_q \end{bmatrix}
+ &amp;= \begin{bmatrix} A &amp; 0\\ C &amp; D - C A^{-1} B \end{bmatrix}\\
+\begin{bmatrix} A &amp; B\\ C &amp; D \end{bmatrix}
+ &amp;= \begin{bmatrix} A &amp; 0\\ C &amp; D - C A^{-1} B \end{bmatrix}
+      \begin{bmatrix} I_p &amp; A^{-1}B\\ 0 &amp; I_q \end{bmatrix}\\
+ &amp;= \begin{bmatrix} I_p &amp; 0\\ C A^{-1} &amp; I_q \end{bmatrix}
+      \begin{bmatrix} A &amp; 0\\ 0 &amp; D - C A^{-1} B \end{bmatrix}
+      \begin{bmatrix} I_p &amp; A^{-1}B\\ 0 &amp; I_q \end{bmatrix}\end{split}\]</div>
+</div>
+<div class="section" id="(d)">
+<h4>(d)<a class="headerlink" href="#(d)" title="Permalink to this headline">¶</a></h4>
+<p>Assume <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{(n + 1) \times (n + 1)}\)</span> is symmetric positive
+definite.  Partition</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix} \alpha_{11} &amp; a_{21}^\top\\ a_{21} &amp; A_{22} \end{bmatrix}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\alpha_{11} \in \mathbb{R}^{1 \times 1}\)</span>,
+<span class="math notranslate nohighlight">\(a_{21} \in \mathbb{R}^{n \times 1}\)</span>, and
+<span class="math notranslate nohighlight">\(A_{22} \in \mathbb{R}^{n \times n}\)</span>.  Applying (b) and (c) gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A =
+\begin{bmatrix} \alpha_{11} &amp; \mathbf{0}^\top\\ a_{21} &amp; S \end{bmatrix}
+  \begin{bmatrix}
+    I_1 &amp; \alpha_{11}^{-1} a_{21}^\top\\
+    \mathbf{0} &amp; I_n
+  \end{bmatrix}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(S = A_{22} - a_{21} \alpha_{11}^{-1} a_{21}^\top\)</span> is the Schur
+complement of <span class="math notranslate nohighlight">\(\alpha_{11}\)</span> in <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(S\)</span> is symmetric by inspection.  For any non-zero vector
+<span class="math notranslate nohighlight">\(x = \begin{bmatrix} \chi_0\\ x_n \end{bmatrix} \in \mathbb{R}^{n + 1}\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}0 &lt; x^\top A x
+ &amp;= \begin{bmatrix} \chi_0 &amp; x_n^\top \end{bmatrix}
+      \begin{bmatrix}
+        \alpha_{11} &amp; \mathbf{0}^\top\\ a_{21} &amp; S
+      \end{bmatrix}
+      \begin{bmatrix}
+        I_1 &amp; \alpha_{11}^{-1} a_{21}^\top\\
+        \mathbf{0} &amp; I_n
+      \end{bmatrix}
+      \begin{bmatrix} \chi_0\\ x_n \end{bmatrix}\\
+ &amp;= \begin{bmatrix}
+      \chi_0 \alpha_{11} + x_n^\top a_{21} &amp; x_n^\top S
+    \end{bmatrix}
+      \begin{bmatrix}
+        \chi_0 + \alpha_{11}^{-1} a_{21}^\top x_n\\
+        x_n
+      \end{bmatrix}\\
+ &amp;= \chi_0^2 \alpha_{11} + 2 \chi_0 a_{21}^\top x_n +
+    \alpha_{11}^{-1} \left( a_{21}^\top x_n \right)^2 + x_n^\top S x_n.\end{split}\]</div>
+<p>With respect to proving <span class="math notranslate nohighlight">\(S\)</span> is positive definite, picking
+<span class="math notranslate nohighlight">\(\chi_0 = -\alpha_{11}^{-1} a_{21}^\top x_n\)</span> does not lose any generality
+because <span class="math notranslate nohighlight">\(x_n\)</span> is any arbitrary nonzero vector.</p>
+</div>
+<div class="section" id="(e)">
+<h4>(e)<a class="headerlink" href="#(e)" title="Permalink to this headline">¶</a></h4>
+<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{(n + 1) \times (n + 1)}\)</span> be symmetric positive
+definite.  Since <span class="math notranslate nohighlight">\(A\)</span> is symmetric, let <span class="math notranslate nohighlight">\(\star\)</span> denote parts of
+<span class="math notranslate nohighlight">\(A\)</span> that are neither stored nor updated.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator{\chol}{chol}
+A = \begin{bmatrix} \alpha_{11} &amp; \star\\ a_{21} &amp; A_{22} \end{bmatrix}
+ &amp;= L L^\top
+    &amp; \quad &amp; \chol(A) = L\\
+ &amp;= \begin{bmatrix}
+      \lambda_{11} &amp; \boldsymbol{0}^\top\\
+      l_{21} &amp; L_{22}
+    \end{bmatrix}
+      \begin{bmatrix}
+        \lambda_{11} &amp; l_{21}^\top\\
+        \boldsymbol{0} &amp; L_{22}^\top
+      \end{bmatrix}\\
+ &amp;= \begin{bmatrix}
+      \lambda_{11}^2 &amp; \star\\
+      \lambda_{11} l_{21} &amp; l_{21} l_{21}^\top + L_{22} L_{22}^\top
+    \end{bmatrix}\end{split}\]</div>
+<p>Equating the block matrices gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\lambda_{11} &amp;= \sqrt{\alpha_{11}}\\\\
+l_{21} &amp;= a_{21} / \lambda_{11}\\\\
+L_{22} &amp;= \chol\left( A_{22} - l_{21} l_{21}^\top \right).\end{split}\]</div>
+<p>The inductive proof starts with the base case <span class="math notranslate nohighlight">\(n = 0\)</span>: Invoking (b) shows
+that <span class="math notranslate nohighlight">\(\alpha_{11} &gt; 0\)</span> hence
+<span class="math notranslate nohighlight">\(\lambda_{11} = \sqrt{\alpha_{11}}\)</span> is well-defined.</p>
+<p>The inductive step assumes the Cholesky factorization exist for all symmetric
+positive definite matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span>.  Let
+<span class="math notranslate nohighlight">\(A \in \mathbb{R}^{(n + 1) \times (n + 1)}\)</span> be symmetric positive
+definite.  Partitioning <span class="math notranslate nohighlight">\(A\)</span> as described and invoking (b) establishes that
+<span class="math notranslate nohighlight">\(\lambda_{11}\)</span> and <span class="math notranslate nohighlight">\(l_{21}\)</span> are well-defined.  Invoking (d) reveals
+that <span class="math notranslate nohighlight">\(L_{22}\)</span> is symmetric positive definite, which enables the recursive
+application of the decomposition.  Thus, <span class="math notranslate nohighlight">\(L\)</span> is the desired Cholesky
+factor of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="Exercise-8">
+<h2>Exercise 8<a class="headerlink" href="#Exercise-8" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}H_+ &amp;= J_+ J_+^\top\\
+ &amp;= \left( L_c + \frac{(y_c - L_c v_c) v_c^\top}{v_c^\top v_c} \right)
+    \left( L_c + \frac{(y_c - L_c v_c) v_c^\top}{v_c^\top v_c} \right)^\top
+    &amp; \quad &amp; \text{(9.2.6)}\\
+ &amp;= H_c + \frac{L_c v_c (y_c - L_c v_c)^\top}{v_c^\top v_c} +
+    \frac{(y_c - L_c v_c) v_c^\top L_c^\top}{v_c^\top v_c} +
+    \frac{(y_c - L_c v_c) (y_c - L_c v_c)^\top}{v_c^\top v_c}\\
+ &amp;= H_c + \frac{y_c y_c^\top}{v_c^\top v_c} -
+    \frac{L_c v_c v_c^\top L_c^\top}{v_c^\top v_c}\\
+ &amp;= H_c + \frac{y_c y_c^\top}{\alpha^2 s_c^\top H_c s_c} -
+    \frac{H_c s_c s_c^\top H_c}{s_c^\top H_c s_c}
+    &amp; \quad &amp; \text{(9.2.8) and } H_c = L_c L_c^\top\\
+ &amp;= H_c + \frac{y_c y_c^\top}{y_c^\top s_c} -
+    \frac{H_c s_c s_c^\top H_c}{s_c^\top H_c s_c}
+    &amp; \quad &amp; \text{(9.2.9)}\end{split}\]</div>
+<p>According to Lemma 8.3.1
+(see <a class="reference internal" href="chapter-08.html#dennis1996numerical-ex-8-13"><span class="std std-ref">Exercise 8.13</span></a>), <span class="math notranslate nohighlight">\(J_+\)</span> given by
+(9.2.6, 9.2.9) is nonsingular.</p>
+</div>
+<div class="section" id="Exercise-9">
+<h2>Exercise 9<a class="headerlink" href="#Exercise-9" title="Permalink to this headline">¶</a></h2>
+<p>Suppose <span class="math notranslate nohighlight">\(H_c s_c = y_c\)</span>.  Then <span class="math notranslate nohighlight">\(\alpha = \pm 1\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}J_+ &amp;= L_c + \frac{(y_c - L_c v_c) v_c^\top}{v_c^\top v_c}
+       &amp; \quad &amp; \text{(9.2.6)}\\
+ &amp;= L_c + \frac{y_c v_c^\top}{v_c^\top v_c} -
+    \frac{L_c v_c v_c^\top}{v_c^\top v_c}\\
+ &amp;= L_c + \frac{y_c s_c^\top L_c}{\alpha s_c^\top H_c s_c} -
+    \frac{H_c s_c s_c^\top L_c}{s_c^\top H_c s_c}
+    &amp; \quad &amp; \text{(9.2.9)}\\
+ &amp;= L_c + \frac{y_c s_c^\top L_c}{\alpha y_c^\top s_c} -
+    \frac{y_c s_c^\top L_c}{y_c^\top s_c}
+    &amp; \quad &amp; \text{see initial supposition.}\end{split}\]</div>
+<p>Thus choosing <span class="math notranslate nohighlight">\(\alpha = 1\)</span> makes <span class="math notranslate nohighlight">\(J_+\)</span> closer to <span class="math notranslate nohighlight">\(L_c\)</span> when
+<span class="math notranslate nohighlight">\(y_c \cong H_c s_c\)</span>.</p>
+</div>
+<div class="section" id="Exercise-10">
+<h2>Exercise 10<a class="headerlink" href="#Exercise-10" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}H_+^{-1} &amp;= J_+^{-\top} J_+^{-1}\\
+ &amp;= \left(
+      L_c^{-\top} + \frac{(s_c - L_c^{-\top} w_c) w_c^\top}{w_c^\top w_c}
+    \right)
+    \left(
+      L_c^{-1} + \frac{w_c (s_c - L_c^{-\top} w_c)^\top}{w_c^\top w_c}
+    \right)
+    &amp; \quad &amp; \text{(9.2.12)}\\
+ &amp;= H_c^{-1} +
+    \frac{L_c^{-\top} w_c (s_c - L_c^{-\top} w_c)^\top}{w_c^\top w_c} +
+    \frac{(s_c - L_c^{-\top} w_c) w_c^\top L_c^{-1}}{w_c^\top w_c} +
+    \frac{
+      (s_c - L_c^{-\top} w_c) (s_c - L_c^{-\top} w_c)^\top
+    }{
+      w_c^\top w_c
+    }\\
+ &amp;= H_c^{-1} + \frac{s_c s_c^\top}{w_c^\top w_c} -
+    \frac{L_c^{-\top} w_c w_c^\top L_c^{-1}}{w_c^\top w_c}\\
+ &amp;= H_c^{-1} + \frac{s_c s_c^\top}{\alpha^2 y_c^\top H_c^{-1} y_c} -
+    \frac{H_c^{-1} y_c y_c^\top H_c^{-1}}{y_c^\top H_c^{-1} y_c}\\
+ &amp;= H_c^{-1} + \frac{s_c s_c^\top}{s_c^\top y_c} -
+    \frac{H_c^{-1} y_c y_c^\top H_c^{-1}}{y_c^\top H_c^{-1} y_c}\end{split}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[w_c =
+\left( \frac{y_c^\top s_c}{y_c^\top H_c^{-1} y_c} \right)^{1 / 2}
+  L_c^{-1} y_c =
+\alpha L_c^{-1} y_c.\]</div>
+<p>Using lemma 8.3.1 to invert (9.2.12) gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}J_+^{\top}
+ &amp;= \left(
+      L_c^{-\top} + \frac{(s_c - L_c^{-\top} w_c) w_c^\top}{w_c^\top w_c}
+    \right)^{-1}\\
+ &amp;= L_c^\top - \sigma^{-1} L_c^\top
+    \frac{(s_c - L_c^{-\top} w_c) w_c^\top}{w_c^\top w_c} L_c^\top\\
+ &amp;= L_c^\top - L_c^\top
+    \frac{(s_c - L_c^{-\top} w_c) w_c^\top}{w_c^\top L_c^\top s_c} L_c^\top\\
+ &amp;= L_c^\top -
+    \frac{
+      L_c^\top s_c w_c^\top L_c^\top - w_c w_c^\top L_c^\top
+    }{w_c^\top L_c^\top s_c}\\
+ &amp;= L_c^\top -
+    \frac{
+      L_c^\top s_c y_c^\top - \alpha L_c^{-1} y_c y_c^\top
+    }{y_c^\top s_c}\end{split}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\sigma =
+1 + \frac{w_c^\top}{w_c^\top w_c} L_c^\top (s_c - L_c^{-\top} w_c) =
+\frac{w_c^\top L_c^\top s_c}{w_c^\top w_c}.\]</div>
+<p>Consequently,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}H_+ &amp;= J_+ J_+^\top\\
+ &amp;= \left(
+      L_c -
+      \frac{y_c s_c^\top L_c - \alpha y_c y_c^\top L_c^{-\top}}{y_c^\top s_c}
+    \right)
+    \left(
+      L_c^\top -
+      \frac{
+        L_c^\top s_c y_c^\top - \alpha L_c^{-1} y_c y_c^\top
+      }{
+        y_c^\top s_c
+      }
+    \right)\\
+ &amp;= H_c -
+    \frac{H_c s_c y_c^\top - \alpha y_c y_c^\top}{y_c^\top s_c} -
+    \frac{y_c s_c^\top H_c - \alpha y_c y_c^\top}{y_c^\top s_c} +
+    \frac{
+      y_c s_c^\top H_c s_c y_c^\top - \alpha y_c s_c^\top y_c y_c^\top -
+      \alpha y_c y_c^\top s_c y_c^\top +
+      \alpha^2 y_c y_c^\top H_c^{-1} y_c y_c^\top
+    }{
+      (y_c^\top s_c)^2
+    }\\
+ &amp;= H_c +
+    \frac{y_c y_c^\top - H_c s_c y_c^\top - y_c s_c^\top H_c}{y_c^\top s_c} +
+    \frac{y_c s_c^\top H_c s_c y_c^\top}{(y_c^\top s_c)^2}\\
+ &amp;= H_c +
+    \frac{
+      (y_c - H_c s_c) y_c^\top + y_c (y_c - H_c s_c)^\top
+    }{
+      y_c^\top s_c
+    } -
+    \frac{(y_c - H_c s_c)^\top s_c y_c y_c^\top}{(y_c^\top s_c)^2}.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-11">
+<h2>Exercise 11<a class="headerlink" href="#Exercise-11" title="Permalink to this headline">¶</a></h2>
+<p>Define <span class="math notranslate nohighlight">\(H = T^\top T\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\hat{H}_+
+ &amp;= \hat{H}_c +
+    \frac{
+      (\hat{y}_c - \hat{H}_c \hat{s}_c) \hat{s}_c^\top +
+      \hat{s}_c (\hat{y}_c - \hat{H}_c \hat{s}_c)^\top
+    }{
+      \hat{s}_c^\top \hat{s}_c
+    } -
+    \frac{
+      (\hat{y}_c - \hat{H}_c \hat{s}_c)^\top
+      \hat{s}_c \hat{s}_c \hat{s}_c^\top
+    }{
+      (\hat{s}_c^\top \hat{s}_c)^2
+    }
+    &amp; \quad &amp; \text{(9.3.1)}\\
+ &amp;= T^{-\top} H_c T^{-1} +
+    \frac{
+      (T^{-\top} y_c - T^{-\top} H_c s_c) s_c^\top T^\top +
+      T s_c (y_c^\top T^{-1} - s_c^\top H_c T^{-1})
+    }{s_c^\top H s_c} -
+    \frac{
+      (y_c^\top - s_c^\top H_c) s_c T s_c s_c^\top T^\top
+    }{(s_c^\top H s_c)^2}\\
+H_+
+ &amp;= H_c +
+    \frac{
+      (y_c - H_c s_c) s_c^\top H +
+      H s_c (y_c - H_c s_c)^\top
+    }{s_c^\top H s_c} -
+    \frac{
+      (y_c - H_c s_c)^\top s_c H s_c s_c^\top H
+    }{(s_c^\top H s_c)^2}
+    &amp; \quad &amp; H_+ = T^\top \hat{H}_+ T.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-12">
+<span id="dennis1996numerical-ex-9-12"></span><h2>Exercise 12<a class="headerlink" href="#Exercise-12" title="Permalink to this headline">¶</a></h2>
+<p>The section on <em>Convergence of Double-Rank Methods</em> in <a class="bibtex reference internal" href="#broyden1973local" id="id12">[BDMore73]</a>
+is the proof for this exercise.  Overall, the proofs in paper were along the
+lines of the book’s.</p>
+</div>
+<div class="section" id="Exercise-13">
+<h2>Exercise 13<a class="headerlink" href="#Exercise-13" title="Permalink to this headline">¶</a></h2>
+<p>Suppose the assumptions of (9.3.1) holds
+(see <a class="reference internal" href="chapter-07.html#dennis1996numerical-ex-7-2"><span class="std std-ref">Exercise 7.2</span></a>).</p>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\hat{H}_+
+ &amp;= \hat{H}_c +
+    \frac{\hat{y}_c \hat{y}_c^\top}{\hat{y}_c^\top \hat{s}_c} -
+    \frac{
+      \hat{H}_c \hat{s}_c \hat{s}_c^\top \hat{H}_c
+    }{
+      \hat{s}_c^\top \hat{H}_c \hat{s}_c
+    }
+    &amp; \quad &amp; \text{(9.2.10)}\\
+ &amp;= T^{-\top} H_c T^{-1} +
+    \frac{T^{-\top} y_c y_c^\top T^{-1}}{y_c^\top s_c} -
+    \frac{T^{-\top} H_c s_c s_c^\top H_c T^{-1}}{s_c^\top H_c s_c}\\
+ &amp;= T^{-\top} H_+ T^{-1}\end{split}\]</div>
+<p>Applying the foregoing result to (9.2.11a) gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\hat{x}_{k + 1} &amp;= \hat{x}_k - \hat{H}_k^{-1} \nabla \hat{f}(\hat{x}_k)\\
+T x_{k + 1}
+ &amp;= T x_k -
+    \left( T^{-\top} H_k T^{-1} \right)^{-1} T^{-\top} \nabla f(x_k)\\
+T x_{k + 1} &amp;= T x_k - T H_k^{-1} \nabla f(x_k)\\
+x_{k + 1} &amp;= x_k - H_k^{-1} \nabla f(x_k),\end{split}\]</div>
+<p>which illustrates that the positive definite secant update is invariant under
+linear transformations of the variable space.</p>
+<p>As shown in <a class="reference internal" href="chapter-04.html#dennis1996numerical-ex-4-11"><span class="std std-ref">Exercise 4.11</span></a>,
+<span class="math notranslate nohighlight">\(\hat{H}_+\)</span> cannot be factored such that <span class="math notranslate nohighlight">\(T^{-\top} H_+ T^{-1}\)</span>
+is the original symmetric secant update where <span class="math notranslate nohighlight">\(H_+\)</span>.</p>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>Recall that Broyden’s update or simply the secant update <span class="math notranslate nohighlight">\((8.1.5)\)</span> applied
+to Hessians (9.1.2) is not guaranteed to be symmetric.  Its update has a rank
+of one by definition of rank and outer product.</p>
+<p>The update</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\hat{H}_+
+ &amp;= \hat{H}_c +
+    \frac{
+      (\hat{y}_c - \hat{H}_c \hat{s}_c) \hat{s}_c^\top
+    }{
+      \hat{s}_c^\top \hat{s}_c
+    }\\
+ &amp;= T^{-\top} H_c T^{-1} +
+    \frac{
+      (T^{-\top} y_c - T^{-\top} H_c s_c) s_c T^\top
+    }{
+      s_c^\top T^\top T s_c
+    }\end{split}\]</div>
+<p>can be modified to be invariant under linear transformations of the variable
+space as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\hat{H}_+
+ &amp;= \hat{H}_c +
+    \frac{
+      (\hat{y}_c - \hat{H}_c \hat{s}_c) \hat{y}_c^\top
+    }{
+      \hat{y}_c^\top \hat{s}_c
+    }\\
+ &amp;= T^{-\top} H_c T^{-1} +
+    \frac{(T^{-\top} y_c - T^{-\top} H_c s_c) y_c T^{-1}}{y_c s_c}\\
+ &amp;= T^{-\top} H_+ T^{-1}\end{split}\]</div>
+<p>which is essentially (8.4.5) with <span class="math notranslate nohighlight">\(v_k = y_c\)</span>.</p>
+</div>
+</div>
+<div class="section" id="Exercise-14">
+<h2>Exercise 14<a class="headerlink" href="#Exercise-14" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(f(x_1, x_2) = x_1^2 + 2 x_1 x_2 + 2 x_2^2 + x_2^4\)</span>.  Then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\nabla f
+ &amp;= \begin{bmatrix} 2 x_1 + 2 x_2\\ 2 x_1 + 4 x_2 + 4 x_2^3 \end{bmatrix}\\\\
+\nabla^2 f
+ &amp;= \begin{bmatrix} 2 &amp; 2\\ 2 &amp; 4 + 12 x_2^2 \end{bmatrix}.\end{split}\]</div>
+<p>Suppose <span class="math notranslate nohighlight">\(x_0 = (1, -1)^\top\)</span>, then
+<span class="math notranslate nohighlight">\(\nabla f(x_0) = \begin{bmatrix} 0\\ -6 \end{bmatrix}\)</span> and
+<span class="math notranslate nohighlight">\(H_0 = \nabla^2 f(x_0) = \begin{bmatrix} 2 &amp; 2\\ 2 &amp; 16 \end{bmatrix}\)</span>.</p>
+<p>The positive definite secant and symmetric secant methods have in common the
+following updates:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x_{k + 1} &amp;= x_k - H_k^{-1} \nabla f(x_k)\\\\
+s_k &amp;= x_{k + 1} - x_k\\\\
+y_k &amp;= \nabla f(x_{k + 1}) - \nabla f(x_k).\end{split}\]</div>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>Suppose <span class="math notranslate nohighlight">\(f \colon \mathbb{R}^n \rightarrow \mathbb{R}\)</span> and
+<span class="math notranslate nohighlight">\(\nabla f(x) = \begin{bmatrix} A x + b\\ F(x) \end{bmatrix}\)</span> where
+<span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>, <span class="math notranslate nohighlight">\(b \in \mathbb{R}^m\)</span>, and
+<span class="math notranslate nohighlight">\(F \colon \mathbb{R}^n \rightarrow \mathbb{R}^{n - m}\)</span> is nonlinear.</p>
+<p>Let <span class="math notranslate nohighlight">\(z_k = F(x_{k + 1}) - F(x_k)\)</span> and
+<span class="math notranslate nohighlight">\(s_k = \begin{bmatrix} s_{k1}\\ s_{k2} \end{bmatrix}\)</span> where
+<span class="math notranslate nohighlight">\(s_{k1} \in \mathbb{R}^m\)</span> and <span class="math notranslate nohighlight">\(s_{k2} \in \mathbb{R}^{n - m}\)</span>
+in order to simplify notations.</p>
+<p><span class="math notranslate nohighlight">\(H_0 = H(x_0)\)</span> can be calculated using finite difference or analytically
+as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}H = \nabla^2 f(x) &amp;= \frac{\partial \nabla f(x)}{\partial x}\\
+ &amp;= \begin{bmatrix} A\\ F'(x) \end{bmatrix}
+    &amp; \quad &amp; \frac{\partial F(x)}{\partial x} = F'(x) \in
+              \mathbb{R}^{(n - m) \times n}\\
+ &amp;= H^\top
+    &amp; \quad &amp; \text{(9.2.10) is a symmetric matrix of rank at most two.}\end{split}\]</div>
+<p>As shown in <a class="reference internal" href="chapter-08.html#dennis1996numerical-ex-8-10"><span class="std std-ref">Exercise 8.10</span></a>, the affine
+transformation <span class="math notranslate nohighlight">\(Ax_k + b = 0\)</span> for all <span class="math notranslate nohighlight">\(k \geq 1\)</span>.</p>
+<p>Substituting the given values into (a.1) shows that the positive definite secant
+method converges to the correct Hessian.  (a.2) illustrates that the symmetric
+secant method in this case fails to converge to the correct Hessian.  Note that
+this way of showing convergence is handwavy; the more rigorous version is along
+the lines of Exercises <a class="reference internal" href="#dennis1996numerical-ex-9-5"><span class="std std-ref">5</span></a>,
+<a class="reference internal" href="#dennis1996numerical-ex-9-6"><span class="std std-ref">6</span></a>, and
+<a class="reference internal" href="#dennis1996numerical-ex-9-12"><span class="std std-ref">12</span></a>.
+See <a class="reference internal" href="chapter-08.html#dennis1996numerical-ex-8-10"><span class="std std-ref">Exercise 8.10</span></a> for a general idea of how
+to prove this.  Supposely <a class="bibtex reference internal" href="#schnabelqnu82" id="id16">[Sch82]</a>, which could not be found on the
+internet, contains the proof.</p>
+<div class="section" id="(a.1)">
+<h4>(a.1)<a class="headerlink" href="#(a.1)" title="Permalink to this headline">¶</a></h4>
+<div class="math notranslate nohighlight">
+\[\begin{split}H_1 &amp;= H_0 + \frac{y_0 y_0^\top}{y_0^\top s_0} -
+       \frac{H_0 s_0 s_0^\top H_0}{s_0^\top H_0 s_0}\\
+ &amp;= \begin{bmatrix} A\\ F'(x_0) \end{bmatrix} +
+    \frac{
+      \begin{bmatrix} A s_0\\ z_0 \end{bmatrix}
+      \begin{bmatrix} A s_0\\ z_0 \end{bmatrix}^\top
+    }{
+      \begin{bmatrix} A s_0\\ z_0 \end{bmatrix}^\top s_0
+    } -
+    \frac{
+      \begin{bmatrix} A s_0\\ F'(x_0) s_0 \end{bmatrix}
+      \begin{bmatrix} s_0^\top A^\top\\ s_0^\top F'(x_0)^\top \end{bmatrix}
+    }{
+      \begin{bmatrix} A s_0\\ F'(x_0) s_0 \end{bmatrix}^\top s_0
+    }\\
+ &amp;= \begin{bmatrix} A\\ F'(x_0) \end{bmatrix} +
+    (s_0^\top A^\top s_{01} + z_0^\top s_{02})^{-1}
+      \begin{bmatrix}
+        A s_0 s_0^\top A^\top &amp; A s_0 z_0^\top\\
+        z_0 s_0^\top A^\top &amp; z_0 z_0^\top
+      \end{bmatrix} -
+    (s_0^\top A^\top s_{01} + s_0^\top F'(x_0)^\top s_{02})^{-1}
+      \begin{bmatrix}
+        A s_0 s_0^\top A^\top &amp; A s_0 s_0^\top F'(x_0)^\top\\
+        F'(x_0) s_0 s_0^\top A^\top &amp; F'(x_0) s_0 s_0^\top F'(x_0)^\top
+      \end{bmatrix}\end{split}\]</div>
+<p>Generalizing this update sequence gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}H_{k + 1}
+ &amp;= H_k + \frac{y_k y_k^\top}{y_k^\top s_k} -
+    \frac{H_k s_k s_k^\top H_k}{s_k^\top H_k s_k}\\
+ &amp;= H_k +
+    (s_k^\top A^\top s_{k1} + z_k^\top s_{k2})^{-1}
+      \begin{bmatrix}
+        A s_k s_k^\top A^\top &amp; A s_k z_k^\top\\
+        z_k s_k^\top A^\top &amp; z_k z_k^\top
+      \end{bmatrix} -
+    (s_k^\top A^\top s_{k1} + s_k^\top F'(x_k)^\top s_{k2})^{-1}
+      \begin{bmatrix}
+        A s_k s_k^\top A^\top &amp; A s_k s_k^\top F'(x_k)^\top\\
+        F'(x_k) s_k s_k^\top A^\top &amp; F'(x_k) s_k s_k^\top F'(x_k)^\top
+      \end{bmatrix}\\
+ &amp;= H_k +
+    (z_k^\top s_{k2})^{-1}
+      \begin{bmatrix}
+        \boldsymbol{0}_{m \times m} &amp; \boldsymbol{0}_{m \times (n - m)}\\
+        \boldsymbol{0}_{(n - m) \times m} &amp; z_k z_k^\top
+      \end{bmatrix} -
+    (s_k^\top F'(x_k)^\top s_{k2})^{-1}
+      \begin{bmatrix}
+        \boldsymbol{0}_{m \times m} &amp; \boldsymbol{0}_{m \times (n - m)}\\
+        \boldsymbol{0}_{(n - m) \times m} &amp; F'(x_k) s_k s_k^\top F'(x_k)^\top
+      \end{bmatrix}.\end{split}\]</div>
+<p>Notice how the remaining block matrices form another positive definite secant
+update, which still satisfies Theorem 9.3.1 according to the Schur complement.</p>
+</div>
+<div class="section" id="(a.2)">
+<h4>(a.2)<a class="headerlink" href="#(a.2)" title="Permalink to this headline">¶</a></h4>
+<div class="math notranslate nohighlight">
+\[\begin{split}H_1
+ &amp;= H_0 +
+    \frac{
+      (y_0 - H_0 s_0) s_0^\top + s_0 (y_0 - H_0 s_0)^\top
+    }{
+      s_0^\top s_0
+    } -
+    \frac{(y_0 - H_0 s_0)^\top s_0 s_0 s_0^\top}{(s_0^\top s_0)^2}\\
+ &amp;= \begin{bmatrix} A\\ F'(x_0) \end{bmatrix} +
+    \frac{
+      \begin{bmatrix}
+        \boldsymbol{0}_{m \times 1}\\
+        z_0 - F'(x_0) s_0
+      \end{bmatrix} s_0^\top +
+      s_0 \begin{bmatrix}
+        \boldsymbol{0}_{1 \times m} &amp; z_0^\top - s_0^\top F'(x_0)^\top
+      \end{bmatrix}
+    }{
+      s_0^\top s_0
+    } -
+    \frac{
+      \left( z_0^\top - s_0^\top F'(x_0)^\top \right) s_{02}
+    }{
+      (s_0^\top s_0)^2
+    } s_0 s_0^\top\\
+ &amp;= \begin{bmatrix} A\\ F'(x_0) \end{bmatrix} +
+    \frac{
+      \begin{bmatrix}
+        \boldsymbol{0}_{m \times n}\\
+        z_0 s_0^\top - F'(x_0) s_0 s_0^\top
+      \end{bmatrix} +
+      \begin{bmatrix}
+        \boldsymbol{0}_{n \times m} &amp;
+          s_0 z_0^\top - s_0 s_0^\top F'(x_0)^\top
+      \end{bmatrix}
+    }{
+      s_0^\top s_0
+    } -
+    \frac{
+      z_0^\top s_{02} - s_0^\top F'(x_0)^\top s_{02}
+    }{
+      (s_0^\top s_0)^2
+    } s_0 s_0^\top\end{split}\]</div>
+<p>Generalizing this update sequence gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}H_{k + 1}
+ &amp;= H_k +
+    \frac{
+      (y_k - H_k s_k) s_k^\top + s_k (y_k - H_k s_k)^\top
+    }{
+      s_k^\top s_k
+    } -
+    \frac{(y_k - H_k s_k)^\top s_k s_k s_k^\top}{(s_k^\top s_k)^2}\\
+ &amp;= H_k +
+    \frac{
+      \begin{bmatrix}
+        \boldsymbol{0}_{m \times n}\\
+        z_k s_k^\top - F'(x_k) s_k s_k^\top
+      \end{bmatrix} +
+      \begin{bmatrix}
+        \boldsymbol{0}_{n \times m} &amp;
+          s_k z_k^\top - s_k s_k^\top F'(x_k)^\top
+      \end{bmatrix}
+    }{
+      s_k^\top s_k
+    } -
+    \frac{
+      z_k^\top s_{k2} - s_k^\top F'(x_k)^\top s_{k2}
+    }{
+      (s_k^\top s_k)^2
+    } s_k s_k^\top.\end{split}\]</div>
+<p>Unlike (a.1), the remaining block matrices cannot be isolated to form a
+symmetric secant update.  This means even though Theorem 9.1.2 guarantees
+its convergence to <span class="math notranslate nohighlight">\(x_*\)</span>, there is no guarantee on the Hessian.</p>
+</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>In this case, the positive definite secant method exactly computes the linear
+portion of the Hessian in a single step.  The symmetric secant method does not
+seem to be directly affected by <span class="math notranslate nohighlight">\(\nabla f(x)\)</span>.</p>
+</div>
+<div class="section" id="(c)">
+<h3>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h3>
+<p>It is interesting that the symmetric secant method’s Hessian converges to
+<span class="math notranslate nohighlight">\(\nabla^2 f(x_*)\)</span> numerically if the stopping criterion is ignored.</p>
+<p>When <span class="math notranslate nohighlight">\(\nabla f(x_0)\)</span> is not zero in the linear components of
+<span class="math notranslate nohighlight">\(\nabla f(x)\)</span>, the symmetric secant method takes several times longer to
+converge to the correct Hessian compared to the positive definite secant method.
+However, it does converge to the correct Hessian.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="k">def</span> <span class="nf">pdsu</span><span class="p">(</span><span class="n">x_c</span><span class="p">,</span> <span class="n">H_c</span><span class="p">):</span>
+    <span class="n">x_k</span> <span class="o">=</span> <span class="n">x_c</span> <span class="o">-</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">H_c</span><span class="p">)</span> <span class="o">*</span> <span class="n">fp</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+    <span class="n">s_k</span> <span class="o">=</span> <span class="n">x_k</span> <span class="o">-</span> <span class="n">x_c</span>
+    <span class="n">y_k</span> <span class="o">=</span> <span class="n">fp</span><span class="p">(</span><span class="n">x_k</span><span class="p">)</span> <span class="o">-</span> <span class="n">fp</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+
+    <span class="n">_</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_k</span> <span class="o">*</span> <span class="n">y_k</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">y_k</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">s_k</span><span class="p">)</span>
+    <span class="n">_</span> <span class="o">-=</span> <span class="p">(</span><span class="n">H_c</span> <span class="o">*</span> <span class="n">s_k</span> <span class="o">*</span> <span class="n">s_k</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">H_c</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">s_k</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">H_c</span> <span class="o">*</span> <span class="n">s_k</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x_k</span><span class="p">,</span> <span class="n">H_c</span> <span class="o">+</span> <span class="n">_</span>
+
+<span class="k">def</span> <span class="nf">ssu</span><span class="p">(</span><span class="n">x_c</span><span class="p">,</span> <span class="n">H_c</span><span class="p">):</span>
+    <span class="n">x_k</span> <span class="o">=</span> <span class="n">x_c</span> <span class="o">-</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">H_c</span><span class="p">)</span> <span class="o">*</span> <span class="n">fp</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+    <span class="n">s_k</span> <span class="o">=</span> <span class="n">x_k</span> <span class="o">-</span> <span class="n">x_c</span>
+    <span class="n">y_k</span> <span class="o">=</span> <span class="n">fp</span><span class="p">(</span><span class="n">x_k</span><span class="p">)</span> <span class="o">-</span> <span class="n">fp</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+
+    <span class="n">_</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_k</span> <span class="o">-</span> <span class="n">H_c</span> <span class="o">*</span> <span class="n">s_k</span><span class="p">)</span> <span class="o">*</span> <span class="n">s_k</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">s_k</span> <span class="o">*</span> <span class="p">(</span><span class="n">y_k</span> <span class="o">-</span> <span class="n">H_c</span> <span class="o">*</span> <span class="n">s_k</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">_</span> <span class="o">/=</span> <span class="n">s_k</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">s_k</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_k</span> <span class="o">-</span> <span class="n">H_c</span> <span class="o">*</span> <span class="n">s_k</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">s_k</span>
+    <span class="n">_</span> <span class="o">-=</span> <span class="p">(</span><span class="n">dp</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">s_k</span> <span class="o">*</span> <span class="n">s_k</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">s_k</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">s_k</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="n">x_k</span><span class="p">,</span> <span class="n">H_c</span> <span class="o">+</span> <span class="n">_</span>
+
+<span class="k">def</span> <span class="nf">fp</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">flat</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+                           <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">3</span><span class="p">]])</span>
+
+<span class="k">def</span> <span class="nf">fpp</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">flat</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                           <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">12</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">]])</span>
+<span class="n">x_0</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x_c</span> <span class="o">=</span> <span class="n">x_0</span>
+<span class="n">H_c</span> <span class="o">=</span> <span class="n">fpp</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="s1">&#39;x_{0}: {1}</span><span class="se">\t\t</span><span class="s1">H_{0}: {2}&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span>
+               <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">H_c</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">x_k</span><span class="p">,</span> <span class="n">H_k</span> <span class="o">=</span> <span class="n">pdsu</span><span class="p">(</span><span class="n">x_c</span><span class="p">,</span> <span class="n">H_c</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_k</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span>
+                   <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">H_k</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()))</span>
+    <span class="n">x_c</span><span class="p">,</span> <span class="n">H_c</span> <span class="o">=</span> <span class="n">x_k</span><span class="p">,</span> <span class="n">H_k</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+x_0: [ 1 -1]            H_0: [ 2  2  2 16]
+x_1: [ 0.57142857 -0.57142857]          H_1: [ 2.          2.          2.         11.59183673]
+x_2: [ 0.37446809 -0.37446809]          H_2: [2.         2.         2.         6.72295489]
+x_3: [ 0.17142203 -0.17142203]          H_3: [2.         2.         2.         4.93521577]
+x_4: [ 0.04775366 -0.04775366]          H_4: [2.         2.         2.         4.15940782]
+x_5: [ 0.00332346 -0.00332346]          H_5: [2.         2.         2.         4.00980066]
+x_6: [ 1.61335925e-05 -1.61335925e-05]          H_6: [2.        2.        2.        4.0000444]
+x_7: [ 3.58126625e-10 -3.58126625e-10]          H_7: [2. 2. 2. 4.]
+x_8: [ 1.86439634e-19 -1.86439634e-19]          H_8: [2. 2. 2. 4.]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x_c</span> <span class="o">=</span> <span class="n">x_0</span>
+<span class="n">H_c</span> <span class="o">=</span> <span class="n">fpp</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="s1">&#39;x_{0}: {1}</span><span class="se">\t\t</span><span class="s1">H_{0}: {2}&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span>
+               <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">H_c</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">x_k</span><span class="p">,</span> <span class="n">H_k</span> <span class="o">=</span> <span class="n">ssu</span><span class="p">(</span><span class="n">x_c</span><span class="p">,</span> <span class="n">H_c</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_k</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span>
+                   <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">H_k</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()))</span>
+    <span class="n">x_c</span><span class="p">,</span> <span class="n">H_c</span> <span class="o">=</span> <span class="n">x_k</span><span class="p">,</span> <span class="n">H_k</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+x_0: [ 1 -1]            H_0: [ 2  2  2 16]
+x_1: [ 0.57142857 -0.57142857]          H_1: [ 3.10204082  3.10204082  3.10204082 12.69387755]
+x_2: [ 0.37446809 -0.37446809]          H_2: [4.31926128 4.31926128 4.31926128 9.04221617]
+x_3: [ 0.17142203 -0.17142203]          H_3: [4.76619606 4.76619606 4.76619606 7.70141183]
+x_4: [ 0.04775366 -0.04775366]          H_4: [4.96014804 4.96014804 4.96014804 7.11955587]
+x_5: [ 0.00332346 -0.00332346]          H_5: [4.99754984 4.99754984 4.99754984 7.00735049]
+x_6: [ 1.61335925e-05 -1.61335925e-05]          H_6: [4.9999889 4.9999889 4.9999889 7.0000333]
+x_7: [ 3.58126646e-10 -3.58126625e-10]          H_7: [5. 5. 5. 7.]
+x_8: [ 1.29405326e-17 -1.86439738e-19]          H_8: [4.99999993 5.         5.         7.00000007]
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="Exercise-15">
+<h2>Exercise 15<a class="headerlink" href="#Exercise-15" title="Permalink to this headline">¶</a></h2>
+<p>There is a typo in the definition of <span class="math notranslate nohighlight">\(f\)</span>.  This exercise illustrates that
+the convergence of the Hessian using either method depends on the function and
+is not true in general.</p>
+<p>From (a) and (b), it is not obvious that both methods converge to the same
+incorrect Hessian.</p>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}H_1 &amp;= H_0 + \frac{y_0 y_0^\top}{y_0^\top s_0} -
+       \frac{H_0 s_0 s_0^\top H_0}{s_0^\top H_0 s_0}\\
+ &amp;= I + \frac{y_0 y_0^\top}{y_0^\top s_0} - \frac{s_0 s_0^\top}{s_0^\top s_0}\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}H_1 &amp;= H_0 +
+       \frac{
+         (y_0 - H_0 s_0) s_0^\top + s_0 (y_0 - H_0 s_0)^\top
+       }{
+         s_0^\top s_0
+       } -
+       \frac{
+         (y_0 - H_0 s_0)^\top s_0 s_0 s_0^\top
+       }{
+         (s_0^\top s_0)^2
+       }\\
+ &amp;= I + \frac{(y_0 - s_0) s_0^\top + s_0 (y_0 - s_0)^\top}{s_0^\top s_0} -
+    \frac{(y_0 - s_0)^\top s_0 s_0 s_0^\top}{(s_0^\top s_0)^2}\\
+ &amp;= I +
+    \frac{
+      y_0 s_0^\top - s_0 s_0^\top + s_0 y_0^\top - s_0 s_0^\top
+    }{
+      s_0^\top s_0
+    } -
+    \frac{(y_0^\top s_0 - s_0^\top s_0) s_0 s_0^\top}{(s_0^\top s_0)^2}\\
+ &amp;= I + \frac{y_0 s_0^\top + s_0 y_0^\top - s_0 s_0^\top}{s_0^\top s_0} -
+    \frac{y_0^\top s_0}{(s_0^\top s_0)^2} s_0 s_0^\top\\
+ &amp;= I + \frac{y_0 s_0^\top + s_0 y_0^\top}{s_0^\top s_0} -
+    (1 + \frac{y_0^\top s_0}{s_0^\top s_0}) \frac{s_0 s_0^\top}{s_0^\top s_0}\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-16,-Exercise-17">
+<h2>Exercise 16, Exercise 17<a class="headerlink" href="#Exercise-16,-Exercise-17" title="Permalink to this headline">¶</a></h2>
+<p>These exercises are related to benchmarking different minimization algorithms.
+These tasks are already completed by existing solver packages such as
+Ceres and Eigen.</p>
+</div>
+<div class="section" id="Exercise-18">
+<h2>Exercise 18<a class="headerlink" href="#Exercise-18" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(f(x) = 2^{-1} x^\top H x\)</span> be a positive definite quadratic where the
+Hessian <span class="math notranslate nohighlight">\(H \in \mathbb{R}^{n \times n}\)</span> and
+<span class="math notranslate nohighlight">\(x_c, x_+ \in \mathbb{R}^n\)</span> are distinct points.</p>
+<p>Define <span class="math notranslate nohighlight">\(s\)</span> and <span class="math notranslate nohighlight">\(y\)</span> according to (9.2.11b) such that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\nabla f(x) &amp;= Hx\\\\
+\nabla^2 f(x) &amp;= H\\\\
+s &amp;= x_+ - x_c\\\\
+y &amp;= \nabla f(x_+) - \nabla f(x_c) = H (x_+ - x_c) = Hs.\end{split}\]</div>
+<p>The characteristic equation of <span class="math notranslate nohighlight">\(\frac{s^\top y}{s^\top s} I\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\det\left( \frac{s^\top y}{s^\top s} I - \nu I \right) = 0,\]</div>
+<p>which shows that the eigenvalue <span class="math notranslate nohighlight">\(\nu = \frac{s^\top y}{s^\top s}\)</span> has a
+multiplicity of <span class="math notranslate nohighlight">\(n\)</span>.</p>
+<p>Rewriting the eigenvalue gives</p>
+<div class="math notranslate nohighlight">
+\[\nu = \frac{s^\top y}{s^\top s} = \frac{s^\top H s}{s^\top s} = v^\top H v\]</div>
+<p>where <span class="math notranslate nohighlight">\(v = s \left\Vert s \right\Vert_2^{-1}\)</span>.</p>
+<p>Recall that an eigenvalue of <span class="math notranslate nohighlight">\(H\)</span> must satisfy the condition</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Hz &amp;= \lambda z\\
+z^\top H z &amp;= \lambda z^\top z.\end{split}\]</div>
+<p>Since <span class="math notranslate nohighlight">\(H\)</span> is positive definite, its eigenvalues must all be positive.
+Assuming <span class="math notranslate nohighlight">\(z\)</span> is restricted to a unit vector, (a) shows that the range of
+eigenvalues of <span class="math notranslate nohighlight">\(H\)</span> includes <span class="math notranslate nohighlight">\(\nu\)</span>.</p>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^\top H z
+ &amp;= z^\top Q \Lambda Q^\top z
+    &amp; \quad &amp; \text{real symmetric matrix eigendecomposition}\\
+ &amp;= y^\top \Lambda y
+    &amp; \quad &amp; y = Q^\top z\\
+ &amp;= \sum_{i = 1}^n \lambda_i y_i^2\\
+ &amp;\leq \lambda_\max \sum_{i = 1}^n y_i^2\\
+ &amp;= \lambda_\max y^\top y\\
+z^\top H z &amp;\leq \lambda_\max z^\top z\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-19">
+<h2>Exercise 19<a class="headerlink" href="#Exercise-19" title="Permalink to this headline">¶</a></h2>
+<p>Even though each heuristic converged successfully to <span class="math notranslate nohighlight">\(x_*\)</span>, none of them
+converged to the correct Hessian with a stopping criterion of <span class="math notranslate nohighlight">\(10^{-8}\)</span>.</p>
+<p>The Schnabel heuristic converged much quicker than the identity heuristic.
+Moreover, the identity heuristic experienced overflow when
+<span class="math notranslate nohighlight">\(x_0 = (-1, 3)^\top\)</span>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">flat</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">4</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="k">def</span> <span class="nf">fp</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">flat</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([[</span><span class="mi">4</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">_</span><span class="p">],</span>
+                           <span class="p">[</span><span class="n">_</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])]])</span>
+
+<span class="k">def</span> <span class="nf">fpp</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">flat</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                           <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])]])</span>
+<span class="n">x_0</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                      <span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x_c</span> <span class="o">=</span> <span class="n">x_0</span>
+<span class="n">H_c</span> <span class="o">=</span> <span class="n">fpp</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="s1">&#39;x_{0}: {1}</span><span class="se">\t\t</span><span class="s1">H_{0}: {2}&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span>
+               <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">H_c</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
+    <span class="n">x_k</span><span class="p">,</span> <span class="n">H_k</span> <span class="o">=</span> <span class="n">pdsu</span><span class="p">(</span><span class="n">x_c</span><span class="p">,</span> <span class="n">H_c</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_k</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span>
+                   <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">H_k</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()))</span>
+    <span class="n">x_c</span><span class="p">,</span> <span class="n">H_c</span> <span class="o">=</span> <span class="n">x_k</span><span class="p">,</span> <span class="n">H_k</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+x_0: [-1  3]            H_0: [   6.            2.            2.         1573.54410012]
+x_1: [-0.83667163  2.5100149 ]          H_1: [  6.           2.           2.         998.89787784]
+x_2: [-0.7426493   2.22794789]          H_2: [  6.           2.           2.         443.44283829]
+x_3: [-0.62469991  1.87409972]          H_3: [  6.           2.           2.         233.30165316]
+x_4: [-0.5181552   1.55446561]          H_4: [  6.           2.           2.         116.28755637]
+x_5: [-0.41032666  1.23097999]          H_5: [ 6.          2.          2.         59.87797302]
+x_6: [-0.30760028  0.92280085]          H_6: [ 6.          2.          2.         31.12339324]
+x_7: [-0.21061501  0.63184504]          H_7: [ 6.          2.          2.         16.83526742]
+x_8: [-0.12490953  0.37472859]          H_8: [6.         2.         2.         9.74841099]
+x_9: [-0.05803004  0.17409012]          H_9: [6.         2.         2.         6.33545863]
+x_10: [-0.01776458  0.05329373]         H_10: [6.         2.         2.         4.79129044]
+x_11: [-0.00269008  0.00807023]         H_11: [6.         2.         2.         4.19210244]
+x_12: [-0.00012799  0.00038398]         H_12: [6.         2.         2.         4.02552286]
+x_13: [-9.28668114e-07  2.78600434e-06]         H_13: [6.         2.         2.         4.00116064]
+x_14: [-3.20914944e-10  9.62744831e-10]         H_14: [6.         2.         2.         4.00000836]
+x_15: [-8.16388618e-16  2.44916585e-15]         H_15: [6.         2.         2.         3.99999989]
+x_16: [-1.33501404e-18  4.00504212e-18]         H_16: [6.         2.         2.         3.99781597]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x_c</span> <span class="o">=</span> <span class="n">x_0</span>
+<span class="n">H_c</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_c</span><span class="p">))</span>
+<span class="n">_</span> <span class="o">=</span> <span class="s1">&#39;x_{0}: {1}</span><span class="se">\t\t</span><span class="s1">H_{0}: {2}&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span>
+               <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">H_c</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">x_k</span><span class="p">,</span> <span class="n">H_k</span> <span class="o">=</span> <span class="n">pdsu</span><span class="p">(</span><span class="n">x_c</span><span class="p">,</span> <span class="n">H_c</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_k</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span>
+                   <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">H_k</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()))</span>
+    <span class="n">x_c</span><span class="p">,</span> <span class="n">H_c</span> <span class="o">=</span> <span class="n">x_k</span><span class="p">,</span> <span class="n">H_k</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+x_0: [-1  3]            H_0: [1. 0. 0. 1.]
+x_1: [  -1.         -767.68651314]              H_1: [2.33564408 2.         2.         2.99480982]
+x_2: [ 513.68143814 -598.0563262 ]              H_2: [5.96643161 2.10185113 2.10185113 1.6909696 ]
+x_3: [-111.18935846  278.4438572 ]              H_3: [3.28480919 0.06429767 0.06429767        inf]
+x_4: [-77.62624105 278.4438572 ]                H_4: [nan nan nan nan]
+x_5: [nan nan]          H_5: [nan nan nan nan]
+x_6: [nan nan]          H_6: [nan nan nan nan]
+x_7: [nan nan]          H_7: [nan nan nan nan]
+x_8: [nan nan]          H_8: [nan nan nan nan]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x_c</span> <span class="o">=</span> <span class="n">x_0</span>
+<span class="n">H_c</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_c</span><span class="p">))</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x_0</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="s1">&#39;x_{0}: {1}</span><span class="se">\t\t</span><span class="s1">H_{0}: {2}&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span>
+               <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">H_c</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
+    <span class="n">x_k</span><span class="p">,</span> <span class="n">H_k</span> <span class="o">=</span> <span class="n">pdsu</span><span class="p">(</span><span class="n">x_c</span><span class="p">,</span> <span class="n">H_c</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_k</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span>
+                   <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">H_k</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()))</span>
+    <span class="n">x_c</span><span class="p">,</span> <span class="n">H_c</span> <span class="o">=</span> <span class="n">x_k</span><span class="p">,</span> <span class="n">H_k</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+x_0: [-1  3]            H_0: [369.25771965   0.           0.         369.25771965]
+x_1: [-1.          0.91287637]          H_1: [369.26865517   2.           2.         365.78033718]
+x_2: [-0.9885881   0.89297221]          H_2: [278.66012851 158.32756492 158.32756492 111.03763909]
+x_3: [-0.72547548  0.45607157]          H_3: [274.64325718 163.78377168 163.78377168 111.38285765]
+x_4: [-0.56781456  0.21270315]          H_4: [261.30722445 167.39520948 167.39520948 114.23128041]
+x_5: [-0.39287129 -0.04257572]          H_5: [244.11671738 165.18200469 165.18200469 116.43905471]
+x_6: [-0.28113629 -0.19291898]          H_6: [199.83411526 146.05736544 146.05736544 110.45644706]
+x_7: [-0.21601988 -0.26781987]          H_7: [100.81326034  84.42759544  84.42759544  74.59667515]
+x_8: [-0.15333452 -0.32097495]          H_8: [29.08639126 29.22559111 29.22559111 34.83780782]
+x_9: [-0.05878757 -0.36162675]          H_9: [ 8.38034685  7.53615301  7.53615301 15.47582188]
+x_10: [ 0.03900773 -0.32760138]         H_10: [6.38800315 0.88480616 0.88480616 5.79646148]
+x_11: [ 0.08244197 -0.16519482]         H_11: [8.34915061 1.37173986 1.37173986 3.05750176]
+x_12: [ 0.03662406 -0.00606959]         H_12: [8.01476872 2.58012474 2.58012474 3.71387439]
+x_13: [8.73911509e-03 8.75585830e-05]           H_13: [5.97704698 1.89604859 1.89604859 3.51135524]
+x_14: [ 6.13665268e-05 -3.04043648e-04]         H_14: [5.99917425 2.01829831 2.01829831 3.5938675 ]
+x_15: [-1.55035930e-05  4.33011301e-05]         H_15: [5.9724562  1.99390434 1.99390434 3.99786894]
+x_16: [ 3.31002606e-08 -1.73583456e-08]         H_16: [5.97279364 1.99024211 1.99024211 3.99663007]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Exercise-20">
+<h2>Exercise 20<a class="headerlink" href="#Exercise-20" title="Permalink to this headline">¶</a></h2>
+<p>Suppose <span class="math notranslate nohighlight">\(H_c \triangleq H\)</span> is symmetric, <span class="math notranslate nohighlight">\(s_c \triangleq s\)</span>, and
+<span class="math notranslate nohighlight">\(y_c \triangleq y\)</span>.</p>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}H_+ s
+ &amp;= \left(
+      H + \frac{(y - Hs) (y - Hs)^\top}{(y - Hs)^\top s}
+    \right) s
+    &amp; \quad &amp; \text{(9.6.1)}\\
+ &amp;= Hs +
+    \frac{
+      yy^\top - y s^\top H^\top - Hs y^\top + Hs s^\top H^\top
+    }{
+      y^\top s - s^\top H^\top s
+    } s\\
+ &amp;= Hs +
+    \frac{
+      (y^\top s - s^\top H^\top s) y - (y^\top s - s^\top H^\top s) Hs
+    }{
+      y^\top s - s^\top H^\top s
+    }\\
+ &amp;= y\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>As laid out in <a class="reference internal" href="#dennis1996numerical-ex-9-3"><span class="std std-ref">Exercise 3</span></a>, define
+<span class="math notranslate nohighlight">\(\Sigma \triangleq \begin{bmatrix} \sigma_1 &amp; \sigma_2\\
+\sigma_3 &amp; \sigma_4 \end{bmatrix}\)</span>.  <span class="math notranslate nohighlight">\(H_+ - H\)</span> can be decomposed into</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}H_+ - H
+ &amp;= \begin{bmatrix} y - Hs &amp; s \end{bmatrix}
+    \begin{bmatrix} \sigma_1 &amp; \sigma_2\\ \sigma_3 &amp; \sigma_4 \end{bmatrix}
+    \begin{bmatrix} \left( y - Hs \right)^\top\\ s^\top \end{bmatrix}\\
+ &amp;= \sigma_1 \left( y - Hs \right) \left( y - Hs \right)^\top +
+    \sigma_3 s \left( y - Hs \right)^\top +
+    \sigma_2 \left( y - Hs \right) s^\top + \sigma_4 s s^\top\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma_1 = \frac{1}{(y - Hs)^\top s}\)</span> and
+<span class="math notranslate nohighlight">\(\sigma_2 = \sigma_3 = \sigma_4 = 0\)</span>.</p>
+<p>By inspection, <span class="math notranslate nohighlight">\(H_+ - H = \left( H_+ - H \right)^\top\)</span>.  Since
+<span class="math notranslate nohighlight">\(\det(\Sigma) = 0\)</span>, <span class="math notranslate nohighlight">\(\Sigma\)</span> is not a full-rank matrix.  Assuming
+<span class="math notranslate nohighlight">\(\sigma_1 \neq 0\)</span>, <span class="math notranslate nohighlight">\(H_+ - H\)</span> has a rank of one.</p>
+</div>
+</div>
+<div class="section" id="Exercise-21">
+<h2>Exercise 21<a class="headerlink" href="#Exercise-21" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(H_c \triangleq H\)</span>, <span class="math notranslate nohighlight">\(s_c \triangleq s\)</span>, and
+<span class="math notranslate nohighlight">\(y_c \triangleq y\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; H_+(\phi)\\
+ &amp;= H + \frac{(y - Hs) y^\top + y (y - Hs)^\top}{y^\top s} -
+    \frac{(y - Hs)^\top s y y^\top}{(y^\top s)^2} -
+    \phi (s^\top H s)
+      \left[ \frac{y}{y^\top s} - \frac{Hs}{s^\top H s} \right]
+      \left[ \frac{y}{y^\top s} - \frac{Hs}{s^\top H s} \right]^\top\\
+ &amp;= H + \frac{(y - Hs) y^\top + y (y - Hs)^\top}{y^\top s} -
+    \frac{(y - Hs)^\top s y y^\top}{(y^\top s)^2} +
+    \frac{(s^\top H s)^2}{s^\top (y - Hs)}
+      \left[ \frac{y}{y^\top s} - \frac{Hs}{s^\top H s} \right]
+      \left[ \frac{y}{y^\top s} - \frac{Hs}{s^\top H s} \right]^\top\\
+ &amp;= H +
+    \frac{
+      y y^\top y^\top s - Hs y^\top y^\top s - y s^\top H^\top y^\top s +
+      s^\top H^\top s y y^\top
+    }{
+      (y^\top s)^2
+    } +
+    \frac{(s^\top H s)^2}{s^\top (y - Hs)}
+      \left[ \frac{y}{y^\top s} - \frac{Hs}{s^\top H s} \right]
+      \left[ \frac{y}{y^\top s} - \frac{Hs}{s^\top H s} \right]^\top
+    &amp; \quad &amp; \text{(a)}\\
+ &amp;= H +
+    \frac{
+      y y^\top (y^\top s)^2 - Hs y^\top (y^\top s)^2 -
+      y s^\top H^\top (y^\top s)^2
+    }{
+      (y^\top s)^2 s^\top (y - Hs)
+    } +
+    \frac{Hs s^\top H^\top}{s^\top (y - Hs)}
+    &amp; \quad &amp; \text{merge (b) and (c)}\\
+ &amp;= H + \frac{(y - Hs) (y - Hs)^\top}{s^\top (y - Hs)}\end{split}\]</div>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; \frac{(y - Hs) y^\top + y (y - Hs)^\top}{y^\top s} -
+  \frac{(y - Hs)^\top s y y^\top}{(y^\top s)^2}\\
+ &amp;= \frac{
+      y y^\top y^\top s - Hs y^\top y^\top s + y y^\top y^\top s -
+      y s^\top H^\top y^\top s
+    }{
+      (y^\top s)^2
+    } -
+    \frac{y^\top s y y^\top - s^\top H^\top s y y^\top}{(y^\top s)^2}\\
+ &amp;= \frac{
+      y y^\top y^\top s - Hs y^\top y^\top s - y s^\top H^\top y^\top s +
+      s^\top H^\top s y y^\top
+    }{
+      (y^\top s)^2
+    }\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; \frac{(s^\top H s)^2}{s^\top (y - Hs)}
+    \left[ \frac{y}{y^\top s} - \frac{Hs}{s^\top H s} \right]
+    \left[ \frac{y}{y^\top s} - \frac{Hs}{s^\top H s} \right]^\top\\
+ &amp;= \frac{(s^\top H s)^2}{s^\top (y - Hs)}
+      \left[
+        \frac{y y^\top}{(y^\top s)^2} -
+        \frac{y s^\top H^\top}{y^\top s s^\top H s} -
+        \frac{Hs y^\top}{s^\top H s y^\top s} +
+        \frac{Hs s^\top H^\top}{(s^\top H s)^2}
+    \right]\\
+ &amp;= \frac{(s^\top H s)^2 y y^\top}{(y^\top s)^2 s^\top (y - Hs)} -
+    \frac{s^\top Hs y s^\top H^\top}{y^\top s s^\top (y - Hs)} -
+    \frac{s^\top Hs Hs y^\top}{y^\top s s^\top (y - Hs)} +
+    \frac{Hs s^\top H^\top}{s^\top (y - Hs)}\\
+ &amp;= \frac{s^\top H s y y^\top s^\top H s}{(y^\top s)^2 s^\top (y - Hs)} -
+    \frac{y s^\top H^\top y^\top s s^\top Hs}{(y^\top s)^2 s^\top (y - Hs)} -
+    \frac{Hs y^\top y^\top s s^\top Hs}{(y^\top s)^2 s^\top (y - Hs)} +
+    \frac{Hs s^\top H^\top}{s^\top (y - Hs)}\end{split}\]</div>
+</div>
+<div class="section" id="(c)">
+<h3>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; \frac{
+    y y^\top y^\top s - Hs y^\top y^\top s - y s^\top H^\top y^\top s +
+    s^\top H^\top s y y^\top
+  }{
+    (y^\top s)^2
+  }
+  \frac{s^\top (y - Hs)}{s^\top (y - Hs)}\\
+ &amp;= \frac{
+      y y^\top y^\top s s^\top (y - Hs) -
+      Hs y^\top y^\top s s^\top (y - Hs) -
+      y s^\top H^\top y^\top s s^\top (y - Hs) +
+      s^\top H^\top s y y^\top s^\top (y - Hs)
+    }{
+      (y^\top s)^2 s^\top (y - Hs)
+    }\\
+ &amp;= \frac{
+      y y^\top (y^\top s)^2 -
+      Hs y^\top y^\top s s^\top (y - Hs) -
+      y s^\top H^\top y^\top s s^\top (y - Hs) -
+      s^\top H^\top s y y^\top s^\top Hs
+    }{
+      (y^\top s)^2 s^\top (y - Hs)
+    }\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-22">
+<h2>Exercise 22<a class="headerlink" href="#Exercise-22" title="Permalink to this headline">¶</a></h2>
+<p>Substitute in relations such as (9.6.1).</p>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/chapter-09-0"><dl class="citation">
+<dt class="bibtex label" id="broyden1973local"><span class="brackets"><a class="fn-backref" href="#id12">BDMore73</a></span></dt>
+<dd><p>Charles George Broyden, John E Dennis, and Jorge J Moré. On the local and superlinear convergence of quasi-newton methods. <em>IMA Journal of Applied Mathematics</em>, 12(3):223–245, 1973.</p>
+</dd>
+<dt class="bibtex label" id="geijnrncf"><span class="brackets"><a class="fn-backref" href="#id6">Gei</a></span></dt>
+<dd><p>Robert A. van de Geijn. Notes on cholesky factorization. <span><a class="reference external" href="#"></a></span>http://www.cs.utexas.edu/users/flame/Notes/NotesOnChol.pdf. Accessed on 2017-05-23.</p>
+</dd>
+<dt class="bibtex label" id="grasmairmecf"><span class="brackets"><a class="fn-backref" href="#id7">Gra</a></span></dt>
+<dd><p>Markus Grasmair. On the existence of a cholesky factorization. <span><a class="reference external" href="#"></a></span>https://wiki.math.ntnu.no/_media/ma2501/2014v/cholesky.pdf. Accessed on 2017-05-23.</p>
+</dd>
+<dt class="bibtex label" id="rheinboldtwcqnm"><span class="brackets"><a class="fn-backref" href="#id3">Rhe</a></span></dt>
+<dd><p>Werner C. Rheinboldt. Quasi-newton methods. <span><a class="reference external" href="#"></a></span>https://www-m2.ma.tum.de/foswiki/pub/M2/Allgemeines/SemWs09/quasi-newt.pdf. Accessed on 2017-05-21.</p>
+</dd>
+<dt class="bibtex label" id="schnabelqnu82"><span class="brackets"><a class="fn-backref" href="#id16">Sch82</a></span></dt>
+<dd><p>R. B. Schnabel. Convergence of quasi-newton updates to correct derivative values. <em>In preparation</em>, 1982.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/chapter-09.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

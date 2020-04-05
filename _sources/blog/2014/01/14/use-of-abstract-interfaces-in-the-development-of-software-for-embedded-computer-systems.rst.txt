@@ -1,0 +1,127 @@
+#######################################################################################
+Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems
+#######################################################################################
+
+Motivation(s)
+=============
+
+The current dilemma in software engineering can be described as: acquiring a
+precise description of requirements without knowing the details of the interface
+and adapting old interfaces to the current one.
+
+Proposed Solution(s)
+====================
+
+The author proposes an organization of the software that results in separating
+the majority of the code from the tight constraints via abstract interfaces.
+
+Evaluation(s)
+=============
+
+The author applied the technique to design a date processor and a mailing list
+processor.
+
+Future Direction(s)
+===================
+
+- How would one combine all the existing techniques into a metric for software
+  design analytics?
+
+Question(s)
+===========
+
+- Would software engineering techniques be effective in describing data format
+  semantics?
+
+Analysis
+========
+
+Abstract interfaces increase separation of concerns and leads to more simple yet
+elegant software designs through minimizing the number of components that deal
+with the real world details.  Even though this is a brilliant insight, judging
+the quality of software is still quite subjective.  However, there are three
+types of errors that blatantly violate the abstract interface principle
+:cite:`britton1981procedure`:
+
+1) The device interface module allows user programs to exploit special
+   characteristics of a particular device so that user programs must be revised
+   if the device is replaced.
+#) The virtual device lacks essential capabilities, so that user programs must
+   access the actual device directly; again user programs must be revised if the
+   device is replaced.
+#) Programs that are not necessarily device dependent are included in the device
+   interface module.  As a result, the device interface module may need to be
+   changed if the requirements change even if the device is not changed.
+   Furthermore the module will be harder to change when the device is changed.
+
+It is surprising that other techniques (e.g. information hiding, stepwise
+refinement) can be applied to this technique so elegantly!  In addition to
+introducing abstract interfaces, the author emphasized the separation of
+semantic specification from the abstract interfaces.
+
+Notes
+=====
+
+- An embedded system is a component of a significantly larger system.
+
+  - Interface requirements are strict and arbitrary.
+  - Interface often changes during development.
+
+- An abstraction represents several actual objects but disassociated from any
+  specific object i.e. many-to-one relationship.
+
+  - The properties of an abstract system correspond to properties of a real
+    system.
+  - Facts that apply to the abstract system also applies to the real system, but
+    the reverse does not necessarily holds.
+
+- An interface description is a description of a set of assumptions such as
+  intended interactions and resource usage.
+
+  - The data formats and data structures do not need to be described at all.
+
+- An abstract interface refers to a set of assumptions that represents more than
+  one possible interface.
+
+  - It will describe the common aspects while hiding the differences.
+  - It will not generally be sufficient to permit development of a working
+    system.
+
+- Applying "Information Hiding Principle" when External Interfaces May Change
+
+  - Figure 1: Applications Package - Interface Programs - World
+
+    - Structure of a system formulated using said principle.
+
+      (1) Specify an abstract interface embodying all the information shared by
+          all of the possible actual interfaces.
+      (#) Procure programs to meet this abstract interface i.e.
+          "Applications Package".
+      (#) Procure additional program in order to meet the actual interface
+          "Interface Programs".
+
+- In procuring a set of programs using an abstract interface where some of the
+  programs need not make the additional assumptions, it is preferable to that
+  the additional information (the less abstract interface) not be supplied to
+  those writing programs that can be written without it.
+
+  - If two programs are based on more assumptions than the rest of the package,
+    they need not necessarily make the same additional assumptions.
+
+- Completing the System by Stepwise Addition of Assumptions
+
+  - Introduce functions that are not implementable unless the assumptions are
+    met.
+
+- Semantic Specification
+
+  - Any information about the meaning of the data (e.g. how it is obtained, what
+    should be done with it) will not be part of the abstract (or internal)
+    interface.
+  - The specifications for the larger system of which the embedded system is a
+    part of must include these semantics.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

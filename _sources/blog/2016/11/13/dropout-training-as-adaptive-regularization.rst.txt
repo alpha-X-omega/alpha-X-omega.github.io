@@ -1,0 +1,93 @@
+###########################################
+Dropout Training as Adaptive Regularization
+###########################################
+
+Motivation(s)
+=============
+
+Dropout training was recently introduced as a way to control overfitting by
+randomly omitting subsets of features and hidden units at each iteration of a
+training procedure.  It has since been applied successfully in many
+applications, but researchers often justify its usage through empirical evidence
+or an appeal to regularization.
+
+Proposed Solution(s)
+====================
+
+The authors propose modeling dropout as noise in the framework of generalized
+linear models (GLMs).  This type of analysis has been used to show the effect of
+training with features that have been corrupted with additive Gaussian noise is
+equivalent to a form of :math:`L_2`-type regularization in the low noise limit.
+
+Evaluation(s)
+=============
+
+The authors present a beautiful derivation of GLM with additive gaussian noise.
+Integrating over the feature noise results in a noised maximum likelihood
+parameter estimate whose artificial feature noising reduces to a penalty that
+does not depend on the labels.  This means artificial feature noising penalizes
+the complexity of a classifier in a way that does not depend on the accuracy of
+a classifier.
+
+To make the noising penalty more interpretable, the authors propose
+approximating it with a second-order Taylor expansion.  The result is a
+quadratic noising regularizer.  The same analytic machinery also applies when
+the dropout noise model is a Bernoulli distribution.  The approximation is
+generally very accurate when the noise level is low, but will deteriorate
+slightly as the model converges to highly confident predictions.
+
+Applying dropout noise to logistic regression revealed that dropout can be seen
+as an attempt to apply an :math:`L_2` penalty after normalizing the feature
+vector by the Fisher information matrix.  This transformation effectively makes
+the level curves of the objective more spherical, and so balances out the
+regularization applied to different features.  The authors also showed that
+the dropout regularization should be better than :math:`L_2`-regularization for
+learning weights for features that are rare but highly discriminative because
+dropout does not penalize those weights.  This intuition is confirmed
+empirically through a simulation study of rare and nuisance features.
+
+Future Direction(s)
+===================
+
+- How does the analysis change when dropout occurs at a different rate for each
+  layer?
+- What does a dropout changing over time conceptually mean?
+
+Question(s)
+===========
+
+- Semi-supervised dropout training does not seem to have a feedback mechanism,
+  so this seems more like trying things out and hoping for the best?
+- Does the paper assume a global dropout over the entire neural network?
+- The semi-supervised penalty seems a bit arbitrary; is this a typical
+  definition?
+- When using dropout with SGD, the :math:`L_2` penalty term can be dropped?
+
+Analysis
+========
+
+Dropout training is a form of adaptive regularization.  When used with SGD, it
+is first-order equivalent to an adaptive SGD procedure.  Both dropout descent
+and AdaGrad try to scale the features by the Fisher information to make the
+level-curves of the objective more circular.
+
+One of the most noteworthy point that
+:doc:`is often overlooked </blog/2016/11/08/stochastic-gradient-descent-tricks>`
+is the observation that SGD can be reformulated as a linear
+:math:`L_2`-penalized problem.  This enabled the quadratic noising regularizer
+to elegantly replace SGD's typical penalty term.
+
+The authors did make another contribution: semi-supervised dropout training.
+However, their argument is not convincing.  They did not address why their
+proposal failed to achieve better accuracy for IMDB-2K.  The gains in test
+accuracy amounted to less than one percent and seems to be leveling off as the
+amount of unlabeled data increased.
+
+The simulation study is a creative way to verify empirically that their
+intuition is correct.  The derivations and its applications to linear/logistic
+regression are also very helpful towards future work.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

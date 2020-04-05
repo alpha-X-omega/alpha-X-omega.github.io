@@ -1,0 +1,101 @@
+################################################################################
+A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market
+################################################################################
+
+Motivation(s)
+=============
+
+In an informationally efficient market with zero trading costs, the observed
+market price contains all the relevant information.  A price change will only
+occur if and only if unanticipated information is received by market
+participants.
+
+In the current market, transaction costs have a strong influence on the net
+gains to investments and market equilibrium returns.  The most accurate measure
+of trading costs is the monthly statement of an account.  The alternative
+measures are subject to considerable error because of hard-to-quantify factors
+such as commissions, transaction size, and discounts.  This issue worsens when
+the desired measurement is the bid-ask spread, a small region of price which
+brackets the underlying value of the asset.
+
+The bid-ask spread is often of interest because it is part of the compensation
+package for the market maker.  Furthermore, empirical studies have shown that
+negative serial dependence in observed price changes should be anticipated when
+a market maker is involved in transactions.
+
+Proposed Solution(s)
+====================
+
+The author uses the first-order serial covariance of price changes to infer the
+effective bid-ask spread.  The implicit percentage spread is given by
+
+.. math::
+
+   s_j = 200 \sqrt{-\mathrm{Cov}_j}
+
+where :math:`s_j` is the spread and :math:`\mathrm{Cov}_j` is the serial
+covariance of returns for asset :math:`j`.
+
+This method assumes
+
+- The asset is traded in an informationally efficient market.
+- The probability distribution of observed price changes is stationary (at
+  least for short monthly intervals).
+
+If the markets are efficient, the covariance between successive price changes
+cannot be due to news, whereas the variance of observed price changes is likely
+to be dominated by news.
+
+Evaluation(s)
+=============
+
+The author proved that under an efficient market:
+
+- the covariance between successive price changes cannot be due to new
+  information,
+- the implicit spread measure is independent of the observation interval, and
+- even if the spread changes in reaction to news, the serial covariance will
+  still be :math:`\frac{-s^2}{4}` where :math:`s^2` is the average squared
+  spread in the sample.
+
+The author estimated the annual trading costs from daily and weekly returns of
+stocks listed on the New York and American Exchanges.  The results were
+validated indirectly by relating the measured implicit spread to firm size.
+Since firm size is positively related to volume, and volume is negatively
+related to spread, there should exist a strong negative cross-sectional relation
+between measured spread and measured size.
+
+The resulting estimates indicate a strong negative relation to firm size.
+However, a statistically significant difference was detected between spreads
+estimated from daily and weekly data, which implies informational inefficiency
+or very short-term nonstationarity in expected returns.
+
+Future Direction(s)
+===================
+
+- In the current era where social media is everywhere, how to determine if the
+  market informationally efficient?
+
+Question(s)
+===========
+
+- Has there been any cases where the market maker abused their information to
+  trade?
+
+Analysis
+========
+
+In an efficient market, one can impose simplifying assumptions to derive a
+closed form measure using empirical estimates.  One such example is the bid-ask:
+it is proven and shown empirically to be closely related to firm size.
+
+Unfortunately, it is not obvious to what extent those assumptions hold for the
+real market.  The author did not validate the results using real bid-ask spread
+data, so the method's accuracy is questionable.  Nonetheless, the theoretical
+insights of the proposal model is quite interesting and warrant further
+:doc:`investigations </blog/2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective>`.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

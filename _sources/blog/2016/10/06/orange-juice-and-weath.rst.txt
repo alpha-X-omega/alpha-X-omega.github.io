@@ -1,0 +1,73 @@
+########################
+Orange Juice and Weather
+########################
+
+Motivation(s)
+=============
+
+There are a lot of commodities on the market, but each of them have their own
+complicated interaction with asset prices.  If one understands that
+relationship, then profitability comes easily.
+
+Proposed Solution(s)
+====================
+
+The author assert that frozen concentrated orange juice is a relative good
+candidate for a study of interaction between prices and a truly exogenous
+determinant of value, the weather.  Production is concentrated around Orlando,
+so the relevant weather is easy to measure.  It seems unlikely to be sensitive
+to nonweather influences on supply and demand since national income and tastes
+probably do not fluctuate enough to explain a significant part of the daily
+OJ juice movement.  Short-term variations in supply induced by planting
+decisions must be quite low because growing oranges is on the order of five to
+fifteen years.
+
+Evaluation(s)
+=============
+
+The author examined FCOJ contracts on NYCE between 1975 and 1981 due to the
+limited weather data.  The distant contracts with little open interest were
+discarded, and nearest-maturity contract had to be discarded due to its high
+volume which increased price volatility.
+
+Organizing the data according to season identified winter to have more
+variability due to possible freezing.  The author identified January as
+responsible for the larger winter mean OJ, and Monday's variability may be due
+to the limit rules of the Citrus Associates of the NYCE.
+
+Since dropping below freezing will damage the orange trees, the author modeled
+the morning and evening temperatures as unweighted and weighted regressions.
+The results demonstrated explantory powers, but not statistically significant.
+Other factors such as foreign news and rainfall had even less statistical
+significance.  Regressing over firms that utilized orange juice (e.g. soft
+drinks) revealed supply shocks affected a small part of OJ price movements.
+
+Future Direction(s)
+===================
+
+- Use NLP to determine how much of a paper's claims is based on statistical
+  significance.
+- Use NLP to determine if a methodology is sound.
+
+Question(s)
+===========
+
+- Why the emphasis on statistical significance?
+
+Analysis
+========
+
+This paper came to the :doc:`wrong conclusion </blog/2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market>`
+due to its emphasis on statistical significance instead of focusing on
+:doc:`economical significance </blog/2016/09/18/the-standard-error-of-regressions>`.
+It is surprising that the author simply assumed foreign trading and crop
+failures will not impact the asset prices.  Reading this paper after the paper
+that analyzed the FCOJ market more thoroughly provided insights into what a
+misleading paper would look like.  Despite the flawed evaluation due to
+imprecise methodology, the paper did reasonably point out why FCOJ is a good
+market to analyze.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

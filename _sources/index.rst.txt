@@ -1,0 +1,92 @@
+###############
+Memex Prototype
+###############
+
+Blog
+====
+
+.. include:: /_templates/toctree-blog
+
+Notebooks
+=========
+
+.. include:: /_templates/toctree-nb
+
+.. raw:: html
+
+   <style type="text/css">
+     .toctree__list--col-2 {
+       -moz-column-count: 2;
+       -moz-column-fill: balance;
+       -moz-column-gap: 60px;
+       -webkit-column-count: 2;
+       -webkit-column-fill: balance;
+       -webkit-column-gap: 60px;
+       column-count: 2;
+       column-fill: balance;
+       column-gap: 60px;
+     }
+
+     ul.toctree__list--col-2 li {
+       margin: 10px 0;
+     }
+   </style>
+   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css"/>
+   <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+   <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+   <script>
+     let toctrees = document.getElementsByClassName('toctree-wrapper');
+     toctrees[0].children[0].classList.add('hidden');
+     toctrees[1].children[0].classList.add('toctree__list--col-2');
+
+     let tbl = document.createElement('table');
+     tbl.setAttribute('id', toctrees[0].parentElement.id + '_data_table');
+
+     let header_row = document.createElement('tr');
+     let categories = ['Date', 'Title'];
+     for(let category of categories) {
+       let header = document.createElement('th');
+       header.appendChild(document.createTextNode(category));
+
+       header_row.appendChild(header);
+     }
+     let tbl_head = document.createElement('thead');
+     tbl_head.appendChild(header_row);
+     tbl.appendChild(tbl_head);
+
+     let tbl_body = document.createElement('tbody');
+     let regex = RegExp(/(\d+)\/(\d+)\/(\d+)/);
+     for(let a of toctrees[0].children[0].getElementsByTagName('a')) {
+       let row = document.createElement('tr');
+       let href = a.getAttribute('href');
+
+       let date = regex.exec(href)[0].replace(/\//g, '-');
+       let date_col = document.createElement('td');
+       date_col.appendChild(document.createTextNode(date));
+       row.appendChild(date_col);
+
+       let title_col = document.createElement('td');
+       title_col.appendChild(a.cloneNode(true));
+       row.appendChild(title_col);
+
+       tbl_body.appendChild(row);
+     }
+     tbl.appendChild(tbl_body);
+
+     toctrees[0].appendChild(tbl);
+
+     $('#' + tbl.id).DataTable({
+       scrollY: '40vh',
+       scrollCollapse: true,
+       paging: false,
+       info: false,
+       order: [[0, 'desc']],
+       columnDefs: [
+         {
+           "targets": [0],
+           "visible": false,
+           "searchable": false
+         }
+       ],
+     });
+   </script>

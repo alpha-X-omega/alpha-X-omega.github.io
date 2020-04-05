@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Projective Geometry and Transformations of 3D &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Estimation – 2D Projective Transformations" href="chapter-04.html" />
+    <link rel="prev" title="Projective Geometry and Transformations of 2D" href="chapter-02.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Projective Geometry and Transformations of 3D</a><ul>
+<li><a class="reference internal" href="#3.2.2-Lines">3.2.2 Lines</a></li>
+<li><a class="reference internal" href="#3.2.4-Classification-of-Quadrics">3.2.4 Classification of Quadrics</a></li>
+<li><a class="reference internal" href="#(i)-\text{Pl}\mathrm{\ddot{u}}\text{cker-Coordinates}">(i) <span class="math notranslate nohighlight">\(\text{Pl}\mathrm{\ddot{u}}\text{cker Coordinates}\)</span></a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+<li><a class="reference internal" href="#(d)">(d)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#(ii)-Projective-Transformations">(ii) Projective Transformations</a></li>
+<li><a class="reference internal" href="#(iii)-Screw-Decomposition">(iii) Screw Decomposition</a><ul>
+<li><a class="reference internal" href="#\lambda_1-=-\lambda_2-=-1"><span class="math notranslate nohighlight">\(\lambda_1 = \lambda_2 = 1\)</span></a></li>
+<li><a class="reference internal" href="#\lambda_3-=-e^{i-\theta},-\lambda_4-=-e^{-i-\theta}"><span class="math notranslate nohighlight">\(\lambda_3 = e^{i \theta}, \lambda_4 = e^{-i \theta}\)</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="chapter-02.html" title="Previous Chapter: Projective Geometry and Transformations of 2D"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Projective Ge...</span>
+    </a>
+  </li>
+  <li>
+    <a href="chapter-04.html" title="Next Chapter: Estimation – 2D Projective Transformations"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Estimation – ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="Projective-Geometry-and-Transformations-of-3D">
+<h1>Projective Geometry and Transformations of 3D<a class="headerlink" href="#Projective-Geometry-and-Transformations-of-3D" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="3.2.2-Lines">
+<h2>3.2.2 Lines<a class="headerlink" href="#3.2.2-Lines" title="Permalink to this headline">¶</a></h2>
+<p>(3.13) can be understood from (3.4).  By applying (3.13) to itself i.e.
+<span class="math notranslate nohighlight">\((\mathcal{L} \mid \mathcal{L})\)</span>, one arrives at (3.12).  (3.12) can also
+be confirmed by evaluating the determinant directly.  (3.14) can be derived from
+<span class="math notranslate nohighlight">\(\mathbf{X} = \mathrm{L} \boldsymbol{\pi}\)</span> via applying (3.2) twice.</p>
+<p><a class="bibtex reference internal" href="#kurser04" id="id1">[Bor]</a> covers some useful properties of
+<span class="math notranslate nohighlight">\(\text{Pl}\mathrm{\ddot{u}}\text{cker}\)</span> line coordinates as a
+matrix-vector product that the book left out.</p>
+<p>Define</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{L}(\mathrm{L}) =
+    \begin{bmatrix}
+      l_{12}\\ l_{13}\\ l_{14}\\ l_{23}\\ l_{42}\\ l_{34}
+    \end{bmatrix}
+\quad \iff \quad
+\mathrm{L}(\mathcal{L}) =
+    \begin{bmatrix}
+      0 &amp; l_{12} &amp; l_{13} &amp; l_{14}\\
+      -l_{12} &amp; 0 &amp; l_{23} &amp; -l_{42}\\
+      -l_{13} &amp; -l_{23} &amp; 0 &amp; l_{34}\\
+      -l_{14} &amp; l_{42} &amp; -l_{34} &amp; 0
+    \end{bmatrix}.\end{split}\]</div>
+<p>Notice that (3.10) is equivalent to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{L}^* =
+\mathrm{D} \mathcal{L}(\mathrm{L}) =
+\begin{bmatrix}
+  0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1\\
+  0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0\\
+  0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0\\
+  0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0\\
+  0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
+  1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
+\end{bmatrix} \mathcal{L}(\mathrm{L})
+\quad \iff \quad
+\mathcal{L} =
+\mathrm{D} \mathcal{L}(\mathrm{L}^*).\end{split}\]</div>
+<p>The constraint (3.12) translates to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{L}^\top
+\begin{bmatrix}
+  0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
+  0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
+  0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
+  0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0\\
+  0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
+  1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
+\end{bmatrix}
+\mathcal{L} = 0.\end{split}\]</div>
+<p>Given <span class="math notranslate nohighlight">\(\mathbf{X} \in \mathbb{R}^4\)</span>, define</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[ \mathbf{X} \right]_{\times} =
+\begin{bmatrix}
+  -x_1 &amp; x_0  &amp; 0    &amp; 0\\
+  -x_2 &amp; 0    &amp; x_0  &amp; 0\\
+  -x_3 &amp; 0    &amp; 0    &amp; x_0\\
+  0    &amp; -x_2 &amp; x_1  &amp; 0\\
+  0    &amp; x_3 &amp; 0    &amp; -x_1\\
+  0    &amp; 0    &amp; -x_3 &amp; x_2\\
+\end{bmatrix}
+\quad \text{and} \quad
+\mathrm{D} \left[ \mathbf{X} \right]_{\times} =
+\begin{bmatrix}
+  0    &amp; 0    &amp; -x_3 &amp; x_2\\
+  0    &amp; x_3  &amp; 0    &amp; -x_1\\
+  0    &amp; -x_2 &amp; x_1  &amp; 0\\
+  -x_3 &amp; 0    &amp; 0    &amp; x_0\\
+  -x_2 &amp; 0    &amp; x_0  &amp; 0\\
+  -x_1 &amp; x_0  &amp; 0    &amp; 0\\
+\end{bmatrix}.\end{split}\]</div>
+<p>Observe that (3.8) and (3.9) can be rewritten respectively as</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{L} =
+\mathcal{L}(\mathrm{L}) =
+\left[ \mathbf{A} \right]_{\times} \mathbf{B} =
+\mathrm{D} \mathcal{L}(\mathrm{L}^*) =
+\mathrm{D} \left[ \mathbf{P} \right]_{\times} \mathbf{Q}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{L}^* =
+\mathcal{L}(\mathrm{L}^*) =
+\left[ \mathbf{P} \right]_{\times} \mathbf{Q} =
+\mathrm{D} \mathcal{L}(\mathrm{L}) =
+\mathrm{D} \left[ \mathbf{A} \right]_{\times} \mathbf{B}.\]</div>
+<p>A point-only expression of the plane defined by the join of a
+point <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> and line <span class="math notranslate nohighlight">\(\mathrm{L}\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{\pi} =
+\mathrm{L}^* \mathbf{X} =
+\mathrm{L}(\mathcal{L}^*) \mathbf{X} =
+\mathrm{L}\left(
+  \mathrm{D} \mathcal{L}(\mathrm{L})
+\right) \mathbf{X} =
+\mathrm{L}\left(
+  \mathrm{D} \left[ \mathbf{A} \right]_{\times} \mathbf{B}
+\right) \mathbf{X}.\]</div>
+<p>A plane-only expression of the point defined by the intersection of the line
+<span class="math notranslate nohighlight">\(\mathrm{L}\)</span> with the plane <span class="math notranslate nohighlight">\(\boldsymbol{\pi}\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{X} =
+\mathrm{L} \boldsymbol{\pi} =
+\mathrm{L}(\mathcal{L}) \boldsymbol{\pi} =
+\mathrm{L}\left(
+  \mathrm{D} \mathcal{L}(\mathrm{L}^*)
+\right) \boldsymbol{\pi} =
+\mathrm{L}\left(
+  \mathrm{D} \left[ \mathbf{P} \right]_{\times} \mathbf{Q}
+\right) \boldsymbol{\pi}.\]</div>
+<p>Note that this particular definition of
+<span class="math notranslate nohighlight">\(\text{Pl}\mathrm{\ddot{u}}\text{cker}\)</span> line coordinates reveals a
+connection to cross products in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>.</p>
+</div>
+<div class="section" id="3.2.4-Classification-of-Quadrics">
+<h2>3.2.4 Classification of Quadrics<a class="headerlink" href="#3.2.4-Classification-of-Quadrics" title="Permalink to this headline">¶</a></h2>
+<p><a class="bibtex reference internal" href="#yap21surf" id="id2">[Yap]</a> covers some useful properties of quadric surfaces that the
+book left out.</p>
+<p>The zero set of a polynomial
+<span class="math notranslate nohighlight">\(P(\mathbf{X}) = P(X_1, \ldots, X_n) \in \mathbb{Q}[X_1, \ldots, X_n]\)</span> is
+a hypersurface in <span class="math notranslate nohighlight">\(n\)</span>-dimensional affine space.  When
+<span class="math notranslate nohighlight">\(P(\mathbf{X})\)</span> is homogeneous, it is called a form and defines a
+hypersurface in <span class="math notranslate nohighlight">\((n - 1)\)</span>-dimensional projective space.  When
+<span class="math notranslate nohighlight">\(\text{deg}(P) = 2\)</span>, the polynomial is quadratic and the corresponding
+hypersurface is quadric.</p>
+<p>(3.15) can be written as a polynomial:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}0 = \mathbf{X}^\top \mathrm{Q} \mathbf{X} =
+\begin{bmatrix} X &amp; Y &amp; Z &amp; 1 \end{bmatrix}
+  \begin{bmatrix}
+    a &amp; f &amp; h &amp; p\\
+    f &amp; b &amp; g &amp; q\\
+    h &amp; g &amp; c &amp; r\\
+    p &amp; q &amp; r &amp; d\\
+  \end{bmatrix}
+  \begin{bmatrix} X\\ Y\\ Z\\ 1 \end{bmatrix} =
+aX^2 + bY^2 + cZ^2 + 2fXY + 2gYZ + 2hZX + 2pX + 2qY + 2rZ + d =
+P(X, Y, Z).\end{split}\]</div>
+<p>Let <span class="math notranslate nohighlight">\(\mathrm{Q}_u\)</span> denote the upper <span class="math notranslate nohighlight">\(3 \times 3\)</span> submatrix of
+<span class="math notranslate nohighlight">\(\mathrm{Q}\)</span>.  The discriminant
+<span class="math notranslate nohighlight">\(\Delta \mathrm{Q} = \det \mathrm{Q}\)</span> and subdiscriminant
+<span class="math notranslate nohighlight">\(\Delta \mathrm{Q}_u = \det \mathrm{Q}_u\)</span> pair is an invariant that can be
+used to categorize the point quadrics.  Another invariant is the number of
+positive and negative eigenvalues.  Let <span class="math notranslate nohighlight">\(\sigma^+(\mathrm{Q})\)</span> and
+<span class="math notranslate nohighlight">\(\sigma^-(\mathrm{Q})\)</span> denote the number of positive and negative
+eigenvalues of <span class="math notranslate nohighlight">\(\mathrm{Q}\)</span>.  The pair</p>
+<div class="math notranslate nohighlight">
+\[\sigma(\mathrm{Q}) =
+\left( \sigma^+(\mathrm{Q}), \sigma^-(\mathrm{Q}) \right)\]</div>
+<p>is called the inertia of <span class="math notranslate nohighlight">\(\mathrm{Q}\)</span>.  Note that
+<span class="math notranslate nohighlight">\(\sigma^+(\mathrm{Q}) + \sigma^-(\mathrm{Q})\)</span> is the rank of
+<span class="math notranslate nohighlight">\(\mathrm{Q}\)</span> while <span class="math notranslate nohighlight">\(\sigma^+(\mathrm{Q}) - \sigma^-(\mathrm{Q})\)</span> is
+the signature of <span class="math notranslate nohighlight">\(\mathrm{Q}\)</span>.</p>
+</div>
+<div class="section" id="(i)-\text{Pl}\mathrm{\ddot{u}}\text{cker-Coordinates}">
+<h2>(i) <span class="math notranslate nohighlight">\(\text{Pl}\mathrm{\ddot{u}}\text{cker Coordinates}\)</span><a class="headerlink" href="#(i)-\text{Pl}\mathrm{\ddot{u}}\text{cker-Coordinates}" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>The point of intersection of a line <span class="math notranslate nohighlight">\(\mathrm{L}\)</span> with a plane
+<span class="math notranslate nohighlight">\(\boldsymbol{\pi}\)</span> that is defined by a point <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> and a
+line <span class="math notranslate nohighlight">\(\mathrm{M}\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{Y} =
+\mathrm{L} \boldsymbol{\pi} =
+\mathrm{L} \mathrm{M}^* \mathbf{X}.\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>Observe that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{\pi} &amp;= \mathrm{M}^* \mathbf{X}\\
+ &amp;= \left(
+      \mathbf{P} \mathbf{Q}^\top - \mathbf{Q} \mathbf{P}^\top
+    \right) \mathbf{X}
+    \qquad (3.9)\\
+ &amp;= \mathbf{P} \mathbf{Q}^\top \mathbf{X} -
+    \mathbf{Q} \mathbf{P}^\top \mathbf{X}.\end{split}\]</div>
+<p>By inspection and (3.2), <span class="math notranslate nohighlight">\(\mathrm{M}^* \mathbf{X} = \boldsymbol{0}\)</span> if and
+only if <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> is on <span class="math notranslate nohighlight">\(\mathrm{M}\)</span>.</p>
+<p>Likewise, notice that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{Y} &amp;= \mathrm{L} \boldsymbol{\pi}\\
+ &amp;= \left(
+      \mathbf{A} \mathbf{B}^\top - \mathbf{B} \mathbf{A}^\top
+    \right) \boldsymbol{\pi}
+    \qquad (3.8)\\
+ &amp;= \mathbf{A} \mathbf{B}^\top \boldsymbol{\pi} -
+    \mathbf{B} \mathbf{A}^\top \boldsymbol{\pi}.\end{split}\]</div>
+<p>By inspection and (3.2), <span class="math notranslate nohighlight">\(\mathrm{L} \boldsymbol{\pi} = \boldsymbol{0}\)</span> if
+and only if <span class="math notranslate nohighlight">\(\mathrm{L}\)</span> is on <span class="math notranslate nohighlight">\(\boldsymbol{\pi}\)</span>.</p>
+</div>
+<div class="section" id="(c)">
+<h3>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{P}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> denote two planes and
+<span class="math notranslate nohighlight">\(\mathrm{L}^*\)</span> their intersection (3.9).  Recall that <span class="math notranslate nohighlight">\(\mathrm{L}\)</span>
+is on <span class="math notranslate nohighlight">\(\boldsymbol{\pi}_\infty\)</span> if and only if</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathrm{L} \boldsymbol{\pi}_\infty =
+\mathrm{L}\left(
+  \mathrm{D} \left[ \mathbf{P} \right]_\times \mathbf{Q}
+\right) \boldsymbol{\pi}_\infty =
+\begin{bmatrix}
+  p_2 q_3 - p_3 q_2\\
+  -p_1 q_3 + p_3 q_1\\
+  p_1 q_2 - p_2 q_1\\
+  0
+\end{bmatrix} =
+\begin{bmatrix}
+  \mathbf{n}_{\mathbf{P}} \times \mathbf{n}_{\mathbf{Q}}\\
+  0
+\end{bmatrix} =
+\boldsymbol{0}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{n}_\cdot\)</span> corresponds to the plane normal of Euclidean
+geometry (3.2).  By inspection, the foregoing only holds when the normals are
+parallel i.e. the planes are parallel.</p>
+</div>
+<div class="section" id="(d)">
+<h3>(d)<a class="headerlink" href="#(d)" title="Permalink to this headline">¶</a></h3>
+<p>Note that the following proof also holds for (3.13) and (3.14) because of
+(3.10).</p>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{P}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> denote two planes and
+<span class="math notranslate nohighlight">\(\mathrm{L}^*\)</span> their intersection (3.9) satisfies (3.12).  Likewise,
+define another line <span class="math notranslate nohighlight">\(\hat{\mathrm{L}}^*\)</span> as the intersection of planes
+<span class="math notranslate nohighlight">\(\hat{\mathbf{P}}\)</span> and <span class="math notranslate nohighlight">\(\hat{\mathbf{Q}}\)</span>.  The points of
+intersection are</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{X} =
+\mathrm{L} \boldsymbol{\pi}_\infty =
+\begin{bmatrix}
+  \mathbf{n}_{\mathbf{P}} \times \mathbf{n}_{\mathbf{Q}}\\ 0
+\end{bmatrix} =
+\begin{bmatrix}
+  l_{14}\\ -l_{42}\\ l_{34}\\ 0
+\end{bmatrix}
+\quad \text{and} \quad
+\hat{\mathbf{X}} =
+\hat{\mathrm{L}} \boldsymbol{\pi}_\infty =
+\begin{bmatrix}
+  \mathbf{n}_{\hat{\mathbf{P}}} \times \mathbf{n}_{\hat{\mathbf{Q}}}\\ 0
+\end{bmatrix} =
+\begin{bmatrix}
+  \hat{l}_{14}\\ -\hat{l}_{42}\\ \hat{l}_{34}\\ 0
+\end{bmatrix}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{n}_\cdot\)</span> corresponds to the plane normal of Euclidean
+geometry (3.2).  By inspection, the homogeneous coordinates <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>
+and <span class="math notranslate nohighlight">\(\hat{\mathbf{X}}\)</span> are equivalent only when the lines are parallel.
+Otherwise, result 3.5 states that the lines do not intersect because
+<span class="math notranslate nohighlight">\((\mathrm{L} \mid \hat{\mathrm{L}}) \neq 0\)</span>.</p>
+</div>
+</div>
+<div class="section" id="(ii)-Projective-Transformations">
+<h2>(ii) Projective Transformations<a class="headerlink" href="#(ii)-Projective-Transformations" title="Permalink to this headline">¶</a></h2>
+<p>Since <span class="math notranslate nohighlight">\(\mathrm{Q}\)</span> is a real symmetric matrix, there exists an eigenvalue
+decomposition such that
+<span class="math notranslate nohighlight">\(\mathrm{Q} = \mathrm{U} \mathrm{D} \mathrm{U}^\top\)</span> where
+<span class="math notranslate nohighlight">\(\mathrm{U}\)</span> is a real orthogonal matrix and <span class="math notranslate nohighlight">\(\mathrm{D}\)</span> is a
+diagonal matrix whose entries are the eigenvalues of <span class="math notranslate nohighlight">\(\mathrm{Q}\)</span>.
+Likewise, <span class="math notranslate nohighlight">\(\mathbf{Q}_u = \mathrm{U}' \mathrm{D}' {\mathrm{U}'}^\top\)</span>.</p>
+<p>Define <span class="math notranslate nohighlight">\(\sigma = \sigma(\mathrm{Q})\)</span> and
+<span class="math notranslate nohighlight">\(\sigma_u = \sigma(\mathrm{Q}_u)\)</span>.  The point quadrics of interest under a
+point transformation (3.16) <span class="math notranslate nohighlight">\(\mathrm{H} = \mathrm{U}^\top\)</span> and
+<span class="math notranslate nohighlight">\(\mathrm{H}_u = {\mathrm{U}'}^\top\)</span> are</p>
+<ul class="simple">
+<li><p>ellipsoid <span class="math notranslate nohighlight">\(\left( \sigma = (3, 1), \sigma_u = (3, 0) \right)\)</span>,</p></li>
+<li><p>paraboloid <span class="math notranslate nohighlight">\(\left( \sigma = (3, 1), \sigma_u = (2, 0) \right)\)</span>,</p></li>
+<li><p>hyperboloid of two sheets
+<span class="math notranslate nohighlight">\(\left( \sigma = (3, 1), \sigma_u = (2, 1) \right)\)</span>, and</p></li>
+<li><p>hyperboloid of one sheets
+<span class="math notranslate nohighlight">\(\left( \sigma = (2, 2), \sigma_u = (2, 1) \right)\)</span>.</p></li>
+</ul>
+<p>Observe that a projectivity (2.17) cannot map an ellipsoid to a hyperboloid of
+one sheet because</p>
+<div class="math notranslate nohighlight">
+\[\det \mathrm{Q}' =
+\det(\mathrm{H}^{-\top} \mathrm{Q} \mathrm{H}^{-1}) =
+\det(\mathrm{H}^{-\top}) \det(\mathrm{Q}) \det(\mathrm{H}^{-1}) =
+\det(\mathrm{U}) \det(\mathrm{D}) \det(\mathrm{U}^\top)
+  \det(\mathrm{H}^{-1})^2 =
+\det(\mathrm{D}) \det(\mathrm{H}^{-1})^2 &lt; 0.\]</div>
+<p>By inspection, a projectivity can map an ellipsoid to a elliptic paraboloid or
+hyperboloid of two sheets because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\det \mathrm{Q}'_u
+ &amp;= \det(\mathrm{H}^{-\top} \mathrm{Q} \mathrm{H}^{-1})_u\\
+ &amp;= \det\left(
+      \begin{bmatrix}
+        \mathbf{A}^\top &amp; \mathbf{v}\\
+        \mathbf{t}^\top &amp; \upsilon
+      \end{bmatrix}^{-\top}
+      \begin{bmatrix}
+        \mathrm{Q}_u &amp; \mathbf{q}\\
+        \mathbf{q}^\top &amp; q
+      \end{bmatrix}
+      \begin{bmatrix}
+        \mathbf{A} &amp; \mathbf{t}\\
+        \mathbf{v}^\top &amp; \upsilon
+      \end{bmatrix}
+    \right)_u\\
+ &amp;= \det\left(
+      \mathbf{A}^\top \mathrm{Q}_u \mathbf{A} +
+      \mathbf{A}^\top \mathbf{q} \mathbf{v}^\top +
+      \mathbf{v} \mathbf{q}^\top \mathbf{A} +
+      q \mathbf{v} \mathbf{v}^\top
+    \right) \in \mathbb{R}.\end{split}\]</div>
+</div>
+<div class="section" id="(iii)-Screw-Decomposition">
+<span id="hartley2004-ex-3-iii"></span><h2>(iii) Screw Decomposition<a class="headerlink" href="#(iii)-Screw-Decomposition" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{I}\)</span> denote an identity matrix whose size is dependent on the
+surrounding context.  Recall that the eigenvalues of a Euclidean transformation
+<span class="math notranslate nohighlight">\(\mathbf{A}\)</span> can be determined from the roots of the characteristic
+polynomial</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}0 =
+\det\left( \mathbf{A} - \lambda \mathbf{I} \right) =
+\det\left(
+  \begin{bmatrix}
+    \mathbf{R} &amp; \mathbf{t}\\ \boldsymbol{0}^\top &amp; 1
+  \end{bmatrix} -
+  \lambda \mathbf{I}
+\right) =
+\det\left(
+  \begin{bmatrix}
+    \mathbf{I} &amp; \mathbf{t}\\ \boldsymbol{0}^\top &amp; 1 - \lambda
+  \end{bmatrix}
+\right)
+\det\left(
+  \begin{bmatrix}
+    \mathbf{R} - \lambda \mathbf{I} &amp; \boldsymbol{0}\\
+    \boldsymbol{0}^\top &amp; 1
+  \end{bmatrix}
+\right) =
+(1 - \lambda) \det\left( \mathbf{R} - \lambda \mathbf{I} \right).\end{split}\]</div>
+<p>Notice that the rotation matrix <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> can be defined as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{R} =
+\begin{bmatrix}
+  \cos \theta &amp; -\sin \theta &amp; 0\\
+  \sin \theta &amp; \cos \theta &amp; 0\\
+  0 &amp; 0 &amp; 1
+\end{bmatrix}\end{split}\]</div>
+<p>without loss of generality because any rotation matrix <span class="math notranslate nohighlight">\(\mathbf{R}'\)</span> can
+be decomposed as</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{R}' = \mathbf{P} \mathbf{R} \mathbf{P}^{-1}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{P}\)</span> denotes a change of basis according to Euler’s
+Displacement Theorem <a class="bibtex reference internal" href="chapter-02.html#haberph216" id="id3">[Hab]</a>.  This could also be justified through
+examining the trace</p>
+<div class="math notranslate nohighlight">
+\[\text{tr}(\mathbf{R}') =
+\text{tr}\left( \mathbf{P} \mathbf{R} \mathbf{P}^{-1} \right) =
+\text{tr}\left( \mathbf{P}^{-1} \mathbf{P} \mathbf{R} \right) =
+\text{tr}\left( \mathbf{R} \right) =
+\sum_i \lambda_i.\]</div>
+<p>Hence the remaining eigenvalues are the roots of</p>
+<div class="math notranslate nohighlight">
+\[\det\left( \mathbf{R} - \lambda \mathbf{I} \right) =
+\left( 1 - \lambda \right)
+  \left[ (\cos \theta - \lambda)^2 + \sin^2 \theta \right] =
+\left( 1 - \lambda \right)
+  \left[ \lambda^2 - 2 \lambda \cos \theta + 1 \right].\]</div>
+<p>Therefore, the eigenvalues of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> are
+<span class="math notranslate nohighlight">\(\lambda \in \left\{ 1, 1, e^{i \theta}, e^{-i \theta} \right\}\)</span>.</p>
+<p>Recall that the characteristic vectors (eigenvectors) of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> must
+satisfy the equation</p>
+<div class="math notranslate nohighlight">
+\[\left( \mathbf{A} - \lambda \mathbf{I} \right)
+  \tilde{\mathbf{v}} =
+\boldsymbol{0}.\]</div>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{a}\)</span> denote the direction of the rotation axis
+(i.e. <span class="math notranslate nohighlight">\(\mathbf{R} \mathbf{a} = \mathbf{a}\)</span>), and decompose the translation
+vector into <span class="math notranslate nohighlight">\(\mathbf{t} = \mathbf{t}_\parallel + \mathbf{t}_\perp\)</span> where
+<span class="math notranslate nohighlight">\(\mathbf{t}_\parallel = (\mathbf{t} \cdot \mathbf{a}) \mathbf{a}\)</span> and
+<span class="math notranslate nohighlight">\(\mathbf{t}_\perp = \mathbf{t} - \mathbf{t}_\parallel\)</span>.</p>
+<div class="section" id="\lambda_1-=-\lambda_2-=-1">
+<h3><span class="math notranslate nohighlight">\(\lambda_1 = \lambda_2 = 1\)</span><a class="headerlink" href="#\lambda_1-=-\lambda_2-=-1" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{0}
+ &amp;= \left( \mathbf{A} - \mathbf{I} \right) \tilde{\mathbf{v}}\\
+ &amp;= \begin{bmatrix}
+      \mathbf{R} - \mathbf{I} &amp; \mathbf{t}\\
+      \boldsymbol{0}^\top &amp; 0
+    \end{bmatrix}
+      \begin{bmatrix} \mathbf{v}\\ \upsilon \end{bmatrix}\\
+ &amp;= \begin{bmatrix}
+      \mathbf{R} \mathbf{v} - \mathbf{v} + \upsilon \mathbf{t}\\
+      0
+    \end{bmatrix}\end{split}\]</div>
+<p>Regardless of whether <span class="math notranslate nohighlight">\(\mathbf{t}\)</span> is orthogonal to <span class="math notranslate nohighlight">\(\mathbf{a}\)</span> or
+not,
+<span class="math notranslate nohighlight">\(\tilde{\mathbf{v}}_1 = \begin{bmatrix} \mathbf{a}\\ 0 \end{bmatrix}\)</span>
+is clearly an eigenvector of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>.  Furthermore, one cannot
+evaluate</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{R} \mathbf{v} - \mathbf{v} + \upsilon \mathbf{t} &amp;= 0\\
+\upsilon \mathbf{t} &amp;= \mathbf{v} - \mathbf{R} \mathbf{v}\\
+\upsilon \left(
+  \mathbf{t}_\parallel + \mathbf{t}_\perp
+\right) &amp;= (\mathbf{R} - \mathbf{I}) \mathbf{v}\end{split}\]</div>
+<p>directly because <span class="math notranslate nohighlight">\(\mathbf{R} - \mathbf{I}\)</span> is a singular matrix.  This
+also applies to <span class="math notranslate nohighlight">\(\mathbf{R}'\)</span> because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\det(\mathbf{R}' - \mathbf{I})
+ &amp;= \det(\mathbf{I}' + \mathbf{P} \mathbf{R} \mathbf{P}^{-1})\\
+ &amp;= \det(\mathbf{R}^\top - \mathbf{I}) \det(\mathbf{R}) \det(\mathbf{I}')
+    &amp; \quad &amp; \text{matrix determinant lemma}\\
+ &amp;= \det(\mathbf{R} - \mathbf{I}) \det(\mathbf{R}) \det(\mathbf{I}').\end{split}\]</div>
+<p>When <span class="math notranslate nohighlight">\(\mathbf{a} \cdot \mathbf{t} = 0\)</span>, the resulting homogeneous system</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\upsilon \mathbf{t}_\perp &amp;= (\mathbf{R}' - \mathbf{I}) \mathbf{v}\\
+\boldsymbol{0}
+ &amp;= \begin{bmatrix}
+      \mathbf{R}' - \mathbf{I} &amp; -\mathbf{t}_\perp
+    \end{bmatrix}
+    \begin{bmatrix} \mathbf{v}\\ \upsilon \end{bmatrix}\end{split}\]</div>
+<p>is underdetermined and has infinitely many solutions.</p>
+<p>When <span class="math notranslate nohighlight">\(\mathbf{a} \cdot \mathbf{t} \neq 0\)</span>, there are not enough free
+variables to choose <span class="math notranslate nohighlight">\(\upsilon \in \mathbb{R} \setminus 0\)</span> and still
+satisfy</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\upsilon \left(
+  \mathbf{t}^\top \mathbf{a} \mathbf{a} + \mathbf{t}_\perp
+\right) &amp;= (\mathbf{R}' - \mathbf{I}) \mathbf{v}\\
+\upsilon \mathbf{t}^\top \mathbf{a} \mathbf{R}' \mathbf{a} +
+    \upsilon \mathbf{t}_\perp
+ &amp;= \mathbf{R}' \mathbf{v} - \mathbf{I} \mathbf{v}\end{split}\]</div>
+<p>because <span class="math notranslate nohighlight">\(\mathbf{t}_\perp \cdot \mathbf{a} = 0\)</span>.  Hence the only
+eigenvector available is
+<span class="math notranslate nohighlight">\(\tilde{\mathbf{v}}_2 = \begin{bmatrix} \mathbf{a}\\ 0 \end{bmatrix}\)</span>.</p>
+</div>
+<div class="section" id="\lambda_3-=-e^{i-\theta},-\lambda_4-=-e^{-i-\theta}">
+<h3><span class="math notranslate nohighlight">\(\lambda_3 = e^{i \theta}, \lambda_4 = e^{-i \theta}\)</span><a class="headerlink" href="#\lambda_3-=-e^{i-\theta},-\lambda_4-=-e^{-i-\theta}" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{0}
+ &amp;= \left( \mathbf{A} - e^{\pm i \theta} \mathbf{I} \right)
+      \tilde{\mathbf{v}}\\
+ &amp;= \begin{bmatrix}
+      \mathbf{R} - e^{\pm i \theta} \mathbf{I} &amp; \mathbf{t}\\
+      \boldsymbol{0}^\top &amp; 1 - e^{\pm i \theta}
+    \end{bmatrix}
+      \begin{bmatrix} \mathbf{v}\\ \upsilon \end{bmatrix}\\
+ &amp;= \begin{bmatrix}
+      \mathbf{R} \mathbf{v} - e^{\pm i \theta} \mathbf{v} +
+        \upsilon \mathbf{t}\\
+      \left( 1 - e^{\pm i \theta} \right) \upsilon
+    \end{bmatrix}\end{split}\]</div>
+<p>By inspection, the simplest pair of eigenvectors would have
+<span class="math notranslate nohighlight">\(\upsilon = 0\)</span>.  Consequently, the corresponding eigenvectors
+<span class="math notranslate nohighlight">\(\tilde{\mathbf{v}}_3 = \begin{bmatrix} \mathbf{v}_3\\ 0 \end{bmatrix}\)</span>
+and
+<span class="math notranslate nohighlight">\(\tilde{\mathbf{v}}_4 = \begin{bmatrix} \mathbf{v}_4\\ 0 \end{bmatrix}\)</span>
+span a plane that is orthogonal to the axis of rotation <span class="math notranslate nohighlight">\(\mathbf{a}\)</span>.
+To see this, notice that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left( \lambda_3 \mathbf{v}_3 \right)^\top \mathbf{v}_4
+ &amp;= \mathbf{v}_3^\top \mathbf{R}^\top \mathbf{v}_4\\
+ &amp;= \mathbf{v}_3^\top \frac{\mathbf{v}_4}{\lambda_4}
+    &amp; \quad &amp; \mathbf{v}_4 = \lambda_4 \mathbf{A}^\top \mathbf{v}_4\\
+(\lambda_3 - \lambda_4^{-1}) \mathbf{v}_3^\top \mathbf{v}_4 &amp;= 0.\end{split}\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\lambda_3 - \lambda_4^{-1} \neq 0\)</span>, the eigenvectors must be
+mutually orthogonal.</p>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-nb/multiple-view-geometry-hz/chapter-03-0"><dl class="citation">
+<dt class="bibtex label" id="kurser04"><span class="brackets"><a class="fn-backref" href="#id1">Bor</a></span></dt>
+<dd><p>Niclas Borlin. Course notes from geometrical image analysis. <span><a class="reference external" href="#"></a></span>https://www8.cs.umu.se/kurser/TDBD19/VT05/homo3d-4.pdf. Accessed on 2017-02-08.</p>
+</dd>
+<dt class="bibtex label" id="yap21surf"><span class="brackets"><a class="fn-backref" href="#id2">Yap</a></span></dt>
+<dd><p>Chee Yap. Lecture 21: surfaces. <span><a class="reference external" href="#"></a></span>http://cs.nyu.edu/yap/bks/egc/09/21Surfaces.pdf. Accessed on 2017-02-28.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/nb/multiple-view-geometry-hz/chapter-03.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

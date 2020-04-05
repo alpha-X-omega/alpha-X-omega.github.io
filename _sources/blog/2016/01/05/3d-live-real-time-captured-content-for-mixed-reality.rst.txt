@@ -1,0 +1,56 @@
+#####################################################
+3D Live: Real Time Captured Content for Mixed Reality
+#####################################################
+
+Motivation(s)
+=============
+
+All researchers perceive perfect telepresence as the end goal of AR.  The latest
+AR technology is capable of superimposing 2D textual information onto real world
+objects, inserting 3D graphical objects, and displaying 2D single-view video
+streams of collaborators.  The only way to achieve a 360-view of the
+collaborator at the moment is to animate a pre-scanned model.
+
+Proposed Solution(s)
+====================
+
+The authors propose an image-based novel view generation using
+shape-from-silhouette.  This technique assumes the :math:`n` cameras' intrinsic
+and extrinsic parameters are available, which restricts the visual hull
+construction to the visible parts.  See section 3 for a summary of the algorithm
+in pseudocode.
+
+Evaluation(s)
+=============
+
+The experimental system was capable of augmenting QVGA quality 360-views.  The
+most apparent limitation is that the subject needs to be present in each of the
+camera.
+
+Future Direction(s)
+===================
+
+- Which medium enhances student learning: dynamic ebooks, virtual reality
+  reconstruction, or augmented holographic content?
+
+Question(s)
+===========
+
+- The points on the visual hull does not correspond to real surface points, but
+  can it restrict the region to perform structure from motion?
+
+Analysis
+========
+
+With a known environment and cameras, the only limitation in a 360-view system
+is the computational power.
+
+The end goal is very useful, but this approach requires too much
+instrumentation.  However, perhaps another non-line-of-sight technology could
+reuse this technology to achieve high-resolution 360-view.  Each design decision
+was well-thought-out and adds on minimal complexity.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

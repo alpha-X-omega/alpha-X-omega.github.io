@@ -1,0 +1,76 @@
+#################################
+The Standard Error of Regressions
+#################################
+
+Motivation(s)
+=============
+
+Less thoughful researchers have accepted statistical significance as a valid and
+reliable indicator to make decisions.  This mindset is still prevalent despite
+the counter-arguments.  Actual investigations should depend on substantive not
+merely statistical significance because
+
+- a difference can be permanent without being significant,
+- and a difference can be significant yet be insignificant statistically.
+
+With such recurrent thinking and a lack of empirical studies measuring the use
+of statistical significance in economics, the author hypothesized researchers
+were equating statistical significance with economic significance.
+
+Proposed Solution(s)
+====================
+
+Since statistical significance have not led to any scientific success, the
+proposed methodology excludes statistical significance and consists only of
+simulations, new data sets, and quantitative thinking.
+
+Evaluation(s)
+=============
+
+A survey of the most widespread statistics and economics books reveal only
+two authors, Morris DeGroot and Arthur Goldberger, ever qualified the difference
+between economic significance and statistical significance; albeit the
+discussion was limited to at most a page.
+
+Analyzing a corpus of publications from the American Economic Review revealed
+that three-quarters of researchers merge statistical significance with economic
+significance.
+
+Future Direction(s)
+===================
+
+- How can counterfactual analysis be applied as an alternative to statistical
+  significance?
+- Which area of study also exhibit this problem?
+
+Question(s)
+-----------
+
+- Would Bayesian statistics mitigate the mentioned issues?
+- When can one accept the null hypothesis?
+
+Analysis
+========
+
+This is a must-read for all beginning students in statistics.  Statistical
+significance and confidence intervals have been the usual buzzwords ever since
+machine learning took off.  These survey questions could serve as a reference to
+determine whether a paper provides deeper insights than some tests.  Putting
+type I and type II errors aside, it is surprising that applied statisticians
+tend to forget that statistical significance cannot answer any questions and the
+relative importance of all possible errors will depend on the special purposes
+of the investigation.  One should always keep in mind:
+
+- How large is large?
+- Neyman-Pearson Lemma specifies the null hypothesis as something the researcher
+  believes to be true.
+
+  - Only the rejection of the null hypothesis can be taken as a definitive
+    conclusion.
+  - Failing to reject does not imply that the null is therefore true.
+  - Rejecting the null does not imply that the alternative hypothesis is true.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

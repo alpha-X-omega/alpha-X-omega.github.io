@@ -1,0 +1,367 @@
+################################################################################
+Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation
+################################################################################
+
+Motivation(s)
+=============
+
+The object detection accuracy of ensemble systems that employ SIFT and HOG has
+plateaued in recent years.  The recent success of CNNs on image classification
+call attention to what extent do classification results generalize to object
+detection.
+
+Proposed Solution(s)
+====================
+
+In an attempt to bridge the gap between image classification and object
+detection, the authors propose a system, R-CNN (Regions with CNN features), that
+combines region proposals with CNNs.  Their focus is on localizing objects with
+a deep neural network and training a high-capacity model with only a small
+quantity of annotated detection data.  They solve the CNN localization problem
+by operating within the successful *recognition using regions* paradigm.
+
+Evaluation(s)
+=============
+
+While R-CNN is agnostic to the particular region proposal method, the authors
+chose selective search (a.k.a. approximate segmentation at multiple scales) in
+order to measure against prior detection work.  They warp each of the 2000
+region proposals to the CNN's input size.  Their inexhaustive evaluations of
+different warpings suggest that warping to the tightest square with context
+padding resulted in a higher mean average precision (mAP) compared to without
+context padding and anisotropic scaling.
+
+The feature extraction step can be performed by any CNN such as AlexNet or
+VGGNet.  Experiments on different network architecture reveal that a good
+feature extractor gives at least 8% boost in mAP.  Even though the authors opted
+for AlexNet to save on computation, R-CNN still tops existing state of the art
+methods such as OverFeat by at least 20% in terms of mAP.  OverFeat can be seen
+as a special case of R-CNN if one replaces the selective search with a
+multi-scale pyramid of regular square regions and changes the per-class
+bounding box regressors to a single bounding box regressor.
+
+At test time, they score each extracted feature vector using the SVM trained for
+each class.  Given all scored regions in an image, a greedy non-maximum
+suppression for each class independently rejects a region if it has an
+intersection-over-union (IoU) overlap with a higher scoring selected region
+larger than a learned threshold.
+
+Note that CNN fine-tuning uses a different IoU threshold than SVM training.  The
+authors conjecture that these hyperparameters need to be different to avoid
+overfitting to the limited amount of data.  They did not use the
+:math:`(N + 1)`-way softmax regression classifier as the object detector because
+they failed in tuning the system to get higher performance than SVMs.  To fix
+mislocalized detections, the authors applied a class-specific bounding box
+regression based on CNN pool layer features.  The regression only learns from a
+proposal if it is nearby at least one ground-truth box.  This concept of
+"nearness" relies on a hardcoded IoU.
+
+Future Direction(s)
+===================
+
+- What is the minimum number of input transformations a neural network needs
+  to be trained on?
+- Are the false positives (e.g. localization, similar category, dissimilar
+  category, background) dominated by network architecture and optimization or
+  labels?
+- Is YOLO beneficial to Faster R-CNN like it was to Fast R-CNN?
+
+Question(s)
+===========
+
+- Why not learn the overlap threshold instead of performing a grid search?
+- Is treating a particular unit in the network as if it was an object detector
+  useful for debugging in general?
+
+Analysis
+========
+
+Deep learning is one technique that has successfully combined image
+classification and object detection.
+
+The authors reported :math:`\text{fc}_6` gives the best semantic segmentation
+results, but did not provide any numbers on :math:`\text{fc}_7`.  This extra
+information would help with designing future network architecture.
+
+Their experiments of training SVMs with different CNN layers demonstrate that a
+CNN’s representational power mostly comes from its convolutional layers.  The
+densely connected layers only yields an additional 10% mAP after fine-tuning.
+
+The distribution of top-ranked false positive types shows that bounding box
+regression is necessary to attain the highest possible mAP, but the authors'
+approach may not be the most elegant way to achieve this.  Furthermore, it's
+debatable whether the additional complexity of per class linear SVMs is worth
+the 4% gain in mAP.
+
+One enlightening insight is that fine-tuning improves robustness (the
+highest and lowest normalized mAP) for nearly all characteristics including
+occlusion, truncation, viewpoint, and part visibility.  However, it does not
+reduce sensitivity (the difference between max and min).
+
+In an attempt to shorten the feature extraction step of R-CNN,
+:cite:`he2014spatial` proposes a spatial pyramid pooling (SPP) layer that
+operates directly on the feature map of each training example.  The experiments
+demonstrate comparable accuracy to R-CNN but with two orders of magnitude
+speedup.
+
+The authors of the follow up work Fast R-CNN realized that the multi-stage
+training is complicated and possibly not necessary, so they propose to train
+the detector in a single stage, end-to-end by jointly optimizing a softmax
+classifier and bounding-box regressors :cite:`girshick2015fast`.  Their
+empirical results indicate:
+
+- Multi-task training improves pure classification accuracy relative to training
+  for classification alone.
+- Multi-scale training approach offers only a small increase in mAP at a large
+  cost in compute time because deep CNNs are adept at directly learning scale
+  invariance.
+- The simple softmax classifier slightly outperforms SVMs in mAP.
+- Augmenting the training data by increasing the amount of object proposals
+  (e.g. 1k to 10k) actually hurts accuracy.
+- Fine-tuning the entire network plays an important role in deep networks
+  compared to shallow networks like SPP-net.
+
+  - The first three convolutional layers do not have to be fine-tuned because
+    their impact to mAP is less than 0.3 points.
+
+Even though Fast R-CNN reduced the detection pipeline's processing time, the
+system still takes seconds to operate per image due to region proposals.  One
+solution is to replace the selective search method with a region proposal
+network (RPN) :cite:`ren2015faster`.  This pipeline enabled Faster R-CNN to
+operate at interactive rates with even higher mAP.  The network's loss function
+is the sum of the RPN loss and Fast R-CNN loss.  The empirical results show that
+this approximate joint training scheme is faster and matches the accuracy of
+alternating training.  Note that the latter is not based on any fundamental
+principles while the former ignores the undefined
+:math:`\frac{\partial L}{\partial RoI[x]}` where :math:`x` denotes the proposal
+boxes’ coordinates that are also network responses.  Exact joint training
+requires an RoI pooling layer that is differentiable w.r.t. the box coordinates,
+possibly via RoI warping.  One interesting result is that the multi-scale anchor
+boxes alone are not sufficient for accurate detection, and aspect ratios have
+insignificant effects on detection accuracy.
+
+To further reduce the system latency, :cite:`redmon2016you` models detection as
+a regression problem and uses features from the entire image to predict all
+bounding boxes simultaneously.  Their system (YOLO) imposes strong spatial
+constraints on bounding box predictions since each grid cell only predicts two
+boxes and can only have one class.  This spatial constraint and coarse features
+causes YOLO to struggle with small objects that appear in groups and fail to
+generalize to objects in new or unusual aspect ratios or configurations.  Their
+unified detection takes approximately 22ms, but gives 10 mAP less than Faster
+R-CNN due to incorrect localizations.  Even though combining YOLO with Fast
+R-CNN gives impressive accuracy, it is not better than Faster R-CNN.
+
+Notice that Faster R-CNN is fully convolutional but requires a second stage to
+classify the bounding boxes, whereas YOLO directly predicts the multi-class
+probability vector and offsets for :math:`K` boxes using a fully-connected
+layers.  One way to combine the best of both solutions without resampling
+pixels or feature maps is given in :cite:`liu2016ssd`.  Their system (SSD) has
+less localization error because it directly learns to regress the object shape
+and classify object categories in a single step.  However, since the parameters
+are shared for multiple categories, the error due to similar object categories
+is higher.  Furthermore, the system is very sensitive to the bounding box size
+and performs worse on smaller objects than bigger objects.  Nevertheless, the
+system latency is only twice that of YOLO with much higher accuracy and
+robustness than Faster R-CNN due to multi-scale feature maps and default boxes.
+Note that the higher accuracy requires the use of data augmentation e.g.
+horizontal flip, random crop, color distortion, and random expansion.
+
+Notes
+=====
+
+R-CNN
+-----
+
+The training pipeline consists of
+
+1) Offline pre-training of a CNN :math:`M` for image classification.
+#) Fine-tune :math:`M` for object detection by replacing the softmax classifier
+   with one that has the desired number of classes plus one background class.
+#) Freeze :math:`M`'s weights and cache the training data's feature vectors.
+
+   - Training data includes all the region proposals.
+   - For AlexNet, the feature vectors could be :math:`\text{pool}_5`,
+     :math:`\text{fc}_6`, or :math:`\text{fc}_7`.
+
+#) Independently train a linear SVM for each category on the feature vectors
+   using the hard negative mining method.
+#) Independently train a linear bounding box regressor for each category to
+   refine the proposal's initial region of interest.
+
+   - For AlexNet, the regression can be modeled as a linear function of the
+     :math:`\text{pool}_5` features.
+
+SPP-Net
+-------
+
+The region proposals are still being generated using selective search.  However,
+instead of passing each region proposal through the CNN, SPP-net generates a
+feature map of the entire input image using the CNN :cite:`he2014spatial`.  In
+order to map the window of each proposed region to the feature map, the authors
+project the corner point of a window onto a pixel in the feature map such that
+this corner point in the image domain is closest to the center of the receptive
+field of that feature map pixel.
+
+The spatial pyramid pooling layer does not have any weights.  It replaces the
+last pooling layer in R-CNN, and outputs a :math:`kM`-dimensional vector
+regardless of image size and scale.  Here :math:`k` is the number of filters in
+the last convolutional layer, and :math:`M` is the number of bins.  The vector
+is akin to an image pyramid that uses bins instead of pixels.  In each spatial
+bin, the authors (max) pool the responses of each filter.
+
+By decoupling the convolutional layers from the fully-connected layers, SPP-net
+enables the former to accept inputs of arbitrary sizes while satisfying the
+latter's requirement of fixed-size input.  Consequently, the fine-tuning phase
+now only needs to modify the fully-connected layers.
+
+Fast R-CNN
+----------
+
+While R-CNN supports training all layers of the network, SPP-net cannot because
+of its SPP layer optimization.  :cite:`girshick2015fast` instead propose a
+Region of Interest (RoI) pooling layer, which is a special case of the SPP layer
+with one pyramid level.  Each proposed RoI may have a very large receptive
+field, so mini-batches are sampled hierarchically: first sample :math:`N` images
+and then sample :math:`R / N` RoIs from each image.  This enables RoIs from the
+same image to share computation and memory in the forward and backward passes.
+Even though the RoIs from the same image are correlated, the authors achieved
+good results with :math:`(N = 2, R = 128)` and did not notice any slowdown of
+training convergence.
+
+In order to fine-tune the entire network via SGD, the authors define two loss
+branches after the fully-connected layers.  The sum of the softmax classifier
+and per-class linear bounding-box regressors is the total loss :math:`L`.  For
+background RoIs, there is no notion of a ground-truth bounding box.  The errors
+are backpropagated through the RoI pooling layer, which is just like max pooling
+except that pooling regions overlap:
+
+.. math::
+
+   \DeclareMathOperator*{\argmax}{argmax}
+   \DeclareMathOperator*{\Pr}{\mathop{\mathrm{Pr}}}
+   \frac{\partial L}{\partial x_i}
+    &= \sum_r \sum_j
+         \frac{\partial y_{rj}}{\partial x_i}
+         \frac{\partial L}{\partial y_{rj}}\\
+    &= \sum_r \sum_j
+         \left[ i = i^*_{rj} \right] \frac{\partial L}{\partial y_{rj}}
+   \qquad \text{where} \qquad
+   i^*_{rj} = \argmax_{i' \in \mathcal{R}(r, j)} x_{i'}
+
+and :math:`\mathcal{R}(r, j)` is the index set of inputs in the sub-window over
+the RoI :math:`r` which the output unit :math:`y_{rj}` max pools.  Here
+:math:`x_i` is the :math:`i^\text{th}` activation input into the RoI pooling
+layer, and it may be assigned to several different outputs :math:`y_{rj}`.
+
+At test time for each RoI :math:`r`, Fast R-CNN's forward pass outputs a class
+posterior probability distribution :math:`p` and a set of predicted bounding-box
+offsets relative to :math:`r`.  Each class independently runs non-maximum
+suppression as in R-CNN but uses the detection confidence
+:math:`\mathop{\mathrm{Pr}}\left( \text{class} = k \mid r \right) = p_k` as its
+criterion.  One can also trade a small drop in mAP to further reduce detection
+time via approximating each fully-connected layer's weight matrix by a matrix of
+lower rank.
+
+Faster R-CNN
+------------
+
+A RPN takes as input an image (e.g. feature map) of arbitrary size, slides a
+:math:`n \times n` spatial window over each pixel of the input, and outputs a
+set of rectangular object proposals.  At each sliding window location, the RPN
+classifies what is under the window as object or not object.  If it is an
+object, the RPN estimates some bounding box coordinates.  If it is not, the
+estimated coordinates are nonsensical and should be ignored.
+
+The maximum number of possible proposals for each location is limited to
+:math:`k` i.e. :math:`2k + 4k` outputs per pixel.  The :math:`k` proposals
+are parameterized relative to :math:`k` anchor boxes.  Each anchor box has a
+constant scale and aspect ratio, both of which are hand-picked.  This pyramid of
+anchors is centered at the sliding window in question, and the RPN learns the
+appropriate shared weights to estimate :math:`2k + 4k` outputs at each position.
+The :math:`2k` represents the two-class softmax layer, and the :math:`4k`
+embodies R-CNN's bounding box regression.
+
+Given the feature map that is the output of ReLU on the last convolutional
+layer, :cite:`ren2015faster` implements the RPN as two sibling
+:math:`1 \times 1` convolutional layers whose depth is :math:`2k` and :math:`4k`
+respectively.  This approach guarantees translation invariance.  Furthermore,
+the pyramid only relies on inputs of a single scale and uses filters of a single
+size.  In order to support the multi-scale design, a set of :math:`k` bounding
+box regressors are learned for each combination of scale and aspect ratio.
+Unlike previous RoI-based methods, these regressors do not share weights.
+
+YOLO
+----
+
+The system divides the input image into a :math:`S \times S` grid.  Each grid
+cell predicts :math:`B` bounding boxes and confidence scores for those boxes.
+Each bounding box's center :math:`(x, y)` is relative to the bounds of the grid
+cell whereas its :math:`(w, h)` are relative to the whole image.  The confidence
+score :math:`\Pr(\text{Object}) \text{IoU}` captures whether the box contains an
+object and the overlap between the predicted box and any ground truth box.
+
+YOLO only predicts :math:`C` conditional class probabilities
+:math:`\Pr\left( \text{Class}_i \mid \text{Object} \right)` per grid cell
+regardless of the number of boxes :math:`B`.  The class-specific confidence
+scores is attained through marginalization:
+
+.. math::
+
+   \Pr\left( \text{Class}_i \mid \text{Object} \right)
+       \Pr(\text{Object}) \text{IoU} =
+   \Pr(\text{Class}_i) \text{IoU}.
+
+The architecture is a variation of GoogLeNet with :math:`24` convolutional
+layers followed by two fully-connected layers with the last layer being a
+:math:`S \times S \times (5B + C)` tensor.  Besides pretraining the first
+:math:`20` convolutional layers on ImageNet and applying non-maximum suppression
+on the bounding boxes per grid cell, :cite:`redmon2016you` also had to finagle
+the optimization procedure.  They increase the loss from the bounding box
+coordinate predictions and decrease the loss from confidence predictions for
+boxes that do not contain objects because many grid cells do not contain any
+object.  Their system predicts the square root of the bounding box width and
+height so that small deviations in large boxes matter less than in small
+boxes.  However, their loss function treats errors in small bounding boxes
+versus large bounding boxes the same.  Achieving high accuracy requires the
+learning rate schedule to imitate the typical :doc:`gradual warmup strategy <blog/2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour>`.
+
+SSD
+---
+
+Given the convolutional layers of VGG-16 through Conv5_3 layer as a base, the
+authors add convolutional feature layers to the end.  Although these layers
+decrease in size progressively, their output can be defined by a kernel
+filter of size :math:`3 \times 3 \times (C + 4) K_i`.  Here :math:`C` is the
+number of classes, four denotes the refinements to some fixed default box,
+and :math:`K_i` is the number of default boxes for feature map :math:`i`.
+
+A default box is essentially a multi-scale anchor box :cite:`liu2016ssd`.  The
+predicted bounding box offsets are relative to a default box's extents relative
+to each feature map (pixel) location.  The coordinates are normalized w.r.t.
+image dimensions to achieve invariance to absolute image size i.e. think UV
+texture space.  The default boxes do not have to correspond to the actual
+receptive fields of each layer.
+
+Suppose the network uses :math:`m` feature maps for prediction.  The scale of
+the default boxes for each feature map is given by
+
+.. math::
+
+   s_k = s_\min + \frac{s_\max - s_\min}{m - 1} (k - 1)
+
+where the lowest layer and highest layer has a scale of :math:`s_\min` and
+:math:`s_\max` respectively.  The authors also impose different aspect ratios
+for the default boxes.
+
+For a feature map :math:`i` of size :math:`m \times n`, the network generates
+:math:`(C + 4) K_i mn` outputs.  To handle the large number of default boxes,
+the authors match each ground truth (GT) box to closest default box.  They also
+match each GT box to all unassigned default boxes with a high IoU.  To deal with
+the unbalanced number of true positives (TP) vs false positives (FP), they use
+hard negative mining on the worst misclassified FPs i.e. keep TP:FP ratio fixed
+at 1:3.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

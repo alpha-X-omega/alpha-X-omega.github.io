@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Topological Invariants of Discrete Surfaces &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="A Quick and Dirty Introduction to Differential Geometry" href="chapter-02.html" />
+    <link rel="prev" title="Differential Geometry from a Graphics Perspective - NLPH" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Topological Invariants of Discrete Surfaces</a><ul>
+<li><a class="reference internal" href="#Polyhedral-Formula">Polyhedral Formula</a><ul>
+<li><a class="reference internal" href="#Polygonal-Disk">Polygonal Disk</a></li>
+<li><a class="reference internal" href="#Polyhedron">Polyhedron</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Platonic-Solids">Platonic Solids</a></li>
+<li><a class="reference internal" href="#Regular-Valence">Regular Valence</a></li>
+<li><a class="reference internal" href="#Minimally-Irregular-Valence">Minimally Irregular Valence</a></li>
+<li><a class="reference internal" href="#Mean-Valence">Mean Valence</a></li>
+<li><a class="reference internal" href="#Area-of-a-Spherical-Triangle">Area of a Spherical Triangle</a></li>
+<li><a class="reference internal" href="#Area-of-a-Spherical-Polygon">Area of a Spherical Polygon</a></li>
+<li><a class="reference internal" href="#Angle-Defect">Angle Defect</a></li>
+<li><a class="reference internal" href="#Discrete-Gauss-Bonnet-Theorem">Discrete Gauss-Bonnet Theorem</a></li>
+<li><a class="reference internal" href="#Total-Curvature">Total Curvature</a></li>
+<li><a class="reference internal" href="#Pointwise-Curvature-Estimates">Pointwise Curvature Estimates</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: Differential Geometry from a Graphics Perspective - NLPH"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Differential ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="chapter-02.html" title="Next Chapter: A Quick and Dirty Introduction to Differential Geometry"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">A Quick and D... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="Topological-Invariants-of-Discrete-Surfaces">
+<h1>Topological Invariants of Discrete Surfaces<a class="headerlink" href="#Topological-Invariants-of-Discrete-Surfaces" title="Permalink to this headline">¶</a></h1>
+<p><a class="bibtex reference internal" href="index.html#botsch2010polygon" id="id1">[BKP+10]</a> is a whirlwind tour of the applications that makes use
+of differential geometry.  The lack of exercises makes this is a quick read.
+Its focus is to provide a mental model of the digital geometry processing
+pipeline.</p>
+<p><a class="bibtex reference internal" href="index.html#zhang2016gcs" id="id2">[Zha16]</a> is a nice introductory overview to peruse before starting
+differential geometry.  There are a few concepts to be aware of:</p>
+<ul class="simple">
+<li><p>An analytic function is a function that is locally given by a convergent
+power series.</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Non-analytic_smooth_function#The_function_is_not_analytic">Not all smooth functions are analytic</a>.</p></li>
+<li><p><a class="reference external" href="http://linear.ups.edu/html/section-IVLT.html">Isomorphic vector spaces have equal dimension</a>.</p></li>
+<li><p><a class="bibtex reference internal" href="#zweckiftrm" id="id3">[Zwe]</a> gives a more intuitive explanation that supplements the
+proof for Theorem 1.1.4 in <a class="bibtex reference internal" href="index.html#zhang2016gcs" id="id4">[Zha16]</a>.</p></li>
+</ul>
+<p>At the core of discrete differential geometry lies a hierarchy of structures in
+geometry: <a class="reference external" href="http://brickisland.net/DDGSpring2016/wp-content/uploads/2016/02/DDG_CMUSpring2016_TopologicalStructure-1.pdf">topological structure</a> <span class="math notranslate nohighlight">\(\supset\)</span>
+<a class="reference external" href="http://brickisland.net/DDGSpring2016/wp-content/uploads/2016/02/DDG_CMUSpring2016_DifferentiableStructure.pdf">differentiable structure</a> <span class="math notranslate nohighlight">\(\supset\)</span> <a class="reference external" href="http://brickisland.net/DDGSpring2016/wp-content/uploads/2016/02/DDG_CMUSpring2016_GeometricStructure-2.pdf">geometric structure</a>.  The
+intuition behind these conceptual primitives are essential to understanding more
+complex subjects.</p>
+<p>After reading the aforementioned materials, complete Chapter 4 in
+<a class="bibtex reference internal" href="index.html#crane2015discrete" id="id5">[Cra]</a>.</p>
+<div class="section" id="Polyhedral-Formula">
+<h2>Polyhedral Formula<a class="headerlink" href="#Polyhedral-Formula" title="Permalink to this headline">¶</a></h2>
+<p>Recall that a <a class="reference external" href="https://en.wikipedia.org/wiki/Simple_polygon">simple polygon</a> encloses a region with no holes where exactly
+two edges meet at each vertex, and the number of edges <span class="math notranslate nohighlight">\(E\)</span> is equal to the
+number of vertices <span class="math notranslate nohighlight">\(V\)</span>.</p>
+<div class="section" id="Polygonal-Disk">
+<h3>Polygonal Disk<a class="headerlink" href="#Polygonal-Disk" title="Permalink to this headline">¶</a></h3>
+<p>A polygonal disk is any topological disk constructed out of simple polygons.
+The simplest polygonal disk is a simple polygon that has <span class="math notranslate nohighlight">\(F = 1\)</span>.  By
+inspection, the base case is satisfied.  For the inductive step, suppose
+<span class="math notranslate nohighlight">\(V - E + F = 1\)</span> holds for a polygonal disk with <span class="math notranslate nohighlight">\(F\)</span> faces,
+<span class="math notranslate nohighlight">\(V\)</span> vertices, and <span class="math notranslate nohighlight">\(E\)</span> edges.</p>
+<p>There are only two valid operations on a polygonal disk.  When placing a new
+vertex on an existing edge, that edge is split into two edges without affecting
+<span class="math notranslate nohighlight">\(F\)</span>.  The polyhedral formula still holds because
+<span class="math notranslate nohighlight">\((V + e) - (E + e) + F = 1\)</span> where <span class="math notranslate nohighlight">\(e = 1\)</span>.</p>
+<p>When a new face is delimited within the polygonal disk, the resulting simple
+polygon must introduce <span class="math notranslate nohighlight">\(e + v\)</span> new vertices and <span class="math notranslate nohighlight">\(e + v + 1\)</span> new
+edges where <span class="math notranslate nohighlight">\(v \in \mathbb{W}\)</span> is the number of new vertices placed on
+non-edges and <span class="math notranslate nohighlight">\(e \in \mathbb{W}\)</span> is the number of new vertices placed on
+edges.  The simple polygon cannot be formed using an entirely new set of
+vertices and edges because that decomposition would violate the definition of a
+polygonal disk.  The polyhedral formula still holds because
+<span class="math notranslate nohighlight">\((V + e + v) - (E + e + v + 1) + (F + 1) = 1\)</span>.</p>
+</div>
+<div class="section" id="Polyhedron">
+<h3>Polyhedron<a class="headerlink" href="#Polyhedron" title="Permalink to this headline">¶</a></h3>
+<p>A polyhedron is a sphere made of polygons.  The simplest polyhedron is a
+tetrahedron with <span class="math notranslate nohighlight">\(V = 4\)</span> vertices, <span class="math notranslate nohighlight">\(E = 6\)</span> edges, and
+<span class="math notranslate nohighlight">\(F = 4\)</span> faces.  By inspection, the base case <span class="math notranslate nohighlight">\(V - E + F = 2\)</span> is
+satisfied.  For the inductive step, suppose that relationship holds for a
+polyhedron with <span class="math notranslate nohighlight">\(F\)</span> faces, <span class="math notranslate nohighlight">\(V\)</span> vertices, and <span class="math notranslate nohighlight">\(E\)</span> edges.
+Imagine inflating that polyhedron until it is a sphere. Any decomposition of
+the polyhedron can then be interpreted as operations on the surface of the
+sphere.  These operations are equivalent to the ones for a polygonal disk
+assuming the polyhedron is simply connected.  Thus <span class="math notranslate nohighlight">\(V - E + F = 2\)</span> holds
+for any simply connected polyhedron.</p>
+</div>
+</div>
+<div class="section" id="Platonic-Solids">
+<span id="nlph2017dgp-ex-1-platonic-solids"></span><h2>Platonic Solids<a class="headerlink" href="#Platonic-Solids" title="Permalink to this headline">¶</a></h2>
+<p>The vertices of a Platonic solid have equal valence <span class="math notranslate nohighlight">\(q\)</span>.  Let <span class="math notranslate nohighlight">\(p\)</span> be
+the number of edges (or equivalently vertices) of each face, and let <span class="math notranslate nohighlight">\(q\)</span>
+be the number of faces (or equivalently edges) that meet at each vertex.</p>
+<p>Since any edge joins two vertices and has two adjacent faces,</p>
+<div class="math notranslate nohighlight">
+\[pF = 2E = qV\]</div>
+<p>because the edges are double counted.  Since the simplest Platonic solid has
+<span class="math notranslate nohighlight">\(p, q \geq 3\)</span>, there are only five Platonic solids that satisfy</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}V - E + F &amp;= 2 &amp; \quad &amp; \text{Euler's polyhedral formula}\\
+\frac{2E}{q} - E + \frac{2E}{p} &amp;= 2\\
+\frac{1}{q} + \frac{1}{p} &amp;= \frac{1}{E} + \frac{1}{2}\\
+\frac{1}{q} + \frac{1}{p} &amp;&gt; \frac{1}{2}.\end{split}\]</div>
+</div>
+<div class="section" id="Regular-Valence">
+<span id="nlph2017dgp-ex-1-regular-valence"></span><h2>Regular Valence<a class="headerlink" href="#Regular-Valence" title="Permalink to this headline">¶</a></h2>
+<p>The valence of a vertex in a piecewise linear surface is the number of faces
+that contain that vertex.  A vertex of a simplicial surface is said to be
+regular when its valence equals <span class="math notranslate nohighlight">\(q = 6\)</span>.  A simplicial surface is defined
+to have <span class="math notranslate nohighlight">\(p = 3\)</span> edges per face.  Since any edge joins two vertices and has
+two adjacent faces, the
+<a class="reference internal" href="#nlph2017dgp-ex-1-platonic-solids"><span class="std std-ref">previously derived relationship</span></a></p>
+<div class="math notranslate nohighlight">
+\[\newcommand{\Euler}{\textrm{Euler}}
+\newcommand{\Poincare}{\textrm{Poincaré}}
+qV = 2E = pF\]</div>
+<p>still holds.  Applying the <span class="math notranslate nohighlight">\(\Euler-\Poincare\)</span> formula reveals</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 2 - 2g &amp;= V - E + F\\
+  &amp;= \frac{2E}{6} - E + \frac{2E}{3}\\
+  &amp;= 0\\
+g &amp;= 1.\end{split}\]</div>
+<p>Therefore, the only simplicial surface for which every vertex has a regular
+valence is a torus that has a genus of one.</p>
+</div>
+<div class="section" id="Minimally-Irregular-Valence">
+<span id="nlph2017dgp-ex-1-minimally-irregular-valence"></span><h2>Minimally Irregular Valence<a class="headerlink" href="#Minimally-Irregular-Valence" title="Permalink to this headline">¶</a></h2>
+<p>Suppose a simplicial surface <span class="math notranslate nohighlight">\(K\)</span> has a genus <span class="math notranslate nohighlight">\(g\)</span> where each vertex
+<span class="math notranslate nohighlight">\(i\)</span> has valence <span class="math notranslate nohighlight">\(q_i \geq 3\)</span>, <span class="math notranslate nohighlight">\(p = 3\)</span>, and there are finitely
+many faces.</p>
+<p>The <a class="reference internal" href="#nlph2017dgp-ex-1-regular-valence"><span class="std std-ref">relationship</span></a> between edges,
+faces, and vertices is now</p>
+<div class="math notranslate nohighlight">
+\[pF = 2E = 6 (V - n) + \sum_{j = 1}^n q_j\]</div>
+<p>where <span class="math notranslate nohighlight">\(n\)</span> is the number of vertices with irregular valence.  Applying the
+<span class="math notranslate nohighlight">\(\Euler-\Poincare\)</span> formula gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}2 - 2g &amp;= V - E + F\\
+ &amp;= V - \frac{1}{2} pF + F\\
+ &amp;= V +
+    \frac{2 - p}{2} \left( \frac{6 (V - n) + \sum_{j = 1}^n q_j}{p} \right)\\
+ &amp;= V - (V - n) - \frac{1}{6} \sum_j q_j
+    &amp; \quad &amp; p = 3\\
+n &amp;= 2 - 2g + \frac{1}{6} \sum_j q_j\\
+n &amp;= 2 - 2g + \frac{1}{6} \sum_j 3 + q'_j
+     &amp; \quad &amp; q'_j = q_j - 3 \geq 0\\
+n &amp;= 4 - 4g + \frac{1}{3} \sum_j q'_j\\
+  &amp;\geq 4 - 4g.\end{split}\]</div>
+<p>By inspection, <span class="math notranslate nohighlight">\(m(K)\)</span> is satisfied for <span class="math notranslate nohighlight">\(g = 0\)</span> and <span class="math notranslate nohighlight">\(g = 1\)</span>.
+When <span class="math notranslate nohighlight">\(g \geq 2\)</span>, <span class="math notranslate nohighlight">\(n \geq 1\)</span> because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}n &amp;= 4 - 4g + \frac{1}{3} \sum_j q'_j\\
+0 &amp;= 4 - 4g\end{split}\]</div>
+<p>contradicts while</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}n &amp;= 4 - 4g + \frac{1}{3} \sum_j q'_j\\
+1 &amp;= 4 - 4g + \frac{1}{3} q'_j\\
+q'_j &amp;= 12g - 9\end{split}\]</div>
+<p>is feasible for a connected, orientable simplicial surface.</p>
+</div>
+<div class="section" id="Mean-Valence">
+<h2>Mean Valence<a class="headerlink" href="#Mean-Valence" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#nlph2017dgp-ex-1-minimally-irregular-valence"><span class="std std-ref">relationship</span></a> between
+edges, faces, and vertices in a connected, orientable simplicial surface is now</p>
+<div class="math notranslate nohighlight">
+\[pF = 2E = \sum_{i = 1}^V q_i.\]</div>
+<p>Applying the <span class="math notranslate nohighlight">\(\Euler-\Poincare\)</span> formula gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}2 - 2g &amp;= V - E + F\\
+ &amp;= V - \frac{1}{2} \sum_i q_i + \frac{1}{p} \sum_i q_i\\
+\frac{1}{6} \sum_i q_i &amp;= V - 2 + 2g
+    &amp; \quad &amp; p = 3\\
+\frac{1}{V} \sum_i q_i
+ &amp;= 6 - \frac{12 + 12g}{V},\end{split}\]</div>
+<p>which shows that the mean valence <span class="math notranslate nohighlight">\(q_\infty = V^{-1} \sum_i q_i \to 6\)</span> as
+<span class="math notranslate nohighlight">\(V \to \infty\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}q_\infty = V^{-1} 2E = V^{-1} pF
+\implies
+\begin{cases}
+  F = \frac{1}{p} V q_\infty = 2V\\
+  E = \frac{1}{2} V q_\infty = 3V
+\end{cases}\end{split}\]</div>
+</div>
+<div class="section" id="Area-of-a-Spherical-Triangle">
+<span id="nlph2017dgp-ex-1-area-of-a-spherical-triangle"></span><h2>Area of a Spherical Triangle<a class="headerlink" href="#Area-of-a-Spherical-Triangle" title="Permalink to this headline">¶</a></h2>
+<p>Recall that any two distinct great circles intersect in two points which are
+negatives of each other <a class="bibtex reference internal" href="#champanerkarstgt" id="id6">[Cha]</a>.  The angle between two great
+circles at an intersection point is the angle between their respective planes.
+A region bounded by two great circles is called a diangle.  The angle at both
+the vertices are equal.  Both diangles bounded by two great circles are
+congruent to each other.</p>
+<p>Let <span class="math notranslate nohighlight">\(\theta\)</span> be the angle of a diangle.  Suppose the area of the diangle
+is not <span class="math notranslate nohighlight">\(2 \theta\)</span>.  When the diangles are parallel (<span class="math notranslate nohighlight">\(\theta = \pi\)</span>),
+each diangle represents a hemisphere whose area is <span class="math notranslate nohighlight">\(2 \pi\)</span> because the
+surface area of a sphere is <span class="math notranslate nohighlight">\(4 \pi\)</span>.  However, this implies each diangle
+has an area of <span class="math notranslate nohighlight">\(2 \theta\)</span>, which is a contradiction.  Therefore, the area
+of a diangle is <span class="math notranslate nohighlight">\(2 \theta\)</span>.</p>
+<p>Given a spherical triangle with interior angles
+<span class="math notranslate nohighlight">\(\left\{ \alpha_i \right\}_{i = 1}^3\)</span>, let <span class="math notranslate nohighlight">\(A\)</span> denote the area of
+the spherical triangle and <span class="math notranslate nohighlight">\(a_i = 2 \alpha_i\)</span> represent the area of each
+diangle.  Observe that the union of all diangle pairs covers more than the
+surface area of a sphere because <span class="math notranslate nohighlight">\(A\)</span> gets counted four times over.  Thus</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}4 \pi &amp;= \sum_i 2 a_i - 4A\\
+A &amp;= \sum_i \alpha_i - \pi
+     &amp; \quad &amp; \text{Girard’s Theorem}.\end{split}\]</div>
+</div>
+<div class="section" id="Area-of-a-Spherical-Polygon">
+<span id="nlph2017dgp-ex-1-area-of-a-spherical-polygon"></span><h2>Area of a Spherical Polygon<a class="headerlink" href="#Area-of-a-Spherical-Polygon" title="Permalink to this headline">¶</a></h2>
+<p>Recall that a polygon with <span class="math notranslate nohighlight">\(n &gt; 3\)</span> vertices can be decomposed into
+<span class="math notranslate nohighlight">\(n - 2\)</span> triangles.</p>
+<p>A spherical polygon is a polygon whose sides are parts of great circles.</p>
+<p>Computing the area of each resulting
+<a class="reference internal" href="#nlph2017dgp-ex-1-area-of-a-spherical-triangle"><span class="std std-ref">spherical triangle</span></a> gives</p>
+<div class="math notranslate nohighlight">
+\[A =
+\sum_i \alpha_i - (n - 2) \pi =
+(2 - n) \pi + \sum_i \alpha_i.\]</div>
+</div>
+<div class="section" id="Angle-Defect">
+<h2>Angle Defect<a class="headerlink" href="#Angle-Defect" title="Permalink to this headline">¶</a></h2>
+<p>For a discrete surface, the area on the unit sphere bounded by a spherical
+polygon whose vertices are the unit normals of the faces around <span class="math notranslate nohighlight">\(v\)</span>
+is equal to the angle defect</p>
+<div class="math notranslate nohighlight">
+\[d(v) = 2 \pi - \sum_{f \in F_v} \angle_f(v)\]</div>
+<p>where <span class="math notranslate nohighlight">\(F_v\)</span> is the set of faces containing <span class="math notranslate nohighlight">\(v\)</span> and
+<span class="math notranslate nohighlight">\(\angle_f(v)\)</span> is the interior angle of face <span class="math notranslate nohighlight">\(f\)</span> at vertex <span class="math notranslate nohighlight">\(v\)</span>.</p>
+<p>By the <a class="reference internal" href="#nlph2017dgp-ex-1-area-of-a-spherical-polygon"><span class="std std-ref">area of a spherical polygon</span></a>,
+the following condition must hold:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A &amp;= d(v)\\
+2 \pi - n\pi + \sum_{i = 1}^n \beta_i
+ &amp;= 2 \pi - \sum_{f \in F_v} \angle_f(v)\\
+\sum_{i = 1}^n \beta_i
+ &amp;= \sum_{f \in F_v} \pi - \angle_f(v)\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\left\{ \beta_i \right\}_{i = 1}^n\)</span> are the consecutive interior
+angles of the spherical polygon.</p>
+<p>Suppose <span class="math notranslate nohighlight">\(a, b, c\)</span> are consecutive faces of the discrete surface sharing
+the vertex <span class="math notranslate nohighlight">\(v\)</span>.  Let <span class="math notranslate nohighlight">\(N_a, N_b, N_c\)</span> denote the corresponding unit
+normals of the faces.  The direction of the intersection line (or edge) between
+each face is defined as <span class="math notranslate nohighlight">\(E_{ba} = N_b \times N_a\)</span> and
+<span class="math notranslate nohighlight">\(E_{bc} = N_b \times N_c\)</span>.</p>
+<p>The dihedral angle between two planes, which have normal vectors
+<span class="math notranslate nohighlight">\(N_a\)</span> and <span class="math notranslate nohighlight">\(N_b\)</span>, is given by
+<span class="math notranslate nohighlight">\(\cos \theta_{ab} = N_a \cdot N_b\)</span>.</p>
+<p>The great-circle distance is the shortest distance between two points on the
+surface of a sphere measured along the surface of the sphere.  A great circle of
+a sphere is the intersection of the sphere and a plane that passes through the
+center of the sphere.  The angle between two great circles at an intersection
+point is the angle between their respective planes.</p>
+<p>In order to show <span class="math notranslate nohighlight">\(\beta_i = \pi - \angle_f(v)\)</span> where <span class="math notranslate nohighlight">\(i = f\)</span> (i.e.
+they share a unit normal),  an appropriate origin <span class="math notranslate nohighlight">\(O\)</span> for the sphere is
+needed.  Define <span class="math notranslate nohighlight">\(O + N_b\)</span> as the intersection between the geodesic arc
+connecting <span class="math notranslate nohighlight">\(N_a\)</span> to <span class="math notranslate nohighlight">\(N_b\)</span> and the geodesic arc connecting
+<span class="math notranslate nohighlight">\(N_c\)</span> to <span class="math notranslate nohighlight">\(N_b\)</span>.</p>
+<p>The projection of that intersection onto the plane <span class="math notranslate nohighlight">\((v, N_b)\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}P_b &amp;= (O + N_b) - \left( N_b \cdot (O + N_b - v) \right) N_b\\
+ &amp;= (O + N_b) - (N_b \cdot O) N_b - N_b + (N_b \cdot v) N_b\\
+ &amp;= O - (N_b \cdot O) N_b + (N_b \cdot v) N_b\\
+ &amp;= O + \left( N_b \cdot (v - O) \right) N_b.\end{split}\]</div>
+<p>By the <a class="reference external" href="https://en.wikipedia.org/wiki/Spherical_law_of_cosines">spherical law of cosines</a>, the angle <span class="math notranslate nohighlight">\(\beta_b\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[\cos \beta_b = t_{ba} t_{bc}\]</div>
+<p>where the tangent vectors are defined as</p>
+<div class="math notranslate nohighlight">
+\[t_{b\cdot} =
+\frac{
+  N_\cdot - N_b (N_b \cdot N_\cdot)
+}{
+  \left\Vert N_\cdot - N_b (N_b \cdot N_\cdot) \right\Vert
+} =
+\frac{
+  N_\cdot - N_b \cos \theta_{b\cdot}
+}{
+  \sin \theta_{b\cdot}
+}\]</div>
+<p>and <span class="math notranslate nohighlight">\(\theta_{b\cdot}\)</span> denotes the geodesic arc length on the unit sphere.</p>
+<p>The tangent vectors at <span class="math notranslate nohighlight">\(P_b\)</span> are orthogonal to both edges because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t_{b\cdot} \cdot E_{b\cdot}
+ &amp;= \frac{
+      N_\cdot - N_b \cos \theta_{b\cdot}
+    }{
+      \sin \theta_{b\cdot}
+    }
+    \cdot
+    (N_b \times N_\cdot)\\
+ &amp;= \frac{1}{\sin \theta_{b\cdot}} \left(
+      N_\cdot \cdot (N_b \times N_\cdot) -
+      N_b \cos \theta_{b\cdot} \cdot (N_b \times N_\cdot)
+    \right)
+ &amp;= 0.\end{split}\]</div>
+<p>By inspection of <span class="math notranslate nohighlight">\(v\)</span>, <span class="math notranslate nohighlight">\(P_b\)</span>, and the projection of <span class="math notranslate nohighlight">\(P_b\)</span> onto
+both edges, the resulting polygon is regular and has an internal angle sum of
+<span class="math notranslate nohighlight">\(2 \pi = \angle_b + \beta_b + \pi\)</span>.  Therefore,
+<span class="math notranslate nohighlight">\(\beta_b = \pi - \angle_b\)</span>.  <a class="bibtex reference internal" href="#gluck2012gnt" id="id7">[Glu]</a> has an insightful
+illustration of this proof.</p>
+</div>
+<div class="section" id="Discrete-Gauss-Bonnet-Theorem">
+<h2>Discrete Gauss-Bonnet Theorem<a class="headerlink" href="#Discrete-Gauss-Bonnet-Theorem" title="Permalink to this headline">¶</a></h2>
+<p>The (connected, orientable) simplicial surface <span class="math notranslate nohighlight">\(K\)</span> has no boundary.</p>
+<p>The following makes use of the fact that a triangle has an internal angle sum
+equal to <span class="math notranslate nohighlight">\(\pi\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\sum_{v \in V} d(v)
+ &amp;= \sum_{v \in V} 2 \pi - \sum_{f \in F_v} \angle_f(v)\\
+ &amp;= 2 \pi V - \sum_{v \in V} \sum_{f \in F_v} \angle_f(v)\\
+ &amp;= 2 \pi V - \pi F
+    &amp; \quad &amp; p = 3\\
+ &amp;= 2 \pi V - \pi F + 0\\
+ &amp;= 2 \pi V - \pi F + \pi (3F - 2E)
+    &amp; \quad &amp; pF = 2E\\
+ &amp;= 2 \pi \chi.\end{split}\]</div>
+</div>
+<div class="section" id="Total-Curvature">
+<h2>Total Curvature<a class="headerlink" href="#Total-Curvature" title="Permalink to this headline">¶</a></h2>
+<p>Recall that the median of a triangle is a line segment joining a vertex to the
+midpoint of the opposing side.  The intersection of all medians is at the
+triangle’s barycenter.  The resulting six smaller triangles have equal area.
+The medians are not necessarily orthogonal to the edge they bisect.  The
+intersection of a triangle’s perpendicular bisectors is called the circumcenter.</p>
+<p><a class="bibtex reference internal" href="index.html#crane2015discrete" id="id8">[Cra]</a> approximates the discrete Gaussian curvature with
+barycentric cells because of its simplicity.</p>
+<p><a class="bibtex reference internal" href="#meyer2003discrete" id="id9">[MDSchroderB03]</a> proposes a unified and consistent set of flexible
+tools to approximate important geometric attributes such as normal vectors and
+curvatures on arbitrary triangle meshes, specifically 2-manifolds and
+3-manifolds in <span class="math notranslate nohighlight">\(nD\)</span>.  The approximation, based on Voronoi cells, has
+tight error bounds.  The curvature operators (e.g. mean, Gaussian, principal)
+are motivated through the Laplace-Beltrami operator, a generalization of the
+Laplacian from flat spaces to manifolds.</p>
+</div>
+<div class="section" id="Pointwise-Curvature-Estimates">
+<h2>Pointwise Curvature Estimates<a class="headerlink" href="#Pointwise-Curvature-Estimates" title="Permalink to this headline">¶</a></h2>
+<p><a class="bibtex reference internal" href="#meek2000surface" id="id10">[MW00]</a> shows that the angle deficit method approximates the
+curvature to accuracy <span class="math notranslate nohighlight">\(\mathcal{O}(1)\)</span>.  The method does converge to the
+correct solution as the mesh becomes more refined <a class="bibtex reference internal" href="#magid2007comparison" id="id11">[MSR07]</a>.</p>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-nb/differential-geometry-from-a-graphics-perspective-nlph/chapter-01-0"><dl class="citation">
+<dt class="bibtex label" id="champanerkarstgt"><span class="brackets"><a class="fn-backref" href="#id6">Cha</a></span></dt>
+<dd><p>Abhijit Champanerkar. Spherical triangles and girard’s theorem. <span><a class="reference external" href="#"></a></span>http://www.math.csi.cuny.edu/abhijit/623/spherical-triangle.pdf. Accessed on 2017-09-07.</p>
+</dd>
+<dt class="bibtex label" id="gluck2012gnt"><span class="brackets"><a class="fn-backref" href="#id7">Glu</a></span></dt>
+<dd><p>Herman Gluck. The gauss-bonnet theorem. <span><a class="reference external" href="#"></a></span>https://www.math.upenn.edu/ shiydong/Math501X-7-GaussBonnet.pdf. Accessed on 2017-09-13.</p>
+</dd>
+<dt class="bibtex label" id="magid2007comparison"><span class="brackets"><a class="fn-backref" href="#id11">MSR07</a></span></dt>
+<dd><p>Evgeni Magid, Octavian Soldea, and Ehud Rivlin. A comparison of gaussian and mean curvature estimation methods on triangular meshes of range image data. <em>Computer Vision and Image Understanding</em>, 107(3):139–159, 2007.</p>
+</dd>
+<dt class="bibtex label" id="meek2000surface"><span class="brackets"><a class="fn-backref" href="#id10">MW00</a></span></dt>
+<dd><p>Dereck S Meek and Desmond J Walton. On surface normal and gaussian curvature approximations given data sampled from a smooth surface. <em>Computer Aided Geometric Design</em>, 17(6):521–543, 2000.</p>
+</dd>
+<dt class="bibtex label" id="meyer2003discrete"><span class="brackets"><a class="fn-backref" href="#id9">MDSchroderB03</a></span></dt>
+<dd><p>Mark Meyer, Mathieu Desbrun, Peter Schröder, and Alan H Barr. Discrete differential-geometry operators for triangulated 2-manifolds. In <em>Visualization and mathematics III</em>, pages 35–57. Springer, 2003.</p>
+</dd>
+<dt class="bibtex label" id="zweckiftrm"><span class="brackets"><a class="fn-backref" href="#id3">Zwe</a></span></dt>
+<dd><p>John Zweck. Inverse function theorem and regular mappings. <span><a class="reference external" href="#"></a></span>http://www.utdallas.edu/ jwz120030/Teaching/PastCoursesUMBC/M423S10/M423L4.pdf. Accessed on 2017-07-27.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/nb/differential-geometry-from-a-graphics-perspective-nlph/chapter-01.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

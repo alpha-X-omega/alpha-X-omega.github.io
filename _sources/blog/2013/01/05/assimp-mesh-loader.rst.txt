@@ -1,0 +1,60 @@
+##################
+Assimp Mesh Loader
+##################
+
+The most painstaking task in computer graphics has to do with loading assets.
+Fortunately, Open Asset Import Library `Assimp`_ was created to tackle this very
+problem.  Assimp is a portable library that imports various 3D model formats in
+a uniform manner.
+
+.. _Assimp: http://www.assimp.org
+
+There are two ways to go about using this library:
+
+- Incorporate it into the code base i.e. if it does not work on a platform,
+  it's the end of the line unless the Assimp developers adjust it.
+
+- Use it to convert all existing 3D model formats into a customized minimal
+  3D model format.
+
+Clearly the latter is better since it's restricting the third party library to
+the tools pipeline.
+
+.. code:: bash
+
+   mkdir <assimp>/build <assimp>/install
+   cd <assimp>/build
+   ccmake -DENABLE_BOOST_WORKAROUND=ON -DCMAKE_INSTALL_PREFIX=<assimp>/install ..
+   make -j8
+   make install
+
+   cd <assimp>/port/PyAssimp
+   python setup.py sdist
+   pip install dist/pyassimp-0.1.tar.gz
+
+Using Assimp's Python bindings is as simple as
+
+.. code:: python
+
+   import pyassimp
+   import pyassimp.postprocess
+
+If an error along the line of **assimp library not found** occurs, then most
+likely :file:`<assimp>/port/PyAssimp/pyassimp/helper.py` failed to find the
+location of the Assimp libraries.  One solution is to set the appropriate path
+in that file via
+
+.. code:: python
+
+   additional_dirs, ext_whitelist = ['<assimp>/install/lib/'],[]
+
+Another possible error has to do with
+**libstdc++.so.6: version `CXXABI_1.3.8' not found**.  To check whether a
+shared library has such a declaration, run
+
+.. code:: bash
+
+   strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep CXXABI
+
+One solution is to replace the problematic library with a shared library that
+contains said declaration.

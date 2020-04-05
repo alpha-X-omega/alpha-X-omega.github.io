@@ -1,0 +1,22 @@
+#############################################
+Transfer Media Files to Mobile Device via VLC
+#############################################
+
+After installing the :program:`VLC` app on your mobile device, enable
+:guilabel:`Sharing via WiFi` under :menuselection:`VLC Icon (Menu) --> Network`.
+This will expose your device's IP address and enable file transfer between that
+device and any web browser (or other dangerous entities).
+
+Downloading YouTube
+===================
+
+After installing :doc:`FFmpeg </blog/2013/01/16/typical-ffmpeg-usage>`, install
+`youtube-dl`_.  It is the best way to download YouTube content.
+
+.. code:: bash
+
+   youtube-dl <URL/ID>
+   youtube-dl -o '%(playlist_index)s-%(title)s-%(id)s.%(ext)s' --yes-playlist --ignore-errors <playlist>
+   youtube-dl -ic --yes-playlist --extract-audio --audio-format mp3 --audio-quality 0 <URL/ID>
+
+.. _youtube-dl: https://github.com/rg3/youtube-dl/blob/master/README.md#readme

@@ -1,0 +1,694 @@
+########################
+Notes on Software Design
+########################
+
+:cite:`alexander1964notes` is a timeless way of approaching design, and should
+be read by everyone who needs to design anything.  One key concept to always
+keep in mind is: use patterns as a guideline and not as constraints.
+
+:cite:`brooks1995mythical` is another timeless resource focused on software
+design, but the only chapters worth reading are
+
+- *No Silver Bullet* (Chapters 16 and 17),
+- *Propositions of The Mythical Man-Month: True or False?* (Chapter 18), and
+- *The Mythical Man-Month: After 20 Years* (Chapter 19).
+
+The other chapters have become unnecessary details given today's widespread
+curriculum.  For a discussion of different design processes, read the sequel
+:cite:`brooks2010design`.
+
+Software is still hard to create and software engineering frequently experience
+a cyclical crisis :cite:`gibbs1994software`.  The main culprit causing schedule
+delays and unexpected costs is poor design.  Even though design should come
+before any coding, hard deadlines with constantly changing requirements make it
+infeasible :cite:`parnas1996software`.  No matter how good the language is, poor
+design will lead to bad software.  Furthermore, people want useful tools that
+are compatible with their existing work environment, and engineers tend to focus
+on ignorant originality and creativity.  Furthermore, not everyone holds
+themselves to high standards of software engineering
+:cite:`leveson1993investigation`.
+
+Conceptual Integrity
+====================
+
+Despite all the research in software design, the industry still uses the
+rational model process because of its logical simplicity, and that builders and
+clients need contracts :cite:`cusumano1997microsoft`.  One feasible software
+process is a modified version of the spiral model :cite:`boehm1988spiral`.
+Imagine punctuating the spiral with explicit contracting points, augmented with
+clear specification of what can be contracted, with what certainties, and with
+what explicit distribution of risk :cite:`brooks2010design`.  The key takeaway
+is to allow the possibility of reexamining the original design and possibly
+going back to the origin.
+
+The proposed design process enables one to enforce conceptual integrity and deal
+with software complexity via the scientific method :cite:`belady1976model`.  The
+properties of conceptual integrity are
+
+- coherence,
+- consistency,
+- uniformity of style,
+- orthogonality,
+- propriety, and
+- generality.
+
+When a design violates these criteria, consider imposing a new proper design on
+top of the old :cite:`perez2013s`.  This enables a smooth eventual transition to
+a better interface.  Once the overall system design is in place, assess whether
+it is feasible to leverage open source :cite:`raymond2004cathedral`.
+
+As an aside, avoid extreme programming :cite:`cusumano2007extreme` and
+aspect-oriented programming :cite:`kiczales1997aspect,sullivan2010modular`.
+Compared to simpler techniques, neither have been shown to drastically improve
+the overall system design and may even be detrimental
+:cite:`dijkstra1968letters,keefer2003extreme,constantinides2004aop`.
+
+Rational Design Process
+=======================
+
+The software design process will always be an idealization.  Nonetheless,
+producing documentation that gives the appearance of applying such a process is
+still beneficial even if one has to fake it :cite:`parnas1986rational`.  One way
+to achieve this is through separation of concerns using `sphinx-doc`_: each
+aspect of the system is described in exactly one section and nothing else is
+described in that section.
+
+.. _sphinx-doc: http://www.sphinx-doc.org/en/stable/
+
+The documentation must include the design rationale at the time and continue to
+track it as changes are introduced :cite:`madsen1994guide`.  When combined with
+effective design reviews :cite:`parnas1985active`, software aging can be slowed
+down :cite:`parnas1994software`.  However, even if one designs for change,
+combating software aging requires refactoring, retroactive documentation,
+retroactive incremental modularization, occasionally scrapping sections of code,
+and eventually restructuring the entire system.
+
+Documentation itself should be viewed as a way to constrain the design
+:cite:`parnas1985modular`.  It is important to focus on describing secrets in
+addition to interfaces and roles.  Primary secrets are design decisions while
+secondary secrets are implementation decisions.  Together these secrets inform
+you which module(s) will require a change.  However, it is not always possible
+to confine information to a single module.  One solution is to label modules as
+restricted or hidden as needed in the documentation.  There is also a danger in
+keeping secrets that has to do with performance :cite:`lampson1983hints`.  One
+way to improve performance is to increase the number of assumptions that one
+part of a system makes about another.  The additional assumptions often allow
+less work to be done, sometimes a lot less.
+
+Lastly, the documentation should be written in a way that enables automatic
+system integrity checks :cite:`parnas1993predicate`.  Since the code is
+self-documenting, the documentation should cover the set of possible values,
+initial values, parameters, and effects such as state changes, errors, traps,
+assertions, and machine checkable comments :cite:`lamport2002specifying`.  Note
+that undefined is considered a special value instead of an unpredictable value.
+The documentation should also distinguish functions that provide redundant
+versus essential information :cite:`parnas1972technique`.  The former are
+convenient mapping functions whose value is completely predictable from the
+current values of other functions.  The latter provide information which cannot
+be determined without calling that function unless the user manually maintains
+duplicate information.
+
+System Decomposition
+====================
+
+Do not let the programmer make any decisions: the API should make it obvious
+there is only one way to do a task :cite:`parnas1971information`.  Early design
+decisions should be those that are least likely to change followed by those that
+are most general.  However, software should be designed to be flexible not
+general because generalizations are generally wrong and do not make it easy to
+adapt to a new situation :cite:`lampson1983hints`.  Furthermore, a specialized
+implementation of a recurring good idea may be much more effective than a
+general one.
+
+The connections between modules should make as few assumptions as possible.  The
+only assumptions that appear between module interfaces are those that are
+considered unlikely to change.  One way to do this is to limit information
+distribution: each module should only know the minimal design information
+required to accomplish its task.
+
+A system should never be decomposed according to the dataflow charts
+:cite:`parnas1972criteria` because
+
+- changing one module results in changing all of them,
+- interface between modules are complex, and
+- understanding the system requires understanding all the modules
+  simultaneously.
+
+Instead, it should be focused on minimizing the amount of information
+distribution.  A module is associated with responsibility rather than
+subprogram.  It is characterized by its knowledge of a design decision which it
+hides from all others.  Modules do not correspond to steps in the processing.
+They may have a partial ordering between each other, which consists of either
+"uses" or "depends upon".  The relation A uses B is less strict than A depends
+upon B: the latter requires the presence of a correct implementation of B.
+
+The "depends upon" relation enables different levels of dependencies.  Level
+zero is a set of independent programs :cite:`parnas1979designing`.  Level
+:math:`i > 0` is the set of all programs that depends on at least one program on
+level :math:`i - 1` and no program at a level higher than :math:`i - 1`.  As one
+goes higher in the levels, one can lose capabilities due to consumption of
+resources, but the resulting programs are simpler due to the reuse of the lower
+levels programs.  Thus, to avoid duplicate programs, a program should be
+implemented at the lowest level in which the features that are useful for its
+implementation are available.
+
+When there is a simple interface that can describe strategies that will satisfy
+a significant fraction of clients, but it is impractical to accommodate all
+important strategies in that interface, then the interfaces should be layered
+:cite:`kiczales1996beyond,kiczales1997open`.  However, the simple interface
+should be geared towards being fast and efficient instead of general or powerful
+because the client can further customize the implementation through callbacks,
+dispatching, or polymorphism :cite:`lampson1983hints`.  In other words, the
+primary interface provides the functionalities, and the meta-interface allows
+fine-grained tuning of the implementation underlying the primary interface.  The
+criteria to be used in allowing one program to depend on another could be:
+
+- A is essentially simpler than B.
+- B is not substantially more complex because it does not depend on A.
+- There is a useful subset containing B and not A.
+- There is no conceivably useful subset containing A but not B.
+- When two programs could obviously benefit from using each other, slice one of
+  the programs B into B1 and B2 where A is allowed to depend on B2 and B1 is
+  allowed to depend on A.  This sandwiching technique could be applied
+  recursively.
+
+The proposed hierarchical structure allows the system to be functional and
+useful when higher level services are cut off.  One way to objectively describe
+this structure is through stepwise refinement of program families
+:cite:`parnas1976design`.  More often than not, the common properties among a
+set of programs is more conspicuous than the special properties of the
+individual family members.  This approach is different from
+`semantic versioning`_.  When designing software families, it is helpful to
+imagine writing new general instructions for a virtual machine (VM) to handle
+new data types and transformations :cite:`parnas1975use`.  The VM is an
+abstraction over the base machine (e.g. hardware, software stack) or the current
+VM.  The goal is to identify the minimal subset that might be useful, and then
+search for a set of minimal incremental instructions to add to the system.
+
+.. _semantic versioning: https://semver.org/
+
+Software Architectures and Design Patterns
+==========================================
+
+Software design techniques help build the system while specialization of
+software architecture gives form to the system.  Architectural design patterns
+must always be specialized to the problem domain to achieve efficiency
+:cite:`garlan2006introduction`.  A recent overview of different network-based
+architectural styles in terms of components, connectors, data, and
+configurations is given in :cite:`fielding2000architectural`.  When these
+different architectures are applied to a module, the resulting design pattern
+can be regarded as a micro-architecture :cite:`gamma1993design`.  For example,
+the mediator pattern is very useful when the separation of components and
+relationships are violated :cite:`sullivan1990reconciling`.
+
+The basic unit of modularity (a.k.a. module) is an abstract data type (ADT)
+:cite:`linden1976use,parnas1976abstract`.  An ADT is a set of operations grouped
+around common data structures.  It can be viewed as providing an abstract
+machine for the execution of a program.  Abstract interfaces increase separation
+of concerns and leads to simpler yet more elegant software designs through
+minimizing the number of components that deals with the real world details
+:cite:`parnas1977use`.  All the modifications can be seen as tailoring the
+abstract machine to a particular algorithm.
+
+When a change violates a module's specification in the abstract machine, an
+exception should be raised to handle the error :cite:`parnas1972response`.
+Exception handling must respect the structure of the system and restore the
+state of the VM used by the level above to one which is consistent with the
+specifications :cite:`parnas1975influence`.  It should handle normal and worst
+cases separately because the normal case must be fast while the worst case must
+make some progress :cite:`lampson1983hints`.  Ideally, the system should be
+designed to have zero or minimal exceptions.  One way to towards a reliable
+and maintainable system is through design by contract: each module needs to
+explicitly state its preconditions, postconditions, invariants, and check
+instructions instead of relying on defensive programming
+:cite:`meyer1992applying,plosch1997design`.
+
+Even though the focus of design up to this point has been on sequential
+computation, the prescribed guidelines apply equally to concurrent systems
+:cite:`meyer1990sequential`.  There are, however, some additional concepts to
+keep in mind.  When reasoning about concurrency, coroutines and futures are
+helpful abstractions to use.  Furthermore, the system's design will be simpler
+when the designer is mindful of command-query separation, referentially
+transparent expressions, and declarative operations.
+
+SOLID
+=====
+
+All programming is maintenance programming :cite:`thomas2010orthogonality`.  A
+system's knowledge goes beyond code (e.g. database schemas, test plans, build
+system, documentation).  Every piece of system knowledge should have one
+authoritative, unambiguous representation.  Every piece of knowledge should have
+a single representation.  Entities that are not related conceptually should not
+be related in the system.  Duplication and volatility can be handled by code
+generators.  This *Don't Repeat Yourself* (DRY) principle tries to
+minimize coupling, or maximize orthogonality.
+
+It may be surprising to hear that objects, classes, and inheritance are not
+orthogonal, whereas objects, types, delegation, and abstraction are orthogonal
+:cite:`wegner1987dimensions`.  This is the reason why actor model programming
+languages support objects, abstraction, and concurrency, but not classes,
+inheritance, nor strong typing.  On a related note, JavaScript's prototype
+mechanism models knowledge acquisition more closely than the class mechanism for
+human cognitive processes.  Although once there are many instances that share a
+common structure, a class can be defined to group them.
+
+Single Responsibility Principle
+-------------------------------
+
+The single responsibility principle (SRP) is the hardest to get right
+:cite:`martin1996srp`.  Each responsibility is an axis of change.  There should
+never be more than one reason for a class to change.  Otherwise, the
+responsibilities will be implicitly coupled.
+
+Inheritance and interfaces can be used to separate responsibilities (see Figure
+9-2 and 9-3).  However, an implementation class that implements both interfaces
+results in undesirable coupling.  Nevertheless, the concepts have been decoupled
+as far as the rest of the application is concerned.
+
+Open-Closed Principle
+---------------------
+
+The open-closed principle (OCP) states that software entities (e.g. classes,
+modules, functions) that are maintainable and reusable should be open for
+extension, but closed for modification :cite:`martin1996open`.
+
+The key to enforcing OCP is abstraction and polymorphism.  For example, make all
+member variables private.  No function that depends upon a variable can be
+closed with respect to that variable.  Any other class including subclasses are
+closed against changes to member variables.  In rare cases where OCP is not
+violated, the proscription of public and protected variables depends upon style
+more than substance.  In even rarer cases where RTTI and global variables do not
+violate OCP, then convenience be worth the style violation.
+
+When closure is not complete, the next best thing is strategic closure:
+
+- use abstraction to gain explicit closure (e.g. ordering abstraction), or
+- use a data-driven approach to achieve closure (e.g. specify ordering in base
+  class using a table).
+
+Liskov Substitution Principle
+-----------------------------
+
+The Liskov substitution principle (LSP) asserts that functions that use pointers
+or references to base classes must be able to use objects of derived classes
+without knowing it :cite:`martin2005liskov`.  It is a characteristic of modules
+that obey OCP.
+
+When considering whether a particular design is appropriate or not, one must
+view it in terms of the assumptions made by the users of that design.  Validity
+is not an intrinsic property, i.e., a model viewed in isolation cannot be
+meaningfully validated.  The validity of a model can only be expressed in terms
+of its clients.  An example violation of LSP is RTTI.
+
+LSP makes clear that in object-oriented design (OOD), the ISA relationship
+pertains to extrinsic public behavior.  Recall the typical a square ISA
+rectangle.  The usual ISA relationship can lead to subtle yet significant
+problems.  After the creation of Rectangle, Square is created as a subclass of
+Rectangle.  To satisfy LSP, the base class needs to be modified, violating OCP.
+Even if that was acceptable, the assumptions of a rectangle are different from a
+square.
+
+LSP emphasizes type hierarchy (composition) and discourages implementation
+hierarchy (inheritance) :cite:`liskov1988keynote`.  Recall that the goal of
+abstraction in programming is to separate behavior from implementation.
+Specification of procedures, abstract data types, and encapsulation lead to
+program locality.  The implementation hierarchy does not offer anything new to
+data abstraction.
+
+The type hierarchy, on the other hand, offers several benefits.  The first
+immediate benefit is the grouping of types based on their behavior.  Subtypes
+and supertypes are concepts while subclasses and superclasses are linguistic
+implementation details.
+
+The second benefit is incremental design (see Figure 4-1).  A cyclic graph
+records the progress of design in terms of procedures, data abstractions, and
+subtypes.  Each design decision can be represented as new subtypes instead of
+modifying the original type.  Having recorded such design decisions localizes
+the effects of specification changes limiting the spread of errors.  The final
+design could still be a single type, possibly the last subtype invented.
+
+Lastly, the type hierarchy can handle related types, abstractions that are
+variants of the same general idea.  There are two ways in which these related
+types arise.  The designer can define the relationships a program contains up
+front, or the relationship is not recognized until after several related types
+exist.  In the former, the type hierarchy can directly model the relationships
+via supertypes and subtypes.  Unfortunately, the type hierarchy is bad for the
+latter scenario because introducing a supertype requires changes in classes
+implementing the subtypes to reflect the hierarchy.  Consequently, the latter
+can make use of the grouping approach: allow the polymorphic module to use any
+type that supplies the needed operations as arguments.
+
+Interface Segregation Principle
+-------------------------------
+
+The interface segregation principle (ISP) states that clients should not be
+forced to depend upon interfaces that they do not use
+:cite:`martin1996interface`.  Separate clients mean separate interfaces because
+a change in an interface forces its clients to change, and a change in a client
+can force its interface to change.
+
+An example is the use of globals in a restricted manner to improve ease of
+access.  A developer might combine all of those globals into a single class,
+which includes all the separate interface header files into one file.  This
+violates ISP and effectively undoes all the segregation.
+
+Another example is Polyad versus Monad.  A function :math:`g` needs access to
+interfaces A and B, which currently refers to the same object.  Should those
+interfaces be grouped into one or passed to :math:`g` as separate parameters?
+One should go for the polyad approach because the object may be different in the
+future, and by grouping into one interface, ISP is violated.
+
+The foregoing issues are symptoms of interface pollution syndrome: an interface
+is forced to incorporate another interface solely for the benefit of one of its
+subclasses.  When the interfaces must remain together, consider using delegation
+or multiple inheritance.  Delegation is an object form of the adapter pattern:
+the adapter can translate one interface into another interface.  Multiple
+inheritance is preferred unless the adapter provides different translations at
+different times.
+
+Dependency Inversion Principle
+------------------------------
+
+The dependency inversion principle (DIP) is the generalization of OCP and LSP:
+the higher level modules should use an abstract interface to access the lower
+level functionalities :cite:`martindependency`.  Directly reusing the lower
+level modules will result in bad designs because dependency is transitive (see
+figures 3 and 4).
+
+Bad designs often exhibit rigidity, fragility, and immobility.  When a design is
+rigid, it is hard to make any changes because every change affects too many
+other parts of the system.  When a change breaks unexpected parts of the system,
+the design is too fragile.  A design is immobile when the system is too tightly
+coupled with the application, and hence preventing reuse in another application.
+
+Lastly, abstractions should not depend upon details, but details should depend
+upon abstractions.  However, high level modules should contain the policy
+decisions, i.e., truths that do not vary when the details are changed.
+
+Package Principles
+==================
+
+SOLID is a set of principles that govern the micro-structure of OOD.  While that
+may work for small solo projects, large applications with a team of engineers
+require principles that can deal with its macro-structure.
+:cite:`martinppg,martinpps` proposes a set of principles which govern the
+creation, interrelationship, dependencies, and use of packages.  Note that the
+package structure cannot be designed from the top down.  A package structure is
+a map of how to build the application, and it gets mapped as the system classes
+accumulate.  This approach is along the lines of the bidirectional design
+decomposition algorithm that tries to minimize the information transfer between
+subsystems in :cite:`alexander1964notes`.
+
+In order to measure the goodness of a package structure, the following
+definitions will be useful.  A dependency upon some entity with low volatility,
+and its goodness is inversely proportional to its volatility.  Stability is a
+measure of the difficulty in changing a module.  Classes which do not depend
+upon anything else are called independent.  Classes that are heavily depended
+upon are labeled as responsible.  The most stable classes are both independent
+and responsible.  One plausible metric for a package is the distance from the
+main sequence
+
+.. math::
+
+   D = \left\vert A + I - 1\right\vert
+
+where
+
+- :math:`A` is the fraction of abstract classes in a package,
+- :math:`I = \frac{C_e}{C_a + C_e}` is the instability of a package,
+- :math:`C_e` is the efferent couplings, the number of classes inside this
+  package that depend upon classes outside this package, and
+- :math:`C_a` is the afferent couplings, the number of classes outside this
+  package that depend upon classes within this package.
+
+Reuse/Release Equivalence Principle
+-----------------------------------
+
+The granule of reuse is the granule of release.  Only components that are
+released through a tracking system can be effectively reused.  This granule is
+the package.
+
+Code reuse is defined as code that requires minimal knowledge and maintenance.
+
+- One only needs the public header files and documentation.
+- Code update only requires linking to static or dynamic library.
+- After the library updates are rolled out, the old version is still usable.
+
+Common Reuse Principle
+----------------------
+
+The classes in a package are reused together.  If one of the classes in a
+package is reused, all of them are reused.  Notice how this promotes localized
+volatility.
+
+Common Closure Principle
+------------------------
+
+The classes in a package should be closed together against the same kind of
+changes.  A change that affects a package affects all the classes in that
+package.  Think of this as amplifying OCP by grouping together classes which
+cannot be closed against certain types of changes into the same package.
+
+Acyclic Dependencies Principle
+------------------------------
+
+The dependency structure between packages must be a DAG.  If there is a cycle,
+one can apply DIP, or create a new package containing the classes that the back
+edge's source and destination depends on.  This implies package structure is not
+stable in the presence of changing requirements.
+
+Stable Dependencies Principle
+-----------------------------
+
+The dependencies between packages in a design should be in the direction of the
+stability of the packages.  A package should only depend upon packages that are
+more stable than itself.
+
+Stable Abstractions Principle
+-----------------------------
+
+Packages that are maximally stable should be maximally abstract, i.e., contain
+abstract classes.  The abstraction of a package should be in proportion to its
+stability.  Consequently, unstable packages should be concrete.
+
+Law of Demeter
+==============
+
+The Law of Demeter (LoD) states that each module should only talk to its
+immediate friends :cite:`lieberherr1989assuring`.  It can be ignored when a
+method is supposed to be treated as a black box, run-time efficiency is
+important, or the concept of usage is well-defined and well-understood.
+
+In essence, LoD can be thought of as minimizing method chaining through two
+techniques: lifting and pushing.  Lifting moves a method up in the class
+hierarchy, and pushing moves a method further down the class hierarchy.
+
+Consider the following method that violates LoD.
+
+.. code:: cpp
+
+   void C::M() {
+       // T is the class of the object returned by m1.
+       this->m1()->m2();
+   }
+
+*T* is a part class of *C* if *C* uses *T* as one of its instance variables or
+if *T* is a part class of an instance variable of *C*.  When *T* is a part class
+of *C*, then either lifting or pushing works.  However, when *C* is a part class
+of *T*, then only pushing works.  The foregoing analysis is typically carried
+out using a dependency graph representation of method calls.
+
+Object-Oriented Design
+======================
+
+    The key in making great and growable systems is much more to design how its
+    modules communicate rather than what their internal properties and behaviors
+    should be.  Think of the internet - to live, it (a) has to allow many
+    different kinds of ideas and realizations that are beyond any single
+    standard and (b) to allow varying degrees of safe interoperability between
+    these ideas.
+
+    If you focus on just messaging - and realize that a good metasystem can
+    late bind the various 2nd level architectures used in objects - then much
+    of the language-, UI-, and OS based discussions on this thread are really
+    quite moot.
+
+    I think I recall also pointing out that it is vitally important not just to
+    have a complete metasystem, but to have fences that help guard the crossing
+    of metaboundaries.  One of the simplest of these was one of the motivations
+    for my original excursions in the late sixties: the realization that
+    assignments are a metalevel change from functions, and therefore should not
+    be dealt with at the same level - this was one of the motivations to
+    encapsulate these kinds of state changes, and not let them be done willy
+    nilly.  I would say that a system that allowed other metathings to be done
+    in the ordinary course of programming (like changing what inheritance
+    means, or what is an instance) is a bad design.  (I believe that systems
+    should allow these things, but the design should be such that there are
+    clear fences that have to be crossed when serious extensions are made.)
+
+    -- `Alan Kay On Messaging`_
+
+.. _Alan Kay On Messaging: http://wiki.c2.com/?AlanKayOnMessaging
+
+    OOP to me means only messaging, local retention and protection and hiding of
+    state-process, and extreme late-binding of all things.
+
+    -- `Alan Kay on the Meaning of Object-Oriented Programming`_
+
+.. _Alan Kay on the Meaning of Object-Oriented Programming: http://www.purl.org/stefan_ram/pub/doc_kay_oop_en
+
+Here late binding is defined as polymorphic call—or any other binding
+operation—that are not resolved until runtime.  As for messaging, think of the
+`actor model`_ i.e. view objects as non-data.  The assignment operator "<-" is
+just another message token.  This enables the disappearing of data using only
+methods and objects.
+
+.. _actor model: https://en.wikipedia.org/wiki/Actor_model
+
+The concept of allowing data to be abstracted by objects and procedures is known
+as dataless programming :cite:`balzer1967dataless`.  All data and function
+references are expressed in a single canonical form so that changing the data
+representation does not effect the program's source statements.  Only the
+internal processing associated with the data or function references are
+affected.  Hence, the data representation can be specified after the program is
+written, and the programmer can focus on the logical processing required without
+regard to either the representation of data or the method of accessing and
+updating.
+
+Connections to Programming Language Design
+------------------------------------------
+
+Software design is akin to programming language design :cite:`hoare1973hints`.
+
+Some language designers have replaced the objective of simplicity by that of
+modularity, by which they mean that a programmer who cannot understand the whole
+language can get by with a limited understanding of only part of it.  Another
+replacement of simplicity as an objective has been orthogonality of design.  The
+principles of modularity, or orthogonality, insofar as they contribute to
+overall simplicity, are an excellent means to an end; but as a substitute for
+simplicity they are very questionable.
+
+Software should be as efficient as possible, and leave it up to the user of the
+software to be inefficient.  It should be optimized for human readability and
+cognition.  Wide interfaces and cumbersome parameter lists are always
+inappropriate.  Another feature that is typically misused is method overloading
+:cite:`meyer2000principles`.
+
+Overloading destroys the fundamental simplicity of the object-oriented model
+where the class represents a mapping from operation names to operations.  With
+overloading, any number of operations may be associated with an operation name
+for a given class.  This makes it impossible to reason about programs and
+programming models.  Furthermore, static overloading leads to more confusion and
+complex semantic rules when used in conjunction with polymorphism and dynamic
+binding.
+
+For more guidelines, see :cite:`meyers2014effective,reddy2011api,meyers2005effective,sutter2004c++,meyers2001effective`.
+Once the big design questions are resolved, one can then allocate some time on
+the tiny inconsequential details such as
+:doc:`coding style </blog/2013/01/11/set-up-system-programming-environment>`.
+The details will remain immaterial as long as the designer is consistent (e.g.
+prefer underscore to camel case :cite:`sharif2010eye`) and applies the
+scientific method to decision making.
+
+Pseudo-Classes and Quasi-Classes
+--------------------------------
+
+Pseudo-classes are entities that should have been designed as packaging
+artifices or namespaces for collections of non-object-oriented functions
+:cite:`weisert2002pseudo`.  Some examples are Java's *Math* and *System*
+classes.  It makes no sense to instantiate an object of *Math*, or to derive
+another class from *System*.
+
+Quasi-classes are a lot worse than a well-designed procedural program, and they
+habitually exhibit :cite:`weisert1998pcqcoop`:
+
+1) For nearly every member data item there’s a corresponding accessor function
+   to get it, such that:
+
+   a. The function takes no parameters.
+   #. The returned value is the member data item.
+   #. The returned value has same type and other attributes as the member data
+      item.
+
+#) For almost every member data item there’s a corresponding function to “set”
+   it, such that:
+
+   a. The function takes a single parameter.
+   #. That parameter has the same type and other attributes as the member data
+      item.
+   #. The function stores the parameter into the member data item.  The return
+      type is void.
+
+#) A lack of essential operators and other methods forces user programs to
+   manipulate the object through the get and set accessor functions.
+
+Both of these phenomena undermine the object-oriented paradigm by violating
+encapsulation and information distribution.  The solution is quite simple and
+comes from mathematics: function names are typically nouns that stand for the
+returned value :cite:`weisert2012noget`.  Unless there's a compelling need to
+modify one private member data item without reinitializing the whole object,
+avoid public set operators or write accessors for private member data.  Instead,
+provide constructors that initialize the whole object with consistent data
+values :cite:`weisert2014sdoc`.  The constructor should represent the most
+common representation among the user community.  Only a small number of programs
+are expected to know (or find out) the constructor specifications.  If an object
+cannot be immutable, make the necessary changes to it only through disciplined
+member functions that preserve consistency and validity.
+
+Another inexcusable design that leads to inconsistency is the use of mixed units
+for data representation :cite:`weisert2010nomix`.  Never try to support multiple
+alternative representations of the same value, and be suspicious of character
+string representations of numeric or discrete data.  Likewise, never derive
+subclasses based solely on different internal representations, where the rule
+for converting one representation to another is fixed.  Polymorphic function
+invocation is intended to simplify doing different things to an object depending
+on its type, not doing identical things to objects that are distinguished only
+by their internal representation :cite:`weisert2009somor`.
+
+Quasi-Primitives
+----------------
+
+There are three very different categories of data items :cite:`weisert1999dit`:
+
+elementary
+  Data items that cannot (meaningfully) be decomposed into other component data
+  items.  Elementary items are further divided into numeric, discrete, logical,
+  and text.
+
+composite
+  Data items made up of a fixed sequence of subordinate (elementary or
+  composite) data items.  Most application-domain entities and records fall in
+  this category.
+
+container
+  Data items used to store, often temporarily, other data items.  The structures
+  of the Standard Template Library fall in this category, as do files.
+
+Techniques and patterns for a class in one category are irrelevant and
+inappropriate for a class in another category.  For instance, composite data
+items that represent principal objects of the application domain are called
+entities :cite:`weisert2002ent`.  Said entity could have an external name
+(not-necessarily unique), and an internal code or identifier (unique for the
+type).
+
+The different data items can also be partitioned into object categories
+:cite:`weisert2014tgod`:
+
+application domain
+  Objects representing data items that are stored, processed, or maintained by
+  application systems.
+
+programming control
+  Objects that help to implement internal algorithms or flow-control structures.
+
+The former includes elementary and composite data items, whereas the latter
+consists of container data items.  The direct use of language primitives
+(e.g. *double*, *string*) in place of application-domain data items results in
+quasi-primitives.  These fill roughly the same role in application programs as
+the built-in primitive data types.  However, on their own they rarely yield bona
+fide objects with controlled behavior.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

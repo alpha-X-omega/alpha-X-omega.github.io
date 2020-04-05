@@ -1,0 +1,114 @@
+###################################################################################
+An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns
+###################################################################################
+
+Motivation(s)
+=============
+
+Hedge funds are attracting major institutional investors (e.g. pension funds,
+university endowments) due to their relatively low volatility double-digit
+returns that seems uncorrelated with general market swings.  Several recent
+empirical studies have argued that the standard methods of assessing their risks
+and rewards are misleading.
+
+The spurious serial correlation and biased sample moments in the reported asset
+returns has been attributed, albeit inadequately, to nonsynchronous trading,
+which refers to the erroneous treatment of security prices as if they were
+recorded at the same time.  Information generated at date :math:`t` may not be
+fully impounded into prices until several periods later.  The shortcoming of
+that literature stems from its focus on equity market microstructure effects
+(e.g. closing prices, stale prices) as the sources of non-synchronicity where
+the temporal displacement is typically on the order of minutes, hours, or
+several days.
+
+Proposed Solution(s)
+====================
+
+The authors argue that serial correlation in hedge fund returns is the
+outcome of illiquidity exposure.  These illiquid securities can include
+securities that are either not actively traded or lacking readily available
+market prices.  Since they can induce highly serially correlated returns even if
+prices are sampled synchronously, nonsynchronous trading is not the only aspect
+of illiquidity that affects hedge fund returns, which are computed synchronously
+on the last day of each month.
+
+The authors propose an explicit econometric model of smoothed returns and derive
+its implications for common performance statistics such as the mean, standard
+deviation, and Sharpe ratio.  Although their model of illiquidity is similar to
+those in the nonsynchronous trading literature, they claim that their proposal
+handles linear extrapolation of prices for thinly traded securities, the use of
+smoothed broker-dealer quotes, trading restrictions arising from control
+positions and other regulatory requirements, and deliberate
+performance-smoothing behavior.  Their model could take up to :math:`k + 1`
+periods, from the time the information is generated, before the observed returns
+fully reflect the information driving the fund's performance.  They argue this
+is reasonable for hedge funds because even the most illiquid securities will
+trade eventually, and when that occurs, all of the cumulative information
+affecting that security will be fully impounded into its transaction price.
+Hence the parameter :math:`k` should be selected to match the fund's type of
+illiquidity of the fund.
+
+Evaluation(s)
+=============
+
+The authors estimate the smoothing profiles (e.g. uniform weights, sum-of-years,
+geometric) and sharpe ratios via maximum likelihood and linear regression with
+the additional assumption of a linear single-factor model.  The historical hedge
+fund returns were extracted from the TASS database.  Their model is able to
+generate empirically realistic levels of serial correlation for historical hedge
+fund returns.  Furthermore, the empirically estimated smoothing profiles imply
+lagged beta coefficients that are consistent with the existing literature's
+lagged beta estimates.
+
+The authors addressed outstanding arguments in favor of other sources as
+possible explanations for serial correlation through Monte Carlo simulations of
+the most basic models.  Each of the following models had very little explanatory
+power (i.e. small first-order autocorrelations coefficients) unless implausible
+parameter values are used:
+
+- Two-state Markov model of time-varying expected returns,
+- time-varying leverage model with a VaR constraint,
+- and net-of-fee returns under an incentive fee with a high water mark.
+
+The authors assert their model can serve as the starting point for
+distinguishing between systematic illiquidity versus idiosyncratic smoothing
+behavior.  More information about each fund (e.g. size, composition,
+accounting convention, compensation structure) are needed to yield a more
+complete picture.
+
+Future Direction(s)
+===================
+
+- Could data mining uncover deliberate performance smoothing of illiquid
+  securities by hedge fund managers?
+- How do :doc:`style factors </blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds>`
+  influence the proposed model?
+
+Question(s)
+===========
+
+- Why is performance persistence even used as an indicator?
+- How are the specification checks any different compared to the usual
+  construction of a model for a specific domain?
+- Why are market betas and Sharpe ratios still used despite being so easily
+  manipulated?
+- How practical is the Herfindahl index?
+
+Analysis
+========
+
+Serial correlation in hedge fund returns is due primarly to illiquidity and
+smoothed returns.  Even though it is important to understand the sources of
+serial correlation, the authors should have presented more concisely.  There
+was too much information, so it was difficult to grasp the core concepts.
+
+The analysis of simple models to refute other possible sources of serial
+correlation is quite clever.  Unfortunately, the main empirical analysis focused
+too much on
+:doc:`statistical significance </blog/2016/09/18/the-standard-error-of-regressions>`.
+Nevertheless, their proofs and derivations are helpful for deriving new models.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

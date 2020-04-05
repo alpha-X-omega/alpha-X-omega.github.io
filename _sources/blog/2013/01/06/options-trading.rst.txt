@@ -1,0 +1,197 @@
+###############
+Options Trading
+###############
+
+The following are useful introductions to trading options:
+
+- `Options Basics Tutorial`_
+- `Introduction To Put Writing`_
+- `Options Trading Basics`_
+- `The Options Guide`_
+- `Debunking myths about ETF liquidity`_
+- `Nine Questions Every ETF Investor Should Ask Before Investing`_
+- `The Role and Activities of Authorized Participants of Exchange-Traded Funds`_
+- `ETFs - How Much Do They Really Cost`_?
+- `Understanding Exchange-Traded Funds - How ETFs Work`_
+- `Prefer ETFs to ETNs`_
+- `School of Pipsology`_
+- `OIC`_
+
+.. _Options Basics Tutorial: http://www.investopedia.com/university/options
+.. _Introduction To Put Writing: http://www.investopedia.com/articles/optioninvestor/02/030102.asp
+.. _Options Trading Basics: http://investorplace.com/how-to-trade-options-options-trading-basics
+.. _The Options Guide: http://www.theoptionsguide.com/stock-option.aspx
+.. _Debunking myths about ETF liquidity: https://am.jpmorgan.com/blob-gim/1383272223898/83456/1323416812894_Debunking-myths-about-ETF-liquidity.pdf
+.. _Nine Questions Every ETF Investor Should Ask Before Investing: http://www.understandetfs.org/nine_questions.html
+.. _The Role and Activities of Authorized Participants of Exchange-Traded Funds: https://www.ici.org/pdf/ppr_15_aps_etfs.pdf
+.. _ETFs - How Much Do They Really Cost: http://www.schwab.com/public/schwab/nn/articles/ETFs-How-Much-Do-They-Really-Cost
+.. _Understanding Exchange-Traded Funds - How ETFs Work: https://www.ici.org/pdf/per20-05.pdf
+.. _Prefer ETFs to ETNs: https://www.schwab.com/active-trader/insights/content/exchange-traded-notes-the-facts-and-the-risks
+.. _School of Pipsology: http://www.babypips.com/school
+.. _OIC: http://www.optionseducation.org/en.html
+
+`Buying and selling options`_ is a safe way to
+`earn a steady income of premiums`_.  However, the weekly gain is
+`approximately 2% - 5%`_ of the amount invested.  A high-risk high-reward
+strategy is `trading naked options`_, but it could be
+`very risky depending on the situation`_.
+
+.. _Buying and selling options: http://mytradersjournal.com/stock-options/2007/09/27/beginners-guide-how-to-read-an-options-table
+.. _earn a steady income of premiums: http://www.investmentu.com/article/detail/29104/naked-put-options
+.. _approximately 2% - 5%: http://www.investmenthunting.com/options-trading-a-beginners-perspective
+.. _trading naked options: http://mytradersjournal.com/stock-options/2007/09/05/write-options-sell-naked-puts-part-1
+.. _very risky depending on the situation: http://mytradersjournal.com/stock-options/2007/09/05/write-options-sell-naked-puts-part-2
+
+`Daily options trading`_ is another strategy to increase the gains for the same
+amount of investments.  There are many indicators, but the ones I find easy to
+understand and use are
+
+- `Heikin-Ashi`_,
+- `Ichimoku Kinko Hyo`_,
+- Moving Average Convergence/Divergence Oscillator (`MACD`_),
+- Money Flow Index (`MFI`_),
+- `Multiple Time Frames`_,
+- Volatility Index (`VIX`_), and
+- Time and Sales Window (`Tape Reading`_).
+
+.. _Daily options trading: http://seekingalpha.com/article/304428-a-daily-options-trading-strategy-for-high-flying-stocks
+.. _Heikin-Ashi: http://stockcharts.com/school/doku.php?id=chart_school:chart_analysis:heikin_ashi
+.. _Ichimoku Kinko Hyo: http://www.kumotrader.com/ichimoku_wiki/index.php?title=Main_Page
+.. _MACD: https://www.tradingview.com/wiki/MACD_(Moving_Average_Convergence/Divergence)
+.. _MFI: https://www.tradingview.com/wiki/Money_Flow_(MFI)
+.. _Multiple Time Frames: http://www.babypips.com/school/high-school/multiple-time-frame-analysis/long-or-short.html
+.. _VIX: http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:volatility_index
+.. _Tape Reading: http://forum.mt5.com/showthread.php?80080-The-Story-Of-Fundamental-Trader-You-are-not-alone
+
+The following are insightful forum resources I have come across
+
+- `Limit and stop-limit orders`_ should be the default order types.
+- `LEAPS are evil`_: institutional money do not trade LEAPS.  A rule of thumb is
+  to never buy more than 150 days of time.  Try to gauge how much time you think
+  you need and do buy a little extra for wiggle room.  However, it is often more
+  profitable to buy less time and more contracts.
+- `realjumper`_ posted some
+  :download:`tips on using Heikin-Ashi <heiken-ashi-candles.pdf>` charts.
+- `Yasuji Yamanaka`_ laid out the
+  :download:`five rules of Heikin-Ashi <ichimoku-with-modified-candle.pdf>`.
+- `RedTrader`_ shared his successful experience of
+  :download:`using STO <stochastic-secrets.pdf>`.
+- `Rin0`_ offers some interesting
+  :download:`insights into tape reading <options-trading-tape-reading.pdf>` and
+  :download:`day trading <bid-and-ask-in-day-trading.pdf>`.
+
+.. _Limit and stop-limit orders: https://www.capitaloneinvesting.com/main/help/topic.aspx?CategoryCode=CRTTORDTYP
+.. _realjumper: http://www.forexfactory.com/showthread.php?p=5983410#post5983410
+.. _Yasuji Yamanaka: http://www.forexmt4.com/_MT4_Systems%20Documentation/heikin-ashi.pdf
+.. _RedTrader: http://www.forexfactory.com/showthread.php?t=103884
+.. _Rin0: http://forum.mt5.com/showthread.php?80080-The-Story-Of-Fundamental-Trader-You-are-not-alone
+.. _LEAPS are evil: http://optionaddict.blogspot.com/2006/10/leaps-are-evil.html
+
+`Margin trading`_ is another tool available to investors; however, the fees
+involved (varies among brokerages) limits this to sure-fire situations.  Note
+that `margins in forex`_ is an entirely different concept.
+
+.. _Margin trading: http://www.investopedia.com/university/margin/margin3.asp
+.. _margins in forex: http://thismatter.com/money/forex/leverage-margin-pips.htm
+
+Brokerages use `four terms`_ to describe option orders:
+`sell-to-open`_, `buy-to-close`_, `buy-to-open`_, and `sell-to-close`_.  While
+it may seem odd that you would buy to close a position, by taking a long
+position in the option, you neutralize the rights you sold when you wrote the
+option with the rights gained when you buy the new options, which closes your
+position.
+
+.. _four terms: http://www.investopedia.com/ask/answers/04/022604.asp
+.. _sell-to-open: http://www.investopedia.com/terms/s/selltoopen.asp
+.. _buy-to-close: http://www.investopedia.com/terms/b/buytoclose.asp
+.. _buy-to-open: http://www.investopedia.com/terms/b/buytoopen.asp
+.. _sell-to-close: http://www.investopedia.com/terms/s/selltoclose.asp
+
+To start your journey, I recommend checking out `tastyworks`_, the successor to
+TD Ameritrade's `thinkorswim`_, as your first brokerage.  `finviz`_ and
+`TradingView`_ are sufficient as market monitors.  If you're only interested in
+long-term investments, go with either `Vanguard`_'s `index funds`_ or
+`Robinhood`_.  For high-frequency algorithmic trading, go with
+`Interactive Brokers`_.
+
+.. _tastyworks: https://tastyworks.com/commissions-and-fees.html
+.. _thinkorswim: https://www.thinkorswim.com/tos/client/
+.. _finviz: http://finviz.com/
+.. _TradingView: https://tradingview.com/
+.. _Vanguard: https://investor.vanguard.com/home/
+.. _index funds: https://www.bogleheads.org/wiki/Three-fund_portfolio
+.. _Robinhood: https://www.robinhood.com/
+.. _Interactive Brokers: https://www.interactivebrokers.com/en/home.php
+
+Taxation
+========
+
+Some final issues to worry about are `taxes`_ specifically
+`Schedule D, 8949, and 1099-B`_.  Brokerages send out the 1099-B at tax time,
+which you then use to fill out the 8949 and Schedule D.  Make sure you adjust
+your cost basis before filling out these forms.  Things that affect the cost
+basis are
+
+- `Wash sales`_,
+- `short sales and constructive sales`_, and
+- `assignment and exercise of options`_ (`this example may be helpful`_).
+
+.. _taxes: http://www.investopedia.com/articles/active-trading/053115/tax-treatment-call-put-options.asp
+.. _Schedule D, 8949, and 1099-B: http://www.tradelogsoftware.com/resources/schedule-d-form-8949
+.. _Wash sales: http://www.tradelogsoftware.com/resources/wash-sales
+.. _short sales and constructive sales: http://www.investorguide.com/article/12616/tax-ramifications-in-trading-options-wo
+.. _assignment and exercise of options: http://www.optionstaxguy.com/assignment-exercise.html
+.. _this example may be helpful: http://www.optionstaxguy.com/assignexexamples.html
+
+One of the confusing points about the 8949 with respect to options are the
+`acquired and disposed dates`_.  The acquired date is the date you closed the
+transaction.  The disposed date is when the transaction settled.  For option
+short sales with a loss, the disposed date is one business day after the
+acquired date.  However, if you have a gain, then the disposed date is equal to
+the acquired date.  If your option expires, the acquired date is the date of
+expiry.  Brokerages typically report these dates correctly, but it's good to
+verify as you're filling out your taxes.
+
+.. _acquired and disposed dates: https://ttlc.intuit.com/questions/3278542-how-should-i-enter-the-cost-basis-for-a-short-option-ex-if-i-short-a-put-option-100-is-deposited-to-close-the-postion-60-will-be-withdrawn-leaving-me-with-40
+
+Unless the consolidated 1099-B form is wrong, you can just report those short
+and long term gains or losses.  These capital gains are taxed by the federal
+government.  If you live in multiple states, then you need to apportion how much
+of your capital gains goes to which state.
+
+When trading ETFs, avoid ones that are `limited partnerships`_ unless you want
+to process an additional `Schedule K-1`_ tax form.  While ETF options are
+taxed like regular stocks, `ETF shares`_ have different tax implications.  If an
+ETF does not issue a K-1, then commission fees are the only cost to minimize
+because `expense ratios are built into the NAV`_.  However, a lower expense
+ratio is always a good thing.
+
+.. _limited partnerships: https://etfdailynews.com/2011/03/09/how-uncle-sam-treats-etfs-and-etns-spy-uso-gld-slv/
+.. _Schedule K-1: http://etfdb.com/etf-tax-efficiency/etf-tax-tutorial-complete-list-of-etfs-that-issue-a-k-1/
+.. _ETF shares: http://www.investopedia.com/articles/exchangetradedfunds/08/etf-taxes-introduction.asp
+.. _expense ratios are built into the NAV: http://www.investopedia.com/ask/answers/071816/how-are-etf-fees-deducted.asp
+
+One more annoying issue to be aware of is the adjusted cost basis for
+`ESPP and RSUs`_.  Companies will typically withhold a few shares to cover
+the taxes, so you will be `double taxed`_ on the `stock discount`_ you received
+if you report the cost basis issued to you.  What you need to do is to fill it
+out as usual, but do an adjustment saying that the cost basis is wrong.  Then
+fill in the adjusted cost basis that your brokerage has on their website.  The
+brokerage already reported the proceeds to the IRS, but they did not include the
+adjusted cost basis.
+
+.. _ESPP and RSUs: https://thefinancebuff.com/adjust-cost-basis-espp-sale-taxact.html
+.. _stock discount: https://turbotax.intuit.com/tax-tools/tax-tips/Investments-and-Taxes/Employee-Stock-Purchase-Plans/INF12047.html
+.. _double taxed: https://financialgeekery.com/2012/05/15/the-ins-and-outs-of-espps-part-2-fun-with-taxes/
+
+On a final investment note, after maxing out on your `Roth 401(k)`_, consider
+making use of the `backdoor Roth IRA`_.  Furthermore, either select a target
+fund or understand portfolio rebalancing
+:cite:`jaconetti2010best,daryanani2008opportunistic`.
+
+.. _Roth 401(k): https://www.bogleheads.org/wiki/Traditional_versus_Roth
+.. _backdoor Roth IRA: https://thefinancebuff.com/how-to-backdoor-roth-freetaxusa.html
+
+.. rubric:: References
+
+.. bibliography:: refs.bib

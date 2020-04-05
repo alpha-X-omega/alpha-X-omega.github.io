@@ -1,0 +1,10 @@
+#########################################################
+Computer Vision: Models, Learning, and Inference - Prince
+#########################################################
+
+.. include:: /_templates/toctree-nb-computer-vision-models-learning-and-inference-prince
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

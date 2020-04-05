@@ -1,0 +1,10 @@
+####################
+VFIO Tips and Tricks
+####################
+
+In order to enable KVM PCI passthrough, read about
+`IOMMU groups and their structural layout in Linux`_; this
+`five-part how-to series`_ explains the necessary terminologies.
+
+.. _IOMMU groups and their structural layout in Linux: http://vfio.blogspot.com/2014/08/iommu-groups-inside-and-out.html
+.. _five-part how-to series: http://vfio.blogspot.com/2015_05_01_archive.html

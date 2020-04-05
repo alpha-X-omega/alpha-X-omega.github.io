@@ -1,0 +1,153 @@
+#############################################################
+Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach
+#############################################################
+
+Motivation(s)
+=============
+
+The rapid growth of the hedge fund industry has led to several studies that try
+to quantify :doc:`hedge fund performance </blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds>`.
+Lamentably, there have been few studies on the risk profile of hedge funds
+despite the debacle of LTCM.  Recent works have proposed a VaR approach to
+measure the maximum amount of assets a fund can lose over a certain time period
+with a specified probability, however, no study has applied VaR to address
+capital adequacy and risk estimation issues.
+
+Proposed Solution(s)
+====================
+
+Since most of the unexpected losses arise due to extreme events in financial
+markets, the authors assert the estimation of capital requirements can be
+considered as an extreme value problem.  This assumption enables the use of
+Extreme Value Theory (EVT) to model and estimate tail-related risk.  They
+analyzed both the VaR for each fund and its distribution across all funds and
+computed a VaR-based estimate of required equity capital for each fund.  The
+proposed VaR methodology is more effective at capturing hedge fund risk than
+the mean-variance approach used by other works.
+
+Evaluation(s)
+=============
+
+The monthly return data came from the TASS hedge fund dataset.  There are no
+data available on the position holdings of hedge funds since this constitutes
+proprietary trading information.  Only the funds that have at least five years
+of return history were used to estimate the VaR.  Despite this restriction, the
+remaining funds do overlap with some of the most turbulent times in financial
+markets (e.g. Asian currency crisis of 1997, the Russian debt crisis, LTCM,
+stock market crash from 2000 onwards).
+
+The authors asserted that the target horizon should be longer than the banks'
+ten-days requirement since hedge funds are far less regulated and can only use
+private funding.  They used three times the 99% one-month VaR as the required
+equity capital for hedge funds.  To avoid introducing another source of error
+into the VaR estimate, they use VaR relative to zero instead of estimated mean
+returns for hedge funds.
+
+The analysis demonstrates that dead funds generally have higher relative VaRs
+than live funds, and there is a significant upward trend in VaR for dead funds
+starting two years before their death.  Furthermore, all the investment styles
+defined by TASS exhibit high kurtosis, which indicates that hedge fund returns
+have nonnormal distributions, thus invalidating standard deviation as an
+appropriate measure for hedge fund risk.  Another ineffective measure is the
+average leverage ratio since it ignores the inherent riskiness of the assets
+in the portfolios.  Note that even though the correlation coefficient between
+the average leverage ratios and the proposed VaR-based Cap ratios are
+statistically significant, the magnitudes are economically trivial.
+
+In order to verify the results, the authors compared the history of VaR
+estimates with actual realized returns.  Since a large number of observations
+are needed to reliably backtest a VaR model, they used simulated hedge fund
+returns.  Other limitations stem from restricting the analysis to a 60-month VaR
+window and ignoring the liquidity aspect of hedge fund risk.
+
+Future Direction(s)
+===================
+
+- When backtesting is not possible, are Monte Carlo model simulations
+  (e.g. Geometric Brownian Motion, jump diffusion) accurate enough to be used as
+  an acceptance test versus a rejection test?
+- How effective is the rolling window of Cap ratios at capturing the dynamic
+  nature of hedge funds?
+- Is EVT valid for different types of management styles?
+
+Question(s)
+===========
+
+- The appendix only covers high level concepts related to estimating VaR and TCL
+  using EVT, so it's not enough for a newcomer to reproduce the derivations.
+  Which papers to read first from the list of references?
+- Would hedge funds be willing to disclose their position holdings several years
+  after the fact for research purposes?
+- What is the reason for using Geometric Brownian Motion and jump diffusion
+  models in the simulations?
+
+Analysis
+========
+
+The VaR methodology may give insight into whether a hedge fund is
+undercapitalized or not.  The well-written analysis sounds reasonable, but the
+simulated data used in backtesting is dubious.  The authors found about 3.7%
+(35 out of 942) of the live funds are undercapitalized while the corresponding
+fraction is 10.9% (54 out of 494) for the dead funds.  These numbers illustrate
+capital inadequacy may not be the primary reason.  Instead of looking at
+:doc:`liquidity risk </blog/2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns>`,
+they performed a multivariate analysis on capitalization by running a
+cross-sectional regression of Cap ratios on various fund characteristics and
+styles.  While the results are interesting, they should have answered how much
+one should weigh VaR over the other valid indicators.  Nonetheless, the
+application of EVT to the estimation of capital requirements is quite ingenious.
+
+Notes
+=====
+
+Value-at-Risk (VaR)
+-------------------
+
+- VaR is a measure of the minimum loss that can happen over a target horizon
+  with a given confidence level.
+
+  - It does not quantify how large the loss might be, if it occurs.
+  - If :math:`c` is the selected confidence level, VaR corresponds to the
+    :math:`1 - c` lower tail of the distribution, which should be minimized to
+    reduce the probability of failure.
+  - It is calculated in dollar amounts and is designed to cover most of the
+    losses that a risky business might face.
+  - Although the target horizon is often chosen arbitrarily, it should reflect
+    the amount of time necessary to take corrective action if unplanned high
+    losses occur, and should correspond to the time necessary to raise
+    additional funds to cover losses.
+
+- VaR encompasses a broader concept of risk than leverage ratios.
+
+  - Leverage ratios only depend on the liabilities sides of the balance sheet.
+  - Leverage ratios does not account for the differences in the volatility of
+    assets and liabilities, nor does it account for correlations.
+
+Capital Adequacy
+----------------
+
+- Capitalization (Cap) ratio is one approach to evaluate capital adequacy.
+- Tail Conditional Loss (TCL) measures the potential size of the expected loss
+  if it exceeds the VaR.
+- The ratio of TCL to VaR can provide a more objective basis of determining the
+  appropriate capital multiplier that should be used in conjunction with VaR and
+  indicate how safe it is to use the standard multiplier of three recommended
+  by BCBS.
+
+Extreme Value Theory (EVT)
+--------------------------
+
+- EVT models the limiting distribution of extreme returns i.e. fits only the
+  tail of the distribution.
+- There are two typical implementations where the latter is preferred in
+  applications with little available data.
+
+  #. Fit one of three standard extreme value distributions (e.g. Fréchet,
+     Weibull, or Gumbel) to block maxima values in a time series.
+  #. Models the distribution of exceedances over a threshold as a generalized
+     Pareto distribution (GPD) via Peak Over Threshold (POT) method.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

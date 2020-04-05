@@ -1,0 +1,113 @@
+#####################################################################################
+Use of the Concept of Transparency in the Design of Hierarchically Structured Systems
+#####################################################################################
+
+Motivation(s)
+=============
+
+Existing software designs emphasize a outside-in approach, which has severe
+limitations.
+
+Proposed Solution(s)
+====================
+
+The author propose a combination of outside-in and inside-out design via a
+transparency criterion.
+
+Evaluation(s)
+=============
+
+Two examples were offered to illustrate the inside-out approach.  This overall
+scheme serves as a guidepost for software designers because the design search
+space has been illuminated not reduced.
+
+Future Direction(s)
+===================
+
+- Have the proposed criteria been data mined to generate suggestions or
+  detectors?
+
+Question(s)
+===========
+
+- Is the transparency problem for coordination and synchronization solved?
+- What other features are there for software engineering?
+
+Analysis
+========
+
+Transparency is another indicator to extract more signals from software design.
+The insights are brilliant, but the author should have covered a larger variety
+of examples.
+
+Notes
+=====
+
+Top-Down/Outside-In Design Approach
+-----------------------------------
+
+- Focus on a precise description of the desired system and deriving internal
+  structure from it.
+- This should not be confused with Dijkstra's Level Hierarchy.
+
+  - Higher levels do not correspond to being closer to the outside.
+  - Low level features may appear on the outside.
+
+- Difficulties
+
+  - Description is difficult to obtain and may restrict internal design
+    decisions.
+  - The set of possible derivations from a description tend to be in an
+    exponential search space, which requires constraints (e.g. hardware) to make
+    search feasible.
+  - Choosing the desired outside design may make the internal implementation
+    impractical.
+  - It is difficult to apply this technique to design a set of systems whose
+    only description is general purpose.
+  - Applying this technique may result in unnecessarily inflexible software.
+  - The inside (e.g. hardware, OS) is already fixed, so one needs to design
+    around it.
+
+Transparency of an Abstraction
+------------------------------
+
+- The base machine is either a lower level (e.g. hardware) or an intermediate
+  level in the software stack.
+- The virtual machine is an abstraction over the base or possibly current
+  virtual machine.
+- A virtual machine is completely transparent when any base machine state and
+  sequence of base machine states can be obtained by programming the virtual
+  machine.
+
+  - Missing state sequences is defined as the loss of transparency.
+
+Bottom-Up/Inside-Out Design Approach
+------------------------------------
+
+- Examine the loss of transparency at each level.
+
+  - The goal is to avoid losing any desirable features and discarding all the
+    undesirable features.
+
+Tradeoff between Transparency and Flexibility
+---------------------------------------------
+
+A design which would increase the transparency for one machine may pose great
+implementation difficulties or inefficiencies for another base machine.
+
+Suggestive Transparency
+-----------------------
+
+Allow the virtual machine to take user suggestions (e.g. virtual memory
+mechanisms).
+
+Misleading Transparency
+-----------------------
+
+A virtual machine should be designed to make expensive base machine sequences
+impossible or difficult to evoke.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

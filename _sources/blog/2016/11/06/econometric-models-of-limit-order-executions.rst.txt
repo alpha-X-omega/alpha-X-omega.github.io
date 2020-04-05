@@ -1,0 +1,106 @@
+############################################
+Econometric Models of Limit-Order Executions
+############################################
+
+Motivation(s)
+=============
+
+The limit order is one of the most important tool for trading equity securities:
+it accounts for 45% of total NYSE orders.  Its effect on the market, market
+orders, and market makers have been thoroughly studied in the past decade.
+However, there have been few studies on the limit-order execution times.  The
+existing models impose strong assumptions such as knowing the entire limit-order
+book or restricting the market to purely limit-orders.
+
+Proposed Solution(s)
+====================
+
+The authors propose an econometric model of limit-order execution times.  Since
+limit-order execution times are nonnegative, random, and temporally ordered,
+they can be interpreted as failure times, which makes them amenable to survival
+analysis (e.g. Kaplan-Meier estimator).  The authors estimate the conditional
+distribution of limit-order execution times as a function of economic variables
+such as the limit price, order size, current market conditions, and censored
+observations i.e. limit orders that expire or are canceled before they are
+executed.  The incorporation of censored observations is one reason why survival
+analysis have less estimator bias than the existing models that ignore it.
+
+Evaluation(s)
+=============
+
+The authors analyzed the limit orders of the top 100 S&P 500 stocks between 1994
+and 1995 from ITG dataset.  Every action is timestamped and recorded, but there
+were few retail orders since the clients are almost exclusively institutional
+investors and other brokers/dealers.
+
+They assume a parametric generalized gamma distribution for survival analysis
+and estimate separate models for time-to-first-fill and time-to-completion for
+both buy and sell limit orders.  Four separate models are needed because a limit
+order can require multiple fills, and market conditions can affect execution
+times differently for buy limit orders and sell limit orders.  To simplify the
+analysis, the models are conditioned on the explanatory variables.  However, the
+resulting distributions closely match the ITG data and passes several diagnostic
+goodness-of-fit tests.  The parameter estimates show that execution times can be
+quite sensitive to certain explanatory variables such as market depth, the
+spread between the limit price and the quote midpoint, and market volatility.
+
+The authors evaluate their econometric model against hypothetical limit-order
+executions.  The execution time of a limit order can be modeled as a
+first-passage time (FPT) i.e. the first time the transaction price reaches or
+crosses the limit price.  This model assumes the stock price adheres to a
+geometric Brownian motion with drift.  The empirical analysis demonstrates that
+the FPT model vastly underestimates limit-order execution times because
+
+- it disallows explicit roles for price discreteness,
+- it does not accommodate the impact of limit-order size,
+- it cannot accommodate time priority,
+- it makes no distinction between time-to-first-fill, time-to-completion, and
+  time-to-censoring, and
+- it cannot easily incorporate the effects of explanatory variables such as
+  price volatility, spreads, and market conditions.
+
+Future Direction(s)
+===================
+
+- To what extend does the accuracy of limit-order execution times affect dynamic
+  order-submission strategies?
+- How would the proposed model handle a stream of delayed data?
+
+Question(s)
+===========
+
+- How did the authors decide on these explanatory variables?
+
+Analysis
+========
+
+The behavior of limit-order execution times can be quantified by the proposed
+econometric model based on survival analysis and actual limit-order data.  Even
+though the generalized gamma model with an accelerated failure time
+specification fits the data nicely, it should be noted that execution times are
+sensitive to some explanatory variables (e.g. limit price) but not to others
+(e.g. limit shares).
+
+While :doc:`statistical significance </blog/2016/09/18/the-standard-error-of-regressions>`
+is a reasonable way to measure the accuracy of a model, the end goal is to
+improve the return on investment.  The paper did not illustrate how the extra
+accuracy would increase returns.  Furthermore, a live limit-order book costs
+money, so it is unclear whether the extra expense is worthwhile.
+
+Notes
+=====
+
+Limit-order Data
+----------------
+
+- The NYSE order-handling rules dictate that time priority only applies to the
+  first order at a given price; subsequent orders have equal time priority.
+- An order's execution involves several partial fills before it is completed,
+  but partial fills do not change the time priority.
+- Day-order and good-till-canceled order respectively comprise 82% and 17% of
+  the market limit orders.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

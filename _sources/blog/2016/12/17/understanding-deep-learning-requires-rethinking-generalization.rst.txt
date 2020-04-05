@@ -1,0 +1,135 @@
+##############################################################
+Understanding Deep Learning Requires Rethinking Generalization
+##############################################################
+
+Motivation(s)
+=============
+
+Neural networks have more parameters than the number of examples they are
+trained on.  Yet, some models exhibit small generalization error while others
+generalize poorly.  To address how a neural network's architecture affects
+generalization, several complexity measures from statistical learning theory
+have been proposed.
+
+The uniform stability of an algorithm measures how sensitive the algorithm is to
+the replacement of a single example.  It does not take into account specifics of
+the data or the distribution of the labels.  The notion of uniform stability has
+been applied to upper bound the generalization error of a model trained with
+stochastic gradient descent in terms of the number of steps gradient descent
+took.  However, the concept is not strong enough to distinguish between the
+models trained on the true labels (small generalization error) and models
+trained on random labels (high generalization error).  Moreover, empirically
+training neural networks are not uniformly stable for many passes over the data.
+
+Although there are several universal approximation theorems for multi-layer
+perceptrons, all of them are at the population level characterizing what
+functions of the entire domain can and cannot be represented by certain classes
+of neural networks with the same number of parameters.  It is possible to
+transfer population level results to finite sample results using uniform
+convergence theorems.  Even so, such uniform convergence bounds would require
+the sample size to be polynomially large in the dimension of the input and
+exponential in the depth of the network.
+
+Bounds on the fat-shattering dimension of multi-layer perceptrons with sigmoid
+activations have been proven in terms of the :math:`l_1`-norm of the weights at
+each node.  This gives a generalization bound for neural nets that is
+independent of the network size.  Alas, every successful network uses ReLU
+activations so the :math:`l_1`-norm is no longer informative.
+
+Proposed Solution(s)
+====================
+
+The authors explore the effective model capacity of feed-forward neural
+networks.  They assert that the traditional view of generalization (e.g.
+VC dimension, Rademacher complexity, uniform stability, regularization) is
+incapable of distinguishing between different neural networks that have
+radically different generalization performance.
+
+Evaluation(s)
+=============
+
+The authors study the representational power of neural networks for a finite
+sample of size :math:`n`.  They prove there exists a two-layer neural network
+with ReLU activations and :math:`2n + d` weights that can represent any function
+on a sample of size :math:`n` in :math:`d` dimensions.  A corollary of this
+result that trades width for depth is for every :math:`k \geq 2`, there exists
+a neural network with ReLU activations of depth :math:`k`, width
+:math:`\mathcal{O}(n / k)`, and :math:`\mathcal{O}(n + d)` weights that can
+represent any function on a sample of size :math:`n` in :math:`d` dimensions.
+
+They train several standard architectures on a copy of the data where the true
+labels were replaced by random labels, leaving all other properties of the
+learning problem unchanged.  When trained on a completely random labeling of the
+true data, the networks achieved zero training error.  This implies the
+effective capacity of neural networks is sufficient for memorizing the entire
+data set (e.g. CIFAR10, ImageNet).  The training time increases only by a small
+constant factor compared with training on the true labels.  Furthermore, CNNs
+achieve zero training error even when the image data consists of entirely
+random pixels (e.g. Gaussian noise).
+
+Their experiments on different explicit regularization
+(e.g. data augmentation, weight decay, dropout) and implicit
+regularization (e.g. early stopping, batch normalization) techniques indicate
+that neither are necessary nor by themselves sufficient for controlling
+generalization error.
+
+Future Direction(s)
+===================
+
+- Is there a universal complexity measure that is independent of techniques?
+- Can depth be regarded as a regularizer that explicitly groups activation
+  units?
+- Regularizers help confine learning to a subset of the hypothesis space with
+  manageable complexity.  How to adjust it so that it addresses the
+  generalization error?
+
+Question(s)
+===========
+
+- Why did the authors allocate a whole section on discussing the minimum norm
+  solutions when they later on admit this notion is not predictive of
+  generalization performance?
+- Isn't Gabor wavelet transform preprocessing just another form of data
+  augmentation?  What's the significance compared to the other techniques?
+
+Analysis
+========
+
+Existing complexity measures from statistical learning theory cannot fully
+explain the generalization error.  The elegant proof on finite sample
+expressivity of a feed-forward neural network with ReLUs is very useful because
+it provides a bound on the network's :doc:`width, depth, and number of weights </blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators>`.
+
+It would be interesting to see how finite sample expressivity can be used to
+estimate the effective size of a network architecture :cite:`wang1994optimal`.
+Another eye-opening result is that both implicit and explicit regularization
+enhances generalization performance by roughly 5%.  This casts some doubt on
+using Bayesian methods to avoid regularization.
+
+The authors contend that SGD acts as an implicit regularizer because SGD always
+converges to a solution with small norm for linear models.  They show on small
+data sets that even Gaussian kernel methods can generalize well with no
+regularization.  This is not convincing because finding the minimum norm
+solutions of underdetermined systems is a convex problem
+:cite:`boyd2008ee2638,lambers2011mat41915`.
+
+A follow-up work :cite:`arpit2017closer` (a superset of :cite:`krueger2017deep`)
+shows that the degree of memorization and generalization in DNNs depends not
+only on the architecture and training procedure, but also on the training data
+itself.  In real data, easy examples match underlying patterns of the data
+distribution, and hard examples are exceptions to the patterns.  In random data,
+examples are all equally hard, and hence learning is content agnostic.  Their
+experiments illustrate class specific loss-sensitivity (Gini coefficient) is
+more highly class-correlated for random data.  However, when a dataset contains
+many classes, the significant difference goes away.  In order to justify that
+learned hypotheses are less complex for real data, they propose the notion of
+critical sample ratio (CSR): how many data points have an adversarial example
+nearby?  They assert that their experiment on CIFAR10 and random data supports
+the use of CSR to measure complexity.  Overall, :cite:`arpit2017closer` should
+have taken a closer look at their limited empirical results and polished their
+superficial insights.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

@@ -1,0 +1,216 @@
+#################################################################################################
+Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation
+#################################################################################################
+
+Motivation(s)
+=============
+
+Surface deformation is an essential aspect of character animation.  The field
+has advanced from custom algorithmic high-level parameters (e.g.
+raise-upper-lip) to multi-layered and physically inspired models.  The two most
+popular techniques are shape interpolation (blend shapes) and skeleton subspace
+deformation (SSD).
+
+Blend shapes is the most popular technique for facial animation because
+an artist can directly sculpt the desired expression as a convex combination of
+non-orthogonal basis shapes.  Symbolically, this translates to
+
+.. math::
+
+   \overline{S} =
+   \sum_{k = 0} w_k S_k =
+   S_0 + \sum_{k = 1} w_k (S_k - S_0).
+
+One disadvantage is that the interpolation does not handle rigid transformations
+and is not always smooth.
+
+SSD on the other hand does not permit direct manipulation in exchange for smooth
+rigid transformations.  The position of a control vertex :math:`\mathbf{p}` on
+the deforming surface of an articulated object lies in the subspace defined by
+the rigid transformations of that point by some number of relevant skeletal
+coordinate frames.  This may be notated as
+
+.. math::
+
+   \overline{\mathbf{p}_i} =
+   \sum_j w_{ij} T_j(\mathbf{p}) \mathbf{p}_i =
+   \sum_j w_{ij} T_{\delta \gets j}
+       T_{0 \gets j}^{-1} T_{0 \gets \mathbf{p}} \mathbf{p}_i
+
+where :math:`T_{0 \gets \mathbf{p}}` transforms the surface containing
+:math:`\mathbf{p}_i` to the world coordinate system, :math:`T_{0 \gets j}`
+converts the skeletal frame :math:`j` to the world system, and
+:math:`T_{\delta \gets j}` expresses the moving skeletal frame :math:`j` in
+the world system.  Unfortunately, this technique comes with its own set of
+:doc:`problems </blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending>`.
+
+Several works have tried to unify these two techniques through a scattered
+interpolation method in the image domain at the cost of simplicity, generality,
+direct manipulation, and real-time synthesis.
+
+Proposed Solution(s)
+====================
+
+The author proposes pose space deformation (PSD): a purely kinematic approach
+that expresses the deformation of a surface as a function of either the
+pose of an underlying skeleton, or as a function of some other set of intuitive
+parameters.  Instead of working with abstract coefficients, artists can directly
+sculpt the desired deformation at various points in the pose space.
+
+A pose is defined as the configuration of any pose controls (joints or abstract
+manipulators) that have changed from their default values.  The pose space is
+the space spanned by the variations of these controls.  If :math:`n \geq 2` pose
+controls are active and each has :math:`d` degrees of freedom then a
+:math:`d (n - 1)` pose space is defined, and the particular position of the
+controls defines a point in that space.
+
+The artist first positions some set of pose controls and then sculpts a
+deformation for that pose.  The artist also assigns a falloff :math:`\sigma` for
+the Gaussian RBFs, either as a symmetric radius across all controls or to each
+control individually.  Typically, the pose space is the set of joint angles of
+the skeleton that vary across the given shapes.  If the sculpted examples are of
+the shoulder region, the pose space would consist of the joint rotations of the
+bones that plausibly affect the shoulder.
+
+The deforming surface is defined as :math:`\mathbf{p} + \vec{\delta}` with
+:math:`\mathbf{p}` moved rigidly by the skeleton or other underlying system, and
+
+.. math::
+
+   \vec{\delta}(\textbf{pose}) =
+   f_\text{interp}(\textbf{pose}).
+
+Interpolation maps the domain pose space to the range 3D geometry space.
+Suppose, for instance, a neck is affected by three bones.  A joint between two
+such bones could be described by two relative angles.  Hence interpolation maps
+the three bones' 4D pose space to 3D geometry space.
+
+Evaluation(s)
+=============
+
+PSD is implemented in the local coordinate frame to focus on learning
+deformations instead of rigid transformations i.e. rigid transformations result
+in zero :math:`\vec{\delta}`.  This enables PSD to work on top of a skinning
+effect.  The alternative would be to interpolate in rest pose, which requires
+inverting the effect of skinning and separate per-vertex interpolation relying
+on spline interpolation.
+
+The current system disallows deformations to change both continuously and
+discontinuously with respect to the pose space because this functionality is not
+used in practice.  Furthermore, it is desirable to have
+:math:`\vec{\delta} \to 0` away from the data, and the width of the falloff
+:math:`\sigma` should be selectable.  These design decisions make Gaussian RBFs
+a possible choice for scattered data interpolation.  The alternatives are
+Shepard's method and energy functionals.  The former makes the interpolated
+surface converge to the average of the data values and have zero derivative at
+the data points.  The latter is too computationally intensive for a real-time
+system.
+
+The accuracy of PSD is wholly reliant on the modeler/animator rather than being
+guaranteed by the simulation.  However, artists consider detailed control of the
+animation to be part of their craft.  The system enables artists to iteratively
+add new pose spaces to refine the model.  With :math:`n` poses, three matrices
+of size :math:`n` must be inverted for each surface control vertex during the
+offline pose setup.
+
+Future Direction(s)
+===================
+
+- How would one remesh a model using the interpolated points such that PSD is
+  reduced to purely skinning with more than four weights?
+
+Question(s)
+===========
+
+- The authors mention the boundary of several surface patches may share vertices
+  that need to be coincident to maintain surface continuity.  Couldn't this be
+  included as extra constraints when solving for the interpolation weights?
+
+Analysis
+========
+
+Pose space deformation unifies and improves upon two popular techniques:
+shape interpolation and skeleton subspace deformation.  The core idea is to add
+deformations on top of skinning through the local coordinate frames.  PSD
+handles a variety of deformations such as facial animation, elbow and shoulder
+movements, and secondary animations.
+
+:cite:`anjyo2014scattered` (a super set of :cite:`lewispartiii`) gives more
+motivational and technical details on scattered interpolation algorithms.  Note
+that the section *Guide to the deeper theory* glosses over a lot of details and
+is not very helpful unless one already knows the material.
+
+A retrospective look at PSD reveals that the technique is still applicable
+despite :doc:`recent improvements in skinning </blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending>`.
+This ability to control all aspects of an animation is considered by artists a
+part of their craft, but if the end goal is to reproduce reality, PSD should be
+used on top of a physical simulation.
+
+Notes
+=====
+
+Forward Kinematics
+------------------
+
+Kinematics is the study of how things move, for example, the motion of a
+hierarchical skeleton structure.  The goal of forward kinematics is to compute
+the end effector description (e.g. position, orientation) in world space given
+the joint DOF values.
+
+The body parts of the skeleton are typically called bones.  The root node of the
+hierarchy establishes the coordinate system of the skeleton frame.  Let
+:math:`\mathbf{B}_0 = \mathbf{L}_0` denote the local (bone) coordinates to
+global (world) coordinates transformation.  Each descendant node :math:`j` is in
+its own bone coordinates, and the corresponding matrix :math:`\mathbf{L}_j`
+brings the bone coordinates of node :math:`j` to the bone coordinates of its
+sole parent.  Consequently, the concatenation of all hierarchy matrices from
+node :math:`j` to the root
+
+.. math::
+
+   \mathbf{B}_j
+    &= \mathbf{L}_0 \cdots \mathbf{L}_{\text{parent}(j)} \mathbf{L}_j\\
+    &= \mathbf{B}_{\text{parent}(j)} \mathbf{L}_j
+
+gives node :math:`j`'s bone-to-world transformation.
+
+Bind Pose
+---------
+
+Recall that a skeleton is in its own bone coordinate system; likewise, a mesh is
+in its own object coordinate system.  The default pose of each entity is called
+the bind pose.
+
+In the rigging phase, artists line the skeleton up with the mesh so that their
+coordinate systems match.  These direct changes to the bone transformations
+bring the skeleton's coordinate frame into a rest pose.  Notice that
+
+.. math::
+
+   \mathbf{B}_j^{-1} = T_{0 \gets j}^{-1} T_{0 \gets \mathbf{p}}
+
+now expresses the mesh's object space vertices in the coordinate system of bone
+:math:`j`.
+
+With the skeleton in rest pose, artists then paint by hand the vertex bone
+weights :math:`w_{ij}`.  In order to animate the mesh, artists indirectly change
+the bone transformations by specifying
+
+.. math::
+
+   T_{\delta \gets j}
+    &= \mathbf{W}_j\\
+    &= \mathbf{L}_0 \mathbf{U}_0 \cdots
+       \mathbf{L}_{\text{parent}(j)} \mathbf{U}_{\text{parent}(j)}
+       \mathbf{L}_j \mathbf{U}_j\\
+    &= \mathbf{W}_{\text{parent}(j)} \mathbf{L}_j \mathbf{U}_j
+
+where :math:`\mathbf{U}_j` is the user-defined transformation in bone
+:math:`j`'s local coordinate system.  To sum up, :math:`T_j(\mathbf{p})` is the
+relative change between the bone transformations between the current pose and
+the rest pose.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

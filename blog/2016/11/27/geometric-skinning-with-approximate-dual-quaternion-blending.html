@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Geometric Skinning with Approximate Dual Quaternion Blending &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain" href="../26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html" />
+    <link rel="prev" title="A Learning Algorithm for Boltzmann Machines" href="../28/a-learning-algorithm-for-boltzmann-machines.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Geometric Skinning with Approximate Dual Quaternion Blending</a><ul>
+<li><a class="reference internal" href="#motivation-s">Motivation(s)</a></li>
+<li><a class="reference internal" href="#proposed-solution-s">Proposed Solution(s)</a></li>
+<li><a class="reference internal" href="#evaluation-s">Evaluation(s)</a></li>
+<li><a class="reference internal" href="#future-direction-s">Future Direction(s)</a></li>
+<li><a class="reference internal" href="#question-s">Question(s)</a></li>
+<li><a class="reference internal" href="#analysis">Analysis</a></li>
+<li><a class="reference internal" href="#notes">Notes</a><ul>
+<li><a class="reference internal" href="#lemma-1-background-knowledge">Lemma 1 Background Knowledge</a></li>
+<li><a class="reference internal" href="#taylor-series-of-dual-number">Taylor Series of Dual Number</a></li>
+<li><a class="reference internal" href="#quaternion">Quaternion</a></li>
+<li><a class="reference internal" href="#dual-quaternion">Dual Quaternion</a></li>
+<li><a class="reference internal" href="#convert-between-se-3-and-dual-quaternion">Convert Between SE(3) and Dual Quaternion</a></li>
+<li><a class="reference internal" href="#rigid-transformation">Rigid Transformation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../28/a-learning-algorithm-for-boltzmann-machines.html" title="Previous Chapter: A Learning Algorithm for Boltzmann Machines"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; A Learning Al...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html" title="Next Chapter: The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">The Perceptro... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="geometric-skinning-with-approximate-dual-quaternion-blending">
+<h1>Geometric Skinning with Approximate Dual Quaternion Blending<a class="headerlink" href="#geometric-skinning-with-approximate-dual-quaternion-blending" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="motivation-s">
+<h2>Motivation(s)<a class="headerlink" href="#motivation-s" title="Permalink to this headline">¶</a></h2>
+<p>There are several approachs to skinning of skeletally deformable models.
+Physically based methods simulate the anatomy of the body to obtain a high level
+of realism at high computational cost.  Motion capture devices can capture
+highly accurate dynamic effects, but are limited to existing subjects.  Example
+based techniques offer a level of realism limited only by the number of input
+examples.  However, the production of examples require a lot of memory, storage,
+and animator labour.</p>
+<p>The most popular approach linear blend skinning (LBS), or equivalently
+skeleton subspace deformation (SSD), falls under the category of geometric
+methods.  A single input mesh is designed in a reference pose with
+<span class="math notranslate nohighlight">\(p\)</span> joints: each vertex <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> is bound to a set of joints
+<span class="math notranslate nohighlight">\(\left\{ j_i \in \{1, \ldots, p\} \right\}_{i = 1}^n\)</span> with a set of
+corresponding weights <span class="math notranslate nohighlight">\(\mathbf{w} = (w_1, \ldots, w_n)\)</span> that determines
+the amount of influence.  This technique only requires computing</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{v}' = \left( \sum_i w_i C_{j_i} \right) \mathbf{v}\]</div>
+<p>where <span class="math notranslate nohighlight">\(C_j \in \mathrm{SE}(3)\)</span> denotes a rigid transformation, but may
+produce artifacts such as skin collapsing.  The skin collapsing effects
+visualize the fact that the set of orthonormal matrices is not closed under
+addition.</p>
+<p>A blending method that avoids such skin-collapsing defects must deliver a rigid
+transformation in all cases.  The blending of matrix logarithms satisfies this
+condition at the cost of sometimes picking a longer trajectory than necessary
+when interpolating rotation, which causes excessive stretching.</p>
+<p>Decomposing rigid transformations into (quaternion, translation) pairs resolve
+the previous issues, but it also introduces a dependence on the body-space
+coordinate system.  In practice, blending the pairs rotates the model vertices
+around the origin of the body-space.  Fixing this issue amounts to using SVD
+to minimize the translation of the resulting blended transformation.</p>
+</div>
+<div class="section" id="proposed-solution-s">
+<h2>Proposed Solution(s)<a class="headerlink" href="#proposed-solution-s" title="Permalink to this headline">¶</a></h2>
+<p>The authors propose a closed-form approximation, based on dual quaternions, to a
+theoretically optimal rigid transformation blending method.  Dual quaternion
+linear blending (DLB) always return a valid rigid transformation, is
+coordinate-invariant, interpolates between two rigid transformations along the
+shortest path, and works with existing rigging tools and data formats.</p>
+<p>While classical quaternions can represent only rotations whose axes pass through
+the origin, dual quaternions can represent rotations with arbitrary axes with
+the dual portion containing the translation.  Geometrically, a dual quaternion
+defines a screw motion.</p>
+<p>Given unit dual quaternions
+<span class="math notranslate nohighlight">\(\left\{ \hat{\mathbf{q}}_i \right\}_{i = 1}^n\)</span> with convex weights
+<span class="math notranslate nohighlight">\(\mathbf{w} = (w_1, \ldots, w_n)\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[DLB(\mathbf{w}; \hat{\mathbf{q}}_1, \ldots, \hat{\mathbf{q}}_n) =
+\frac{
+  \sum_i w_i \hat{\mathbf{q}}_i
+}{
+  \left\Vert \sum_i w_i \hat{\mathbf{q}}_i \right\Vert
+}.\]</div>
+<p>Notice how this formulation is akin to the standard normal interpolation trick.
+The implementation is given in Algorithm 1 whose input dual quaternions have
+been processed by Algorithm 2.</p>
+</div>
+<div class="section" id="evaluation-s">
+<h2>Evaluation(s)<a class="headerlink" href="#evaluation-s" title="Permalink to this headline">¶</a></h2>
+<p>The authors prove why DLB meets all of the requirements.  They showed that
+previous approaches with rotation-center issues fail the bi-invariance property
+(i.e. coordinate invariance).  DLB does not have this issue because of
+its distributivity property.</p>
+<p>In order to quantify DLB’s approximation, the authors propose using
+Screw Linear Interpolation (ScLERP) as a baseline.  ScLERP is a generalization
+of Spherical Linear Interpolation (SLERP) to SE(3) and exhibits similar
+characteristics such as constant speed of interpolation, takes the shortest
+path, and is bi-invariant.  Since SLERP is optimal for SO(3), the authors reason
+that ScLERP is an appropriate gold standard for SE(3).</p>
+<p>The derivations reveal the difference between DLB and ScLERP can only be in the
+motion along the screw axis.  The error analysis indicate that the angle of
+rotation is upper bounded by <span class="math notranslate nohighlight">\(8.15^\circ\)</span> and the amount of translation
+does not exceed 15.1%.  Note that this analysis is for interpolating
+<span class="math notranslate nohighlight">\(n = 2\)</span> transformations.  Generalizing SLERP for <span class="math notranslate nohighlight">\(n &gt; 2\)</span> leads to
+spherical averages.  To approximate spherical averages, the authors proposed
+Dual Quaternion Iterative Blending (DIB), but the minor visual enhancements did
+not justify three times the computational complexity.  Note that the authors
+opted for visual verification because error analysis and even empirical
+comparisons are non-trivial.</p>
+<p>A minor nuisance due to quaternions is the antipodal property.  When converting
+matrices to dual quaternions, one must consistently choose signs so that the
+non-dual quaternions lie in the same hemisphere.  Nevertheless, DLB only 20%
+slower than LBS.</p>
+<p>Two outstanding limitations with DLB are flipping artifacts and non-rigid joint
+transformations.  Flipping artifacts occur when joint rotations cover more than
+<span class="math notranslate nohighlight">\(180^\circ\)</span> because the shortest path interpolation will pick the reverse
+direction.  One solution is to impose more joint constraints.  To extend DLB to
+handle non-rigid joint transformations, the authors propose applying non-rigid
+transformation blending first followed by DLB.</p>
+</div>
+<div class="section" id="future-direction-s">
+<h2>Future Direction(s)<a class="headerlink" href="#future-direction-s" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>How practical is it to impose more constraints (e.g. bones, weights) within
+the DLB framework to achieve physically-based non-rigid skinning?</p></li>
+<li><p>Is applying non-rigid before rigid transformation better than the reverse?</p></li>
+</ul>
+</div>
+<div class="section" id="question-s">
+<h2>Question(s)<a class="headerlink" href="#question-s" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Would plotting the first and second moments of the results from DLB and DIB be
+useful in determining the quality of the approximation?</p></li>
+<li><p>What artifacts does DIB remove from DLB?</p></li>
+</ul>
+</div>
+<div class="section" id="analysis">
+<h2>Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">¶</a></h2>
+<p>DLB can safely replace a LBS pipeline.  Note that this paper supercedes the
+earlier work <a class="bibtex reference internal" href="#kavan2007skinning" id="id1">[KCvZaraOSullivan07]</a>.</p>
+<p>The authors should have listed the performance of DLB with antipodality resolved
+in the vertex shader since the number of joints does not usually exceed four.</p>
+<p>While DIB is a theoretically satisfying solution, the two-phase approach to
+handle non-rigid transformations is not.  The authors could have explored how to
+modify the mesh topology (e.g. geometry shader) to complement DLB.</p>
+<p>The connection to planar dual quaternions and the tutorial on dual quaternions
+are very useful tools to know about, especially if one wants to improve the
+current approximation.  The notes are derived from the paper and serve as an
+implementation guideline.</p>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="lemma-1-background-knowledge">
+<h3>Lemma 1 Background Knowledge<a class="headerlink" href="#lemma-1-background-knowledge" title="Permalink to this headline">¶</a></h3>
+<p>Recall that any complex number can be expressed as (Euler’s formula)</p>
+<div class="math notranslate nohighlight">
+\[a + bi = r \left( \cos \varphi + i \sin \varphi \right) = r e^{i \varphi}.\]</div>
+<p>Consequently,</p>
+<div class="math notranslate nohighlight">
+\[(a + bi) (c + di) =
+r e^{i \varphi} s e^{i \theta} =
+rs e^{i (\varphi + \theta)}.\]</div>
+<p>Therefore, multiplying two complex numbers is equivalent to multiplying their
+lengths and adding their angles.</p>
+<p>Let <span class="math notranslate nohighlight">\(t = r e^{i \varphi} \in \mathbb{C}\)</span>.  Notice that</p>
+<div class="math notranslate nohighlight">
+\[i t =
+e^{i \pi / 2} t =
+r e^{i (\varphi + \pi / 2)} =
+r \left( -\sin \varphi + i \cos \varphi \right).\]</div>
+<p>Representing <span class="math notranslate nohighlight">\(t\)</span> as a vector gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator{\vect}{vec}
+\vect{t} =
+\begin{bmatrix}
+  r \cos \varphi\\
+  r \sin \varphi\\
+  0
+\end{bmatrix}
+\quad \text{and} \quad
+\vect{i t} =
+\begin{bmatrix}
+  -r \sin \varphi\\
+  r \cos \varphi\\
+  0
+\end{bmatrix} =
+\mathbf{e}_3 \times \vect{t}.\end{split}\]</div>
+</div>
+<div class="section" id="taylor-series-of-dual-number">
+<h3>Taylor Series of Dual Number<a class="headerlink" href="#taylor-series-of-dual-number" title="Permalink to this headline">¶</a></h3>
+<p>A dual number <span class="math notranslate nohighlight">\(\hat{a} \in \hat{\mathbb{R}}\)</span> is similar to a complex
+number: it can be written as <span class="math notranslate nohighlight">\(\hat{a} = a_0 + \epsilon a_\epsilon\)</span> where
+<span class="math notranslate nohighlight">\(a_0\)</span> is the non-dual part, <span class="math notranslate nohighlight">\(a_\epsilon\)</span> is the dual part, and
+<span class="math notranslate nohighlight">\(\epsilon\)</span> is a dual unit satisfying <span class="math notranslate nohighlight">\(\epsilon^2 = 0\)</span>.</p>
+<p>The Taylor series of <span class="math notranslate nohighlight">\(f(\hat{a})\)</span> at <span class="math notranslate nohighlight">\(a_0\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(\hat{a}) &amp;= \sum_{n = 0}^\infty \frac{f^{(n)}(a_0)}{n!} (\hat{a} - a_0)^n\\
+ &amp;= f(a_0) + f'(a_0) a_\epsilon \epsilon +
+    \frac{f''(a_0)}{2!} a_\epsilon^2 \epsilon^2 + \cdots\\
+ &amp;= f(a_0) + f'(a_0) a_\epsilon \epsilon
+    &amp; \quad &amp; \epsilon^2 = 0.\end{split}\]</div>
+<p>This technique is widely used in <a class="reference internal" href="../07/automatic-differentiation-in-machine-learning-a-survey.html"><span class="doc">automatic differentiation</span></a>.</p>
+</div>
+<div class="section" id="quaternion">
+<h3>Quaternion<a class="headerlink" href="#quaternion" title="Permalink to this headline">¶</a></h3>
+<p>Recall that a quaternion <span class="math notranslate nohighlight">\(\mathbf{q}\)</span> is an extension of the complex
+numbers such that</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{q} =
+(w, \mathbf{r}) =
+(\cos \frac{\theta}{2}, \mathbf{r} \sin \frac{\theta}{2}) =
+w + xi + yj + zk\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{r}\)</span> is the unit rotation axis, <span class="math notranslate nohighlight">\(\theta\)</span> is the angle,</p>
+<div class="math notranslate nohighlight">
+\[i^2 = j^2 = k^2 = ijk = -1,\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}ij &amp;= -ji &amp;= k\\
+jk &amp;= -kj &amp;= i\\
+ki &amp;= -ik &amp;= j.\end{split}\]</div>
+<p>The product of two quaternions is</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{q}_0 \mathbf{q}_1 =
+(
+  w_0 w_1 - \mathbf{r}_0 \cdot \mathbf{r}_1,
+  w_0 \mathbf{r}_1 + w_1 \mathbf{r}_0 + \mathbf{r}_0 \times \mathbf{r}_1
+) \neq
+\mathbf{q}_1 \mathbf{q}_0.\]</div>
+<p>Given that the conjugate of a quaternion is defined as
+<span class="math notranslate nohighlight">\(\mathbf{q}^* = (w, -\mathbf{r})\)</span>, the inverse of a quaternion can be
+derived as</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{q}^* \mathbf{q} =
+\mathbf{q} \mathbf{q}^* =
+\mathbf{q} \cdot \mathbf{q} =
+\left\Vert \mathbf{q} \right\Vert^2
+\Rightarrow
+\mathbf{q}^{-1} = \frac{\mathbf{q}^*}{\left\Vert \mathbf{q} \right\Vert^2}.\]</div>
+<p>A unit quaternion must satisfy <span class="math notranslate nohighlight">\(\left\Vert \mathbf{q} \right\Vert = 1\)</span>.
+Clearly, non-unit quaternions can be normalized as</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{q}' = \mathbf{q} \left\Vert \mathbf{q} \right\Vert^{-1}.\]</div>
+<p>The quaternion representation of any vector <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> is
+<span class="math notranslate nohighlight">\((0, \mathbf{v})\)</span>.  The rotation of such a vector by a unit quaternion
+<span class="math notranslate nohighlight">\(\mathbf{q}\)</span> can be computed as (15)</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{v}' =
+\mathbf{q} (0, \mathbf{v}) \mathbf{q}^* =
+(w + \mathbf{r}) (0 + \mathbf{v}) (w - \mathbf{r}) =
+\mathbf{v} + 2 \mathbf{r} \times
+    \left( \mathbf{r} \times \mathbf{v} + w \mathbf{v} \right).\]</div>
+<p>Note that this derivation makes use of the triple product expansion i.e.
+Lagrange’s formula.</p>
+</div>
+<div class="section" id="dual-quaternion">
+<h3>Dual Quaternion<a class="headerlink" href="#dual-quaternion" title="Permalink to this headline">¶</a></h3>
+<p>A dual quaternion <span class="math notranslate nohighlight">\(\hat{\mathbf{q}}\)</span> can be interpreted as extending
+quaternions to utilize dual numbers such that</p>
+<div class="math notranslate nohighlight">
+\[\hat{\mathbf{q}} = \mathbf{q}_0 + \epsilon \mathbf{q}_\epsilon.\]</div>
+<p>Note that there are two notions of conjugation for dual quaternions:</p>
+<div class="math notranslate nohighlight">
+\[\hat{\mathbf{q}}^* = \mathbf{q}_0^* + \epsilon \mathbf{q}_\epsilon^*
+\quad \text{and} \quad
+\overline{\hat{\mathbf{q}}} = \mathbf{q}_0 - \epsilon \mathbf{q}_\epsilon.\]</div>
+<p>The former is the quaternion conjugation while the latter is the dual number
+conjugation.  The norm of a dual quaternion is (22)</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \left\Vert \hat{\mathbf{q}} \right\Vert
+   &amp;= \sqrt{\hat{\mathbf{q}}^* \hat{\mathbf{q}}}\\
+   &amp;= \sqrt{\hat{\mathbf{q}} \hat{\mathbf{q}}^*}\\
+   &amp;= \left\Vert \mathbf{q}_0 \right\Vert +
+      \epsilon \frac{
+        \langle \mathbf{q}_0, \mathbf{q}_\epsilon \rangle
+      }{
+        \left\Vert \mathbf{q}_0 \right\Vert
+      }
+\end{aligned}
+\quad \implies \quad
+\begin{aligned}
+  \frac{1}{\left\Vert \hat{\mathbf{q}} \right\Vert} =
+  \frac{1}{\left\Vert \mathbf{q}_0 \right\Vert} -
+    \epsilon \frac{
+      \langle \mathbf{q}_0, \mathbf{q}_\epsilon \rangle
+    }{
+      \left\Vert \mathbf{q}_0 \right\Vert^3
+    }
+\end{aligned}.\end{split}\]</div>
+<p>A unit dual quaternion must satisfy
+<span class="math notranslate nohighlight">\(\left\Vert \hat{\mathbf{q}} \right\Vert = 1\)</span>.  Consequently,
+<span class="math notranslate nohighlight">\(\left\Vert \mathbf{q}_0 \right\Vert = 1\)</span> and
+<span class="math notranslate nohighlight">\(\langle \mathbf{q}_0, \mathbf{q}_\epsilon \rangle = 0\)</span>.  A non-unit dual
+quaternion can be normalized via</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\hat{\mathbf{q}}'
+ &amp;= \frac{\hat{\mathbf{q}}}{\left\Vert \hat{\mathbf{q}} \right\Vert}\\
+ &amp;= \frac{\mathbf{q}_0}{\left\Vert \mathbf{q}_0 \right\Vert} +
+    \epsilon \left(
+      \frac{\mathbf{q}_\epsilon}{\left\Vert \mathbf{q}_0 \right\Vert} -
+      \frac{
+        \mathbf{q}_0 \langle \mathbf{q}_0, \mathbf{q}_\epsilon \rangle
+      }{
+        \left\Vert \mathbf{q}_0 \right\Vert^3
+      }
+    \right)\\
+ &amp;= \hat{\mathbf{q}}'_0 + \epsilon \hat{\mathbf{q}}'_\epsilon.\end{split}\]</div>
+</div>
+<div class="section" id="convert-between-se-3-and-dual-quaternion">
+<h3>Convert Between SE(3) and Dual Quaternion<a class="headerlink" href="#convert-between-se-3-and-dual-quaternion" title="Permalink to this headline">¶</a></h3>
+<p>The dual quaternion representation of any vector <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> is
+<span class="math notranslate nohighlight">\(\hat{\mathbf{v}} = 1 + \epsilon (0, \mathbf{v})\)</span>.  The transformation of
+any vector by a unit dual quaternion <span class="math notranslate nohighlight">\(\hat{\mathbf{q}}\)</span> can be computed as
+<span class="math notranslate nohighlight">\(\hat{\mathbf{q}} \hat{\mathbf{v}} \overline{\hat{\mathbf{q}}^*}\)</span>.</p>
+<p>By inspection, a unit dual quaternion represents a pure rotation when the dual
+part <span class="math notranslate nohighlight">\(\mathbf{q}_\epsilon = 0\)</span>.  A unit dual quaternion can also represent
+a pure translation <span class="math notranslate nohighlight">\(\mathbf{t}\)</span> when it is defined as</p>
+<div class="math notranslate nohighlight">
+\[\hat{\mathbf{t}} =
+(1, \boldsymbol{0}) + \frac{\epsilon}{2} (0, \mathbf{t}) =
+1 + \frac{\epsilon}{2} (0, \mathbf{t}).\]</div>
+<p>The dual quaternion equivalent of a rigid transformation is</p>
+<div class="math notranslate nohighlight">
+\[\hat{\mathbf{t}} \hat{\mathbf{q}} \hat{\mathbf{v}}
+    \overline{\hat{\mathbf{q}}^*} \overline{\hat{\mathbf{t}}^*} =
+\left( \hat{\mathbf{t}} \hat{\mathbf{q}} \right) \hat{\mathbf{v}}
+    \overline{\left( \hat{\mathbf{t}} \hat{\mathbf{q}} \right)^*}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\hat{\mathbf{t}} \hat{\mathbf{q}}
+ &amp;= \hat{\mathbf{t}} \mathbf{q}_0
+    &amp; \quad &amp; \text{(25)}\\
+ &amp;= \mathbf{q}_0 + \frac{\epsilon}{2} (0, \mathbf{t}) \mathbf{q}_0\\
+ &amp;= \mathbf{q}_0 +
+    \frac{\epsilon}{2} \left(
+      -\mathbf{t} \cdot \mathbf{r}_0,
+      w_0 \mathbf{t} + \mathbf{t} \times \mathbf{r}_0
+    \right)\end{split}\]</div>
+<p>shows how to convert a rigid transformation to a unit dual quaternion.
+<a class="bibtex reference internal" href="#farrell2015r2q" id="id2">[Far15]</a><a class="bibtex reference internal" href="#day2015r2q" id="id3">[Day15]</a> presents an elegant way to
+<a class="reference external" href="https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation#Conversion_to_and_from_the_matrix_representation">convert between a rotation matrix and a quaternion</a>.</p>
+<p>Observe that the translation component <span class="math notranslate nohighlight">\(\mathbf{t}'\)</span> of a unit dual
+quaternion <span class="math notranslate nohighlight">\(\hat{\mathbf{q}}'\)</span> can be extracted as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}2 \hat{\mathbf{q}}'_\epsilon {\hat{\mathbf{q}}'_0}^*
+ &amp;= 2 \left(
+      w_\epsilon w_0 - \mathbf{r}_\epsilon \cdot (-\mathbf{r}_0),
+      w_\epsilon (-\mathbf{r}_0) + w_0 \mathbf{r}_\epsilon +
+        \mathbf{r}_\epsilon \times (-\mathbf{r}_0)
+    \right)\\
+ &amp;= 2 (0, w_0 \mathbf{r}_\epsilon - w_\epsilon \mathbf{r}_0 +
+          \mathbf{r}_0 \times \mathbf{r}_\epsilon)\\
+ &amp;= (0, \mathbf{t}').\end{split}\]</div>
+<p>When the goal is to extract the rotation and translation from a non-unit dual
+quaternion <span class="math notranslate nohighlight">\(\hat{\mathbf{q}}\)</span> representing a rigid transformation, the
+foregoing observation avoids the normalization procedure and gives</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{c}_0 = \frac{\mathbf{q}_0}{\left\Vert \mathbf{q}_0 \right\Vert}
+\quad \text{and} \quad
+\mathbf{c}_\epsilon =
+    \frac{\mathbf{q}_\epsilon}{\left\Vert \mathbf{q}_0 \right\Vert}
+\quad \Rightarrow \quad
+\mathbf{t}' =
+  \frac{
+    2 \left(
+      w_0 \mathbf{r}_\epsilon - w_\epsilon \mathbf{r}_0 +
+      \mathbf{r}_0 \times \mathbf{r}_\epsilon
+    \right)
+  }{\left\Vert \mathbf{q}_0 \right\Vert}.\]</div>
+</div>
+<div class="section" id="rigid-transformation">
+<h3>Rigid Transformation<a class="headerlink" href="#rigid-transformation" title="Permalink to this headline">¶</a></h3>
+<p>A rigid transformation <span class="math notranslate nohighlight">\(\mathbf{M} \in \text{SE(3)}\)</span> is defined as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{M} =
+\begin{bmatrix}
+  \mathbf{R} &amp; \mathbf{t}\\
+  \boldsymbol{0}^\top &amp; 1
+\end{bmatrix} =
+\begin{bmatrix}
+  \mathbf{I} &amp; \mathbf{t}\\
+  \boldsymbol{0}^\top &amp; 1
+\end{bmatrix}
+  \begin{bmatrix}
+    \mathbf{R} &amp; \boldsymbol{0}\\
+    \boldsymbol{0}^\top &amp; 1
+  \end{bmatrix} =
+\mathbf{T} \hat{\mathbf{R}}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{R} \in \mathbb{R}^{3 \times 3}\)</span> is the orthogonal rotation
+matrix and <span class="math notranslate nohighlight">\(\mathbf{t} \in \mathbb{R}^3\)</span> is the translation vector.</p>
+<p><a class="bibtex reference internal" href="#turkowski1990transformations" id="id4">[Tur90]</a> beautifully explains why a normal vector is
+not just a difference between two points.  To see why rigid transformations work
+on normal vectors without applying the inverse transpose operator, consider a
+normal vector <span class="math notranslate nohighlight">\(\mathbf{n} \in \mathbb{R}^3\)</span> in homogeneous coordinates.</p>
+<p>Observe that the results of</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{M} \tilde{\mathbf{n}} =
+\mathbf{T} \hat{\mathbf{R}} \begin{bmatrix} \mathbf{n}\\ 0 \end{bmatrix} =
+\begin{bmatrix} \mathbf{R} \mathbf{n}\\ 0 \end{bmatrix}\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{M}^{-\top} \tilde{\mathbf{n}} =
+\begin{bmatrix}
+  \mathbf{I} &amp; \boldsymbol{0}\\ -\mathbf{t}^\top &amp; 1
+\end{bmatrix} \hat{\mathbf{R}} \begin{bmatrix} \mathbf{n}\\ 0 \end{bmatrix} =
+\begin{bmatrix}
+  \mathbf{R} \mathbf{n}\\ -\mathbf{t}^\top \mathbf{R} \mathbf{n}
+\end{bmatrix}\end{split}\]</div>
+<p>are the same except for the last component.  However, the last component does
+not matter and should be ignored for vectors.  This is also the reason why
+directly applying a view (camera) matrix to normals yields correct results.</p>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending-0"><dl class="citation">
+<dt class="bibtex label" id="day2015r2q"><span class="brackets"><a class="fn-backref" href="#id3">Day15</a></span></dt>
+<dd><p>Mike Day. Converting a rotation matrix to a quaternion. <span><a class="reference external" href="#"></a></span>https://d3cw3dd2w32x2b.cloudfront.net/wp-content/uploads/2015/01/matrix-to-quat.pdf, 2015.</p>
+</dd>
+<dt class="bibtex label" id="farrell2015r2q"><span class="brackets"><a class="fn-backref" href="#id2">Far15</a></span></dt>
+<dd><p>Jay A Farrell. Computation of the quaternion from a rotation matrix. <span><a class="reference external" href="#"></a></span>http://www.ee.ucr.edu/ farrell/AidedNavigation/D_App_Quaternions/Rot2Quat.pdf, 2015.</p>
+</dd>
+<dt class="bibtex label" id="kavan2007skinning"><span class="brackets"><a class="fn-backref" href="#id1">KCvZaraOSullivan07</a></span></dt>
+<dd><p>Ladislav Kavan, Steven Collins, Jiří Žára, and Carol O’Sullivan. Skinning with dual quaternions. In <em>Proceedings of the 2007 symposium on Interactive 3D graphics and games</em>, 39–46. ACM, 2007.</p>
+</dd>
+<dt class="bibtex label" id="kavan2008geometric"><span class="brackets">KCvZaraOSullivan08</span></dt>
+<dd><p>Ladislav Kavan, Steven Collins, Jiří Žára, and Carol O’Sullivan. Geometric skinning with approximate dual quaternion blending. <em>ACM Transactions on Graphics (TOG)</em>, 27(4):105, 2008.</p>
+</dd>
+<dt class="bibtex label" id="turkowski1990transformations"><span class="brackets"><a class="fn-backref" href="#id4">Tur90</a></span></dt>
+<dd><p>Kenneth Turkowski. Transformations of surface normal vectors. In <em>Tech. Rep. 22, Apple Computer</em>. 1990.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

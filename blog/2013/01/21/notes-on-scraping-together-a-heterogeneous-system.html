@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Notes on Scraping Together a Heterogeneous System &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Transfer Media Files to Mobile Device via VLC" href="../20/transfer-media-files-to-mobile-device-via-vlc.html" />
+    <link rel="prev" title="Notes on Software Design" href="../22/notes-on-software-design.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Notes on Scraping Together a Heterogeneous System</a><ul>
+<li><a class="reference internal" href="#cpu">CPU</a></li>
+<li><a class="reference internal" href="#multiprocessor-multiprocessing">Multiprocessor/Multiprocessing</a><ul>
+<li><a class="reference internal" href="#intel-quickpath-interconnect-qpi">Intel QuickPath Interconnect (QPI)</a></li>
+<li><a class="reference internal" href="#amd-infinity-fabric-if">AMD Infinity Fabric (IF)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#memory">Memory</a></li>
+<li><a class="reference internal" href="#storage">Storage</a></li>
+<li><a class="reference internal" href="#network-interface-controller">Network Interface Controller</a></li>
+<li><a class="reference internal" href="#coprocessor-interconnect">Coprocessor Interconnect</a><ul>
+<li><a class="reference internal" href="#pcie-topology">PCIe Topology</a><ul>
+<li><a class="reference internal" href="#digits-devbox">Digits DevBox</a></li>
+<li><a class="reference internal" href="#inefficient-configuration-of-8-gpus">Inefficient Configuration of 8 GPUs</a></li>
+<li><a class="reference internal" href="#big-sur">Big Sur</a></li>
+<li><a class="reference internal" href="#dgx-1">DGX-1</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gpu-s">GPU(s)</a></li>
+<li><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
+<li><a class="reference internal" href="#custom-deep-learning-system">Custom Deep Learning System</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../22/notes-on-software-design.html" title="Previous Chapter: Notes on Software Design"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Notes on Soft...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../20/transfer-media-files-to-mobile-device-via-vlc.html" title="Next Chapter: Transfer Media Files to Mobile Device via VLC"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Transfer Medi... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="notes-on-scraping-together-a-heterogeneous-system">
+<h1>Notes on Scraping Together a Heterogeneous System<a class="headerlink" href="#notes-on-scraping-together-a-heterogeneous-system" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="cpu">
+<h2>CPU<a class="headerlink" href="#cpu" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Higher frequency is better for <a class="reference external" href="https://en.wikipedia.org/wiki/CPU-bound">CPU bound</a> applications.</p></li>
+<li><p>Higher <span class="math notranslate nohighlight">\(\#_\text{cores}\)</span> and <a class="reference external" href="https://en.wikipedia.org/wiki/Multiprocessing">multiprocessing</a> support is better for
+<a class="reference external" href="https://en.wikipedia.org/wiki/Embarrassingly_parallel">perfectly parallel</a> workloads.</p>
+<ul>
+<li><p>Inherently serial applications are bounded above by <a class="reference external" href="https://en.wikipedia.org/wiki/Amdahl%27s_law">Amdahl’s law</a>.</p></li>
+<li><p>Physical cores represent the number of physical processing units on a chip.</p></li>
+<li><p>The number of logical cores
+(<span class="math notranslate nohighlight">\(\#_\text{cores} \times \#_\text{threads}\)</span>) is the maximum number of
+concurrent threads the chip supports via simultaneous multithreading
+(<a class="reference external" href="https://en.wikipedia.org/wiki/Simultaneous_multithreading">SMT</a>).</p>
+<ul>
+<li><p>SMT works well when the threads have highly different characteristics e.g.
+one thread doing mostly integer operations, another mainly doing floating
+point operations.</p></li>
+<li><p>Note that in hardware virtualization, a logical core is called a
+virtual CPU, vCPU, or virtual processor.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Larger multi-level cache size is better for <a class="reference external" href="https://software.intel.com/en-us/node/605613">cache bound</a> applications.</p></li>
+<li><p>The chip also specifies what is supported in terms of memory size, memory
+type, max number of memory channels, PCIe data rate, and max number of PCIe
+lanes.</p>
+<ul>
+<li><p>Higher is better for <a class="reference external" href="https://en.wikipedia.org/wiki/I/O_bound">I/O bound</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Memory_bound_function">memory bound</a> workloads.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="multiprocessor-multiprocessing">
+<h2>Multiprocessor/Multiprocessing<a class="headerlink" href="#multiprocessor-multiprocessing" title="Permalink to this headline">¶</a></h2>
+<p>Outside of perfectly parallel workloads, a single CPU system is
+more cost effective than a system with multiple physical CPUs because
+existing software (e.g. <a class="reference external" href="http://ppbm7.com/index.php/tweakers-page/95-single-or-dual-cpu/109-single-or-dual-cpu">After Effects</a>, <a class="reference external" href="https://www.pugetsystems.com/labs/articles/Should-you-use-a-Dual-Xeon-for-Premiere-Pro-CC-2017-932">Premiere Pro</a>, <a class="reference external" href="https://www.pugetsystems.com/labs/articles/Solidworks-2016-Multi-Core-Performance-741">SolidWorks</a>) mostly
+do not take advantage of the additional processor cores.  The additional
+physical CPUs may be even slower than a single CPU system, possibly due to
+<a class="reference external" href="https://en.wikipedia.org/wiki/List_of_device_bit_rates#Computer_buses">communication bandwidth</a> (e.g. <a class="reference external" href="https://en.wikipedia.org/wiki/Non-uniform_memory_access">NUMA</a>).  As an aside, a term that is useful
+to know is <a class="reference external" href="https://en.wikipedia.org/wiki/Transfer_(computing)">transfers per second</a>.  Multiplying the transfer rate by the
+information channel width gives the data transmission rate.</p>
+<div class="section" id="intel-quickpath-interconnect-qpi">
+<h3>Intel QuickPath Interconnect (QPI)<a class="headerlink" href="#intel-quickpath-interconnect-qpi" title="Permalink to this headline">¶</a></h3>
+<p>Initially, Intel’s CPU used a <a class="reference external" href="https://en.wikipedia.org/wiki/Front-side_bus">FSB</a> to access the <a class="reference external" href="https://en.wikipedia.org/wiki/Northbridge_(computing)">northbridge</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Direct_Media_Interface">DMI</a> to
+link to the <a class="reference external" href="https://en.wikipedia.org/wiki/Southbridge_(computing)">southbridge</a> (a.k.a. <a class="reference external" href="https://en.wikipedia.org/wiki/I/O_Controller_Hub">ICH</a>).  Intel later on replaced the FSB
+with <a class="reference external" href="https://en.wikipedia.org/wiki/Intel_QuickPath_Interconnect">QPI</a> and integrated the northbridge into the CPU die itself.  The
+southbridge became redundant and was replaced by the <a class="reference external" href="https://en.wikipedia.org/wiki/Platform_Controller_Hub">PCH</a>.  PCH still uses
+DMI, but Intel have started to replace QPI with <a class="reference external" href="http://www.anandtech.com/show/11544/intel-skylake-ep-vs-amd-epyc-7000-cpu-battle-of-the-decade/7">UPI</a>.</p>
+<p>Any communication to other CPUs and <a class="reference external" href="https://en.wikipedia.org/wiki/Uncore">uncore</a> components (e.g. remote memory,
+L3 cache) uses QPI.  Other external communications (e.g. local memory, devices)
+use pins, PCIe, SATAe, etc…  In the <a class="reference external" href="https://en.wikichip.org/wiki/intel/microarchitectures/skylake">Skylake microarchitecture</a>,
+core-to-core (intra-chip) communication uses a ring bus interconnect; Intel has
+since replaced it with a <a class="reference external" href="http://www.anandtech.com/show/11544/intel-skylake-ep-vs-amd-epyc-7000-cpu-battle-of-the-decade/5">mesh topology interconnect</a>.</p>
+</div>
+<div class="section" id="amd-infinity-fabric-if">
+<h3>AMD Infinity Fabric (IF)<a class="headerlink" href="#amd-infinity-fabric-if" title="Permalink to this headline">¶</a></h3>
+<p>AMD’s CPU initially used a FSB to access the northbridge and <a class="reference external" href="https://en.wikipedia.org/wiki/Unified_Media_Interface">UMI</a> to link to
+the southbridge (a.k.a. <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_AMD_chipsets#FCH">FCH</a>).  AMD later on replaced the FSB with <a class="reference external" href="https://en.wikipedia.org/wiki/HyperTransport">HT</a> and
+integrated the northbridge into the CPU die itself when it introduced the
+<a class="reference external" href="https://en.wikipedia.org/wiki/AMD_Accelerated_Processing_Unit">APU</a>, which still uses UMI.  In an effort towards <a class="reference external" href="https://en.wikipedia.org/wiki/System_on_a_chip">SoC</a>, AMD integrated its
+southbridge into the die and replaced HT with <a class="reference external" href="https://en.wikichip.org/wiki/amd/infinity_fabric">IF</a>.</p>
+<p>The IF’s Scalable Data Fabric (SDF) connects each CCX (CPU Complex) to uncore
+devices such as memory controllers and PCIe controllers.  It is a 256-bit
+bi-directional crossbar that is used to simultaneously transport data for
+multiple buses to their final destination and runs at the speed of the memory
+controller.  In the <a class="reference external" href="https://en.wikichip.org/wiki/amd/microarchitectures/zen">Zen microarchitecture</a>, die-to-die (intra-chip)
+communication uses AMD’s Global Memory Interconnect (GMI).</p>
+</div>
+</div>
+<div class="section" id="memory">
+<h2>Memory<a class="headerlink" href="#memory" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Higher <a class="reference external" href="https://en.wikipedia.org/wiki/Synchronous_dynamic_random-access_memory">data transfer rate</a> is better for <a class="reference external" href="https://software.intel.com/en-us/node/638229">DRAM bandwidth bound</a>
+applications.</p>
+<ul>
+<li><p>The most common <a class="reference external" href="https://en.wikipedia.org/wiki/Dynamic_random-access_memory">DRAM</a> interface is <a class="reference external" href="https://en.wikipedia.org/wiki/Double_data_rate">DDR</a>, which allows either a read or
+a write at each clock edge.</p></li>
+<li><p>A higher bandwidth interface is <a class="reference external" href="https://en.wikipedia.org/wiki/GDDR5_SDRAM">GDDR</a>, which allows a read and a write at
+each clock edge.</p></li>
+<li><p>With the advent stackable DRAM die technologies such as <a class="reference external" href="https://en.wikipedia.org/wiki/High_Bandwidth_Memory">HBM</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Hybrid_Memory_Cube">HMC</a>,
+the leap to higher bandwidth is achieved through adding more memory channels
+with wider bus width.</p></li>
+</ul>
+</li>
+<li><p>Lower <a class="reference external" href="https://en.wikipedia.org/wiki/Memory_timings">memory timings</a> is better for latency bound applications.</p>
+<ul>
+<li><p>Note that the <a class="reference external" href="https://en.wikipedia.org/wiki/CAS_latency">CAS latency</a> can only accurately measure the time to
+transfer the first word of memory.</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/DIMM">Unregistered DIMMs</a> do not support very large amounts of memory.</p>
+<ul>
+<li><p><a class="reference external" href="https://www.microway.com/hpc-tech-tips/ddr4-rdimm-lrdimm-performance-comparison/">RDIMMs are faster than LRDIMMs</a>, but the former can only support up to
+512GB while the latter can go beyond 1TB.</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Registered_memory">RDIMMs</a> (and the like) require <a class="reference external" href="https://en.wikipedia.org/wiki/ECC_memory">ECC</a>.</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Multi-channel_memory_architecture">More channels of communication in the memory architecture</a> is better for
+DRAM bandwidth bound applications.</p></li>
+<li><p><a class="reference external" href="http://frankdenneman.nl/2015/02/18/memory-configuration-scalability-blog-series/">Memory Deep Dive Series</a> is a nice overview of a server’s memory subsystem.</p></li>
+</ul>
+</div>
+<div class="section" id="storage">
+<h2>Storage<a class="headerlink" href="#storage" title="Permalink to this headline">¶</a></h2>
+<p>Non-volatile data storage (<a class="reference external" href="https://en.wikipedia.org/wiki/Non-volatile_memory">NVM</a>) can be either <a class="reference external" href="https://en.wikipedia.org/wiki/Hard_disk_drive">mechanically addressed</a> or
+<a class="reference external" href="https://en.wikipedia.org/wiki/Solid-state_storage">electrically addressed</a>.  The former has additional
+<a class="reference external" href="https://en.wikipedia.org/wiki/Hard_disk_drive_performance_characteristics">mechanical performance characteristics</a> to be aware of when examining I/O
+bound applications.  Those measurements can be mapped onto a commonly accepted
+metric consisting of <a class="reference external" href="https://en.wikipedia.org/wiki/IOPS">sequential and random operations</a>.</p>
+<p>Both storage system types are accessed through a predefined set of logical
+device interfaces.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Serial_ATA">SATA</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Serial_Attached_SCSI">SAS</a> were designed primarily for HDDs.</p>
+<ul>
+<li><p>SATA targets the lowest cost per gigabyte and is the most cost effective for
+low frequency access of reference/streaming/sequential data e.g. archival
+data, file-sharing, email, web, backups.</p></li>
+<li><p>SAS is geared towards maximal performance, reliability, and availability on
+high frequency immediate random access data e.g. database transactions.</p></li>
+<li><p><a class="reference external" href="https://www.backblaze.com/b2/hard-drive-test-data.html">Hard drive reliability</a> is highly dependent on capacity and the
+manufacturer (e.g. HGST, Western Digital, Seagate Technology).</p></li>
+</ul>
+</li>
+<li><p>SATA could not keep up with the speed of SSDs, so <a class="reference external" href="https://en.wikipedia.org/wiki/SATA_Express">SATAe</a> was introduced to
+interface with PCIe SSDs through the <a class="reference external" href="https://en.wikipedia.org/wiki/Advanced_Host_Controller_Interface">AHCI</a> drivers.</p></li>
+<li><p>AHCI did not fully exploit the low latency and parallelism of PCIe SSDs, so
+it was replaced by <a class="reference external" href="https://en.wikipedia.org/wiki/NVM_Express">NVMe</a>.</p>
+<ul>
+<li><p>M.2 and U.2. are realizations of NVMe in different physical formats.</p></li>
+</ul>
+</li>
+</ul>
+<p>The aforementioned interfaces support <a class="reference external" href="https://en.wikipedia.org/wiki/RAID">RAID</a> on a single system.  When scaling
+beyond a single machine, the only viable solution is a
+<a class="reference external" href="https://en.wikipedia.org/wiki/Clustered_file_system">distributed file system</a>.</p>
+</div>
+<div class="section" id="network-interface-controller">
+<h2>Network Interface Controller<a class="headerlink" href="#network-interface-controller" title="Permalink to this headline">¶</a></h2>
+<p>Gigabit Ethernet (<a class="reference external" href="https://en.wikipedia.org/wiki/Gigabit_Ethernet">1GbE</a>) is a typical setup for small clusters running
+workloads that are not IO bound.  Technologies such as standard Ethernet
+switches and LAN connections use <a class="reference external" href="https://en.wikipedia.org/wiki/Modular_connector#8P8C">RJ45 connectors</a> to terminate
+<a class="reference external" href="https://en.wikipedia.org/wiki/Ethernet_over_twisted_pair">twisted-pair copper cables</a>.</p>
+<p>If a longer maximum distance is desired, then optical fiber transceivers
+(e.g. <a class="reference external" href="https://en.wikipedia.org/wiki/Small_form-factor_pluggable_transceiver#1_and_2.5_Gbit.2Fs_SFP">SFP</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/QSFP#4_x_1_Gbit.2Fs_QSFP">QSFP</a>) can be used with <a class="reference external" href="https://en.wikipedia.org/wiki/Optical_fiber_connector">LC connectors</a>.  If more bandwidth are
+needed, <a class="reference external" href="https://en.wikipedia.org/wiki/10_Gigabit_Ethernet">10GbE</a> is available through <a class="reference external" href="https://en.wikipedia.org/wiki/Small_form-factor_pluggable_transceiver#10_Gbit.2Fs_SFP.2B">SFP+</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/QSFP#4_x_10_Gbit.2Fs_QSFP.2B">QSFP+</a>; <a class="reference external" href="https://en.wikipedia.org/wiki/100_Gigabit_Ethernet">100GbE</a> is
+supported through QSFP+ and <a class="reference external" href="https://en.wikipedia.org/wiki/C_Form-factor_Pluggable">CFP</a>.</p>
+<p>If the goal is to reduce latency, then the network adapters need to support
+<a class="reference external" href="https://en.wikipedia.org/wiki/Data_center_bridging">Converged Enhanced Ethernet</a>, which provides reliability without requiring the
+complexity of <a class="reference external" href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol">TCP</a>.  Furthermore, this functionality is necessary to perform
+<a class="reference external" href="https://en.wikipedia.org/wiki/Remote_direct_memory_access">RDMA</a> in <a class="reference external" href="https://en.wikipedia.org/wiki/Computer_cluster">computer clusters</a>.  The initial implementation of RDMA was
+<a class="reference external" href="https://en.wikipedia.org/wiki/IWARP">iWARP</a>, but <a class="reference external" href="http://www.mellanox.com/pdf/whitepapers/WP_RoCE_vs_iWARP.pdf">iWARP has since been superseded</a> by <a class="reference external" href="https://en.wikipedia.org/wiki/RDMA_over_Converged_Ethernet">RoCE</a>.</p>
+<p>Some alternative network interconnects are <a class="reference external" href="https://en.wikipedia.org/wiki/InfiniBand">InfiniBand</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Fibre_Channel">Fibre Channel</a>, and
+proprietary technologies such as Intel <a class="reference external" href="https://en.wikipedia.org/wiki/Omni-Path">Omni-Path</a>.  Note that InfiniBand
+provides RDMA capabilities through its own <a class="reference external" href="http://www.infinibandta.org/content/pages.php?pg=technology_public_specification">set of protocols</a> (e.g. <a class="reference external" href="https://tools.ietf.org/html/rfc4391">IPoIB</a>)
+and needs to use a <a class="reference external" href="https://en.wikipedia.org/wiki/Bridging_(networking)">network bridge</a> to communicate with Ethernet devices.
+Fibre Channel instead supports <a class="reference external" href="https://en.wikipedia.org/wiki/Fibre_Channel_Protocol">FCP</a> and interacts with Ethernet via <a class="reference external" href="https://en.wikipedia.org/wiki/Fibre_Channel_over_Ethernet">FCoE</a>.
+Omni-Path supports Ethernet and InfiniBand protocols as well as RDMA.
+InfiniBand currently achieves minimal latency and maximal throughput followed
+by RoCE, Omni-Path, and lastly Fibre Channel
+<a class="bibtex reference internal" href="#vienne2012performance" id="id5">[VCWUR+12]</a><a class="bibtex reference internal" href="#van2016comparison" id="id6">[VWKE16]</a>.</p>
+</div>
+<div class="section" id="coprocessor-interconnect">
+<h2>Coprocessor Interconnect<a class="headerlink" href="#coprocessor-interconnect" title="Permalink to this headline">¶</a></h2>
+<p>Modern <a class="reference external" href="https://en.wikipedia.org/wiki/Coprocessor">coprocessors</a> can be categorized into four types in order of increasing
+costs: <a class="reference external" href="https://en.wikipedia.org/wiki/Graphics_processing_unit">GPUs</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Manycore_processor">manycore processors</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Field-programmable_gate_array">FPGAs</a>, and <a class="reference external" href="https://en.wikipedia.org/wiki/Application-specific_integrated_circuit">ASICs</a>.  Even though
+their performance is highly dependently on the workload, all of them share two
+characteristics:</p>
+<ul class="simple">
+<li><p>They require a local host CPU to configure and operate them through the
+root complex (<a class="reference external" href="https://en.wikipedia.org/wiki/Root_complex">RC</a>), which limits the number of accelerators per host.</p></li>
+<li><p>The unbalanced communication between distributed accelerators is further
+exacerbated by the limitations <a class="reference external" href="https://en.wikipedia.org/wiki/PCI_Express">PCIe Gen 3</a>.</p></li>
+</ul>
+<p>The RC <a class="reference external" href="https://en.wikipedia.org/wiki/PCI_configuration_space">logically aggregates</a> PCIe hierarchy domains into a single PCIe
+hierarchy <a class="bibtex reference internal" href="#tsafrir2016pciea" id="id7">[Tsa16]</a>.  This hierarchy along with the RC is known
+as the PCIe fabric.  Since the CPU dictates the maximum number of supported PCIe
+lanes that all PCIe links communicate over, the hierarchy typically includes
+<a class="reference external" href="https://en.wikipedia.org/wiki/PLX_Technology">switches and bridges</a>.  Switches provide an aggregation capability and allow
+more devices to be attached to a single root port.  They act as packet routers
+and recognize which path a given packet will need to take based on its address
+or other routing information.  A switch may have several downstream ports, but
+it can only have one upstream port.  Bridges serve to interface between
+different buses (e.g. PCI, PCIe).</p>
+<p>The PCIe tree topology has several limitations.  Simultaneous communication
+between all devices will induce congestion in the PCIe fabric resulting in
+bandwidth reduction.  The congestion factors include upstream port conflicts,
+downstream port conflicts, <a class="reference external" href="https://en.wikipedia.org/wiki/Head-of-line_blocking">head-of-line blocking</a>, and crossing the RC
+conflicts <a class="bibtex reference internal" href="#martinasso2016pcie" id="id8">[MKA+16]</a><a class="bibtex reference internal" href="#lawley2014understanding" id="id9">[Law14]</a>.  Furthermore, when
+there are multiple RCs, <a class="reference external" href="https://exxactcorp.com/blog/exploring-the-complexities-of-pcie-connectivity-and-peer-to-peer-communication/">inter-processor communication</a> needs to be taken into
+account if the devices are not under a single RC.</p>
+<p>To overcome these limitations, different technology groups have banded together
+and propose three new interconnect standards: <a class="reference external" href="https://en.wikipedia.org/wiki/Coherent_Accelerator_Processor_Interface">CAPI</a>, <a class="reference external" href="https://www.ccixconsortium.com/">CCIX</a>, and <a class="reference external" href="https://en.wikipedia.org/wiki/Gen-Z">Gen-Z</a>.</p>
+<ul class="simple">
+<li><p>CAPI is a new physical layer standard focused on low-latency high-speed
+coherent DMA between devices of different <a class="reference external" href="https://en.wikipedia.org/wiki/Instruction_set_architecture">ISAs</a>.</p>
+<ul>
+<li><p>CCIX has the same goal, but builds upon PCIe Gen 4 and additionally supports
+<a class="reference external" href="https://en.wikipedia.org/wiki/Switched_fabric">switched fabric</a> topologies.</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/NVLink">NVLink</a> is alternative proprietary interconnect technology tailored for
+Nvidia’s GPUs.</p></li>
+<li><p>There have been speculations that CAPI and CCIX will converge at some point.</p></li>
+</ul>
+</li>
+<li><p>Gen-Z is a memory semantic fabric that enables memory operations to direct
+attach and disaggregated memory and storage.</p>
+<ul>
+<li><p>Its packet-based protocol supports both CCIX and CAPI.</p></li>
+</ul>
+</li>
+</ul>
+<div class="section" id="pcie-topology">
+<h3>PCIe Topology<a class="headerlink" href="#pcie-topology" title="Permalink to this headline">¶</a></h3>
+<p>There are two common communication patterns:</p>
+<ul class="simple">
+<li><p>Point-to-point communication between a single sender and a single receiver.</p></li>
+<li><p>Collective communication between multiple senders and receivers.</p></li>
+</ul>
+<p>Most collectives amenable to bandwidth-optimal implementation on rings, and many
+topologies can be interpreted as one or more rings.  <a class="reference external" href="http://images.nvidia.com/events/sc15/pdfs/NCCL-Woolley.pdf">Ring-based collectives</a>
+enable optimal intra-node communication.</p>
+<div class="section" id="digits-devbox">
+<h4><a class="reference external" href="https://developer.nvidia.com/devbox">Digits DevBox</a><a class="headerlink" href="#digits-devbox" title="Permalink to this headline">¶</a></h4>
+<p>Bandwidth between the two GPU groups is not as high as within a single group.</p>
+<div class="code javascript highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;CPU 0&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;8747 PCIe Switch 0&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GPU 0&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 1&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;8747 PCIe Switch 1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GPU 2&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 3&quot;</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="inefficient-configuration-of-8-gpus">
+<h4><a class="reference external" href="http://on-demand.gputechconf.com/gtc/2016/presentation/s6492-scott-le-grand-deterministic-machine-learning-molecular-dynamics.pdf">Inefficient Configuration of 8 GPUs</a><a class="headerlink" href="#inefficient-configuration-of-8-gpus" title="Permalink to this headline">¶</a></h4>
+<p>Inter-group bandwidth is half of intra-group bandwidth due to crossing the
+RC(s).</p>
+<div class="code javascript highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;CPU 0&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;8796 PCIe Switch 0&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GPU 0&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 1&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 2&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 3&quot;</span><span class="p">,</span> <span class="s2">&quot;NIC 0&quot;</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;CPU 1&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;8796 PCIe Switch 1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GPU 4&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 5&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 6&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 7&quot;</span><span class="p">,</span> <span class="s2">&quot;NIC 1&quot;</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="code javascript highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;CPU 0&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;8796 PCIe Switch 0&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GPU 0&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 1&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 2&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 3&quot;</span><span class="p">,</span> <span class="s2">&quot;NIC 0&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;8796 PCIe Switch 1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GPU 4&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 5&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 6&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 7&quot;</span><span class="p">,</span> <span class="s2">&quot;NIC 1&quot;</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;CPU 1&quot;</span><span class="p">:</span> <span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="big-sur">
+<h4>Big Sur<a class="headerlink" href="#big-sur" title="Permalink to this headline">¶</a></h4>
+<p>Inter-group bandwidth is equivalent to intra-group bandwidth.  This
+configuration is also known as cascading or daisy chaining switches.</p>
+<div class="code javascript highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;CPU 0&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;8796 PCIe Switch 0&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;GPU 0&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 1&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 2&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 3&quot;</span><span class="p">,</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;8796 PCIe Switch 1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GPU 4&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 5&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 6&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 7&quot;</span><span class="p">,</span> <span class="s2">&quot;NIC 0&quot;</span><span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;CPU 1&quot;</span><span class="p">:</span> <span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dgx-1">
+<h4><a class="reference external" href="https://devblogs.nvidia.com/parallelforall/dgx-1-fastest-deep-learning-system/">DGX-1</a><a class="headerlink" href="#dgx-1" title="Permalink to this headline">¶</a></h4>
+<div class="code javascript highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;CPU 0&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;8664 PCIe Switch 0&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GPU 0&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 2&quot;</span><span class="p">,</span> <span class="s2">&quot;NIC 0&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;8664 PCIe Switch 1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GPU 1&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 3&quot;</span><span class="p">,</span> <span class="s2">&quot;NIC 1&quot;</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;CPU 1&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;8664 PCIe Switch 2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GPU 4&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 6&quot;</span><span class="p">,</span> <span class="s2">&quot;NIC 2&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;8664 PCIe Switch 3&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GPU 5&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 7&quot;</span><span class="p">,</span> <span class="s2">&quot;NIC 3&quot;</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;GPU 0&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;NVLink&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GPU 1&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 2&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 3&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 5&quot;</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;GPU 1&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;NVLink&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GPU 0&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 2&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 3&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 4&quot;</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;GPU 2&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;NVLink&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GPU 0&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 1&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 3&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 7&quot;</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;GPU 3&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;NVLink&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GPU 0&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 1&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 2&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 6&quot;</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;GPU 4&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;NVLink&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GPU 5&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 6&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 7&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 1&quot;</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;GPU 5&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;NVLink&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GPU 4&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 6&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 7&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 0&quot;</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;GPU 6&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;NVLink&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GPU 4&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 5&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 7&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 3&quot;</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;GPU 7&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;NVLink&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GPU 4&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 5&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 6&quot;</span><span class="p">,</span> <span class="s2">&quot;GPU 2&quot;</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="gpu-s">
+<h2>GPU(s)<a class="headerlink" href="#gpu-s" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default" id="id13">
+<caption><span class="caption-number">Table 5 </span><span class="caption-text"><a class="reference external" href="https://www.microway.com/knowledge-center-articles/comparison-of-nvidia-geforce-gpus-and-nvidia-tesla-gpus/">Comparison of GPU Capability</a></span><a class="headerlink" href="#id13" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><th class="stub"></th>
+<td><p><a class="reference external" href="https://en.wikipedia.org/wiki/Nvidia_Quadro">Quadro</a></p></td>
+<td><p><a class="reference external" href="https://en.wikipedia.org/wiki/Nvidia_Tesla">Tesla</a></p></td>
+<td><p><a class="reference external" href="https://en.wikipedia.org/wiki/GeForce">GeForce</a></p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>(DP) <a class="reference external" href="https://en.wikipedia.org/wiki/FLOPS">FLOPS</a></p></th>
+<td><p>High</p></td>
+<td><p>Medium to High</p></td>
+<td><p>Low</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Memory Bandwidth</p></th>
+<td><p>High</p></td>
+<td><p>Medium to High</p></td>
+<td><p>Low</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>Memory Quantity</p></th>
+<td><p>High</p></td>
+<td><p>Medium to High</p></td>
+<td><p>Low</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>ECC</p></th>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>Data Transfer Interconnect</p></th>
+<td><p>PCIe/NVLink</p></td>
+<td><p>PCIe/NVLink</p></td>
+<td><p>PCIe</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>DMA Engines</p></th>
+<td><p>Dual</p></td>
+<td><p>Dual</p></td>
+<td><p>Single</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>P2P</p></th>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>RDMA</p></th>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p><a class="reference external" href="http://developer.download.nvidia.com/compute/DevZone/C/html_x64/6_Advanced/simpleHyperQ/doc/HyperQ.pdf">Hyper-Q</a></p></th>
+<td><p>Full</p></td>
+<td><p>Full</p></td>
+<td><p>Partial</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p><a class="reference external" href="https://www.nvidia.com/content/PDF/kepler/nvidia-gpu-boost-tesla-k40-06767-001-v02.pdf">GPU Boost</a></p></th>
+<td><p>Configurable</p></td>
+<td><p>Configurable</p></td>
+<td><p>Automatic</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>Target</p></th>
+<td><p>Graphics/Compute</p></td>
+<td><p>Compute</p></td>
+<td><p>Graphics/Compute</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Cluster Management Tools</p></th>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+<p>Besides the device-to-host and device-to-device interconnect technology, the
+DMA Engines, RDMA, and Hyper-Q are equally important features in
+<a class="reference external" href="https://en.wikipedia.org/wiki/High-performance_computing">high-performance computing</a>.</p>
+<p>Dual DMA engines enable simultaneous execution of the following pipelined
+workload:</p>
+<ol class="arabic simple">
+<li><p>Transfer results from data chunk <span class="math notranslate nohighlight">\(n - 1\)</span> from device to host.</p></li>
+<li><p>Run kernel that operates on data chunk <span class="math notranslate nohighlight">\(n\)</span>.</p></li>
+<li><p>Transfer data chunk <span class="math notranslate nohighlight">\(n + 1\)</span> from host to device.</p></li>
+</ol>
+<p>A single DMA Engine can only transfer data in one direction at a time, so the
+data transfer steps of the proposed pipeline will be executed sequentially.</p>
+<p>P2P communication between multiple GPUs on a single machine are fully supported
+when all of them are under a single RC.  Nvidia has an implementation of this
+called <a class="reference external" href="https://developer.nvidia.com/gpudirect">GPUDirect</a>.  The GPUs directly access and transfer memory between each
+other over PCIe without involving the CPU and host memory.  When sending data
+between GPUs across a network, this solution uses shared <a class="reference external" href="https://en.wikipedia.org/wiki/CUDA_Pinned_memory">pinned memory</a> to
+avoid a host-memory-to-host-memory copy.  However, the host memory and CPU are
+still involved in the data transfer.  Nvidia later on collaborated with Mellanox
+to introduce <a class="reference external" href="https://devblogs.nvidia.com/parallelforall/benchmarking-gpudirect-rdma-on-modern-server-platforms/">GPUDirect RDMA</a> which transfers data directly from GPU memory to
+Mellanox’s InfiniBand adapter over PCIe.  The CPU and host memory are no longer
+involved in the data transfer.  Note that this particular functionality requires
+the GPU and the network card to share the same RC.</p>
+<p>Hyper-Q enables multiple CPU threads or processes to launch work on a single GPU
+simultaneously, thereby dramatically increasing GPU utilization and slashing CPU
+idle times.  It allows connections for both CUDA streams, threads from within a
+process, or <a class="reference external" href="https://en.wikipedia.org/wiki/Message_Passing_Interface">MPI</a> processes.  Note that GeForce products cannot use Hyper-Q
+with MPI.</p>
+<p>A technology that is completely unrelated to <a class="reference external" href="https://en.wikipedia.org/wiki/General-purpose_computing_on_graphics_processing_units">GPGPU</a> is <a class="reference external" href="https://en.wikipedia.org/wiki/Scalable_Link_Interface">SLI</a>.  The goal of
+SLI is to increase rendering performance by dividing the workload across
+multiple GPUs.  All graphics resources that would normally be expected to be
+placed in GPU memory are <a class="reference external" href="http://developer.download.nvidia.com/whitepapers/2011/SLI_Best_Practices_2011_Feb.pdf">automatically broadcasted</a> to the memory of all the
+GPUs in the SLI configuration.</p>
+</div>
+<div class="section" id="miscellaneous">
+<h2>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h2>
+<p>The last pieces of a system are the <a class="reference external" href="https://en.wikipedia.org/wiki/Motherboard">motherboard</a>, power supply unit (<a class="reference external" href="https://en.wikipedia.org/wiki/Power_supply_unit_(computer)">PSU</a>),
+and <a class="reference external" href="https://en.wikipedia.org/wiki/Computer_case">chassis</a>.  Ensure that the motherboard supports the desired configuration.
+The PSU in turn needs to be <a class="reference external" href="https://en.wikipedia.org/wiki/80_Plus">efficient enough</a> to <a class="reference external" href="https://outervision.com/power-supply-calculator">power up such a system</a>.
+The chassis just needs to house all of the components.</p>
+<p>For machines with more than two GPUs, consider <a class="reference external" href="http://cirrascale.com/">Cirrascale</a> products.  They
+are well-known and provide great service.  However, if one wishes to have
+barebone hardware without any service fees, then assembling individual
+<a class="reference external" href="http://supermicro.com">Supermicro</a> components is one cost-effective solution.  To avoid the hassle of
+assembly, configure and order from <a class="reference external" href="http://www.thinkmate.com/systems/supermicro">Thinkmate</a> or <a class="reference external" href="https://www.siliconmechanics.com">Silicon Mechanics</a>.</p>
+<p><a class="reference external" href="https://www.open-mpi.org/projects/hwloc/">hwloc</a>, <a class="reference external" href="https://linux.die.net/man/8/lspci">lspci</a>, and <a class="reference external" href="https://linux.die.net/man/1/lstopo">lstopo</a> are ways to gather information about
+increasingly complex parallel computing platforms so as to exploit them
+accordingly and efficiently.</p>
+</div>
+<div class="section" id="custom-deep-learning-system">
+<h2>Custom Deep Learning System<a class="headerlink" href="#custom-deep-learning-system" title="Permalink to this headline">¶</a></h2>
+<p>One marketing tactic Nvidia employs is framing the presentation of their latest
+GPUs in a way that implies the latest product is essential in attaining the best
+performance.  Hence one should always verify that claim with domain-specific
+benchmarks (e.g. <a class="reference external" href="https://www.pugetsystems.com/labs/articles/Premiere-Pro-CC-2017-NVIDIA-Quadro-Pascal-Performance-938">Premiere Pro Quadro vs Titan</a>) before making a purchase.</p>
+<p>The Titan Xp/X is superior to the GTX 1080 Ti in terms of specs, but that
+<a class="reference external" href="https://www.pugetsystems.com/labs/hpc/TitanXp-vs-GTX1080Ti-for-Machine-Learning-937/">does not translate into huge gains</a>.  Furthermore, the application may not be
+able to <a class="reference external" href="https://www.pugetsystems.com/labs/hpc/PCIe-X16-vs-X8-for-GPUs-when-running-cuDNN-and-Caffe-887/">fully utilize the extra resources</a>.</p>
+<p>NVLink is another example of where it’s <a class="reference external" href="http://www.azken.com/images/dgx1_images/dgx1-system-architecture-whitepaper1.pdf">not cost effective</a> to get the latest
+technology.  Unless an algorithm (e.g. sorting) makes use of this increased
+bandwidth, replacing the PCIe Gen 3 fabric with NVLink can only give at most a
+2x performance boost.</p>
+<p>There are two concrete specifications that can be said about current deep
+learning systems.</p>
+<ul class="simple">
+<li><p>Frameworks like <a class="reference external" href="http://pytorch.org/">PyTorch</a>, <a class="reference external" href="http://mxnet.io/">MXNet</a> and <a class="reference external" href="https://www.tensorflow.org/performance/benchmarks">TensorFlow</a> exhibit near linear
+scaling with multiple GPUs, so eight GPUs per node is sufficient.</p>
+<ul>
+<li><p>Having more than eight GPUs in a node is <a class="reference external" href="https://devtalk.nvidia.com/default/topic/1004967/max-number-of-cuda-devices/">not recommended</a> because P2P is
+not supported beyond eight devices at any given instant.</p></li>
+<li><p>The cascading GPU topology is not advised because neither frameworks account
+for this type of dataflow.</p></li>
+</ul>
+</li>
+<li><p>In terms of system memory, while twice the GPU memory footprint would normally
+be sufficient to manage background data moves and back buffering, four times
+as much gives greater flexibility for managing in-memory working sets and
+streaming data movement.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-blog/2013/01/21/notes-on-scraping-together-a-heterogeneous-system-0"><dl class="citation">
+<dt class="bibtex label" id="lawley2014understanding"><span class="brackets"><a class="fn-backref" href="#id9">Law14</a></span></dt>
+<dd><p>Jason Lawley. Understanding performance of pci express systems. <span><a class="reference external" href="#"></a></span>https://www.xilinx.com/support/documentation/white_papers/wp350.pdf, 2014.</p>
+</dd>
+<dt class="bibtex label" id="martinasso2016pcie"><span class="brackets"><a class="fn-backref" href="#id8">MKA+16</a></span></dt>
+<dd><p>Maxime Martinasso, Grzegorz Kwasniewski, Sadaf R Alam, Thomas C Schulthess, and Torsten Hoefler. A pcie congestion-aware performance model for densely populated accelerator servers. In <em>Proceedings of the International Conference for High Performance Computing, Networking, Storage and Analysis</em>, 63. IEEE Press, 2016.</p>
+</dd>
+<dt class="bibtex label" id="tsafrir2016pciea"><span class="brackets"><a class="fn-backref" href="#id7">Tsa16</a></span></dt>
+<dd><p>Dan Tsafrir. Pci express architecture in a nutshell. <span><a class="reference external" href="#"></a></span>https://webcourse.cs.technion.ac.il/236376/Spring2016/ho/WCFiles/chipset_microarch.pdf, 2016.</p>
+</dd>
+<dt class="bibtex label" id="van2016comparison"><span class="brackets"><a class="fn-backref" href="#id6">VWKE16</a></span></dt>
+<dd><p>Faith Virginia Van Wig, Luke Anthony Kachelmeier, and Kari Natania Erickson. Comparison of high performance networks: edr infiniband vs. 100gb rdma capable ethernet. Technical Report, Los Alamos National Laboratory (LANL), 2016.</p>
+</dd>
+<dt class="bibtex label" id="vienne2012performance"><span class="brackets"><a class="fn-backref" href="#id5">VCWUR+12</a></span></dt>
+<dd><p>Jerome Vienne, Jitong Chen, Md Wasi-Ur-Rahman, Nusrat S Islam, Hari Subramoni, and Dhabaleswar K Panda. Performance analysis and evaluation of infiniband fdr and 40gige roce on hpc and cloud computing systems. In <em>High-Performance Interconnects (HOTI), 2012 IEEE 20th Annual Symposium on</em>, 48–55. IEEE, 2012.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/blog/2013/01/21/notes-on-scraping-together-a-heterogeneous-system.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

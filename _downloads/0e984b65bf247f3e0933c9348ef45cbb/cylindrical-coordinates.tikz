@@ -1,0 +1,86 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+
+\usetikzlibrary{arrows.meta, calc, decorations.markings}
+
+\begin{document}
+
+%89.1.1 Commands
+\pgfmathsetmacro{\Ex}{7.2}
+\pgfmathsetmacro{\Ey}{7.2}
+\pgfmathsetmacro{\Ez}{7.2}
+
+\begin{tikzpicture}[
+  %25.3 Coordinate Transformations
+  rotate around y=0,
+  axis/.style={-{Latex}, thick, black},
+  perpendicular/.style={thick, red},
+  projection/.style={dashed, thin, red},
+  arc/.style={
+    %15.10 Doing Multiple Actions on a Path
+    -{Latex}, very thick, blue, postaction={
+      %24.3 Decorating a Complete Path
+      decorate,
+      %17.7 Transformations
+      transform shape,
+      %24 Decorated Paths
+      decoration={
+        %48.5 Arbitrary Markings
+        markings, mark=at position .5 with \node #1;
+      }
+    }
+  }
+]
+
+  \newcommand{\tkzMarkRightAngle}[4][] {
+    \coordinate (A) at (#2);
+    \coordinate (B) at (#3);
+    \coordinate (C) at (#4);
+    %13.3.1 Intersections of Perpendicular Lines
+    \coordinate (BA) at ($(B)!0.5cm!(A)$);
+    \coordinate (BC) at ($(B)!0.5cm!(C)$);
+    %13.5.4 The Syntax of Distance Modifiers
+    %form an isosceles right triangle
+    \coordinate (TBA) at ($(B)!1cm!(A)$);
+    \coordinate (TBC) at ($(B)!1cm!(C)$);
+    %13.5.5 The Syntax of Projection Modifiers
+    %midpoint of isosceles right triangle forms the desired marker
+    \coordinate (MPT) at ($(TBA)!(B)!(TBC)$);
+    \draw[#1] (BA) -- (MPT) -- (BC);
+  }
+
+  %13.2.1 Canvas, XYZ, and Polar Coordinate Systems
+  %draw the axes
+  \coordinate (O) at (0, 0, 0);
+  \draw[axis] (O) -- (xyz cs:x=\Ex) node[anchor=west] {\Huge $X$};
+  \draw[axis] (O) -- (xyz cs:y=\Ey) node[anchor=south] {\Huge $Y$};
+  \draw[axis] (O) -- (xyz cs:z=\Ez) node[anchor=north east] {\Huge $Z$};
+
+  %draw a point in cylindrical coordinates
+  \pgfmathsetmacro{\Pr}{9}
+  \pgfmathsetmacro{\Pphi}{45}
+  \pgfmathsetmacro{\Py}{7}
+  \coordinate (P) at ({\Pr * cos(\Pphi)}, \Py, {\Pr * sin(\Pphi)});
+  \coordinate (Pxz) at ({\Pr * cos(\Pphi)}, 0, {\Pr * sin(\Pphi)});
+  \coordinate (Prx) at ({\Pr * cos(\Pphi)}, 0, 0);
+  \filldraw (P) circle (0.075cm) node[anchor=west] {\Huge $P(r, \phi, y)$};
+
+  %draw the projection of that point onto the XZ-plane
+  \draw[projection] (O)
+    -- node[align=center, anchor=north east] {\Huge $r$} (Pxz)
+    -- node[align=center, anchor=west] {\Huge $y$} (P);
+
+  %draw the projection of that point onto X-axis
+  \draw[projection, text=orange] (Pxz) -- (Prx);
+
+  \tkzMarkRightAngle[perpendicular]{O}{Pxz}{P};
+  \tkzMarkRightAngle[perpendicular]{Pxz}{Prx}{O};
+
+  %draw the arc from the X-axis to that point's projection on the XZ-plane
+  %22.5 Plotting a Function
+  \draw[arc={[above left] {\Huge $\phi$}}, domain=0:\Pphi, variable=\t]
+    plot ({\Pr * cos(\t) * 0.2}, 0, {\Pr * sin(\t) * 0.2});
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,163 @@
+###########################################################################
+An Introduction to the Conjugate Gradient Method Without the Agonizing Pain
+###########################################################################
+
+Motivation(s)
+=============
+
+Conjugate gradient (CG) is most popular tool for solving large linear systems of
+the form :math:`Ax = b`, yet existing material on CG are abysmal.  They failed
+to give the learner any intuitive interpretations because CG and steepest
+descent were developed in terms of minimization problems, not in terms of
+intersecting hyperplanes.
+
+Proposed Solution(s)
+====================
+
+The author tries to present an intuitive description of conjugate gradient
+instead of the usual confusing set of equations.
+
+Evaluation(s)
+=============
+
+See notes for more details.
+
+Future Direction(s)
+===================
+
+- What are some applications where solving nonlinear optimization is critical?
+
+Question(s)
+===========
+
+- The :math:`\mu` in Section 6 is confusing; how does it extend to higher
+  dimensions?  Why not use the condition number :math:`\kappa` to bound it?
+
+Analysis
+========
+
+Conjugate gradient follows the same first step as steepest descent.  The
+subsequent steps use the residuals to define the input to the method of
+Conjugate Directions, which is in essence the method of Orthogonal Directions.
+
+This exposition would be even better if some more analysis were allotted to
+preconditioners.  Equation 8 could be made simpler if :math:`f(x + e)` was used;
+it's not hard to grasp, but requires an arbitrary conceptual jump.  Also, the
+reuse of :math:`f` and saying it is a global minimum only applies for that
+modified equation i.e. it is a local minimizer.
+
+Notes
+=====
+
+Method of Steepest Descent
+--------------------------
+
+- Error is defined as :math:`e = x_c - x_*`.
+- Residual is defined as :math:`b - A x_c = -\nabla f` where :math:`f` is
+  quadratic, and should be thought of as the direction of steepest descent.
+- See Figure 7 for intuitive illustration on the step size via line search.
+
+  - From calculus, minimizing :math:`f` with respect to the free parameter step
+    size shows that the residual of the current iteration and the gradient at
+    the proposed target should be orthogonal.
+
+    - This explains why steepest descent diagrams always show zigzags with
+      orthogonal line segments.
+
+- See Section 6 for an intuitive explanation of this method's convergence rate.
+
+  - The energy norm :math:`\left\Vert e \right\Vert_A^2 = e^\top A e` is easier
+    to work with than the Euclidean norm.
+  - This section elegantly ties together :math:`A`'s condition number and
+    steepest descent's convergence rate.
+  - Take note of how :math:`\mu` was used in the 2D example illustrating why
+    steepest descent diagrams have zigzags along a narrow cone.
+
+    - The reason is that the matrix is most ill-conditioned along the exterior
+      of the cone.
+
+:math:`Bv = \lambda v` is the Canonical Form of Eigenvalues and Eigenvectors
+----------------------------------------------------------------------------
+
+- One interpretation is that an eigenvector :math:`v` of :math:`B` is a nonzero
+  vector that either scales or flips in direction when :math:`B` is applied to
+  it.
+
+  - This matters because iterative methods depend on applying :math:`B` to some
+    vector repeatedly, which either grows or shrinks according to
+    :math:`\lambda`.
+
+    - This is why the spectral radius
+      :math:`\rho(B) = \max \lvert \lambda_i \rvert` is important.
+
+- How to pick :math:`B` for iterative methods that try to solve :math:`Ax = b`?
+
+  - Jacobi, Gauss-Seidel, Successive Over-Relaxation (SOR) are all valid ways of
+    selecting :math:`A` such that :math:`B` will have a small spectral radius,
+    and hence an effective convergence rate.
+
+  - Each iteration can be thought of as shrinking the error term where the
+    initial vector affects the number of iterations until convergence within
+    some given tolerance (16).
+
+Method of Conjugate Directions
+------------------------------
+
+- Two vectors :math:`d_{(i)}` and :math:`d_{(j)}` are :math:`A`-orthogonal, or
+  conjugate, if :math:`d_{(i)}^\top A d_{(j)} = 0`.
+
+  - (35) shows that if a sequence of :math:`A`-orthogonal vectors are followed,
+    then the error term will converge to zero.
+
+    - Requiring the error term :math:`e_{(i + 1)}` to be :math:`A`-orthogonal to
+      :math:`d_{(i)}` is equivalent to finding the minimum point along the
+      search direction :math:`d_{(i)}`, as in steepest descent.
+
+- Performing the method of conjugate directions is equivalent to performing the
+  method of orthogonal directions in a scaled space.
+- This approach uses the expensive conjugate Gram-Schmidt process to compute the
+  sequence of :math:`A`-orthogonal vectors.
+- This method can be viewed as trying to minimize
+  :math:`\left\Vert e_{(i)} \right\Vert_A` within
+  :math:`e_{(i)} \mathcal{D}_i`.
+
+Method of Conjugate Gradients
+-----------------------------
+
+- CG is literally the method of Conjugate Directions where the search directions
+  are constructed by conjugation of the residuals.
+- Since each new residual is orthogonal to all the previous residuals and search
+  directions, the construction of new search directions via Gram-Schmidt
+  conjugation is simplified to :math:`\mathcal{O}(m)` where :math:`m` is the
+  number of nonzero entries of :math:`A`.
+
+  - The subspace created by repeatedly applying a matrix to a vector is called a
+    Krylov subspace.
+  - Krylov subspaces can express its error term in closed form.
+  - Chebyshev polynomials are be used to minimize the Krylov subspace energy
+    norm approximation.
+
+- CG has a time complexity of :math:`\mathcal{O}(m \sqrt{\kappa})` while
+  steepest descent has a time complexity of :math:`\mathcal{O}(m \kappa)`.
+
+  - Both have a space complexity of :math:`\mathcal{O}(m)`.
+  - The condition number is :math:`\kappa \in \mathcal{O}(n^{2 / d})` for finite
+    difference and finite element approximations on :math:`d`-dimensional
+    domains.
+
+- It is generally accepted that CG should nearly always be used with a
+  preconditioner for large-scale applications.
+- Nonlinear CG have several methods (e.g. Fletcher-Reeves, Polak-Ribiere) to
+  estimate the Gram-Schmidt Conjugation coefficients.
+- CG can only generate :math:`n` conjugate vectors in a
+  :math:`n`-dimensional space.
+
+  - One should restart CG every :math:`n` iterations, especially if
+    :math:`n` is small.
+  - Restarting consists of forgetting the past search directions and start CG
+    anew in the direction of steepest descent.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

@@ -1,0 +1,117 @@
+#############################################################
+When are Contrarian Profits Due to Stock Market Overreaction?
+#############################################################
+
+Motivation(s)
+=============
+
+The classical definition of random walk is a process with independently and
+identically distributed increments.  The economist's view of a random walk is a
+process with uncorrelated but heterogeneously distributed dependent increments.
+Even though empirical evidence has made apparent that historical stock prices
+do not follow random walks, several studies still attribute forecastability to
+the stock market overreaction hypothesis, the notion that investors are subject
+to waves of optimism and pessimism and therefore create a kind of momentum that
+causes prices to temporarily swing away from their fundamental values.  These
+theories of overreaction imply price changes must be negatively autocorrelated
+for some holding period.  When in the presence of negative serial correlation,
+a contrarian portfolio strategy of selling the winners and buying the losers
+should yield positive expected profits.  This causal relationship has been
+widely accepted, yet no prior studies have questioned whether the profitability
+of contrarian investment strategies necessarily implies stock market
+overreaction.
+
+Proposed Solution(s)
+====================
+
+The authors claim weekly contrarian portfolio returns are strongly positively
+autocorrelated due to cross-autocorrelations despite negative autocorrelations
+in individual stock returns.  Positive cross-autocovariances across securities
+can be understood as a higher return for stock A today implies a higher return
+for stock B tomorrow on average.  Each security's returns can even be
+unforecastable using past returns of that security alone.  The empirical
+findings show cross effects are generally positive in sign and have lead-lag
+structure: the returns of large-capitalization stocks almost always lead those
+of smaller stocks.  Since the empirical results show individual security returns
+as generally weakly negatively autocorrelated, positive autocorrelation in
+weekly returns indexes is completely attributable to cross effects.
+
+Evaluation(s)
+=============
+
+The authors examine the expected profits of buying losers and selling winners
+with equally-weighted indexes under various return-generating processes:
+
+- The Independently and Identically Distributed Benchmark
+
+  - Contrarian strategy reduces to shorting the higher and buying the lower mean
+    return securities.
+  - Expected profits are negative as long as there is some cross-sectional
+    variation in expected returns.
+
+- Stock Market Overreaction and Fads
+
+  - The former necessarily implies the profitability of the portfolio strategy
+    in the absence of cross-autocorrelation while the latter does do not.
+
+- Trading on White Noise and Lead-Lag Relations
+
+  - Each security can be individually unpredictable as long as the securities
+    are positively cross-correlated at various leads and lags.
+
+- Lead-lag effects and Nonsynchronous Trading
+
+  - The prices of distinct securities are mistakenly assumed to be sampled
+    simultaneously, which can induce autocorrelation and cross-autocorrelation.
+  - Examining the magnitudes of index autocorrelation and cross-autocorrelations
+    generated from thin trading models reveals that news affect more frequently
+    traded stocks first and influences the returns of thinly traded securities
+    with a lag.
+
+- A Positively Dependent Common Factor, White Noise, and the
+  Bid-Ask Spread Process
+
+  - Empirical evidence invalidates this model as a plausible return-generating
+    mechanism consistent with positive index autocorrelation and negative serial
+    dependence in individual returns.
+
+Analyzing the contrarian arbitrage portfolio, where the weights of securities
+sum to zero, shows market overreaction as an optional enhancement to
+profitability.  Since the experiments focus on the profits and do not account
+for risks, this study can only assert that a contrarian strategy is a feasible
+investment tool; the economic sources of positive cross-autocorrelations across
+securities have not been identified.  Existing research still contests about the
+profitability of contrarian long-horizon strategies that exploits lower
+transaction costs.
+
+Future Direction(s)
+===================
+
+- When are stock market fads profitable and with what strategy?
+
+Question(s)
+===========
+
+- Have there been any contrarian strategies that utilizes long-horizon for
+  short-horizon?
+- What is the monthly returns of the simplified contrarian strategy?
+
+Analysis
+========
+
+Less than fifty percent of the expected profits from a contrarian investment
+rule may be attributed to overreaction; the majority of such profits are due to
+cross effects among the securities in the form of lead-lag relations.  The paper
+could have been even better had the authors presented the results in a more
+intuitive fashion; reading a wall of text and figures that replace labels with
+symbols is quite tiresome.  It is surprising that prior research automatically
+assumed a causal relationship between market overreaction and contrarian profits
+without any verification.  On a similar note, there should have been more
+justifications behind the use of these specific return-generating processes.
+Nonetheless, the derivations of the proposed model will be very useful when one
+needs to reproduce the results.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

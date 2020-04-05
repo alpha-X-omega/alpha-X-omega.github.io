@@ -1,0 +1,88 @@
+##########################################
+Install Graphics and Compute on Linux Mint
+##########################################
+
+OpenGL
+------
+
+To use OpenGL on Linux, the X11 Input extension library, the X11 miscellaneous
+utility library, an OpenGL API implementation, and
+the OpenGL Utility library are needed.
+
+.. code:: bash
+
+   sudo apt-get install libxi-dev libxmu-dev libgl1-mesa-dev libglu1-mesa-dev xorg-dev
+
+The Mesa implementation by default creates a symbolic link to a nonexistent
+:file:`libGL.so.1.2.0`; change that link to
+
+.. code:: bash
+
+   sudo ln -s -f /usr/lib/libGL.so.<#> /usr/lib/x86_64-linux-gnu/mesa/libGL.so
+
+The installation is now complete, but the previous step may be needed each time
+a proprietary driver (e.g. AMD, Nvidia, Intel) is installed because the new
+driver may overwrite the symbolic link.
+
+One can also install `GLEW`_ and `GLFW`_ to make OpenGL development easier.  The
+former uses a Makefile while the latter uses CMake and Linux's
+:program:`xorg-dev` library.  If CMake fails to locate OpenGL, run
+
+.. code:: bash
+
+   sudo apt-get install freeglut3-dev
+
+.. _GLEW: http://glew.sourceforge.net/
+.. _GLFW: http://www.glfw.org/
+
+:doc:`Headless Rendering </blog/2013/01/11/set-up-system-programming-environment>`
+----------------------------------------------------------------------------------
+
+`EGL`_ is an alternative way to run OpenGL `headless`_.  Its header files can be
+found in the registry, and the corresponding library implementation are
+installed with the GPU drivers.  In this case, only the `OpenGL headers`_ are
+needed.  :file:`gl.h`, :file:`glx.h`, and :file:`wgl.h` need to be extracted
+from the GPU drivers e.g. *--opengl-headers* for Nvidia's installation script.
+Within a virtualized environment, the libraries need to be installed manually.
+
+.. code:: bash
+
+   sudo apt-get install libegl1-mesa-dev libgles2-mesa-dev
+
+.. _EGL: https://www.khronos.org/registry/EGL/
+.. _headless: https://devblogs.nvidia.com/parallelforall/egl-eye-opengl-visualization-without-x-server/
+.. _OpenGL headers: https://www.khronos.org/registry/OpenGL/index_gl.php
+
+Vulkan
+------
+
+Do not attempt to use `OpenGL multithreading`_ and only use `multiple contexts`_
+for data streaming.  The Vulkan drivers are vendor specific and are typically
+installed with the GPU drivers.  The `Vulkan header files`_ are at the registry.
+The `Vulkan validation layers`_ require the use of the `Vulkan SDK`_.
+
+.. _Vulkan: https://www.khronos.org/vulkan/
+.. _OpenGL multithreading: https://en.wikipedia.org/wiki/Vulkan_(API)
+.. _multiple contexts: https://blog.gvnott.com/some-usefull-facts-about-multipul-opengl-contexts/
+.. _Vulkan header files: https://www.khronos.org/registry/vulkan/#headers
+.. _Vulkan validation layers: https://vulkan-tutorial.com/Drawing_a_triangle/Setup/Validation_layers#page_Using_validation_layers
+.. _Vulkan SDK: https://www.lunarg.com/vulkan-sdk/
+
+CUDA Toolkit
+------------
+
+This is no longer necessary if :doc:`nvidia-docker </blog/2016/09/11/tensorflow-tensorboard-and-docker>`
+is used.  Otherwise, prefer the **.sh** Linux flavor of `CUDA toolkit`_.  The
+most important step is to avoid installing the drivers that comes with the
+package: the :doc:`latest proprietary Nvidia drivers </blog/2013/01/03/install-nvidia-drivers-on-linux-mint>`
+should be used instead.
+
+.. _CUDA toolkit: https://developer.nvidia.com/cuda-downloads
+
+OpenCL
+------
+
+The CUDA toolkit also comes with an implementation of OpenCL.  The
+`OpenCL headers`_ can be found at the Khronos registry.
+
+.. _OpenCL headers: https://www.khronos.org/registry/OpenCL/

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Optimal Step Nonrigid ICP Algorithms for Surface Registration &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification" href="../10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html" />
+    <link rel="prev" title="Deep Residual Learning for Image Recognition" href="../12/deep-residual-learning-for-image-recognition.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a><ul>
+<li><a class="reference internal" href="#motivation-s">Motivation(s)</a></li>
+<li><a class="reference internal" href="#proposed-solution-s">Proposed Solution(s)</a></li>
+<li><a class="reference internal" href="#evaluation-s">Evaluation(s)</a></li>
+<li><a class="reference internal" href="#future-direction-s">Future Direction(s)</a></li>
+<li><a class="reference internal" href="#question-s">Question(s)</a></li>
+<li><a class="reference internal" href="#analysis">Analysis</a></li>
+<li><a class="reference internal" href="#notes">Notes</a><ul>
+<li><a class="reference internal" href="#distance-term">Distance Term</a></li>
+<li><a class="reference internal" href="#stiffness-term">Stiffness Term</a></li>
+<li><a class="reference internal" href="#landmark-term">Landmark Term</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../12/deep-residual-learning-for-image-recognition.html" title="Previous Chapter: Deep Residual Learning for Image Recognition"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Deep Residual...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html" title="Next Chapter: Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Delving Deep ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="optimal-step-nonrigid-icp-algorithms-for-surface-registration">
+<h1>Optimal Step Nonrigid ICP Algorithms for Surface Registration<a class="headerlink" href="#optimal-step-nonrigid-icp-algorithms-for-surface-registration" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="motivation-s">
+<h2>Motivation(s)<a class="headerlink" href="#motivation-s" title="Permalink to this headline">¶</a></h2>
+<p>Morphable models is a powerful tool for modeling 3D face shape and deformations.
+One way to construct a morphable model is through surface registration.
+Registering two surfaces means finding a mapping between a template surface and
+a target surface that describes the position of semantically corresponding
+points.  For noiseless and complete data, a correct registration should be
+one-to-one.  In practice, the surfaces contain large missing regions and
+artifacts resulting from the acquisition process.</p>
+<p>Researchers recently proposed a mapping that assigns an affine transformation
+per vertex.  To constrain the extra degrees of freedom, they impose a stiffness
+term that forces neighboring vertices to undergo similar transformations.
+However, they assume that the missing regions can be closed by interpolating
+between the borders.</p>
+</div>
+<div class="section" id="proposed-solution-s">
+<h2>Proposed Solution(s)<a class="headerlink" href="#proposed-solution-s" title="Permalink to this headline">¶</a></h2>
+<p>Instead of using a black-box optimizer with ICP, the authors propose finding an
+optimal deformation for a given correspondence.  The affine mapping is
+regularized with a localised stiffness term to overcome the numerical
+instabilities.  This leads to a better registration that is robust against bad
+initialization and handles incomplete surfaces very well.</p>
+</div>
+<div class="section" id="evaluation-s">
+<h2>Evaluation(s)<a class="headerlink" href="#evaluation-s" title="Permalink to this headline">¶</a></h2>
+<p>Given synthetic data of an embossed cube without landmarks, the proposed N-ICP
+is able to converge to a better result than the previous method that used
+L-BFGS-B.  When operating on roughly cleaned facial scans of 24 subjects of
+different gender adults, four landmarks per ear were used to determine the
+overall shape.  Additional landmarks at the eyes and at the mouth are used for
+the initial rigid alignment of the two surfaces.</p>
+<p>If all vertices have correspondences and no reliability weighting is used, the
+residual in an optimal step ICP algorithm will always decrease.  When handling
+missing data by ignoring the contribution of vertices without correspondence to
+the distance term, this is no longer true.  While the template aligns itself
+with the target, new correspondences are found and reliability weights are
+increased.  Accordingly, the residual may increase even though the
+correspondence improves.</p>
+<p>Addressing robustness by setting the distance contribution for vertices without
+correspondences to some arbitrary large value would not improve the situation,
+as this would push the template completely onto the scanned data.  Furthermore,
+the hole-filling capabilities of the method would be lost because hole-filling
+assigns a weight of zero to vertices without correspondence, completely relying
+on its neighbors for correctness.</p>
+<p>The proposed optimization scheme is robust against the foregoing effect.  The
+authors proved that their least-squares formulation is well-posed.  An
+additional benefit is the smooth infillings of missing data using the template
+stiffness term.</p>
+</div>
+<div class="section" id="future-direction-s">
+<h2>Future Direction(s)<a class="headerlink" href="#future-direction-s" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>How accurate do the weights need to be for fast convergence e.g. less than
+three iterations?</p></li>
+<li><p>What are the convergence properties of an uncleaned mesh?</p></li>
+</ul>
+</div>
+<div class="section" id="question-s">
+<h2>Question(s)<a class="headerlink" href="#question-s" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>How accepted is the proposed quality measure of surface normal deviation?</p></li>
+<li><p>What value was <span class="math notranslate nohighlight">\(\beta\)</span> assigned?</p></li>
+</ul>
+</div>
+<div class="section" id="analysis">
+<h2>Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">¶</a></h2>
+<p>Locally affine regularization replaces the black-box optimizers of nonrigid ICP
+with a system of linear equations.</p>
+<p>Instead of presenting how the different meshes behave in terms of convergence
+to the best possible quality, the authors proposed a questionable quality
+measure.  Wouldn’t the generalization capability of a convex model built with
+the registered faces introduce additional error terms?</p>
+<p>Nevertheless, the closed-form optimization that ignores the increase in residual
+error is quite clever.  Unfortunately, the quality of the registration still
+needs to be verified visually.  Another elegant feature of this framework is
+hole filling via regularization.</p>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
+<p>The authors call the proposed algorithm non-rigid optimal step ICP (N-ICP).  The
+template <span class="math notranslate nohighlight">\(\mathcal{S} = (\mathcal{V}, \mathcal{E})\)</span> is given as a set of
+<span class="math notranslate nohighlight">\(n\)</span> vertices <span class="math notranslate nohighlight">\(\mathcal{V}\)</span> and a set of <span class="math notranslate nohighlight">\(m\)</span> edges
+<span class="math notranslate nohighlight">\(\mathcal{E}\)</span>.  The target surface <span class="math notranslate nohighlight">\(\mathcal{T}\)</span> can be given in any
+representation that supports closest point query.</p>
+<p>The proposed parameterization of the mapping is one affine transformation matrix
+<span class="math notranslate nohighlight">\(\mathbf{X}_i \in \mathbb{R}^{3 \times 4}\)</span> per template vertex.  The
+unknowns are stacked in a matrix</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{X} =
+\begin{bmatrix} \mathbf{X}_1 &amp; \cdots &amp; \mathbf{X}_n \end{bmatrix}^\top \in
+\mathbb{R}^{4n \times 3}.\]</div>
+<p>The novelty of N-ICP lies in assuming the preliminary point correspondences are
+fixed such that the cost function</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}E(\mathbf{X})
+ &amp;= E_d(\mathbf{X}) + \alpha E_s(\mathbf{X}) + \beta E_l(\mathbf{X})\\
+ &amp;= \left\Vert
+      \begin{bmatrix}
+        \alpha \mathbf{M} \otimes \mathbf{G}\\
+        \mathbf{W} \mathbf{D}\\
+        \beta \mathbf{D}_L
+      \end{bmatrix} \mathbf{X} -
+      \begin{bmatrix}
+        \boldsymbol{0}\\ \mathbf{W} \mathbf{U}\\ \mathbf{U}_L
+      \end{bmatrix}
+    \right\Vert_F^2\\
+ &amp;= \left\Vert \mathbf{A} \mathbf{X} - \mathbf{B} \right\Vert_F^2\end{split}\]</div>
+<p>can be solved directly and exactly.  Here the stiffness weight <span class="math notranslate nohighlight">\(\alpha\)</span>
+influences the flexibility of the template, while the landmark weight
+<span class="math notranslate nohighlight">\(\beta\)</span> is used to fade out the importance of the potentially noisy
+landmarks towards the end of the registration process.  It is accurate to say
+that N-ICP is rigid ICP with a different cost function.  After registration
+<span class="math notranslate nohighlight">\(\mathcal{V}(\mathbf{X})\)</span> is projected onto the target surface along the
+normals of the deformed template to give the final correspondences.</p>
+<p>The stiffness weight is lowered when the norm of the difference of the parameter
+vectors from two successive iterations is smaller than some threshold.  Since
+starting with an excessively high alpha cannot decrease the quality of the
+results, <a class="bibtex reference internal" href="#hasler2009statistical" id="id1">[HSS+09]</a> defined</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\alpha &amp;= k_0 \exp -\lambda t\\
+\beta &amp;= k_\beta \alpha\\
+\lambda &amp;= t_\max^{-1} \ln \frac{k_0}{k_\infty}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(t_\max = 1500\)</span>, <span class="math notranslate nohighlight">\(k_0 = 3000\)</span>, <span class="math notranslate nohighlight">\(k_\infty = 0.01\)</span>, and
+<span class="math notranslate nohighlight">\(k_\beta = 2\)</span>.</p>
+<div class="section" id="distance-term">
+<h3>Distance Term<a class="headerlink" href="#distance-term" title="Permalink to this headline">¶</a></h3>
+<p>Assuming fixed correspondences <span class="math notranslate nohighlight">\((\mathbf{v}_i, \mathbf{u}_i)\)</span> where
+<span class="math notranslate nohighlight">\(\mathbf{v}_i\)</span> is in homogeneous coordinates, the original distance term</p>
+<div class="math notranslate nohighlight">
+\[\DeclareMathOperator{\dist}{dist}
+E_d(\mathbf{X}) =
+\sum_{\mathbf{v}_i \in \mathcal{V}}
+  w_i \dist^2(\mathcal{T}, \mathbf{X}_i \mathbf{v}_i)\]</div>
+<p>is reduced to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator{\diag}{diag}
+\bar{E}_d(\mathbf{X})
+ &amp;= \sum_{\mathbf{v}_i \in \mathcal{V}}
+      w_i \left\Vert
+        \mathbf{X}_i \mathbf{v}_i - \mathbf{u}_i
+      \right\Vert_2^2\\
+ &amp;= \left\Vert
+      \left( \mathbf{W} \otimes \mathbf{I}_3 \right)
+      \left(
+        \begin{bmatrix}
+          \mathbf{X}_1\\ &amp; \ddots\\ &amp; &amp; \mathbf{X}_n
+        \end{bmatrix}
+          \begin{bmatrix}
+            \mathbf{v}_1\\ \vdots\\ \mathbf{v}_n
+          \end{bmatrix} -
+        \begin{bmatrix}
+          \mathbf{u}_1\\ \vdots\\ \mathbf{u}_n
+        \end{bmatrix}
+      \right)
+    \right\Vert_2^2\\
+ &amp;= \left\Vert
+      \mathbf{W} \left( \mathbf{D} \mathbf{X} - \mathbf{U} \right)
+    \right\Vert_F^2\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{W} = \diag(w_1, \ldots, w_n)\)</span>, <span class="math notranslate nohighlight">\(\mathbf{U} =
+\begin{bmatrix} \mathbf{u}_1 &amp; \cdots &amp; \mathbf{u}_n \end{bmatrix}^\top\)</span>, and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{D} =
+\begin{bmatrix}
+  \mathbf{v}_1^\top\\
+   &amp; \mathbf{v}_2^\top\\
+   &amp; &amp; \ddots\\
+   &amp; &amp; &amp;     \mathbf{v}_n^\top
+\end{bmatrix}.\end{split}\]</div>
+<p>The weight <span class="math notranslate nohighlight">\(w_i\)</span> is set to one unless vertex <span class="math notranslate nohighlight">\(\mathbf{v}_i\)</span> has</p>
+<ul class="simple">
+<li><p>no corresponding vertex <span class="math notranslate nohighlight">\(\mathbf{u}_i\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{u}_i\)</span> lies on a border of the target mesh,</p></li>
+<li><p>the angle between the normals cross some fixed threshold, or</p></li>
+<li><p>the line segment between the correspondence intersects the deformed template.</p></li>
+</ul>
+</div>
+<div class="section" id="stiffness-term">
+<h3>Stiffness Term<a class="headerlink" href="#stiffness-term" title="Permalink to this headline">¶</a></h3>
+<p>The stiffness term penalises differences between the transformations assigned to
+neighboring vertices as</p>
+<div class="math notranslate nohighlight">
+\[E_s(\mathbf{X}) =
+\sum_{(i, j) \in \mathcal{E}}
+  \left\Vert (\mathbf{X}_i - \mathbf{X}_j) \mathbf{G} \right\Vert_F^2\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{G} = \diag(1, 1, 1, \gamma)\)</span>.  Here <span class="math notranslate nohighlight">\(\gamma\)</span> can be
+used to weight differences in the rotational and skew part of the deformation
+against the translational part of the deformation.  In the experiments, the data
+was scaled to the unit cube and <span class="math notranslate nohighlight">\(\gamma = 1\)</span>.</p>
+<p>To rewrite in matrix notation, define <span class="math notranslate nohighlight">\(\mathbf{M}\)</span> to be the node-arc
+incidence matrix of <span class="math notranslate nohighlight">\(\mathcal{S}\)</span>.  Each column represents a vertex, and
+each row denotes an edge.  More concretely, if edge <span class="math notranslate nohighlight">\(r\)</span> connects vertices
+<span class="math notranslate nohighlight">\((i, j)\)</span>, <span class="math notranslate nohighlight">\(\mathbf{M}_{ri} = -1\)</span> and <span class="math notranslate nohighlight">\(\mathbf{M}_{rj} = 1\)</span> are
+the only non-zero entries of <span class="math notranslate nohighlight">\(\mathbf{M}\)</span>.  Therefore,</p>
+<div class="math notranslate nohighlight">
+\[E_s(\mathbf{X}) =
+\left\Vert (\mathbf{M} \otimes \mathbf{G}) \mathbf{X} \right\Vert_F^2.\]</div>
+<p>This regularization term tries to make changes in the transformation matrices
+over the mesh as similar as possible as.  It does not take into account
+irregular sampling of the mesh, and thus may exhibit some artifacts.
+<a class="bibtex reference internal" href="#hasler2009statistical" id="id2">[HSS+09]</a> confines the second order differences of the
+transformation matrices by applying a Laplacian constraint with cotangent edge
+weights on the original template mesh configuration.  In other words, redefine
+<span class="math notranslate nohighlight">\(\mathbf{G}_{ij} = w_{ij} \mathbf{I}_4\)</span> so that changes in the
+transformation matrices are as smooth as possible.</p>
+</div>
+<div class="section" id="landmark-term">
+<h3>Landmark Term<a class="headerlink" href="#landmark-term" title="Permalink to this headline">¶</a></h3>
+<p>Given a set of landmarks <span class="math notranslate nohighlight">\(\mathcal{L} =
+\left\{ (\mathbf{v}_{i_1}, \mathbf{l}_1), \ldots,
+(\mathbf{v}_{i_l}, \mathbf{l}_l) \right\}\)</span> mapping template vertices onto
+arbitrary locations on the target surface,</p>
+<div class="math notranslate nohighlight">
+\[E_l(\mathbf{X}) =
+\sum_{(\mathbf{v}_i, \mathbf{l}) \in \mathcal{L}}
+  \left\Vert \mathbf{X}_i \mathbf{v}_i - \mathbf{l} \right\Vert_2^2 =
+\left\Vert \mathbf{D}_L \mathbf{X} - \mathbf{U}_L \right\Vert_F^2\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{U}_L =
+\begin{bmatrix} \mathbf{l}_1 &amp; \cdots &amp; \mathbf{l}_l \end{bmatrix}^\top\)</span> and
+<span class="math notranslate nohighlight">\(\mathbf{D}_L\)</span> are rows of <span class="math notranslate nohighlight">\(\mathbf{D}\)</span> that correspond to the
+landmark vertices.</p>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-blog/2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration-0"><dl class="citation">
+<dt class="bibtex label" id="amberg2007optimal"><span class="brackets">ARV07</span></dt>
+<dd><p>Brian Amberg, Sami Romdhani, and Thomas Vetter. Optimal step nonrigid icp algorithms for surface registration. In <em>Computer Vision and Pattern Recognition, 2007. CVPR‘07. IEEE Conference on</em>, 1–8. IEEE, 2007.</p>
+</dd>
+<dt class="bibtex label" id="hasler2009statistical"><span class="brackets">HSS+09</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dd><p>Nils Hasler, Carsten Stoll, Martin Sunkel, Bodo Rosenhahn, and H-P Seidel. A statistical model of human pose and body shape. In <em>Computer Graphics Forum</em>, volume 28, 337–346. Wiley Online Library, 2009.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/blog/2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

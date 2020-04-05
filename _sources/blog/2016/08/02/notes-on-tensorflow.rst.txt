@@ -1,0 +1,219 @@
+###################
+Notes on TensorFlow
+###################
+
+.. role:: python(code)
+   :language: python
+
+After :doc:`getting TensorFlow up and running </blog/2016/08/01/tensorflow-tensorboard-and-docker>`,
+one would expect the `Getting Started`_ and `Programmer's Guide`_ would be
+enough to start cranking out results.  Unfortunately, those expositions are only
+meant to be overview.  These notes are based on the
+`Convolutional Neural Networks Tutorial`_ specifically the
+`cifar10 estimator source code`_, which uses functionalities available in
+`tf.contrib`_ that are volatile or experimental.  If any of this seems too
+complicated, it is.  The solution is `PyTorch`_.  Alternative solutions like
+`MXNet`_ and `Keras`_ are not as user-friendly.
+
+.. _Getting Started: https://www.tensorflow.org/get_started/
+.. _Programmer's Guide: https://www.tensorflow.org/programmers_guide/
+.. _Convolutional Neural Networks Tutorial: https://www.tensorflow.org/tutorials/deep_cnn
+.. _cifar10 estimator source code: https://github.com/tensorflow/models/tree/master/tutorials/image/cifar10_estimator
+.. _tf.contrib: https://www.tensorflow.org/api_docs/python/tf/contrib
+.. _PyTorch: http://pytorch.org/
+.. _MXNet: http://mxnet.io/
+.. _Keras: https://keras.io/
+
+Raw Data to TFRecords
+=====================
+
+Currently Docker requires all `volumes`_ to be configured when the container
+starts.  The following will create a volume per dataset because containers are
+very quick to create.
+
+.. _volumes: https://docs.docker.com/engine/admin/volumes/volumes/
+
+.. code:: bash
+
+   # Create named volume
+   docker volume create <volume_name>
+   # Create container
+   <docker_command> run -d --name <container_name> -e PASSWORD=<your_desired_pw> -v <volume_name>:<abs_dst_path> -p 8888:8888 -p 6006:6006 <image>
+   # Login to container
+   docker exec -it tensor bash
+   apt-get update
+   apt-get install wget
+   wget https://raw.githubusercontent.com/tensorflow/models/master/tutorials/image/cifar10_estimator/generate_cifar10_tfrecords.py
+   # Convert raw data to TFRecord
+   python generate_cifar10_tfrecords.py --data-dir=<abs_dst_path>
+
+Everything in :download:`generate_cifar10_tfrecords.py` is specific to parsing
+CIFAR-10 except for
+
+.. literalinclude:: generate_cifar10_tfrecords.py
+   :linenos:
+   :lineno-start: 47
+   :lines: 47-52
+
+.. literalinclude:: generate_cifar10_tfrecords.py
+   :linenos:
+   :lineno-start: 80
+   :lines: 80-85
+
+The preceding code packs each image and its corresponding label into a single
+TFRecord.  The binary serialization of a TFRecord uses Protobuf and supports
+only `three Feature types`_: bytes, float, and int64.
+
+.. _three Feature types: https://github.com/tensorflow/tensorflow/blob/r1.4/tensorflow/core/example/feature.proto
+
+Processing TFRecords
+====================
+
+:download:`cifar10.py` serves as a template for parsing TFRecords,
+preprocessing each image, and batching the results up for execution.  The
+proposed template abstracts away how to scale up batching and instead focuses
+on what operations to perform on each data item:
+
+.. literalinclude:: cifar10.py
+   :linenos:
+   :lineno-start: 72
+   :lines: 72-78
+
+As illustrated in the above code snippet, the list of filenames are just blobs
+that could be stored on a distributed file system.
+
+Modular Network Architecture
+============================
+
+:download:`model_base.py` implements all the variations of a
+:doc:`residual block </blog/2016/12/12/deep-residual-learning-for-image-recognition>`
+while :download:`cifar10_model.py` defines a computation graph for the forward
+propagation using those building blocks.  The backward propagation of gradients
+is handled by `TensorFlow's optimizers`_ using
+:doc:`automatic differentiation </blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey>`.
+However, if a `custom operation`_ is not constructed purely out of TensorFlow's
+built-in primitives, the gradient of that operation must be provided.  Take the
+following TensorFlow implementation of a sigmoid function as an example.
+
+.. _TensorFlow's optimizers: https://www.tensorflow.org/api_docs/python/tf/train/Optimizer
+.. _custom operation: https://www.tensorflow.org/extend/adding_an_op#implement_the_gradient_in_python
+
+.. literalinclude:: sigmoid.py
+
+TensorFlow will automatically compute :math:`\frac{\partial y}{\partial x}` and
+:math:`\frac{\partial y}{\partial k}`.  The alternative is to define the sigmoid
+function as an operation using `some experimental features`_.
+
+.. _some experimental features: https://github.com/tensorflow/tensorflow/issues/1095#issuecomment-239406220
+
+.. literalinclude:: custom-sigmoid.py
+   :emphasize-lines: 13,17
+
+**np_sigmoid** should not use any TensorFlow primitives while
+**tf_sigmoid_gradient** should be implemented purely in TensorFlow.  Otherwise
+some odd errors may appear.
+
+Tuning Hyperparameters
+======================
+
+:download:`cifar10_main.py` and :download:`cifar10_utils.py` serve as the glue
+for the preceding code :cite:`cheng2017tensorflow`.  Those provides default
+values for the initial learning rate, learning rate schedule, and optimizer.
+The default configuration is able to train on a single host with CPUs or GPUs,
+and automatically write some summaries for TensorBoard.  Training using multiple
+hosts requires the following code to be added to :download:`cifar10_main.py`:
+
+.. literalinclude:: cifar10_main.py
+   :linenos:
+   :lineno-start: 372
+   :lines: 372-383
+
+.. literalinclude:: cifar10_main.py
+   :linenos:
+   :lineno-start: 517
+   :lines: 517-522
+
+Note that the default initial learning rate is too large for the full
+pre-activation residual unit.  Make sure to half it before training, otherwise
+the result will be **ERROR:tensorflow:Model diverged with loss = NaN**.
+
+Monitor Training Session
+========================
+
+:download:`cifar10_model.py` has been modified to visualize the intermediate
+outputs between layers.
+
+.. literalinclude:: cifar10_model.py
+   :lines: 84-
+
+Even though the `tensor summary operations`_ can be called from anywhere, the
+preceding solution requires direct access to the outputs.  An alternative is
+
+.. _tensor summary operations: https://www.tensorflow.org/api_docs/python/tf/summary
+
+.. code:: python
+
+   x = tf.get_default_graph().get_tensor_by_name('resnet/tower_0/Relu:0')
+
+where *'resnet/tower_0/Relu:0'* can be found by manual inspection:
+
+.. code:: python
+
+   for _ in tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES):
+     tf.logging.info(_.name)
+
+Correspondingy, when a weight variable is not named, TensorFlow provides a
+default name under the current variable scope.  Consider the first convolutional
+layer of any network.  TensorFlow would specify *conv2d* as the default name and
+set the corresponding weight's name to *kernel*.  Passing
+*scope='conv2d/kernel'* to **tf.get_collection** would return a list of
+variables whose name contains *conv2d/kernel*.  The name of a convolutional
+layer beyond the first layer takes the form of *conv2d_i* where :math:`i` is a
+decimal.  However, this scheme is not in any specification.  Thus,
+
+.. code:: python
+
+   for _ in tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES):
+     tf.logging.info(_.name)
+
+along with should only be used for non-production purposes.  Furthermore,
+visualizing the filter weights seems to have fallen out of fashion after
+:doc:`VGGNet </blog/2016/12/12/deep-residual-learning-for-image-recognition>`.
+
+.. literalinclude:: visualize_weights.py
+   :prepend: # Original at https://gist.github.com/kukuruza/03731dc494603ceab0c5
+
+Here `tf.gradients`_ returns the gradient with respect to the loss.  This means
+if the loss function is a sum of per-example losses, then the gradient is also
+the sum of per-example loss gradients.  To get per-example gradients, use a
+batch size of one or loop through each example in the batch.
+
+.. _tf.gradients: https://www.tensorflow.org/api_docs/python/tf/gradients
+
+Transfer Learning
+=================
+
+`TF-slim`_ contains a lot of pre-trained models that can be extracted as
+follows:
+
+.. _TF-slim: https://github.com/tensorflow/models/tree/master/research/slim
+
+.. literalinclude:: extract_tf-slim.py
+   :prepend: # Original model at http://download.tensorflow.org/models/inception_resnet_v2_2016_08_30.tar.gz
+             # Extraction code at https://github.com/tensorflow/models/blob/master/research/slim/nets/inception_resnet_v2.py
+
+Here tf-slim dynamically creates the graph for the pre-trained model to enable
+different configurations.  The alternative is to explicitly load in a model's
+graph:
+
+.. literalinclude:: load_and_play.py
+
+Once the model is loaded, there is nothing special about
+`augmenting the existing model`_.
+
+.. _augmenting the existing model: https://www.tensorflow.org/extend/estimators
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

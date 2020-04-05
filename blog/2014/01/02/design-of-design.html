@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Design of Design &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Notes on the Synthesis of Form" href="../01/notes-on-the-synthesis-of-form.html" />
+    <link rel="prev" title="Architectural Styles and the Design of Network-based Software Architectures" href="../03/architectural-styles-and-the-design-of-network-based-software-architectures.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Design of Design</a><ul>
+<li><a class="reference internal" href="#rational-model">Rational Model</a></li>
+<li><a class="reference internal" href="#the-co-evolution-model">The Co-Evolution Model</a></li>
+<li><a class="reference internal" href="#raymond-s-bazaar-model">Raymond’s Bazaar Model</a></li>
+<li><a class="reference internal" href="#boehm-s-spiral-model">Boehm’s Spiral Model</a></li>
+<li><a class="reference internal" href="#costs-of-collaboration">Costs of Collaboration</a></li>
+<li><a class="reference internal" href="#the-challenge-is-conceptual-integrity">The Challenge is Conceptual Integrity</a></li>
+<li><a class="reference internal" href="#when-collaboration-helps">When Collaboration Helps</a></li>
+<li><a class="reference internal" href="#when-collaboration-doesn-t-work-for-design-itself">When Collaboration Doesn’t Work for Design Itself</a></li>
+<li><a class="reference internal" href="#making-telecollaboration-work">Making Telecollaboration Work</a></li>
+<li><a class="reference internal" href="#design-perspectives">Design Perspectives</a></li>
+<li><a class="reference internal" href="#esthetics-and-style-in-technical-design">Esthetics and Style in Technical Design</a></li>
+<li><a class="reference internal" href="#exemplars-in-design">Exemplars in Design</a></li>
+<li><a class="reference internal" href="#remedies-for-the-divorce-of-design-from-use-and-from-implementation">Remedies for the Divorce of Design from Use and from Implementation</a></li>
+<li><a class="reference internal" href="#linearizing-the-web-of-knowledge">Linearizing the Web of Knowledge</a></li>
+<li><a class="reference internal" href="#insights-into-the-design-process">Insights into the Design Process</a></li>
+<li><a class="reference internal" href="#visual-displays-multiple-concurrent-windows">Visual Displays - Multiple Concurrent Windows</a></li>
+<li><a class="reference internal" href="#the-workbook-view">The Workbook View</a></li>
+<li><a class="reference internal" href="#great-designs-come-from-great-designers">Great Designs come from Great Designers</a></li>
+<li><a class="reference internal" href="#capability-maturity-model">Capability Maturity Model</a></li>
+<li><a class="reference internal" href="#how-to-make-a-process-that-encourages-great-designs">How to make a process that encourages great designs?</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../03/architectural-styles-and-the-design-of-network-based-software-architectures.html" title="Previous Chapter: Architectural Styles and the Design of Network-based Software Architectures"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Architectural...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../01/notes-on-the-synthesis-of-form.html" title="Next Chapter: Notes on the Synthesis of Form"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Notes on the ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="design-of-design">
+<h1>Design of Design<a class="headerlink" href="#design-of-design" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="rational-model">
+<h2>Rational Model<a class="headerlink" href="#rational-model" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Typical Process</p>
+<ol class="arabic simple">
+<li><p>Goal</p></li>
+<li><p>Desiderata</p></li>
+<li><p>Utility Function</p></li>
+<li><p>Constraints</p></li>
+<li><p>Resource Allocations, Budgets, and Crucial Budgets</p></li>
+<li><p>Design Trees (with attribute and alternative branches)</p></li>
+</ol>
+</li>
+<li><p>The hardest part of design is deciding what to design.</p></li>
+<li><p>A chief service of a designer is helping clients discover what they want
+designed.</p></li>
+<li><p>We usually don’t know the design tree, we discover it as we go.</p>
+<ul>
+<li><p>At each node of a design tree, one faces not a simple alternative choice
+among options for one design decision, but an alternative choice among
+multiple tentative complete designs.</p></li>
+</ul>
+</li>
+<li><p>The goodness function cannot be evaluated incrementally due to
+combinatorial explosion.</p>
+<ul>
+<li><p>One must trim the design tree as one goes down via experience and
+estimators.</p></li>
+</ul>
+</li>
+<li><p>The desiderata and their weightings keep changing.</p></li>
+<li><p>The constraints keep changing, which makes the Waterfall Model wrong and
+harmful.</p></li>
+<li><p>Fighting requirements bloat and creep.</p>
+<ul>
+<li><p>Appoint early-on strong, seasoned, domain-knowledgeable managers who can
+stay with the program through initial systems delivery.</p></li>
+<li><p>Empower them to tailor standardized processes and procedures as they feel
+is necessary.</p></li>
+<li><p>The use of a Requirements Traceability Matrix ensures that each
+requirement detailed, defined, and laid on is indeed derived from one or
+more of the initial overall requirements.</p></li>
+<li><p>The definition of clear key performance parameters by Milestone A and
+clear requirements by Milestone B that can remain stable through
+Initial Operational Capacity can be essential to an efficient development
+phase.</p></li>
+<li><p>The necessity for contracts best explains the persistence of the Waterfall
+Model for designing and building complex systems.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="the-co-evolution-model">
+<h2>The Co-Evolution Model<a class="headerlink" href="#the-co-evolution-model" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Creative design is not a matter of first fixing the problem and then
+searching for a satisfactory solution concept.</p></li>
+<li><p>Creative design is a matter of developing and refining together both the
+formulation of a problem and ideas for a solution, with constant iteration
+of analysis, synthesis, and evaluation processes between the problem space
+and the solution space.</p></li>
+<li><p>Although this is a better model than the Rational Model, Fred Brooks does not
+think it is sufficient.</p></li>
+<li><p>Hickling’s Whirligig Model is too complex with its cycles and epicycles.</p></li>
+</ul>
+</div>
+<div class="section" id="raymond-s-bazaar-model">
+<h2>Raymond’s Bazaar Model<a class="headerlink" href="#raymond-s-bazaar-model" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Raymond argues that the system products produced by the bazaar process are
+in general technically superior to those produced by the cathedral process.</p>
+<ol class="lowerroman simple">
+<li><p>The market mechanism selects, in evolutionary fashion, the best-designed
+modules.</p></li>
+<li><p>Subjecting a new module simultaneously to hundreds of testers smokes
+out the bugs sooner, yielding a more robust product.</p></li>
+<li><p>Bugs are fixed better because of market selection among fixes.</p></li>
+</ol>
+</li>
+<li><p>When the bazaar will work (according to Brooks).</p>
+<ol class="loweralpha simple">
+<li><p>The results are not always quite polished or quite debugged; they only
+have to be good enough for the purpose of the builder.</p></li>
+<li><p>An overall system design already exists.</p></li>
+<li><p>A key to all design processes is the discovery of the users’ needs,
+wants, and criteria.</p></li>
+</ol>
+</li>
+</ul>
+</div>
+<div class="section" id="boehm-s-spiral-model">
+<h2>Boehm’s Spiral Model<a class="headerlink" href="#boehm-s-spiral-model" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Brooks suggest punctuating the spiral with explicit contracting points,
+augmented with clear specification of what can be contracted, with what
+certainties, and with what explicit distribution of risk.</p></li>
+<li><p>Brooks advocate frequent but not continuous interaction with representative
+users, with successive prototypes as the vehicles.</p></li>
+<li><p>The Rational Model has persisted in practice despite its inadequacies and
+plenty of cogent critiques because of its seductive logical simplicity, and
+that builders and clients need contracts.</p></li>
+</ul>
+</div>
+<div class="section" id="costs-of-collaboration">
+<h2>Costs of Collaboration<a class="headerlink" href="#costs-of-collaboration" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Partitioning Cost</p></li>
+<li><p>Learning/Teaching Cost</p></li>
+<li><p>Communication Cost during Design</p></li>
+<li><p>A mechanism for change control must be put into place so that each designer
+makes only those changes that affect only his part, or have been negotiated
+with the designers of the affected parts.</p></li>
+</ul>
+</div>
+<div class="section" id="the-challenge-is-conceptual-integrity">
+<h2>The Challenge is Conceptual Integrity<a class="headerlink" href="#the-challenge-is-conceptual-integrity" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Properties of conceptual integrity: Coherence, Consistency, Uniformity of
+Style, Orthogonality, Propriety, and Generality.</p></li>
+<li><p>How to achieve conceptual integrity with team design?</p>
+<ul>
+<li><p>Negotiation among peers is the classic recipe for bloated products.</p>
+<ul>
+<li><p>The result is design by committee where none dare say “No” to another’s
+suggestion.</p></li>
+</ul>
+</li>
+<li><p>Empower a single system architect.</p></li>
+<li><p>The user interface must be tightly controlled by one mind.</p></li>
+<li><p>Name the scarce resource explicitly, track it publicly, and control it
+firmly.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="when-collaboration-helps">
+<h2>When Collaboration Helps<a class="headerlink" href="#when-collaboration-helps" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Determining needs and desiderata from stackholders.</p></li>
+<li><p>Brainstorming</p></li>
+<li><p>Competition as an alternative to collaboration, which could lead to
+unplanned design competitions resulting in product fights.</p></li>
+<li><p>Multidisciplinary design review</p></li>
+</ul>
+</div>
+<div class="section" id="when-collaboration-doesn-t-work-for-design-itself">
+<h2>When Collaboration Doesn’t Work for Design Itself<a class="headerlink" href="#when-collaboration-doesn-t-work-for-design-itself" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Each part of a design has at any time one owner.</p></li>
+<li><p>Some resolution procedure must be in place for settling conflicts.</p></li>
+<li><p>Some version control must be established so that each designs against a
+single time-stamped version of all the earlier design work.</p></li>
+<li><p>If collaboration tools are designed so they encourage committee design, they
+will do more harm than good.</p></li>
+<li><p>Even in the conceptual design stage, when conceptual integrity is most
+imperiled, pairs of designers acting uno amino can be more fruitful than
+solo designers.</p></li>
+</ul>
+</div>
+<div class="section" id="making-telecollaboration-work">
+<h2>Making Telecollaboration Work<a class="headerlink" href="#making-telecollaboration-work" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Face-to-face time is crucial.</p></li>
+<li><p>Clean interfaces.</p></li>
+<li><p>Technologies for Telecollaboration: Document, Telephone, Telephone +
+Shared Document, and Videoconferencing.</p></li>
+</ul>
+</div>
+<div class="section" id="design-perspectives">
+<h2>Design Perspectives<a class="headerlink" href="#design-perspectives" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Rationalism vs Empiricism</p></li>
+<li><p>User Models</p>
+<ul>
+<li><p>Better wrong than vague.</p></li>
+<li><p>Write down exactly is known about the user, the user’s purposes of use,
+and the modes of use.</p></li>
+<li><p>Write down what is assumed (guessed) about the users and the uses.</p></li>
+</ul>
+</li>
+<li><p>Constraints that shrink the designer’s search space.</p>
+<ul>
+<li><p>Real constraints</p></li>
+<li><p>Obsolete once-real constraints</p></li>
+<li><p>Constraints misperceived as real</p></li>
+<li><p>Intentional artificial constraints</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="esthetics-and-style-in-technical-design">
+<h2>Esthetics and Style in Technical Design<a class="headerlink" href="#esthetics-and-style-in-technical-design" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Structure, Metaphor, Consistency.</p></li>
+<li><p>Orthogonality: Do not link what is independent.</p></li>
+<li><p>Propriety: Do not introduce what is immaterial.</p></li>
+<li><p>Generality: Do not restrict what is inherent.</p></li>
+</ul>
+</div>
+<div class="section" id="exemplars-in-design">
+<h2>Exemplars in Design<a class="headerlink" href="#exemplars-in-design" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Exemplars provide safe models for new designs, implicit checklists of design
+tasks, warnings of potential mistakes, and launching pads for radical new
+designs.</p></li>
+<li><p>Not laziness, but a high level enthusiam and diligence is required for the
+mastery of the corpus of exemplars available in any design domain.</p></li>
+<li><p>He who seeks to make designs that really work is most apt to come up with
+new designs of enduring value, almost as a by-product.</p></li>
+<li><p>The desire to be original has degraded many a work.</p>
+<ol class="arabic simple">
+<li><p>Study failure examples even more carefully than you study successes.</p></li>
+<li><p>Watch yourself after success.  Success stimulates confidence in the
+design technique, in the design itself, and in oneself.  All may lead to
+overconfidence.</p></li>
+<li><p>Think at the top level about the object you are designing and its
+assumptions about the environment in which it will be used.  Is a
+paradigm shift under way?  Will your assumptions still be valid a decade
+later?  Are you designing the right thing?</p></li>
+</ol>
+</li>
+</ul>
+</div>
+<div class="section" id="remedies-for-the-divorce-of-design-from-use-and-from-implementation">
+<h2>Remedies for the Divorce of Design from Use and from Implementation<a class="headerlink" href="#remedies-for-the-divorce-of-design-from-use-and-from-implementation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Use-scenario experience</p></li>
+<li><p>Close interaction with users via incremental development and iterative
+delivery.</p></li>
+<li><p>Designers need to dig more energetically and personally into the actual
+experiences and processes of implementation.</p></li>
+<li><p>Design curricula simply must include both techniques for and practice at
+understanding users’ needs and desires.</p></li>
+</ul>
+</div>
+<div class="section" id="linearizing-the-web-of-knowledge">
+<h2>Linearizing the Web of Knowledge<a class="headerlink" href="#linearizing-the-web-of-knowledge" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Cut edges in the graph until it is a tree to impose a hierarchical order
+where there was none before, whether that order is wanted or not.</p></li>
+<li><p>Map the tree onto a line in any of the several well-known ways
+(e.g. depth-first).</p></li>
+</ul>
+</div>
+<div class="section" id="insights-into-the-design-process">
+<h2>Insights into the Design Process<a class="headerlink" href="#insights-into-the-design-process" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Design isn’t just to satisfy requirements, but also to uncover requirements.</p></li>
+<li><p>Design isn’t simply selecting from alternatives, but also realizing their
+existence.</p></li>
+<li><p>The tree changes as the design changes, how to represent that evolution?</p>
+<ul>
+<li><p>A decision tree with <span class="math notranslate nohighlight">\(n\)</span> independent binary design questions yields
+a tree of designs with <span class="math notranslate nohighlight">\(2^n\)</span> nodes.</p></li>
+</ul>
+</li>
+<li><p>Modular versus Tightly Integrated Designs</p>
+<ul>
+<li><p>One may need to trade off quality of the design for speed and ease of the
+design process itself.</p></li>
+<li><p>Modular designs are more readily represented as decision trees.</p></li>
+</ul>
+</li>
+<li><p>One sketches in the big units and then proceeds by progressive refinement,
+adjusting dimensions and adding more details.</p></li>
+<li><p>Progressive truthfulness start with a model that is fully detailed but only
+resembles what is wanted.  Then one adjusts one attribute after another
+brining the result ever closer to the mental vision of the new creation, or
+to the real properties of a real-world object.</p></li>
+<li><p>The dream system starts with a rich library of fine specimens of fully
+detailed designs.</p>
+<ul>
+<li><p>Starting with exemplars that themselves have consistency of style ensures
+that such consistency is the designer’s to lose.</p></li>
+</ul>
+</li>
+<li><p>The true hazards of progresive truthfulness lurk in the library.</p>
+<ul>
+<li><p>Shortcomings (e.g. bad models, too few models, too narrow a variety of
+models) will limit the emerging designs.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="visual-displays-multiple-concurrent-windows">
+<h2>Visual Displays - Multiple Concurrent Windows<a class="headerlink" href="#visual-displays-multiple-concurrent-windows" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>The historical limitation of one time-shared window enforced the following
+unnatural and wasteful behavior:</p>
+<ol class="arabic simple">
+<li><p>Study a big spatial chunk for context.</p></li>
+<li><p>Zoom in</p></li>
+<li><p>Create or manipulate some local portion.</p></li>
+<li><p>Zoom out</p></li>
+<li><p>Repeat</p></li>
+</ol>
+</li>
+<li><p>Have two big screens showing a context view with a detailed view all the time.</p></li>
+</ul>
+</div>
+<div class="section" id="the-workbook-view">
+<h2>The Workbook View<a class="headerlink" href="#the-workbook-view" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Yet another window concurrently displays the designer’s workbook.</p></li>
+<li><p>Designers come to design stations with</p>
+<ol class="loweralpha simple">
+<li><p>In-progress designs.</p></li>
+<li><p>Action plans they take away.</p></li>
+<li><p>Updated in-progress designs and future action plans.</p></li>
+<li><p>Logs capturing all actions enable automatic backtracking.</p></li>
+<li><p>Notes, ideally dictated so as to leave the hands free to design,
+documenting what was tried and reasons for rejection, acceptance, etc…</p></li>
+</ol>
+</li>
+</ul>
+</div>
+<div class="section" id="great-designs-come-from-great-designers">
+<h2>Great Designs come from Great Designers<a class="headerlink" href="#great-designs-come-from-great-designers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Product process is conservative, aiming to bring similar but somewhat
+different things within one orderly framework.</p>
+<ol class="loweralpha simple">
+<li><p>Aims at predictability.</p></li>
+<li><p>Encouraging tactics that have worked in the past and discouraging those
+that have failed.</p></li>
+<li><p>Veto-oriented aimed at blocking bad ideas and catching oversights.</p></li>
+<li><p>Aims to inhibit a confused product line, where one’s own products are
+one’s most dealy competitors, and customers don’t know what to buy.</p></li>
+<li><p>Demand consensus by many people and the past precedence.</p></li>
+<li><p>Designed for follow-on products.</p></li>
+</ol>
+</li>
+</ul>
+</div>
+<div class="section" id="capability-maturity-model">
+<h2>Capability Maturity Model<a class="headerlink" href="#capability-maturity-model" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>We’re at Level I [on the Capability Maturity Model] and will always be.</p>
+<p class="attribution">—Steve Jobs</p>
+</div></blockquote>
+</div>
+<div class="section" id="how-to-make-a-process-that-encourages-great-designs">
+<h2>How to make a process that encourages great designs?<a class="headerlink" href="#how-to-make-a-process-that-encourages-great-designs" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>The product procedure must explicitly identify the matters of fundamental
+importance and constrain those and only those.</p></li>
+<li><p>All rules can be broken.</p></li>
+<li><p>Go for conceptual integrity: entrust your design to a chief designer.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-blog/2014/01/02/design-of-design-0"><dl class="citation">
+<dt class="bibtex label" id="brooks2010design"><span class="brackets">BJ10</span></dt>
+<dd><p>Frederick P Brooks Jr. <em>The design of design: Essays from a computer scientist</em>. Pearson Education, 2010.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/blog/2014/01/02/design-of-design.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

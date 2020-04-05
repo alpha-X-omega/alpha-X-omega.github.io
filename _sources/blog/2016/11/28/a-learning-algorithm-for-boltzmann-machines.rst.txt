@@ -1,0 +1,259 @@
+###########################################
+A Learning Algorithm for Boltzmann Machines
+###########################################
+
+Motivation(s)
+=============
+
+New neuroscientific evidence and VLSI technology have led to a revival of
+interests in connectionist systems.  One open question is how to make a system
+adapt a given structure of processors and communication paths to whatever
+problem it is given.
+
+Contrary to common beliefs of neural networks, the assumption that networks are
+randomly wired is just as wrong as the view that all knowledge is innate.  In
+addition, a general connectionist learning rule can coexist with rule-based
+models depending on the system granularity.
+
+The current hypothesis on how the human visual system works is that the system
+must be able to solve large constraint-satisfaction problems rapidly.  A
+plausible style of computation is iterative search.  These optimization problems
+are presently solved using relaxation schemes such as linear programming with
+weak constraints, Hopfield networks, and gradient descent.  Unfortunately, these
+techniques are subject to local minimas.
+
+Proposed Solution(s)
+====================
+
+The authors propose the concept of a Boltzmann machine, a network of
+symmetrically coupled stochastic binary units, as a solution to the
+credit-assignment problem that the original perceptron failed to handle.  It
+contains a set of visible units :math:`V_\alpha` and a set of hidden units
+:math:`H_\beta` with :math:`V_\alpha \cap H_\beta = \emptyset`.  Let
+:math:`s^{\alpha \beta} = (s^\alpha, s^\beta)` denote the state of the system
+where :math:`s^\alpha = \left\{ s^\alpha_i \colon i \in V_\alpha \right\}` and
+:math:`s^\beta = \left\{ s^\beta_i \colon i \in H_\beta \right\}`.  The system's
+energy
+
+.. math::
+
+   E_{\alpha \beta} =
+   E(s^{\alpha \beta}) =
+   -\sum_{i < j} w_{ij} s^{\alpha \beta}_i s^{\alpha \beta}_j
+
+is akin to that of a symmetric Hopfield network.  The probability of the system
+is defined by a Boltzmann distribution
+
+.. math::
+
+   P^-(V_\alpha, H_\beta) =
+   \frac{1}{Z} \exp -E_{\alpha \beta} / T =
+   \frac{
+     \exp -E_{\alpha \beta} / T
+   }{
+     \sum_{\lambda, \mu} \exp -E_{\lambda \mu} / T
+   }
+
+where :math:`T` is the temperature at thermal equilibrium.  The marginal
+distribution over the visible units is
+
+.. math::
+
+   P^-(V_\alpha) = \sum_\beta P^-(V_\alpha, H_\beta).
+
+In order to frame the learning rule, observe that an approximation to the data
+distribution is
+
+.. math::
+
+   P^+(V_\alpha) =
+   N^{-1} \sum_\lambda^N \delta(s^{\alpha} - s^{\lambda})
+
+where :math:`N` is the number of training examples.  The paper refers to this as
+the clamped probability distribution over the visible units.  Note that the
+probability of a hidden state given some visible state must be the same at
+equilibrium whether the visible units were clamped in that state or arrived
+there by free-running (e.g. Gibbs sampling).  Hence
+
+.. math::
+
+   P^+(V_\alpha, H_\beta)
+    &= P^+(H_\beta \mid V_\alpha) P^+(V_\alpha)\\
+    &= P^-(H_\beta \mid V_\alpha) P^+(V_\alpha)\\
+    &= P^-(V_\alpha, H_\beta) \frac{P^+(V_\alpha)}{P^-(V_\alpha)}.
+
+From the :doc:`relationship between maximum likelihood and KL divergence </blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence>`,
+the learning rule's objective is realized as
+
+.. math::
+
+   \min_\mathbf{w} G =
+   \min_\mathbf{w} P^+(V_A) \parallel P^-(V_A) =
+   \min_\mathbf{w}
+     \sum_\alpha P^+(V_\alpha) \ln \frac{P^+(V_\alpha)}{P^-(V_\alpha)}.
+
+The learning rule itself
+
+.. math::
+
+   w_{ij} \mapsto w_{ij} - \frac{\partial G}{\partial w_{ij}}
+
+can be derived as
+
+.. math::
+
+   \frac{\partial G}{\partial w_{ij}}
+    &= -\sum_\alpha \frac{P^+(V_\alpha)}{P^-(V_\alpha)}
+         \frac{\partial P^-(V_\alpha)}{\partial w_{ij}}\\
+    &= -\sum_\alpha \frac{P^+(V_\alpha)}{P^-(V_\alpha)} \left[
+         Z^{-1} \frac{\partial}{\partial w_{ij}}
+           \left(
+             \sum_\beta \exp -E_{\alpha \beta} / T
+           \right) -
+         Z^{-1} \frac{\partial \ln Z}{\partial w_{ij}}
+           \sum_\beta \exp -E_{\alpha \beta} / T
+       \right]\\
+    &= -\sum_\alpha \frac{P^+(V_\alpha)}{P^-(V_\alpha)} \left[
+         \frac{1}{Z T} \sum_\beta s^{\alpha \beta}_i s^{\alpha \beta}_j
+                                  \exp \frac{-E_{\alpha \beta}}{T} -
+         \frac{1}{Z^2 T} \sum_\beta \exp \frac{-E_{\alpha \beta}}{T} \cdot
+           \sum_{\lambda, \mu} s^{\lambda \mu}_i s^{\lambda \mu}_j
+                               \exp \frac{-E_{\lambda \mu}}{T}
+       \right]\\
+    &= -T^{-1} \sum_\alpha \frac{P^+(V_\alpha)}{P^-(V_\alpha)} \left[
+         \sum_\beta P^-(V_\alpha, H_\beta)
+           s^{\alpha \beta}_i s^{\alpha \beta}_j -
+         P^-(V_\alpha) \sum_{\lambda, \mu}
+           P^-(V_\lambda, H_\mu) s^{\lambda \mu}_i s^{\lambda \mu}_j
+       \right]\\
+    &= -T^{-1} \left[
+         \sum_{\alpha, \beta}
+           \frac{P^+(V_\alpha)}{P^-(V_\alpha)}
+           P^-(V_\alpha, H_\beta) s^{\alpha \beta}_i s^{\alpha \beta}_j -
+         \sum_\alpha P^+(V_\alpha) \cdot \sum_{\lambda, \mu}
+           P^-(V_\lambda, H_\mu) s^{\lambda \mu}_i s^{\lambda \mu}_j
+       \right]\\
+    &= -T^{-1} \left[
+         \sum_{\alpha, \beta}
+           P^+(V_\alpha, H_\beta) s^{\alpha \beta}_i s^{\alpha \beta}_j -
+         \sum_{\lambda, \mu}
+           P^-(V_\lambda, H_\mu) s^{\lambda \mu}_i s^{\lambda \mu}_j
+       \right]\\
+    &= -T^{-1} \left[ p^+_{ij} - p^-_{ij} \right].
+
+The foregoing derivations require the Boltzmann machine to be at thermal
+equilibrium.  One approximation is
+
+.. math::
+
+   p^\pm_{ij} \approx M^{-1} \sum_{m = 1}^M s^m_i s^m_j
+
+where the :math:`M` samples are generated using Gibbs sampling.  Random samples
+are drawn from the desired distributions :math:`P^-(V_\alpha, H_\beta)` and
+:math:`P^-(H_\beta \mid V_\alpha)` according to the probability
+
+.. math::
+
+   P^-(s_i = 1 \mid s_{\setminus i})
+    &= \frac{
+         P^-(s_i = 1, s_{\setminus i})
+       }{
+         P^-(s_i = 0, s_{\setminus i}) +
+         P^-(s_i = 1, s_{\setminus i})
+       }\\
+    &= \frac{
+         P^-(s_i = 1, s_{\setminus i}) / P^-(s_i = 0, s_{\setminus i})
+       }{
+         1 + P^-(s_i = 1, s_{\setminus i}) / P^-(s_i = 0, s_{\setminus i})
+       }\\
+    &= \frac{
+         \exp T^{-1} \sum_{j \neq i} w_{ij} s^{\alpha \beta}_j
+       }{
+         1 + \exp T^{-1} \sum_{j \neq i} w_{ij} s^{\alpha \beta}_j
+       }\\
+    &= \sigma\left(
+         T^{-1} \sum_{j \neq i} w_{ij} s^{\alpha \beta}_j
+       \right)
+       & \quad & \sigma(u) = \frac{1}{1 + \exp(-u)}.
+
+Evaluation(s)
+=============
+
+If an environment specifies only a small subset of the possible patterns, the
+only way for the unmentioned patterns to occur with zero probability is to have
+infinitely high energy.  The authors used weight decay and noisy input vectors
+that are clamped on the visible units to prevent exploding weights during
+:math:`\text{phase}^+`.  To improve convergence to equilibrium when the weights
+are small, simulated annealing was added into :math:`\text{phase}^-`: given a
+proposed state :math:`s^\ast` at iteration :math:`t + 1`,
+
+.. math::
+
+   s^{t + 1} \leftarrow
+   \begin{cases}
+     s^\ast & \text{if }
+              \frac{P^-\left( s^\ast \right)}{P^-\left( s^t \right)} =
+              \exp \frac{-\Delta E}{T} > \text{rand}(0, 1)\\
+     s^t & \text{otherwise.}
+   \end{cases}
+
+The experiments demonstrated mixed results.  The encoder experiment focused on
+the recurring task of communicating information among various components of a
+parallel network.  :math:`V_1` and :math:`V_2` are two systems that wish to
+communicate their state through a single hidden layer.  Each network
+configuration (e.g. 4-2-4, 4-3-4, 8-3-8, 40-10-40) successfully found one of the
+global minima.
+
+The shifter experiment centered around three systems:
+
+- :math:`V_1` generates a pattern,
+- :math:`V_2` either shifts that pattern left, right, or does nothing, and
+- :math:`V_3` represents the action :math:`V_2` took.
+
+By inspection, this task requires at least a third order hidden representation.
+The visible units can only capture first order and second order structure.  With
+that said, the Boltzmann machine failed to yield high accuracy when a lot of the
+bits were on.  Furthermore, aside from increasing training data and time, it is
+unclear how to tune the distributed representation so that the hidden units
+represent significant underlying features that bear strong, regular
+relationships to each other and to the states of the visible units.
+
+Future Direction(s)
+===================
+
+- The authors mentioned that the visible units compete for territory in the
+  space of possible codes.  In the case of images, would partitioning the
+  spatial input domain into non-overlapping regions to reduce computation still
+  yield high accuracy?
+
+Question(s)
+===========
+
+- The authors emphasize relearning after a major network damage, but isn't this
+  simply an instance of starting out with a good initialization of the network?
+- It seems a neural network's resilience to damage is not useful in a
+  distributed computing setting?
+
+Analysis
+========
+
+Boltzmann machines can be viewed as a symmetric Hopfield network with
+stochastic binary units, and each unit is either visible or hidden.  Even though
+the experiments indicate Boltzmann machines are capable of modeling the
+underlying structure of a data distribution, the optimization criteria is too
+computationally expensive to evaluate in practice.  Nevertheless, the
+KL divergence optimization strategy is valuable as an exemplar of modeling.
+
+Although :cite:`hinton1986learning,ackley1985learning` contain interesting
+background information, the details of the learning method are too convoluted to
+understand compared to the precise wordings of :cite:`yuillebm`.
+
+One of the most interesting points is the experiment with more hidden units than
+visible units.  The desired solution was found quickly, but the network
+continued to optimize the solution so that the distributed representation
+utilize all the hidden units.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

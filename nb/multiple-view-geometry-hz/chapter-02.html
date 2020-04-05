@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Projective Geometry and Transformations of 2D &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Projective Geometry and Transformations of 3D" href="chapter-03.html" />
+    <link rel="prev" title="Parameter Estimation" href="appendix-03.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Projective Geometry and Transformations of 2D</a><ul>
+<li><a class="reference internal" href="#(i)-Affine-Transformations">(i) Affine Transformations</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#(ii)-Projective-Transformations">(ii) Projective Transformations</a></li>
+<li><a class="reference internal" href="#(iii)-Isotropies">(iii) Isotropies</a><ul>
+<li><a class="reference internal" href="#Two-Lines-Have-an-Invariant-Under-a-Similarity">Two Lines Have an Invariant Under a Similarity</a></li>
+<li><a class="reference internal" href="#Two-Lines-and-Two-Points-Have-an-Invariant-Under-a-Projectivity">Two Lines and Two Points Have an Invariant Under a Projectivity</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#(iv)-Invariants">(iv) Invariants</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#(v)-The-Cross-Ratio">(v) The Cross Ratio</a></li>
+<li><a class="reference internal" href="#(vi)-Polarity">(vi) Polarity</a></li>
+<li><a class="reference internal" href="#(vii)-Conics">(vii) Conics</a></li>
+<li><a class="reference internal" href="#(viii)-Dual-Conics">(viii) Dual Conics</a></li>
+<li><a class="reference internal" href="#(ix)-Special-Projective-Transformations">(ix) Special Projective Transformations</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="appendix-03.html" title="Previous Chapter: Parameter Estimation"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Parameter Estimation</span>
+    </a>
+  </li>
+  <li>
+    <a href="chapter-03.html" title="Next Chapter: Projective Geometry and Transformations of 3D"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Projective Ge... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="Projective-Geometry-and-Transformations-of-2D">
+<h1>Projective Geometry and Transformations of 2D<a class="headerlink" href="#Projective-Geometry-and-Transformations-of-2D" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="(i)-Affine-Transformations">
+<span id="hartley2004-ex-2-i"></span><h2>(i) Affine Transformations<a class="headerlink" href="#(i)-Affine-Transformations" title="Permalink to this headline">¶</a></h2>
+<p>Recall from (2.10) an affinity is defined as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{x}' = \mathbf{H}_A \mathbf{x} =
+\begin{bmatrix}
+  \mathbf{A} &amp; \mathbf{t}\\
+  \boldsymbol{0}^\top &amp; 1
+\end{bmatrix} \mathbf{x} =
+\begin{bmatrix}
+  a_{11} &amp; a_{12} &amp; t_x\\
+  a_{21} &amp; a_{22} &amp; t_y\\
+  0 &amp; 0 &amp; 1
+\end{bmatrix} \begin{bmatrix} x\\ y\\ z \end{bmatrix} =
+\begin{bmatrix}
+  a_{11} x + a_{12} y + t_x z\\
+  a_{21} x + a_{22} y + t_y z\\
+  z
+\end{bmatrix} =
+\begin{bmatrix}
+  x'\\
+  y'\\
+  z'
+\end{bmatrix}.\end{split}\]</div>
+<p>Observe that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{H}_A^{-1} =
+\left(
+  \begin{bmatrix}
+    1 &amp; 0 &amp; t_x\\
+    0 &amp; 1 &amp; t_y\\
+    0 &amp; 0 &amp; 1
+  \end{bmatrix}
+  \begin{bmatrix}
+    a_{11} &amp; a_{12} &amp; 0\\
+    a_{21} &amp; a_{22} &amp; 0\\
+    0 &amp; 0 &amp; 1
+  \end{bmatrix}
+\right)^{-1} =
+\frac{1}{a_{11} a_{22} - a_{12} a_{21}}
+\begin{bmatrix}
+  a_{22} &amp; -a_{12} &amp; 0\\
+  -a_{21} &amp; a_{11} &amp; 0\\
+  0 &amp; 0 &amp; a_{11} a_{22} - a_{12} a_{21}
+\end{bmatrix}
+\begin{bmatrix}
+  1 &amp; 0 &amp; -t_x\\
+  0 &amp; 1 &amp; -t_y\\
+  0 &amp; 0 &amp; 1
+\end{bmatrix} =
+\begin{bmatrix}
+  \mathbf{A}' &amp; \mathbf{t}'\\
+  \boldsymbol{0} &amp; 1
+\end{bmatrix}.\end{split}\]</div>
+<p>An affinity is degenerate when <span class="math notranslate nohighlight">\(a_{11} a_{22} = a_{12} a_{21}\)</span> i.e.
+its columns are linearly dependent.</p>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>By inspection, a degenerate affinity collapses all the points on a conic
+section into a single line or point.  The rest of the analysis will focus on
+non-degenerate affinities.</p>
+<p>The equation of a conic (2.3) in homogeneous coordinates is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{x}^\top \mathbf{C} \mathbf{x} =
+\mathbf{x}^\top
+  \begin{bmatrix}
+    a &amp; b / 2 &amp; d / 2\\
+    b / 2 &amp; c &amp; e / 2\\
+    d / 2 &amp; e / 2 &amp; f
+  \end{bmatrix} \mathbf{x}.\end{split}\]</div>
+<p>The type of conic section can be determined by computing the minor
+<span class="math notranslate nohighlight">\(\det \mathbf{C}_{33}\)</span>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathbf{C}\)</span> is a hyperbola if and only if
+<span class="math notranslate nohighlight">\(\det \mathbf{C}_{33} &lt; 0\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{C}\)</span> is a parabola if and only if
+<span class="math notranslate nohighlight">\(\det \mathbf{C}_{33} = 0\)</span>, and</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{C}\)</span> is an ellipse if and only if
+<span class="math notranslate nohighlight">\(\det \mathbf{C}_{33} &gt; 0\)</span>.</p>
+<ul>
+<li><p>When <span class="math notranslate nohighlight">\(a = c\)</span> and <span class="math notranslate nohighlight">\(b = 0\)</span>, the equation represents a circle.</p></li>
+</ul>
+</li>
+</ul>
+<p>To simplify notations, rewrite the conic coefficient matrix as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{C} =
+\begin{bmatrix}
+  \boldsymbol{\alpha} &amp; \boldsymbol{\beta}\\
+  \boldsymbol{\beta}^\top &amp; \gamma
+\end{bmatrix}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\boldsymbol{\alpha} = \begin{bmatrix} a &amp; b / 2\\ b / 2 &amp; c \end{bmatrix}\)</span>,
+<span class="math notranslate nohighlight">\(\boldsymbol{\beta} = \begin{bmatrix} d / 2\\ e / 2 \end{bmatrix}\)</span>, and
+<span class="math notranslate nohighlight">\(\gamma = f\)</span>.  Under an affinity, a conic transforms to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{x}^\top \mathbf{C}_c \mathbf{x} =
+{\mathbf{x}'}^\top \mathbf{H}_A^{-\top}
+  \mathbf{C}_c \mathbf{H}_A^{-1} \mathbf{x}' =
+{\mathbf{x}'}^\top
+  \begin{bmatrix}
+    {\mathbf{A}'}^\top \boldsymbol{\alpha} \mathbf{A}' &amp;
+      {\mathbf{A}'}^\top \boldsymbol{\alpha} \mathbf{t}' +
+          {\mathbf{A}'}^\top \boldsymbol{\beta}\\
+    {\mathbf{t}'}^\top \boldsymbol{\alpha} \mathbf{A}' +
+        \boldsymbol{\beta}^\top \mathbf{A}' &amp;
+      {\mathbf{t}'}^\top \boldsymbol{\alpha} \mathbf{t}' +
+          2 {\mathbf{t}'}^\top \boldsymbol{\beta} + \gamma
+  \end{bmatrix} \mathbf{x}' =
+{\mathbf{x}'}^\top \mathbf{C}' \mathbf{x}'.\end{split}\]</div>
+<p>Assuming <span class="math notranslate nohighlight">\(\det \mathbf{C} &gt; 0\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\det \mathbf{C}'_{33}
+ &amp;= \det
+      \begin{bmatrix}
+        a'_{11} \left( a a'_{11} + \frac{b}{2} a'_{21} \right) +
+            a'_{21} \left( \frac{b}{2} a'_{11} + c a'_{21} \right) &amp;
+          a'_{11} \left( a a'_{12} + \frac{b}{2} a'_{22} \right) +
+              a'_{21} \left( \frac{b}{2} a'_{12} + c a'_{22} \right)\\
+        a'_{12} \left( a a'_{11} + \frac{b}{2} a'_{21} \right) +
+              a'_{22} \left( \frac{b}{2} a'_{11} + c a'_{21} \right) &amp;
+          a'_{12} \left( a a'_{12} + \frac{b}{2} a'_{22} \right) +
+              a'_{22} \left( \frac{b}{2} a'_{12} + c a'_{22} \right)\\
+      \end{bmatrix}\\
+ &amp;= \det({\mathbf{A}'}^\top \boldsymbol{\alpha} \mathbf{A}')\\
+ &amp;= \det({\mathbf{A}'}^\top) \det(\boldsymbol{\alpha}) \det(\mathbf{A}')\\
+ &amp;= \det(\mathbf{A}')^2 \det(\boldsymbol{\alpha})\\
+ &amp;= \det(\mathbf{A}')^2 \left( ac - \frac{b^2}{4} \right)\\
+ &amp;&gt; 0.\end{split}\]</div>
+<p>Thus, an affinity can map a circle to an ellipse, but it cannot map
+an ellipse to a parabola or hyperbola.</p>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>Any pair of points on a line <span class="math notranslate nohighlight">\(\mathbf{l}\)</span> can be represented as</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{x}_2 - \mathbf{x}_1 = \lambda \mathbf{d}\]</div>
+<p>where the scalar <span class="math notranslate nohighlight">\(\lambda \in \mathbb{R}\)</span> and the direction
+<span class="math notranslate nohighlight">\(\mathbf{d} \in \mathbb{R}^3\)</span>.  Note that the direction vector satisfies
+<span class="math notranslate nohighlight">\(\mathbf{d}^\top \mathbf{l} = 0\)</span> and
+<span class="math notranslate nohighlight">\(\left\Vert \mathbf{d} \right\Vert_2 = 1\)</span>.  Evidently, any line
+<span class="math notranslate nohighlight">\(\mathbf{l}'\)</span> parallel to <span class="math notranslate nohighlight">\(\mathbf{l}\)</span> must have the same direction
+vector.  Let <span class="math notranslate nohighlight">\(\mathbf{x}'_2 - \mathbf{x}'_1 = \lambda' \mathbf{d}\)</span> denote
+the corresponding line segment on <span class="math notranslate nohighlight">\(\mathbf{l}'\)</span>.</p>
+<p>The ratio of these parallel line segments is</p>
+<div class="math notranslate nohighlight">
+\[\frac{
+  \left\Vert \mathbf{x}_2 - \mathbf{x}_1 \right\Vert_2
+}{
+  \left\Vert \mathbf{x}'_2 - \mathbf{x}'_1 \right\Vert_2
+} =
+\frac{
+  \lambda \left\Vert \mathbf{d} \right\Vert_2
+}{
+  \lambda' \left\Vert \mathbf{d} \right\Vert_2
+} =
+\frac{\lambda}{\lambda'}.\]</div>
+<p>The ratio of these line segments under an affinity is</p>
+<div class="math notranslate nohighlight">
+\[\frac{
+  \left\Vert \mathbf{H}_A (\mathbf{x}_2 - \mathbf{x}_1) \right\Vert_2
+}{
+  \left\Vert \mathbf{H}_A (\mathbf{x}'_2 - \mathbf{x}'_1) \right\Vert_2
+} =
+\frac{
+  \lambda \left\Vert \mathbf{H}_A \mathbf{d} \right\Vert_2
+}{
+  \lambda' \left\Vert \mathbf{H}_A \mathbf{d} \right\Vert_2
+} =
+\frac{\lambda}{\lambda'}.\]</div>
+<p>Therefore, the ratio of lengths on parallel line segments is invariant to
+affinities.  Clearly, when the line segments are not parallel, the direction
+vectors are no longer equal.  Hence the ratio is no longer invariant to
+affinities.  Note that projectivities map lines to lines, but do not necessarily
+preserve parallelism.</p>
+</div>
+</div>
+<div class="section" id="(ii)-Projective-Transformations">
+<h2>(ii) Projective Transformations<a class="headerlink" href="#(ii)-Projective-Transformations" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> denote a point on a unit circle at the origin
+(example 2.28) such that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}0 = \mathbf{x}^\top \mathbf{C} \mathbf{x} =
+\mathbf{x}^\top
+  \begin{bmatrix}
+    1 &amp; 0 &amp; 0\\
+    0 &amp; 1 &amp; 0\\
+    0 &amp; 0 &amp; -1
+  \end{bmatrix} \mathbf{x} =
+\mathbf{x}^\top
+  \begin{bmatrix}
+    \mathbf{I} &amp; \boldsymbol{0}\\
+    \boldsymbol{0}^\top &amp; -1
+  \end{bmatrix} \mathbf{x} =
+\mathbf{x}^\top \mathbf{S}_3 \mathbf{x}.\end{split}\]</div>
+<p>From result 2.13, a projectivity (2.13) that fixes as a set a unit circle at the
+origin must satisfy (result 2.13)</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{C}' =
+\mathbf{H}^{-\top} \mathbf{C} \mathbf{H}^{-1} =
+\mathbf{H}^{-\top} \mathbf{S}_3 \mathbf{H}^{-1} =
+\mathbf{S}_3\]</div>
+<p>where according to (2.17)</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{H}^{-1} =
+\mathbf{H}_P^{-1} \mathbf{H}_A^{-1} \mathbf{H}_S^{-1} =
+\begin{bmatrix}
+  \mathbf{I} &amp; \boldsymbol{0}\\
+  \mathbf{v}^\top &amp; 1
+\end{bmatrix}
+  \begin{bmatrix}
+    K &amp; \boldsymbol{0}\\
+    \boldsymbol{0}^\top &amp; 1
+  \end{bmatrix}
+  \begin{bmatrix}
+    s \mathbf{R} &amp; \mathbf{t}\\
+    \boldsymbol{0}^\top &amp; 1
+  \end{bmatrix} =
+\begin{bmatrix}
+  s K \mathbf{R} &amp; K \mathbf{t}\\
+  s \mathbf{v}^\top K \mathbf{R} &amp; \mathbf{v}^\top K \mathbf{t} + 1
+\end{bmatrix}.\end{split}\]</div>
+<p>These properties imply</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{H}_P^{-\top} \mathbf{S}_3 \mathbf{H}_P^{-1} =
+\begin{bmatrix}
+  \mathbf{I} &amp; \mathbf{v}\\
+  \boldsymbol{0}^\top &amp; 1
+\end{bmatrix}
+  \begin{bmatrix}
+    \mathbf{I} &amp; \boldsymbol{0}\\
+    \boldsymbol{0}^\top &amp; -1
+  \end{bmatrix}
+  \begin{bmatrix}
+    \mathbf{I} &amp; \boldsymbol{0}\\
+    \mathbf{v}^\top &amp; 1
+  \end{bmatrix} =
+\begin{bmatrix}
+  \mathbf{I} - \mathbf{v} \mathbf{v}^\top &amp; -\mathbf{v}\\
+  -\mathbf{v}^\top &amp; -1
+\end{bmatrix} =
+\mathbf{S}_3
+\quad \Rightarrow \quad
+\mathbf{v} = \boldsymbol{0},\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{H}_A^{-\top} \mathbf{S}_3 \mathbf{H}_A^{-1} =
+\begin{bmatrix}
+  K^\top &amp; \boldsymbol{0}\\
+  \boldsymbol{0}^\top &amp; 1
+\end{bmatrix}
+  \begin{bmatrix}
+    \mathbf{I} &amp; \boldsymbol{0}\\
+    \boldsymbol{0}^\top &amp; -1
+  \end{bmatrix}
+  \begin{bmatrix}
+    K &amp; \boldsymbol{0}\\
+    \boldsymbol{0}^\top &amp; 1
+  \end{bmatrix} =
+\begin{bmatrix}
+  K^\top K &amp; \boldsymbol{0}\\
+  \boldsymbol{0}^\top &amp; -1
+\end{bmatrix} =
+\mathbf{S}_3
+\quad \Rightarrow \quad
+K^\top K = \mathbf{I},\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{H}_S^{-\top} \mathbf{S}_3 \mathbf{H}_S^{-1} =
+\begin{bmatrix}
+  s \mathbf{R}^\top &amp; \boldsymbol{0}\\
+  \mathbf{t}^\top &amp; 1
+\end{bmatrix}
+  \begin{bmatrix}
+    \mathbf{I} &amp; \boldsymbol{0}\\
+    \boldsymbol{0}^\top &amp; -1
+  \end{bmatrix}
+  \begin{bmatrix}
+    s \mathbf{R} &amp; \mathbf{t}\\
+    \boldsymbol{0}^\top &amp; 1
+  \end{bmatrix} =
+\begin{bmatrix}
+  s \mathbf{R}^\top \mathbf{R} &amp; s \mathbf{R}^\top \mathbf{t}\\
+  s \mathbf{t}^\top \mathbf{R} &amp; \mathbf{t}^\top \mathbf{t} - 1
+\end{bmatrix} =
+\mathbf{S}_3
+\quad \Rightarrow \quad
+s^2 \mathbf{R}^\top \mathbf{R} = \mathbf{I} \quad \land \quad
+\mathbf{t}^\top = \boldsymbol{0}.\end{split}\]</div>
+<p>Hence,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{H}^{-1} =
+\begin{bmatrix}
+  s K \mathbf{R} &amp; \boldsymbol{0}\\
+  \boldsymbol{0}^\top &amp; 1
+\end{bmatrix} =
+\begin{bmatrix}
+  k_1 s \cos \theta &amp; k_1 (-s) \sin \theta &amp; 0\\
+  k_2 s \sin \theta &amp; k_2 s \cos \theta &amp; 0\\
+  0 &amp; 0 &amp; 1
+\end{bmatrix} =
+\begin{bmatrix}
+  \alpha &amp; 0 &amp; 0\\
+  0 &amp; \beta &amp; 0\\
+  0 &amp; 0 &amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+  \cos \theta &amp; -\sin \theta &amp; 0\\
+  \sin \theta &amp; \cos \theta &amp; 0\\
+  0 &amp; 0 &amp; 1
+\end{bmatrix}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\alpha = k_1 s = \pm 1\)</span>, <span class="math notranslate nohighlight">\(\beta = k_2 s = \pm 1\)</span>, and
+<span class="math notranslate nohighlight">\(\theta \in \mathbb{R}\)</span> represent a three-parameter family of projective
+transformations.  The factorized form of this family illustrates that the
+projectivities are restricted to combinations of rotations and reflections.</p>
+</div>
+<div class="section" id="(iii)-Isotropies">
+<h2>(iii) Isotropies<a class="headerlink" href="#(iii)-Isotropies" title="Permalink to this headline">¶</a></h2>
+<p><a class="bibtex reference internal" href="#abdof" id="id1">[Bae]</a> has an intuitive way to remember the degrees of points, lines, and
+planes.</p>
+<p>A line in 3D space can be specified by two 3D points.  However, once the line is
+constrained by the points, the points can still move along the line.  Thus, one
+degree of freedom is retained per point.  Since a point in 3D has three degrees
+of freedom, the total number of degrees of freedom used to nail down the line
+is <span class="math notranslate nohighlight">\(2 \times 3 - 2 \times 1 = 4\)</span>.</p>
+<p>A plane is fully constrained by three 3D points, but the points are free to roam
+the plane; this motion has two degrees of freedom.  Hence a plane has
+<span class="math notranslate nohighlight">\(3 \times 3 - 3 \times 2 = 3\)</span> degrees of freedom.</p>
+<p>A line can also be specified as the intersection of two planes.  Once the line
+has been found, the planes can freely rotate about the line; this rotation has
+one degree of freedom.  Therefore, a line has
+<span class="math notranslate nohighlight">\(2 \times 3 - 2 \times 1 = 4\)</span> degrees of freedom.</p>
+<div class="section" id="Two-Lines-Have-an-Invariant-Under-a-Similarity">
+<h3>Two Lines Have an Invariant Under a Similarity<a class="headerlink" href="#Two-Lines-Have-an-Invariant-Under-a-Similarity" title="Permalink to this headline">¶</a></h3>
+<p>Define a line segment on <span class="math notranslate nohighlight">\(\mathbf{l}_i\)</span> as</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{y}_i - \mathbf{x}_i = t_i \mathbf{d}_i\]</div>
+<p>where the scalar <span class="math notranslate nohighlight">\(t_i \in \mathbb{R}\)</span>, the direction
+<span class="math notranslate nohighlight">\(\mathbf{d}_i \in \mathbb{R}^3\)</span>,
+<span class="math notranslate nohighlight">\(\mathbf{d}_i^\top \mathbf{l}_i = 0\)</span>, and
+<span class="math notranslate nohighlight">\(\left\Vert \mathbf{d}_i \right\Vert_2 = 1\)</span> for <span class="math notranslate nohighlight">\(i = 1, 2\)</span>.</p>
+<p>The angle between these line segments is given by their dot product</p>
+<div class="math notranslate nohighlight">
+\[\cos \theta =
+\frac{
+  (\mathbf{y}_1 - \mathbf{x}_1)^\top (\mathbf{y}_2 - \mathbf{x}_2)
+}{
+  \left\Vert \mathbf{y}_1 - \mathbf{x}_1 \right\Vert_2
+  \left\Vert \mathbf{y}_2 - \mathbf{x}_2 \right\Vert_2
+} =
+\frac{
+  t_1 t_2 \mathbf{d}_1^\top \mathbf{d}_2
+}{
+  t_1 \left\Vert \mathbf{d}_1 \right\Vert_2
+  t_2 \left\Vert \mathbf{d}_2 \right\Vert_2
+} =
+\mathbf{d}_1^\top \mathbf{d}_2.\]</div>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{H}_S\)</span> denote a similarity (2.9) where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{x}' = \mathbf{H}_S \mathbf{x} =
+\begin{bmatrix}
+  s \mathbf{R} &amp; \mathbf{t}\\
+  \boldsymbol{0}^\top &amp; 1
+\end{bmatrix} \mathbf{x}.\end{split}\]</div>
+<p>Recall that the last coordinate of <span class="math notranslate nohighlight">\(\mathbf{d}_i\)</span> is zero and
+<span class="math notranslate nohighlight">\(\mathbf{R}^\top \mathbf{R} = \mathbf{I}\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\cos \theta =
+\frac{
+  (t_1 \mathbf{H}_S \mathbf{d}_1)^\top (t_2 \mathbf{H}_S \mathbf{d}_2)
+}{
+  \left\Vert t_1 \mathbf{H}_S \mathbf{d}_1 \right\Vert_2
+  \left\Vert t_2 \mathbf{H}_S \mathbf{d}_2 \right\Vert_2
+} =
+\frac{
+  t_1 t_2
+  \left(
+    s \mathbf{R} \mathbf{d}_{1_{1 \colon 2}}
+  \right)^\top
+  \left(
+    s \mathbf{R} \mathbf{d}_{2_{1 \colon 2}}
+  \right)
+}{
+  t_1 \left\Vert s \mathbf{R} \mathbf{d}_{1_{1 \colon 2}} \right\Vert_2
+  t_2 \left\Vert s \mathbf{R} \mathbf{d}_{2_{1 \colon 2}} \right\Vert_2
+} =
+\mathbf{d}_1^\top \mathbf{d}_2.\]</div>
+<p>Therefore, the angle between two lines is invariant under a similarity.  Hence
+the number of invariants is undoubtedly at least one, which violates the
+equality case of the counting argument in result 2.16 because</p>
+<div class="math notranslate nohighlight">
+\[\text{DoF}(\mathbf{l}_1) +
+    \text{DoF}(\mathbf{l}_2) - \text{DoF}(\mathbf{H}_S) =
+2 + 2 - 4 = 0.\]</div>
+<p>The following will show that the similarity can only be partially determined.</p>
+<p>Under this point transformation, lines transform according to (2.6)</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{l}' = \mathbf{H}_S^{-\top} \mathbf{l}
+\quad \Leftrightarrow \quad
+\mathbf{l} = \mathbf{H}_S^\top \mathbf{l}'.\]</div>
+<p>Given the corresponding lines <span class="math notranslate nohighlight">\(\mathbf{l}'_1\)</span> and <span class="math notranslate nohighlight">\(\mathbf{l}'_2\)</span>,
+observe that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \lambda_i \begin{bmatrix} a_i\\ b_i\\ c_i \end{bmatrix}
+   &amp;= \lambda'_i
+      \begin{bmatrix}
+        s r_1 &amp; s r_2 &amp; 0\\
+        -s r_2 &amp; s r_1 &amp; 0\\
+        t_x &amp; t_y &amp; 1\\
+      \end{bmatrix}
+      \begin{bmatrix} a'_i\\ b'_i\\ c'_i \end{bmatrix}
+\end{aligned}
+\quad \Leftrightarrow \quad
+\begin{aligned}
+  \lambda_i a_i &amp;= s \lambda'_i \left( r_1 a'_i + r_2 b'_i \right)\\
+  \lambda_i b_i &amp;= s \lambda'_i \left( -r_2 a'_i + r_1 b'_i \right)\\
+  \lambda_i c_i &amp;= \lambda'_i \left( t_x a'_i + t_y b'_i + c'_i \right)
+\end{aligned}
+\quad \Leftrightarrow \quad
+\begin{aligned}
+  \begin{bmatrix} a_1 c'_1\\ b_1 c'_1\\ a_2 c'_2\\ b_2 c'_2 \end{bmatrix}
+   &amp;= \begin{bmatrix}
+        a'_1 c_1 &amp; b'_1 c_1 &amp; -a_1 a'_1 &amp; -a_1 b'_1\\
+        b'_1 c_1 &amp; -a'_1 c_1 &amp; -b_1 a'_1 &amp; -b_1 b'_1\\
+        a'_2 c_2 &amp; b'_2 c_2 &amp; -a_2 a'_2 &amp; -a_2 b'_2\\
+        b'_2 c_2 &amp; -a'_2 c_2 &amp; -b_2 a'_2 &amp; -b_2 b'_2
+      \end{bmatrix}
+      \begin{bmatrix} s r_1\\ s r_2\\ t_x\\ t_y \end{bmatrix}
+\end{aligned}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(r_1 = \cos \theta\)</span> and <span class="math notranslate nohighlight">\(r_2 = \sin \theta\)</span>.</p>
+<p>Observe that the <span class="math notranslate nohighlight">\(4 \times 4\)</span> matrix is rank deficient: its rank is
+only 3.  If there is one more line correspondence, the full rank matrix
+would allow the translation <span class="math notranslate nohighlight">\(\mathbf{t}\)</span> to be determined exactly, but
+the rotation and scalar <span class="math notranslate nohighlight">\(s\)</span> can only be recovered up to a sign via
+<span class="math notranslate nohighlight">\((s r_1)^2 + (s r_2)^2 = s^2\)</span>.</p>
+</div>
+<div class="section" id="Two-Lines-and-Two-Points-Have-an-Invariant-Under-a-Projectivity">
+<h3>Two Lines and Two Points Have an Invariant Under a Projectivity<a class="headerlink" href="#Two-Lines-and-Two-Points-Have-an-Invariant-Under-a-Projectivity" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{l}_1, \mathbf{l}_2, \mathbf{x}_1, \mathbf{x}_2\)</span> denote the
+pair of lines and points.  The line through the two given points is
+<span class="math notranslate nohighlight">\(\mathbf{l}_0 = \mathbf{x}_1 \times \mathbf{x}_2\)</span> (result 2.4).  This line
+will intersect the two given lines at
+<span class="math notranslate nohighlight">\(\mathbf{x}_3 = \mathbf{l}_0 \times \mathbf{l}_1\)</span> and
+<span class="math notranslate nohighlight">\(\mathbf{x}_4 = \mathbf{l}_0 \times \mathbf{l}_2\)</span> (result 2.2).  To
+simplify the proof, arbitrarily define all points on <span class="math notranslate nohighlight">\(\mathbf{l}_0\)</span> in
+terms of <span class="math notranslate nohighlight">\(\mathbf{x}_1\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{x}_i = \mathbf{x}_1 + t_i \mathbf{d} \quad i = 1, 2, 3, 4\]</div>
+<p>where <span class="math notranslate nohighlight">\(t_i \in \mathbb{R}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{d}^\top \mathbf{l}_0 = 0\)</span>
+e.g. <span class="math notranslate nohighlight">\(\mathbf{d} = \frac{\mathbf{x}_4 - \mathbf{x}_1}{\left\Vert \mathbf{x}_4 - \mathbf{x}_1 \right\Vert_2}\)</span>.</p>
+<p>The cross ratio (2.18) of these points is</p>
+<div class="math notranslate nohighlight">
+\[\text{Cross}(\mathbf{x}_1, \mathbf{x}_2, \mathbf{x}_3, \mathbf{x}_4) =
+\frac{
+  \left\Vert \mathbf{x}_1 - \mathbf{x}_2 \right\Vert_2
+  \left\Vert \mathbf{x}_3 - \mathbf{x}_4 \right\Vert_2
+}{
+  \left\Vert \mathbf{x}_1 - \mathbf{x}_3 \right\Vert_2
+  \left\Vert \mathbf{x}_2 - \mathbf{x}_4 \right\Vert_2
+} =
+\frac{
+  \left\Vert -t_2 \mathbf{d} \right\Vert_2
+  \left\Vert (t_3 - t_4) \mathbf{d} \right\Vert_2
+}{
+  \left\Vert -t_3 \mathbf{d} \right\Vert_2
+  \left\Vert (t_2 - t_4) \mathbf{d} \right\Vert_2
+} =
+\frac{
+  t_2 (t_3 - t_4)
+}{
+  t_3 (t_2 - t_4)
+}.\]</div>
+<p>The cross ratio of these points under a projectivity (2.13) is</p>
+<div class="math notranslate nohighlight">
+\[\text{Cross}(\mathbf{x}'_1, \mathbf{x}'_2, \mathbf{x}'_3, \mathbf{x}'_4) =
+\frac{
+  \left\Vert \mathbf{H}_P (\mathbf{x}_1 - \mathbf{x}_2) \right\Vert_2
+  \left\Vert \mathbf{H}_P (\mathbf{x}_3 - \mathbf{x}_4) \right\Vert_2
+}{
+  \left\Vert \mathbf{H}_P (\mathbf{x}_1 - \mathbf{x}_3) \right\Vert_2
+  \left\Vert \mathbf{H}_P (\mathbf{x}_2 - \mathbf{x}_4) \right\Vert_2
+} =
+\frac{
+  \left\Vert -t_2 \mathbf{H}_P \mathbf{d} \right\Vert_2
+  \left\Vert (t_3 - t_4) \mathbf{H}_P \mathbf{d} \right\Vert_2
+}{
+  \left\Vert -t_3 \mathbf{H}_P \mathbf{d} \right\Vert_2
+  \left\Vert (t_2 - t_4) \mathbf{H}_P \mathbf{d} \right\Vert_2
+} =
+\frac{
+  t_2 (t_3 - t_4)
+}{
+  t_3 (t_2 - t_4)
+}.\]</div>
+<p>Thus, the cross ratio of the intersection points defined by a pair of lines and
+points is invariant under a projectivity.  Therefore, the number of invariants
+is undoubtedly at least one, which violates the equality case of the counting
+argument in result 2.16 because</p>
+<div class="math notranslate nohighlight">
+\[\text{DoF}(\mathbf{l}_1) + \text{DoF}(\mathbf{l}_2) +
+    \text{DoF}(\mathbf{x}_1) + \text{DoF}(\mathbf{x}_2) -
+    \text{DoF}(\mathbf{H}_S) =
+2 + 2 + 2 + 2 - 8 = 0.\]</div>
+<p>The following will show that the projectivity <span class="math notranslate nohighlight">\(\mathbf{H}\)</span> (2.5) can only
+be partially determined.</p>
+<p>Given the corresponding lines and points
+<span class="math notranslate nohighlight">\(\mathbf{l}'_1, \mathbf{l}'_2, \mathbf{x}'_1, \mathbf{x}'_2\)</span>, observe that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \tilde{\lambda}'_i
+   &amp;= \tilde{\lambda}_i \begin{bmatrix} x'_i\\ y'_i\\ z'_i \end{bmatrix}
+      \begin{bmatrix}
+        h_1 &amp; h_2 &amp; h_3\\
+        h_4 &amp; h_5 &amp; h_6\\
+        h_7 &amp; h_8 &amp; h_9
+      \end{bmatrix}
+      \begin{bmatrix} x_i\\ y_i\\ z_i \end{bmatrix}
+\end{aligned}
+\quad \Leftrightarrow \quad
+\begin{aligned}
+  \tilde{\lambda}'_i x'_i &amp;= \tilde{\lambda}_i \left( h_1 x_i + h_2 y_i + h_3 z_i \right)\\
+  \tilde{\lambda}'_i y'_i &amp;= \tilde{\lambda}_i \left( h_4 x_i + h_5 y_i + h_6 z_i \right)\\
+  \tilde{\lambda}'_i z'_i &amp;= \tilde{\lambda}_i \left( h_7 x_i + h_8 y_i + h_9 z_i \right)
+\end{aligned}\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \lambda_i \begin{bmatrix} a_i\\ b_i\\ c_i \end{bmatrix}
+   &amp;= \lambda'_i
+      \begin{bmatrix}
+        h_1 &amp; h_4 &amp; h_7\\
+        h_2 &amp; h_5 &amp; h_8\\
+        h_3 &amp; h_6 &amp; h_9
+      \end{bmatrix}
+      \begin{bmatrix} a'_i\\ b'_i\\ c'_i \end{bmatrix}
+\end{aligned}
+\quad \Leftrightarrow \quad
+\begin{aligned}
+  \lambda_i a_i &amp;= \lambda'_i \left( h_1 a'_i + h_4 b'_i + h_7 c'_i \right)\\
+  \lambda_i b_i &amp;= \lambda'_i \left( h_2 a'_i + h_5 b'_i + h_8 c'_i \right)\\
+  \lambda_i c_i &amp;= \lambda'_i \left( h_3 a'_i + h_6 b'_i + h_9 c'_i \right)
+\end{aligned}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\left\Vert \mathbf{H} \right\Vert_F = 1\)</span>.  An equivalent
+representation is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{bmatrix}
+  z'_1 x_1 &amp; z'_1 y_1 &amp; z'_1 z_1 &amp; 0 &amp; 0 &amp; 0 &amp; -x'_1 x_1 &amp; -x'_1 y_1 &amp; -x'_1 z_1\\
+  0 &amp; 0 &amp; 0 &amp; z'_1 x_1 &amp; z'_1 y_1 &amp; z'_1 z_1 &amp; -y'_1 x_1 &amp; -y'_1 y_1 &amp; -y'_1 z_1\\
+  z'_2 x_2 &amp; z'_2 y_2 &amp; z'_2 z_2 &amp; 0 &amp; 0 &amp; 0 &amp; -x'_2 x_2 &amp; -x'_2 y_2 &amp; -x'_2 z_2\\
+  0 &amp; 0 &amp; 0 &amp; z'_2 x_2 &amp; z'_2 y_2 &amp; z'_2 z_2 &amp; -y'_2 x_2 &amp; -y'_2 y_2 &amp; -y'_2 z_2\\
+  c_1 a'_1 &amp; 0 &amp; -a_1 a'_1 &amp; c_1 b'_1 &amp; 0 &amp; -a_1 b'_1 &amp; c_1 c'_1 &amp; 0 &amp; -a_1 c'_1\\
+  0 &amp; c_1 a'_1 &amp; -b_1 a'_1 &amp; 0 &amp; c_1 b'_1 &amp; -b_1 b'_1 &amp; 0 &amp; c_1 c'_1 &amp; -b_1 c'_1\\
+  c_2 a'_2 &amp; 0 &amp; -a_2 a'_2 &amp; c_2 b'_2 &amp; 0 &amp; -a_2 b'_2 &amp; c_2 c'_2 &amp; 0 &amp; -a_2 c'_2\\
+  0 &amp; c_2 a'_2 &amp; -b_2 a'_2 &amp; 0 &amp; c_2 b'_2 &amp; -b_2 b'_2 &amp; 0 &amp; c_2 c'_2 &amp; -b_2 c'_2
+\end{bmatrix}
+\begin{bmatrix}
+  h_1\\ h_2\\ h_3\\ h_4\\ h_5\\ h_6\\ h_7\\ h_8\\ h_9
+\end{bmatrix} = \boldsymbol{0}.\end{split}\]</div>
+<p>Observe that the <span class="math notranslate nohighlight">\(8 \times 9\)</span> matrix only has a rank 7 plus the explicit
+Frobenius norm constraint.  If there is one more line or point correspondence,
+the matrix would have a rank 8 plus the norm constraint.</p>
+</div>
+</div>
+<div class="section" id="(iv)-Invariants">
+<h2>(iv) Invariants<a class="headerlink" href="#(iv)-Invariants" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>Recall that</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{x}'_i = \mathbf{H} \mathbf{x}_i
+\quad \text{(2.5)}\]</div>
+<div class="math notranslate nohighlight">
+\[\mathbf{l}'_i = \mathbf{H}^{-\top} \mathbf{l}_i
+\quad \text{(2.6)}\]</div>
+<p>for <span class="math notranslate nohighlight">\(i = 1, 2\)</span> and any non-singular projectivity <span class="math notranslate nohighlight">\(\mathbf{H}\)</span>.</p>
+<p>Observe that</p>
+<div class="math notranslate nohighlight">
+\[\frac{
+  \left( {\mathbf{l}'}_1^\top \mathbf{x}'_1 \right)
+  \left( {\mathbf{l}'}_2^\top \mathbf{x}'_2 \right)
+}{
+  \left( {\mathbf{l}'}_1^\top \mathbf{x}'_2 \right)
+  \left( {\mathbf{l}'}_2^\top \mathbf{x}'_1 \right)
+} =
+\frac{
+  \left( \mathbf{l}_1^\top \mathbf{H}^{-1} \mathbf{H} \mathbf{x}_1 \right)
+  \left( \mathbf{l}_2^\top \mathbf{H}^{-1} \mathbf{H} \mathbf{x}_2 \right)
+}{
+  \left( \mathbf{l}_1^\top \mathbf{H}^{-1} \mathbf{H} \mathbf{x}_2 \right)
+  \left( \mathbf{l}_2^\top \mathbf{H}^{-1} \mathbf{H} \mathbf{x}_1 \right)
+} =
+\frac{
+  \left( \mathbf{l}_1^\top \mathbf{x}_1 \right)
+  \left( \mathbf{l}_2^\top \mathbf{x}_2 \right)
+}{
+  \left( \mathbf{l}_1^\top \mathbf{x}_2 \right)
+  \left( \mathbf{l}_2^\top \mathbf{x}_1 \right)
+}.\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>As shown in result 2.13, under a point transformation <span class="math notranslate nohighlight">\(\mathbf{H}\)</span>, a
+conic <span class="math notranslate nohighlight">\(\mathbf{C}\)</span> transforms to</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{C}' = \mathbf{H}^{-\top} \mathbf{C} \mathbf{H}^{-1}.\]</div>
+<p>Observe that</p>
+<div class="math notranslate nohighlight">
+\[\frac{
+  \left(
+    {\mathbf{x}'}_1^\top \mathbf{C}' \mathbf{x}'_2
+  \right)^2
+}{
+  \left( {\mathbf{x}'}_1^\top \mathbf{C}' \mathbf{x}'_1 \right)
+  \left( {\mathbf{x}'}_2^\top \mathbf{C}' \mathbf{x}'_2 \right)
+} =
+\frac{
+  \left(
+    \mathbf{x}_1 \mathbf{H}^\top
+    \mathbf{H}^{-\top} \mathbf{C} \mathbf{H}^{-1}
+    \mathbf{H} \mathbf{x}_2
+  \right)^2
+}{
+  \left(
+    \mathbf{x}_1 \mathbf{H}^\top
+    \mathbf{H}^{-\top} \mathbf{C} \mathbf{H}^{-1}
+    \mathbf{H} \mathbf{x}_1
+  \right)
+  \left(
+    \mathbf{x}_2 \mathbf{H}^\top
+    \mathbf{H}^{-\top} \mathbf{C} \mathbf{H}^{-1}
+    \mathbf{H} \mathbf{x}_2
+  \right)
+} =
+\frac{
+  \left( \mathbf{x}_1 \mathbf{C} \mathbf{x}_2 \right)^2
+}{
+  \left( \mathbf{x}_1 \mathbf{C} \mathbf{x}_1 \right)
+  \left( \mathbf{x}_2 \mathbf{C} \mathbf{x}_2 \right)
+}.\]</div>
+</div>
+<div class="section" id="(c)">
+<h3>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h3>
+<p>As illustrated in Chapter 18 of <a class="bibtex reference internal" href="#richter2011perspectives" id="id4">[RG11]</a>, Laguerre’s
+formula can be used to obtain the Euclidean angle between two lines that is
+invariant to the projective frame.</p>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{I} = \begin{bmatrix} 1 &amp; i &amp; 0 \end{bmatrix}^\top\)</span> and
+<span class="math notranslate nohighlight">\(\mathbf{J} = \begin{bmatrix} 1 &amp; -i &amp; 0 \end{bmatrix}^\top\)</span> denote the
+ideal circular points.  Let
+<span class="math notranslate nohighlight">\(\mathbf{l}_\infty = \begin{bmatrix} 0 &amp; 0 &amp; 1 \end{bmatrix}^\top\)</span>
+represent the line at infinity.  Define the intersection of the line at infinity
+and line <span class="math notranslate nohighlight">\(\mathbf{l}_j\)</span> for <span class="math notranslate nohighlight">\(j = 1, 2\)</span> (result 2.2) as</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{p}_j =
+\mathbf{l}_j \times \mathbf{l}_\infty =
+\begin{bmatrix} b_j &amp; -a_j &amp; 0 \end{bmatrix}^\top.\]</div>
+<p>Observe that <span class="math notranslate nohighlight">\(\mathbf{p}_j\)</span> is normal (orthogonal) to
+<span class="math notranslate nohighlight">\(\mathbf{l}_j\)</span>.  By inspection, the angle of these two normal vectors is
+the angle between the two lines.  Furthermore, scaling the normal vectors by
+a non-zero constant does not affect the angle.  These observations allow the
+2D normal vectors to be translated to two corresponding complex numbers</p>
+<div class="math notranslate nohighlight">
+\[z_j =
+a_j + i b_j =
+r_j (\cos \theta_j + i \sin \theta_j) =
+r_j \exp i \theta_j
+\quad \land \quad
+\overline{z_j} = a_j - i b_j = r_j \exp -i \theta_j\]</div>
+<p>without affecting the polar angle between them.  Evidently, the angle
+<span class="math notranslate nohighlight">\(\theta_1 - \theta_2\)</span> modulo <span class="math notranslate nohighlight">\(\pi\)</span> is the desired Euclidean angle
+between the two lines, which can be extract from</p>
+<div class="math notranslate nohighlight">
+\[\frac{z_1 \overline{z_2}}{\overline{z_1} z_2} =
+\frac{
+  r_1 \exp i \theta_1 \cdot r_2 \exp -i \theta_2
+}{
+  r_1 \exp -i \theta_1 \cdot r_2 \exp i \theta_2
+} =
+\exp 2i (\theta_1 - \theta_2).\]</div>
+<p>Recall that there exists <span class="math notranslate nohighlight">\(4! = 24\)</span> definitions of the cross ratio, but
+only six distinct values are produced.  Define the cross ratio to have the
+following ordering</p>
+<div class="math notranslate nohighlight">
+\[\text{Cross}\left(
+  \tilde{\mathbf{p}}_1, \tilde{\mathbf{p}}_2, \mathbf{I}, \mathbf{J}
+\right) =
+\frac{
+  \det
+    \begin{bmatrix} \tilde{\mathbf{p}}_1 &amp; \tilde{\mathbf{I}} \end{bmatrix}
+  \det
+    \begin{bmatrix} \tilde{\mathbf{p}}_2 &amp; \tilde{\mathbf{J}} \end{bmatrix}
+}{
+  \det
+    \begin{bmatrix} \tilde{\mathbf{p}}_1 &amp; \tilde{\mathbf{J}} \end{bmatrix}
+  \det
+    \begin{bmatrix} \tilde{\mathbf{p}}_2 &amp; \tilde{\mathbf{I}} \end{bmatrix}
+} =
+\frac{
+  (i b_1 + a_1) (-i b_2 + a_2)
+}{
+  (-i b_1 + a_1) (i b_2 + a_2)
+} =
+\frac{z_1 \overline{z_2}}{\overline{z_1} z_2}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\tilde{\cdot}\)</span> denotes the corresponding inhomogenous coordinates.
+Therefore,</p>
+<div class="math notranslate nohighlight">
+\[\theta_1 - \theta_2 =
+\frac{1}{2i} \ln
+  \text{Cross}\left(
+    \mathbf{p}_1, \mathbf{p}_2, \mathbf{I}, \mathbf{J}
+  \right).\]</div>
+</div>
+</div>
+<div class="section" id="(v)-The-Cross-Ratio">
+<h2>(v) The Cross Ratio<a class="headerlink" href="#(v)-The-Cross-Ratio" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{x}_i \in \mathbb{R}^2\)</span> for <span class="math notranslate nohighlight">\(i = 1, \ldots, 4\)</span> denote
+four collinear points on a line in homogeneous coordinates.  Under a
+projectivity <span class="math notranslate nohighlight">\(H \in \mathbb{R}^{2 \times 2}\)</span>,
+<span class="math notranslate nohighlight">\(\mathbf{x}'_i = \lambda_i \mathbf{H} \mathbf{x}_i\)</span>.</p>
+<p>Observe that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\det \begin{bmatrix} \mathbf{x}'_i &amp; \mathbf{x}'_j \end{bmatrix}
+ &amp;= \det \begin{bmatrix}
+      \lambda_i \mathbf{H} \mathbf{x}_i &amp;
+      \lambda_j \mathbf{H} \mathbf{x}_j
+    \end{bmatrix}\\
+ &amp;= \det \mathbf{H} \begin{bmatrix}
+      \lambda_i \mathbf{x}_i &amp; \lambda_j \mathbf{x}_j
+    \end{bmatrix}\\
+ &amp;= \det(\mathbf{H}) \left(
+      \lambda_i \lambda_j \mathbf{x}_{i1} \mathbf{x}_{j2} -
+      \lambda_i \lambda_j \mathbf{x}_{i2} \mathbf{x}_{j1}
+    \right)\\
+ &amp;= \lambda_i \lambda_j \det(\mathbf{H})
+    \begin{vmatrix} \mathbf{x}_i &amp; \mathbf{x}_j \end{vmatrix}.\end{split}\]</div>
+<p>Therefore, the cross ratio (2.18)</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\text{Cross}\left(
+  \mathbf{x}'_1, \mathbf{x}'_2, \mathbf{x}'_3, \mathbf{x}'_4
+\right)
+ &amp;= \frac{
+      \begin{vmatrix} \mathbf{x}'_1 &amp; \mathbf{x}'_2 \end{vmatrix}
+      \begin{vmatrix} \mathbf{x}'_3 &amp; \mathbf{x}'_4 \end{vmatrix}
+    }{
+      \begin{vmatrix} \mathbf{x}'_1 &amp; \mathbf{x}'_3 \end{vmatrix}
+      \begin{vmatrix} \mathbf{x}'_2 &amp; \mathbf{x}'_4 \end{vmatrix}
+    }\\
+ &amp;= \frac{
+      \lambda_1 \lambda_2 \det(\mathbf{H})
+        \begin{vmatrix} \mathbf{x}_1 &amp; \mathbf{x}_2 \end{vmatrix} \cdot
+      \lambda_3 \lambda_4 \det(\mathbf{H})
+        \begin{vmatrix} \mathbf{x}_3 &amp; \mathbf{x}_4 \end{vmatrix}
+    }{
+      \lambda_1 \lambda_3 \det(\mathbf{H})
+        \begin{vmatrix} \mathbf{x}_1 &amp; \mathbf{x}_3 \end{vmatrix} \cdot
+      \lambda_2 \lambda_4 \det(\mathbf{H})
+        \begin{vmatrix} \mathbf{x}_2 &amp; \mathbf{x}_4 \end{vmatrix}
+    }\\
+ &amp;= \frac{
+      \begin{vmatrix} \mathbf{x}_1 &amp; \mathbf{x}_2 \end{vmatrix}
+      \begin{vmatrix} \mathbf{x}_3 &amp; \mathbf{x}_4 \end{vmatrix}
+    }{
+      \begin{vmatrix} \mathbf{x}_1 &amp; \mathbf{x}_3 \end{vmatrix}
+      \begin{vmatrix} \mathbf{x}_2 &amp; \mathbf{x}_4 \end{vmatrix}
+    }\\
+ &amp;= \text{Cross}\left(
+      \mathbf{x}_1, \mathbf{x}_2, \mathbf{x}_3, \mathbf{x}_4
+    \right).\end{split}\]</div>
+</div>
+<div class="section" id="(vi)-Polarity">
+<h2>(vi) Polarity<a class="headerlink" href="#(vi)-Polarity" title="Permalink to this headline">¶</a></h2>
+<p>As illustrated in Figure 2.19, polarity is a geometric relation between a point,
+line, and conic.  Let <span class="math notranslate nohighlight">\(\mathbf{C}\)</span> denote an arbitrary conic (2.3).  The
+polar of any given point <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> with respect to <span class="math notranslate nohighlight">\(\mathbf{C}\)</span>
+is <span class="math notranslate nohighlight">\(\mathbf{l} = \mathbf{C} \mathbf{x}\)</span>.  Likewise, the pole of any given
+line <span class="math notranslate nohighlight">\(\mathbf{m}\)</span> with respect to <span class="math notranslate nohighlight">\(\mathbf{C}\)</span> is
+<span class="math notranslate nohighlight">\(\mathbf{y} = \mathbf{C}^{-1} \mathbf{m}\)</span>.</p>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{l}_i\)</span> where <span class="math notranslate nohighlight">\(i = 1, 2\)</span> denote different lines
+intersecting at a point <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> inside the conic <span class="math notranslate nohighlight">\(\mathbf{C}\)</span>.
+The pole of line <span class="math notranslate nohighlight">\(\mathbf{l}_i\)</span> is
+<span class="math notranslate nohighlight">\(\mathbf{x}_i = \mathbf{C}^{-1} \mathbf{l}_i\)</span>.</p>
+<p>From the definition of conjugate points, since <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> is on the
+polar of <span class="math notranslate nohighlight">\(\mathbf{x}_i\)</span>, <span class="math notranslate nohighlight">\(\mathbf{x}_i\)</span> is on the polar of
+<span class="math notranslate nohighlight">\(\mathbf{y}\)</span>.  Thus, the polar of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> is the line
+<span class="math notranslate nohighlight">\(\mathbf{m}\)</span> that goes through points
+<span class="math notranslate nohighlight">\(\mathbf{x}_1\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}_2\)</span> i.e.</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{m} = \mathbf{x}_1 \times \mathbf{x}_2 = \mathbf{C} \mathbf{y}.\]</div>
+</div>
+<div class="section" id="(vii)-Conics">
+<h2>(vii) Conics<a class="headerlink" href="#(vii)-Conics" title="Permalink to this headline">¶</a></h2>
+<p><a class="bibtex reference internal" href="#richter2011perspectives" id="id5">[RG11]</a> presents in definition 9.3 a more general method
+of determining internal and external points with respect to a conic.</p>
+<blockquote>
+<div><p>For a <span class="math notranslate nohighlight">\(3 \times 3\)</span> symmetric matrix <span class="math notranslate nohighlight">\(\mathbf{C}\)</span> with
+<span class="math notranslate nohighlight">\(\det \mathbf{C} \neq 0\)</span>, a point <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is inside the
+conic if the conic does not intersect the polar of <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>.  If
+the polar intersects the conic in two (real) points, then the point
+<span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is outside the conic.</p>
+</div></blockquote>
+</div>
+<div class="section" id="(viii)-Dual-Conics">
+<h2>(viii) Dual Conics<a class="headerlink" href="#(viii)-Dual-Conics" title="Permalink to this headline">¶</a></h2>
+<p>Recall that if <span class="math notranslate nohighlight">\(\mathbf{l} = \mathbf{x} \times \mathbf{y}\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[\left[ \mathbf{l} \right]_\times =
+\mathbf{y} \mathbf{x}^\top - \mathbf{x} \mathbf{y}^\top.\]</div>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> denote the points at which line
+<span class="math notranslate nohighlight">\(\mathbf{l}\)</span> intersects the conic <span class="math notranslate nohighlight">\(\mathbf{C}\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{C}^* =
+\left[ \mathbf{l} \right]_\times \mathbf{C} \left[ \mathbf{l} \right]_\times
+ &amp;= \left( \mathbf{y} \mathbf{x}^\top - \mathbf{x} \mathbf{y}^\top \right)
+    \mathbf{C}
+    \left( \mathbf{y} \mathbf{x}^\top - \mathbf{x} \mathbf{y}^\top \right)\\
+ &amp;= \mathbf{y} \mathbf{x}^\top \mathbf{C} \mathbf{y} \mathbf{x}^\top -
+    \mathbf{y} \mathbf{x}^\top \mathbf{C} \mathbf{x} \mathbf{y}^\top -
+    \mathbf{x} \mathbf{y}^\top \mathbf{C} \mathbf{y} \mathbf{x}^\top +
+    \mathbf{x} \mathbf{y}^\top \mathbf{C} \mathbf{x} \mathbf{y}^\top\\
+ &amp;= \mathbf{y} \mathbf{x}^\top \mathbf{C} \mathbf{y} \mathbf{x}^\top +
+    \mathbf{x} \mathbf{y}^\top \mathbf{C} \mathbf{x} \mathbf{y}^\top
+    &amp; \quad &amp; (2.2)\\
+ &amp;= \alpha \mathbf{y} \mathbf{x}^\top + \alpha \mathbf{x} \mathbf{y}^\top
+    \quad \text{where} \quad
+    \alpha = \mathbf{x}^\top \mathbf{C} \mathbf{y} =
+      \mathbf{y}^\top \mathbf{C} \mathbf{x}.\end{split}\]</div>
+<p>The rank of <span class="math notranslate nohighlight">\(\mathbf{C}^*\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\text{rank}(\mathbf{C}^*) =
+\text{rank}(\mathbf{y} \mathbf{x}^\top + \mathbf{x} \mathbf{y}^\top) \leq
+\text{rank}(\mathbf{y} \mathbf{x}^\top) +
+  \text{rank}(\mathbf{x} \mathbf{y}^\top) = 1 + 1 = 2.\]</div>
+<p>Applying the duality principle (result 2.6) to the definition of degenerate
+conics shows that <span class="math notranslate nohighlight">\(\mathbf{C}^*\)</span> is a dual conic.</p>
+</div>
+<div class="section" id="(ix)-Special-Projective-Transformations">
+<h2>(ix) Special Projective Transformations<a class="headerlink" href="#(ix)-Special-Projective-Transformations" title="Permalink to this headline">¶</a></h2>
+<p><a class="bibtex reference internal" href="#schreiber2013reflections" id="id6">[Sch13]</a> has a much better exposition on the concept of
+harmonic homology (see definition 2.2, Figure 6, Section 7).</p>
+<p>When the points are related by a finite rotational symmetry of order <span class="math notranslate nohighlight">\(n\)</span>,
+each point is on an axis of reflection.  Let <span class="math notranslate nohighlight">\(\mathbf{a}_i\)</span> denote an axis
+of reflection in homogeneous coordinates with unit length.  For each consecutive
+pair of axes <span class="math notranslate nohighlight">\((i, j)\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{a}_i \times \mathbf{a}_j = \mathbf{c} = \mathbf{n} \sin \theta
+\quad \land \quad
+\mathbf{a}_i^\top \mathbf{a}_j = \cos \theta\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{c}\)</span> is the center of rotation,
+<span class="math notranslate nohighlight">\(\theta = \frac{360}{n}\)</span> is the angle between the axes, and
+<span class="math notranslate nohighlight">\(\mathbf{n}\)</span> is the axis of rotation.</p>
+<p>The corresponding reflection matrix for each axis is</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{H}_i = \mathbf{I} - 2 \mathbf{a}_i \mathbf{a}_i^\top.\]</div>
+<p>By inspection, <span class="math notranslate nohighlight">\(\mathbf{H}_i = \mathbf{H}_i^\top\)</span> and
+<span class="math notranslate nohighlight">\(\mathbf{H}_i \mathbf{H}_i^\top =
+\mathbf{H}_i^\top \mathbf{H}_i = \mathbf{I}\)</span>.  Observe that the product of any
+two reflection matrix is a rotation matrix because</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{H}_i \mathbf{H}_j \left( \mathbf{H}_i \mathbf{H}_j \right)^\top =
+\mathbf{H}_i \mathbf{H}_j \mathbf{H}_j^\top \mathbf{H}_i^\top =
+\mathbf{H}_i \mathbf{H}_i^\top =
+\mathbf{I}.\]</div>
+<p>The angle of a rotation matrix can be computed according to <a class="bibtex reference internal" href="#haberph216" id="id7">[Hab]</a></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\text{tr}\left( \mathbf{H}_i \mathbf{H}_j \right)
+ &amp;= \text{tr}\left(
+      \mathbf{I} - 2 \mathbf{a}_i \mathbf{a}_i^\top -
+      2 \mathbf{a}_j \mathbf{a}_j^\top +
+      4 \mathbf{a}_i \mathbf{a}_i^\top \mathbf{a}_j \mathbf{a}_j^\top
+    \right)\\
+1 + 2 \cos \phi
+ &amp;= 3 - 2 - 2 + 4 \cos^{2} \theta\\
+\cos \phi &amp;= -1 + 2 \cos^{2} \theta\\
+ &amp;= \cos 2 \theta &amp; \quad &amp; \text{double-angle formula}.\end{split}\]</div>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{R} = \mathbf{H}_i \mathbf{H}_j\)</span> denote a rotation formed by
+any consecutive pair of reflections.  Recall that repeatedly applying the same
+rotation is equivalent to a single rotation representing the sum of the angles.</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{R}^n \implies n \phi = n \cdot 2 \theta = 2n \frac{360}{n} = 720.\]</div>
+<p>Lastly, the center of rotation is an eigenvector because</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{R} \mathbf{c} =
+\mathbf{H}_i \mathbf{H}_j \mathbf{c} =
+\mathbf{H}_i \mathbf{c} =
+\mathbf{c}.\]</div>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-nb/multiple-view-geometry-hz/chapter-02-0"><dl class="citation">
+<dt class="bibtex label" id="abdof"><span class="brackets"><a class="fn-backref" href="#id1">Bae</a></span></dt>
+<dd><p>Andreas Baerentzen. Degrees of freedom. <span><a class="reference external" href="#"></a></span>http://www.imm.dtu.dk/ janba/DOF.pdf. Accessed on 2016-12-09.</p>
+</dd>
+<dt class="bibtex label" id="haberph216"><span class="brackets"><a class="fn-backref" href="#id7">Hab</a></span></dt>
+<dd><p>Howard Haber. Three-dimensional rotation matrices. <span><a class="reference external" href="#"></a></span>http://scipp.ucsc.edu/ haber/ph216/rotation_12.pdf. Accessed on 2017-01-27.</p>
+</dd>
+<dt class="bibtex label" id="richter2011perspectives"><span class="brackets">RG11</span><span class="fn-backref">(<a href="#id4">1</a>,<a href="#id5">2</a>)</span></dt>
+<dd><p>Jürgen Richter-Gebert. <em>Perspectives on projective geometry: a guided tour through real and complex geometry</em>. Springer Science &amp; Business Media, 2011.</p>
+</dd>
+<dt class="bibtex label" id="schreiber2013reflections"><span class="brackets"><a class="fn-backref" href="#id6">Sch13</a></span></dt>
+<dd><p>John Schreiber. <em>Reflections and Their Images</em>. PhD thesis, Franklin &amp; Marshall College, 2013.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/nb/multiple-view-geometry-hz/chapter-02.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

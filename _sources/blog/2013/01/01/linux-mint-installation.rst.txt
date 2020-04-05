@@ -1,0 +1,205 @@
+#######################
+Linux Mint Installation
+#######################
+
+Set Linux Swap Space to Zero
+============================
+
+#. During the :guilabel:`Installation type` step,
+   select :guilabel:`Something else`.
+
+#. Click :guilabel:`New Partition Table...`.
+
+   #. Set :guilabel:`Type for the new partition` to :guilabel:`Primary`.
+
+   #. Set :guilabel:`Use as` to :guilabel:`Ext4 journaling file system`.
+
+   #. Select :guilabel:`/` for :guilabel:`Mount point`.
+
+#. Make sure the :guilabel:`Format` box is checkmarked before continuing with
+   installation.
+
+After finishing the installation, run
+
+.. code:: bash
+
+   sudo sysctl -w vm.swappiness=0
+   echo 'vm.swappiness=0' | sudo tee -a /etc/sysctl.conf
+
+Linux Mint Cinnamon as VMware Workstation Player Guest OS
+=========================================================
+
+`open-vm-tools`_ is required to make the UI more human-usable.
+
+.. code:: bash
+
+   sudo apt-get install open-vm-tools open-vm-tools-desktop
+
+.. _open-vm-tools: https://github.com/vmware/open-vm-tools
+
+In order to access the VMware shared folders,
+`VMware Tools needs to be patched`_.
+
+.. code:: bash
+
+   sudo apt-get install git
+   git clone https://github.com/rasa/vmware-tools-patches.git
+   cd vmware-tools-patches
+   sudo ./patched-open-vm-tools.sh
+
+.. _VMware Tools needs to be patched: https://github.com/rasa/vmware-tools-patches/
+
+After rebooting, the shared folders should now appear under :file:`/mnt/hgfs`.
+
+If the back mouse button is not working, shut down the VM and modify
+:file:`<path-to-virtual-matchine>/<virtual-machine>.vmx` to include
+
+.. code:: bash
+
+   mouse.vusb.enable = "TRUE"
+   mouse.vusb.useBasicMouse = "FALSE"
+   usb.generic.allowHID = "TRUE"
+
+preload
+=======
+
+Behdad Esfahbod's :program:`preload` program records statistics about the usage
+of programs using Markov chains.  Files of frequently-used programs are loaded
+into memory when the computer is idle; this results in faster startup times.
+
+.. code:: bash
+
+   sudo apt-get install preload
+
+cURL
+====
+
+:program:`cURL` is compute software project providing a library and command-line
+tool for transferring data using various protocols.
+
+.. code:: bash
+
+   sudo apt-get install curl
+
+DjView
+======
+
+This is a DjVu viewer with search capability.
+
+.. code:: bash
+
+   sudo apt-get install djview4
+
+Meld
+====
+
+This is a visual diff and merge tool for developers.
+
+.. code:: bash
+
+   sudo apt-get install meld
+
+xclip
+=====
+
+This command enables piping to the system clipboard.
+
+.. code:: bash
+
+   sudo apt-get install xclip
+   cat <file> | xclip -selection clipboard
+
+Autocomplete Terminal Shell
+===========================
+
+To add command-line history auto-completion to the terminal shell, add the
+following to :file:`~/.inputrc` (which has been copied from `here`_ because it
+is that important):
+
+.. include:: _inputrc
+   :code: bash
+
+.. _here: https://sites.google.com/site/simonegasparini/Home/miscellanea
+
+RAM Drive
+=========
+
+The default Linux Mint settings mounts :file:`/run` as a ram drive, which
+greatly enhances the performance of the system.  The following achieves the same
+thing with :file:`/tmp`.
+
+.. code:: bash
+
+   echo 'none /tmp tmpfs defaults 0 0' | sudo tee -a /etc/fstab
+
+Change Default Linux Directories
+================================
+
+If the following are not done, the default Linux settings will wipe out any
+changes to :file:`~/.config/user-dirs.dirs` each time the computer restarts.
+
+.. code:: bash
+
+   cat /etc/xdg/user-dirs.conf > ~/.config/user-dirs.conf
+   sed -i 's/enabled=True/enabled=False/g' ~/.config/user-dirs.conf
+
+Enable Secure Shell (SSH)
+=========================
+
+.. code:: bash
+
+   sudo ufw enable
+   sudo apt-get install openssh-server
+   sudo apt-get install gufw
+
+Mount Windows share on Linux
+============================
+
+.. code:: bash
+
+   sudo apt-get install cifs-utils
+   sudo mount -t cifs -o username=<your_name> //<ip_windows_share>/<folder_name> <local_folder>
+   sudo umount -t cifs -l <local_folder>
+
+Mount Windows share on VirtualBox Guest Linux OS
+================================================
+
+.. code:: bash
+
+   sudo mount -t vboxsf <Share Folder> <local folder>
+
+Linux Mint Cinnamon Edition as VirtualBox Guest OS
+==================================================
+
+After a system update and restart, the login may take a really long time; when
+it does finish, the following error message may appear
+
+.. code:: bash
+
+   Cinnamon just crashed, you are currently running in Fallback Mode Restart Cinnamon?
+
+One fix is to disable :guilabel:`3D Acceleration` under :guilabel:`Display`,
+install :guilabel:`Guest Additions`, and re-enable the
+:guilabel:`3D Acceleration`.
+
+Miscellanea
+===========
+
+- If :command:`apt-get` fails to locate any packages, rebuild the package index
+  cache.
+
+  .. code:: bash
+
+     sudo rm -rv /var/lib/apt/lists/*
+     sudo apt-get update
+
+- Enable :guilabel:`Do Not Track` in browsers and install
+  :program:`Privacy Badger`.
+- Change preferences of :program:`xed`.
+- Change background image.
+- Adjust power settings and screensaver.
+- Configure the clock :guilabel:`%I:%M:%S %p`.
+- Specify :menuselection:`System Settings --> Preferred Applications`.
+- Add or remove programs from the start menu's :guilabel:`Favorites Bar`.
+- Check :menuselection:`All Settings --> Sound --> Hardware` if there are no
+  sound when playing a video.

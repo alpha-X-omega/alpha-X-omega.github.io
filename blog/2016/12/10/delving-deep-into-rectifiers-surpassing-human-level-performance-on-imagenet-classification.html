@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Least-Squares Estimation of Transformation Parameters Between Two Point Sets" href="../09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html" />
+    <link rel="prev" title="Optimal Step Nonrigid ICP Algorithms for Surface Registration" href="../11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a><ul>
+<li><a class="reference internal" href="#motivation-s">Motivation(s)</a></li>
+<li><a class="reference internal" href="#proposed-solution-s">Proposed Solution(s)</a></li>
+<li><a class="reference internal" href="#evaluation-s">Evaluation(s)</a></li>
+<li><a class="reference internal" href="#future-direction-s">Future Direction(s)</a></li>
+<li><a class="reference internal" href="#question-s">Question(s)</a></li>
+<li><a class="reference internal" href="#analysis">Analysis</a></li>
+<li><a class="reference internal" href="#notes">Notes</a><ul>
+<li><a class="reference internal" href="#natural-gradient">Natural Gradient</a></li>
+<li><a class="reference internal" href="#fisher-information-matrix">Fisher Information Matrix</a></li>
+<li><a class="reference internal" href="#forward-propagation-of-variance">Forward Propagation of Variance</a></li>
+<li><a class="reference internal" href="#backward-propagation-of-variance">Backward Propagation of Variance</a></li>
+<li><a class="reference internal" href="#variance-of-min-a-w">Variance of <span class="math notranslate nohighlight">\(\min(a, W)\)</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html" title="Previous Chapter: Optimal Step Nonrigid ICP Algorithms for Surface Registration"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Optimal Step ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html" title="Next Chapter: Least-Squares Estimation of Transformation Parameters Between Two Point Sets"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Least-Squares... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification">
+<h1>Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification<a class="headerlink" href="#delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="motivation-s">
+<h2>Motivation(s)<a class="headerlink" href="#motivation-s" title="Permalink to this headline">¶</a></h2>
+<p>Improvements in visual recognition performance are mainly due to advances in
+building more powerful models and designing effective strategies against
+overfitting.  Among these advances, the Rectifier Linear Unit (ReLU) have been
+shown to expedit convergence of the training procedure towards better solutions.
+Despite its widespread use, theoretical guidelines for training them have rarely
+focused on the properties of the rectifiers.  Unlike traditional sigmoid-like
+units, ReLu is an asymmetric function.  Hence the distributions of responses can
+be asymmetric even if the inputs/weights are subject to symmetric distributions.</p>
+</div>
+<div class="section" id="proposed-solution-s">
+<h2>Proposed Solution(s)<a class="headerlink" href="#proposed-solution-s" title="Permalink to this headline">¶</a></h2>
+<p>The authors propose an activation function that adaptively learns the parameters
+of the rectifiers.  They call it Parametric Rectifier Linear Unit (PReLu):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(y_i) =
+\max(0, y_i) + a_i \min(0, y_i) =
+\begin{cases}
+  y_i &amp; \text{if } y_i &gt; 0\\
+  a_i y_i &amp; \text{otherwise}
+\end{cases}.\end{split}\]</div>
+<p>Here <span class="math notranslate nohighlight">\(y_i\)</span> is the input of the nonlinear activation <span class="math notranslate nohighlight">\(f\)</span> on the
+<span class="math notranslate nohighlight">\(i\text{th}\)</span> channel, and <span class="math notranslate nohighlight">\(a_i\)</span> is a learnable parameter controlling
+the slope of the negative part.</p>
+<p>PReLU introduces <span class="math notranslate nohighlight">\(C\)</span> extra parameters at each layer where <span class="math notranslate nohighlight">\(C\)</span> is the
+total number of channels.  If the coefficient is shared across channels, each
+layer only needs a single extra parameter.</p>
+<p>The gradient of <span class="math notranslate nohighlight">\(a_i\)</span> for one layer is</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial \mathcal{E}}{\partial a_i} =
+\sum_{y_i} \frac{\partial \mathcal{E}}{\partial f(y_i)}
+           \frac{\partial f(y_i)}{\partial a_i}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathcal{E}\)</span> represents the objective function,
+<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{E}}{\partial f(y_i)}\)</span> is the gradient propagated
+from the deeper layer, and the gradient of the activation function is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial f(y_i)}{\partial a_i} =
+\begin{cases}
+  0 &amp; \text{if } y_i &gt; 0\\
+  y_i &amp; \text{otherwise}
+\end{cases}.\end{split}\]</div>
+<p>For the channel-shared variant, the gradient of <span class="math notranslate nohighlight">\(a\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial \mathcal{E}}{\partial a} =
+\sum_i \sum_{y_i} \frac{\partial \mathcal{E}}{\partial f(y_i)}
+                  \frac{\partial f(y_i)}{\partial a}.\]</div>
+<p>In order to train very deep networks, the authors proposed an initialization
+method that does not assume the activations are linear.  The previous
+initialization method <a class="bibtex reference internal" href="../../11/09/efficient-backprop.html#glorot2010understanding" id="id1">[GB10]</a> completely stalls the
+learning in extremely deep models because its heuristics did not handle the
+activation function’s nonlinearity.</p>
+</div>
+<div class="section" id="evaluation-s">
+<h2>Evaluation(s)<a class="headerlink" href="#evaluation-s" title="Permalink to this headline">¶</a></h2>
+<p>The authors analyzed the effects of applying ReLu/PReLU by computing the FIM.
+However, their analysis only holds for a two-layer MLP whose elements have
+independent zero-mean Gaussian distributions.  The claim for faster convergence
+in general was verified empirically.  To verify that the slope <span class="math notranslate nohighlight">\(a\)</span> in
+PReLU can offset the positive mean of ReLU, they looked at the mean response of
+each layer.</p>
+<p>Initial experiments reveal that the learned coefficients rarely have a magnitude
+larger than <span class="math notranslate nohighlight">\(1\)</span>, so the authors chose to initialize <span class="math notranslate nohighlight">\(a_i = 0.25\)</span>.
+The momentum method is used to update <span class="math notranslate nohighlight">\(a_i\)</span> without weight decay
+(<span class="math notranslate nohighlight">\(l_2\)</span> regularization) because weight decay tends to push <span class="math notranslate nohighlight">\(a_i\)</span>
+towards zero resulting in a bias towards ReLU.  The results demonstrate that
+PReLu consistently outperforms ReLU by 1%.  However, the channel-shared variant
+had similar accuracy compared to the channel-wise version.</p>
+<p>The authors present a variation of VGG that surpassed human level recognition on
+the 1000-class ImageNet 2012 dataset.  Instead of initializing a deeper model
+using a shallower one, they directly trained a deep model end-to-end using the
+principled initialization method to handle the diminishing gradient of deeper
+models.  Their deep and wide model did not need to use batch normalization.</p>
+<p>One outstanding issue is their model still makes mistakes in cases that are not
+difficult for humans, especially for those requiring contextual understanding or
+high-level knowledge.</p>
+</div>
+<div class="section" id="future-direction-s">
+<h2>Future Direction(s)<a class="headerlink" href="#future-direction-s" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Since the deeper conv layers of the channel-wise version have overall smaller
+coefficients, is there a network configuration with ReLU that can match
+PReLU’s performance?</p></li>
+<li><p>What are some indicators of when to increase depth over width?</p></li>
+<li><p>Given the quantity of how much batch normalization slows down training and
+inference, how much of that can be spent on making a network deeper and
+wider?</p></li>
+<li><p>For the ReLUs that have died off, would relearning them at some random weight
+lead to a better model while keeping the converged weights fixed?</p></li>
+<li><p>How do the mean and variance of each layer compare between greedy layer-wise
+training and end-to-end training?</p></li>
+<li><p>Would relearning the layers with poorly initialized weights yield
+improvements?</p></li>
+</ul>
+</div>
+<div class="section" id="question-s">
+<h2>Question(s)<a class="headerlink" href="#question-s" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Why didn’t they reproduce the original VGG and use that as a baseline?</p></li>
+</ul>
+</div>
+<div class="section" id="analysis">
+<h2>Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">¶</a></h2>
+<p>The blueprint of the initialization method that enables end-to-end training of
+deep models is more valuable than PReLU because there is no proof that PReLU
+is the most optimal activation function, which means custom initialization
+methods are needed per activation function.</p>
+<p>The paper would be more interesting if the authors explored whether their
+initialization method would matter in greedy layer-wise training.  They claimed
+their end-to-end training may help improve accuracy, but did not back it up with
+solid evidence.</p>
+<p>The analysis of how PReLU may affect training is largely based on
+<a class="bibtex reference internal" href="#raiko2012deep" id="id2">[RVL12]</a>.  <a class="bibtex reference internal" href="#raiko2012deep" id="id3">[RVL12]</a> used linear transformations to
+push non-diagonal terms of the FIM closer to zero so that a natural gradient is
+obtained.  The intuition behind this is to make the nonlinear mapping as
+separate as possible from the linear mapping, which is modelled using shortcut
+connection weights.  A later work <a class="bibtex reference internal" href="#vatanen2013pushing" id="id4">[VRVL13]</a> proposed adding a
+unit variance transformation in order to push the FIM closer to a unit matrix
+(apart from its scale).  Unfortunately, the additional constraint of unit
+variance did not do much for the added complexity.</p>
+<p>PReLU supercedes Leaky ReLU (LReLU) because it is more general and supported by
+theoretical analysis instead of just empirical results
+<a class="bibtex reference internal" href="#maas2013rectifier" id="id5">[MHN13]</a>.  The goal of both rectifiers are the same: avoid zero
+gradients.  However, the experiments indicate LReLU has negligible impact on
+accuracy compared with ReLU.  Regardless, the benefits of PReLU over ReLU should
+not be overemphasized when the improvements were barely noticeable at the cost
+of one additional parameter.</p>
+<p>Two interesting properties ReLUs exhibit are translation equivariance and
+intensity equivariance, provided the units have zero biases and are noise-free.
+Attaining equivariance enables the hidden representation to vary in the same way
+as the image.  For an empirical analysis and motivation of the original Noisy
+Rectified Linear Unit, see <a class="bibtex reference internal" href="#nair2010rectified" id="id6">[NH10]</a>.</p>
+<p>As an aside, <a class="bibtex reference internal" href="../../11/15/maxout-networks.html#glorot2011deep" id="id7">[GBB11]</a> empirically verifies the sparsity induced by
+ReLUs and presents the results grandiloquently.  It can be summarized succinctly
+as neuroscience studies on brain energy expense suggest that neurons encode
+information in a sparse and distributed way, estimating the percentage of
+neurons active at the same time to be between 1% and 4%.</p>
+<p>Since the Xavier initialization method has been displaced, the only useful
+information from the original paper <a class="bibtex reference internal" href="../../11/09/efficient-backprop.html#glorot2010understanding" id="id8">[GB10]</a> are the
+experimental results on activations and gradients across layers and training
+iterations, all of which are summarized in the figures.  Lastly, compared to
+<a class="bibtex reference internal" href="#he2015delving" id="id9">[HZRS15]</a>, its analysis of variance propagation is just not as
+concise and lucid.</p>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="natural-gradient">
+<h3>Natural Gradient<a class="headerlink" href="#natural-gradient" title="Permalink to this headline">¶</a></h3>
+<p>The stochastic gradient method is most useful for parameter estimation when the
+cost functions</p>
+<ol class="lowerroman simple">
+<li><p>have a single optimum, and</p></li>
+<li><p>the gradients are isotropic in magnitude with respect to any direction
+away from this optimum.</p></li>
+</ol>
+<p>However, in many cases where the parameter space has a Riemannian metric
+structure, the ordinary gradient does not give the steepest direction of a
+target function.  In such a case (e.g. multilayer perceptron), the steepest
+direction is given by the natural (contravariant) gradient
+<a class="bibtex reference internal" href="#amari1998whyng" id="id10">[AD98]</a>.  <a class="bibtex reference internal" href="#amari1998ngl" id="id11">[Ama98]</a> shows that the natural gradient
+update may be preferable to Newton’s method, which is invariant only to affine
+coordinate transformations, when inverting the Fisher Information Matrix (FIM)
+is acceptable.</p>
+</div>
+<div class="section" id="fisher-information-matrix">
+<h3>Fisher Information Matrix<a class="headerlink" href="#fisher-information-matrix" title="Permalink to this headline">¶</a></h3>
+<p>The FIM is defined as</p>
+<div class="math notranslate nohighlight">
+\[\newcommand{\E}[1]{\operatorname{E}\left[#1\right]}
+\newcommand{\Cov}[1]{\operatorname{Cov}\left(#1\right)}
+\mathcal{I}(\theta) =
+\E{\nabla l(\theta) \otimes \nabla^\top l(\theta)} =
+\Cov{\nabla l(\theta)} =
+-\E{\nabla \nabla^\top l(\theta)}\]</div>
+<p>where <span class="math notranslate nohighlight">\(l(\theta) = \log p(X; \theta)\)</span> is the log-likelihood function
+<a class="bibtex reference internal" href="#zhengficrb" id="id12">[Zhe]</a><a class="bibtex reference internal" href="#wittmannfimb" id="id13">[Wit]</a>.  FIM also naturally arises when taking a
+second-order Taylor approximation of the Kullback-Leibler divergence
+<a class="bibtex reference internal" href="#abbeel2009cs287arng" id="id14">[Abb]</a>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}p(X; \theta) \parallel p(X; \theta + \delta \theta)
+ &amp;= \sum_x p(x; \theta) \log p(x; \theta) -
+           p(x; \theta) \log p(x; \theta + \delta \theta)\\
+ &amp;\approx
+    \sum_x p(x; \theta) \log p(x; \theta) -
+           p(x; \theta) \left(
+             \log p(x; \theta) +
+             \nabla \log p(x; \theta) \cdot \delta \theta +
+             \frac{1}{2} (\delta \theta)^\top
+                         \nabla \nabla^\top \log p(x; \theta)
+                         (\delta \theta)
+           \right)
+    &amp; \quad &amp; \text{Taylor expansion of }
+              \log p(x; \theta + \delta \theta) \text{ at } \theta\\
+ &amp;= -\sum_x p(x; \theta) \left(
+              \frac{\nabla p(x; \theta) \cdot \delta \theta}{p(x; \theta)}
+            \right) +
+            p(x; \theta) \frac{1}{2} (\delta \theta)^\top \nabla
+              \frac{\nabla^\top p(x; \theta)}{p(x; \theta)} (\delta \theta)\\
+ &amp;= -\left( \nabla \sum_x p(x; \theta) \right)^\top \delta \theta -
+    \frac{1}{2} (\delta \theta)^\top
+      \left(
+        \sum_x p(x; \theta)
+               \frac{
+                 p(x; \theta) \nabla \nabla^\top p(x; \theta) -
+                 \nabla p(x; \theta) \nabla^\top p(x; \theta)
+               }{
+                 p(x; \theta) p(x; \theta)
+               }
+      \right) (\delta \theta)
+    &amp; \quad &amp; \text{Quotient rule in vector notation}\\
+ &amp;= -\left( \nabla 1 \right)^\top \delta \theta -
+    \frac{1}{2} (\delta \theta)^\top
+      \left(
+        \nabla \nabla^\top \sum_x p(x; \theta)
+      \right) (\delta \theta) +
+    \frac{1}{2} (\delta \theta)^\top
+      \left(
+        \sum_x p(x; \theta)
+               \frac{\nabla p(x; \theta)}{p(x; \theta)}
+               \frac{\nabla^\top p(x; \theta)}{p(x; \theta)}
+      \right) (\delta \theta)\\
+ &amp;= -\frac{1}{2} (\delta \theta)^\top
+      \left(
+        \nabla \nabla^\top 1
+      \right) (\delta \theta) +
+    \frac{1}{2} (\delta \theta)^\top
+      \left(
+        \sum_x p(x; \theta)
+               \nabla \log p(x; \theta) \otimes \nabla^\top \log p(x; \theta)
+      \right) (\delta \theta)\\
+ &amp;= \frac{1}{2} (\delta \theta)^\top
+      \left(
+        \sum_x p(x; \theta)
+               \nabla l(\theta) \otimes \nabla^\top l(\theta)
+      \right) (\delta \theta)\\
+ &amp;= \frac{1}{2} (\delta \theta)^\top \mathcal{I}(\theta) \delta \theta.\end{split}\]</div>
+</div>
+<div class="section" id="forward-propagation-of-variance">
+<h3>Forward Propagation of Variance<a class="headerlink" href="#forward-propagation-of-variance" title="Permalink to this headline">¶</a></h3>
+<p>For the purposes of examining the variance of the responses in each layer,
+suppose the response for a layer <span class="math notranslate nohighlight">\(l\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{y}_l = \mathbf{W}_l \mathbf{x}_l + \mathbf{b}_l.\]</div>
+<p>For a convolutional layer, <span class="math notranslate nohighlight">\(\mathbf{x} \in \mathbb{R}^{k^2 c \times 1}\)</span>
+represents co-located <span class="math notranslate nohighlight">\(k \times k\)</span> pixels in <span class="math notranslate nohighlight">\(c\)</span> input channels.
+<span class="math notranslate nohighlight">\(k\)</span> is the spatial filter size of the layer.  Given <span class="math notranslate nohighlight">\(n = k^2 c\)</span> is
+the number of connections of a response, <span class="math notranslate nohighlight">\(\mathbf{W}\)</span> is a
+<span class="math notranslate nohighlight">\(d \times n\)</span> where <span class="math notranslate nohighlight">\(d\)</span> is the number of filters and each row of
+<span class="math notranslate nohighlight">\(\mathbf{W}\)</span> represents the weights of a filter.  <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is a
+vector of biases, and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> is the response at a pixel of the
+output map.  In general, <span class="math notranslate nohighlight">\(c_l = d_{l - 1}\)</span> and
+<span class="math notranslate nohighlight">\(\mathbf{x}_l = f(\mathbf{y}_{l - 1})\)</span> where <span class="math notranslate nohighlight">\(f\)</span> is the activation
+function.</p>
+<p>The following variance properties are implicitly used in the authors’
+derivations.  Let <span class="math notranslate nohighlight">\(X, Y\)</span> denote random variables that are independent and
+identically distributed (i.i.d.) and <span class="math notranslate nohighlight">\(a\)</span> be any scalar value.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\newcommand{\Var}[1]{\operatorname{Var}\left[#1\right]}
+\Var{X} &amp;= \Cov{X, X}
+         = \E{\left( X - \E{X} \right)^2}
+         = \E{X^2} - \E{X}^2\\
+\Var{X + a} &amp;= \Var{X}\\
+\Var{aX} &amp;= \Var{X}\\
+\Var{\sum_i a_i X_i}
+ &amp;= \sum_{i, j} a_i a_j \Cov{X_i, X_j}
+  = \sum_i a_i^2 \Var{X_i} + \sum_{i \neq j} a_i a_j \Cov{X_i, X_j}\\
+\Var{XY} &amp;= \E{X}^2 \Var{Y} + \E{Y}^2 \Var{X} + \Var{X} \Var{Y}
+          = \E{X^2} \E{Y^2} - \E{X}^2 \E{Y}^2\end{split}\]</div>
+<p>Let the elements in <span class="math notranslate nohighlight">\(\mathbf{W}_l\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}_l\)</span> be i.i.d., and
+<span class="math notranslate nohighlight">\(\mathbf{W}_l\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}_l\)</span> are independent of each other.
+Let <span class="math notranslate nohighlight">\(y_l, w_l, x_l\)</span> represent the random variables of each element in
+<span class="math notranslate nohighlight">\(\mathbf{y}_l\)</span>, <span class="math notranslate nohighlight">\(\mathbf{W}_l\)</span>, and <span class="math notranslate nohighlight">\(\mathbf{x}_l\)</span>
+respectively.  Together these assumptions give (8)</p>
+<div class="math notranslate nohighlight">
+\[\Var{y_l} = n_l \Var{w_l x_l},\]</div>
+<p>which reduces to (9)</p>
+<div class="math notranslate nohighlight">
+\[\Var{y_l} = n_l \Var{w_l} \E{x_l^2}\]</div>
+<p>when <span class="math notranslate nohighlight">\(w_l\)</span> have zero mean.  Recall that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\newcommand{\Pr}[1]{\operatorname{Pr}\left(#1\right)}
+\Var{x_l}
+ &amp;= \E{x_l^2} - \E{x_l}^2\\
+ &amp;= \E{f(y_{l - 1})^2} - \E{f(y_{l - 1})}^2
+    &amp; \quad &amp; \text{ReLU activation function}\\
+ &amp;= \Var{\max(0, y_{l - 1})}\\
+ &amp;\leq \Var{y_{l - 1}}
+       &amp; \quad &amp; \text{see proof in the last section.}\end{split}\]</div>
+<p>This upper bound is not tight, so the corresponding recurrence relation would
+reduce or magnify the magnitudes of input signals exponentially.  To make this
+bound more reasonable, the authors assume <span class="math notranslate nohighlight">\(y_{l - 1}\)</span> has zero mean and a
+symmetric distribution around zero.  Consequently,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Var{y_L} &amp;= n_L \Var{w_L} \E{x_L^2}\\
+ &amp;= \frac{1}{2} n_L \Var{w_L} \Var{y_{L - 1}}
+    &amp; \quad &amp; \E{x_L^2} = \frac{1}{2} \Var{y_{L - 1}}\\
+ &amp;= \Var{y_1} \prod_{i = 2}^L \frac{1}{2} n_l \Var{w_l}.\end{split}\]</div>
+<p>The authors chose to enforce the statistical properties of <span class="math notranslate nohighlight">\(y_{l - 1}\)</span> by
+initializing each layer to satisfy</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{2} n_l \Var{w_l} = 1
+\quad \text{and} \quad
+\boldsymbol{b}_l = 0.\]</div>
+<p>Carrying out the same analysis for PReLU yields</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{2} \left( 1 + a^2 \right) n_l \Var{w_l} = 1.\]</div>
+</div>
+<div class="section" id="backward-propagation-of-variance">
+<h3>Backward Propagation of Variance<a class="headerlink" href="#backward-propagation-of-variance" title="Permalink to this headline">¶</a></h3>
+<p>An alternative initialization can be derived by examining the backpropagation
+signals.  Recall that</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial \varepsilon}{\partial y_{l, i}} =
+\frac{\partial f(y_{l, i})}{\partial y_{l, i}}
+  \frac{\partial \varepsilon}{\partial f(y_{l, i})} =
+f'(y_{l, i}) \frac{\partial \varepsilon}{\partial x_{l + 1, i}}
+\implies
+\frac{\partial \varepsilon}{\partial \mathbf{y}_l} =
+f'(\mathbf{y}_l) \circ
+  \frac{\partial \varepsilon}{\partial \mathbf{x}_{l + 1}}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial \varepsilon}{\partial x_{l + 1, j}} =
+\sum_{i = 1}^{\hat{n}_{l + 1}}
+  \frac{\partial y_{l + 1, i}}{\partial x_{l + 1, j}}
+  \frac{\partial \varepsilon}{\partial y_{l + 1, i}} =
+\sum_{i = 1}
+  W_{l + 1, (i, j)} \frac{\partial \varepsilon}{\partial y_{l + 1, i}}
+\implies
+\frac{\partial \varepsilon}{\partial \mathbf{x}_{l + 1}} =
+\hat{\mathbf{W}}_{l + 1}
+  \frac{\partial \varepsilon}{\partial \mathbf{y}_{l + 1}}.\]</div>
+<p>Denote the gradients as
+<span class="math notranslate nohighlight">\(\Delta \mathbf{x} = \frac{\partial \varepsilon}{\partial \mathbf{x}}\)</span> and
+<span class="math notranslate nohighlight">\(\Delta \mathbf{y} = \frac{\partial \varepsilon}{\partial \mathbf{y}}\)</span>.
+Here <span class="math notranslate nohighlight">\(\hat{n} = k^2 d\)</span>, and <span class="math notranslate nohighlight">\(\Delta \mathbf{y}\)</span> represents
+<span class="math notranslate nohighlight">\(k \times k\)</span> pixels in <span class="math notranslate nohighlight">\(d\)</span> channels.  <span class="math notranslate nohighlight">\(\hat{\mathbf{W}}\)</span> is a
+<span class="math notranslate nohighlight">\(c \times \hat{n}\)</span> matrix.  <span class="math notranslate nohighlight">\(\Delta \mathbf{x}\)</span> is a
+<span class="math notranslate nohighlight">\(c \times 1\)</span> vector representing the gradient at a pixel of this layer.</p>
+<p>The authors assume <span class="math notranslate nohighlight">\(w_l\)</span> and <span class="math notranslate nohighlight">\(\Delta y_l\)</span> are independent of each
+other, <span class="math notranslate nohighlight">\(w_l\)</span> is initialized by a symmetric distribution around zero, and
+<span class="math notranslate nohighlight">\(f'(y_l)\)</span> and <span class="math notranslate nohighlight">\(\Delta x_{l + 1}\)</span> are independent of each other.
+As a result,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \E{\Delta x_l}
+   &amp;= \hat{n}_l \E{w_l \Delta y_l}\\
+   &amp;= \hat{n}_l \E{w_l} \E{\Delta y_l}\\
+   &amp;= 0
+\end{aligned}
+\qquad \text{and} \qquad
+\begin{aligned}
+  \E{\Delta y_l}
+   &amp;= \E{f'(y_l) \Delta x_{l + 1}}\\
+   &amp;= \E{f'(y_l)} \E{\Delta x_{l + 1}}\\
+   &amp;= \frac{1}{2} \E{\Delta x_{l + 1}}.
+\end{aligned}\end{split}\]</div>
+<p>Together these observations yield (13)</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Var{\Delta x_l}
+ &amp;= \hat{n}_l \Var{w_l \Delta y_l}\\
+ &amp;= \hat{n}_l \Var{w_l} \Var{\Delta y_l}\\
+ &amp;= \frac{1}{2} \hat{n}_l \Var{w_l} \Var{\Delta x_{l + 1}}\end{split}\]</div>
+<p>where the last equivalence relation is realized through</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Var{\Delta y_l}
+ &amp;= \E{\left( \Delta y_l \right)^2} - \E{\Delta y_l}^2\\
+ &amp;= \E{\left( f'(y_l) \Delta x_{l + 1} \right)^2}\\
+ &amp;= \frac{1}{2} \E{\left( \Delta x_{l + 1} \right)^2}\\
+ &amp;= \frac{1}{2} \Var{\Delta x_{l + 1}}.\end{split}\]</div>
+<p>The rest of the derivation is analogous to the forward case.</p>
+</div>
+<div class="section" id="variance-of-min-a-w">
+<h3>Variance of <span class="math notranslate nohighlight">\(\min(a, W)\)</span><a class="headerlink" href="#variance-of-min-a-w" title="Permalink to this headline">¶</a></h3>
+<p>Applying the basic properties of variance beforehand simplifies the derivation
+by removing the extraneous constant <span class="math notranslate nohighlight">\(a\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Var{\min(W, a)}
+ &amp;= \Var{\min(W, a) - a}\\
+ &amp;= \Var{\min(W - a, 0)}\\
+ &amp;= \Var{\max(a - W, 0)}\\
+ &amp;= \Var{\max(Y, 0)}
+    &amp; \quad &amp; Y = a - W.\end{split}\]</div>
+<p>In order to derive a recurrence relation for the variance of the network, let
+<span class="math notranslate nohighlight">\(Z_+ = f(Y) = \max(0, Y)\)</span> be a non-negative random variable and
+<span class="math notranslate nohighlight">\(Z_- = f(Y) = \min(0, Y)\)</span> be a non-positive random variable.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Var{Y} &amp;= \E{Y^2} - \E{Y}^2\\
+ &amp;= \E{Z_-^2} + \E{Z_+^2} - \left( \E{Z_-} + \E{Z_+} \right)^2\\
+ &amp;= \Var{Z_-} - 2 \E{Z_-} \E{Z_+} + \Var{Z_+}\end{split}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \E{Y} &amp;= \int_{\mathbb{R}} y \Pr{y} dy\\
+   &amp;= \int_{-\infty}^0 y \Pr{y} dy + \int_0^\infty y \Pr{y} dy\\
+   &amp;= \E{Z_-} + \E{Z_+}
+\end{aligned}
+\qquad \text{and} \qquad
+\begin{aligned}
+  \E{Y^2} &amp;= \int_{\mathbb{R}} y^2 \Pr{y} dy\\
+   &amp;= \int_{-\infty}^0 y^2 \Pr{y} dy + \int_0^\infty y^2 \Pr{y} dy\\
+   &amp;= \E{Z_-^2} + \E{Z_+^2}.
+\end{aligned}\end{split}\]</div>
+<p>By inspection, <span class="math notranslate nohighlight">\(\E{Z_-} \leq 0\)</span> and <span class="math notranslate nohighlight">\(\E{Z_+} \geq 0\)</span>.  Assuming
+<span class="math notranslate nohighlight">\(\Var{Y}\)</span> exists (i.e. finite), the non-negative variance property gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Var{Y} = \Var{Z_+} + \Var{Z_-} - 2 \E{Z_-} \E{Z_+} &amp;\geq 0\\
+\Var{Y} &amp;\geq \Var{Z_+}.\end{split}\]</div>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification-0"><dl class="citation">
+<dt class="bibtex label" id="abbeel2009cs287arng"><span class="brackets"><a class="fn-backref" href="#id14">Abb</a></span></dt>
+<dd><p>Pieter Abbeel. Advanced robotics: natural gradient. <span><a class="reference external" href="#"></a></span>https://people.eecs.berkeley.edu/ pabbeel/cs287-fa09/lecture-notes/lecture20-6pp.pdf. Accessed on 2017-10-11.</p>
+</dd>
+<dt class="bibtex label" id="amari1998ngl"><span class="brackets"><a class="fn-backref" href="#id11">Ama98</a></span></dt>
+<dd><p>Shun-Ichi Amari. Natural gradient works efficiently in learning. <em>Neural computation</em>, 10(2):251–276, 1998.</p>
+</dd>
+<dt class="bibtex label" id="amari1998whyng"><span class="brackets"><a class="fn-backref" href="#id10">AD98</a></span></dt>
+<dd><p>Shun-Ichi Amari and Scott C Douglas. Why natural gradient? In <em>Acoustics, Speech and Signal Processing, 1998. Proceedings of the 1998 IEEE international conference on</em>, volume 2, 1213–1216. IEEE, 1998.</p>
+</dd>
+<dt class="bibtex label" id="he2015delving"><span class="brackets"><a class="fn-backref" href="#id9">HZRS15</a></span></dt>
+<dd><p>Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Delving deep into rectifiers: surpassing human-level performance on imagenet classification. In <em>Proceedings of the IEEE international conference on computer vision</em>, 1026–1034. 2015.</p>
+</dd>
+<dt class="bibtex label" id="maas2013rectifier"><span class="brackets"><a class="fn-backref" href="#id5">MHN13</a></span></dt>
+<dd><p>Andrew L Maas, Awni Y Hannun, and Andrew Y Ng. Rectifier nonlinearities improve neural network acoustic models. In <em>Proc. ICML</em>, volume 30. 2013.</p>
+</dd>
+<dt class="bibtex label" id="nair2010rectified"><span class="brackets"><a class="fn-backref" href="#id6">NH10</a></span></dt>
+<dd><p>Vinod Nair and Geoffrey E Hinton. Rectified linear units improve restricted boltzmann machines. In <em>Proceedings of the 27th international conference on machine learning (ICML-10)</em>, 807–814. 2010.</p>
+</dd>
+<dt class="bibtex label" id="raiko2012deep"><span class="brackets">RVL12</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id3">2</a>)</span></dt>
+<dd><p>Tapani Raiko, Harri Valpola, and Yann LeCun. Deep learning made easier by linear transformations in perceptrons. In <em>Artificial Intelligence and Statistics</em>, 924–932. 2012.</p>
+</dd>
+<dt class="bibtex label" id="vatanen2013pushing"><span class="brackets"><a class="fn-backref" href="#id4">VRVL13</a></span></dt>
+<dd><p>Tommi Vatanen, Tapani Raiko, Harri Valpola, and Yann LeCun. Pushing stochastic gradient towards second-order methods–backpropagation learning with transformations in nonlinearities. In <em>International Conference on Neural Information Processing</em>, 442–449. Springer, 2013.</p>
+</dd>
+<dt class="bibtex label" id="wittmannfimb"><span class="brackets"><a class="fn-backref" href="#id13">Wit</a></span></dt>
+<dd><p>David Wittman. Fisher matrix for beginners. <span><a class="reference external" href="#"></a></span>http://wittman.physics.ucdavis.edu/Fisher-matrix-guide.pdf. Accessed on 2017-10-11.</p>
+</dd>
+<dt class="bibtex label" id="zhengficrb"><span class="brackets"><a class="fn-backref" href="#id12">Zhe</a></span></dt>
+<dd><p>Songfeng Zheng. Fisher information and cramer-rao bound. <span><a class="reference external" href="#"></a></span>http://people.missouristate.edu/songfengzheng/Teaching/MTH541/Lecture notes/Fisher_info.pdf. Accessed on 2017-10-11.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

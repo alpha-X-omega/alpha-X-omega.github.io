@@ -1,0 +1,282 @@
+{
+ "cells": [
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "*************\n",
+    "Camera Models\n",
+    "*************"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "(i)\n",
+    "===\n",
+    "\n",
+    "Recall that a general projective camera :math:`\\mathtt{P}` maps a point in space\n",
+    ":math:`\\mathbf{X}` to an image point according to the mapping\n",
+    ":math:`\\mathbf{x} = \\mathtt{P} \\mathbf{X}`.  Let :math:`I_0` be a projective\n",
+    "image of said points :math:`\\mathbf{x}`.\n",
+    "\n",
+    "The camera centre :math:`\\mathbf{C} \\in \\mathbb{R}^4` is the homogeneous vector\n",
+    "that satisfies :math:`\\mathtt{P} \\mathbf{C} = \\boldsymbol{0}`.\n",
+    "\n",
+    "An image of an image can be specified as\n",
+    ":math:`I' = \\mathtt{H} \\mathtt{P} \\mathbf{X}`\n",
+    "where :math:`\\mathtt{H} \\in \\mathbb{R}^{3 \\times 3}` represents a planar\n",
+    "homography mapping between :math:`I'` and :math:`I_0`.  Notice that the\n",
+    "homography cannot change the camera centre i.e. eyes drawn at the camera centre\n",
+    "will follow you around the room.  By inspection, :math:`\\mathtt{H} \\mathtt{P}`\n",
+    "is not necessarily equal to :math:`\\mathtt{P}`."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "(ii)\n",
+    "====\n",
+    "\n",
+    "Recall from section\n",
+    ":doc:`3.2.2 Lines </nb/multiple-view-geometry-hz/chapter-03>` that\n",
+    "the dual :math:`\\text{Pl}\\mathrm{\\ddot{u}}\\text{cker}` representation\n",
+    ":math:`\\mathtt{L}^*` can be obtained directly from :math:`\\mathtt{L}` via\n",
+    "(3.10).  The join of the line :math:`\\mathtt{L}` and point\n",
+    ":math:`\\mathbf{X} \\in \\mathbb{R}^4` defines a plane\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\boldsymbol{\\pi} = \\mathtt{L}^* \\mathbf{X}\n",
+    "\n",
+    "where :math:`\\mathtt{L}^* \\mathbf{X} = \\boldsymbol{0}` if, and only if,\n",
+    ":math:`\\mathbf{X}` is on :math:`\\mathtt{L}`.\n",
+    "\n",
+    "The ray back-projected from an image point :math:`\\mathbf{x}` under a projective\n",
+    "camera :math:`\\mathtt{P}` may be written as (6.28) because\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\mathtt{L}^* \\mathbf{X}(\\mu)\n",
+    "    &= \\mathtt{P}^\\top \\left[ \\mathbf{x} \\right]_\\times \\mathtt{P}\n",
+    "       \\begin{pmatrix}\n",
+    "         \\mathtt{M}^{-1} \\left( \\mu \\mathbf{x} - \\mathbf{p}_4 \\right)\\\\ 1\n",
+    "       \\end{pmatrix}\n",
+    "       & \\quad & \\text{(6.14)}\\\\\n",
+    "    &= \\mathtt{P}^\\top \\left[ \\mathbf{x} \\right]_\\times\n",
+    "       \\begin{bmatrix}\n",
+    "         \\left( \\mu \\mathbf{x} - \\mathbf{p}_4 \\right) + \\mathbf{p}_4\n",
+    "       \\end{bmatrix}\n",
+    "       & \\quad & \\mathtt{P} =\n",
+    "                 \\left[\n",
+    "                   \\begin{array}{c|c} \\mathtt{M} & \\mathbf{p}_4 \\end{array}\n",
+    "                 \\right]\\\\\n",
+    "    &= \\mathtt{P}^\\top \\left[ \\mathbf{x} \\right]_\\times \\mu \\mathbf{x}\\\\\n",
+    "    &= \\boldsymbol{0}\n",
+    "       & \\quad & \\text{(A4.6).}"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "(iii) The Affine Camera\n",
+    "=======================\n",
+    "\n",
+    "(a)\n",
+    "---\n",
+    "\n",
+    "Recall that a point :math:`\\mathbf{X}` on a plane :math:`\\boldsymbol{\\pi}`\n",
+    "satisfies\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\boldsymbol{\\pi}^\\top \\mathbf{X} = 0\n",
+    "   \\qquad \\text{(3.2).}\n",
+    "\n",
+    "If the points on the plane at infinity :math:`\\boldsymbol{\\pi}_\\infty` map to\n",
+    "points at infinity in the image, then :math:`\\mathtt{P}` must have the affine\n",
+    "form.  Otherwise, the projected point is no longer at infinity because its\n",
+    "last coordinate is not zero:\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\mathtt{P} \\mathbf{X}\n",
+    "    &= \\begin{bmatrix}\n",
+    "         \\mathbf{m}_1^\\top & t_1\\\\\n",
+    "         \\mathbf{m}_2^\\top & t_2\\\\\n",
+    "         \\mathbf{v}^\\top & v\n",
+    "       \\end{bmatrix}\n",
+    "       \\begin{bmatrix} \\mathbf{x}\\\\ 0 \\end{bmatrix}\n",
+    "       & \\quad & \\boldsymbol{\\pi}_\\infty = (0, 0, 0, 1)\\\\\n",
+    "    &= \\begin{bmatrix}\n",
+    "         \\mathbf{m}_1^\\top \\mathbf{x}\\\\\n",
+    "         \\mathbf{m}_2^\\top \\mathbf{x}\\\\\n",
+    "         \\mathbf{v}^\\top \\mathbf{x}\n",
+    "       \\end{bmatrix}\n",
+    "\n",
+    "(b)\n",
+    "---\n",
+    "\n",
+    "The ratio of lengths on parallel line segments is an invariant under an affine\n",
+    "camera.  The proof is essentially the same as the one for\n",
+    ":ref:`affinities <hartley2004-ex-2.i>`.\n",
+    "\n",
+    "The previous exercise already demonstrated that parallel lines still map to\n",
+    "parallel lines.  :math:`\\mathbf{l}_\\infty` and :math:`\\boldsymbol{\\pi}_\\infty`\n",
+    "are also invariant."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "(iv)\n",
+    "====\n",
+    "\n",
+    "See :cite:`hartley1997cubic` for more details on rational polynomial cameras.\n",
+    "Beyond defining what this type of camera is and presenting results, there isn't\n",
+    "anything new per say.  The coefficients are fitted using normalized DLT followed\n",
+    "by Levenberg-Marquardt with a regularization term.  Regularization is needed to\n",
+    "reduce the variance of the solution."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "(v)\n",
+    "===\n",
+    "\n",
+    "Given a finite projective camera (6.11) :math:`\\mathtt{P}`, observe that\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\mathtt{R}\n",
+    "     \\left[\n",
+    "       \\begin{array}{c|c} \\mathtt{I} & -\\tilde{\\mathbf{C}} \\end{array}\n",
+    "     \\right]\n",
+    "     \\mathtt{H}_0 =\n",
+    "   \\begin{bmatrix}\n",
+    "     \\mathbf{r}_1^\\top & -\\mathbf{r}_1^\\top \\tilde{\\mathbf{C}}\\\\\n",
+    "     \\mathbf{r}_2^\\top & -\\mathbf{r}_2^\\top \\tilde{\\mathbf{C}}\\\\\n",
+    "     \\mathbf{r}_3^\\top & -\\mathbf{r}_3^\\top \\tilde{\\mathbf{C}}\n",
+    "   \\end{bmatrix}\n",
+    "     \\begin{bmatrix}\n",
+    "       \\mathbf{r}_1 & \\mathbf{r}_2 & \\tilde{\\mathbf{C}} & \\mathbf{r}_3\\\\\n",
+    "       0 & 0 & 1 & 0\n",
+    "     \\end{bmatrix} =\n",
+    "   \\begin{bmatrix}\n",
+    "     1 & 0 & 0 & 0\\\\\n",
+    "     0 & 1 & 0 & 0\\\\\n",
+    "     0 & 0 & 0 & 1\n",
+    "   \\end{bmatrix} =\n",
+    "   \\mathtt{P}_{\\text{orthog}}\n",
+    "\n",
+    "and\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\mathtt{K} \\mathtt{P}_{\\text{orthog}} \\mathtt{H}_1\n",
+    "    &= \\begin{bmatrix}\n",
+    "         \\alpha_x & s & x_0\\\\\n",
+    "          & \\alpha_y & y_0\\\\\n",
+    "          & & 1\n",
+    "       \\end{bmatrix}\n",
+    "       \\begin{bmatrix}\n",
+    "         1 & 0 & 0 & 0\\\\\n",
+    "         0 & 1 & 0 & 0\\\\\n",
+    "         0 & 0 & 0 & 1\n",
+    "       \\end{bmatrix}\n",
+    "       \\mathtt{H}_1\n",
+    "       & \\quad & \\text{(6.10)}\\\\\n",
+    "    &= \\begin{bmatrix}\n",
+    "         \\alpha_x & s & 0 & x_0\\\\\n",
+    "         0 & \\alpha_y & 0 & y_0\\\\\n",
+    "         0 & 0 & 0 & 1\n",
+    "       \\end{bmatrix}\n",
+    "       \\begin{bmatrix}\n",
+    "         \\frac{1}{\\alpha_x} & -\\frac{s}{\\alpha_x \\alpha_y} & 0 &\n",
+    "           \\frac{-x_0}{\\alpha_x} + \\frac{s y_0}{\\alpha_x \\alpha_y}\\\\\n",
+    "         0 & \\frac{1}{\\alpha_y} & 0 & -\\frac{y_0}{\\alpha_y}\\\\\n",
+    "         0 & 0 & 1 & 0\\\\\n",
+    "         0 & 0 & 0 & 1\n",
+    "       \\end{bmatrix}\\\\\n",
+    "    &= \\mathtt{P}_{\\text{orthog}}.\n",
+    "\n",
+    "By inspection, :math:`\\mathtt{H} = \\mathtt{H}_0 \\mathtt{H}_1` has a rank of\n",
+    "four and transforms :math:`\\mathtt{P}` to an orthographic camera via\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\mathtt{P} \\mathtt{H} =\n",
+    "   \\mathtt{K} \\mathtt{R}\n",
+    "     \\left[\n",
+    "       \\begin{array}{c|c} \\mathtt{I} & -\\tilde{\\mathbf{C}} \\end{array}\n",
+    "     \\right]\n",
+    "     \\mathtt{H}_0 \\mathtt{H}_1 =\n",
+    "   \\mathtt{K} \\mathtt{P}_{\\text{orthog}} \\mathtt{H}_1 =\n",
+    "   \\mathtt{P}_{\\text{orthog}}.\n",
+    "\n",
+    "The action of any camera may be considered as a projective transformation of\n",
+    "3-space followed by orthographic projection because\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\mathbf{x} =\n",
+    "   \\mathtt{P} \\left( \\mathtt{H} \\mathtt{H}^{-1} \\right) \\mathbf{X} =\n",
+    "   \\left( \\mathtt{P} \\mathtt{H} \\right)\n",
+    "     \\left( \\mathtt{H}^{-1} \\mathbf{X} \\right) =\n",
+    "   \\mathtt{P}_{\\text{orthog}} \\mathbf{X}'."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    ".. rubric:: References\n",
+    "\n",
+    ".. bibliography:: chapter-06.bib"
+   ]
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "celltoolbar": "Raw Cell Format",
+  "kernelspec": {
+   "display_name": "Python [default]",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.5.2"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 1
+}

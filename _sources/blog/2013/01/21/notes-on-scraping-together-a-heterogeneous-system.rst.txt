@@ -1,0 +1,588 @@
+#################################################
+Notes on Scraping Together a Heterogeneous System
+#################################################
+
+CPU
+===
+
+- Higher frequency is better for `CPU bound`_ applications.
+- Higher :math:`\#_\text{cores}` and `multiprocessing`_ support is better for
+  `perfectly parallel`_ workloads.
+
+  - Inherently serial applications are bounded above by `Amdahl's law`_.
+  - Physical cores represent the number of physical processing units on a chip.
+  - The number of logical cores
+    (:math:`\#_\text{cores} \times \#_\text{threads}`) is the maximum number of
+    concurrent threads the chip supports via simultaneous multithreading
+    (`SMT`_).
+
+    - SMT works well when the threads have highly different characteristics e.g.
+      one thread doing mostly integer operations, another mainly doing floating
+      point operations.
+    - Note that in hardware virtualization, a logical core is called a
+      virtual CPU, vCPU, or virtual processor.
+
+- Larger multi-level cache size is better for `cache bound`_ applications.
+- The chip also specifies what is supported in terms of memory size, memory
+  type, max number of memory channels, PCIe data rate, and max number of PCIe
+  lanes.
+
+  - Higher is better for `I/O bound`_ and `memory bound`_ workloads.
+
+.. _CPU bound: https://en.wikipedia.org/wiki/CPU-bound
+.. _multiprocessing: https://en.wikipedia.org/wiki/Multiprocessing
+.. _perfectly parallel: https://en.wikipedia.org/wiki/Embarrassingly_parallel
+.. _Amdahl's law: https://en.wikipedia.org/wiki/Amdahl%27s_law
+.. _SMT: https://en.wikipedia.org/wiki/Simultaneous_multithreading
+.. _cache bound: https://software.intel.com/en-us/node/605613
+.. _I/O bound: https://en.wikipedia.org/wiki/I/O_bound
+.. _memory bound: https://en.wikipedia.org/wiki/Memory_bound_function
+
+Multiprocessor/Multiprocessing
+==============================
+
+Outside of perfectly parallel workloads, a single CPU system is
+more cost effective than a system with multiple physical CPUs because
+existing software (e.g. `After Effects`_, `Premiere Pro`_, `SolidWorks`_) mostly
+do not take advantage of the additional processor cores.  The additional
+physical CPUs may be even slower than a single CPU system, possibly due to
+`communication bandwidth`_ (e.g. `NUMA`_).  As an aside, a term that is useful
+to know is `transfers per second`_.  Multiplying the transfer rate by the
+information channel width gives the data transmission rate.
+
+.. _After Effects: http://ppbm7.com/index.php/tweakers-page/95-single-or-dual-cpu/109-single-or-dual-cpu
+.. _Premiere Pro: https://www.pugetsystems.com/labs/articles/Should-you-use-a-Dual-Xeon-for-Premiere-Pro-CC-2017-932
+.. _SolidWorks: https://www.pugetsystems.com/labs/articles/Solidworks-2016-Multi-Core-Performance-741
+.. _communication bandwidth: https://en.wikipedia.org/wiki/List_of_device_bit_rates#Computer_buses
+.. _NUMA: https://en.wikipedia.org/wiki/Non-uniform_memory_access
+.. _transfers per second: https://en.wikipedia.org/wiki/Transfer_(computing)
+
+Intel QuickPath Interconnect (QPI)
+----------------------------------
+
+Initially, Intel's CPU used a `FSB`_ to access the `northbridge`_ and `DMI`_ to
+link to the `southbridge`_ (a.k.a. `ICH`_).  Intel later on replaced the FSB
+with `QPI`_ and integrated the northbridge into the CPU die itself.  The
+southbridge became redundant and was replaced by the `PCH`_.  PCH still uses
+DMI, but Intel have started to replace QPI with `UPI`_.
+
+Any communication to other CPUs and `uncore`_ components (e.g. remote memory,
+L3 cache) uses QPI.  Other external communications (e.g. local memory, devices)
+use pins, PCIe, SATAe, etc...  In the `Skylake microarchitecture`_,
+core-to-core (intra-chip) communication uses a ring bus interconnect; Intel has
+since replaced it with a `mesh topology interconnect`_.
+
+.. _FSB: https://en.wikipedia.org/wiki/Front-side_bus
+.. _northbridge: https://en.wikipedia.org/wiki/Northbridge_(computing)
+.. _DMI: https://en.wikipedia.org/wiki/Direct_Media_Interface
+.. _ICH: https://en.wikipedia.org/wiki/I/O_Controller_Hub
+.. _southbridge: https://en.wikipedia.org/wiki/Southbridge_(computing)
+.. _QPI: https://en.wikipedia.org/wiki/Intel_QuickPath_Interconnect
+.. _PCH: https://en.wikipedia.org/wiki/Platform_Controller_Hub
+.. _UPI: http://www.anandtech.com/show/11544/intel-skylake-ep-vs-amd-epyc-7000-cpu-battle-of-the-decade/7
+.. _uncore: https://en.wikipedia.org/wiki/Uncore
+.. _Skylake microarchitecture: https://en.wikichip.org/wiki/intel/microarchitectures/skylake
+.. _mesh topology interconnect: http://www.anandtech.com/show/11544/intel-skylake-ep-vs-amd-epyc-7000-cpu-battle-of-the-decade/5
+
+AMD Infinity Fabric (IF)
+------------------------
+
+AMD's CPU initially used a FSB to access the northbridge and `UMI`_ to link to
+the southbridge (a.k.a. `FCH`_).  AMD later on replaced the FSB with `HT`_ and
+integrated the northbridge into the CPU die itself when it introduced the
+`APU`_, which still uses UMI.  In an effort towards `SoC`_, AMD integrated its
+southbridge into the die and replaced HT with `IF`_.
+
+The IF's Scalable Data Fabric (SDF) connects each CCX (CPU Complex) to uncore
+devices such as memory controllers and PCIe controllers.  It is a 256-bit
+bi-directional crossbar that is used to simultaneously transport data for
+multiple buses to their final destination and runs at the speed of the memory
+controller.  In the `Zen microarchitecture`_, die-to-die (intra-chip)
+communication uses AMD's Global Memory Interconnect (GMI).
+
+.. _UMI: https://en.wikipedia.org/wiki/Unified_Media_Interface
+.. _FCH: https://en.wikipedia.org/wiki/List_of_AMD_chipsets#FCH
+.. _HT: https://en.wikipedia.org/wiki/HyperTransport
+.. _APU: https://en.wikipedia.org/wiki/AMD_Accelerated_Processing_Unit
+.. _SoC: https://en.wikipedia.org/wiki/System_on_a_chip
+.. _IF: https://en.wikichip.org/wiki/amd/infinity_fabric
+.. _Zen microarchitecture: https://en.wikichip.org/wiki/amd/microarchitectures/zen
+
+Memory
+======
+
+- Higher `data transfer rate`_ is better for `DRAM bandwidth bound`_
+  applications.
+
+  - The most common `DRAM`_ interface is `DDR`_, which allows either a read or
+    a write at each clock edge.
+  - A higher bandwidth interface is `GDDR`_, which allows a read and a write at
+    each clock edge.
+  - With the advent stackable DRAM die technologies such as `HBM`_ and `HMC`_,
+    the leap to higher bandwidth is achieved through adding more memory channels
+    with wider bus width.
+
+- Lower `memory timings`_ is better for latency bound applications.
+
+  - Note that the `CAS latency`_ can only accurately measure the time to
+    transfer the first word of memory.
+
+- `Unregistered DIMMs`_ do not support very large amounts of memory.
+
+  - `RDIMMs are faster than LRDIMMs`_, but the former can only support up to
+    512GB while the latter can go beyond 1TB.
+  - `RDIMMs`_ (and the like) require `ECC`_.
+
+- `More channels of communication in the memory architecture`_ is better for
+  DRAM bandwidth bound applications.
+
+- `Memory Deep Dive Series`_ is a nice overview of a server's memory subsystem.
+
+.. _data transfer rate: https://en.wikipedia.org/wiki/Synchronous_dynamic_random-access_memory
+.. _DRAM bandwidth bound: https://software.intel.com/en-us/node/638229
+.. _DRAM: https://en.wikipedia.org/wiki/Dynamic_random-access_memory
+.. _DDR: https://en.wikipedia.org/wiki/Double_data_rate
+.. _GDDR: https://en.wikipedia.org/wiki/GDDR5_SDRAM
+.. _HBM: https://en.wikipedia.org/wiki/High_Bandwidth_Memory
+.. _HMC: https://en.wikipedia.org/wiki/Hybrid_Memory_Cube
+.. _memory timings: https://en.wikipedia.org/wiki/Memory_timings
+.. _CAS latency: https://en.wikipedia.org/wiki/CAS_latency
+.. _Unregistered DIMMs: https://en.wikipedia.org/wiki/DIMM
+.. _RDIMMs are faster than LRDIMMs: https://www.microway.com/hpc-tech-tips/ddr4-rdimm-lrdimm-performance-comparison/
+.. _RDIMMs: https://en.wikipedia.org/wiki/Registered_memory
+.. _ECC: https://en.wikipedia.org/wiki/ECC_memory
+.. _More channels of communication in the memory architecture: https://en.wikipedia.org/wiki/Multi-channel_memory_architecture
+.. _Memory Deep Dive Series: http://frankdenneman.nl/2015/02/18/memory-configuration-scalability-blog-series/
+
+Storage
+=======
+
+Non-volatile data storage (`NVM`_) can be either `mechanically addressed`_ or
+`electrically addressed`_.  The former has additional
+`mechanical performance characteristics`_ to be aware of when examining I/O
+bound applications.  Those measurements can be mapped onto a commonly accepted
+metric consisting of `sequential and random operations`_.
+
+Both storage system types are accessed through a predefined set of logical
+device interfaces.
+
+- `SATA`_ and `SAS`_ were designed primarily for HDDs.
+
+  - SATA targets the lowest cost per gigabyte and is the most cost effective for
+    low frequency access of reference/streaming/sequential data e.g. archival
+    data, file-sharing, email, web, backups.
+  - SAS is geared towards maximal performance, reliability, and availability on
+    high frequency immediate random access data e.g. database transactions.
+  - `Hard drive reliability`_ is highly dependent on capacity and the
+    manufacturer (e.g. HGST, Western Digital, Seagate Technology).
+
+- SATA could not keep up with the speed of SSDs, so `SATAe`_ was introduced to
+  interface with PCIe SSDs through the `AHCI`_ drivers.
+
+- AHCI did not fully exploit the low latency and parallelism of PCIe SSDs, so
+  it was replaced by `NVMe`_.
+
+  - M.2 and U.2. are realizations of NVMe in different physical formats.
+
+The aforementioned interfaces support `RAID`_ on a single system.  When scaling
+beyond a single machine, the only viable solution is a
+`distributed file system`_.
+
+.. _NVM: https://en.wikipedia.org/wiki/Non-volatile_memory
+.. _mechanically addressed: https://en.wikipedia.org/wiki/Hard_disk_drive
+.. _electrically addressed: https://en.wikipedia.org/wiki/Solid-state_storage
+.. _mechanical performance characteristics: https://en.wikipedia.org/wiki/Hard_disk_drive_performance_characteristics
+.. _sequential and random operations: https://en.wikipedia.org/wiki/IOPS
+.. _SATA: https://en.wikipedia.org/wiki/Serial_ATA
+.. _SAS: https://en.wikipedia.org/wiki/Serial_Attached_SCSI
+.. _Hard drive reliability: https://www.backblaze.com/b2/hard-drive-test-data.html
+.. _SATAe: https://en.wikipedia.org/wiki/SATA_Express
+.. _AHCI: https://en.wikipedia.org/wiki/Advanced_Host_Controller_Interface
+.. _NVMe: https://en.wikipedia.org/wiki/NVM_Express
+.. _RAID: https://en.wikipedia.org/wiki/RAID
+.. _distributed file system: https://en.wikipedia.org/wiki/Clustered_file_system
+
+Network Interface Controller
+============================
+
+Gigabit Ethernet (`1GbE`_) is a typical setup for small clusters running
+workloads that are not IO bound.  Technologies such as standard Ethernet
+switches and LAN connections use `RJ45 connectors`_ to terminate
+`twisted-pair copper cables`_.
+
+If a longer maximum distance is desired, then optical fiber transceivers
+(e.g. `SFP`_, `QSFP`_) can be used with `LC connectors`_.  If more bandwidth are
+needed, `10GbE`_ is available through `SFP+`_ and `QSFP+`_; `100GbE`_ is
+supported through QSFP+ and `CFP`_.
+
+If the goal is to reduce latency, then the network adapters need to support
+`Converged Enhanced Ethernet`_, which provides reliability without requiring the
+complexity of `TCP`_.  Furthermore, this functionality is necessary to perform
+`RDMA`_ in `computer clusters`_.  The initial implementation of RDMA was
+`iWARP`_, but `iWARP has since been superseded`_ by `RoCE`_.
+
+.. _1GbE: https://en.wikipedia.org/wiki/Gigabit_Ethernet
+.. _RJ45 connectors: https://en.wikipedia.org/wiki/Modular_connector#8P8C
+.. _twisted-pair copper cables: https://en.wikipedia.org/wiki/Ethernet_over_twisted_pair
+.. _SFP: https://en.wikipedia.org/wiki/Small_form-factor_pluggable_transceiver#1_and_2.5_Gbit.2Fs_SFP
+.. _QSFP: https://en.wikipedia.org/wiki/QSFP#4_x_1_Gbit.2Fs_QSFP
+.. _LC connectors: https://en.wikipedia.org/wiki/Optical_fiber_connector
+.. _SFP+: https://en.wikipedia.org/wiki/Small_form-factor_pluggable_transceiver#10_Gbit.2Fs_SFP.2B
+.. _QSFP+: https://en.wikipedia.org/wiki/QSFP#4_x_10_Gbit.2Fs_QSFP.2B
+.. _10GbE: https://en.wikipedia.org/wiki/10_Gigabit_Ethernet
+.. _100GbE: https://en.wikipedia.org/wiki/100_Gigabit_Ethernet
+.. _CFP: https://en.wikipedia.org/wiki/C_Form-factor_Pluggable
+.. _Converged Enhanced Ethernet: https://en.wikipedia.org/wiki/Data_center_bridging
+.. _TCP: https://en.wikipedia.org/wiki/Transmission_Control_Protocol
+.. _RDMA: https://en.wikipedia.org/wiki/Remote_direct_memory_access
+.. _computer clusters: https://en.wikipedia.org/wiki/Computer_cluster
+.. _RoCE: https://en.wikipedia.org/wiki/RDMA_over_Converged_Ethernet
+.. _iWARP: https://en.wikipedia.org/wiki/IWARP
+.. _iWARP has since been superseded: http://www.mellanox.com/pdf/whitepapers/WP_RoCE_vs_iWARP.pdf
+
+Some alternative network interconnects are `InfiniBand`_, `Fibre Channel`_, and
+proprietary technologies such as Intel `Omni-Path`_.  Note that InfiniBand
+provides RDMA capabilities through its own `set of protocols`_ (e.g. `IPoIB`_)
+and needs to use a `network bridge`_ to communicate with Ethernet devices.
+Fibre Channel instead supports `FCP`_ and interacts with Ethernet via `FCoE`_.
+Omni-Path supports Ethernet and InfiniBand protocols as well as RDMA.
+InfiniBand currently achieves minimal latency and maximal throughput followed
+by RoCE, Omni-Path, and lastly Fibre Channel
+:cite:`vienne2012performance,van2016comparison`.
+
+.. _InfiniBand: https://en.wikipedia.org/wiki/InfiniBand
+.. _Fibre Channel: https://en.wikipedia.org/wiki/Fibre_Channel
+.. _Omni-Path: https://en.wikipedia.org/wiki/Omni-Path
+.. _set of protocols: http://www.infinibandta.org/content/pages.php?pg=technology_public_specification
+.. _IPoIB: https://tools.ietf.org/html/rfc4391
+.. _network bridge: https://en.wikipedia.org/wiki/Bridging_(networking)
+.. _FCP: https://en.wikipedia.org/wiki/Fibre_Channel_Protocol
+.. _FCoE: https://en.wikipedia.org/wiki/Fibre_Channel_over_Ethernet
+
+Coprocessor Interconnect
+========================
+
+Modern `coprocessors`_ can be categorized into four types in order of increasing
+costs: `GPUs`_, `manycore processors`_, `FPGAs`_, and `ASICs`_.  Even though
+their performance is highly dependently on the workload, all of them share two
+characteristics:
+
+- They require a local host CPU to configure and operate them through the
+  root complex (`RC`_), which limits the number of accelerators per host.
+- The unbalanced communication between distributed accelerators is further
+  exacerbated by the limitations `PCIe Gen 3`_.
+
+.. _coprocessors: https://en.wikipedia.org/wiki/Coprocessor
+.. _GPUs: https://en.wikipedia.org/wiki/Graphics_processing_unit
+.. _manycore processors: https://en.wikipedia.org/wiki/Manycore_processor
+.. _FPGAs: https://en.wikipedia.org/wiki/Field-programmable_gate_array
+.. _ASICs: https://en.wikipedia.org/wiki/Application-specific_integrated_circuit
+.. _RC: https://en.wikipedia.org/wiki/Root_complex
+.. _PCIe Gen 3: https://en.wikipedia.org/wiki/PCI_Express
+
+The RC `logically aggregates`_ PCIe hierarchy domains into a single PCIe
+hierarchy :cite:`tsafrir2016pciea`.  This hierarchy along with the RC is known
+as the PCIe fabric.  Since the CPU dictates the maximum number of supported PCIe
+lanes that all PCIe links communicate over, the hierarchy typically includes
+`switches and bridges`_.  Switches provide an aggregation capability and allow
+more devices to be attached to a single root port.  They act as packet routers
+and recognize which path a given packet will need to take based on its address
+or other routing information.  A switch may have several downstream ports, but
+it can only have one upstream port.  Bridges serve to interface between
+different buses (e.g. PCI, PCIe).
+
+.. _logically aggregates: https://en.wikipedia.org/wiki/PCI_configuration_space
+.. _switches and bridges: https://en.wikipedia.org/wiki/PLX_Technology
+
+The PCIe tree topology has several limitations.  Simultaneous communication
+between all devices will induce congestion in the PCIe fabric resulting in
+bandwidth reduction.  The congestion factors include upstream port conflicts,
+downstream port conflicts, `head-of-line blocking`_, and crossing the RC
+conflicts :cite:`martinasso2016pcie,lawley2014understanding`.  Furthermore, when
+there are multiple RCs, `inter-processor communication`_ needs to be taken into
+account if the devices are not under a single RC.
+
+.. _head-of-line blocking: https://en.wikipedia.org/wiki/Head-of-line_blocking
+.. _inter-processor communication: https://exxactcorp.com/blog/exploring-the-complexities-of-pcie-connectivity-and-peer-to-peer-communication/
+
+To overcome these limitations, different technology groups have banded together
+and propose three new interconnect standards: `CAPI`_, `CCIX`_, and `Gen-Z`_.
+
+- CAPI is a new physical layer standard focused on low-latency high-speed
+  coherent DMA between devices of different `ISAs`_.
+
+  - CCIX has the same goal, but builds upon PCIe Gen 4 and additionally supports
+    `switched fabric`_ topologies.
+  - `NVLink`_ is alternative proprietary interconnect technology tailored for
+    Nvidia's GPUs.
+  - There have been speculations that CAPI and CCIX will converge at some point.
+
+- Gen-Z is a memory semantic fabric that enables memory operations to direct
+  attach and disaggregated memory and storage.
+
+  - Its packet-based protocol supports both CCIX and CAPI.
+
+.. _CAPI: https://en.wikipedia.org/wiki/Coherent_Accelerator_Processor_Interface
+.. _CCIX: https://www.ccixconsortium.com/
+.. _Gen-Z: https://en.wikipedia.org/wiki/Gen-Z
+.. _ISAs: https://en.wikipedia.org/wiki/Instruction_set_architecture
+.. _switched fabric: https://en.wikipedia.org/wiki/Switched_fabric
+.. _NVLink: https://en.wikipedia.org/wiki/NVLink
+
+PCIe Topology
+-------------
+
+There are two common communication patterns:
+
+- Point-to-point communication between a single sender and a single receiver.
+- Collective communication between multiple senders and receivers.
+
+Most collectives amenable to bandwidth-optimal implementation on rings, and many
+topologies can be interpreted as one or more rings.  `Ring-based collectives`_
+enable optimal intra-node communication.
+
+.. _Ring-based collectives: http://images.nvidia.com/events/sc15/pdfs/NCCL-Woolley.pdf
+
+`Digits DevBox`_
+^^^^^^^^^^^^^^^^
+
+Bandwidth between the two GPU groups is not as high as within a single group.
+
+.. include:: pcie-topology-digits-devbox.json
+   :code: javascript
+
+.. _Digits DevBox: https://developer.nvidia.com/devbox
+
+`Inefficient Configuration of 8 GPUs`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Inter-group bandwidth is half of intra-group bandwidth due to crossing the
+RC(s).
+
+.. include:: pcie-topology-balanced-8-gpus.json
+   :code: javascript
+
+or
+
+.. include:: pcie-topology-balanced-8-gpus-single-root-complex.json
+   :code: javascript
+
+.. _Inefficient Configuration of 8 GPUs: http://on-demand.gputechconf.com/gtc/2016/presentation/s6492-scott-le-grand-deterministic-machine-learning-molecular-dynamics.pdf
+
+Big Sur
+^^^^^^^
+
+Inter-group bandwidth is equivalent to intra-group bandwidth.  This
+configuration is also known as cascading or daisy chaining switches.
+
+.. include:: pcie-topology-big-sur.json
+   :code: javascript
+
+`DGX-1`_
+^^^^^^^^
+
+.. include:: pcie-topology-dgx-1.json
+   :code: javascript
+
+.. _DGX-1: https://devblogs.nvidia.com/parallelforall/dgx-1-fastest-deep-learning-system/
+
+GPU(s)
+======
+
+.. list-table:: `Comparison of GPU Capability`_
+   :stub-columns: 1
+
+   * - 
+     - `Quadro`_
+     - `Tesla`_
+     - `GeForce`_
+   * - (DP) `FLOPS`_
+     - High
+     - Medium to High
+     - Low
+   * - Memory Bandwidth
+     - High
+     - Medium to High
+     - Low
+   * - Memory Quantity
+     - High
+     - Medium to High
+     - Low
+   * - ECC
+     - Yes
+     - Yes
+     - No
+   * - Data Transfer Interconnect
+     - PCIe/NVLink
+     - PCIe/NVLink
+     - PCIe
+   * - DMA Engines
+     - Dual
+     - Dual
+     - Single
+   * - P2P
+     - Yes
+     - Yes
+     - Yes
+   * - RDMA
+     - Yes
+     - Yes
+     - No
+   * - `Hyper-Q`_
+     - Full
+     - Full
+     - Partial
+   * - `GPU Boost`_
+     - Configurable
+     - Configurable
+     - Automatic
+   * - Target
+     - Graphics/Compute
+     - Compute
+     - Graphics/Compute
+   * - Cluster Management Tools
+     - Yes
+     - Yes
+     - No
+
+.. _GeForce: https://en.wikipedia.org/wiki/GeForce
+.. _Tesla: https://en.wikipedia.org/wiki/Nvidia_Tesla
+.. _Quadro: https://en.wikipedia.org/wiki/Nvidia_Quadro
+.. _FLOPS: https://en.wikipedia.org/wiki/FLOPS
+.. _Comparison of GPU Capability: https://www.microway.com/knowledge-center-articles/comparison-of-nvidia-geforce-gpus-and-nvidia-tesla-gpus/
+.. _Hyper-Q: http://developer.download.nvidia.com/compute/DevZone/C/html_x64/6_Advanced/simpleHyperQ/doc/HyperQ.pdf
+.. _GPU Boost: https://www.nvidia.com/content/PDF/kepler/nvidia-gpu-boost-tesla-k40-06767-001-v02.pdf
+
+Besides the device-to-host and device-to-device interconnect technology, the
+DMA Engines, RDMA, and Hyper-Q are equally important features in
+`high-performance computing`_.
+
+.. _high-performance computing: https://en.wikipedia.org/wiki/High-performance_computing
+
+Dual DMA engines enable simultaneous execution of the following pipelined
+workload:
+
+#. Transfer results from data chunk :math:`n - 1` from device to host.
+#. Run kernel that operates on data chunk :math:`n`.
+#. Transfer data chunk :math:`n + 1` from host to device.
+
+A single DMA Engine can only transfer data in one direction at a time, so the
+data transfer steps of the proposed pipeline will be executed sequentially.
+
+P2P communication between multiple GPUs on a single machine are fully supported
+when all of them are under a single RC.  Nvidia has an implementation of this
+called `GPUDirect`_.  The GPUs directly access and transfer memory between each
+other over PCIe without involving the CPU and host memory.  When sending data
+between GPUs across a network, this solution uses shared `pinned memory`_ to
+avoid a host-memory-to-host-memory copy.  However, the host memory and CPU are
+still involved in the data transfer.  Nvidia later on collaborated with Mellanox
+to introduce `GPUDirect RDMA`_ which transfers data directly from GPU memory to
+Mellanox's InfiniBand adapter over PCIe.  The CPU and host memory are no longer
+involved in the data transfer.  Note that this particular functionality requires
+the GPU and the network card to share the same RC.
+
+.. _GPUDirect: https://developer.nvidia.com/gpudirect
+.. _pinned memory: https://en.wikipedia.org/wiki/CUDA_Pinned_memory
+.. _GPUDirect RDMA: https://devblogs.nvidia.com/parallelforall/benchmarking-gpudirect-rdma-on-modern-server-platforms/
+
+Hyper-Q enables multiple CPU threads or processes to launch work on a single GPU
+simultaneously, thereby dramatically increasing GPU utilization and slashing CPU
+idle times.  It allows connections for both CUDA streams, threads from within a
+process, or `MPI`_ processes.  Note that GeForce products cannot use Hyper-Q
+with MPI.
+
+.. _CUDA: https://en.wikipedia.org/wiki/CUDA
+.. _MPI: https://en.wikipedia.org/wiki/Message_Passing_Interface
+
+A technology that is completely unrelated to `GPGPU`_ is `SLI`_.  The goal of
+SLI is to increase rendering performance by dividing the workload across
+multiple GPUs.  All graphics resources that would normally be expected to be
+placed in GPU memory are `automatically broadcasted`_ to the memory of all the
+GPUs in the SLI configuration.
+
+.. _GPGPU: https://en.wikipedia.org/wiki/General-purpose_computing_on_graphics_processing_units
+.. _SLI: https://en.wikipedia.org/wiki/Scalable_Link_Interface
+.. _automatically broadcasted: http://developer.download.nvidia.com/whitepapers/2011/SLI_Best_Practices_2011_Feb.pdf
+
+Miscellaneous
+=============
+
+The last pieces of a system are the `motherboard`_, power supply unit (`PSU`_),
+and `chassis`_.  Ensure that the motherboard supports the desired configuration.
+The PSU in turn needs to be `efficient enough`_ to `power up such a system`_.
+The chassis just needs to house all of the components.
+
+.. _motherboard: https://en.wikipedia.org/wiki/Motherboard
+.. _PSU: https://en.wikipedia.org/wiki/Power_supply_unit_(computer)
+.. _chassis: https://en.wikipedia.org/wiki/Computer_case
+.. _efficient enough: https://en.wikipedia.org/wiki/80_Plus
+.. _power up such a system: https://outervision.com/power-supply-calculator
+
+For machines with more than two GPUs, consider `Cirrascale`_ products.  They
+are well-known and provide great service.  However, if one wishes to have
+barebone hardware without any service fees, then assembling individual
+`Supermicro`_ components is one cost-effective solution.  To avoid the hassle of
+assembly, configure and order from `Thinkmate`_ or `Silicon Mechanics`_.
+
+.. _Cirrascale: http://cirrascale.com/
+.. _Supermicro: http://supermicro.com
+.. _Thinkmate: http://www.thinkmate.com/systems/supermicro
+.. _Silicon Mechanics: https://www.siliconmechanics.com
+
+`hwloc`_, `lspci`_, and `lstopo`_ are ways to gather information about
+increasingly complex parallel computing platforms so as to exploit them
+accordingly and efficiently.
+
+.. _hwloc: https://www.open-mpi.org/projects/hwloc/
+.. _lspci: https://linux.die.net/man/8/lspci
+.. _lstopo: https://linux.die.net/man/1/lstopo
+
+Custom Deep Learning System
+===========================
+
+One marketing tactic Nvidia employs is framing the presentation of their latest
+GPUs in a way that implies the latest product is essential in attaining the best
+performance.  Hence one should always verify that claim with domain-specific
+benchmarks (e.g. `Premiere Pro Quadro vs Titan`_) before making a purchase.
+
+.. _Premiere Pro Quadro vs Titan:  https://www.pugetsystems.com/labs/articles/Premiere-Pro-CC-2017-NVIDIA-Quadro-Pascal-Performance-938
+
+The Titan Xp/X is superior to the GTX 1080 Ti in terms of specs, but that
+`does not translate into huge gains`_.  Furthermore, the application may not be
+able to `fully utilize the extra resources`_.
+
+.. _does not translate into huge gains: https://www.pugetsystems.com/labs/hpc/TitanXp-vs-GTX1080Ti-for-Machine-Learning-937/
+.. _fully utilize the extra resources: https://www.pugetsystems.com/labs/hpc/PCIe-X16-vs-X8-for-GPUs-when-running-cuDNN-and-Caffe-887/
+
+NVLink is another example of where it's `not cost effective`_ to get the latest
+technology.  Unless an algorithm (e.g. sorting) makes use of this increased
+bandwidth, replacing the PCIe Gen 3 fabric with NVLink can only give at most a
+2x performance boost.
+
+.. _not cost effective: http://www.azken.com/images/dgx1_images/dgx1-system-architecture-whitepaper1.pdf
+
+There are two concrete specifications that can be said about current deep
+learning systems.
+
+- Frameworks like `PyTorch`_, `MXNet`_ and `TensorFlow`_ exhibit near linear
+  scaling with multiple GPUs, so eight GPUs per node is sufficient.
+
+  - Having more than eight GPUs in a node is `not recommended`_ because P2P is
+    not supported beyond eight devices at any given instant.
+  - The cascading GPU topology is not advised because neither frameworks account
+    for this type of dataflow.
+
+- In terms of system memory, while twice the GPU memory footprint would normally
+  be sufficient to manage background data moves and back buffering, four times
+  as much gives greater flexibility for managing in-memory working sets and
+  streaming data movement.
+
+.. _PyTorch: http://pytorch.org/
+.. _MXNet: http://mxnet.io/
+.. _TensorFlow: https://www.tensorflow.org/performance/benchmarks
+.. _not recommended: https://devtalk.nvidia.com/default/topic/1004967/max-number-of-cuda-devices/
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

@@ -1,0 +1,91 @@
+####################################
+Install Nvidia Drivers on Linux Mint
+####################################
+
+The only annoying aspect of installing Nvidia's latest proprietary
+drivers is that it must be done after each system update; should the
+Mint Display Manager (:command:`mdm`) render the UI differently than usual, it
+is a good sign the proprietary drivers have been wiped out and needs to be
+reinstalled.
+
+To query which Nvidia GPU you are using, run
+
+.. code:: bash
+
+   lspci | grep VGA
+
+Easy Installation of Limited OS-support Drivers
+===============================================
+
+.. code:: bash
+
+   sudo apt-get install nvidia-current
+   sudo reboot
+
+To revert, run:
+
+.. code:: bash
+
+   sudo rm /etc/X11/xorg.conf
+   sudo apt-get --purge remove nvidia*
+
+Manual Installation of Proprietary Drivers
+==========================================
+
+#. Remove existing Nvidia drivers:
+
+   .. code:: bash
+
+      sudo apt-get --purge remove nvidia*
+
+#. Blacklist all the existing drivers to avoid conflicting with Nvidia's drivers
+   through appending the following to **/etc/modprobe.d/blacklist.conf**:
+
+   .. code:: bash
+
+      blacklist nvidiafb
+      blacklist nouveau
+      blacklist rivafb
+      blacklist rivatv
+      blacklist vga16fb
+
+#. Update the system to reflect the blacklist.  If this step is skipped, then
+   the next step may yield a black screen.
+
+   .. code:: bash
+
+      sudo update-initramfs -u
+
+#. Reboot the machine, and then press *Crtl + Alt + F1* to enter
+   text-based login.
+
+#. Stop the graphical display manager.
+
+   .. code:: bash
+
+      sudo killall mdm
+
+#. If the next step complains about *gcc-version-check failed*, relink
+   **/usr/bin/gcc** to the correct version.
+
+#. Install/uninstall the driver; should DKMS keep failing, it is a good sign
+   that older drivers should be used.  Note that building the DKMS requires a
+   C/C++ compiler.
+
+   .. code:: bash
+
+      sudo bash NVIDIA-<platform>-<architecture>-<version>.run [--uninstall]
+      sudo reboot
+
+CoolBits
+========
+
+.. code:: bash
+
+   nvidia-xconfig --cool-bits=n
+
+- **n = 1** unlocks Clock Frequencies.
+- **n = 2** attempts to initialize SLI.
+- **n = 4** unlocks GPU Fan Speed.
+- **n = 8** unlocks Performance Level Editing.
+- **n = 12 = 8 + 4** activates **n = 4** and **n = 8**.

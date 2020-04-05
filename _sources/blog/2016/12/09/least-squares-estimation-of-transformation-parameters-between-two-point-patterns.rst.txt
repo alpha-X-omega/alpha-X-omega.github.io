@@ -1,0 +1,113 @@
+############################################################################
+Least-Squares Estimation of Transformation Parameters Between Two Point Sets
+############################################################################
+
+Motivation(s)
+=============
+
+The following mathematical problem shows up quite often in many computer vision
+applications: find a similarity mapping between two sets of corresponding points
+:math:`\mathcal{X} = \left\{ \mathbf{x}_i \in \mathbb{R}^m \right\}_{i = 1}^n`
+and
+:math:`\mathcal{Y} = \left\{ \mathbf{y}_i \in \mathbb{R}^m \right\}_{i = 1}^n`
+that minimizes
+
+.. math::
+
+   \mathop{e^2}\left( \mathbf{R}, \mathbf{t}, c \right) =
+   \frac{1}{n} \sum_{i = 1}^n
+     \left\Vert
+       \mathbf{y}_i - \left( c \mathbf{R} \mathbf{x}_i + \mathbf{t} \right)
+     \right\Vert_2^2.
+
+There are several solutions to this problem (a.k.a. the absolute orientation
+problem) when :math:`m` is two or three.  In particular, the most recent
+non-iterative algorithms is based on the SVD of the data's covariance matrix.
+This solution, however, fails when the data is severely corrupted and returns
+a reflection instead of a rotation matrix.
+
+Proposed Solution(s)
+====================
+
+The author augments Arun's least squares estimation with Lagrange multipliers to
+force the rotation matrix to be an orientation-preserving orthogonal matrix.
+
+Evaluation(s)
+=============
+
+The proposed method successfully estimates a rotation that achieves a non-zero
+least mean squared error instead of a reflection matrix that achieves zero
+error.
+
+All of the derivations make use of the Frobenius norm:
+
+.. math::
+
+   \DeclareMathOperator{\tr}{tr}
+   \left\Vert A \right\Vert_{\mathrm{F}}^2 = \tr\left( A^\top A \right).
+
+According to (11), :math:`L'` is symmetric so
+
+.. math::
+
+   L' = B A^\top R = R^\top A B^\top
+
+and
+
+.. math::
+
+   {L'}^2
+    &= L' L'\\
+    &= \left( B A^\top R \right) \left( R^\top A B^\top \right)\\
+    &= VD U^\top U DV^\top
+       & \quad & A B^\top = UDV^\top\\
+    &= V D^2 V^\top.
+
+To see that :math:`L'` is commutative, notice that
+
+.. math::
+
+   L' {L'}^2
+    &= L' \left( L' L' \right)\\
+    &= \left( L' L' \right) L'\\
+    &= {L'}^2 L'.
+
+The foregoing properties is the reason behind (14):
+
+.. math::
+
+   \DeclareMathOperator{\diag}{diag}
+   L' L' =
+   V D^2 V^\top =
+   \left( V D S V^\top \right) \left( V S D V^\top \right)
+
+where :math:`S = \diag(s_i \in \{1, -1\})`.
+
+The claim in (17) is justified because the sample covariance matrix is always
+:doc:`positive semi-definite </nb/multiple-view-geometry-hz/chapter-04>`.
+
+Future Direction(s)
+===================
+
+- Would a Bayesian formulation be worthwhile?
+
+Question(s)
+===========
+
+- How to deal with outliers?
+
+Analysis
+========
+
+This is an optimal least squares estimation of a similarity mapping between
+corresponding point sets.  The derivation is elegant and contains a lot of
+useful mathematical tricks.  An extension of this that weights each data point's
+residual error is given in :cite:`sorkine2009least`.
+
+.. include:: eigen-umeyama-sample.cpp
+   :code: cpp
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

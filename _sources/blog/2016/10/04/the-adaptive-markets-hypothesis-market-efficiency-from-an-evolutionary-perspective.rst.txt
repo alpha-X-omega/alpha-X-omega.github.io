@@ -1,0 +1,93 @@
+###################################################################################
+The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective
+###################################################################################
+
+Motivation(s)
+=============
+
+Efficient Markets Hypothesis (EMH) is one of the most enduring ideas of modern
+finance.  EMH asserts that in an informationally efficient market, price changes
+must be unforecastable if they fully incorporate the information and
+expectations of all market participants.  The theory has been extended to
+incorporate non-traded assets (e.g. transaction cost, human capital), but the
+overall idea still revolves around prices, probabilities, and preferences:
+
+- Individual investors form expectations rationally.
+- Markets aggregate information efficiently.
+- Equilibrium prices incorporate all available information.
+
+The standard approach to modeling preferences is to assert that investors
+optimize additive time-separable expected utility functions from certain
+parametric families.  This has been criticized by psychologists and behavioral
+economists for ignoring behavioral biases that are endemic in decision-making
+under uncertainty (e.g. overconfidence, overreaction, loss aversion, herding,
+psychological accounting, miscalibration of probabilities, hyperbolic
+discounting, regret).  Furthermore, there needs to be some degree of market
+inefficiency (e.g. noise traders); otherwise, there is no profit to gathering
+and trading on information.
+
+Proponents of EMH argue that there are limits to the degree and persistence of
+behavioral biases, and arbitrageurs will take advantage of these opportunities
+until they no longer exist (i.e. Dutch book); hence the market prices will
+become rational again.  Their conclusion implicitly assumes rational beliefs are
+not so pervasive as to overwhelm the capacity of arbitrage capital, however,
+empirical results (e.g. LTCM) have illustrated contrarily.
+
+More recently, economists and biologists have begun to explore the connections
+between sociobiology and economics.  One of the more recognized idea was bounded
+rationality and satisficing: individuals are bounded in their degree of
+rationality and make choices that are merely satisfactory.  Unfortunately, this
+idea was dismissed because it did not offer a way to determine the point at
+which an individual stops optimizing and reaches a satisfactory solution.
+
+Proposed Solution(s)
+====================
+
+The author proposes the Adaptive Markets Hypothesis (AMH), an extension of
+bounded rationality and satisficing that includes evolutionary principles (e.g.
+natural selection).  The AMH asserts that behavioral biases are actually
+maladaptive suboptimal behaviors.  Individuals make choices based on past
+experience and their best guess as to what might be optimal; they learn by
+receiving positive or negative reinforcement from the outcomes in some
+environment.  When the environment changes, the previously developed heuristics
+may become unsuitable for survival.
+
+Through the lens of evolutionary biology, many other aspects of economic
+behavior (e.g. competition, cooperation, market-making behavior, general
+equilibrium, disequilibrium dynamics) can be derived in a way that is consistent
+with established neuroeconomics research.
+
+Evaluation(s)
+=============
+
+This is a theoretical paper that uses a limited number of economics examples to
+illustrate how evolutionary biology can be used to model investors.  The author
+admits more solid evidence are needed in order to arrive at a quantitative
+framework.
+
+Future Direction(s)
+===================
+
+- What is an appropriate generative process to model trading firms (e.g. Goldman
+  Sachs)?
+
+Question(s)
+===========
+
+- Evolutionary principles are qualitative, so how would one transform it into
+  a quantitative metric (e.g. Price equation)?
+
+Analysis
+========
+
+The AMH is more reflective of how the market functions than EMH.  The theory's
+usage of evolutionary principles nicely captures the market's arbitrariness.
+Unfortunately, the author has not yet worked out a quantative framework that
+one can apply immediately.  One of the more interesting points is how economists
+easily dismiss a more natural description of decision making just to stay within
+the norm.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

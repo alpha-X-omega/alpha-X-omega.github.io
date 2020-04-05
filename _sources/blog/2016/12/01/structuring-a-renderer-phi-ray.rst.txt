@@ -1,0 +1,1125 @@
+###########################################
+Structuring a Renderer: :math:`\varphi`-Ray
+###########################################
+
+.. list-table:: Evolution of Render Farms
+   :stub-columns: 1
+   :header-rows: 1
+
+   * - 
+     - Render Farm
+     - Key Highlights
+   * - Shrek (2001)
+     - `836`_ Dual PIII
+     - `Processed one frame per hour`_.
+   * - Shrek 3 (2007)
+     - Mix of 3000+ `DL145 G2`_ and 1000+ `xw9300`_.
+     - `20M render hours`_.
+   * - Avatar (2009)
+     - `2,176`_ `BL2x220c`_
+     - Processed `17.28 GB/minute`_.
+   * - Monsters University (2013)
+     - Ranks at least in the top `25`_ supercomputers with 2,000 machines.
+     - `29 hours to render a single frame`_.
+   * - How to Train Your Dragon 2 (2014)
+     - `BL460c`_ :cite:`hpcdreamworks2014`
+     - `90M hours to render 129,600`_ frames processing 398 TB.
+   * - Big Hero 6 (2014)
+     - Ranks about `75th`_ compared to other supercomputers.
+     - A cloud spread across `four physical sites`_ that does not use GPUs nor
+       FPGAs.
+   * - The Battle of the Five Armies (2014)
+     - 400 `XL230a`_
+     - Renders 50M polygons in the same time as 50K polygons in Avatar, and
+       produces 50-100 TB per night :cite:`hpcsweta2014`.
+   * - Coco (2017)
+     - No significant changes in render farm.
+     - Render `eight million lights`_ in a single frame within fifty hours.
+
+.. _836: https://web.archive.org/web/20080615161400/http://www.flarg.com/Graphics/ShrekRenderfarm.html
+.. _Processed one frame per hour: https://web.archive.org/web/20100612210248/http://www.flarg.com/Graphics/ShrekRenderingStatistics.html
+.. _DL145 G2: https://www.hpe.com/h20195/v2/getpdf.aspx/c04283236.pdf?ver=2
+.. _xw9300: https://support.hp.com/us-en/document/c00293051
+.. _20M render hours: http://www.linuxjournal.com/article/9653
+.. _2,176: https://kevinbladeguy.wordpress.com/2010/01/04/the-hit-movie-avatar-processed-on-hp-blade-servers/
+.. _BL2x220c: http://www.hp.com/hpinfo/newsroom/press_kits/2008/cloud-infrastructure/ds_bl2x220c.pdf
+.. _17.28 GB/minute: https://jordanhall.co.uk/general-articles/avatar-film-rendered-with-enormous-ubuntu-server-farm-4701468/
+.. _29 hours to render a single frame: https://venturebeat.com/2013/04/24/the-making-of-pixars-latest-technological-marvel-monsters-university
+.. _25: https://www.top500.org/list/2013/06/?page=1
+.. _BL460c: https://psnow.ext.hpe.com/doc/PSN7271227USEN.pdf
+.. _90M hours to render 129,600: https://venturebeat.com/2014/07/25/dragon-making-main/
+.. _75th: https://www.top500.org/list/2014/06/?page=1
+.. _four physical sites: https://www.fxguide.com/featured/disneys-new-production-renderer-hyperion-yes-disney
+.. _XL230a: https://psnow.ext.hpe.com/doc/PSN7307066USEN.pdf
+.. _eight million lights: https://www.fxguide.com/featured/rendermans-visuals-for-coco
+
+Existing render farms run a variant of Linux and predominantly focus on
+distributed computing.  In contrast to mainstream production renderers, the
+proposed renderer :math:`\varphi`-ray will instead adopt heterogeneous computing
+as one of its core mantra.  This will be facilitated through the actor model
+:cite:`heirich1997parallel`.  One excellent implementation of the actor model
+is `CAF`_ :cite:`charousset2016revisiting`.  CAF also has the added benefit of a
+convenient interface to :doc:`OpenCL (and possibly Vulkan) </blog/2013/01/09/install-graphics-and-compute-linux-mint>`
+:cite:`hiesgen2017opencl`.  Alternative technologies such as `OpenMPI`_,
+`OpenMP`_, and `ISPC`_ were rejected to promote
+:doc:`conceptual integrity </blog/2013/01/22/notes-on-software-design>`.  There
+are no fundamental reasons why CAF and OpenCL/Vulkan cannot grow to subsume the
+other technologies.  The elegance and simplicity derived from the Actor model
+takes priority over performance due to Amdahl's law.
+
+.. _CAF: https://actor-framework.org/
+.. _OpenMPI: https://www.open-mpi.org/
+.. _OpenMP: http://www.openmp.org/
+.. _ISPC: https://ispc.github.io/
+
+@inproceedings{volkov2010better,
+  title={Better performance at lower occupancy},
+  author={Volkov, Vasily},
+  booktitle={Proceedings of the GPU technology conference, GTC},
+  volume={10},
+  pages={16},
+  year={2010},
+  organization={San Jose, CA}
+}
+
+https://parlab.eecs.berkeley.edu/sites/all/parlab/files/20090827-glew-vector.pdf
+    https://github.com/OpenCL/OpenCLCXXPortingGuidelines/blob/master/OpenCLCToOpenCLCppPortingGuidelines.md
+
+I think numba is the key here
+    it's all about memory management
+    actor model
+    scalability beyond a single node
+    maximizing performance on a single node is important, but cluster computing is much more important
+
+Make use of SEDA :cite:`welsh2001seda`.
+
+@article{volkov2011unrolling,
+  title={Unrolling parallel loops},
+  author={Volkov, Vasily},
+  year={2011}
+}
+
+:math:`\varphi`-Ray Design Goals
+================================
+
+- [ ] Checkbox item 1.
+
+  - [ ] sub-item.
+
+  - [ ] another sub-item.
+
+    - [ ] a sub-sub-item.
+
+- [X] an already filled in checkbox.
+
+https://www.arnoldrenderer.com/research/Arnold_TOG2018.pdf
+Kulla Sony Pictures ImageWorks Arnold
+    importance sampling of many lights with adaptive tree splitting
+Manuka A Batch Shading Architecture for specral patch tracing in movie production
+the design and evolution of hyperion
+renderman: an advanced path architecture
+
+Pixar sampling paper egsr
+EGSR Zirr 2018 split samples into separate images
+    reweighting fireflysamples for improved mc estimates
+density based outlier rejection in MC rendering
+blue noise dithered sampling
+
+disney moana data set
+addrs vorba krivanek 2016
+node-based architecture
+    geometric primitives, shaders, cameras, or lights
+
+billion polygons with 24GB of memory using lossless and lossy compression
+    render scenes with 30GB of geometry and that reference 1TB or more of texture
+
+two-level hierarchy of BVH
+
+python for customization
+
+all light transport computations in spectral
+    only converts to a colour in the frame buffer
+a spectral power distribution is converted from radiometric quantities to
+    photometric ones by a luminousity weighting function.
+    Usually the photopic, daytime brightness function of the CIE is used.
+    express radiant power in lumens (ak.a. luminous power) instead of watts.
+
+light path expressions (Heckbert's regular expression notation)
+
+One hundred to ten thousand independent Markov chains are traced in parallel
+
+:cite:`langlandspbsda`
+@misc{langlandspbsda,
+    title={Physically Based Shader Design in Arnold},
+    author={Langlands, Anders},
+    howpublished={\url{https://www.solidangle.com/research/physically_based_shader_design_in_arnold.pdf}},
+    note={Accessed on 2017-10-12}
+}
+    Make a table to compare stack vs uber
+    BSDF-stack model with shader template system
+        Flexibilty, minimal interface per BSDF, Rapid Prototyping
+        High Maintenance without shader template system
+        BSDF stacks are harder to optimize and constrain for energy conservation
+        Easy to Break: extremely easy to create completely nonsensical material models, or incredibly inefficient material stacks
+    vs
+    Layered Uber-Shader Model
+        Easy to Maintain, High Performance, Robust, Unfiltered Interface, Dependencies, Uncompromising
+
+    Arbitrary Output Variables (AOVs)
+        Shading: these separate each shading layer into direct and indirect components
+            supported due to legacy reasons
+        Light: up to 8 AOVs separating light sources (or groups of light sources) into individual outputs.
+        ID: up to 8 color AOVs that can be used for RGB mattes for compositing, or for plugging in arbitrary channels (e.g., noise patterns).
+        Data: UVs, depth, facing-ratio passes etc.
+
+    Rebalancing shading passes (in 2D for compositing) tends to break physical plausibility
+        restricting balancing to light groups allows tweaking a render in comp while maintaining physical accuracy
+            lights are assigned to one of eight light groups via a userdefined integer parameter.
+            We then track the contribution of each light group to the current traced path
+            (multiplying by each BSDF as we go) and output its contribution in a separate AOV.
+
+The two main functions specifying a bxdf are Evaluate() and Generate(). Evaluate() takes as input
+an array of incident directions and an array of exitant directions, and returns an array of rgb bxdf values
+(each value being the ratio of reflected radiance in the exitant direction over differential irradiance from
+the incident direction) and two arrays of pdf values. Generate() takes as input an array of incident directions
+and generates an array of “random” exitant directions along with two arrays of pdf values for those
+directions.
+
+- One hundred to ten thousand independent Markov chains are traced in parallel
+  to keep the noise closer to a Monte Carlo render and reduce the probability of
+  a new path popping late in the render.
+- Ray hits on the same material are grouped together into shade groups to allow
+  SIMD vectorization.  An additional benefit is texture data locality because
+  a surface typically has more than twenty textures.
+- Ray (path) differentials determine the appropriate level of detail for
+  multiresolution textures and multiresolution tessellated geometry.
+- Keeps track of the volumes that a ray enters and exits, and integrates over
+  all volumes covering a region.
+- Samples emitting volumes as light sources.
+
+take snapshots and resume later on based on time estimates; pre/post-denoised images
+supersample rendering
+    denoising algorithm
+    at least 16 - 512 rays per pixel
+    use light path expression to increase sampling of specific light/material/path
+    render images at double the target resolution but auto adjust other params to fit into same rendering time
+    control variates, MIS, defensive importance sampling, RIS
+
+out-of-core + LoD
+    maybe enable random access?
+    compress geometry files for space and I/O bandwidth
+    geometry input stream may be procedural
+    Each microgrid is a small indexed mesh with up to 256
+    vertices forming micropolygons where each micropolygon can have one, two, three
+    or four vertices (to represent points, lines, triangles, and quads)
+
+a fixed number of rays (at least :math:`2^25`) in flight
+rays are sorted by direction to ensure coherence and organized into a potentially
+out-of-core batches.
+rays are compressed after sorting.
+Inactive ray batches are streamed to a local SSD until the system is ready to
+sort and trace the next batch.
+
+two-level quad-BVH for scene traversal.
+The top level uses streaming packet-traversal while the bottom
+reverts to a single-ray traversal.
+A ray packet consists of 64 coherent rays.
+
+The result of a traversal is a list of hit points, one per ray.  The hit points
+are sorted to maximize coherent access from the texture cache.
+
+Arnold and RenderMan that can cache 1000 texture files, 100 MB per thread, and
+2710 texture files per layer, Hyperion does not use a persistent texture cache.
+Each time a given surface is shaded, the system requires reopening each texture
+file over the network.
+
+Given a group of hit points for a particular set of textures, those hit points
+are re-sorted by mesh ID followed by face ID to improve shading context.  The
+shading order matches on-disk order of per-face textures.  Each mesh face is
+touched at most once when shading a ray batch.  The shader inputs and texture
+maps are only accessed once also.  If a shading task has many hit points, it is
+partitioned into sub-tasks to increase parallelism.  The shader also feeds
+secondary rays back into ray sorting to continue ray paths.
+
+Production Renderers
+====================
+
+The following overview is the current state of the art in production renderers
+:cite:`fascione2017ptppr,fascione2017pathptpmm`.
+
+Arnold
+------
+
+Arnold uses a programmable, node-based architecture, with different types of
+nodes such as geometric primitives, shaders, cameras, or lights.  Nodes can be
+interconnected in a node network to form complex interactions.  The geometric
+primitives include polygon meshes, hair curves, volumes, procedurally-created
+geometry, and simple quadrics.  These primitives can be instanced any number of
+times.  Without instancing, the system can only store around a billion polygons
+with 24GB of memory using lossless and lossy compression techniques where
+appropriate.  The scene’s geometry is stored in a two-level hierarchy of BVH
+ray acceleration data structures.  This BVH is able to intersect different types
+of primitives (e.g. polygons, hairs, particles) at the leaf level.
+
+Pixar's RenderMan
+-----------------
+
+RenderMan has several distinguishing features beyond its plug-in architecture.
+
+- One hundred to ten thousand independent Markov chains are traced in parallel
+  to keep the noise closer to a Monte Carlo render and reduce the probability of
+  a new path popping late in the render.
+- Ray hits on the same material are grouped together into shade groups to allow
+  SIMD vectorization.  An additional benefit is texture data locality because
+  a surface typically has more than twenty textures.
+- Ray (path) differentials determine the appropriate level of detail for
+  multiresolution textures and multiresolution tessellated geometry.
+- Keeps track of the volumes that a ray enters and exits, and integrates over
+  all volumes covering a region.
+- Samples emitting volumes as light sources.
+
+Weta's Manuka
+-------------
+
+Manuka performs all light transport computations in spectral, and only converts
+to a colour in the frame buffer.  To account for the fact that different colours
+appear to be of different brightness for a human observer, a spectral power
+distribution is converted from radiometric quantities to photometric ones by a
+luminousity weighting function.  Usually the photopic, daytime brightness
+function of the CIE is used.  This allows radiant power to be expressed in
+lumens (a.k.a. luminous power) instead of watts.
+
+PantaRay
+^^^^^^^^
+
+This is an older out-of-core, massively parallel ray tracer designed to handle
+scenes that are roughly an order of magnitude bigger than available system
+memory :cite:`pantaleoni2010pantaray`.  Complex scenes at the time require
+baking spherical harmonics-encoded directional occlusion and indirect lighting
+information for billions of points with highly varying spatial density.
+
+The architectural design disallow any form of random access for two reasons:
+
+1) Geometry files are typically compressed to save disk space and (potentially)
+   achieve higher I/O bandwidth.
+2) Input streams could be procedurally generated, but the procedural generation
+   function might not allow for individual primitive generation.
+
+Streams consist of microgrids that can represent either geometry stored on disk
+or procedural geometry.  Each microgrid is a small indexed mesh with up to 256
+vertices forming micropolygons where each micropolygon can have one, two, three
+or four vertices (to represent points, lines, triangles, and quads).  Selecting
+which microgrids to process is a tradeoff between I/O and utilization.
+
+Disney's Hyperion
+-----------------
+
+Hyperion adopts a sorted deferred architecture that keeps a fixed number of rays
+(at least :math:`2^{25}`) in flight :cite:`eisenacher2013sorted`.  These rays
+are sorted by direction to ensure coherence and organized into potentially
+out-of-core batches.  To minimize storage, rays are compressed after sorting.
+Inactive ray batches are streamed to a local SSD until the system is ready to
+sort and trace the next batch.
+
+Given a sorted ray batch, the system uses a two-level quad-BVH for scene
+traversal.  The top level uses streaming packet-traversal while the bottom
+reverts to a single-ray traversal.  A ray packet consists of 64 coherent rays.
+The result of a traversal is a list of hit points, one per ray.  The hit points
+are sorted to maximize coherent access to the texture cache.  Unlike Arnold and
+RenderMan that can cache 1000 texture files, 100 MB per thread, and 2710 texture
+files per layer, Hyperion does not use a persistent texture cache.  Each time a
+given surface is shaded, the system requires reopening each texture file over
+the network.
+
+Given a group of hit points for a particular set of textures, those hit points
+are re-sorted by mesh ID followed by face ID to improve shading context.  The
+shading order matches on-disk order of per-face textures.  Each mesh face is
+touched at most once when shading a ray batch.  The shader inputs and texture
+maps are only accessed once also.  If a shading task has many hit points, it is
+partitioned into sub-tasks to increase parallelism.  The shader also feeds
+secondary rays back into ray sorting to continue ray paths.
+
+DreamWorks' Moonray
+-------------------
+
+Moonray's goal is to keep all vector lanes full with high data coherency through
+the use of queues :cite:`lee2017vectorized`.
+
+Another key feature
+artist control
+automatic differentiation
+OpenImageIO
+Embree
+
+    The artist controls the number of surface samples at the hit point. But only for the first non-mirror
+    bounce. After the first non-mirror bounce, we use only a single surface sample
+
+    The artist controls the number of light samples taken at a hit point. But as with surface samples, after
+    the first non-mirror bounce only (and exactly) one sample per active light is used.
+
+    The artist has control on the amount of path depth recursion. In fact, we further break these controls
+    up based on the type of surface we are evaluating (diffuse, glossy, or mirror).
+
+    arbitrary output variables
+        For diagnostic purposes, Moonray has introduced a “Material AOV” syntax that is used to extract material properties at a primary ray intersection point:
+        For compositing work flows, we make use of light path expressions as defined by the OpenShadingLanguage distribution.
+
+Each queue is responsible for processing the rays or samples in batches.  All
+queues are thread local to avoid thread contention, except for shade queues.
+Shade queues are the only queue type which are shared between threads.  One
+queue is allocated for each individual shader instance in the scene to improve
+shading coherency.
+
+The primary rays, occlusion rays, and incoherent rays are queued separately to
+improve coherency of ray intersections.
+
+After sorting the queue entries, they are converted from array-of-structures
+(AOS) format to structure-of-arrays (SOA) format to facilitate this
+separate work element per lane model of execution whilst minimizing
+costly scatter and gather memory access operations.
+
+    Radiance writes, although implemented via atomics, are still queued
+    to minimize thread contention for shared frame buffers.
+
+wavefronts in breadth-first order using multiple queues to track ray state.
+    BFS
+Data Oriented Design
+    a data oriented approach looks at how the problem can be efficiently mapped to the underlying hardware.
+    AOS to AOSOA or SOA depending on use case
+
+each thread simply runs in its own loop, pulling batches of primary rays from a shared work queue when its own local queue is empty.
+    To further minimize thread communication, we make heavy use of thread local storage (TLS) objects.
+
+32-bit sort key + 32-bit reference
+    radix sort using < only
+    inputs are in AOS format; after sorting, transforms them in-place to AOSOA
+        matrix transposition can be done via SIMD unpack, shuffle and permute operations
+        prefetching used to minimize scatter/gather operations
+    32-bit reference could be pointing to pre-allocated structures
+
+textures are loaded lazily
+    OpenImageIO
+        An infrastructure for dealing with different types of image
+        file formats in a format-agnostic manner, and various tools
+        for manipulating the image data.
+        A runtime image caching system which facilitates efficient
+        rendering of scenes with larger texture memory footprints
+        than could fit in physical memory.
+        A runtime texture sampling system which layers on top of
+        the image cache.
+
+    implemented thread-local 4-way set-associative cache
+    optionally pre-load all texture data
+    full UDIM support
+
+claims sweet spot for incoherent ray queue size is about 1024 entries per thread
+
+MPC
+---
+
+This studio found that a full-quality 10-hour rendered image could be
+perceptually matched by a denoised 5-hour rendered image.  Hence, they developed
+a custom pipeline that emphasizes noise removal, on top of existing renderers
+like Pixar's RenderMan.  Even though the rendering settings and denoiser are not
+directly transferable to different scene assets, the alternative requires a very
+large ray count for very fine geometry such as fur.  Each frame is the result of
+tracing between 16 to 512 rays per pixel.  The number of samples per pixel is
+determined by the desired clarity in the geometry.  Additional sampling of the
+lights and BxDFs are used to combat noise.  The images were rendered at double
+the target resolution with the appropriate render settings to avoid increasing
+the overall render time.
+
+There are several importance sampling techniques to reduce the noise.  Consider
+a function :math:`g` that is an approximation of :math:`f`.  If :math:`f - g` is
+approximately constant or analytically integrable, control variates is preferred
+over importance sampling :cite:`colbert2010importance`.  Conversely, importance
+sampling is desirable when :math:`f / g` is approximately constant or can be
+sampled analytically.  These different techniques can be combined using multiple
+importance sampling (MIS), which is optimal for a given set of sampling
+strategies.  When a sampling strategy is inadequate, defensive importance
+sampling (DIS) can be used to reduce the variance.  MIS using the balance
+heuristic can be viewed as a special case of DIS.  A generalization of
+importance sampling that permits unnormalized sampling densities or difficult to
+sample densities is resampled importance sampling.
+
+Sony Imageworks
+---------------
+
+Imageworks focuses on a single-ray architecture.  While packet tracing produced
+impressive speedups for coherent rays, the speedups on incoherent rays were
+offset by much greater code complexity and surprising performance pitfalls when
+bundles became too small.
+
+http://blog.selfshadow.com/publications/s2017-shading-course/drobot/s2017_pbs_multilayered.pdf
+    slide 28 shows the architecture...maybe?
+
+@inproceedings{villemin2015art,
+  title={Art and technology at Pixar, from toy story to today},
+  author={Villemin, Ryusuke and Hery, Christophe and Konishi, Sonoko and Tejima, Takahito and Villemin, Ryusuke and Yu, David G},
+  booktitle={SIGGRAPH Asia 2015 Courses},
+  pages={5},
+  year={2015},
+  organization={ACM}
+}
+
+Hydra Rendering Engine: https://graphics.pixar.com/library/SigAsia2015/paper.pdf
+    Decouple engine from the scene graph
+    Scene Delegate -> Render Index -> Drawing Commands -> GPU Rendering Resources (see Figure 3)
+        Render Index holds light-weight Render Prims
+        Render Prims fetch data from a client scenegraph via Client Scene Delegate.
+            They also hold references to GPU resources allocated by a Resource Registry.
+    Drawing streams are first-class objects and are decoupled from the client scene's semantics.
+    Resource Registry
+        loaded texture images, allocated VBOs, drawing topology, shader programs
+        resources are resolved by association with a descriptor
+    Separation between RenderIndex and resources enables
+        texture images referenced at many points in the scene can resolve to a single loaded texture image
+        meshes sharing the same topology can share the same computed topology tables
+        a single mesh may be displayed as both a smooth refined surface and an unrefined control hull
+    Drawing Coordinate Table 1
+        (e.g. Draw Dispatch Buffer, gl_VertexID, gl_PrimitiveID, gl_InstanceID, multidraw-indirect, bindless buffers, SSBO, bindless)
+        Data de-duplication (topology instancing) share the same offsets
+        per-instance frustum culling implemented by shuffling the instance index buffer
+    Shading Interface
+        Primvar Abstraction Figure 5, 6, 7
+        Auto-generated accessors/inter-stage-glue-code
+            code generation enables specific code to be embedded into the GLSL shaders
+        user focus on writing displacement/surface shaders
+            agnostic about not only instancing and tessellation but also an RenderPrim’s
+            handed-ness and display stylings such as backface culling and wireframe drawing
+            because they are handled by intrinsic geometric shader code.
+
+OpenSubDiv
+    Interesting Design.....but not relevant atm Table 7/8 API Layer List and Figure 11/13/14
+        Subdivision Core
+        Vectorized Topological Representation
+        Feature Adaptive Representation
+        OpenSubDiv
+
+Prman RIS uses OSL
+    original renderer of a hybrid REYES + ray tracing approach could not achieve optimal results
+        shading is decoupled from visibility computation
+            this scheme is counter to ray tracing where you have to shade where you hit.
+                radiosity cache: shade a whole grid of points at the first ray hit, and reuse those results for subsequent hits
+    Figure 5
+        the tracing engine will bundle rays, and also hit points, so that multiple rays hitting the same object
+        will call the material in batches making vectorization particularly easy
+        RixPattern
+            Variable outputs that may be cached automatically
+            Listing 1, 2
+        RixBxdf
+            Only one Bxdf is attached to each object in the scene, but the Bxdf can contain multiple lobes via one sample MIS.
+            Connection between object and integrator.
+                EvaluateSample: For a given input, output direction, provide the value and corresponding PDFs.
+                GenerateSample: Also needs to be capable of generating a new direction based on the current incoming direction.
+            Any required data from the shading context are queried via GetBuiltinVar.
+                Listing 3, 4
+        RixLightFilter
+            *This seems like a bad design*
+        RixIntegator
+            Figure 15: batch processing of rays at different depths and save out results.
+            Figure 16: RtRayGeometry + CustomPayload
+    ISPC
+
+@article{djeu2011razor,
+  title={Razor: An architecture for dynamic multiresolution ray tracing},
+  author={Djeu, Peter and Hunt, Warren and Wang, Rui and Elhassan, Ikrima and Stoll, Gordon and Mark, William R},
+  journal={ACM Transactions on Graphics (TOG)},
+  volume={30},
+  number={5},
+  pages={115},
+  year={2011},
+  publisher={ACM}
+}
+
+this paper brings up some important design decisions: in my view, they essentially implemented all the most complicated
+        methods and made them work....but is it worthwhile when they themselves felt it's not as compelling a solution?
+efficient support for
+    arbitrary dynamic motion: *outdated because BVH has a better solution*.
+        per-frame dynamic and lazy kd-tree build (via partially replicated kd-trees for parallel construction)
+            rebuild all data structures except original scene graph
+        close coupling between rendering engine and scene graph
+    automatic multiresolution (!= progressive meshes)
+        Ray-directed LoD: each ray independently selects a geometric level of detail, which varies along the ray based on ray and path differentials.
+            possibly use packet ray tracing
+        continuous LoD synthesized on-the-fly via adaptive subdivision surfaces
+    decoupling shading computation from visibility hit points
+        run visibility at a higher spatial frequency than most shading computations
+        reduce redundant shading computation
+        view-independent computation can be cached and interpolated
+        view-dependent computation is always performed at hit points
+        batch shading computations
+        shading occur at vertices like REYES
+
+secondary rays can be traced using coarse geometric representations of the scene without harming the image quality
+
+@article{nah2015hart,
+  title={HART: A hybrid architecture for ray tracing animated scenes},
+  author={Nah, Jae-Ho and Kim, Jin-Woo and Park, Junho and Lee, Won-Jong and Park, Jeong-Soo and Jung, Seok-Yoon and Park, Woo-Chan and Manocha, Dinesh and Han, Tack-Don},
+  journal={IEEE transactions on visualization and computer graphics},
+  volume={21},
+  number={3},
+  pages={389--401},
+  year={2015},
+  publisher={IEEE}
+}
+asynchronous BVH construction exploits frame-to-frame coherence
+    very bad for rapidly-changing scenes
+
+@article{wald2014embree,
+  title={Embree: a kernel framework for efficient CPU ray tracing},
+  author={Wald, Ingo and Woop, Sven and Benthin, Carsten and Johnson, Gregory S and Ernst, Manfred},
+  journal={ACM Transactions on Graphics (TOG)},
+  volume={33},
+  number={4},
+  pages={143},
+  year={2014},
+  publisher={ACM}
+}
+single ray vectorization is faster than packet tracing for incoherent ray distributions, but is slower for coherent rays
+    BVH branching factor of 4 is good for both
+    memory storage order of single-ray vs packet made minimal difference
+1, 4, 8 triangle-ray intersections at a time (e.g. triangleXn): Moller Trumbore
+    triangles could store indices, vertex data, or preprocessed edge/normal data
+        first two is for BVH construction
+        user-defined geometry types/function pointer callbacks for bounding box, ray-primitive intersection
+
+dynamic scenes use two-level BVH with a separate BVH per mesh
+    BVH nodes with a large surface area are iteratively replaced with their children until a threshold is reached
+
+maybe three layers
+    kernel on top of common infrastructure -> C: data-parallel/ILP/TLP methods, data in, data out
+        templates?
+        allows SoA
+    OO API -> C++: system architecture
+        data shuffling AoS to SoA
+    scalability -> python, distributed
+        reflection capabilities
+
+@inproceedings{pharr2012ispc,
+  title={ispc: A SPMD compiler for high-performance CPU programming},
+  author={Pharr, Matt and Mark, William R},
+  booktitle={Innovative Parallel Computing (InPar), 2012},
+  pages={1--13},
+  year={2012},
+  organization={IEEE}
+}
+
+Although auto-vectorization can
+work well for regular code that lacks conditional operations,
+a number of issues limit the applicability of the technique in
+practice. All optimizations performed by an auto-vectorizer
+must honor the original sequential semantics of the program;
+the auto-vectorizer thus must have visibility into the entire
+loop body, which precludes vectorizing loops that call out
+to externally-defined functions, for example. Complex control
+flow and deeply nested function calls also often inhibit
+auto-vectorization in practice, in part due to heuristics that
+auto-vectorizers must apply to decide when to try to vectorize.
+As a result, auto-vectorization fails to provide good
+performance transparency—it is difficult to know whether
+a particular fragment of code will be successfully vectorized
+by a given compiler and how it will perform.
+
+The group of running program instances is a called a gang a.k.a. a CUDA warp
+    set at compile time; it’s no more than twice the SIMD width of the hardware that it is executing on.
+
+Maximal convergence means that if two program
+instances follow the same control path, they are guaranteed
+to execute each program statement concurrently. If two program
+instances follow diverging control paths, it is guaranteed
+that they will re-converge at the earliest point in the
+program where they could re-converge.
+    This guarantee is not provided across gangs in different
+    threads; in that case, explicit synchronization must be used.
+
+    CUDA/OpenCL requires explicit synchronization among program instances
+
+hybrid SOA
+    the structure members are widened to be SIMD-wide arrays
+    1.25x faster than AoS
+
+@article{benthin2012combining,
+  title={Combining single and packet-ray tracing for arbitrary ray distributions on the intel mic architecture},
+  author={Benthin, Carsten and Wald, Ingo and Woop, Sven and Ernst, Manfred and Mark, William R},
+  journal={IEEE Transactions on Visualization and Computer Graphics},
+  volume={18},
+  number={9},
+  pages={1438--1448},
+  year={2012},
+  publisher={IEEE}
+}
+
+One common technique,
+known as packet tracing, shares one traversal stack and
+performs the node/triangle intersection test for all N rays [4].
+All rays are forced to follow the same traversal sequence by
+always descending a subtree if any of the rays wants to traverse
+the subtree, using masks to track which rays are active.
+
+    Packet
+    tracing is particularly efficient on explicit SIMD architectures
+    (where the SIMD length is exposed in the instruction set)
+    because it does not require scatter/gather operations, and
+    because the mix of scalar and vector operation utilizes both
+    scalar and vector units. However, performance degrades badly
+    once ray divergence becomes significant, eventually reaching
+    a state where only very few of the N SIMD lanes are still
+    active.
+
+An alternative is to use the SIMD unit to trace N independent
+rays. That is, each SIMD lane has its own ray and
+its own traversal stack. This technique is particularly popular
+on today’s GPUs, which have an implicit SIMD architecture
+that is well matched to it [3]. In a single program multiple
+data (SPMD) programming model such as CUDA or OpenCL,
+this even gives the appearance of each SIMD lane running
+its own scalar program. However, SIMD efficiency loss still
+occurs if different SIMD lanes execute different code paths.
+For example, if some rays want to descend further into the
+acceleration structure but others want to perform a ray/triangle
+
+proposal
+    One approach is to use a bounding volume
+    hierarchy (BVH) with a branching factor and leaf size equal
+    to the SIMD width (an MBVH acceleration structure)
+    This approach uses N-wide SIMD to perform N
+    node or triangle intersection tests in parallel for a single ray
+    and does not rely on ray coherence at all. However, this
+    approach quickly loses algorithmic efficiency for branching
+    factors greater than four and with branching factors of 16 or
+    greater is significantly worse than packet tracing if there is
+    even a small amount of ray coherence [7].
+
+        two- or four-wide BVH (i.e. QBVH) is best
+
+    The key idea is to view the 16-wide
+    SIMD hardware not as 16 independent lanes, but rather as
+    four lanes of four elements each, and use this to process four
+    nodes respectively four primitives in parallel, using 4-wide
+    SIMD for each node/primitive intersection test
+
+        coherent computations is not as efficient as processing 16
+        different rays.
+
+    hybrid: generate and shade rays in packets,
+            trace them as packets as long as they are coherent, and then,
+            on-the-fly, switch to the single-ray scheme when the rays
+            diverge.
+
+    conversion of data between SoA and AoS
+        4 ray-AABB intersections at a time
+        4 ray-triangle intersections at a time
+            nodes with less than 4 children need to be padded with empty nodes
+
+*while 16-wide SIMD is cool, GPUs are already 32-wide....
+
+@inproceedings{son2017timeline,
+  title={Timeline scheduling for out-of-core ray batching},
+  author={Son, Myungbae and Yoon, Sung-Eui},
+  booktitle={Proceedings of High Performance Graphics},
+  pages={11},
+  year={2017},
+  organization={ACM}
+}
+
+device connectivity graph (DCG)
+    dynamic tasks: fetch job or data
+    timing model that describes the time of executing a job and transferring a data block from one memory device to another
+        captures data locality, varying I/O bandwidths, and data dependency
+
+Greedy Makespan Balancing (GMB) algorithm schedules and distributes jobs from the initial workload
+    maximize utilization, hide data transfer latency
+    two types of jobs: compute device or memory channel
+    ray batching: schedule blocks whose job granularity is high and fetch job is low
+        minimize makespan: true idle time, fetching time, setup time
+        job prediction is 75% accurate and yields 85% overall throughput improvement
+
+image space decomposition
+    limits data locality due to secondary incoherent rays
+    natural load balancing, low communication due to duplication of data
+
+domain decomposition
+    partition by a set of scene data
+    high data locality, but suffers from load imbalance and high communication
+
+hybrid
+    process generating samples or the process holding the data domain, by considering various information such as ray types
+
+@article{keller2017iray,
+  title={The Iray Light Transport Simulation and Rendering System},
+  author={Keller, Alexander and W{\"a}chter, Carsten and Raab, Matthias and Seibert, Daniel and van Antwerpen, Dietger and Kornd{\"o}rfer, Johann and Kettner, Lutz},
+  journal={arXiv preprint arXiv:1705.01263},
+  year={2017}
+}
+
+Separating material description from implementation via material definition language (MDL)
+    Four steps
+        state setup
+            local intersection information like front-/backside point of intersection to handle reflective/transmissive/self-intersection events
+            geometric/interpolated shading normals
+        texture coordinate and tangent generation
+        compute material inputs e.g. bitmaps, procedural textures, compiled MDL code
+        evaluate/sample layered BSDF
+
+Figure 2
+    Setup -> Trace Ray -> NEE -> Sample + Evaluate Material -> Accumulate
+    Trace Ray -> Matte NEE -> Evaluate Env + Matte -> Accumulate
+    Trace Ray -> Evaluate Env + Matte
+    Evaluate Env + Matte -> NEE
+    Sample + Evaluate Material -> Trace Ray
+    NEE
+        Sample Light -> Trace Ray -> Evaluate Transparency -> Trace Ray
+
+geometric light sources
+    Goals
+        10K+ light sources
+        arbitrary mesh representation
+        spatially varying via MDL function
+    Focus on triangles exclusively
+        single flux value per triangle obtained from integrating the intensity function over a triangle’s area in a preprocess.
+
+motion blur
+    The scene data for the chosen exposure time of the virtual camera or measurement
+    probes is sampled for each iteration, which then works on a single point in time of the
+    simulation
+
+parallelizing single device Figure 13
+    sample state
+        1M samples allocated in GPU memory as SoA
+    quasi-monte carlo enables sampling of pixel framebuffer per device efficiently
+
+Light Path Expressions enable filtering the scene into separate "composites"
+
+Imagine decals as thin layers of virtual geometry that are simulated just as regular thin-walled geometry would be if separated by a very small air gap.
+    Think of it as a BRDF
+
+@inproceedings{parker2010optix,
+  title={Optix: a general purpose ray tracing engine},
+  author={Parker, Steven G and Bigler, James and Dietrich, Andreas and Friedrich, Heiko and Hoberock, Jared and Luebke, David and McAllister, David and McGuire, Morgan and Morley, Keith and Robison, Austin and others},
+  booktitle={ACM Transactions on Graphics (TOG)},
+  volume={29},
+  number={4},
+  pages={66},
+  year={2010},
+  organization={ACM}
+}
+
+domain-specific just-in-time compiler that generates custom
+ray tracing kernels by combining user-supplied programs for ray
+generation, material shading, object intersection, and scene traversal.
+
+general low-level ray tracing
+    mechanism for ray-geometry interactions
+    does not have built-in concepts of lights, shadows, reflectance, etc...
+
+a programmable ray tracing pipeline
+    defines an abstract ray tracing execution model as a sequence of user-specified programs
+
+recursive single-ray programming model with custom payload
+    engine abstracts ray packets, SIMD, batching, reordering, acceleration structures
+
+node graph system
+    engine optimizes for efficiency while still supporting instancing, LoD, nested acceleration structures.
+
+call graph
+    7 types of kernel programs
+        ray generation: fire and forget style
+        intersection: ray-geometry tests with arbitrary attributes, also allows access to native format to avoid memcpy
+        bounding box: primitive id -> BB
+        closest hit: invoked once to do brdf shading at the end of traversal
+        any hit: called for every ray-object intersection found, can early terminate (for shadow, ambient occlusion), and ignore intersection (e.g. texture channel lookup)
+        miss: called when ray does not hit anything
+        exception: mainly for printing diagnostic messages or visualizing the condition
+        selector visit: expose coarse-level node graph traversal e.g. LoD, ray differential
+
+    hierarchy nodes
+        group: 0+ children of any node type, has an associated acceleration structure to provide two-level traversal structure.
+        geometry group: leaves of the graph, contains primitive and materials, can have an acceleration structure associated with it.
+            geometry instance: binds a geometry object to a set of material objects
+            geometry: list of geometric primitives, each with an associated bounding box program and intersection program that are possibly shared
+            material: contains information about shading operations e.g. any hit program, closest hit program.
+        transform: affine transformation of underlying geometry
+        selector: 0+ of any node type, single visit program that is executed to select which child.
+
+@inproceedings{laine2013megakernels,
+  title={Megakernels considered harmful: Wavefront path tracing on gpus},
+  author={Laine, Samuli and Karras, Tero and Aila, Timo},
+  booktitle={Proceedings of the 5th High-Performance Graphics Conference},
+  pages={137--143},
+  year={2013},
+  organization={ACM}
+}
+
+material evaluator(surface point, outgoing direction towards the camera, light sample direction)
+    outputs
+        importance sampled incoming direction
+        value of importance sampling pdf
+        throughput between incoming/outgoing directions
+        throughput between light sample direction and outgoing direction
+        probability of producing the lightsample direction when sampling incoming direction (for MIS)
+        medium identifier in the incoming direction
+
+quasi-monte carlo
+    Sobol sequences for the first 32 dimensions
+        precomputed and shared between all pixels
+            each pixel scrambles (xor) Sobol to remain uncorrelated
+    33+ uses random numbers generated by hashing together pixel index, path index, and dimension
+
+keeps 2^20 paths alive at all times
+    212B per path, stored in GPU global memory
+    On each iteration, every path is advanced by one segment, and if a path is terminated, it is regenerated during the same iteration.
+
+three stages communicate via queues stored in global memory
+    logic kernel
+        distributes work over all paths
+            advance the path by one segment
+        calculating MIS weights for light and extension segments,
+        updating throughput of extended path
+        accumulating light sample contribution in the path radiance if the shadow ray was not blocked
+        determining if path should be terminated
+        for a terminated path, accumulating pixel value
+        producing a light sample for the next path segment
+        determining material at extension ray hit point, and
+        placing a material evaluation request for the following stage
+    material
+        may request extension ray or shadow ray
+        place results into result buffers at indices corresponding to the requests in the input buffers
+        the path state has to record the indices in the ray buffers in order to enable fetching the results in the logic stage
+    ray cast
+
+light sampling and evaluation are not split because no complex light sources were needed
+
+@inproceedings{van2011improving,
+  title={Improving SIMD efficiency for parallel Monte Carlo light transport on the GPU},
+  author={Van Antwerpen, Dietger},
+  booktitle={Proceedings of the ACM SIGGRAPH Symposium on High Performance Graphics},
+  pages={41--50},
+  year={2011},
+  organization={ACM}
+}
+We propose to combine stream compaction and sample regeneration
+to keep SIMD efficiency high in the face of stochastic
+random walk termination.
+
+For BDPT and MLT we propose to evaluate all bidirectional
+connections for a sample in parallel in order to balance
+the workload between GPU threads and improve SIMD efficiency.
+
+@inproceedings{afra2016local,
+  title={Local shading coherence extraction for SIMD-efficient path tracing on CPUs.},
+  author={{\'A}fra, Attila T and Benthin, Carsten and Wald, Ingo and Munkberg, Jacob},
+  booktitle={High Performance Graphics},
+  pages={119--128},
+  year={2016}
+}
+
+a local shading coherence extraction algorithm optimized for modern many-core CPU architectures and vector instruction sets
+    trace small streams of rays on each processor thread
+    in a breadth-first fashion and sort the ray hits by material ID before
+    evaluating the shaders. In this sorting stage, we group the ray
+    paths in each stream into coherent SIMD-sized batches that need to
+    be processed with a single shader, avoiding code path divergence.
+    The streams are independent from each other and are small enough
+    (up to a few thousands rays e.g. at least 2048) to fit into the cache hierarchy of the
+    CPU. Also, they are always compact in the sense that no gaps are
+    introduced due to terminating paths.
+
+    two ray streams: extension stream for extending paths and shadow stream for direct light sampling
+
+table 1 describes ray stream layout
+
+@inproceedings{hvl2017pixarmaterials,
+  title={Pixar’s Foundation for Materials},
+  author={Hery, Christophe and Villemin, Ryusuke and Ling, Junyi},
+  booktitle={ACM SIGGRAPH 2017 Courses},
+  pages={7},
+  year={2017},
+  organization={ACM}
+}
+
+Lambertian
+Oren-Nayar
+Diffuse BTDF for lampshade model
+Specular Lobe via GGX, Beckmann, Fresnel
+
+Sampling on Multi-Lobe BSDFs
+    1) Compute probabilities for each lobe, then select one according to these probabilities
+        importance estimation phase:  use an approximation of the Fresnel, based only on the incoming direction v
+    2) Use the chosen lobe to generate a sampling direction and corresponding BSDF value and pdf.
+
+       One-sample MIS: Use the chosen lobe to generate a sampling direction and compute the corresponding values and pdfs for the whole BSDF (all the lobes).
+
+Each material layer’s input and output are standardized such that they can be composited with any other material layer
+
+One additional note is that we draw distinctions between clearcoat, specular and roughspecular BRDFs. Even
+though fundamentally they are based on the same Beckmann or GGX models that can be set with a variety of
+roughness and Fresnel ranges, we make some conceptual distinction for practical reasons. “Clearcoat” is meant
+to be the dielectric interface at the top of a material. It usually has a very low roughness that is lower than 0.1,
+unless it is moderated with a dusty material on top. e “specular” BXDF usually describes a rougher material.
+Usually it somewhere between 0.1 and 0.4. is can be the top interface of materials such as plastic or simple
+metal, or a sub-layer of a compound material such metal akes in car paint, or the brous layer of varnished
+wood. Some complex materials can require longer tails in their BXDF proles. Although GGX provides us with
+one way to achieve this, sometimes this rougher specular needs to be art-directed. We provide an additional
+roughspecular BRDF for that very purpose.
+
+energy compensation is a artist parameter
+
+@inproceedings{Fong:2017:PVR:3084873.3084907,
+ author = {Fong, Julian and Wrenninge, Magnus and Kulla, Christopher and Habel, Ralf},
+ title = {Production Volume Rendering: SIGGRAPH 2017 Course},
+ booktitle = {ACM SIGGRAPH 2017 Courses},
+ series = {SIGGRAPH '17},
+ year = {2017},
+ isbn = {978-1-4503-5014-3},
+ location = {Los Angeles, California},
+ pages = {2:1--2:79},
+ articleno = {2},
+ numpages = {79},
+ url = {http://doi.acm.org/10.1145/3084873.3084907},
+ doi = {10.1145/3084873.3084907},
+ acmid = {3084907},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+}
+
+For every geometric primitive in
+the scene, there is an instance of a Material class bound to that primitive. When a ray hits a geometric
+primitive, the geometric properties of geometry at the hit point are encapsulated into a ShadingContext,
+which includes the position P of the hit point itself, the surface normal N, and the direction opposite to
+the incoming ray V.
+
+Every Material implements a CreateBSDF method that returns a BSDF object, given a ShadingContext.
+The BSDF object implements both a EvaluateSample method and a GenerateSample method,
+which may use information from the ShadingContext (such as the geometric normal) to decide how to
+do their work. EvaluateSample is used to evaluate the response of the BSDF to a light sample, given
+an incoming light ray with direction sampleDirection and the outgoing ray direction ShadingContext::GetV().
+BSDF::GenerateSample is used to sample the BSDF, and generates an outgoing ray
+direction sampleDirection based on evaluating a BRDF or a BTDF, as well as the associated PDF of
+that ray direction. If the BSDF object implements both a BRDF and a BTDF, it is responsible for randomly
+choosing which of the two to use.
+
+We assume the light integrator module is responsible for implementing a path tracing algorithm
+with the aid of a RendererServices object, which provides services for tracing a ray against the scene
+database, for sampling lights in the scene, and for creating a ShadingContext given a hit point on a
+piece of geometry.
+
+extend our Material class to return a Volume object.
+
+Bear in mind that in this system, a volume integrator does not exist by itself; it is a component of a
+Material controlling only the volumetric integration inside a piece of geometry. The surface properties
+of that geometry are represented by the BSDF returned by the CreateBSDF method of that Material. In
+order to !nish de!ning a Material, we need to de!ne a TrivialBSDF, whose GenerateSample method
+used for creating indirect rays simply continues a ray in the outgoing direction with full weight and PDF.
+The resulting material combining both the TrivialBSDF and the BeersLawVolume now fully de!nes a
+volumetric region with no surface properties which absorbs light.
+
+a closed piece of geometry with outward facing normals is a valid container for a volume: the volume
+exists everywhere inside the geometry
+    This assumes that the geometry is watertight when ray traced.
+
+    With this convention, a material that is bound to such a piece of geometry will return a Volume object
+    when requested by the light integrator. Materials that return a null Volume are treated by the light
+    integrator as a regular surface without a volume.
+
+ In the case of a surface-only render, the light integrator would normally
+simply trace this ray against the scene database, create another shading event, and proceed as before.
+However, because our material is volume capable, we instead ask the material to create an instance of a
+Volume. The outgoing ray with direction t
+is now an input to this Volume object, which is responsible
+for computing several outputs related to volume integration, as well as potentially tracing the ray against
+the scene database in order to !nd the end of the volume integration domain.
+
+utilize the concept of opposite and incident volumes: the opposite volume to an incident ray is the
+volume on the opposite side of the surface, while the incident volume to an incident ray is the volume
+on the same side of the surface.
+    This leads to an implementation where rays that are moving through our system must be aware of
+    the Material that they are moving inside. Essentially, our rays must know what volume(s) they are
+    inside. When a ray intersects an object, they may enter a new volume, or they may leave a volume. This
+    can only occur on a transmit event; on a re"ection event, they can neither enter a volume or leave a
+    volume.
+        nested volumes, nested volumes with interior non-volume objects
+
+        In order to accommodate the need for tracking a list of Materials per ray, we can add EnterMaterial
+        and ExitMaterial methods to the Ray data structure which add and remove a material from this list.
+        We will see in the next section how these methods are used by the light integrator to track which
+        volume should be used at an interface boundary
+
+    incorporate volume rendering into this light integrator loop
+
+These transmittance rays are usually treated as a special case by a renderer because they can easily
+outnumber camera and indirect rays, and therefore deserve special optimization.
+
+    One typical optimization
+    performed for transmittance rays is to allow them to intersect geometry in any order, rather
+    than in strict sorted depth-!rst order. This out-of-order execution is usually combined with early-out
+    optimizations: any opaque object hit by a transmittance ray will immediately cause the ray to terminate.
+    Furthermore, the importance of the e#cient direct lighting may mean that in production rendering,
+    transmittance rays may be allowed to break some laws of physics. For example, a glass material that
+    normally must account for refraction on camera and indirect rays may choose to ignore such e$ects for
+    transmittance rays; this optimization allows for much faster convergence when direct lighting objects
+    behind glass, and may be visually acceptable if the glass is a thin material.
+
+A heterogeneous, absorption-only volume represents the !rst real complexity associated with writing
+a volume integrator. So far, we have not described how texturing or pattern generation works in
+our system. In a typical production renderer, a material would actually be the root node of a shader
+graph, with the inputs to this material being connections to upstream nodes responsible for pattern
+generation or texturing. We now assume in our system that a facility exists whereby the combination of
+a ShadingContext bound to a Material allows for the evaluation of such input nodes. We assume such
+inputs are uniquely identi!ed with an integer index, and that their value can be evaluated (triggering
+the necessary upstream graph evaluation) by invoking the ShadingContext::GetFloatProperty or
+ShadingContext::GetColorProperty methods.
+
+    while the shading context for a single hit point usually does not need alteration, a
+    volume has an additional dimension for integration (along the length of the ray), and a single set of
+    values associated with a single hit point will not suffice.
+
+    In order to implement a heterogeneous volume, however,
+    we require the ability to alter the ShadingContext to be some other point within the volumetric
+    region, and to reevaluate upstream inputs. This requires that the context object have mutability
+    in its geometric properties. One approach to such a system is to allow the volume integrator
+    to set a position on the ShadingContext using the SetP method, and then have the renderer services
+    automatically recompute the properties of the geometric environment as well as all upstream
+    inputs with RendererServices::RecomputeShadingContext(). Subsequent calls to the ShadingContext::GetFloatProperty
+    or ShadingContext::GetColorProperty methods will now return updated
+    values.
+
+Multiple sca!ering
+    Each invocation of the volume integrator (red lines) is responsible only for computing
+    the next hit point, the transmi!ance over the interval, and the weight associated with the location; all radiance
+    calculations are handled by the lighting integrator (black dashed lines).
+
+Overlapping volumes
+    It is useful to establish situations where overlapping volume integration is actually not needed. The
+    aforementioned glass object inside smoke is one such case: the glass object is not actually permeable to
+    smoke, so in fact the associated volume integrator never needs to worry about any situation where it
+    overlaps with another volume. We can enshrine this situation in our system by adding a query method
+    to the Material, where it can be interrogated as to whether it can participate in overlapping volume
+    integration. If it chooses not to, everything proceeds as described in the system so far.
+
+    It is also important to note that for the case of only calculating the beam transmittance between
+    two points (as described in section 3.4), we do not actually need to worry about whether or not two
+    volumes overlap. Their individual transmittances can be calculated in isolation and accumulated by
+    multiplication without error, even if they overlap each other.
+
+     in the situation where two volumes do overlap and require overlapping integration
+
+        choose a single primary volume integrator, which has full access
+        to the properties of all other volumes which coexist over the interval, and is responsible for a single
+        result which takes into account all properties of the overlapping volumes.
+
+            assume that such overlapping volumes are comprised of particles that do not react to each other
+                decide that the collision event has occurred with a single particle from a single volume
+
+decoupled ray marching
+
+Note: In this chapter, we are considering deformation motion blur, meaning motion that varies within
+an individual object. Transformation motion blur, by which individual objects are rigidly animated using
+their transformation matrices, can be achieved identically for both geometry and volumes.
+
+temporal volume method to capture motion blur
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

@@ -1,0 +1,262 @@
+{
+ "cells": [
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "************\n",
+    "Introduction\n",
+    "************"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 1\n",
+    "==========\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   F(x_1, x_2) =\n",
+    "   \\begin{pmatrix}\n",
+    "     x_1^2 - x_2^2 - 3 x_2 - 2\\\\\n",
+    "     x_1^3 + 2 - x_2^4\n",
+    "   \\end{pmatrix}"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 2\n",
+    "==========\n",
+    "\n",
+    "This is a data fitting problem.  Since the :math:`f(t)` is nonlinear, a\n",
+    "nonlinear least-squares formulation seems appropriate.  The variables to\n",
+    "optimize over are the amplitude, frequency, and displacement."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 3\n",
+    "==========\n",
+    "\n",
+    "(a)\n",
+    "---\n",
+    "\n",
+    "This problem is a constrained minimization problem.  Since the\n",
+    "*number of housing starts* are not concentrated around :math:`\\{0, 1, 2\\}`, this\n",
+    "variable could be estimated using floating point computation and rounding to the\n",
+    "nearest integer at the end.\n",
+    "\n",
+    "(b)\n",
+    "---\n",
+    "\n",
+    "The model is complex, so most likely the economist does not have an analytical\n",
+    "derivative formula much less answer whether the model has continuity.  Since the\n",
+    "problem is already constrained to be non-negative, putting an upper bound on the\n",
+    "variables should reduce the search.\n",
+    "\n",
+    "(c)\n",
+    "---\n",
+    "\n",
+    "Assuming evaluating the model is not computationally expensive, this problem is\n",
+    "cheap to solve because there are only three variables to optimize over."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    ".. _dennis1996numerical-ex-1.4:\n",
+    "\n",
+    "Exercise 4\n",
+    "==========\n",
+    "\n",
+    "The infinite-precision computer would yield\n",
+    ":math:`128.3 + 24.57 + 3.163 + 0.4825 = 156.5155`.\n",
+    "\n",
+    "Adding in ascending order would yield\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   0.4825 + 3.163 &= 3.6455\\\\\n",
+    "   3.6 + 24.57 &= 28.17\\\\\n",
+    "   28.1 + 128.3 &= 156.4.\n",
+    "\n",
+    "The relative error is\n",
+    ":math:`\\frac{\\left|156.5155 - 156.4\\right|}{\\left|156.5155\\right|} = 7.37e{-4}`.\n",
+    "\n",
+    "Adding in descending order would yield\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   128.3 + 24.57 &= 152.87\\\\\n",
+    "   152.8 + 3.163 &= 155.963\\\\\n",
+    "   155.9 + 0.4825 &= 156.3825.\n",
+    "\n",
+    "The relative error is\n",
+    ":math:`\\frac{\\left|156.5155 - 156.3\\right|}{\\left|156.5155\\right|} = 1.37e{-3}`.\n",
+    "\n",
+    "The foregoing demonstrates that adding in ascending order yields smaller\n",
+    "round-off errors."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    ".. _dennis1996numerical-ex-1.5:\n",
+    "\n",
+    "Exercise 5\n",
+    "==========\n",
+    "\n",
+    "Computing :math:`\\frac{\\frac{1}{3} - 0.3300}{0.3300}` with an infinite-precision\n",
+    "computer would produce :math:`0.0101010101`.\n",
+    "\n",
+    "The computer in :ref:`Exercise 4 <dennis1996numerical-ex-1.4>` would\n",
+    "inadvertently get the first two zeros correct because\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   1 \\div 3 &= 0.\\bar{3}\\\\\n",
+    "   0.3 - 0.3300 &= -0.03\\\\\n",
+    "   -0.0 \\div 0.3300 &= 0.\n",
+    "\n",
+    "This shows that subtracting almost identical numbers could result in zero."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 6\n",
+    "==========\n",
+    "\n",
+    "The relative and absolute error of the result in\n",
+    ":ref:`Exercise 5 <dennis1996numerical-ex-1.5>` are respectively\n",
+    ":math:`\\frac{\\left|0.0101010101 - 0\\right|}{\\left|0.0101010101\\right|} = 1` and\n",
+    ":math:`\\left|0.0101010101 - 0\\right| = 0.0101010101`.\n",
+    "\n",
+    "If the problem is changed to :math:`\\frac{\\frac{100}{3} - 33}{33}`, the\n",
+    "infinite-precision computer would produce :math:`-0.90817263544`, and the\n",
+    "computer in :ref:`Exercise 4 <dennis1996numerical-ex-1.4>` would yield\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   100 \\div 3 &= 33.\\bar{3}\\\\\n",
+    "   33.3 - 33 &= 0.3\\\\\n",
+    "   0.3 \\div 33 &= \\boldsymbol{0.0}0909090909.\n",
+    "\n",
+    "The relative and absolute error are respectively\n",
+    ":math:`\\frac{\\left|-0.90817263544 - 0.0\\right|}{\\left|-0.90817263544\\right|} = 1`\n",
+    "and\n",
+    ":math:`\\left|-0.90817263544 - 0.0\\right| = 0.90817263544`.  This shows that\n",
+    "absolute error is dependent on the scale of the results."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 7\n",
+    "==========\n",
+    "\n",
+    "Macheps can vary by a factor of two depending on whether rounding or truncating\n",
+    "arithmetic is used.  As shown below, the last two iteration of the algorithm\n",
+    "only illustrates up to :math:`16` decimal precision due to rounding.  Should\n",
+    "truncation occur, the algorithm would have stopped one iteration earlier."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "import numpy\n",
+    "\n",
+    "eps = 1\n",
+    "macheps = 0\n",
+    "while 1 + eps > 1:\n",
+    "    eps /= 2\n",
+    "    macheps += 1\n",
+    "    print(1 + eps)\n",
+    "print('Default Machine Epsilon {0} versus computed from 2^-{1} = {2}'.format(numpy.finfo(float).eps, macheps, eps))"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 8\n",
+    "==========\n",
+    "\n",
+    "(a)\n",
+    "---\n",
+    "\n",
+    "Given :math:`b = 1, c = 10^{-50}`, :math:`c` can be safely set to zero to avoid\n",
+    "underflow when computing :math:`\\sqrt{b^2 + c^2}`.\n",
+    "\n",
+    "(b)\n",
+    "---\n",
+    "\n",
+    "When :math:`b = c = 10^{-50}`, zero can be returned as a result from computing\n",
+    ":math:`\\sqrt{b^2 + c^2}`.\n",
+    "\n",
+    "(c)\n",
+    "---\n",
+    "\n",
+    "Given :math:`w = 10^{-30}, x = 10^{-60}, y = 10^{-40}, z = 10^{-50}`, computing\n",
+    ":math:`\\frac{wx}{yz}` analytically resolves to :math:`1`.  Hence it is not\n",
+    "feasible to substitute zero for any variable or resulting computation."
+   ]
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "celltoolbar": "Raw Cell Format",
+  "kernelspec": {
+   "display_name": "Python [default]",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.5.2"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}

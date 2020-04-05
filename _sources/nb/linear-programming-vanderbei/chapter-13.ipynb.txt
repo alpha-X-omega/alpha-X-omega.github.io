@@ -1,0 +1,209 @@
+{
+ "cells": [
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "**********************\n",
+    "Financial Applications\n",
+    "**********************"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 13.1\n",
+    "=============\n",
+    "\n",
+    "The parametric simplex method should be used when the number of investments to\n",
+    "analyze is large."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": false
+   },
+   "outputs": [],
+   "source": [
+    "from pymprog import model\n",
+    "\n",
+    "def find_optimal_portfolio(R, risk):\n",
+    "    mu = max(0, risk)\n",
+    "\n",
+    "    #monthly returns per dollar for each of the n investments over T months\n",
+    "    T, n = R.shape\n",
+    "\n",
+    "    #R = numpy.cumsum(M, axis=0) / numpy.arange(1, T + 1)[:, None]\n",
+    "\n",
+    "    #approximate expected return using historical data\n",
+    "    #r = R[-1, :]\n",
+    "    r = numpy.mean(R, axis=0)\n",
+    "\n",
+    "    lp = model('Portfolio Selection')\n",
+    "    #lp.verbose(True)\n",
+    "    x = lp.var('x', n, bounds=(0, None))\n",
+    "    y = lp.var('y', T, bounds=(0, None))\n",
+    "\n",
+    "    lp.maximize(mu * sum(x_j * r_j for x_j, r_j in zip(x, r)) - sum(y) / T)\n",
+    "    sum(x) == 1\n",
+    "    for t in range(T):\n",
+    "        -y[t] <= sum(x[j] * (R[t, j] - r[j]) for j in range(n)) <= y[t]\n",
+    "\n",
+    "    lp.solve()\n",
+    "    #lp.sensitivity()\n",
+    "\n",
+    "    lp.end()\n",
+    "\n",
+    "    return numpy.asfarray([x[j].primal for j in range(n)]), lp.vobj()\n",
+    "\n",
+    "import matplotlib.pyplot as plt\n",
+    "import numpy\n",
+    "\n",
+    "M = numpy.asfarray([[1.000, 1.044, 1.068,1.016],\n",
+    "                    [1.003, 1.015, 1.051, 1.039],\n",
+    "                    [1.005, 1.024, 1.062, 0.994],\n",
+    "                    [1.007, 1.027, 0.980, 0.971],\n",
+    "                    [1.002, 1.040, 0.991, 1.009],\n",
+    "                    [1.001, 0.995, 0.969, 1.030]])\n",
+    "\n",
+    "risks = numpy.concatenate((numpy.linspace(0, 3, 48),\n",
+    "                           numpy.linspace(3, 5, 6)[1:]))\n",
+    "X = []\n",
+    "for _ in risks:\n",
+    "    _ = find_optimal_portfolio(M, _)\n",
+    "    X.append(_[0])\n",
+    "\n",
+    "plt.plot(risks, X)\n",
+    "plt.xlabel(r'Risk $\\mu$')\n",
+    "plt.ylabel('Fraction of Portfolio')\n",
+    "plt.title(r'Optimal Portfolios')\n",
+    "plt.legend(['SHY', 'XLB', 'XLE', 'XLF'], loc='lower right')\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "collapsed": false,
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 13.2\n",
+    "=============\n",
+    "\n",
+    "Planet Claire's efficient frontier is a plot of every portfolio in terms of\n",
+    "risk–reward."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "M = numpy.asfarray([[1, 2, 1],\n",
+    "                    [2, 2, 1],\n",
+    "                    [2, 0.5, 1],\n",
+    "                    [0.5, 2, 1]])\n",
+    "\n",
+    "risks = numpy.linspace(0, 5, 32)\n",
+    "X = []\n",
+    "rewards = []\n",
+    "for _ in risks:\n",
+    "    _ = find_optimal_portfolio(M, _)\n",
+    "    X.append(_[0])\n",
+    "    rewards.append(_[1])\n",
+    "\n",
+    "plt.plot(risks, X)\n",
+    "plt.xlabel(r'Risk $\\mu$')\n",
+    "plt.ylabel('Fraction of Portfolio')\n",
+    "plt.title(r'Optimal Portfolios')\n",
+    "plt.legend(['Hair Products', 'Cosmetics', 'Cash'],\n",
+    "           loc='center right')\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 13.3\n",
+    "=============\n",
+    "\n",
+    "Converting (13.5) to :doc:`standard form </nb/linear-programming-vanderbei/chapter-05>`\n",
+    "gives\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\begin{aligned}\n",
+    "     \\mathcal{P} \\quad -\\text{maximize} \\quad\n",
+    "       -x_0 - s_0 x_1 - \\sum_{j = 2}^n p_j x_j &\\\\\n",
+    "     \\text{subject to} \\quad\n",
+    "       -x_0 - s_1(i) x_1 - \\sum_{j = 2}^n h_j(s_1(i)) x_j &\\leq -g(s_1(i))\n",
+    "           \\quad i = 1, \\ldots, m.\n",
+    "   \\end{aligned}\n",
+    "\n",
+    "Observe that the primal only has inequality constraints with free variables\n",
+    ":math:`\\left\\{ x_j \\right\\}_{j = 0}^n`.  This implies that the dual consists of\n",
+    "restricted variables and equality constraints.\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\begin{aligned}\n",
+    "     \\mathcal{D} \\quad \\text{minimize} \\quad\n",
+    "       \\sum_i -g(s_1(i)) y_i &\\\\\n",
+    "     \\text{subject to} \\quad\n",
+    "       \\sum_i (-1) y_i &= -1\\\\\n",
+    "       \\sum_i -s_1(i) y_i &= -s_0\\\\\n",
+    "       \\sum_i -h_j(s_1(i)) y_i &= -p_j\\\\\n",
+    "       y_i &\\geq 0 \\quad i = 1, \\ldots, m\n",
+    "   \\end{aligned}\n",
+    "   \\quad \\equiv \\quad\n",
+    "   \\begin{aligned}\n",
+    "     \\mathcal{D} \\quad -\\text{maximize} \\quad\n",
+    "       \\sum_i g(s_1(i)) y_i &\\\\\n",
+    "     \\text{subject to} \\quad\n",
+    "       \\sum_i y_i &= 1\\\\\n",
+    "       \\sum_i s_1(i) y_i &= s_0\\\\\n",
+    "       \\sum_i h_j(s_1(i)) y_i &= p_j\\\\\n",
+    "       y_i &\\geq 0 \\quad i = 1, \\ldots, m.\n",
+    "   \\end{aligned}"
+   ]
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "celltoolbar": "Raw Cell Format",
+  "kernelspec": {
+   "display_name": "Python [default]",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.5.2"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 1
+}

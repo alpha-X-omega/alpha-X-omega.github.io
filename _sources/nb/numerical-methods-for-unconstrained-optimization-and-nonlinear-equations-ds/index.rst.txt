@@ -1,0 +1,10 @@
+############################################################################################
+Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis & Schnabel
+############################################################################################
+
+.. include:: /_templates/toctree-nb-numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

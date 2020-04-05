@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Regression Models &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Classification Models" href="chapter-09.html" />
+    <link rel="prev" title="Modeling Complex Data Densities" href="chapter-07.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Regression Models</a><ul>
+<li><a class="reference internal" href="#Non-linear-Regression">Non-linear Regression</a></li>
+<li><a class="reference internal" href="#Exercise-8.1">Exercise 8.1</a></li>
+<li><a class="reference internal" href="#Exercise-8.2">Exercise 8.2</a></li>
+<li><a class="reference internal" href="#Exercise-8.3">Exercise 8.3</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-8.4">Exercise 8.4</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-8.5">Exercise 8.5</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(b.1)">(b.1)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+<li><a class="reference internal" href="#(c.1)">(c.1)</a></li>
+<li><a class="reference internal" href="#(c.2)">(c.2)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-8.6">Exercise 8.6</a></li>
+<li><a class="reference internal" href="#Exercise-8.7">Exercise 8.7</a></li>
+<li><a class="reference internal" href="#Exercise-8.8">Exercise 8.8</a></li>
+<li><a class="reference internal" href="#Exercise-8.9">Exercise 8.9</a></li>
+<li><a class="reference internal" href="#Exercise-8.10">Exercise 8.10</a></li>
+<li><a class="reference internal" href="#Exercise-8.11">Exercise 8.11</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="chapter-07.html" title="Previous Chapter: Modeling Complex Data Densities"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Modeling Comp...</span>
+    </a>
+  </li>
+  <li>
+    <a href="chapter-09.html" title="Next Chapter: Classification Models"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Classification Models &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Regression-Models">
+<h1>Regression Models<a class="headerlink" href="#Regression-Models" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Non-linear-Regression">
+<h2>Non-linear Regression<a class="headerlink" href="#Non-linear-Regression" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Radial basis functions denote any spherically symmetric function.</p></li>
+<li><p>Bayesian approach to nonlinear regression (8.24) is rarely used in practice
+because it requires computing <span class="math notranslate nohighlight">\(z_i^\top z_j\)</span>, which could be infinite
+length.</p></li>
+<li><p>Mercer’s Theorem avoids computing <span class="math notranslate nohighlight">\(z\)</span> explicitly.</p>
+<ul>
+<li><p>A kernel function <span class="math notranslate nohighlight">\(k[x_i, x_j]\)</span> is valid when the kernel’s arguments
+are in a measurable space and the kernel is positive semi-definite.</p>
+<ul>
+<li><p>See (8.26), (8.27), (8.28) for examples of a linear, polynomial, and RBF
+kernel.</p></li>
+</ul>
+</li>
+<li><p>The sum and products of valid kernels are valid kernels.</p></li>
+</ul>
+</li>
+<li><p>The kernel trick consists of choosing a kernel function <span class="math notranslate nohighlight">\(k[x_i, x_j]\)</span> to
+replace <span class="math notranslate nohighlight">\(f[x_i]^\top f[x_j]\)</span> without knowing what <span class="math notranslate nohighlight">\(f[\bullet]\)</span>
+does.</p></li>
+</ul>
+</div>
+<div class="section" id="Exercise-8.1">
+<h2>Exercise 8.1<a class="headerlink" href="#Exercise-8.1" title="Permalink to this headline">¶</a></h2>
+<p>Assuming a linear relation between the world state and the data, let
+<span class="math notranslate nohighlight">\(\boldsymbol{\theta} = \{ \alpha, \beta, \boldsymbol{\phi} \}\)</span> and
+<span class="math notranslate nohighlight">\(\alpha = \beta = \boldsymbol{\phi}^\top \mathbf{x}\)</span> where
+<span class="math notranslate nohighlight">\(\alpha, \beta &gt; 0\)</span> and <span class="math notranslate nohighlight">\(\boldsymbol{\phi} \in \mathbb{R}^{D + 1}\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator{\GamDist}{Gam}
+Pr(w \mid \mathbf{x}, \boldsymbol{\theta})
+ &amp;= \GamDist_w[\alpha, \beta]\\
+ &amp;= \frac{\beta^\alpha}{\Gamma[\alpha]} \exp[-\beta w] w^{\alpha - 1}
+    &amp; \quad &amp; \text{(7.23)}\end{split}\]</div>
+<p>In the maximum likelihood approach, the goal is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator*{\argmax}{arg\,max}
+\hat{\boldsymbol{\theta}}
+ &amp;= \argmax_{\boldsymbol{\theta}}
+      Pr(w \mid \mathbf{x}, \boldsymbol{\theta})\\
+ &amp;= \argmax_{\boldsymbol{\theta}} L
+    &amp; \quad &amp; L = \log Pr(w \mid \mathbf{x}, \boldsymbol{\theta})\\
+ &amp;= \argmax_{\boldsymbol{\theta}}
+      \alpha \log(\beta) - \log(\Gamma[\alpha]) -
+      \beta w + (\alpha - 1) \log(w)\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-8.2">
+<h2>Exercise 8.2<a class="headerlink" href="#Exercise-8.2" title="Permalink to this headline">¶</a></h2>
+<p>Assuming a linear relation between the world state and the data, let
+<span class="math notranslate nohighlight">\(\boldsymbol{\theta} = \{ \mu, \sigma, \boldsymbol{\phi} \}\)</span> and
+<span class="math notranslate nohighlight">\(\mu = \boldsymbol{\phi}^\top \mathbf{x}\)</span> where
+<span class="math notranslate nohighlight">\(\sigma &gt; 0\)</span> and <span class="math notranslate nohighlight">\(\boldsymbol{\phi} \in \mathbb{R}^{D + 1}\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator{\StudDist}{Stud}
+\DeclareMathOperator{\NormDist}{Norm}
+Pr(w \mid \mathbf{x}, \boldsymbol{\theta})
+ &amp;= \StudDist_w\left[ \mu, \sigma^2, \nu \right]\\
+ &amp;= \int \NormDist_w\left[ \mu, \sigma^2 / 2 \right]
+         \GamDist_h[\nu / 2, \nu / 2] dh
+    &amp; \quad &amp; \text{(7.24)}\end{split}\]</div>
+<p>The EM algorithm can be used to fit <span class="math notranslate nohighlight">\(\boldsymbol{\theta}\)</span> in the maximum
+likelihood approach.</p>
+</div>
+<div class="section" id="Exercise-8.3">
+<h2>Exercise 8.3<a class="headerlink" href="#Exercise-8.3" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}L &amp;= \log Pr(\mathbf{w} \mid \mathbf{X}, \boldsymbol{\theta})\\
+ &amp;= \log \NormDist_\mathbf{w}\left[
+      \mathbf{X}^\top \boldsymbol{\phi}, \sigma^2 \mathbf{I}
+    \right]\\
+ &amp;= -\frac{D}{2} \log(2 \pi) - \frac{D}{2} \log\left( \sigma^2 \right) -
+    \frac{
+      \left( \mathbf{w} - \mathbf{X}^\top \boldsymbol{\phi} \right)^\top
+      \left( \mathbf{w} - \mathbf{X}^\top \boldsymbol{\phi} \right)
+    }{
+      2 \sigma^2
+    }\end{split}\]</div>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial L}{\partial \sigma}
+ &amp;= -\frac{D}{\sigma} +
+    \sigma^{-3}
+    \left( \mathbf{w} - \mathbf{X}^\top \boldsymbol{\phi} \right)^\top
+    \left( \mathbf{w} - \mathbf{X}^\top \boldsymbol{\phi} \right)\\
+0 &amp;= -D \sigma^2 +
+     \left( \mathbf{w} - \mathbf{X}^\top \boldsymbol{\phi} \right)^\top
+     \left( \mathbf{w} - \mathbf{X}^\top \boldsymbol{\phi} \right)\\
+\sigma^2
+ &amp;= D^{-1}
+    \left( \mathbf{w} - \mathbf{X}^\top \boldsymbol{\phi} \right)^\top
+    \left( \mathbf{w} - \mathbf{X}^\top \boldsymbol{\phi} \right)\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial L}{\partial \boldsymbol{\phi}}
+ &amp;= -\frac{1}{2 \sigma^2} \left[
+      \mathbf{X}
+        \left( \mathbf{X}^\top \boldsymbol{\phi} - \mathbf{w} \right) +
+      \mathbf{X}
+        \left( \mathbf{X}^\top \boldsymbol{\phi} - \mathbf{w} \right)
+    \right]
+    &amp; \quad &amp; \text{(C.32)}\\
+0 &amp;= -\mathbf{X} \mathbf{X}^\top \boldsymbol{\phi} + \mathbf{X} \mathbf{w}\\
+\boldsymbol{\phi} &amp;= (\mathbf{X} \mathbf{X}^\top)^{-1} \mathbf{X} \mathbf{w}\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-8.4">
+<h2>Exercise 8.4<a class="headerlink" href="#Exercise-8.4" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}Pr(\boldsymbol{\phi} \mid \mathbf{X}, \mathbf{w})
+ &amp;= \frac{
+      Pr(\boldsymbol{\phi}, \mathbf{X}, \mathbf{w})
+    }{
+      Pr(\mathbf{X}, \mathbf{w})
+    }\\
+ &amp;= \frac{
+      Pr(\mathbf{w} \mid \mathbf{X}, \boldsymbol{\phi})
+      Pr(\boldsymbol{\phi} \mid \mathbf{X})
+      Pr(\mathbf{X})
+    }{
+      Pr(\mathbf{w} \mid \mathbf{X}) Pr(\mathbf{X})
+    }\\
+ &amp;= \frac{
+      Pr(\mathbf{w} \mid \mathbf{X}, \boldsymbol{\phi})
+      Pr(\boldsymbol{\phi})
+    }{
+      Pr(\mathbf{w} \mid \mathbf{X})
+    }\end{split}\]</div>
+<p>The foregoing implies that (8.8) assumes
+<span class="math notranslate nohighlight">\(Pr(\boldsymbol{\phi} \mid \mathbf{X}) = Pr(\boldsymbol{\phi})\)</span> i.e.
+the data does not affect the prior on the parameters (8.7).</p>
+<p>Furthermore, (8.9) assumes that <span class="math notranslate nohighlight">\(\sigma^2\)</span> is known, so
+<span class="math notranslate nohighlight">\(Pr(\mathbf{w} \mid \mathbf{X},
+\boldsymbol{\theta} = \left\{ \boldsymbol{\phi}, \sigma^2 \right\}) =
+Pr(\mathbf{w} \mid \mathbf{X}, \boldsymbol{\phi})\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Pr(\boldsymbol{\phi} \mid \mathbf{X}, \mathbf{w})
+ &amp;= \frac{1}{Pr(\mathbf{w} \mid \mathbf{X})}
+    \NormDist_{\mathbf{w}}\left[
+      \mathbf{X}^\top \boldsymbol{\phi}, \sigma^2 \mathbf{I}_I
+    \right]
+    \NormDist_{\boldsymbol{\phi}}\left[
+      \boldsymbol{0}, \sigma_p^2 \mathbf{I}_{D + 1}
+    \right]\\
+ &amp;= \frac{\kappa_1}{Pr(\mathbf{w} \mid \mathbf{X})}
+    \NormDist_{\boldsymbol{\phi}}\left[
+      \left( \mathbf{X} \mathbf{X}^\top \right)^{-1} \mathbf{X} \mathbf{w},
+      \sigma^2 \left( \mathbf{X} \mathbf{X}^\top \right)^{-1}
+    \right]
+    \NormDist_{\boldsymbol{\phi}}\left[
+      \boldsymbol{0}, \sigma_p^2 \mathbf{I}_{D + 1}
+    \right]
+    &amp; \quad &amp; \text{(a)}\\
+ &amp;= \frac{\kappa_1 \kappa_2}{Pr(\mathbf{w} \mid \mathbf{X})}
+    \NormDist_{\boldsymbol{\phi}}\left[
+      \frac{1}{\sigma^2} \mathbf{A}^{-1} \mathbf{X} \mathbf{w},
+      \mathbf{A}^{-1}
+    \right]
+    &amp; \quad &amp; \text{(b)}\\
+ &amp;= \NormDist_{\boldsymbol{\phi}}\left[
+      \frac{1}{\sigma^2} \mathbf{A}^{-1} \mathbf{X} \mathbf{w},
+      \mathbf{A}^{-1}
+    \right]
+    &amp; \quad &amp; \text{(c)}\end{split}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{A} =
+\frac{1}{\sigma^2} \mathbf{X} \mathbf{X}^\top +
+  \frac{1}{\sigma_p^2} \mathbf{I}_{D + 1}.\]</div>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>See <a class="reference internal" href="chapter-05.html#prince2012computer-ex-5-10"><span class="std std-ref">Exercise 5.10</span></a> for more details.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\NormDist_{\mathbf{w}}\left[
+  \mathbf{X}^\top \boldsymbol{\phi}, \sigma^2 \mathbf{I}_I
+\right]
+ &amp;= \kappa_1 \NormDist_{\boldsymbol{\phi}}\left[
+      \left( \mathbf{X} \mathbf{X}^\top \sigma^{-2} \right)^{-1}
+        \sigma^{-2} \mathbf{X} \mathbf{w},
+      \left( \mathbf{X} \mathbf{X}^\top \sigma^{-2} \right)^{-1}
+    \right]\\
+ &amp;= \kappa_1 \NormDist_{\boldsymbol{\phi}}\left[
+      \left( \mathbf{X} \mathbf{X}^\top \right)^{-1} \mathbf{X} \mathbf{w},
+      \sigma^2 \left( \mathbf{X} \mathbf{X}^\top \right)^{-1}
+    \right]\end{split}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\kappa_1
+ &amp;= \frac{
+      \left\vert
+        \sigma^2 \left( \mathbf{X} \mathbf{X}^\top \right)^{-1}
+      \right\vert^{1 / 2}
+    }{
+      \left\vert \sigma^2 \mathbf{I}_I \right\vert^{1 / 2}
+    }
+    \exp\left[
+      \mathbf{w}^\top
+      \left(
+        \sigma^{-2} \mathbf{I}_I -
+        \sigma^{-2} \mathbf{I}_I \mathbf{X}^\top
+          \sigma^2 \left( \mathbf{X} \mathbf{X}^\top \right)^{-1} \mathbf{X}
+          \sigma^{-2} \mathbf{I}_I
+      \right)^{-1}
+      \mathbf{w}
+    \right]^{-0.5}\\
+ &amp;= \frac{1}{
+      \sigma^{I + D + 1}
+      \left\vert \mathbf{X} \mathbf{X}^\top \right\vert^{1/2}
+    }
+    \exp\left[
+      \mathbf{w}^\top
+      \left(
+        \sigma^{-2} \mathbf{I}_I -
+        \sigma^{-2} \mathbf{I}_I \mathbf{X}^\top
+          \sigma^2 \left( \mathbf{X} \mathbf{X}^\top \right)^{-1} \mathbf{X}
+          \sigma^{-2} \mathbf{I}_I
+      \right)^{-1}
+      \mathbf{w}
+    \right]^{-0.5}\\
+ &amp;= \frac{1}{
+      \sigma^{I + D + 1}
+      \left\vert \mathbf{X} \mathbf{X}^\top \right\vert^{1/2}
+    }
+    \exp\left[
+      \mathbf{w}^\top
+      \left(
+        \sigma^{-2} \mathbf{I}_I -
+        \sigma^{-2} \mathbf{X}^\top
+          \left( \mathbf{X} \mathbf{X}^\top \right)^{-1} \mathbf{X}
+      \right)^{-1}
+      \mathbf{w}
+    \right]^{-0.5}\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>See <a class="reference internal" href="chapter-05.html#prince2012computer-ex-5-7"><span class="std std-ref">Exercise 5.7</span></a> and
+<a class="reference internal" href="chapter-05.html#prince2012computer-ex-5-9"><span class="std std-ref">Exercise 5.9</span></a> for more details.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; \NormDist_{\boldsymbol{\phi}}\left[
+    \left( \mathbf{X} \mathbf{X}^\top \right)^{-1} \mathbf{X} \mathbf{w},
+    \sigma^2 \left( \mathbf{X} \mathbf{X}^\top \right)^{-1}
+  \right]
+  \NormDist_{\boldsymbol{\phi}}\left[
+    \boldsymbol{0}, \sigma_p^2 \mathbf{I}_{D + 1}
+  \right]\\
+ &amp;= \kappa_2 \NormDist_{\boldsymbol{\phi}}\left[
+      \left(
+        \frac{1}{\sigma^2} \mathbf{X} \mathbf{X}^\top +
+        \frac{1}{\sigma_p^2} \mathbf{I}_{D + 1}
+      \right)^{-1}
+        \sigma^{-2} \mathbf{X} \mathbf{X}^\top
+        \left( \mathbf{X} \mathbf{X}^\top \right)^{-1} \mathbf{X} \mathbf{w},
+      \left(
+        \frac{1}{\sigma^2} \mathbf{X} \mathbf{X}^\top +
+        \frac{1}{\sigma_p^2} \mathbf{I}_{D + 1}
+      \right)^{-1}
+    \right]\\
+ &amp;= \kappa_2 \NormDist_{\boldsymbol{\phi}}\left[
+      \frac{1}{\sigma^2}
+      \left(
+        \frac{1}{\sigma^2} \mathbf{X} \mathbf{X}^\top +
+        \frac{1}{\sigma_p^2} \mathbf{I}_{D + 1}
+      \right)^{-1} \mathbf{X} \mathbf{w},
+      \left(
+        \frac{1}{\sigma^2} \mathbf{X} \mathbf{X}^\top +
+        \frac{1}{\sigma_p^2} \mathbf{I}_{D + 1}
+      \right)^{-1}
+    \right]\end{split}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\kappa_2
+ &amp;= \NormDist_{\boldsymbol{0}}\left[
+      \left( \mathbf{X} \mathbf{X}^\top \right)^{-1} \mathbf{X} \mathbf{w},
+      \sigma^2 \left( \mathbf{X} \mathbf{X}^\top \right)^{-1} +
+        \sigma_p^2 \mathbf{I}_{D + 1}
+    \right]\\
+ &amp;= \frac{1}{
+      (2 \pi)^{(D + 1) / 2}
+      \left\vert
+        \sigma^2 \left( \mathbf{X} \mathbf{X}^\top \right)^{-1} +
+        \sigma_p^2 \mathbf{I}_{D + 1}
+      \right\vert^{1 / 2}
+    }
+    \exp\left[
+      \left(
+        \left( \mathbf{X} \mathbf{X}^\top \right)^{-1} \mathbf{X} \mathbf{w}
+      \right)^\top
+      \left(
+        \sigma^2 \left( \mathbf{X} \mathbf{X}^\top \right)^{-1} +
+        \sigma_p^2 \mathbf{I}_{D + 1}
+      \right)^{-1}
+      \left(
+        \left( \mathbf{X} \mathbf{X}^\top \right)^{-1} \mathbf{X} \mathbf{w}
+      \right)
+    \right]^{-0.5}\end{split}\]</div>
+</div>
+<div class="section" id="(c)">
+<h3>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}Pr(\mathbf{w} \mid \mathbf{X})
+ &amp;= \int Pr(\boldsymbol{\phi}, \mathbf{w} \mid \mathbf{X})
+         d\boldsymbol{\phi}\\
+ &amp;= \int Pr(\mathbf{w} \mid \mathbf{X}, \boldsymbol{\phi})
+         Pr(\boldsymbol{\phi} \mid \mathbf{X}) d\boldsymbol{\phi}\\
+ &amp;= \int Pr(\mathbf{w} \mid \mathbf{X}, \boldsymbol{\phi})
+         Pr(\boldsymbol{\phi}) d\boldsymbol{\phi}\\
+ &amp;= \int \kappa_1 \kappa_2
+         \NormDist_{\boldsymbol{\phi}}\left[
+           \frac{1}{\sigma^2} \mathbf{A}^{-1} \mathbf{X} \mathbf{w},
+           \mathbf{A}^{-1}
+         \right] d\boldsymbol{\phi}\\
+ &amp;= \kappa_1 \kappa_2\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-8.5">
+<h2>Exercise 8.5<a class="headerlink" href="#Exercise-8.5" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(w^\ast, \sigma \in \mathbb{R}\)</span>;
+<span class="math notranslate nohighlight">\(\mathbf{x}^\ast, \boldsymbol{\phi} \in \mathbb{R}^{D + 1}\)</span>;
+<span class="math notranslate nohighlight">\(\mathbf{A} \in \mathbb{R}^{(D + 1) \times (D + 1)}\)</span>;
+<span class="math notranslate nohighlight">\(\mathbf{X} \in \mathbb{R}^{(D + 1) \times I}\)</span>;
+<span class="math notranslate nohighlight">\(\mathbf{w} \in \mathbb{R}^I\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Pr(w^\ast \mid \mathbf{x}^\ast, \mathbf{X}, \mathbf{w})
+ &amp;= \int Pr(\boldsymbol{\phi}, w^\ast \mid
+            \mathbf{x}^\ast, \mathbf{X}, \mathbf{w}) d\boldsymbol{\phi}\\
+ &amp;= \int Pr(w^\ast \mid \mathbf{x}^\ast, \boldsymbol{\phi})
+         Pr(\boldsymbol{\phi} \mid \mathbf{X}, \mathbf{w}) d\boldsymbol{\phi}
+    &amp; \quad &amp; \text{conditional independence}\\
+ &amp;= \int
+      \NormDist_{w^\ast}\left[
+        \boldsymbol{\phi}^\top \mathbf{x}^\ast, \sigma^2
+      \right]
+      \NormDist_{\boldsymbol{\phi}}\left[
+        \sigma^{-2} \mathbf{A}^{-1} \mathbf{X} \mathbf{w}, \mathbf{A}^{-1}
+      \right] d\boldsymbol{\phi}
+    &amp; \quad &amp; \text{(8.2) and (8.10)}\\
+ &amp;= \int \kappa_1
+      \NormDist_{\boldsymbol{\phi}}\left[
+        \left( \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \right)^{-1}
+          \mathbf{x}^\ast w^\ast,
+        \sigma^2 \left( \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \right)^{-1}
+      \right]
+      \NormDist_{\boldsymbol{\phi}}\left[
+        \sigma^{-2} \mathbf{A}^{-1} \mathbf{X} \mathbf{w}, \mathbf{A}^{-1}
+      \right] d\boldsymbol{\phi}
+    &amp; \quad &amp; \text{(a)}\\
+ &amp;= \int \kappa_1 \kappa_2
+      \NormDist_{\boldsymbol{\phi}}\left[
+        \boldsymbol{\Sigma} \left(
+          \sigma^{-2} \mathbf{x}^\ast  w^\ast +
+          \sigma^{-2} \mathbf{X} \mathbf{w}
+        \right),
+        \boldsymbol{\Sigma}
+      \right] d\boldsymbol{\phi}
+    &amp; \quad &amp; \text{(b)}\\
+ &amp;= \kappa_1 \kappa_2\\
+ &amp;= \NormDist_{w^\ast}\left[
+      \sigma^{-2} {\mathbf{x}^\ast}^\top
+        \mathbf{A}^{-1} \mathbf{X} \mathbf{w},
+      \sigma^2 + {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast
+    \right]
+    &amp; \quad &amp; \text{(c)}\end{split}\]</div>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>See <a class="reference internal" href="chapter-05.html#prince2012computer-ex-5-10"><span class="std std-ref">Exercise 5.10</span></a> for more details.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\NormDist_{w^\ast}\left[
+  {\mathbf{x}^\ast}^\top \boldsymbol{\phi}^, \sigma^2
+\right]
+ &amp;= \kappa_1 \NormDist_{\boldsymbol{\phi}}\left[
+      \left( \mathbf{x}^\ast \sigma^{-2} {\mathbf{x}^\ast}^\top \right)^{-1}
+        \mathbf{x}^\ast \sigma^{-2},
+      \left( \mathbf{x}^\ast \sigma^{-2} {\mathbf{x}^\ast}^\top \right)^{-1}
+    \right]\\
+ &amp;= \kappa_1 \NormDist_{\boldsymbol{\phi}}\left[
+      \left( \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \right)^{-1}
+        \mathbf{x}^\ast w^\ast,
+      \sigma^2 \left( \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \right)^{-1}
+    \right]\end{split}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\kappa_1
+ &amp;= (2 \pi)^{D / 2} \frac{
+      \left\vert
+        \left(
+          \mathbf{x}^\ast \sigma^{-2} {\mathbf{x}^\ast}^\top
+        \right)^{-1}
+      \right\vert^{1 / 2}
+    }{
+      \left\vert \sigma^2 \right\vert^{1 / 2}
+    }
+    \exp\left[
+      w^\ast
+      \left(
+        \sigma^{-2} -
+        \sigma^{-2} {\mathbf{x}^\ast}^\top
+          \left(
+            \mathbf{x}^\ast \sigma^{-2} {\mathbf{x}^\ast}^\top
+          \right)^{-1} \mathbf{x}^\ast \sigma^{-2}
+      \right)
+      w^\ast
+    \right]^{-0.5}\\
+ &amp;= (2 \pi)^{D / 2} \sigma^{-1} \left\vert
+      \sigma^2 \left( \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \right)^{-1}
+    \right\vert^{1 / 2}
+    \exp\left[
+      w^\ast
+      \left(
+        \sigma^{-2} -
+        \sigma^{-2} {\mathbf{x}^\ast}^\top
+          \left( \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \right)^{-1}
+          \mathbf{x}^\ast
+      \right)
+      w^\ast
+    \right]^{-0.5}\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>See <a class="reference internal" href="chapter-05.html#prince2012computer-ex-5-7"><span class="std std-ref">Exercise 5.7</span></a> and
+<a class="reference internal" href="chapter-05.html#prince2012computer-ex-5-9"><span class="std std-ref">Exercise 5.9</span></a> for more details.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; \NormDist_{\boldsymbol{\phi}}\left[
+    \left( \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \right)^{-1}
+      \mathbf{x}^\ast  w^\ast,
+    \sigma^2 \left( \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \right)^{-1}
+  \right]
+  \NormDist_{\boldsymbol{\phi}}\left[
+    \sigma^{-2} \mathbf{A}^{-1} \mathbf{X} \mathbf{w}, \mathbf{A}^{-1}
+  \right]\\
+ &amp;= \kappa_2 \NormDist_{\boldsymbol{\phi}}\left[
+      \left(
+        \sigma^{-2} \mathbf{x}^\ast {\mathbf{x}^\ast}^\top + \mathbf{A}
+      \right)^{-1}
+        \left(
+          \sigma^{-2} \mathbf{x}^\ast {\mathbf{x}^\ast}^\top
+            \left( \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \right)^{-1}
+            \mathbf{x}^\ast  w^\ast +
+          \mathbf{A} \sigma^{-2} \mathbf{A}^{-1} \mathbf{X} \mathbf{w}
+        \right),
+      \left(
+        \sigma^{-2} \mathbf{x}^\ast {\mathbf{x}^\ast}^\top + \mathbf{A}
+      \right)^{-1}
+    \right]\\
+ &amp;= \kappa_2 \NormDist_{\boldsymbol{\phi}}\left[
+      \left(
+        \sigma^{-2} \mathbf{x}^\ast {\mathbf{x}^\ast}^\top + \mathbf{A}
+      \right)^{-1}
+        \left(
+          \sigma^{-2} \mathbf{x}^\ast  w^\ast +
+          \sigma^{-2} \mathbf{X} \mathbf{w}
+        \right),
+      \left(
+        \sigma^{-2} \mathbf{x}^\ast {\mathbf{x}^\ast}^\top + \mathbf{A}
+      \right)^{-1}
+    \right]\end{split}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\kappa_2
+ &amp;= \NormDist_{\sigma^{-2} \mathbf{A}^{-1} \mathbf{X} \mathbf{w}}\left[
+      \left( \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \right)^{-1}
+        \mathbf{x}^\ast  w^\ast,
+      \left(
+        \mathbf{x}^\ast \sigma^{-2} {\mathbf{x}^\ast}^\top
+      \right)^{-1} + \mathbf{A}^{-1}
+    \right]\\
+ &amp;= \frac{
+      \exp\left[
+        \left(
+          \sigma^{-2} \mathbf{A}^{-1} \mathbf{X} \mathbf{w} -
+          \left( \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \right)^{-1}
+            \mathbf{x}^\ast w^\ast
+        \right)^\top
+        \boldsymbol{\Sigma}'
+        \left(
+          \sigma^{-2} \mathbf{A}^{-1} \mathbf{X} \mathbf{w} -
+          \left( \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \right)^{-1}
+            \mathbf{x}^\ast  w^\ast
+        \right)
+      \right]^{-1 / 2}
+    }{
+      \left\vert
+        2 \pi \left(
+          \sigma^2
+            \left( \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \right)^{-1} +
+          \mathbf{A}^{-1}
+        \right)
+      \right\vert^{1 / 2}
+    }
+    &amp; \quad &amp; \text{(b.1)}\end{split}\]</div>
+</div>
+<div class="section" id="(b.1)">
+<h3>(b.1)<a class="headerlink" href="#(b.1)" title="Permalink to this headline">¶</a></h3>
+<p>According to Sherman-Morrison Identity in Matrix Cookbook (160),</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{\Sigma}
+ &amp;= \left(
+      \sigma^{-2} \mathbf{x}^\ast {\mathbf{x}^\ast}^\top + \mathbf{A}
+    \right)^{-1}\\
+ &amp;= \mathbf{A}^{-1} -
+    \frac{
+      \sigma^{-2} \mathbf{A}^{-1}
+      \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \mathbf{A}^{-1}
+    }{
+      1 + \sigma^{-2} {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast
+    }\\
+ &amp;= \mathbf{A}^{-1} -
+    \frac{
+      \mathbf{A}^{-1} \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \mathbf{A}^{-1}
+    }{
+      \sigma^2 + {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast
+    }.\end{split}\]</div>
+<p>According to Searle Set of Identities in Matrix Cookbook (163),</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left( \mathbf{x}^\ast \sigma^{-2} {\mathbf{x}^\ast}^\top \right)^{-1} +
+  \mathbf{A}^{-1}
+ &amp;= \left( \mathbf{x}^\ast \sigma^{-2} {\mathbf{x}^\ast}^\top \right)^{-1}
+    \boldsymbol{\Sigma}^{-1} \mathbf{A}^{-1}\\
+ &amp;= \mathbf{A}^{-1}
+    \boldsymbol{\Sigma}^{-1}
+    \left( \mathbf{x}^\ast \sigma^{-2} {\mathbf{x}^\ast}^\top \right)^{-1}.\end{split}\]</div>
+<p>Furthermore, applying (165) gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{\Sigma}'
+ &amp;= \mathbf{A} \boldsymbol{\Sigma}
+    \left( \mathbf{x}^\ast \sigma^{-2} {\mathbf{x}^\ast}^\top \right)\\
+ &amp;= \left( \mathbf{x}^\ast \sigma^{-2} {\mathbf{x}^\ast}^\top \right)
+    \boldsymbol{\Sigma} \mathbf{A}\\
+ &amp;= \mathbf{x}^\ast \sigma^{-2} {\mathbf{x}^\ast}^\top -
+    \frac{
+      \sigma^{-2} \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \mathbf{A}^{-1}
+      \mathbf{x}^\ast {\mathbf{x}^\ast}^\top
+    }{
+      \sigma^2 + {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast
+    }.\end{split}\]</div>
+</div>
+<div class="section" id="(c)">
+<h3>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\kappa_1 \kappa_2 =
+\frac{
+  \exp\left[
+    \left(
+      w^\ast -
+      \sigma^{-2} {\mathbf{x}^\ast}^\top \mathbf{A}^{-1}
+        \mathbf{X} \mathbf{w}
+    \right)^\top
+    \left(
+      {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast + \sigma^2
+    \right)^{-1}
+    \left(
+      w^\ast -
+     \sigma^{-2} {\mathbf{x}^\ast}^\top \mathbf{A}^{-1}
+       \mathbf{X} \mathbf{w}
+    \right)
+  \right]^{-0.5}
+}{
+  \left\vert
+    2 \pi \left(
+      {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast + \sigma^2
+    \right)
+  \right\vert^{1 / 2}
+}
+\qquad \text{(c.1) and (c.2)}\]</div>
+</div>
+<div class="section" id="(c.1)">
+<h3>(c.1)<a class="headerlink" href="#(c.1)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; \frac{
+    (2 \pi)^{D / 2}
+    \left\vert
+      \left( \mathbf{x}^\ast \sigma^{-2} {\mathbf{x}^\ast}^\top \right)^{-1}
+    \right\vert^{1 / 2}
+  }{
+    \left\vert \sigma^2 \right\vert^{1 / 2}
+  }
+  \frac{1}{
+    (2 \pi)^{(D + 1) / 2}
+    \left\vert
+      \sigma^2 \left( \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \right)^{-1} +
+      \mathbf{A}^{-1}
+    \right\vert^{1 / 2}
+  }\\
+ &amp;= \left[
+      (2 \pi)^{1 / 2}
+      \left\vert \sigma^2 \right\vert^{1 / 2}
+      \left\vert
+        \mathbf{x}^\ast \sigma^{-2} {\mathbf{x}^\ast}^\top
+      \right\vert^{1 / 2}
+      \left\vert
+        \sigma^2 \left( \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \right)^{-1} +
+        \mathbf{A}^{-1}
+      \right\vert^{1 / 2}
+    \right]^{-1}\\
+ &amp;= \left[
+      (2 \pi)
+      \left\vert \sigma^2 \right\vert
+      \left\vert
+        \mathbf{I}_{D + 1} +
+        \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \sigma^{-2} \mathbf{A}^{-1}
+      \right\vert
+    \right]^{-1 / 2}\\
+ &amp;= \left[
+      (2 \pi)
+      \left\vert \sigma^2 \right\vert
+      \left(
+        1 +
+        {\mathbf{x}^\ast}^\top \sigma^{-2} \mathbf{A}^{-1} \mathbf{x}^\ast
+      \right)
+    \right]^{-1 / 2}
+    &amp; \quad &amp; \text{Matrix determinant lemma and Matrix Cookbook (24)}\\
+ &amp;= \frac{1}{
+      (2 \pi)^{1 / 2}
+      \left(
+        \sigma^2 + {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast
+      \right)^{1 / 2}
+    }\end{split}\]</div>
+</div>
+<div class="section" id="(c.2)">
+<h3>(c.2)<a class="headerlink" href="#(c.2)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; \exp\left[
+    {w^\ast}^2
+    \left(
+      \sigma^{-2} -
+      \sigma^{-2}
+        {\mathbf{x}^\ast}^\top
+        \left( \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \right)^{-1}
+        \mathbf{x}^\ast
+    \right)
+  \right]^{-1 / 2}
+  \exp\left[
+    \left(
+      \sigma^{-2} \mathbf{A}^{-1} \mathbf{X} \mathbf{w} -
+      \left( \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \right)^{-1}
+        \mathbf{x}^\ast  w^\ast
+    \right)^\top
+    \boldsymbol{\Sigma}'
+    \left(
+      \sigma^{-2} \mathbf{A}^{-1} \mathbf{X} \mathbf{w} -
+      \left( \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \right)^{-1}
+        \mathbf{x}^\ast  w^\ast
+    \right)
+  \right]^{-1 / 2}\\
+ &amp;= \exp\left[
+      \left(
+        w^\ast -
+        \sigma^{-2} {\mathbf{x}^\ast}^\top \mathbf{A}^{-1}
+          \mathbf{X} \mathbf{w}
+      \right)^\top
+      \left(
+        {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast + \sigma^2
+      \right)^{-1}
+      \left(
+        w^\ast -
+        \sigma^{-2} {\mathbf{x}^\ast}^\top \mathbf{A}^{-1}
+          \mathbf{X} \mathbf{w}
+      \right)
+    \right]^{-0.5}\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\text{(1)} &amp; \quad &amp;
+   {w^\ast}^2 \sigma^{-2} -
+   {w^\ast}^2 \sigma^{-2} {\mathbf{x}^\ast}^\top
+     \left(
+       \mathbf{x}^\ast {\mathbf{x}^\ast}^\top
+     \right)^{-1} \mathbf{x}^\ast\\\\
+\text{(2)} &amp; \quad &amp;
+   \sigma^{-4} \mathbf{w}^\top \mathbf{X}^\top \mathbf{A}^{-1}
+     \left( \mathbf{x}^\ast \sigma^{-2} {\mathbf{x}^\ast}^\top \right)
+     \mathbf{A}^{-1} \mathbf{X} \mathbf{w} -
+   \sigma^{-4} \mathbf{w}^\top \mathbf{X}^\top \mathbf{A}^{-1}
+     \frac{
+       \sigma^{-2} \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \mathbf{A}^{-1}
+         \mathbf{x}^\ast {\mathbf{x}^\ast}^\top
+     }{
+       \sigma^2 + {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast
+     }
+     \mathbf{A}^{-1} \mathbf{X} \mathbf{w}\\\\
+\text{(3)} &amp; \quad &amp;
+   -\left(
+     \sigma^{-4} \mathbf{w}^\top \mathbf{X}^\top \mathbf{A}^{-1}
+       \mathbf{x}^\ast w^\ast -
+     \sigma^{-2} \mathbf{w}^\top \mathbf{X}^\top \mathbf{A}^{-1}
+       \frac{
+         \sigma^{-2} \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \mathbf{A}^{-1}
+       }{
+         \sigma^2 + {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast
+       }
+       \mathbf{x}^\ast w^\ast
+   \right)\\\\
+\text{(4)} &amp; \quad &amp;
+   -\left(
+     w^\ast {\mathbf{x}^\ast}^\top
+       \sigma^{-4} \mathbf{A}^{-1} \mathbf{X} \mathbf{w} -
+     w^\ast {\mathbf{x}^\ast}^\top
+       \frac{
+         \sigma^{-2} \mathbf{A}^{-1} \mathbf{x}^\ast {\mathbf{x}^\ast}^\top
+       }{
+         \sigma^2 + {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast
+       }
+       \sigma^{-2} \mathbf{A}^{-1} \mathbf{X} \mathbf{w}
+   \right)\\\\
+\text{(5)} &amp; \quad &amp;
+   w^\ast {\mathbf{x}^\ast}^\top
+     \sigma^{-2} \left( \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \right)^{-1}
+     \mathbf{x}^\ast w^\ast -
+   w^\ast {\mathbf{x}^\ast}^\top
+     \frac{
+       \sigma^{-2} \mathbf{A}^{-1}
+     }{
+       \sigma^2 + {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast
+     }
+     \mathbf{x}^\ast w^\ast\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\text{(1) + (5)}
+ &amp;= \frac{
+      {w^\ast}^2 \sigma^{-2}
+        \left(
+          \sigma^2 + {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast
+        \right) -
+      {w^\ast}^2 \sigma^{-2}
+        {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast
+    }{
+      \sigma^2 + {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast
+    }\\
+ &amp;= \frac{
+      {w^\ast}^2
+    }{
+      \sigma^2 + {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast
+    }\\\\\\
+\text{(2)}
+ &amp;= \frac{
+      \sigma^{-6} \mathbf{w}^\top \mathbf{X}^\top \mathbf{A}^{-1}
+        \left( \mathbf{x}^\ast {\mathbf{x}^\ast}^\top \right)
+        \mathbf{A}^{-1} \mathbf{X} \mathbf{w}
+        \left(
+          \sigma^2 + {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast
+        \right) -
+      \sigma^{-6} \mathbf{w}^\top \mathbf{X}^\top \mathbf{A}^{-1}
+        \mathbf{x}^\ast {\mathbf{x}^\ast}^\top
+        \mathbf{A}^{-1}
+        \mathbf{x}^\ast {\mathbf{x}^\ast}^\top
+        \mathbf{A}^{-1} \mathbf{X} \mathbf{w}
+    }{
+      \sigma^2 + {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast
+    }\\
+ &amp;= \frac{
+      \sigma^{-4} \mathbf{w}^\top \mathbf{X}^\top \mathbf{A}^{-1}
+        \mathbf{x}^\ast {\mathbf{x}^\ast}^\top
+        \mathbf{A}^{-1} \mathbf{X} \mathbf{w}
+    }{
+      \sigma^2 + {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast
+    }\\\\\\
+\text{(4)}
+ &amp;= \frac{
+      -\sigma^{-4} w^\ast {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{X}
+        \mathbf{w}
+        \left(
+          \sigma^2 + {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast
+        \right) +
+      \sigma^{-4} w^\ast {\mathbf{x}^\ast}^\top
+        \mathbf{A}^{-1} \mathbf{x}^\ast {\mathbf{x}^\ast}^\top
+        \mathbf{A}^{-1} \mathbf{X} \mathbf{w}
+    }{
+      \sigma^2 + {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast
+    }\\
+ &amp;= \frac{
+      -\sigma^{-2} w^\ast
+        {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{X} \mathbf{w}
+    }{
+      \sigma^2 + {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast
+    }\\
+ &amp;= \frac{
+      -\sigma^{-2} w^\ast
+        \mathbf{w}^\top \mathbf{X}^\top \mathbf{A}^{-1} \mathbf{x}^\ast
+    }{
+      \sigma^2 + {\mathbf{x}^\ast}^\top \mathbf{A}^{-1} \mathbf{x}^\ast
+    }\\
+ &amp;= \text{(3)}\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-8.6">
+<h2>Exercise 8.6<a class="headerlink" href="#Exercise-8.6" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{A}^{-1}
+ &amp;= \left(
+      \sigma^{-2} \mathbf{X} \mathbf{X}^\top + \sigma_p^{-2} \mathbf{I}_D
+    \right)^{-1}\\
+ &amp;= \left(
+      \sigma_p^{-2} \mathbf{I}_D +
+      \mathbf{X} \left( \sigma^{-2} \mathbf{I}_I \right) \mathbf{X}^\top
+    \right)^{-1}\\
+ &amp;= \sigma_p^2 \mathbf{I}_D -
+    \sigma_p^2 \mathbf{I}_D \mathbf{X}
+      \left(
+        \mathbf{X}^\top \sigma_p^2 \mathbf{I}_D \mathbf{X} +
+        \sigma^2 \mathbf{I}_I
+      \right)^{-1}
+      \mathbf{X}^\top \sigma_p^2 \mathbf{I}_D\\
+ &amp;= \sigma_p^2 \mathbf{I}_D -
+    \sigma_p^4 \mathbf{X} \sigma_p^{-2}
+      \left(
+        \mathbf{X}^\top \mathbf{I}_D \mathbf{X} +
+        \frac{\sigma^2}{\sigma_p^2} \mathbf{I}_I
+      \right)^{-1}
+      \mathbf{X}^\top\\
+ &amp;= \sigma_p^2 \mathbf{I}_D -
+    \sigma_p^2 \mathbf{X}
+      \left(
+        \mathbf{X}^\top \mathbf{I}_D \mathbf{X} +
+        \frac{\sigma^2}{\sigma_p^2} \mathbf{I}_I
+      \right)^{-1}
+      \mathbf{X}^\top\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-8.7">
+<h2>Exercise 8.7<a class="headerlink" href="#Exercise-8.7" title="Permalink to this headline">¶</a></h2>
+<p>Recall that</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial}{\partial \sigma} \left(
+  \sigma_p^2 \mathbf{X}^\top \mathbf{X} + \sigma^2 \mathbf{I}
+\right) = 2 \sigma \mathbf{I}.\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator{\tr}{\mathrm{tr}}
+0 &amp;= \frac{\partial}{\partial \sigma}
+     \log Pr(\mathbf{w} \mid \mathbf{X}, \sigma^2)\\
+ &amp;= \frac{\partial}{\partial \sigma} \log
+    \NormDist_{\mathbf{w}}\left[
+      \boldsymbol{0},
+      \sigma_p^2 \mathbf{X}^\top \mathbf{X} + \sigma^2 \mathbf{I}_I
+    \right]\\
+ &amp;= \frac{\partial}{\partial \sigma} \left(
+      -\frac{I}{2} \log[2 \pi] -
+      \frac{1}{2} \log\left\vert
+        \sigma_p^2 \mathbf{X}^\top \mathbf{X} + \sigma^2 \mathbf{I}
+      \right\vert -
+      \frac{1}{2} \mathbf{w}^\top
+        \left(
+          \sigma_p^2 \mathbf{X}^\top \mathbf{X} + \sigma^2 \mathbf{I}
+        \right)^{-1} \mathbf{w}
+    \right)\\
+ &amp;= -\frac{1}{2} \tr\left[
+      \left(
+        \sigma_p^2 \mathbf{X}^\top \mathbf{X} + \sigma^2 \mathbf{I}
+      \right)^{-1}
+      2 \sigma \mathbf{I}
+    \right] -
+    \frac{1}{2} \mathbf{w}^\top
+      \left[
+        -\left(
+          \sigma_p^2 \mathbf{X}^\top \mathbf{X} + \sigma^2 \mathbf{I}
+        \right)^{-1}
+        2 \sigma \mathbf{I}
+        \left(
+          \sigma_p^2 \mathbf{X}^\top \mathbf{X} + \sigma^2 \mathbf{I}
+        \right)^{-1}
+      \right] \mathbf{w}
+    &amp; \quad &amp; \text{(C.36) and (C.39)}\\
+ &amp;= \mathbf{w}^\top
+      \left(
+        \sigma_p^2 \mathbf{X}^\top \mathbf{X} + \sigma^2 \mathbf{I}
+      \right)^{-2} \mathbf{w} -
+    \tr\left[
+      \left(
+        \sigma_p^2 \mathbf{X}^\top \mathbf{X} + \sigma^2 \mathbf{I}
+      \right)^{-1}
+    \right]\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-8.8">
+<h2>Exercise 8.8<a class="headerlink" href="#Exercise-8.8" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[q(\phi) = \max_h L =
+\max_h \NormDist_{\phi}\left[ 0, h^{-1} \right] \GamDist_h[\nu / 2, \nu / 2]\]</div>
+<p>is an unconstrained optimization problem where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial L}{\partial h}
+ &amp;= \frac{\partial}{\partial h} \log\left[
+      \frac{1}{\sqrt{2 \pi \det h^{-1}}}
+      \exp\left( -0.5 \phi^2 h\right)
+      \frac{\left( \frac{\nu}{2} \right)^{\nu / 2}}{\Gamma[\nu / 2]}
+      \exp\left( -\frac{\nu}{2} h \right) h^{\nu / 2 - 1}
+    \right]\\
+0 &amp;= \frac{\partial}{\partial h} \left[
+       \frac{1}{2} \log(h) - \frac{1}{2} \log(2 \pi) +
+       \left( -0.5 \phi^2 h \right) +
+       \log\left(
+         \frac{\left( \frac{\nu}{2} \right)^{\nu / 2}}{\Gamma[\nu / 2]}
+       \right) +
+       \left( -0.5 \nu h \right) +
+       \left( \frac{\nu}{2} - 1 \right) \log(h)
+     \right]\\
+ &amp;= \frac{1}{2h} - \frac{1}{2} \phi^2 - \frac{1}{2} \nu +
+    \left( \frac{\nu}{2} - 1 \right) h^{-1}\\
+h^{-1} \frac{\nu - 1}{2} &amp;= \frac{\phi^2 + \nu}{2}\\
+h &amp;= \frac{\nu - 1}{\phi^2 + \nu}.\end{split}\]</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">scipy.special</span>
+
+<span class="k">def</span> <span class="nf">q</span><span class="p">(</span><span class="n">phi</span><span class="p">):</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">nu</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">phi</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">nu</span><span class="p">)</span>
+    <span class="n">d_normal</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-.</span><span class="mi">5</span> <span class="o">*</span> <span class="n">phi</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">h</span><span class="p">)</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">nu</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">nu</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">scipy</span><span class="o">.</span><span class="n">special</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="n">nu</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">d_gamma</span> <span class="o">=</span> <span class="n">_</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-.</span><span class="mi">5</span> <span class="o">*</span> <span class="n">nu</span> <span class="o">*</span> <span class="n">h</span><span class="p">)</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">nu</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d_normal</span> <span class="o">*</span> <span class="n">d_gamma</span>
+
+<span class="n">nu</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="n">phi</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">q</span><span class="p">(</span><span class="n">phi</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;$q(h)$ where $v = 2$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">nu</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">phi_1</span><span class="p">,</span> <span class="n">phi_2</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="n">phi_1</span><span class="p">)</span> <span class="o">*</span> <span class="n">q</span><span class="p">(</span><span class="n">phi_2</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;$q(h_1) q(h_2)$ where $v = 2$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$h_1$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$h_2$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;Figure size 640x480 with 1 Axes&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;Figure size 640x480 with 1 Axes&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Exercise-8.9">
+<h2>Exercise 8.9<a class="headerlink" href="#Exercise-8.9" title="Permalink to this headline">¶</a></h2>
+<p>Replace the nonlinear transformation in <span class="math notranslate nohighlight">\(x\)</span> with
+<span class="math notranslate nohighlight">\(z = \begin{bmatrix} 1 &amp; x &amp; x^2 &amp; x^3 \end{bmatrix}^\top\)</span> as in (8.19).</p>
+<p>This enables reuse of the linear model since (8.17) is linear in <span class="math notranslate nohighlight">\(z\)</span>.</p>
+<p>The maximum likelihood learning algorithm (8.6) is replaced with <span class="math notranslate nohighlight">\(Z\)</span>
+where the columns of <span class="math notranslate nohighlight">\(Z\)</span> contains the transformed vectors
+<span class="math notranslate nohighlight">\(\left\{ z_i \right\}_{i = 1}^I\)</span>.</p>
+<p>The Bayesian linear regression inference algorithm (8.14) can be reused via
+replacing <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(z\)</span> with <span class="math notranslate nohighlight">\(z\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> respectively.</p>
+</div>
+<div class="section" id="Exercise-8.10">
+<h2>Exercise 8.10<a class="headerlink" href="#Exercise-8.10" title="Permalink to this headline">¶</a></h2>
+<p>Dual linear regression should only be used when <span class="math notranslate nohighlight">\(I &lt; D\)</span>, otherwise the
+computation gets unnecessarily more expensive.</p>
+</div>
+<div class="section" id="Exercise-8.11">
+<h2>Exercise 8.11<a class="headerlink" href="#Exercise-8.11" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial L}{\partial \psi}
+ &amp;= -\frac{1}{2 \sigma^2} \frac{\partial}{\partial \psi}
+    \left(
+      w^\top w - w^\top X^\top X \psi - \psi^\top X^\top X w +
+      \psi^\top X^\top X X^\top X \psi
+    \right)\\
+0 &amp;= -\frac{1}{2 \sigma^2} \left(
+       -2 X^\top X w + 2 X^\top X X^\top X \psi
+     \right)
+     &amp; \quad &amp; \text{(C.27), (C.28), (C.33)}\\
+X^\top X X^\top X \psi &amp;= X^\top X w\\
+\psi &amp;= \left( X^\top X \right)^{-1} w\end{split}\]</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/nb/computer-vision-models-learning-and-inference-prince/chapter-08.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

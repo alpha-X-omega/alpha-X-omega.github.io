@@ -1,0 +1,10 @@
+#################################################
+Pattern Recognition and Machine Learning - Bishop
+#################################################
+
+.. include:: /_templates/toctree-nb-pattern-recognition-and-machine-learning-bishop
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

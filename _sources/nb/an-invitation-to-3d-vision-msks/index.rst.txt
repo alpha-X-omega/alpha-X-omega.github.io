@@ -1,0 +1,10 @@
+#############################################################
+An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry
+#############################################################
+
+.. include:: /_templates/toctree-nb-an-invitation-to-3d-vision-msks
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

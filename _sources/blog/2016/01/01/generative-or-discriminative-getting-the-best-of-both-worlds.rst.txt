@@ -1,0 +1,75 @@
+##############################################################
+Generative or Discriminative?  Getting the Best of Both Worlds
+##############################################################
+
+Motivation(s)
+=============
+
+When labeled training data is plentiful, discriminative techniques are widely
+used because they give excellent generalization performance.  For complex
+problems (e.g. object recognition), there are never enough data, so researchers
+are looking at generative models to make use of unlabeled data.  Recent hybrid
+approaches focus on optimizing a convex combination of generative and
+discriminative functions via discriminative training of generative models.
+
+Proposed Solution(s)
+====================
+
+The authors propose that for a given model, there is a unique likelihood
+function and hence only one correct way to train it.  The discriminative
+training of a generative model can be interpreted in terms of standard training
+of a different model corresponding to a different choice of distribution.  This
+can be achieved through introducing an additional independent set of parameters
+:math:`\tilde{\theta}` and modeling the prior :math:`p(\theta, \tilde{\theta})`.
+
+Evaluation(s)
+=============
+
+(23) was applied to synthetic data and object recognition.  A parameter sweep
+illustrated that the best performance was a blend of the two models.  The
+hyperparameters could be maximized in the usual Bayesian framework to avoid
+cross-validation.  The downside of this framework is the doubling in the number
+of parameters.
+
+Future Direction(s)
+===================
+
+- Is there a unique prior for each problem?
+- Are there families of priors that can serve as upper and lower bounds of
+  another prior?
+
+Question(s)
+===========
+
+- The experiments were insightful, but quite complicated.  Can I make a
+  generative and discriminative model and then arbitrarily combine them with any
+  prior of my choosing?
+
+Analysis
+========
+
+The authors proposed a principled way (through priors) of combining the
+generative and discriminative models.  This is a brilliant and very elegant
+theory to bridge the two arbitrary choices of modeling reality.
+
+Notes
+=====
+
+- Blending Generative and Discriminative
+
+  - (9) can be recovered from (15) using (18) as a prior.
+
+    - The benefit of discriminative training is dependent on model
+      mis-specification.
+
+  - (15) can be combined with unlabeled data to yield (22).
+
+    - The sole benefit of the generative approach is to make use of unlabeled
+      data to augment the labeled training set.
+
+  - (23) is one class of priors for blending between the two models.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

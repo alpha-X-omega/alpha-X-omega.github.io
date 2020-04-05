@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Basic Concepts &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Basic Laws" href="chapter-02.html" />
+    <link rel="prev" title="Fundamentals of Electric Circuits - Alexander &amp; Sadiku" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Basic Concepts</a><ul>
+<li><a class="reference internal" href="#Charge-and-Current">Charge and Current</a><ul>
+<li><a class="reference internal" href="#Exercise-1.1">Exercise 1.1</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+<li><a class="reference internal" href="#(d)">(d)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-1.2">Exercise 1.2</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+<li><a class="reference internal" href="#(d)">(d)</a></li>
+<li><a class="reference internal" href="#(e)">(e)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-1.3">Exercise 1.3</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+<li><a class="reference internal" href="#(d)">(d)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-1.4">Exercise 1.4</a></li>
+<li><a class="reference internal" href="#Exercise-1.5">Exercise 1.5</a></li>
+<li><a class="reference internal" href="#Exercise-1.6">Exercise 1.6</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-1.7">Exercise 1.7</a></li>
+<li><a class="reference internal" href="#Exercise-1.8">Exercise 1.8</a></li>
+<li><a class="reference internal" href="#Exercise-1.9">Exercise 1.9</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Voltage,-Power,-and-Energy">Voltage, Power, and Energy</a><ul>
+<li><a class="reference internal" href="#Exercise-1.10">Exercise 1.10</a></li>
+<li><a class="reference internal" href="#Exercise-1.11">Exercise 1.11</a></li>
+<li><a class="reference internal" href="#Exercise-1.12">Exercise 1.12</a></li>
+<li><a class="reference internal" href="#Exercise-1.13">Exercise 1.13</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-1.14">Exercise 1.14</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-1.15">Exercise 1.15</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Circuit-Elements">Circuit Elements</a><ul>
+<li><a class="reference internal" href="#Exercise-1.16">Exercise 1.16</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-1.17">Exercise 1.17</a></li>
+<li><a class="reference internal" href="#Exercise-1.18">Exercise 1.18</a></li>
+<li><a class="reference internal" href="#Exercise-1.19">Exercise 1.19</a></li>
+<li><a class="reference internal" href="#Exercise-1.20">Exercise 1.20</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Applications">Applications</a><ul>
+<li><a class="reference internal" href="#Exercise-1.21">Exercise 1.21</a></li>
+<li><a class="reference internal" href="#Exercise-1.22">Exercise 1.22</a></li>
+<li><a class="reference internal" href="#Exercise-1.23">Exercise 1.23</a></li>
+<li><a class="reference internal" href="#Exercise-1.24">Exercise 1.24</a></li>
+<li><a class="reference internal" href="#Exercise-1.25">Exercise 1.25</a></li>
+<li><a class="reference internal" href="#Exercise-1.26">Exercise 1.26</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-1.27">Exercise 1.27</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-1.28">Exercise 1.28</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-1.29">Exercise 1.29</a></li>
+<li><a class="reference internal" href="#Exercise-1.30">Exercise 1.30</a></li>
+<li><a class="reference internal" href="#Exercise-1.31">Exercise 1.31</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Comprehensive-Problems">Comprehensive Problems</a><ul>
+<li><a class="reference internal" href="#Exercise-1.32">Exercise 1.32</a></li>
+<li><a class="reference internal" href="#Exercise-1.33">Exercise 1.33</a></li>
+<li><a class="reference internal" href="#Exercise-1.34">Exercise 1.34</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-1.35">Exercise 1.35</a></li>
+<li><a class="reference internal" href="#Exercise-1.36">Exercise 1.36</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-1.37">Exercise 1.37</a></li>
+<li><a class="reference internal" href="#Exercise-1.38">Exercise 1.38</a></li>
+<li><a class="reference internal" href="#Exercise-1.39">Exercise 1.39</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: Fundamentals of Electric Circuits - Alexander & Sadiku"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Fundamentals ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="chapter-02.html" title="Next Chapter: Basic Laws"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Basic Laws &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="Basic-Concepts">
+<h1>Basic Concepts<a class="headerlink" href="#Basic-Concepts" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Charge-and-Current">
+<h2>Charge and Current<a class="headerlink" href="#Charge-and-Current" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\newcommand{\evalAt}[3]{\left. #1 \right\rvert_{#2}^{#3}}
+\newcommand{\kilo}{\mathrm{k}}
+\newcommand{\milli}{\mathrm{m}}
+\newcommand{\micro}{\mu}
+\newcommand{\nano}{\mathrm{n}}
+\newcommand{\pico}{\mathrm{p}}
+\newcommand{\ampere}{\mathrm{A}}
+\newcommand{\coulomb}{\mathrm{C}}
+\newcommand{\second}{\mathrm{s}}\]</div>
+<div class="section" id="Exercise-1.1">
+<h3>Exercise 1.1<a class="headerlink" href="#Exercise-1.1" title="Permalink to this headline">¶</a></h3>
+<p>There are <span class="math notranslate nohighlight">\(\frac{1}{1.602 \times 10^{-19}} = 6.24 \times 10^{18}\)</span> electrons
+per <span class="math notranslate nohighlight">\(1 \coulomb\)</span> of charge.</p>
+<div class="section" id="(a)">
+<h4>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h4>
+<div class="math notranslate nohighlight">
+\[\left( 6.482 \times 10^{17} \right) \left( -1.602 \times 10^{-19} \right) =
+-103.84 \milli\coulomb\]</div>
+</div>
+<div class="section" id="(b)">
+<h4>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h4>
+<div class="math notranslate nohighlight">
+\[\left( 1.24 \times 10^{18} \right) \left( -1.602 \times 10^{-19} \right) =
+-198.65 \milli\coulomb\]</div>
+</div>
+<div class="section" id="(c)">
+<h4>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h4>
+<div class="math notranslate nohighlight">
+\[\left( 2.46 \times 10^{19} \right) \left( -1.602 \times 10^{-19} \right) =
+-3.941 \coulomb\]</div>
+</div>
+<div class="section" id="(d)">
+<h4>(d)<a class="headerlink" href="#(d)" title="Permalink to this headline">¶</a></h4>
+<div class="math notranslate nohighlight">
+\[\left( 1.628 \times 10^{20} \right) \left( -1.602 \times 10^{-19} \right) =
+-26.08 \coulomb\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-1.2">
+<h3>Exercise 1.2<a class="headerlink" href="#Exercise-1.2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="(a)">
+<h4>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h4>
+<div class="math notranslate nohighlight">
+\[i = \frac{dq}{dt}
+  = \frac{d}{dt} \left( 3t + 8 \right)
+  = 3 \milli\ampere\]</div>
+</div>
+<div class="section" id="(b)">
+<h4>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h4>
+<div class="math notranslate nohighlight">
+\[i = \frac{dq}{dt}
+  = \frac{d}{dt} \left( 8t^2 + 4t - 2 \right)
+  = \left( 16t + 4 \right) \ampere\]</div>
+</div>
+<div class="section" id="(c)">
+<h4>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h4>
+<div class="math notranslate nohighlight">
+\[i = \frac{dq}{dt}
+  = \frac{d}{dt} \left( 3e^{-t} - 5e^{-2t} \right)
+  = \left( -3e^{-t} + 10e^{-2t} \right) \nano\ampere\]</div>
+</div>
+<div class="section" id="(d)">
+<h4>(d)<a class="headerlink" href="#(d)" title="Permalink to this headline">¶</a></h4>
+<div class="math notranslate nohighlight">
+\[i = \frac{dq}{dt}
+  = \frac{d}{dt} \left( 10 \sin 120 \pi t \right)
+  = \left( 1200 \pi \cos 120 \pi t \right) \pico\ampere\]</div>
+</div>
+<div class="section" id="(e)">
+<h4>(e)<a class="headerlink" href="#(e)" title="Permalink to this headline">¶</a></h4>
+<div class="math notranslate nohighlight">
+\[\begin{split}i = \frac{dq}{dt}
+  = \frac{d}{dt} \left( 20 e^{-4t} \cos 50t \right)
+ &amp;= -80 e^{-4t} \cos 50t - 1000 e^{-4t} \sin 50t\\
+ &amp;= -40 e^{-4t} \left( 2 \cos 50t +50 \sin 50t \right) \micro\ampere\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-1.3">
+<h3>Exercise 1.3<a class="headerlink" href="#Exercise-1.3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="(a)">
+<h4>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h4>
+<p>Given <span class="math notranslate nohighlight">\(i(t) = 3 \ampere\)</span> and <span class="math notranslate nohighlight">\(q(0) = 1 \coulomb\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[q(t) = \int i dt
+     = 3t + C\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}q(0) &amp;= 3(0) + C\\
+1 &amp;= C.\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h4>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h4>
+<p>Given <span class="math notranslate nohighlight">\(i(t) = (2t + 5) \milli\ampere\)</span> and <span class="math notranslate nohighlight">\(q(0) = 0\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[q(t) = \int (2t + 5) dt
+     = t^2 + 5t + C\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}q(0) &amp;= (0)^2 + 5(0) + C\\
+0 &amp;= C.\end{split}\]</div>
+</div>
+<div class="section" id="(c)">
+<h4>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h4>
+<p>Given <span class="math notranslate nohighlight">\(i(t) = 20 \cos\left( 10t + \pi / 6 \right) \micro\ampere\)</span> and
+<span class="math notranslate nohighlight">\(q(0) = 2 \micro\coulomb\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[q(t) = \int i dt
+     = 2 \sin\left( 10t + \pi / 6 \right) + C\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}q(0) &amp;= 2 \sin\left( 10(0) + \pi / 6 \right) + C\\
+2 &amp;= 2 \sin \frac{\pi}{6} + C\\
+1 &amp;= C.\end{split}\]</div>
+</div>
+<div class="section" id="(d)">
+<h4>(d)<a class="headerlink" href="#(d)" title="Permalink to this headline">¶</a></h4>
+<p>Given <span class="math notranslate nohighlight">\(i(t) = 10e^{-30t} \sin\left( 40t \right) \ampere\)</span> and
+<span class="math notranslate nohighlight">\(q(0) = 0\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[q(t) = \int i dt
+     = -\frac{1}{25} e^{-30t} \left( 3 \sin 40t + 4 \cos 40t \right) + C\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}q(0) &amp;= -\frac{1}{25} e^{-30(0)} \left(
+         3 \sin 40 (0) + 4 \cos 40 (0)
+       \right) + C\\
+0 &amp;= -\frac{1}{25} 4 + C\\
+\frac{4}{25} &amp;= C.\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-1.4">
+<h3>Exercise 1.4<a class="headerlink" href="#Exercise-1.4" title="Permalink to this headline">¶</a></h3>
+<p>Suppose a current of <span class="math notranslate nohighlight">\(7.4 \ampere\)</span> flows through a conductor.  The
+amount of charge passing through any cross-section of the conductor in
+<span class="math notranslate nohighlight">\(20 \second\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[Q = \int_{t_0}^t i dt = \evalAt{it}{0}{20} = 148 \coulomb.\]</div>
+</div>
+<div class="section" id="Exercise-1.5">
+<h3>Exercise 1.5<a class="headerlink" href="#Exercise-1.5" title="Permalink to this headline">¶</a></h3>
+<p>The total charge transferred over the time interval of
+<span class="math notranslate nohighlight">\(0 \leq t \leq 10 \second\)</span> when
+<span class="math notranslate nohighlight">\(i(t) = \frac{1}{2} t \ampere\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[Q = \int_{t_0}^t i dt
+  = \left. \frac{t^2}{4} \right\rvert_0^{10}
+  = 25 \coulomb.\]</div>
+</div>
+<div class="section" id="Exercise-1.6">
+<h3>Exercise 1.6<a class="headerlink" href="#Exercise-1.6" title="Permalink to this headline">¶</a></h3>
+<p>The charge (<span class="math notranslate nohighlight">\(\milli\coulomb\)</span>) entering a certain element is defined as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}q(t) = \begin{cases}
+         15t              &amp; \text{if } 0 \leq t \leq 2\\
+         30               &amp; \text{if } 2 \leq t \leq 8\\
+         30 - 7.5 (t - 8) &amp; \text{if } 8 \leq t \leq 12\\
+         0                &amp; \text{otherwise.}
+       \end{cases}\end{split}\]</div>
+<div class="section" id="(a)">
+<h4>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h4>
+<p>At <span class="math notranslate nohighlight">\(t = 1 \milli\second\)</span>, the current is</p>
+<div class="math notranslate nohighlight">
+\[i(t) = \frac{dq}{dt} = 15 \ampere.\]</div>
+</div>
+<div class="section" id="(b)">
+<h4>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h4>
+<p>At <span class="math notranslate nohighlight">\(t = 6 \milli\second\)</span>, the current is</p>
+<div class="math notranslate nohighlight">
+\[i(t) = \frac{dq}{dt} = 0 \ampere.\]</div>
+</div>
+<div class="section" id="(b)">
+<h4>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h4>
+<p>At <span class="math notranslate nohighlight">\(t = 10 \milli\second\)</span>, the current is</p>
+<div class="math notranslate nohighlight">
+\[i(t) = \frac{dq}{dt} = -7.5 \ampere.\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-1.7">
+<h3>Exercise 1.7<a class="headerlink" href="#Exercise-1.7" title="Permalink to this headline">¶</a></h3>
+<p>The charge (<span class="math notranslate nohighlight">\(\coulomb\)</span>) flowing in a wire is defined as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}q(t) = \begin{cases}
+         25t                &amp; \text{if } 0 \leq t \leq 2\\
+         50 - 25 (t - 2)    &amp; \text{if } 2 \leq t \leq 4\\
+         -25 (t - 4)        &amp; \text{if } 4 \leq t \leq 6\\
+         -50 + 25 (t - 6)   &amp; \text{if } 6 \leq t \leq 8\\
+         0     &amp; \text{otherwise.}
+       \end{cases}\end{split}\]</div>
+<p>The corresponding current (<span class="math notranslate nohighlight">\(\ampere\)</span>) is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}i(t) = \frac{dq}{dt}
+     = \begin{cases}
+          25 &amp; \text{if } 0 \leq t \leq 2\\
+         -25 &amp; \text{if } 2 \leq t \leq 6\\
+          25 &amp; \text{if } 6 \leq t \leq 8\\
+           0 &amp; \text{otherwise.}
+       \end{cases}\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-1.8">
+<h3>Exercise 1.8<a class="headerlink" href="#Exercise-1.8" title="Permalink to this headline">¶</a></h3>
+<p>The current (<span class="math notranslate nohighlight">\(\milli\ampere\)</span>) flowing past a point in a device is
+characterized as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}i(t) = \begin{cases}
+         10t &amp; \text{if } 0 \leq t \leq 1 \milli\second\\
+         10  &amp; \text{if } 1 \leq t \leq 2 \milli\second\\
+          0  &amp; \text{otherwise.}
+       \end{cases}\end{split}\]</div>
+<p>The total charge through the point is</p>
+<div class="math notranslate nohighlight">
+\[Q(t) = \int_{t_0 = 0}^{t = 2} i dt
+     = \int_0^1 10t dt + \int_1^2 10 dt
+     = \evalAt{5t^2}{0}{1} + \evalAt{10t}{1}{2}
+     = 15 \micro\coulomb.\]</div>
+</div>
+<div class="section" id="Exercise-1.9">
+<h3>Exercise 1.9<a class="headerlink" href="#Exercise-1.9" title="Permalink to this headline">¶</a></h3>
+<p>The current (<span class="math notranslate nohighlight">\(\ampere\)</span>) through an element is characterized by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}i(t) = \begin{cases}
+         i_1 = 10              &amp; \text{if } 0 \leq t \leq 1\\
+         i_2 = 10 - 5 (t - 1)  &amp; \text{if } 1 \leq t \leq 2\\
+         i_3 = 5               &amp; \text{if } 2 \leq t \leq 4\\
+         i_4 = 5 - 5 (t - 4)   &amp; \text{if } 4 \leq t \leq 5\\
+               0               &amp; \text{otherwise.}
+       \end{cases}\end{split}\]</div>
+<div class="section" id="(a)">
+<h4>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h4>
+<p>The total charge that passed through the element at <span class="math notranslate nohighlight">\(t = 1 \second\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[Q(t) = \int_{t_0 = 0}^{t = 1} i dt
+     = \int_0^1 i_1 dt
+     = \evalAt{10t}{0}{1}
+     = 10 \coulomb.\]</div>
+</div>
+<div class="section" id="(b)">
+<h4>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h4>
+<p>The total charge that passed through the element at <span class="math notranslate nohighlight">\(t = 3 \second\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[Q(t) = \int_{t_0 = 0}^{t = 3} i dt
+     = \int_0^1 i_1 dt + \int_1^2 i_2 dt + \int_2^3 i_3 dt
+     = Q(1) +
+       \evalAt{10t - \frac{5}{2} t^2 + 5t}{1}{2} +
+       \evalAt{5t}{2}{3}
+     = 22.5 \coulomb.\]</div>
+</div>
+<div class="section" id="(c)">
+<h4>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h4>
+<p>The total charge that passed through the element at <span class="math notranslate nohighlight">\(t = 5 \second\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[Q(t) = \int_{t_0 = 0}^{t = 5} i dt
+     = \int_0^1 i_1 dt + \int_1^2 i_2 dt + \int_2^4 i_3 dt + \int_4^5 i_4 dt
+     = Q(3) + \evalAt{5t}{3}{4} +
+       \evalAt{5t - \frac{5}{2} t^2 + 20t}{4}{5}
+     = 30 \coulomb.\]</div>
+</div>
+</div>
+</div>
+<div class="section" id="Voltage,-Power,-and-Energy">
+<h2>Voltage, Power, and Energy<a class="headerlink" href="#Voltage,-Power,-and-Energy" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\newcommand{\joule}{\mathrm{J}}
+\newcommand{\volt}{\mathrm{V}}
+\newcommand{\watt}{\mathrm{W}}
+\newcommand{\hour}{\mathrm{h}}\]</div>
+<div class="section" id="Exercise-1.10">
+<h3>Exercise 1.10<a class="headerlink" href="#Exercise-1.10" title="Permalink to this headline">¶</a></h3>
+<p>A lightning bolt with <span class="math notranslate nohighlight">\(10 \kilo\ampere\)</span> strikes an object for
+<span class="math notranslate nohighlight">\(15 \micro\second\)</span>.  The amount of charge deposited on the object is</p>
+<div class="math notranslate nohighlight">
+\[Q = \int i dt
+  = \left( 10 \times 10^3 \ampere \right)
+    \left( 15 \times 10^{-6} \second \right)
+  = 0.15 \coulomb.\]</div>
+</div>
+<div class="section" id="Exercise-1.11">
+<h3>Exercise 1.11<a class="headerlink" href="#Exercise-1.11" title="Permalink to this headline">¶</a></h3>
+<p>A rechargeable flashlight battery can deliver <span class="math notranslate nohighlight">\(90 \milli\ampere\)</span> for about
+<span class="math notranslate nohighlight">\(12 \hour\)</span>.  The amount of charge it can release at that rate is</p>
+<div class="math notranslate nohighlight">
+\[Q = \int i dt
+  = \evalAt{\left( 90 \times 10^{-3} \right) t}{0}{12 \times 3600}
+  = 3.888 \kilo\coulomb.\]</div>
+<p>If the terminal voltage is <span class="math notranslate nohighlight">\(1.5 \volt\)</span>, the battery can delivery</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w &amp;= \int v dq
+     &amp; \quad \text{(1.3)}\\
+  &amp;= \int v i dt
+     &amp; \quad \text{(1.1), (1.9)}\\
+  &amp;= \evalAt{\left( 1.5 \times 0.09 \right) t}{0}{12 \times 3600}\\
+  &amp;= 5.832 \kilo\joule\\
+  &amp;= 1.62 \watt\hour.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-1.12">
+<h3>Exercise 1.12<a class="headerlink" href="#Exercise-1.12" title="Permalink to this headline">¶</a></h3>
+<p>The current (<span class="math notranslate nohighlight">\(\ampere\)</span>) through an element is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}i(t) = \begin{cases}
+         3t  &amp; \text{if } 0  \leq t &lt; 6\\
+         18  &amp; \text{if } 6  \leq t &lt; 10\\
+         -12 &amp; \text{if } 10 \leq t &lt; 15\\
+         0   &amp; \text{if } t \geq 15.
+       \end{cases}\end{split}\]</div>
+<p>The charge (<span class="math notranslate nohighlight">\(\coulomb\)</span>) stored in the element over
+<span class="math notranslate nohighlight">\(0 &lt; t &lt; 20 \second\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Q(t) = \begin{cases}
+         \frac{3}{2} t^2   &amp; \text{if } 0 \leq t &lt; 6\\
+         54 + 18 (t - 6)   &amp; \text{if } 6  \leq t &lt; 10\\
+         126 - 12 (t - 10) &amp; \text{if } 10 \leq t &lt; 15\\
+         66                &amp; \text{if } t \geq 15.
+       \end{cases}\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-1.13">
+<h3>Exercise 1.13<a class="headerlink" href="#Exercise-1.13" title="Permalink to this headline">¶</a></h3>
+<p>Given the charge (<span class="math notranslate nohighlight">\(\milli\coulomb\)</span>) entering the positive terminal of an
+element is</p>
+<div class="math notranslate nohighlight">
+\[q = 5 \sin 4 \pi t,\]</div>
+<p>the current (<span class="math notranslate nohighlight">\(\milli\ampere\)</span>) is</p>
+<div class="math notranslate nohighlight">
+\[i = \frac{dq}{dt}
+  = 20 \pi \cos 4 \pi t.\]</div>
+<p>Suppose the voltage (<span class="math notranslate nohighlight">\(\volt\)</span>) across the element (passive sign convention)
+is</p>
+<div class="math notranslate nohighlight">
+\[v = 3 \cos 4 \pi t.\]</div>
+<div class="section" id="(a)">
+<h4>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h4>
+<p>The power delivered to the element at <span class="math notranslate nohighlight">\(t = 0.3 \second\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}p &amp;= vi &amp; \quad \text{(1.7)}\\
+  &amp;= 60 \pi \cos^2 4 \pi t\\
+  &amp;= 30 \pi \left( 1 + \cos 8 \pi t \right)
+     &amp; \quad \text{cosine identity} \cos 2 \alpha = 2 \cos^2 \alpha - 1\\
+  &amp;= 123.37 \milli\watt.\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h4>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h4>
+<p>The energy delivered to the element between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(0.6 \second\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w &amp;= \int_{t_0}^t p dt
+     &amp; \quad \text{(1.9)}\\
+  &amp;= \evalAt{30 \pi t + \frac{15}{4} \sin 8 \pi t}{0}{0.6}\\
+  &amp;= 58.76 \milli\joule.\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-1.14">
+<h3>Exercise 1.14<a class="headerlink" href="#Exercise-1.14" title="Permalink to this headline">¶</a></h3>
+<p>The voltage (<span class="math notranslate nohighlight">\(\volt\)</span>) across a device and the current
+(<span class="math notranslate nohighlight">\(\milli\ampere\)</span>) through it are</p>
+<div class="math notranslate nohighlight">
+\[v(t) = 10 \cos 2 t
+\quad \text{and} \quad
+i(t) = 20 \left( 1 - \exp -\frac{t}{2} \right).\]</div>
+<div class="section" id="(a)">
+<h4>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h4>
+<p>The total charge in the device at <span class="math notranslate nohighlight">\(t = 1 \second\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Q &amp;= \int_{t_0 = 0}^t i dt
+     &amp; \quad \text{(1.2)}\\
+  &amp;= \evalAt{20t + 40 \exp -\frac{t}{2}}{0}{1}\\
+  &amp;= 4.26 \milli\coulomb.\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h4>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h4>
+<p>The power consumed by the device at <span class="math notranslate nohighlight">\(t = 1 \second\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}p &amp;= vi
+     &amp; \quad \text{(1.7)}\\
+  &amp;= 200 \left( 1 - \exp -\frac{t}{2} \right) \cos 2t\\
+  &amp;= -32.75 \milli\watt.\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-1.15">
+<h3>Exercise 1.15<a class="headerlink" href="#Exercise-1.15" title="Permalink to this headline">¶</a></h3>
+<p>The current (<span class="math notranslate nohighlight">\(\milli\ampere\)</span>) entering the positive terminal of a device
+is <span class="math notranslate nohighlight">\(i(t) = 6 e^{-2t}\)</span> and the voltage (<span class="math notranslate nohighlight">\(\milli\volt\)</span>) across the
+device is</p>
+<div class="math notranslate nohighlight">
+\[v(t) = 10 \frac{di}{dt} = -120 \exp -2t.\]</div>
+<div class="section" id="(a)">
+<h4>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h4>
+<p>The total charge delivered to the device between <span class="math notranslate nohighlight">\(t = 0\)</span> and
+<span class="math notranslate nohighlight">\(t = 2 \second\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Q &amp;= \int_{t_0 = 0}^t i dt
+     &amp; \quad \text{(1.2)}\\
+  &amp;= \evalAt{-3 \exp -2t}{0}{2}\\
+  &amp;= 2.95 \milli\coulomb.\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h4>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h4>
+<p>The power (<span class="math notranslate nohighlight">\(\micro\watt\)</span>) absorbed is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}p &amp;= vi
+     &amp; \quad \text{(1.7)}\\
+  &amp;= -720 \exp -4t.\end{split}\]</div>
+</div>
+<div class="section" id="(c)">
+<h4>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h4>
+<p>The energy absorbed in <span class="math notranslate nohighlight">\(3 \second\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w &amp;= \int_{t_0 = 0}^t p dt
+     &amp; \quad \text{(1.9)}\\
+  &amp;= \evalAt{180 \exp -4t}{0}{3}\\
+  &amp;= -180 \micro\joule.\end{split}\]</div>
+</div>
+</div>
+</div>
+<div class="section" id="Circuit-Elements">
+<h2>Circuit Elements<a class="headerlink" href="#Circuit-Elements" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Exercise-1.16">
+<h3>Exercise 1.16<a class="headerlink" href="#Exercise-1.16" title="Permalink to this headline">¶</a></h3>
+<p>The current (<span class="math notranslate nohighlight">\(\milli\ampere\)</span>) through and the voltage (<span class="math notranslate nohighlight">\(\volt\)</span>)
+across an element are given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}i(t) = \begin{cases}
+         30t             &amp; \text{if } 0 \leq t &lt; 2\\
+         60 - 30 (t - 2) &amp; \text{if } 2 \leq t &lt; 4\\
+         0               &amp; \text{otherwise.}
+       \end{cases}
+\qquad  \text{and} \qquad
+v(t) = \begin{cases}
+         5  &amp; \text{if } 0 \leq t &lt; 2\\
+         -5 &amp; \text{if } 2 \leq t &lt; 4\\
+         0  &amp; \text{otherwise.}
+       \end{cases}\end{split}\]</div>
+<div class="section" id="(a)">
+<h4>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h4>
+<p>The power (<span class="math notranslate nohighlight">\(\milli\watt\)</span>) delivered to the element for <span class="math notranslate nohighlight">\(t &gt; 0\)</span> is
+given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}p(t) = \begin{cases}
+         150t               &amp; \text{if } 0 \leq t &lt; 2\\
+         -300 + 150 (t - 2) &amp; \text{if } 2 \leq t &lt; 4\\
+         0  &amp; \text{otherwise.}
+       \end{cases}\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h4>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h4>
+<p>The total energy absorbed by the element for the period of
+<span class="math notranslate nohighlight">\(0 &lt; t &lt; 4 \second\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w &amp;= \int_{t_0 = 0}^t p dt
+     &amp; \quad \text{(1.9)}\\
+  &amp;= \int_0^2 p dt + \int_2^4 p dt\\
+  &amp;= \evalAt{75t^2}{0}{2} + \evalAt{-600t + 75t^2}{2}{4}\\
+  &amp;= 0 \milli\joule.\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-1.17">
+<h3>Exercise 1.17<a class="headerlink" href="#Exercise-1.17" title="Permalink to this headline">¶</a></h3>
+<p>The amount of power absorbed by element 3 is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}p_1 + p_2 + p_3 + p_4 + p_5 &amp;= 0 &amp; \quad \text{(1.8)}\\
+p_3 &amp;= 205 - 60 - 45 - 30\\
+    &amp;= 70 \watt.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-1.18">
+<h3>Exercise 1.18<a class="headerlink" href="#Exercise-1.18" title="Permalink to this headline">¶</a></h3>
+<p>Given <span class="math notranslate nohighlight">\(I = 10 \ampere\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}p_1 &amp;= -\left( 30 \times 10 \right) = -300 \watt\\
+\\
+p_2 &amp;= I \times 10 = 100 \watt\\
+\\
+p_3 &amp;= 20 \times 14 = 280 \watt\\
+\\
+p_4 &amp;= -\left( 8 \times 4 \right) = -32 \watt\\
+\\
+p_5 &amp;= -\left( 12 \times 0.4I \right) = -48 \watt.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-1.19">
+<h3>Exercise 1.19<a class="headerlink" href="#Exercise-1.19" title="Permalink to this headline">¶</a></h3>
+<p>The power (<span class="math notranslate nohighlight">\(\watt\)</span>) absorbed by each element is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}p_1 &amp;= - \left( 9 \times 8 \right) = -72\\
+\\
+p_2 &amp;= 9 \times 2 = 18\\
+\\
+p_3 &amp;= 3I\\
+\\
+p_4 &amp;= 6I\end{split}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}0 &amp;= \sum_i p_i
+     &amp; \quad \text{(1.8)}\\
+  &amp;= -54 + 9I\\
+I &amp;= 6 \ampere.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-1.20">
+<h3>Exercise 1.20<a class="headerlink" href="#Exercise-1.20" title="Permalink to this headline">¶</a></h3>
+<p>Given <span class="math notranslate nohighlight">\(I_o = 2 \ampere\)</span>, the power (<span class="math notranslate nohighlight">\(\watt\)</span>) absorbed by each
+element is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}p_1 &amp;= - \left( 30 \times 6 \right) = -180\\
+\\
+p_2 &amp;= 12 \times 6 = 72\\
+\\
+p_3 &amp;= 3 V_o\\
+\\
+p_4 &amp;= 28 \times I_o = 56\\
+p_5 &amp;= 28 \times 1 = 28\\
+p_6 &amp;= -\left( 5 I_o \times 3 \right) = -30\\\end{split}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}0 &amp;= \sum_i p_i
+     &amp; \quad \text{(1.8)}\\
+  &amp;= -54 + 3 V_o\\
+V_o &amp;= 18 \volt.\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Applications">
+<h2>Applications<a class="headerlink" href="#Applications" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\newcommand{\minute}{\mathrm{min}}
+\newcommand{\per}{\mathrm{/}}
+\newcommand{\cent}{\mathrm{cents}}
+\newcommand{\day}{\mathrm{day}}
+\newcommand{\watthour}{\mathrm{Wh}}
+\newcommand{\amperehour}{\mathrm{Ah}}
+\newcommand{\mega}{\mathrm{M}}\]</div>
+<div class="section" id="Exercise-1.21">
+<h3>Exercise 1.21<a class="headerlink" href="#Exercise-1.21" title="Permalink to this headline">¶</a></h3>
+<p>A <span class="math notranslate nohighlight">\(60 \watt\)</span> incandescent bulb operates at <span class="math notranslate nohighlight">\(120 \volt\)</span>.  The amount
+of coulombs flowing through the bulb in one day is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Q &amp;= \int \frac{p}{v} dt
+     &amp; \quad \text{(1.6)}\\
+  &amp;= \frac{60}{120} \times 3600\\
+  &amp;= 43.2 \kilo\coulomb,\end{split}\]</div>
+<p>which is equivalent to saying the number of electrons is</p>
+<div class="math notranslate nohighlight">
+\[N_e = Q \left( 6.24 \times 10^{18} \right) = 2.696 \times 10^{23}.\]</div>
+</div>
+<div class="section" id="Exercise-1.22">
+<h3>Exercise 1.22<a class="headerlink" href="#Exercise-1.22" title="Permalink to this headline">¶</a></h3>
+<p>A lightning bolt strikes an airplane with <span class="math notranslate nohighlight">\(40 \kilo\ampere\)</span> for
+<span class="math notranslate nohighlight">\(1.2 \milli\second\)</span>.  The charge deposited on the plane is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Q &amp;= \int_{t_0 = 0}^t i dt
+     &amp; \quad \text{(1.2)}\\
+  &amp;= \evalAt{40000t}{0}{0.0012}\\
+  &amp;= 48 \coulomb.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-1.23">
+<h3>Exercise 1.23<a class="headerlink" href="#Exercise-1.23" title="Permalink to this headline">¶</a></h3>
+<p>A <span class="math notranslate nohighlight">\(1.8 \kilo\watt\)</span> electric heater takes <span class="math notranslate nohighlight">\(15 \minute\)</span> to boil a
+quantity of water i.e.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w &amp;= \int_{t_0 = 0}^{t} p dt
+     &amp; \quad \text{(1.9)}\\
+  &amp;= \evalAt{1800t}{0}{15 \times 60}\\
+  &amp;= 1620000 \joule\\
+  &amp;= 450 \watthour
+     &amp; \quad 1 \watthour = 3600 \joule\\
+  &amp;= 0.45 \kilo\watthour.\end{split}\]</div>
+<p>Suppose this is done once a day and power costs
+<span class="math notranslate nohighlight">\(10 \cent\per\kilo\watthour\)</span>.  The cost of its
+operation for <span class="math notranslate nohighlight">\(30\)</span> days is</p>
+<div class="math notranslate nohighlight">
+\[c = 30 \times 10 \times w = 135 \cent.\]</div>
+</div>
+<div class="section" id="Exercise-1.24">
+<h3>Exercise 1.24<a class="headerlink" href="#Exercise-1.24" title="Permalink to this headline">¶</a></h3>
+<p>A utility company charges <span class="math notranslate nohighlight">\(8.2 \cent\per\kilo\watthour\)</span>.  Suppose a
+consumer operates a <span class="math notranslate nohighlight">\(60 \watt\)</span> light bulb continuously for one day i.e.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w &amp;= \int_{t_0 = 0}^{t} p dt
+     &amp; \quad \text{(1.9)}\\
+  &amp;= \evalAt{60t}{0}{24}\\
+  &amp;= 1.44 \kilo\watthour.\end{split}\]</div>
+<p>That consumer would pay</p>
+<div class="math notranslate nohighlight">
+\[c = 8.2 \times w = 11.81 \cent.\]</div>
+</div>
+<div class="section" id="Exercise-1.25">
+<h3>Exercise 1.25<a class="headerlink" href="#Exercise-1.25" title="Permalink to this headline">¶</a></h3>
+<p>A <span class="math notranslate nohighlight">\(1.5 \kilo\watt\)</span> toaster takes roughly <span class="math notranslate nohighlight">\(3.5\)</span> minutes to heat four
+slices of bread i.e.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w &amp;= \int_{t_0 = 0}^{t} p dt
+     &amp; \quad \text{(1.9)}\\
+  &amp;= \evalAt{1500t}{0}{3.5 \times 60}\\
+  &amp;= 315000 \joule\\
+  &amp;= 0.0875 \kilo\watthour.\end{split}\]</div>
+<p>Assuming energy costs <span class="math notranslate nohighlight">\(8.2 \cent\per\kilo\watthour\)</span>, the cost of
+operating the toaster once per day for one month is</p>
+<div class="math notranslate nohighlight">
+\[c = 8.2 \times 30 \times w = 21.53 \cent.\]</div>
+</div>
+<div class="section" id="Exercise-1.26">
+<h3>Exercise 1.26<a class="headerlink" href="#Exercise-1.26" title="Permalink to this headline">¶</a></h3>
+<p>A flashlight battery has a rating of <span class="math notranslate nohighlight">\(0.8 \amperehour\)</span> and a lifetime of
+<span class="math notranslate nohighlight">\(10 \hour\)</span>.</p>
+<div class="section" id="(a)">
+<h4>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h4>
+<p>The battery can deliver</p>
+<div class="math notranslate nohighlight">
+\[i = \frac{0.8}{10} = 80 \milli\ampere.\]</div>
+</div>
+<div class="section" id="(b)">
+<h4>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h4>
+<p>If its terminal voltage is <span class="math notranslate nohighlight">\(6 \volt\)</span>, the battery can give</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}p &amp;= vi
+     &amp; \quad \text{(1.7)}\\
+  &amp;= 6 \times 0.08\\
+  &amp;= 0.48 \watt.\end{split}\]</div>
+</div>
+<div class="section" id="(c)">
+<h4>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h4>
+<p>The amount of energy stored in the battery is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w &amp;= \int_{t_0 = 0}^{t = 10} p
+     &amp; \quad \text{(1.9)}\\
+  &amp;= \evalAt{pt}{0}{10}\\
+  &amp;= 4.8 \watthour.\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-1.27">
+<h3>Exercise 1.27<a class="headerlink" href="#Exercise-1.27" title="Permalink to this headline">¶</a></h3>
+<p>A typical automotive battery requires a constant current of <span class="math notranslate nohighlight">\(3 \ampere\)</span>
+for 4 hours to become fully charged.  Suppose the terminal voltage
+(<span class="math notranslate nohighlight">\(\volt\)</span>) is <span class="math notranslate nohighlight">\(10 + \frac{t}{2}\)</span> where <span class="math notranslate nohighlight">\(t\)</span> is in hours.</p>
+<div class="section" id="(a)">
+<h4>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h4>
+<p>The amount of charge transported is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Q &amp;= \int_{t_0}^t i dt
+     &amp; \quad \text{(1.2)}\\
+  &amp;= \evalAt{3t}{0}{4 \times 3600}\\
+  &amp;= 43.2 \kilo\coulomb.\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h4>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h4>
+<p>The terminal voltage reformulated in seconds is <span class="math notranslate nohighlight">\(10 + \frac{0.5t}{3600}\)</span>.
+The energy expended is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w &amp;= \int_{t_0}^t vi dt
+     &amp; \quad \text{(1.9)}\\
+  &amp;= i \left(
+         \evalAt{10t + \frac{0.25 t^2}{3600}}{0}{4 \times 3600}
+       \right)\\
+  &amp;= 475.2 \kilo\joule\\
+  &amp;= 0.132 \kilo\watthour
+     &amp; \quad 1 \kilo\watthour = 3600 \kilo\joule.\end{split}\]</div>
+</div>
+<div class="section" id="(c)">
+<h4>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h4>
+<p>Assuming electricity costs <span class="math notranslate nohighlight">\(9 \cent\per\kilo\watthour\)</span>, the charging cost
+is</p>
+<div class="math notranslate nohighlight">
+\[c = 9 \times w = 1.188 \cent.\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-1.28">
+<h3>Exercise 1.28<a class="headerlink" href="#Exercise-1.28" title="Permalink to this headline">¶</a></h3>
+<p>A <span class="math notranslate nohighlight">\(60 \watt\)</span> incandescent lamp is connected to a <span class="math notranslate nohighlight">\(120 \volt\)</span> source.</p>
+<div class="section" id="(a)">
+<h4>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h4>
+<p>The current through the lamp is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}i &amp;= \frac{p}{v}
+     &amp; \quad \text{(1.7)}\\
+  &amp;= 0.5 \ampere.\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h4>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h4>
+<p>The energy consumed in a non-leap year is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w &amp;= \int_{t_0}^t p dt
+     &amp; \quad \text{(1.9)}\\
+  &amp;= \evalAt{pt}{0}{365 \times 24}\\
+  &amp;= 525.6 \kilo\joule.\end{split}\]</div>
+<p>If electricity costs <span class="math notranslate nohighlight">\(9 \cent\per\kilo\watthour\)</span>, the cost of operating
+the light is</p>
+<div class="math notranslate nohighlight">
+\[c = 9 \times w = \$47.304.\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-1.29">
+<h3>Exercise 1.29<a class="headerlink" href="#Exercise-1.29" title="Permalink to this headline">¶</a></h3>
+<p>An electric stove with four burners and an oven is used as follows:</p>
+<ul class="simple">
+<li><p>Burner 1: 20 minutes.</p></li>
+<li><p>Burner 2: 40 minutes.</p></li>
+<li><p>Burner 3: 15 minutes.</p></li>
+<li><p>Burner 4: 45 minutes.</p></li>
+<li><p>Oven: 30 minutes.</p></li>
+</ul>
+<p>Suppose each burner is rated at <span class="math notranslate nohighlight">\(1.2 \kilo\watt\)</span> and the oven at
+<span class="math notranslate nohighlight">\(1.8 \kilo\watt\)</span>.</p>
+<p>The total amount of energy expended by the burners is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w_b &amp;= \int_{t_0}^t p_b dt
+       &amp; \quad \text{(1.9)}\\
+    &amp;= \evalAt{p_b t}{0}{(20 + 40 + 15 + 45) \times 60}\\
+    &amp;= 8640 \kilo\joule\\
+    &amp;= 2.4 \kilo\watthour\end{split}\]</div>
+<p>and the oven is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w_o &amp;= \int_{t_0}^t p_o dt
+       &amp; \quad \text{(1.9)}\\
+    &amp;= \evalAt{p_o t}{0}{30 \times 60}\\
+    &amp;= 3240 \kilo\joule\\
+    &amp;= 0.9 \kilo\watthour.\end{split}\]</div>
+<p>If electricity costs <span class="math notranslate nohighlight">\(12 \cent\per\kilo\watthour\)</span>, the cost of electricity
+used in preparing the meal is</p>
+<div class="math notranslate nohighlight">
+\[c = 12 \times (w_b + w_o) = 39.6 \cent.\]</div>
+</div>
+<div class="section" id="Exercise-1.30">
+<h3>Exercise 1.30<a class="headerlink" href="#Exercise-1.30" title="Permalink to this headline">¶</a></h3>
+<p>Reliant Energy charges customers as follows:</p>
+<ul class="simple">
+<li><p>Monthly charge <span class="math notranslate nohighlight">\(\$6\)</span>.</p></li>
+<li><p>First <span class="math notranslate nohighlight">\(250 \kilo\watthour &#64; 2 \cent\per\kilo\watthour\)</span>.</p></li>
+<li><p>All additional <span class="math notranslate nohighlight">\(\kilo\watthour &#64; 7 \cent\per\kilo\watthour\)</span>.</p></li>
+</ul>
+<p>If a customer uses <span class="math notranslate nohighlight">\(2.436 \mega\watthour\)</span> in one month, Reliant Energy
+will charge</p>
+<div class="math notranslate nohighlight">
+\[c = 6 + 0.02 \times 250 + 0.07 \times (2436 - 250) = \$164.02.\]</div>
+</div>
+<div class="section" id="Exercise-1.31">
+<h3>Exercise 1.31<a class="headerlink" href="#Exercise-1.31" title="Permalink to this headline">¶</a></h3>
+<p>Suppose a <span class="math notranslate nohighlight">\(120 \watt\)</span> PC runs for <span class="math notranslate nohighlight">\(4 \hour\per\day\)</span> while a
+<span class="math notranslate nohighlight">\(60 \watt\)</span> bulb runs for <span class="math notranslate nohighlight">\(8 \hour\per\day\)</span>.  The energy consumed by
+the PC is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w_{pc} &amp;= \int_{t_0}^t p_{pc} dt
+          &amp; \quad \text{(1.9)}\\
+       &amp;= \evalAt{p_{pc} t}{0}{4 \times 365}\\
+       &amp;= 175200 \watthour\\
+       &amp;= 175.2 \kilo\watthour\end{split}\]</div>
+<p>and the bulb is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w_b &amp;= \int_{t_0}^t p_b dt
+       &amp; \quad \text{(1.9)}\\
+    &amp;= \evalAt{p_b t}{0}{8 \times 365}\\
+    &amp;= 175200 \watthour\\
+    &amp;= 175.2 \kilo\watthour.\end{split}\]</div>
+<p>If electricity costs <span class="math notranslate nohighlight">\(12 \cent\per\kilo\watthour\)</span>, this household pays per
+year</p>
+<div class="math notranslate nohighlight">
+\[c = 12 \times (w_{pc} + w_b) = \$42.048 \cent.\]</div>
+</div>
+</div>
+<div class="section" id="Comprehensive-Problems">
+<h2>Comprehensive Problems<a class="headerlink" href="#Comprehensive-Problems" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\newcommand{\horsepower}{\mathrm{hp}}\]</div>
+<div class="section" id="Exercise-1.32">
+<h3>Exercise 1.32<a class="headerlink" href="#Exercise-1.32" title="Permalink to this headline">¶</a></h3>
+<p>A telephone wire has a current of <span class="math notranslate nohighlight">\(20 \micro\ampere\)</span> flowing through it.
+The time it takes for a charge of <span class="math notranslate nohighlight">\(15 \coulomb\)</span> to pass through the wire
+is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Q &amp;= \int_{t_0}^t i dt
+     &amp; \quad \text{(1.2)}\\
+15 &amp;= \evalAt{it}{0}{t}\\
+t &amp;= \frac{15}{i}\\
+  &amp;= 208.\bar{3} \hour.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-1.33">
+<h3>Exercise 1.33<a class="headerlink" href="#Exercise-1.33" title="Permalink to this headline">¶</a></h3>
+<p>A lightning bolt carried a current of <span class="math notranslate nohighlight">\(2 \kilo\ampere\)</span> and lasted for
+<span class="math notranslate nohighlight">\(3 \milli\second\)</span>.  The amount of charge contained in the lightning bolt
+is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Q &amp;= \int_{t_0}^t i dt
+     &amp; \quad \text{(1.2)}\\
+  &amp;= \evalAt{it}{0}{0.003}\\
+  &amp;= 6 \coulomb.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-1.34">
+<h3>Exercise 1.34<a class="headerlink" href="#Exercise-1.34" title="Permalink to this headline">¶</a></h3>
+<p>The power (<span class="math notranslate nohighlight">\(\watt\)</span>) consumption of a certain household in one day is given
+by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}p(t) = \begin{cases}
+         200  &amp; \text{if } 0  \leq t &lt; 6\\
+         800  &amp; \text{if } 6  \leq t &lt; 8\\
+         200  &amp; \text{if } 8  \leq t &lt; 18\\
+         1200 &amp; \text{if } 18 \leq t &lt; 22\\
+         200  &amp; \text{if } 18 \leq t \leq 24.
+       \end{cases}\end{split}\]</div>
+<div class="section" id="(a)">
+<h4>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h4>
+<p>The total energy consumed is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w &amp;= \int_{t_0 = 0}^t p dt
+     &amp; \quad \text{(1.9)}\\
+  &amp;= \int_0^6 200 dt +
+     \int_6^8 800 dt +
+     \int_8^{18} 200 dt +
+     \int_{18}^{22} 1200 dt +
+     \int_{22}^{24} 200 dt\\
+  &amp;= 200 (6 - 0) + 800 (8 - 6) + 200 (18 - 8) +
+     1200 (22 - 18) + 200 (24 - 22)\\
+  &amp;= 10 \kilo\watthour.\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h4>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h4>
+<p>The average power per hour over the entire day is</p>
+<div class="math notranslate nohighlight">
+\[p_{avg} = \frac{w}{24} = 416.\bar{6} \watt.\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-1.35">
+<h3>Exercise 1.35<a class="headerlink" href="#Exercise-1.35" title="Permalink to this headline">¶</a></h3>
+<p>The power (<span class="math notranslate nohighlight">\(\mega\watt\)</span>) drawn by an industrial plant between 8:00 and
+8:30 A.M. is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}p(t) = \begin{cases}
+         5  &amp; \text{if } 0  \leq t &lt; 5\\
+         4  &amp; \text{if } 5  \leq t &lt; 10\\
+         3  &amp; \text{if } 10 \leq t &lt; 15\\
+         8  &amp; \text{if } 15 \leq t &lt; 20\\
+         4  &amp; \text{if } 20 \leq t \leq 30.
+       \end{cases}\end{split}\]</div>
+<p>The total energy consumed by the plant is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w &amp;= \int_{t_0 = 0}^t p dt
+     &amp; \quad \text{(1.9)}\\
+  &amp;= \int_0^5 5 dt +
+     \int_5^{10} 4 dt +
+     \int_{10}^{15} 3 dt +
+     \int_{15}^{20} 8 dt +
+     \int_{20}^{30} 4 dt\\
+  &amp;= \frac{
+       5 (5 - 0) + 4 (10 - 5) + 3 (15 - 10) +
+       8 (20 - 15) + 4 (30 - 20)
+     }{60}
+     &amp; \quad \text{convert } \minute \text{ to } \hour\\
+  &amp;= 2.\bar{3} \mega\watthour.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-1.36">
+<h3>Exercise 1.36<a class="headerlink" href="#Exercise-1.36" title="Permalink to this headline">¶</a></h3>
+<p>A lead-acid battery is rated at <span class="math notranslate nohighlight">\(160 \amperehour\)</span>.</p>
+<div class="section" id="(a)">
+<h4>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h4>
+<p>The maximum current it can supply for <span class="math notranslate nohighlight">\(40 \hour\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}i &amp;= \frac{\Delta q}{\Delta t}
+     &amp; \quad \text{(1.1)}\\
+  &amp;= \frac{160}{40}\\
+  &amp;= 4 \ampere.\end{split}\]</div>
+</div>
+<div class="section" id="(a)">
+<h4>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h4>
+<p>If it is discharged at <span class="math notranslate nohighlight">\(1 \milli\ampere\)</span>, the battery can last</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta t &amp;= \frac{\Delta q}{i}
+     &amp; \quad \text{(1.1)}\\
+  &amp;= \frac{160 \times 3600}{0.001}\\
+  &amp;= 6666.\bar{6} \day.\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-1.37">
+<h3>Exercise 1.37<a class="headerlink" href="#Exercise-1.37" title="Permalink to this headline">¶</a></h3>
+<p>A <span class="math notranslate nohighlight">\(12 \volt\)</span> battery requires a total charge of <span class="math notranslate nohighlight">\(40 \amperehour\)</span>
+during recharging.  The energy supplied to the battery is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}v &amp;= \frac{\Delta w}{\Delta q}
+     &amp; \quad \text{(1.3)}\\
+\Delta w &amp;= v \Delta q\\
+  &amp;= 12 (40 \times 3600)\\
+  &amp;= 1.728 \mega\joule.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-1.38">
+<h3>Exercise 1.38<a class="headerlink" href="#Exercise-1.38" title="Permalink to this headline">¶</a></h3>
+<p>Assuming <span class="math notranslate nohighlight">\(1 \horsepower = 746 \watt\)</span>, a <span class="math notranslate nohighlight">\(10 \horsepower\)</span> motor
+delivers in 30 minutes</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w &amp;= \int_{t_0 = 0}^{t} p dt
+     &amp; \quad \text{(1.9)}\\
+  &amp;= \evalAt{10 \times 746 t}{0}{30 / 60}\\
+  &amp;= 12 (40 \times 3600)\\
+  &amp;= 3.73 \kilo\watthour.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-1.39">
+<h3>Exercise 1.39<a class="headerlink" href="#Exercise-1.39" title="Permalink to this headline">¶</a></h3>
+<p>A <span class="math notranslate nohighlight">\(600 \watt\)</span> TV receiver is turned on for <span class="math notranslate nohighlight">\(4 \hour\)</span> with nobody
+watching it.  The total energy expended is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w &amp;= \int_{t_0 = 0}^{t} p dt
+     &amp; \quad \text{(1.9)}\\
+  &amp;= \evalAt{600t}{0}{4}\\
+  &amp;= 2.4 \kilo\watthour.\end{split}\]</div>
+<p>If electricity costs <span class="math notranslate nohighlight">\(10 \cent\per\kilo\watthour\)</span>, the consumer wastes</p>
+<div class="math notranslate nohighlight">
+\[c = 10 \times 2.4 = 24 \cent.\]</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/nb/fundamentals-of-electric-circuits-as/chapter-01.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,117 @@
+####################
+Blogging with Docker
+####################
+
+One issue with :doc:`the previous approach to blogging
+</blog/2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx>` is
+the requirement of installing packages to build the blog.
+:doc:`Virtual machines </blog/2013/01/01/linux-mint-installation>` can be
+installed to alleviate this matter, but at the cost of manually installing an OS
+and the corresponding packages.  Furthermore, the virtual machine needs its own
+hacks and a lot of computational resources to work properly.
+
+`Docker CE`_ is the latest solution to this problem.  `Installing it`_ is very
+simple and you only need to run
+
+.. code:: bash
+
+    sudo usermod -aG docker ${USER}
+
+.. _Docker CE: https://github.com/docker/docker-ce
+.. _Installing it: https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce-1
+
+afterwards if you would like to use Docker as a non-root user.  Make sure to
+reboot to apply the new permissions.
+
+Docker itself only needs a :file:`Dockerfile`, but this post will include
+additional items in order to replace the older blogging methods:
+
+.. include:: Dockerfile
+   :code: docker
+
+The :file:`requirements.txt` is to support
+:doc:`data analysis </blog/2013/01/04/set-up-data-analysis-environment>`:
+
+.. include:: requirements.txt
+   :code: text
+
+The files :file:`.gitconfig`
+
+.. include:: gitconfig
+   :code: text
+
+and :file:`.inputrc`
+
+.. include:: inputrc
+   :code: text
+
+and :file:`.vimrc`
+
+.. include:: vimrc
+   :code: text
+
+are more for convenience.
+
+Copy Data Between Docker Volume and Host
+========================================
+
+Suppose you have a volume created by
+
+.. code:: bash
+
+   docker volume create blog_data
+
+Any data transfer between host and docker volumes must happen via a container.
+As an example, suppose we need to generate an SSH key to connect to
+`BitBucket`_:
+
+.. code:: bash
+
+    mkdir .ssh
+    cd .ssh
+    ssh-keygen -f id_rsa
+    docker container create --name dummy --mount source=blog_data,target=/workspace/data python:3-slim
+    cd ..
+    docker cp .ssh dummy:/workspace/data/.ssh
+    docker rm dummy
+
+.. _BitBucket: https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html#SetupanSSHkey-ssh2
+
+Running a Docker Container
+==========================
+
+Suppose the blog uses the provided :download:`Dockerfile <Dockerfile>` to build an image as
+follows:
+
+.. code:: bash
+
+    docker build -t blogger .
+
+The blog needs three processes to fully operate:
+
+.. include:: run_containers.sh
+   :code: bash
+
+- *sphinx_autobuild* is responsible for looking at the blog data for changes and
+  rebuilding the site.
+
+  - Before running the related commands, you should clone the repository.
+
+    .. code:: bash
+
+       eval `ssh-agent`
+       hg clone ssh://hg@bitbucket.org/alphaXomega/allthingsphi
+
+- *python_server* tests the blog with a local web server.  Remember that this process
+  will push data to Google Cloud, make sure to initialize it.
+
+    .. code:: bash
+
+       gcloud init
+
+- *jupyter_notebook* allows editing of blog content.  It must use the following
+  settings in order to run inside a container.
+
+    .. code:: bash
+
+          jupyter notebook --allow-root --ip=0.0.0.0 --no-browser

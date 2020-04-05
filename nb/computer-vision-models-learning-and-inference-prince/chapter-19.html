@@ -1,0 +1,2147 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Temporal Models &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Models for Visual Words" href="chapter-20.html" />
+    <link rel="prev" title="Models for Style and Identity" href="chapter-18.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Temporal Models</a><ul>
+<li><a class="reference internal" href="#Exercise-19.1">Exercise 19.1</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+<li><a class="reference internal" href="#(c.1)">(c.1)</a></li>
+<li><a class="reference internal" href="#(c.2)">(c.2)</a></li>
+<li><a class="reference internal" href="#(c.3)">(c.3)</a></li>
+<li><a class="reference internal" href="#(c.4)">(c.4)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-19.2">Exercise 19.2</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-19.3">Exercise 19.3</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-19.4">Exercise 19.4</a></li>
+<li><a class="reference internal" href="#Exercise-19.5">Exercise 19.5</a></li>
+<li><a class="reference internal" href="#Exercise-19.6">Exercise 19.6</a></li>
+<li><a class="reference internal" href="#Exercise-19.7">Exercise 19.7</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(a.1)">(a.1)</a></li>
+<li><a class="reference internal" href="#(a.2)">(a.2)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(b.1)">(b.1)</a></li>
+<li><a class="reference internal" href="#(b.2)">(b.2)</a></li>
+<li><a class="reference internal" href="#(b.3)">(b.3)</a></li>
+<li><a class="reference internal" href="#(b.4)">(b.4)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-19.8">Exercise 19.8</a><ul>
+<li><a class="reference internal" href="#(i)">(i)</a></li>
+<li><a class="reference internal" href="#(ii)">(ii)</a></li>
+<li><a class="reference internal" href="#(ii.a)">(ii.a)</a></li>
+<li><a class="reference internal" href="#(ii.b)">(ii.b)</a></li>
+<li><a class="reference internal" href="#(ii.c)">(ii.c)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-19.9">Exercise 19.9</a></li>
+<li><a class="reference internal" href="#Exercise-19.20">Exercise 19.20</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="chapter-18.html" title="Previous Chapter: Models for Style and Identity"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Models for St...</span>
+    </a>
+  </li>
+  <li>
+    <a href="chapter-20.html" title="Next Chapter: Models for Visual Words"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Models for Vi... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="Temporal-Models">
+<h1>Temporal Models<a class="headerlink" href="#Temporal-Models" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Exercise-19.1">
+<span id="prince2012computer-ex-19-1"></span><h2>Exercise 19.1<a class="headerlink" href="#Exercise-19.1" title="Permalink to this headline">¶</a></h2>
+<p>Suppose</p>
+<div class="math notranslate nohighlight">
+\[\DeclareMathOperator{\NormDist}{Norm}
+Pr(\mathbf{w}_{t - 1} \mid \mathbf{x}_{1 \ldots t - 1}) =
+\NormDist_{\mathbf{w}_{t - 1}}\left[
+  \boldsymbol{\mu}_{t - 1}, \boldsymbol{\Sigma}_{t - 1}
+\right].\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}Pr(\mathbf{w}_t \mid \mathbf{x}_{1 \ldots t - 1})
+ &amp;= \int
+      Pr(\mathbf{w}_t, \mathbf{w}_{t - 1} \mid \mathbf{x}_{1 \ldots t - 1})
+      d\mathbf{w}_{t - 1}
+    &amp; \quad &amp; \text{(2.1)}\\
+ &amp;= \int Pr(\mathbf{w}_t \mid \mathbf{w}_{t - 1})
+         Pr(\mathbf{w}_{t - 1} \mid \mathbf{x}_{1 \ldots t - 1})
+         d\mathbf{w}_{t - 1}
+    &amp; \quad &amp; \text{Markov assumption}\\
+ &amp;= \int \NormDist_{\mathbf{w}_t}\left[
+           \boldsymbol{\mu}_p + \boldsymbol{\Psi} \mathbf{w}_{t - 1},
+           \boldsymbol{\Sigma}_p
+         \right]
+         \NormDist_{\mathbf{w}_{t - 1}}\left[
+           \boldsymbol{\mu}_{t - 1}, \boldsymbol{\Sigma}_{t - 1}
+         \right]
+         d\mathbf{w}_{t - 1}
+    &amp; \quad &amp; \text{(19.6)}\\
+ &amp;= \kappa_1 \kappa_2
+    \int \NormDist_{\mathbf{w}_{t - 1}}\left[
+           \boldsymbol{\mu}'', \boldsymbol{\Sigma}''
+         \right]
+         d\mathbf{w}_{t - 1}
+    &amp; \quad &amp; \text{(a), (b)}\\
+ &amp;= \NormDist_{\mathbf{w}_t}\left[
+      \boldsymbol{\mu}_p + \boldsymbol{\Psi} \boldsymbol{\mu}_{t - 1},
+      \boldsymbol{\Sigma}_p +
+      \boldsymbol{\Psi} \boldsymbol{\Sigma}_{t - 1} \boldsymbol{\Psi}^\top
+    \right]
+    &amp; \quad &amp; \text{(c)}\\
+ &amp;= \NormDist_{\mathbf{w}_t}\left[
+      \boldsymbol{\mu}_+, \boldsymbol{\Sigma}_+
+    \right]\end{split}\]</div>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>By <a class="reference internal" href="chapter-05.html#prince2012computer-ex-5-10"><span class="std std-ref">Exercise 5.10</span></a>,</p>
+<div class="math notranslate nohighlight">
+\[\NormDist_{\mathbf{w}_t}\left[
+  \boldsymbol{\mu}_p + \boldsymbol{\Psi} \mathbf{w}_{t - 1},
+  \boldsymbol{\Sigma}_p
+\right] =
+\kappa_1 \NormDist_{\mathbf{w}_{t - 1}}\left[
+  \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t,
+  \boldsymbol{\Sigma}'
+\right]\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{\Sigma}'
+ &amp;= (\boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1}
+      \boldsymbol{\Psi})^{-1}
+\\\\
+\boldsymbol{\Psi}'
+ &amp;= \boldsymbol{\Sigma}' \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1}
+\\\\
+\boldsymbol{\mu}'
+ &amp;= -\boldsymbol{\Sigma}' \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1}
+      \boldsymbol{\mu}_p
+\\\\
+\kappa_1
+ &amp;= \frac{
+      \left\vert \boldsymbol{\Sigma}' \right\vert^{1 / 2}
+    }{
+      \left\vert \boldsymbol{\Sigma}_p \right\vert^{1 / 2}
+    }
+    \exp\left[
+      -0.5
+      (\mathbf{w}_t - \boldsymbol{\mu}_p)^\top
+      \left(
+        \boldsymbol{\Sigma}_p^{-1} -
+        \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi} \boldsymbol{\Sigma}'
+          \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1}
+      \right)
+      (\mathbf{w}_t - \boldsymbol{\mu}_p)
+    \right].\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>By <a class="reference internal" href="chapter-05.html#prince2012computer-ex-5-7"><span class="std std-ref">Exercise 5.7</span></a> and
+<a class="reference internal" href="chapter-05.html#prince2012computer-ex-5-9"><span class="std std-ref">Exercise 5.9</span></a>,</p>
+<div class="math notranslate nohighlight">
+\[\kappa_1 \NormDist_{\mathbf{w}_{t - 1}}\left[
+  \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t,
+  \boldsymbol{\Sigma}'
+\right]
+\NormDist_{\mathbf{w}_{t - 1}}\left[
+  \boldsymbol{\mu}_{t - 1}, \boldsymbol{\Sigma}_{t - 1}
+\right] =
+\kappa_1 \kappa_2 \NormDist_{\mathbf{w}_{t - 1}}\left[
+  \boldsymbol{\mu}'', \boldsymbol{\Sigma}''
+\right]\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{\Sigma}''
+ &amp;= \left(
+      {\boldsymbol{\Sigma}'}^{-1} + \boldsymbol{\Sigma}_{t - 1}^{-1}
+    \right)^{-1}
+\\\\
+\boldsymbol{\mu}''
+ &amp;= \boldsymbol{\Sigma}''
+    \left(
+      {\boldsymbol{\Sigma}'}^{-1}
+        \left( \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t \right) +
+      \boldsymbol{\Sigma}_{t - 1}^{-1} \boldsymbol{\mu}_{t - 1}
+    \right)
+\\\\
+\kappa_2
+ &amp;= \NormDist_{\boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t}\left[
+      \boldsymbol{\mu}_{t - 1},
+      \boldsymbol{\Sigma}' + \boldsymbol{\Sigma}_{t - 1}
+    \right].\end{split}\]</div>
+</div>
+<div class="section" id="(c)">
+<h3>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; \kappa_1 \kappa_2\\
+ &amp;= \frac{
+      \left\vert \boldsymbol{\Sigma}' \right\vert^{1 / 2}
+    }{
+      \left\vert \boldsymbol{\Sigma}_p \right\vert^{1 / 2}
+    }
+    \exp\left[
+      (\mathbf{w}_t - \boldsymbol{\mu}_p)^\top
+      \left(
+        \boldsymbol{\Sigma}_p^{-1} -
+        \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi} \boldsymbol{\Sigma}'
+          \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1}
+      \right)
+      (\mathbf{w}_t - \boldsymbol{\mu}_p)
+    \right]^{-0.5}
+    \NormDist_{\boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t}\left[
+      \boldsymbol{\mu}_{t - 1},
+      \boldsymbol{\Sigma}' + \boldsymbol{\Sigma}_{t - 1}
+    \right]\\
+ &amp;= \frac{
+      \left\vert \boldsymbol{\Sigma}' \right\vert^{1 / 2}
+      \exp\left[
+        (\mathbf{w}_t - \boldsymbol{\mu}_p)^\top
+          \left(
+            \boldsymbol{\Sigma}_p^{-1} -
+            \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi} \boldsymbol{\Sigma}'
+              \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1}
+          \right)
+          (\mathbf{w}_t - \boldsymbol{\mu}_p) +
+        \left(
+          \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t -
+          \boldsymbol{\mu}_{t - 1}
+        \right)^\top
+          \left(
+            \boldsymbol{\Sigma}' + \boldsymbol{\Sigma}_{t - 1}
+          \right)^{-1}
+          \left(
+            \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t -
+            \boldsymbol{\mu}_{t - 1}
+          \right)
+      \right]^{-0.5}
+    }{
+      (2 \pi)^{D / 2}
+      \left\vert \boldsymbol{\Sigma}_p \right\vert^{1 / 2}
+      \left\vert
+        \boldsymbol{\Sigma}' + \boldsymbol{\Sigma}_{t - 1}
+      \right\vert^{1 / 2}
+    }\\
+ &amp;= \frac{1}{
+      (2 \pi)^{D / 2}
+      \left\vert
+        \boldsymbol{\Sigma}_p +
+        \boldsymbol{\Psi} \boldsymbol{\Sigma}_{t - 1} \boldsymbol{\Psi}^\top
+      \right\vert^{1 / 2}
+    }
+    \exp\left[
+      \left(
+        \mathbf{w}_t -
+        \boldsymbol{\mu}_p - \boldsymbol{\Psi} \boldsymbol{\mu}_{t - 1}
+      \right)^\top
+      \left(
+        \boldsymbol{\Sigma}_p +
+        \boldsymbol{\Psi} \boldsymbol{\Sigma}_{t - 1} \boldsymbol{\Psi}^\top
+      \right)^{-1}
+      \left(
+        \mathbf{w}_t -
+        \boldsymbol{\mu}_p - \boldsymbol{\Psi} \boldsymbol{\mu}_{t - 1}
+      \right)
+    \right]^{-0.5}
+    &amp; \quad &amp; \text{(c.1), (c.2)}\end{split}\]</div>
+</div>
+<div class="section" id="(c.1)">
+<h3>(c.1)<a class="headerlink" href="#(c.1)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{
+  \left\vert \boldsymbol{\Sigma}' \right\vert^{1 / 2}
+}{
+  \left\vert \boldsymbol{\Sigma}_p \right\vert^{1 / 2}
+  \left\vert
+    \boldsymbol{\Sigma}' + \boldsymbol{\Sigma}_{t - 1}
+  \right\vert^{1 / 2}
+}
+ &amp;= \left(
+      \left\vert
+        \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi}
+      \right\vert
+      \left\vert \boldsymbol{\Sigma}_p \right\vert
+      \left\vert
+        \left(
+          \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi}
+        \right)^{-1} + \boldsymbol{\Sigma}_{t - 1}
+      \right\vert
+    \right)^{-1 / 2}
+    &amp; \quad &amp; \text{(C.11)}\\
+ &amp;= \left(
+      \left\vert \boldsymbol{\Sigma}_p \right\vert
+      \left\vert
+        \mathbf{I} +
+        \left(
+          \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi}
+        \right) \boldsymbol{\Sigma}_{t - 1}
+      \right\vert
+    \right)^{-1 / 2}
+    &amp; \quad &amp; \text{(C.10)}\\
+ &amp;= \left(
+      \left\vert \boldsymbol{\Sigma}_p \right\vert
+      \left\vert
+        \mathbf{I} +
+        \boldsymbol{\Psi} \boldsymbol{\Sigma}_{t - 1}
+          \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1}
+      \right\vert
+    \right)^{-1 / 2}
+    &amp; \quad &amp; \text{Sylvester's Determinant Theorem}\\
+ &amp;= \left\vert
+      \boldsymbol{\Sigma}_p +
+      \boldsymbol{\Psi} \boldsymbol{\Sigma}_{t - 1} \boldsymbol{\Psi}^\top
+    \right\vert^{-1 / 2}
+    &amp; \quad &amp; \text{(C.10)}\end{split}\]</div>
+</div>
+<div class="section" id="(c.2)">
+<h3>(c.2)<a class="headerlink" href="#(c.2)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; \exp\left[
+    (\mathbf{w}_t - \boldsymbol{\mu}_p)^\top
+      \left(
+        \boldsymbol{\Sigma}_p^{-1} -
+        \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi} \boldsymbol{\Sigma}'
+          \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1}
+      \right)
+      (\mathbf{w}_t - \boldsymbol{\mu}_p) +
+    \left(
+      \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t -
+      \boldsymbol{\mu}_{t - 1}
+    \right)^\top
+      \left(
+        \boldsymbol{\Sigma}' + \boldsymbol{\Sigma}_{t - 1}
+      \right)^{-1}
+      \left(
+        \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t -
+        \boldsymbol{\mu}_{t - 1}
+      \right)
+  \right]^{-0.5}\\
+ &amp;= \exp\left[
+      (\mathbf{w}_t - \boldsymbol{\mu}_p)^\top
+        \left(
+          \boldsymbol{\Sigma}_p^{-1} -
+          \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi} \boldsymbol{\Sigma}'
+            \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1}
+        \right)
+        (\mathbf{w}_t - \boldsymbol{\mu}_p) +
+      \left(
+        \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t -
+        \boldsymbol{\mu}_{t - 1}
+      \right)^\top
+        \left(
+          \boldsymbol{\Sigma}' + \boldsymbol{\Sigma}_{t - 1}
+        \right)^{-1}
+        \left(
+          \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t -
+          \boldsymbol{\mu}_{t - 1}
+        \right)
+    \right]^{-0.5}\\
+ &amp;= \exp\left[
+      \left(
+        \mathbf{w}_t -
+        \boldsymbol{\mu}_p - \boldsymbol{\Psi} \boldsymbol{\mu}_{t - 1}
+      \right)^\top
+      \left(
+        \boldsymbol{\Sigma}_p^{-1} -
+        \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi}
+          \left(
+            \boldsymbol{\Sigma}_{t - 1}^{-1} +
+            \boldsymbol{\Psi}^\top
+            \boldsymbol{\Sigma}_p^{-1}
+            \boldsymbol{\Psi}
+          \right)^{-1}
+          \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1}
+      \right)
+      \left(
+        \mathbf{w}_t -
+        \boldsymbol{\mu}_p - \boldsymbol{\Psi} \boldsymbol{\mu}_{t - 1}
+      \right)
+    \right]^{-0.5}
+    &amp; \quad &amp; \text{(c.3)}\\
+ &amp;= \exp\left[
+      \left(
+        \mathbf{w}_t -
+        \boldsymbol{\mu}_p - \boldsymbol{\Psi} \boldsymbol{\mu}_{t - 1}
+      \right)^\top
+      \left(
+        \boldsymbol{\Sigma}_p +
+        \boldsymbol{\Psi} \boldsymbol{\Sigma}_{t - 1} \boldsymbol{\Psi}^\top
+      \right)^{-1}
+      \left(
+        \mathbf{w}_t -
+        \boldsymbol{\mu}_p - \boldsymbol{\Psi} \boldsymbol{\mu}_{t - 1}
+      \right)
+    \right]^{-0.5}
+    &amp; \quad &amp; \text{(C.61)}\end{split}\]</div>
+</div>
+<div class="section" id="(c.3)">
+<h3>(c.3)<a class="headerlink" href="#(c.3)" title="Permalink to this headline">¶</a></h3>
+<p>Notice that the summands be decomposed into</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; (\mathbf{w}_t - \boldsymbol{\mu}_p)^\top
+  \left(
+    \boldsymbol{\Sigma}_p^{-1} -
+    \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi} \boldsymbol{\Sigma}'
+      \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1}
+  \right)
+  (\mathbf{w}_t - \boldsymbol{\mu}_p)\\
+ &amp;= (\mathbf{w}_t - \boldsymbol{\mu}_p)^\top
+      \boldsymbol{\Sigma}_p^{-1}
+      (\mathbf{w}_t - \boldsymbol{\mu}_p) -
+    (\mathbf{w}_t - \boldsymbol{\mu}_p)^\top
+      \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi} \boldsymbol{\Sigma}'
+      \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1}
+      (\mathbf{w}_t - \boldsymbol{\mu}_p)\\
+ &amp;= (\mathbf{w}_t - \boldsymbol{\mu}_p)^\top
+      \boldsymbol{\Sigma}_p^{-1}
+      (\mathbf{w}_t - \boldsymbol{\mu}_p) -
+    (\boldsymbol{\Psi}' \mathbf{w}_t + \boldsymbol{\mu}')^\top
+      {\boldsymbol{\Sigma}'}^{-1}
+      (\boldsymbol{\Psi}' \mathbf{w}_t + \boldsymbol{\mu}')\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; \left(
+    \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t -
+    \boldsymbol{\mu}_{t - 1}
+  \right)^\top
+  \left(
+    \boldsymbol{\Sigma}' + \boldsymbol{\Sigma}_{t - 1}
+  \right)^{-1}
+  \left(
+    \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t -
+    \boldsymbol{\mu}_{t - 1}
+  \right)\\
+ &amp;= \left(
+      \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t -
+      \boldsymbol{\mu}_{t - 1}
+    \right)^\top
+    \left(
+      {\boldsymbol{\Sigma}'}^{-1} -
+      {\boldsymbol{\Sigma}'}^{-1}
+        \left(
+          \boldsymbol{\Sigma}_{t - 1}^{-1} +
+          \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi}
+        \right)^{-1}
+        {\boldsymbol{\Sigma}'}^{-1}
+    \right)
+    \left(
+      \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t -
+      \boldsymbol{\mu}_{t - 1}
+    \right)
+    &amp; \quad &amp; \text{(c.4)}\\
+ &amp;= \left(
+      \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t -
+      \boldsymbol{\mu}_{t - 1}
+    \right)^\top
+      {\boldsymbol{\Sigma}'}^{-1}
+      \left(
+        \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t -
+        \boldsymbol{\mu}_{t - 1}
+      \right) -
+    \left(
+      \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t -
+      \boldsymbol{\mu}_{t - 1}
+    \right)^\top
+      {\boldsymbol{\Sigma}'}^{-1}
+      \left(
+        \boldsymbol{\Sigma}_{t - 1}^{-1} +
+        \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi}
+      \right)^{-1}
+      {\boldsymbol{\Sigma}'}^{-1}
+      \left(
+        \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t -
+        \boldsymbol{\mu}_{t - 1}
+      \right)\\
+ &amp;= \left(
+      \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t -
+      \boldsymbol{\mu}_{t - 1}
+    \right)^\top
+      {\boldsymbol{\Sigma}'}^{-1}
+      \left(
+        \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t -
+        \boldsymbol{\mu}_{t - 1}
+      \right) -
+    \left(
+      \mathbf{w}_t - \boldsymbol{\mu} -
+      \boldsymbol{\Psi} \boldsymbol{\mu}_{t - 1}
+    \right)^\top
+      \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi}
+      \left(
+        \boldsymbol{\Sigma}_{t - 1}^{-1} +
+        \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi}
+      \right)^{-1}
+      \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1}
+      \left(
+        \mathbf{w}_t - \boldsymbol{\mu} -
+        \boldsymbol{\Psi} \boldsymbol{\mu}_{t - 1}
+      \right).\end{split}\]</div>
+<p>Since</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; \left(
+    \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t -
+    \boldsymbol{\mu}_{t - 1}
+  \right)^\top
+  {\boldsymbol{\Sigma}'}^{-1}
+  \left(
+    \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t -
+    \boldsymbol{\mu}_{t - 1}
+  \right)\\
+ &amp;= \left(
+      \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t
+    \right)^\top
+      {\boldsymbol{\Sigma}'}^{-1}
+      \left(
+        \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t
+      \right) -
+    \boldsymbol{\mu}_{t - 1}^\top
+      {\boldsymbol{\Sigma}'}^{-1}
+      \left(
+        2 \boldsymbol{\mu}' +
+        2 \boldsymbol{\Psi}' \mathbf{w}_t -
+        \boldsymbol{\mu}_{t - 1}
+      \right)\\
+ &amp;= \left(
+      \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t
+    \right)^\top
+      {\boldsymbol{\Sigma}'}^{-1}
+      \left(
+        \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_t
+      \right) -
+    \boldsymbol{\mu}_{t - 1}^\top \boldsymbol{\Psi}^\top
+      \boldsymbol{\Sigma}_p^{-1}
+      \left(
+        2 \mathbf{w}_t -
+        2 \boldsymbol{\mu} -
+        \boldsymbol{\Psi} \boldsymbol{\mu}_{t - 1}
+      \right)\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; (\mathbf{w}_t - \boldsymbol{\mu}_p)^\top
+    \boldsymbol{\Sigma}_p^{-1}
+    (\mathbf{w}_t - \boldsymbol{\mu}_p) -
+  \boldsymbol{\mu}_{t - 1}^\top \boldsymbol{\Psi}^\top
+    \boldsymbol{\Sigma}_p^{-1}
+    \left(
+      2 \mathbf{w}_t -
+      2 \boldsymbol{\mu} -
+      \boldsymbol{\Psi} \boldsymbol{\mu}_{t - 1}
+    \right)\\
+ &amp;= \left(
+      \mathbf{w}_t - \boldsymbol{\mu}_p -
+      \boldsymbol{\Psi} \boldsymbol{\mu}_{t - 1}
+    \right)^\top
+    \boldsymbol{\Sigma}_p^{-1}
+    \left(
+      \mathbf{w}_t - \boldsymbol{\mu}_p -
+      \boldsymbol{\Psi} \boldsymbol{\mu}_{t - 1}
+    \right),\end{split}\]</div>
+<p>the sum of the original summands is</p>
+<div class="math notranslate nohighlight">
+\[\left(
+  \mathbf{w}_t -
+  \boldsymbol{\mu}_p - \boldsymbol{\Psi} \boldsymbol{\mu}_{t - 1}
+\right)^\top
+\left(
+  \boldsymbol{\Sigma}_p^{-1} -
+  \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi}
+    \left(
+      \boldsymbol{\Sigma}_{t - 1}^{-1} +
+      \boldsymbol{\Psi}^\top
+      \boldsymbol{\Sigma}_p^{-1}
+      \boldsymbol{\Psi}
+    \right)^{-1}
+    \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1}
+\right)
+\left(
+  \mathbf{w}_t -
+  \boldsymbol{\mu}_p - \boldsymbol{\Psi} \boldsymbol{\mu}_{t - 1}
+\right).\]</div>
+</div>
+<div class="section" id="(c.4)">
+<h3>(c.4)<a class="headerlink" href="#(c.4)" title="Permalink to this headline">¶</a></h3>
+<p>See <a class="reference internal" href="chapter-05.html#prince2012computer-ex-5-9"><span class="std std-ref">Exercise 5.9</span></a> for more details.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left( \boldsymbol{\Sigma}' + \boldsymbol{\Sigma}_{t - 1} \right)^{-1}
+ &amp;= {\boldsymbol{\Sigma}'}^{-1} -
+    \left( \boldsymbol{\Sigma}' + \boldsymbol{\Sigma}_{t - 1} \right)^{-1}
+      \boldsymbol{\Sigma}_{t - 1} {\boldsymbol{\Sigma}'}^{-1}\\
+ &amp;= {\boldsymbol{\Sigma}'}^{-1} -
+    {\boldsymbol{\Sigma}'}^{-1}
+      \left(
+        \mathbf{I} + \boldsymbol{\Sigma}_{t - 1} {\boldsymbol{\Sigma}'}^{-1}
+      \right)^{-1}
+      \boldsymbol{\Sigma}_{t - 1} {\boldsymbol{\Sigma}'}^{-1}\\
+ &amp;= {\boldsymbol{\Sigma}'}^{-1} -
+    {\boldsymbol{\Sigma}'}^{-1}
+      \left[
+        \boldsymbol{\Sigma}_{t - 1}
+        \left(
+          \boldsymbol{\Sigma}_{t - 1}^{-1} +
+          \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi}
+        \right)
+      \right]^{-1}
+      \boldsymbol{\Sigma}_{t - 1} {\boldsymbol{\Sigma}'}^{-1}\\
+ &amp;= {\boldsymbol{\Sigma}'}^{-1} -
+    {\boldsymbol{\Sigma}'}^{-1}
+      \left(
+        \boldsymbol{\Sigma}_{t - 1}^{-1} +
+        \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi}
+      \right)^{-1}
+      {\boldsymbol{\Sigma}'}^{-1}\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-19.2">
+<span id="prince2012computer-ex-19-2"></span><h2>Exercise 19.2<a class="headerlink" href="#Exercise-19.2" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}Pr(\mathbf{w}_t \mid \mathbf{x}_{1 \ldots t})
+ &amp;= \frac{
+      Pr(\mathbf{w}_t, \mathbf{x}_{1 \ldots t})
+    }{
+      Pr(\mathbf{x}_{1 \ldots t})
+    }\\
+ &amp;= \frac{
+      Pr(\mathbf{x}_t \mid \mathbf{w}_t)
+      Pr(\mathbf{w}_t \mid \mathbf{x}_{1 \ldots t - 1})
+      Pr(\mathbf{x}_{1 \ldots t - 1})
+    }{
+      Pr(\mathbf{x}_t \mid \mathbf{x}_{1 \ldots t - 1})
+      Pr(\mathbf{x}_{1 \ldots t - 1})
+    }\\
+ &amp;= \frac{
+      Pr(\mathbf{x}_t \mid \mathbf{w}_t)
+      Pr(\mathbf{w}_t \mid \mathbf{x}_{1 \ldots t - 1})
+    }{
+      \int Pr(\mathbf{x}_t, \mathbf{w}_t \mid \mathbf{x}_{1 \ldots t - 1})
+           d\mathbf{w}_t
+    }\\
+ &amp;= \frac{
+      \NormDist_{\mathbf{x}_t}\left[
+        \boldsymbol{\mu}_m + \boldsymbol{\Phi} \mathbf{w}_t,
+        \boldsymbol{\Sigma}_m
+      \right]
+      \NormDist_{\mathbf{w}_t}\left[
+        \boldsymbol{\mu}_+,
+        \boldsymbol{\Sigma}_+
+      \right]
+    }{
+      \int Pr(\mathbf{x}_t \mid \mathbf{w}_t)
+        Pr(\mathbf{w}_t \mid \mathbf{x}_{1 \ldots t - 1}) d\mathbf{w}_t
+    }
+    &amp; \quad &amp; \text{(19.8), (19.9)}\\
+ &amp;= \frac{
+      \kappa_1 \kappa_2 \NormDist_{\mathbf{w}_t}\left[
+        \boldsymbol{\mu}_t,
+        \boldsymbol{\Sigma}_t
+      \right]
+    }{
+      \int \kappa_1 \kappa_2
+        \NormDist_{\mathbf{w}_t}\left[
+          \boldsymbol{\mu}_t, \boldsymbol{\Sigma}_t
+        \right] d\mathbf{w}_t
+    }
+    &amp; \quad &amp; \text{(a), (b)}\\
+ &amp;= \NormDist_{\mathbf{w}_t}\left[
+      \boldsymbol{\mu}_t,
+      \boldsymbol{\Sigma}_t
+    \right]\end{split}\]</div>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>Suppose <span class="math notranslate nohighlight">\(\mathbf{x}_\cdot \in \mathbb{R}^n\)</span> and
+<span class="math notranslate nohighlight">\(\mathbf{w}_\cdot \in \mathbb{R}^m\)</span>.  By
+<a class="reference internal" href="chapter-05.html#prince2012computer-ex-5-10"><span class="std std-ref">Exercise 5.10</span></a>,</p>
+<div class="math notranslate nohighlight">
+\[\NormDist_{\mathbf{x}_t}\left[
+  \boldsymbol{\mu}_m + \boldsymbol{\Phi} \mathbf{w}_t,
+  \boldsymbol{\Sigma}_m
+\right] =
+\kappa_1 \NormDist_{\mathbf{w}_t}\left[
+  \boldsymbol{\mu}' + \boldsymbol{\Phi}' \mathbf{x}_t,
+  \boldsymbol{\Sigma}'
+\right]\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{\Sigma}'
+ &amp;= \left(
+      \boldsymbol{\Phi}^\top \boldsymbol{\Sigma}_m^{-1} \boldsymbol{\Phi}
+    \right)^{-1}
+\\\\
+\boldsymbol{\Phi}'
+ &amp;= \boldsymbol{\Sigma}' \boldsymbol{\Phi}^\top \boldsymbol{\Sigma}_m^{-1}
+\\\\
+\boldsymbol{\mu}'
+ &amp;= -\boldsymbol{\Sigma}' \boldsymbol{\Phi}^\top \boldsymbol{\Sigma}_m^{-1}
+      \boldsymbol{\mu}_m
+\\\\
+\kappa_1
+ &amp;= (2 \pi)^{(m - n) / 2}
+    \frac{
+      \left\vert \boldsymbol{\Sigma}' \right\vert^{1 / 2}
+    }{
+      \left\vert \boldsymbol{\Sigma}_m \right\vert^{1 / 2}
+    }
+    \exp\left[
+      -0.5
+      (\mathbf{x}_t - \boldsymbol{\mu}_m)^\top
+      \left(
+        \boldsymbol{\Sigma}_m^{-1} -
+        \boldsymbol{\Sigma}_m^{-1} \boldsymbol{\Phi} \boldsymbol{\Sigma}'
+          \boldsymbol{\Phi}^\top \boldsymbol{\Sigma}_m^{-1}
+      \right)
+      (\mathbf{x}_t - \boldsymbol{\mu}_m)
+    \right].\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>By <a class="reference internal" href="chapter-05.html#prince2012computer-ex-5-7"><span class="std std-ref">Exercise 5.7</span></a> and
+<a class="reference internal" href="chapter-05.html#prince2012computer-ex-5-9"><span class="std std-ref">Exercise 5.9</span></a>,</p>
+<div class="math notranslate nohighlight">
+\[\kappa_1 \NormDist_{\mathbf{w}_t}\left[
+  \boldsymbol{\mu}' + \boldsymbol{\Phi}' \mathbf{x}_t,
+  \boldsymbol{\Sigma}'
+\right]
+\NormDist_{\mathbf{w}_t}\left[
+  \boldsymbol{\mu}_+, \boldsymbol{\Sigma}_+
+\right] =
+\kappa_1 \kappa_2 \NormDist_{\mathbf{w}_t}\left[
+  \boldsymbol{\mu}_t, \boldsymbol{\Sigma}_t
+\right]\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{\Sigma}_t
+ &amp;= \left(
+      {\boldsymbol{\Sigma}'}^{-1} + \boldsymbol{\Sigma}_+^{-1}
+    \right)^{-1}
+  = \left(
+      \boldsymbol{\Phi}^\top \boldsymbol{\Sigma}_m^{-1} \boldsymbol{\Phi} +
+      \boldsymbol{\Sigma}_+^{-1}
+    \right)^{-1}
+\\\\
+\boldsymbol{\mu}_t
+ &amp;= \boldsymbol{\Sigma}_t
+    \left(
+      {\boldsymbol{\Sigma}'}^{-1} \left(
+        \boldsymbol{\mu}' + \boldsymbol{\Phi}' \mathbf{x}_t
+      \right) +
+      \boldsymbol{\Sigma}_+^{-1} \boldsymbol{\mu}_+
+    \right)
+  = \boldsymbol{\Sigma}_t
+    \left(
+      \boldsymbol{\Phi}^\top \boldsymbol{\Sigma}_m^{-1} \left(
+        \mathbf{x}_t - \boldsymbol{\mu}_m
+      \right) +
+      \boldsymbol{\Sigma}_+^{-1} \boldsymbol{\mu}_+
+    \right)
+\\\\
+\kappa_2
+ &amp;= \NormDist_{\boldsymbol{\mu}' + \boldsymbol{\Phi}' \mathbf{x}_t}\left[
+      \boldsymbol{\mu}_+,
+      \boldsymbol{\Sigma}' + \boldsymbol{\Sigma}_+
+    \right].\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-19.3">
+<h2>Exercise 19.3<a class="headerlink" href="#Exercise-19.3" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}Pr(\mathbf{w}_t \mid \mathbf{x}_{1 \ldots t})
+ &amp;= \frac{
+      \NormDist_{\mathbf{x}_t}\left[
+        \boldsymbol{\mu}_m + \boldsymbol{\Phi} \mathbf{w}_t,
+        \boldsymbol{\Sigma}_m
+      \right]
+      \sum_{k = 1}^K \lambda_k
+        \NormDist_{\mathbf{w}_t}\left[
+          \boldsymbol{\mu}_{+k},
+          \boldsymbol{\Sigma}_{+k}
+        \right]
+    }{
+      \int Pr(\mathbf{x}_t \mid \mathbf{w}_t)
+           Pr(\mathbf{w}_t \mid \mathbf{x}_{1 \ldots t - 1})
+           d\mathbf{w}_t
+    }
+    &amp; \quad &amp; \text{(19.8) and Exercise 19.2}\\
+ &amp;= \frac{
+      \kappa \sum_{k = 1}^K \kappa_k \lambda_k \NormDist_{\mathbf{w}_t}\left[
+        \boldsymbol{\mu}_{tk},
+        \boldsymbol{\Sigma}_{tk}
+      \right]
+    }{
+      \kappa \sum_{k = 1}^K \kappa_{k} \lambda_k
+    }
+    &amp; \quad &amp; \text{(a), (b)}\\
+ &amp;= \sum_{k = 1}^K \lambda'_k \NormDist_{\mathbf{w}_t}\left[
+      \boldsymbol{\mu}_{tk},
+      \boldsymbol{\Sigma}_{tk}
+    \right]
+    &amp; \quad &amp; \lambda'_k =
+              \frac{
+                \kappa_k \lambda_k
+              }{
+                \sum_{k' = 1}^K \kappa_{k'} \lambda_{k'}
+              }.\end{split}\]</div>
+<p>See <a class="reference internal" href="#prince2012computer-ex-19-2"><span class="std std-ref">Exercise 19.2</span></a> for more details.</p>
+<p>In the next time update step, the prediction becomes</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Pr(\mathbf{w}_{t + 1} \mid \mathbf{x}_{1 \ldots t})
+ &amp;= \int Pr(\mathbf{w}_{t + 1}, \mathbf{w}_t \mid \mathbf{x}_{1 \ldots t})
+         d\mathbf{w}_t
+    &amp; \quad &amp; \text{(2.1)}\\
+ &amp;= \int Pr(\mathbf{w}_{t + 1} \mid \mathbf{w}_t)
+         Pr(\mathbf{w}_t \mid \mathbf{x}_{1 \ldots t}) d\mathbf{w}_t
+    &amp; \quad &amp; \text{Markov assumption}\\
+ &amp;= \int \NormDist_{\mathbf{w}_{t + 1}}\left[
+           \boldsymbol{\mu}_p + \boldsymbol{\Psi} \mathbf{w}_t,
+           \boldsymbol{\Sigma}_p
+         \right]
+         \sum_{k = 1}^K \lambda'_k
+           \NormDist_{\mathbf{w}_t}\left[
+             \boldsymbol{\mu}_{tk}, \boldsymbol{\Sigma}_{tk}
+           \right] d\mathbf{w}_t
+    &amp; \quad &amp; \text{(19.6) and Exercise 19.1}\\
+ &amp;= \sum_{k = 1}^K \lambda'_k \int
+      \NormDist_{\mathbf{w}_{t + 1}}\left[
+        \boldsymbol{\mu}_p + \boldsymbol{\Psi} \mathbf{w}_t,
+        \boldsymbol{\Sigma}_p
+      \right]
+      \NormDist_{\mathbf{w}_t}\left[
+        \boldsymbol{\mu}_{tk}, \boldsymbol{\Sigma}_{tk}
+      \right] d\mathbf{w}_t
+    &amp; \quad &amp; \text{sum rule in integration}\\
+ &amp;= \sum_{k = 1}^K \lambda'_k
+      \NormDist_{\mathbf{w}_t}\left[
+        \boldsymbol{\mu}_p + \boldsymbol{\Psi} \boldsymbol{\mu}_{tk},
+        \boldsymbol{\Sigma}_p +
+          \boldsymbol{\Psi} \boldsymbol{\Sigma}_{tk} \boldsymbol{\Psi}^\top
+      \right]
+    &amp; \quad &amp; \text{(c) from Exercise 19.1}\\
+ &amp;= \sum_{k = 1}^K \lambda'_k
+      \NormDist_{\mathbf{w}_t}\left[
+        \boldsymbol{\mu}_{+k}, \boldsymbol{\Sigma}_{+k}
+      \right].\end{split}\]</div>
+<p>See <a class="reference internal" href="#prince2012computer-ex-19-1"><span class="std std-ref">Exercise 19.1</span></a> for more details.</p>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>By (a) and (b) from <a class="reference internal" href="#prince2012computer-ex-19-2"><span class="std std-ref">Exercise 19.2</span></a>,</p>
+<div class="math notranslate nohighlight">
+\[\kappa \NormDist_{\mathbf{w}_t}\left[
+  \boldsymbol{\mu}' + \boldsymbol{\Phi}' \mathbf{x}_t,
+  \boldsymbol{\Sigma}'
+\right]
+\NormDist_{\mathbf{w}_t}\left[
+  \boldsymbol{\mu}_{+k}, \boldsymbol{\Sigma}_{+k}
+\right] =
+\kappa \kappa_{k} \NormDist_{\mathbf{w}_t}\left[
+  \boldsymbol{\mu}_{tk}, \boldsymbol{\Sigma}_{tk}
+\right]\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{\Sigma}_{tk}
+ &amp;= \left(
+      {\boldsymbol{\Sigma}'}^{-1} +
+      \boldsymbol{\Sigma}_{+k}^{-1}
+    \right)^{-1}
+  = \left(
+      \boldsymbol{\Phi}^\top \boldsymbol{\Sigma}_m^{-1} \boldsymbol{\Phi} +
+      \boldsymbol{\Sigma}_{+k}^{-1}
+    \right)^{-1}
+\\\\
+\boldsymbol{\mu}_{tk}
+ &amp;= \boldsymbol{\Sigma}_{tk}
+    \left(
+      {\boldsymbol{\Sigma}'}^{-1} \left(
+        \boldsymbol{\mu}' + \boldsymbol{\Phi}' \mathbf{x}_t
+      \right) +
+      \boldsymbol{\Sigma}_{+k}^{-1} \boldsymbol{\mu}_{+k}
+    \right)
+  = \boldsymbol{\Sigma}_t
+    \left(
+      \boldsymbol{\Phi}^\top \boldsymbol{\Sigma}_m^{-1} \left(
+        \mathbf{x}_t - \boldsymbol{\mu}_m
+      \right) +
+      \boldsymbol{\Sigma}_{+k}^{-1} \boldsymbol{\mu}_{+k}
+    \right)
+\\\\
+\kappa_{k}
+ &amp;= \NormDist_{\boldsymbol{\mu}' + \boldsymbol{\Phi}' \mathbf{x}_t}\left[
+      \boldsymbol{\mu}_{+k},
+      \boldsymbol{\Sigma}' + \boldsymbol{\Sigma}_{+k}
+    \right].\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\int \kappa \sum_{k = 1}^K \kappa_{k} \lambda_k
+  \NormDist_{\mathbf{w}_t}\left[
+    \boldsymbol{\mu}_{tk}, \boldsymbol{\Sigma}_{tk}
+  \right] d\mathbf{w}_t
+ &amp;= \kappa \sum_{k = 1}^K \int \kappa_{k} \lambda_k
+      \NormDist_{\mathbf{w}_t}\left[
+        \boldsymbol{\mu}_{tk}, \boldsymbol{\Sigma}_{tk}
+      \right] d\mathbf{w}_t
+    &amp; \quad &amp; \text{sum rule in integration}\\
+ &amp;= \kappa \sum_{k = 1}^K \kappa_{k} \lambda_k
+    &amp; \quad &amp; \text{sum rule in integration}\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-19.4">
+<h2>Exercise 19.4<a class="headerlink" href="#Exercise-19.4" title="Permalink to this headline">¶</a></h2>
+<p>The max-marginals inference is essentially (10.16):</p>
+<div class="math notranslate nohighlight">
+\[\DeclareMathOperator*{\argmax}{arg\,max}
+\hat{\mathbf{w}} =
+\argmax_{\mathbf{w}_t} Pr(\mathbf{w}_t \mid \mathbf{w}_{t - 1}).\]</div>
+<p>The temporal model could still be (19.5) where
+<span class="math notranslate nohighlight">\(\boldsymbol{\Psi} = \boldsymbol{\Psi}_1\)</span> or
+<span class="math notranslate nohighlight">\(\boldsymbol{\Psi} = \boldsymbol{\Psi}_2\)</span>.</p>
+<p>A simple strategy could be to choose the state transition matrix that maximizes
+the current time step <a class="bibtex reference internal" href="../../blog/2016/01/12/variational-learning-for-switching-state-space-models.html#ghahramani2000variational" id="id5">[GH00]</a>.</p>
+</div>
+<div class="section" id="Exercise-19.5">
+<h2>Exercise 19.5<a class="headerlink" href="#Exercise-19.5" title="Permalink to this headline">¶</a></h2>
+<p>The joint posterior distribution can be factorized into an HMM (11.1), which
+can be solved in <span class="math notranslate nohighlight">\(\mathcal{O}(TK^2)\)</span> using the Viterbi algorithm where
+<span class="math notranslate nohighlight">\(K\)</span> is the number of possible states (see
+<a class="reference internal" href="chapter-11.html#prince2012computer-ex-11-2"><span class="std std-ref">Exercise 11.2</span></a> for more details).</p>
+<p>In the Kalman filter, <span class="math notranslate nohighlight">\(T\)</span> grows as more measurements are taken, so
+computing the marginal posteriors is preferred because it can be solved for in
+closed form.</p>
+</div>
+<div class="section" id="Exercise-19.6">
+<h2>Exercise 19.6<a class="headerlink" href="#Exercise-19.6" title="Permalink to this headline">¶</a></h2>
+<p>The following are based on Section 11.4.4 and <a class="bibtex reference internal" href="#schonborncs351gmspa" id="id6">[Sch]</a>.</p>
+<p>The forward pass starts with</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{m}_{\mathbf{x}_1 \rightarrow g_1} =
+\delta[\mathbf{x}_1^*]
+\qquad \text{(11.36).}\]</div>
+<p>The message is then forwarded as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{m}_{g_1 \rightarrow \mathbf{w}_1}
+ &amp;= \int Pr(\mathbf{x}_1 \mid \mathbf{w}_1)
+     \delta\left[ \mathbf{x}_1^* \right] d\mathbf{x}_1\\
+ &amp;= Pr(\mathbf{x}_1 = \mathbf{x}_1^* \mid \mathbf{w}_1)
+    &amp; \quad &amp; \text{(11.37).}\end{split}\]</div>
+<p>Generalizing the message yields the measurement model</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{m}_{g_t \rightarrow \mathbf{w}_t} =
+Pr(\mathbf{x}_t = \mathbf{x}_t^* \mid \mathbf{w}_t)
+\qquad \text{(19.8).}\]</div>
+<p>At time step <span class="math notranslate nohighlight">\(t = 1\)</span>, the result is arbitrary as suggested in the
+paragraph after (19.16) where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Pr(\mathbf{x}_t = \mathbf{x}_t^* \mid \mathbf{w}_t)
+ &amp;= \frac{
+      Pr(\mathbf{x}_t = \mathbf{x}_t^*, \mathbf{w}_t)
+    }{
+      Pr(\mathbf{w}_t)
+    }\\
+ &amp;= \frac{
+      Pr(\mathbf{w}_t \mid \mathbf{x}_t = \mathbf{x}_t^*)
+      Pr(\mathbf{x}_t = \mathbf{x}_t^*)
+    }{
+      Pr(\mathbf{w}_t)
+    }\\
+Pr(\mathbf{w}_t \mid \mathbf{x}_t = \mathbf{x}_t^*)
+ &amp;= \frac{
+      Pr(\mathbf{x}_t = \mathbf{x}_t^* \mid \mathbf{w}_t) Pr(\mathbf{w}_t)
+    }{
+      Pr(\mathbf{x}_t = \mathbf{x}_t^*)
+    }
+    &amp; \quad &amp; \text{(19.1).}\end{split}\]</div>
+<p>This means the first hidden variable adds prior information and forwards the
+message normalized as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{m}_{\mathbf{w}_1 \rightarrow g_{12}}
+ &amp;= \mathbf{m}_{g_1 \rightarrow \mathbf{w}_1}
+    \frac{Pr(\mathbf{w}_1)}{Pr(\mathbf{x}_1 = \mathbf{x}_t^*)}\\
+ &amp;= \frac{
+      Pr(\mathbf{x}_1 = \mathbf{x}_1^* \mid \mathbf{w}_1) Pr(\mathbf{w}_1)
+    }{
+      Pr(\mathbf{x}_1 = \mathbf{x}_1^*)
+    }\\
+ &amp;= Pr(\mathbf{w}_1 \mid \mathbf{x}_1 = \mathbf{x}_1^*)
+    &amp; \quad &amp; \text{(11.35).}\end{split}\]</div>
+<p>Generalizing what the function node (at <span class="math notranslate nohighlight">\(t &gt; 1\)</span>) forwards yields the
+prediction step</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{m}_{g_{t - 1, t} \rightarrow \mathbf{w}_t}
+ &amp;= \int Pr(\mathbf{w}_t \mid \mathbf{w}_{t - 1})
+         Pr(\mathbf{w}_{t - 1} \mid \mathbf{x}_{1 \ldots t - 1})
+         d\mathbf{w}_{t - 1}\\
+ &amp;= Pr(\mathbf{w}_t \mid \mathbf{x}_{1 \ldots t - 1})
+    &amp; \quad &amp; \text{(11.37), (19.9).}\end{split}\]</div>
+<p>Generalizing what the unobserved variable (at <span class="math notranslate nohighlight">\(t &gt; 1\)</span>) forwards yields the
+measurement incorporation step</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{m}_{\mathbf{w}_t \rightarrow g_{t, t + 1}}
+ &amp;= \frac{
+      \mathbf{m}_{g_{t} \rightarrow \mathbf{w}_t}
+      \mathbf{m}_{g_{t - 1, t} \rightarrow \mathbf{w}_t}
+    }{
+      Pr(\mathbf{x}_{1 \ldots t})
+    }\\
+ &amp;= Pr(\mathbf{x}_t = \mathbf{x}_t^* \mid \mathbf{w}_t)
+    Pr(\mathbf{w}_t \mid \mathbf{x}_{1 \ldots t - 1})\\
+ &amp;= Pr(\mathbf{w}_t \mid \mathbf{x}_{1 \ldots t})
+    &amp; \quad &amp; \text{(11.35), (19.10).}\end{split}\]</div>
+<p>Notice that the backward pass is not needed because the forward pass propagates
+normalized messages.</p>
+</div>
+<div class="section" id="Exercise-19.7">
+<span id="prince2012computer-ex-19-7"></span><h2>Exercise 19.7<a class="headerlink" href="#Exercise-19.7" title="Permalink to this headline">¶</a></h2>
+<p>By inspection, the fixed interval smoother occurs after the Kalman filter i.e.
+wait until <span class="math notranslate nohighlight">\(T\)</span> observations have been made and then retrospectively
+calculate <span class="math notranslate nohighlight">\(Pr(\mathbf{w}_t \mid \mathbf{x}_{1 \ldots T})\)</span> for
+<span class="math notranslate nohighlight">\(t &lt; T\)</span>.</p>
+<p>The base case of this inductive proof is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Pr(\mathbf{w}_T \mid \mathbf{x}_{1 \ldots T})
+ &amp;= \frac{
+      Pr(\mathbf{x}_T \mid \mathbf{w}_T)
+      Pr(\mathbf{w}_T \mid \mathbf{x}_{1 \ldots T - 1})
+    }{
+      Pr(\mathbf{x}_{1 \ldots T})
+    }\\
+ &amp;= \NormDist_{\mathbf{w}_T}\left[
+      \boldsymbol{\mu}_{T \mid T}, \boldsymbol{\Sigma}_{T \mid T}
+    \right]
+    &amp; \quad &amp; \text{(19.10).}\end{split}\]</div>
+<p>Insights from <a class="bibtex reference internal" href="#fletcher2010kalman" id="id7">[Fle]</a> suggest that the D-separation should be
+invoked.  The inductive step is then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Pr(\mathbf{w}_t \mid \mathbf{x}_{1 \ldots T})
+ &amp;= \int Pr(\mathbf{w}_{t + 1}, \mathbf{w}_t \mid \mathbf{x}_{1 \ldots T})
+         d\mathbf{w}_{t + 1}
+    &amp; \quad &amp; \text{(2.1)}\\
+ &amp;= \int Pr(\mathbf{w}_t \mid \mathbf{w}_{t + 1}, \mathbf{x}_{1 \ldots T})
+         Pr(\mathbf{w}_{t + 1} \mid \mathbf{x}_{1 \ldots T})
+         d\mathbf{w}_{t + 1}
+    &amp; \quad &amp; \text{(2.6) with Markov assumption}\\
+ &amp;= \int Pr(\mathbf{w}_t \mid \mathbf{w}_{t + 1}, \mathbf{x}_{1 \ldots t})
+         Pr(\mathbf{w}_{t + 1} \mid \mathbf{x}_{1 \ldots T})
+         d\mathbf{w}_{t + 1}
+    &amp; \quad &amp; \text{D-separation}\\
+ &amp;= \int
+      \NormDist_{\mathbf{w}_t}\left[
+        \boldsymbol{\mu}'_{t + 1}, \boldsymbol{\Sigma}'_{t + 1}
+      \right]
+      \NormDist_{\mathbf{w}_{t + 1}}\left[
+        \boldsymbol{\mu}_{t + 1 \mid T}, \boldsymbol{\Sigma}_{t + 1 \mid T}
+      \right]
+      d\mathbf{w}_{t + 1}
+    &amp; \quad &amp; \text{(a)}\\
+ &amp;= \NormDist_{\mathbf{w}_t}\left[
+      \boldsymbol{\mu}_{t \mid T},
+      \boldsymbol{\Sigma}_{t \mid T}
+    \right]
+    &amp; \quad &amp; \text{(b).}\end{split}\]</div>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}Pr(\mathbf{w}_t \mid \mathbf{w}_{t + 1}, \mathbf{x}_{1 \ldots t})
+ &amp;= \frac{
+      Pr(\mathbf{w}_t, \mathbf{w}_{t + 1}, \mathbf{x}_{1 \ldots t})
+    }{
+      Pr(\mathbf{w}_{t + 1}, \mathbf{x}_{1 \ldots t})
+    }
+    &amp; \quad &amp; \text{(2.4)}\\
+ &amp;= \frac{
+      Pr(\mathbf{w}_{t + 1} \mid \mathbf{w}_t)
+      Pr(\mathbf{w}_t \mid \mathbf{x}_{1 \ldots t})
+      Pr(\mathbf{x}_{1 \ldots t})
+    }{
+      Pr(\mathbf{w}_{t + 1} \mid \mathbf{x}_{1 \ldots t})
+      Pr(\mathbf{x}_{1 \ldots t})
+    }
+    &amp; \quad &amp; \text{(2.5)}\\
+ &amp;= \frac{
+      Pr(\mathbf{w}_{t + 1} \mid \mathbf{w}_t)
+      Pr(\mathbf{w}_t \mid \mathbf{x}_{1 \ldots t})
+    }{
+      \int Pr(\mathbf{w}_t, \mathbf{w}_{t + 1} \mid \mathbf{x}_{1 \ldots t})
+           d\mathbf{w}_{t}
+    }
+    &amp; \quad &amp; \text{(2.1)}\\
+ &amp;= \frac{
+      Pr(\mathbf{w}_{t + 1} \mid \mathbf{w}_t)
+      Pr(\mathbf{w}_t \mid \mathbf{x}_{1 \ldots t})
+    }{
+      \int Pr(\mathbf{w}_{t + 1} \mid \mathbf{w}_t)
+           Pr(\mathbf{w}_t \mid \mathbf{x}_{1 \ldots t}) d\mathbf{w}_{t}
+    }
+    &amp; \quad &amp; \text{(2.6) with Markov assumption}\\
+ &amp;= \NormDist_{\mathbf{w}_t}\left[
+      \boldsymbol{\mu}'_{t + 1}, \boldsymbol{\Sigma}'_{t + 1}
+    \right]
+    &amp; \quad &amp; \text{(a.1)}\end{split}\]</div>
+</div>
+<div class="section" id="(a.1)">
+<h3>(a.1)<a class="headerlink" href="#(a.1)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}Pr(\mathbf{w}_{t + 1} \mid \mathbf{w}_t)
+  Pr(\mathbf{w}_t \mid \mathbf{x}_{1 \ldots t})
+ &amp;= \NormDist_{\mathbf{w}_{t + 1}}\left[
+      \boldsymbol{\mu}_p + \boldsymbol{\Psi} \mathbf{w}_t,
+      \boldsymbol{\Sigma}_p
+    \right]
+    \NormDist_{\mathbf{w}_t}\left[
+      \boldsymbol{\mu}_t, \boldsymbol{\Sigma}_t
+    \right]
+    &amp; \quad &amp; \text{(19.6), (19.10)}\\
+ &amp;= \kappa_1 \NormDist_{\mathbf{w}_t}\left[
+      \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_{t + 1},
+      \boldsymbol{\Sigma}'
+    \right]
+    \NormDist_{\mathbf{w}_t}\left[
+      \boldsymbol{\mu}_t, \boldsymbol{\Sigma}_t
+    \right]
+    &amp; \quad &amp; \text{(a.2)}\\
+ &amp;= \kappa_1 \kappa_2 \NormDist_{\mathbf{w}_t}\left[
+      \boldsymbol{\mu}'_{t + 1}, \boldsymbol{\Sigma}'_{t + 1}
+    \right]
+    &amp; \quad &amp; \text{Exercise 5.7 and 5.9}\end{split}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{\Sigma}'_{t + 1}
+ &amp;= \left(
+      \boldsymbol{\Sigma}'^{-1} + \boldsymbol{\Sigma}_t^{-1}
+    \right)^{-1}\\
+ &amp;= \left(
+      \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi} +
+      \boldsymbol{\Sigma}_t^{-1}
+    \right)^{-1}
+\\\\
+\boldsymbol{\mu}'_{t + 1}
+ &amp;= \boldsymbol{\Sigma}'_{t + 1}
+    \left(
+      \boldsymbol{\Sigma}'^{-1}
+        \left(
+          \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_{t + 1}
+        \right) +
+      \boldsymbol{\Sigma}_t^{-1} \boldsymbol{\mu}_t
+    \right)\\
+ &amp;= \boldsymbol{\Sigma}'_{t + 1}
+    \left(
+      \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1}
+        \left(
+          \mathbf{w}_{t + 1} - \boldsymbol{\mu}_p
+        \right) +
+      \boldsymbol{\Sigma}_t^{-1} \boldsymbol{\mu}_t
+    \right)\\
+ &amp;= \boldsymbol{\Sigma}'_{t + 1} \boldsymbol{\Psi}^\top
+      \boldsymbol{\Sigma}_p^{-1} \mathbf{w}_{t + 1} -
+    \boldsymbol{\Sigma}'_{t + 1} \boldsymbol{\Psi}^\top
+      \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\mu}_p +
+    \boldsymbol{\Sigma}'_{t + 1} \boldsymbol{\Sigma}_t^{-1}
+      \boldsymbol{\mu}_t
+\\\\
+\kappa_2
+ &amp;= \NormDist_{\boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_{t + 1}}
+    \left[
+      \boldsymbol{\mu}_t,
+      \boldsymbol{\Sigma}' + \boldsymbol{\Sigma}_t
+    \right].\end{split}\]</div>
+<p>See <a class="reference internal" href="chapter-05.html#prince2012computer-ex-5-7"><span class="std std-ref">Exercise 5.7</span></a> and
+<a class="reference internal" href="chapter-05.html#prince2012computer-ex-5-9"><span class="std std-ref">Exercise 5.9</span></a> for more details.</p>
+</div>
+<div class="section" id="(a.2)">
+<h3>(a.2)<a class="headerlink" href="#(a.2)" title="Permalink to this headline">¶</a></h3>
+<p>By <a class="reference internal" href="chapter-05.html#prince2012computer-ex-5-10"><span class="std std-ref">Exercise 5.10</span></a>,</p>
+<div class="math notranslate nohighlight">
+\[\NormDist_{\mathbf{w}_{t + 1}}\left[
+  \boldsymbol{\mu}_p + \boldsymbol{\Psi} \mathbf{w}_t,
+  \boldsymbol{\Sigma}_p
+\right] =
+\kappa_1 \text{Norm}_{\mathbf{w}_t}\left[
+  \boldsymbol{\mu}' + \boldsymbol{\Psi}' \mathbf{w}_{t + 1},
+  \boldsymbol{\Sigma}'
+\right]\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{\Sigma}'
+ &amp;= \left(
+      \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi}
+    \right)^{-1}
+\\\\
+\boldsymbol{\Psi}'
+ &amp;= \boldsymbol{\Sigma}' \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1}
+\\\\
+\boldsymbol{\mu}'
+ &amp;= -\boldsymbol{\Sigma}' \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1}
+      \boldsymbol{\mu}_p
+\\\\
+\kappa_1
+ &amp;= \frac{
+      \left\vert \boldsymbol{\Sigma}' \right\vert^{1 / 2}
+    }{
+      \left\vert \boldsymbol{\Sigma}_p \right\vert^{1 / 2}
+    }
+    \exp\left[
+      -0.5
+      (\mathbf{w}_{t + 1} - \boldsymbol{\mu}_p)^\top
+      \left(
+        \boldsymbol{\Sigma}_p^{-1} -
+        \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi} \boldsymbol{\Sigma}'
+          \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1}
+      \right)
+      (\mathbf{w}_{t + 1} - \boldsymbol{\mu}_p)
+    \right].\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>The generative equations for the distributions from</p>
+<div class="math notranslate nohighlight">
+\[Pr(\mathbf{w}_t \mid \mathbf{x}_{1 \ldots T}) =
+\int Pr(\mathbf{w}_t \mid \mathbf{w}_{t + 1}, \mathbf{x}_{1 \ldots t})
+     Pr(\mathbf{w}_{t + 1} \mid \mathbf{x}_{1 \ldots T}) d\mathbf{w}_{t + 1}\]</div>
+<p>are</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{w}_t
+ &amp;= \boldsymbol{\mu}'_{t + 1} + \boldsymbol{\epsilon}_{t + 1}\\
+ &amp;= \boldsymbol{\Sigma}'_{t + 1} \boldsymbol{\Psi}^\top
+      \boldsymbol{\Sigma}_p^{-1} \mathbf{w}_{t + 1} -
+    \boldsymbol{\Sigma}'_{t + 1} \boldsymbol{\Psi}^\top
+      \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\mu}_p +
+    \boldsymbol{\Sigma}'_{t + 1} \boldsymbol{\Sigma}_t^{-1} \boldsymbol{\mu}_t +
+    \boldsymbol{\epsilon}_{t + 1}
+    &amp; \quad &amp; \text{(a.1)}\\
+ &amp;= \boldsymbol{\Sigma}'_{t + 1} \boldsymbol{\Psi}^\top
+      \boldsymbol{\Sigma}_p^{-1} \mathbf{w}_{t + 1} -
+    \boldsymbol{\Sigma}'_{t + 1} \boldsymbol{\Psi}^\top
+      \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\mu}_p +
+    \left(
+      \boldsymbol{\Sigma}_t -
+      \boldsymbol{\Sigma}'_{t + 1} \boldsymbol{\Psi}^\top
+        \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi} \boldsymbol{\Sigma}_t
+    \right) \boldsymbol{\Sigma}_t^{-1} \boldsymbol{\mu}_t +
+    \boldsymbol{\epsilon}_{t + 1}
+    &amp; \quad &amp; \text{Exercise 5.9 (a)}\\
+ &amp;= \boldsymbol{\mu}_t +
+    \boldsymbol{\Sigma}'_{t + 1} \boldsymbol{\Psi}^\top
+      \boldsymbol{\Sigma}_p^{-1}
+      \left(
+        \mathbf{w}_{t + 1} - \boldsymbol{\mu}_p -
+        \boldsymbol{\Psi} \boldsymbol{\mu}_t
+      \right) +
+    \boldsymbol{\epsilon}_{t + 1}\\
+ &amp;= \boldsymbol{\mu}_t +
+    \mathbf{C}_t
+      \left(
+        \mathbf{w}_{t + 1} - \boldsymbol{\mu}_{+ \mid t + 1}
+      \right) +
+    \boldsymbol{\epsilon}_{t + 1}
+    &amp; \quad &amp; \text{(b.1) and (19.9)}\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{w}_{t + 1} =
+\boldsymbol{\mu}_{t + 1 \mid T} + \boldsymbol{\epsilon}_{t + 1 \mid T}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator{\Cov}{\mathrm{Cov}}
+\DeclareMathOperator{\E}{\mathrm{E}}
+\E[\boldsymbol{\epsilon}_{t + 1}]
+ &amp;= \E[\boldsymbol{\epsilon}_{t + 1 \mid T}]
+  = \boldsymbol{0}
+\\\\
+\Cov(\boldsymbol{\epsilon}_{t + 1}, \boldsymbol{\epsilon}_{t + 1})
+ &amp;= \E\left[
+      \left(
+        \boldsymbol{\epsilon}_{t + 1} -
+        \E[\boldsymbol{\epsilon}_{t + 1}]
+      \right)
+      \left(
+        \boldsymbol{\epsilon}_{t + 1} -
+        \E[\boldsymbol{\epsilon}_{t + 1}]
+      \right)^\top
+    \right]
+  = \E\left[
+      \boldsymbol{\epsilon}_{t + 1} \boldsymbol{\epsilon}_{t + 1}^\top
+    \right] -
+    \E[\boldsymbol{\epsilon}_{t + 1}] \E[\boldsymbol{\epsilon}_{t + 1}]^\top
+  = \boldsymbol{\Sigma}'_{t + 1}
+\\\\
+\Cov\left(
+  \boldsymbol{\epsilon}_{t + 1 \mid T},
+  \boldsymbol{\epsilon}_{t + 1 \mid T}
+\right)
+ &amp;= \E\left[
+      \boldsymbol{\epsilon}_{t + 1 \mid T}
+      \boldsymbol{\epsilon}_{t + 1 \mid T}^\top
+    \right] -
+    \E[\boldsymbol{\epsilon}_{t + 1 \mid T}]
+      \E[\boldsymbol{\epsilon}_{t + 1 \mid T}]^\top
+  = \boldsymbol{\Sigma}_{t + 1 \mid T}
+\\\\
+\Cov(\boldsymbol{\epsilon}_{t + 1}, \boldsymbol{\epsilon}_{t + 1 \mid T})
+  &amp;= \boldsymbol{0},\end{split}\]</div>
+<p>which implies</p>
+<div class="math notranslate nohighlight">
+\[\Cov(\mathbf{w}_{t + 1}, \boldsymbol{\epsilon}_{t + 1}) =
+\boldsymbol{0}.\]</div>
+<p>These assumptions result in</p>
+<div class="math notranslate nohighlight">
+\[Pr(\mathbf{w}_t \mid \mathbf{x}_{1 \ldots T}) =
+\NormDist_{\mathbf{w}_t}\left[
+  \boldsymbol{\mu}_{t \mid T},
+  \boldsymbol{\Sigma}_{t \mid T}
+\right]
+\qquad \text{(b.3), (b.4).}\]</div>
+</div>
+<div class="section" id="(b.1)">
+<h3>(b.1)<a class="headerlink" href="#(b.1)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{C}_t
+ &amp;= \boldsymbol{\Sigma}'_{t + 1} \boldsymbol{\Psi}^\top
+      \boldsymbol{\Sigma}_p^{-1}\\
+ &amp;= \left(
+      \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi} +
+      \boldsymbol{\Sigma}_t^{-1}
+    \right)^{-1}
+    \boldsymbol{\Psi}^\top
+    \boldsymbol{\Sigma}_p^{-1}\\
+ &amp;= \boldsymbol{\Sigma}_t \boldsymbol{\Psi}^\top
+    \left(
+      \boldsymbol{\Sigma}_p +
+      \boldsymbol{\Psi} \boldsymbol{\Sigma}_t \boldsymbol{\Psi}^\top
+    \right)^{-1}\\
+ &amp;= \boldsymbol{\Sigma}_t \boldsymbol{\Psi}^\top
+    \boldsymbol{\Sigma}_{+ \mid t + 1}^{-1}
+    &amp; \quad &amp; \text{(19.9)}\end{split}\]</div>
+<p>To simplify notations, define <span class="math notranslate nohighlight">\(A = \boldsymbol{\Sigma}_p\)</span> and
+<span class="math notranslate nohighlight">\(B = \boldsymbol{\Psi} \boldsymbol{\Sigma}_t \boldsymbol{\Psi}^\top\)</span>.
+By <a class="reference internal" href="chapter-05.html#prince2012computer-ex-5-9"><span class="std std-ref">Exercise 5.9 (a)</span></a>,
+<span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}_t =
+\boldsymbol{\Sigma}'_{t + 1}
+\left(
+\mathbf{I} +
+\boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi}
+\boldsymbol{\Sigma}_t
+\right)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{\Sigma}_t \boldsymbol{\Psi}^\top (A + B)^{-1}
+ &amp;= \boldsymbol{\Sigma}'_{t + 1}
+    \left(
+      \mathbf{I} +
+      \boldsymbol{\Psi}^\top \boldsymbol{\Sigma}_p^{-1} \boldsymbol{\Psi}
+        \boldsymbol{\Sigma}_t
+    \right)
+    \boldsymbol{\Psi}^\top
+    (A + B)^{-1}\\
+ &amp;= \boldsymbol{\Sigma}'_{t + 1} \boldsymbol{\Psi}^\top (A + B)^{-1} +
+    \boldsymbol{\Sigma}'_{t + 1} \boldsymbol{\Psi}^\top
+      A^{-1} B (A + B)^{-1}\\
+ &amp;= \boldsymbol{\Sigma}'_{t + 1} \boldsymbol{\Psi}^\top (A + B)^{-1} +
+    \boldsymbol{\Sigma}'_{t + 1} \boldsymbol{\Psi}^\top A^{-1} B
+      \left( B^{-1} - (A + B)^{-1} A B^{-1} \right)
+    &amp; \quad &amp; \text{Exercise 5.9 (a)}\\
+ &amp;= \boldsymbol{\Sigma}'_{t + 1} \boldsymbol{\Psi}^\top A^{-1} +
+    \boldsymbol{\Sigma}'_{t + 1} \boldsymbol{\Psi}^\top (A + B)^{-1} -
+    \boldsymbol{\Sigma}'_{t + 1} \boldsymbol{\Psi}^\top
+      A^{-1} B (A + B)^{-1} A B^{-1}\\
+ &amp;= \boldsymbol{\Sigma}'_{t + 1} \boldsymbol{\Psi}^\top
+      \boldsymbol{\Sigma}_p^{-1}
+    &amp; \quad &amp; \text{(b.2)}\end{split}\]</div>
+</div>
+<div class="section" id="(b.2)">
+<h3>(b.2)<a class="headerlink" href="#(b.2)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}A^{-1} B (A + B)^{-1} A B^{-1}
+ &amp;= A^{-1} B \left( A^{-1} - (A + B)^{-1} B A^{-1} \right) A B^{-1}
+    &amp; \quad &amp; \text{Exercise 5.9 (a)}\\
+ &amp;= A^{-1} B A^{-1} A B^{-1} - A^{-1} B (A + B)^{-1} B A^{-1} A B^{-1}\\
+ &amp;= A^{-1} - A^{-1} B (A + B)^{-1}\\
+A^{-1} B (A + B)^{-1} A B^{-1} (A + B)
+ &amp;= \left( A^{-1} - A^{-1} B (A + B)^{-1} \right) (A + B)\\
+ &amp;= A^{-1} (A + B) - A^{-1} B\\
+ &amp;= \mathbf{I}\\
+A^{-1} B (A + B)^{-1} A B^{-1}
+ &amp;= (A + B)^{-1}\end{split}\]</div>
+</div>
+<div class="section" id="(b.3)">
+<h3>(b.3)<a class="headerlink" href="#(b.3)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{\mu}_{t \mid T}
+ &amp;= \E[\mathbf{w}_t]\\
+ &amp;= \boldsymbol{\mu}_t +
+    \mathbf{C}_t
+      \left(
+        \E[\mathbf{w}_{t + 1}] - \boldsymbol{\mu}_{+ \mid t + 1}
+      \right) +
+    \E[\boldsymbol{\epsilon}_{t + 1}]
+    &amp; \quad &amp; \text{(2.14), (2.15), (2.16)}\\
+ &amp;= \boldsymbol{\mu}_t +
+    \mathbf{C}_t \left(
+      \boldsymbol{\mu}_{t + 1 \mid T} - \boldsymbol{\mu}_{+ \mid t + 1}
+    \right)\end{split}\]</div>
+</div>
+<div class="section" id="(b.4)">
+<h3>(b.4)<a class="headerlink" href="#(b.4)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{\Sigma}_{t \mid T}
+ &amp;= \Cov(\mathbf{w}_t, \mathbf{w}_t)\\
+ &amp;= \E\left[
+      \left(
+        \mathbf{w}_t - \E[\mathbf{w}_t]
+      \right)
+      \left(
+        \mathbf{w}_t - \E[\mathbf{w}_t]
+      \right)^\top
+    \right]\\
+ &amp;= \E\left[
+      \left(
+        \mathbf{C}_t
+          \left(
+            \mathbf{w}_{t + 1} - \boldsymbol{\mu}_{t + 1 \mid T}
+          \right) +
+        \boldsymbol{\epsilon}_{t + 1}
+      \right)
+      \left(
+        \mathbf{C}_t
+          \left(
+            \mathbf{w}_{t + 1} - \boldsymbol{\mu}_{t + 1 \mid T}
+          \right) +
+        \boldsymbol{\epsilon}_{t + 1}
+      \right)^\top
+    \right]\\
+ &amp;= \mathbf{C}_t \E\left[
+      \left(
+        \mathbf{w}_{t + 1} - \boldsymbol{\mu}_{t + 1 \mid T}
+      \right)
+      \left(
+        \mathbf{w}_{t + 1} - \boldsymbol{\mu}_{t + 1 \mid T}
+      \right)^\top
+    \right] \mathbf{C}_t^\top +
+    \mathbf{C}_t
+      \E\left[
+        \left(
+          \mathbf{w}_{t + 1} - \boldsymbol{\mu}_{t + 1 \mid T}
+        \right) \boldsymbol{\epsilon}_{t + 1}^\top
+      \right] +
+    \E\left[
+      \boldsymbol{\epsilon}_{t + 1}
+      \left(
+        \mathbf{w}_{t + 1} - \boldsymbol{\mu}_{t + 1 \mid T}
+      \right)^\top
+    \right] \mathbf{C}_t^\top +
+    \E\left[
+      \boldsymbol{\epsilon}_{t + 1} \boldsymbol{\epsilon}_{t + 1}^\top
+    \right]\\
+ &amp;= \mathbf{C}_t \boldsymbol{\Sigma}_{t + 1 \mid T} \mathbf{C}_t^\top +
+    \boldsymbol{\Sigma}'_{t + 1}\\
+ &amp;= \mathbf{C}_t \boldsymbol{\Sigma}_{t + 1 \mid T} \mathbf{C}_t^\top +
+    \left(
+      \boldsymbol{\Sigma}_t -
+      \boldsymbol{\Sigma}_t \boldsymbol{\Psi}_t^\top
+        \left(
+          \boldsymbol{\Sigma}_p +
+          \boldsymbol{\Psi}_t \boldsymbol{\Sigma}_t \boldsymbol{\Psi}_t^\top
+        \right)^{-1}
+        \boldsymbol{\Psi}_t \boldsymbol{\Sigma}_t
+    \right)
+    &amp; \quad &amp; \text{(C.61)}\\
+ &amp;= \boldsymbol{\Sigma}_t +
+    \mathbf{C}_t \boldsymbol{\Sigma}_{t + 1 \mid T} \mathbf{C}_t^\top -
+    \mathbf{C}_t
+      \boldsymbol{\Sigma}_{+ \mid t + 1}^\top \mathbf{C}_t^\top
+    &amp; \quad &amp; \text{(b.1)}\\
+ &amp;= \boldsymbol{\Sigma}_t +
+    \mathbf{C}_t
+      \left(
+        \boldsymbol{\Sigma}_{t + 1 \mid T} -
+        \boldsymbol{\Sigma}_{+ \mid t + 1}
+      \right)
+      \mathbf{C}_t^\top\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-19.8">
+<h2>Exercise 19.8<a class="headerlink" href="#Exercise-19.8" title="Permalink to this headline">¶</a></h2>
+<p>The graphical model for the Kalman filter is</p>
+<div class="math notranslate nohighlight">
+\[Pr(\{ \mathbf{x}_n \}_{n = 1}^N, \{ \mathbf{w}_n \}_{n = 1}^N) =
+\left( \prod_{n = 1}^N Pr(\mathbf{x}_n \mid \mathbf{w}_n) \right)
+\left( \prod_{n = 2}^N Pr(\mathbf{w}_n \mid \mathbf{w}_{n - 1}) \right)
+Pr(\mathbf{w}_1)
+\qquad \text{(10.19), (11.1).}\]</div>
+<p><a class="bibtex reference internal" href="#archambeau2008fsds" id="id10">[Arc]</a> is good for verifying this previous result and
+<a class="reference internal" href="#prince2012computer-ex-19-7"><span class="std std-ref">Exercise 19.7</span></a>.  <a class="bibtex reference internal" href="#mackey2014lgssm" id="id11">[Mac]</a>
+could also serve to verify the results of this exercise.</p>
+<p>Note that <a class="bibtex reference internal" href="#brushe1996forward" id="id12">[BMM96]</a><a class="bibtex reference internal" href="#mahony1996hybrid" id="id13">[MBM96]</a> are useless; one should not
+even consider wasting their time to skim these papers.  Just read the book’s
+explanations instead.</p>
+<div class="section" id="(i)">
+<h3>(i)<a class="headerlink" href="#(i)" title="Permalink to this headline">¶</a></h3>
+<p>This supervised learning scenario is a fully observed Markov model
+(<a class="bibtex reference internal" href="#jordan2001introduction" id="id14">[JB01]</a>) i.e. the training set consists of <span class="math notranslate nohighlight">\(I\)</span>
+matched sets of states <span class="math notranslate nohighlight">\(\{ \mathbf{w}_{in} \}_{i = 1, n = 1}^{I, N}\)</span> and
+measurements <span class="math notranslate nohighlight">\(\{ \mathbf{x}_{in} \}_{i = 1, n = 1}^{I, N}\)</span>.</p>
+<p>Maximum likelihood (or another technique like maximum a posteriori and the
+Bayesian approach) can be applied to fit the parameters
+<span class="math notranslate nohighlight">\(\boldsymbol{\theta} =
+\left\{
+\boldsymbol{\mu}_0, \boldsymbol{\Sigma}_0,
+\boldsymbol{\mu}_p, \boldsymbol{\Sigma}_p, \boldsymbol{\Psi},
+\boldsymbol{\mu}_m, \boldsymbol{\Sigma}_m, \boldsymbol{\Phi}
+\right\}\)</span> to the data:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\hat{\boldsymbol{\theta}}
+ &amp;= \argmax_{\boldsymbol{\theta}} \prod_{i = 1}^I
+      Pr(\{ \mathbf{x}_{in} \}_{n = 1}^N,
+         \{ \mathbf{w}_{in} \}_{n = 1}^N \mid \boldsymbol{\theta})
+    &amp; \quad &amp; \text{(10.21)}\\
+ &amp;= \argmax_{\boldsymbol{\theta}}
+      \sum_{i = 1}^I
+        \log Pr(\mathbf{w}_{i1} \mid \boldsymbol{\theta}) +
+        \sum_{n = 1}^N
+          \log Pr(\mathbf{x}_{in} \mid
+              \mathbf{w}_{in}, \boldsymbol{\theta}) +
+        \sum_{n = 2}^N
+          \log Pr(\mathbf{w}_{in} \mid
+              \mathbf{w}_{i(n - 1)}, \boldsymbol{\theta})\\
+ &amp;= \argmax_{\boldsymbol{\theta}}
+      \sum_{i = 1}^I
+        \log \NormDist_{\mathbf{w}_{i1}}\left[
+          \boldsymbol{\mu}_0, \boldsymbol{\Sigma}_0
+        \right] +
+        \sum_{n = 1}^N
+          \log \NormDist_{\mathbf{x}_{in}}
+            \left[
+              \boldsymbol{\mu}_m + \boldsymbol{\Phi} \mathbf{w}_{in},
+              \boldsymbol{\Sigma}_m
+            \right] +
+        \sum_{n = 2}^N
+          \log \NormDist_{\mathbf{w}_{in}}
+            \left[
+              \boldsymbol{\mu}_p + \boldsymbol{\Psi} \mathbf{w}_{i(n - 1)},
+              \boldsymbol{\Sigma}_p
+            \right]
+    &amp; \quad &amp; \text{(i.a), (19.6), (19.8)}\\
+ &amp;= \argmax_{\boldsymbol{\theta}}
+      -\frac{1}{2} \sum_{i = 1}^I
+        D_w \log 2 \pi +
+        \log \left\vert \boldsymbol{\Sigma}_0 \right\vert +
+        \left( \mathbf{w}_{i1} - \boldsymbol{\mu}_0 \right)^\top
+          \boldsymbol{\Sigma}_0^{-1}
+          \left( \mathbf{w}_{i1} - \boldsymbol{\mu}_0 \right) +\\
+ &amp;\qquad
+        \sum_{n = 1}^N
+          D_m \log 2 \pi +
+          \log \left\vert \boldsymbol{\Sigma}_m \right\vert +
+          \left(
+            \mathbf{x}_{in} - \boldsymbol{\mu}_m -
+            \boldsymbol{\Phi} \mathbf{w}_{in}
+          \right)^\top
+            \boldsymbol{\Sigma}_m^{-1}
+            \left(
+              \mathbf{x}_{in} - \boldsymbol{\mu}_m -
+              \boldsymbol{\Phi} \mathbf{w}_{in}
+            \right) +\\
+ &amp;\qquad
+        \sum_{n = 2}^N
+          D_p \log 2 \pi +
+          \log \left\vert \boldsymbol{\Sigma}_p \right\vert +
+          \left(
+            \mathbf{w}_{in} - \boldsymbol{\mu}_p -
+            \boldsymbol{\Psi} \mathbf{w}_{i(n - 1)}
+          \right)^\top
+            \boldsymbol{\Sigma}_p^{-1}
+            \left(
+              \mathbf{w}_{in} - \boldsymbol{\mu}_p -
+              \boldsymbol{\Psi} \mathbf{w}_{i(n - 1)}
+            \right)
+    &amp; \quad &amp; \text{(5.1)}\end{split}\]</div>
+</div>
+<div class="section" id="(ii)">
+<h3>(ii)<a class="headerlink" href="#(ii)" title="Permalink to this headline">¶</a></h3>
+<p>This unsupervised learning scenario treats the states
+<span class="math notranslate nohighlight">\(\{ \mathbf{w}_{in} \}_{i = 1, n = 1}^{I, N}\)</span> as hidden and only the
+measurements <span class="math notranslate nohighlight">\(\{ \mathbf{x}_{in} \}_{i = 1, n = 1}^{I, N}\)</span> are observed
+resulting in</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\hat{\boldsymbol{\theta}}
+ &amp;= \argmax_{\boldsymbol{\theta}}
+      \prod_{i = 1}^I
+        Pr(\{ \mathbf{x}_{in} \}_{n = 1}^N \mid \boldsymbol{\theta})\\
+ &amp;= \argmax_{\boldsymbol{\theta}}
+      \prod_{i = 1}^I
+        \int Pr(\{ \mathbf{x}_{in} \}_{n = 1}^N, \mathbf{h}_i \mid
+                \boldsymbol{\theta})
+             d\mathbf{h}_i\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{h}_i = \{ \mathbf{w}_{in} \}_{n = 1}^N\)</span>, which can be
+solved using the EM algorithm <a class="bibtex reference internal" href="#parrabmei5100" id="id15">[Par]</a>.</p>
+<p>The E-step consists of computing the posterior distribution over the states for
+each time sequence</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}q_i(\mathbf{h}_i)
+ &amp;= Pr(\mathbf{h}_i \mid
+       \{ \mathbf{x}_{in} \}_{n = 1}^N, \boldsymbol{\theta})\\
+ &amp;= Pr(\{ \mathbf{w}_{in} \}_{n = 1}^N |
+       \{ \mathbf{x}_{in} \}_{n = 1}^N, \boldsymbol{\theta})\\
+ &amp;= Pr(\mathbf{w}_{iN} \mid
+       \{ \mathbf{x}_{in} \}_{n = 1}^N, \boldsymbol{\theta})
+    \prod_{n = 1}^{N - 1}
+      Pr(\mathbf{w}_{i(N - n)} \mid \mathbf{w}_{i(N - n + 1)},
+                                    \{ \mathbf{x}_{in} \}_{n = 1}^{N - n},
+                                    \boldsymbol{\theta})
+    &amp; \quad &amp; \text{Exercise 19.7 (a),}\end{split}\]</div>
+<p>which can be computed using the terms that result from running the Kalman filter
+followed by the Kalman fixed interval smoother.  See
+<a class="reference internal" href="#prince2012computer-ex-19-7"><span class="std std-ref">Exercise 19.7</span></a> for more details.  It is
+important to realize that <span class="math notranslate nohighlight">\(q_i(\mathbf{h}_i)\)</span> itself is not used directly
+in the M-step; the E-step’s purpose is to estimate the expected value and
+covariance of each hidden variable</p>
+<div class="math notranslate nohighlight">
+\[Pr(\mathbf{w}_t \mid \mathbf{w}_{t + 1}, \mathbf{x}_{1 \ldots t}) =
+\NormDist_{\mathbf{w}_t}\left[
+  \boldsymbol{\mu}'_{t + 1}, \boldsymbol{\Sigma}'_{t + 1}
+\right].\]</div>
+<p>Since no prior knowledge can be leveraged besides assuming a Gaussian
+distribution, the initial parameters can be randomly initialized.</p>
+<p>In the M-step, the lower bound is maximized with respect to the parameters
+<span class="math notranslate nohighlight">\(\boldsymbol{\theta} =
+\left\{
+\boldsymbol{\mu}_0, \boldsymbol{\Sigma}_0,
+\boldsymbol{\mu}_p, \boldsymbol{\Sigma}_p, \boldsymbol{\Psi},
+\boldsymbol{\mu}_m, \boldsymbol{\Sigma}_m, \boldsymbol{\Phi}
+\right\}\)</span> so that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator{\tr}{\mathrm{tr}}
+\boldsymbol{\theta}^{[t + 1]}
+ &amp;= \argmax_{\boldsymbol{\theta}}
+      \sum_{i = 1}^I
+        \int q_i^{[t]}(\mathbf{h}_i)
+             \log Pr(\{ \mathbf{x}_{in} \}_{n = 1}^N, \mathbf{h}_i \mid
+                     \boldsymbol{\theta}) d\mathbf{h}_i
+    &amp; \quad &amp; \text{(7.51)}\\
+ &amp;= \argmax_{\boldsymbol{\theta}}
+      \sum_{i = 1}^I
+        \E\left[
+          \log Pr(\{ \mathbf{x}_{in} \}_{n = 1}^N,
+                  \{ \mathbf{w}_{in} \}_{n = 1}^N \mid \boldsymbol{\theta})
+        \right]\\
+ &amp;= \argmax_{\boldsymbol{\theta}}
+      -\frac{1}{2} \left(
+        C + I \log \left\vert \boldsymbol{\Sigma}_0 \right\vert +
+        I N \log \left\vert \boldsymbol{\Sigma}_m \right\vert +
+        I (N - 1) \log \left\vert \boldsymbol{\Sigma}_p \right\vert +
+        \tr\left(
+          \E[Z] \boldsymbol{\Sigma}_0^{-1}
+        \right) +
+        \tr\left(
+          \E[M] \boldsymbol{\Sigma}_m^{-1}
+        \right) +
+        \tr\left(
+          \E[P] \boldsymbol{\Sigma}_p^{-1}
+        \right)
+      \right)
+    &amp; \quad &amp; \text{(i), (ii.a), (ii.b), (ii.c).}\end{split}\]</div>
+</div>
+<div class="section" id="(ii.a)">
+<h3>(ii.a)<a class="headerlink" href="#(ii.a)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[C = I D_w \log 2 \pi + I N D_m \log 2 \pi + I (N - 1) D_p \log 2 \pi\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\sum_{i = 1}^I
+  \left( \mathbf{w}_{i1} - \boldsymbol{\mu}_0 \right)^\top
+  \boldsymbol{\Sigma}_0^{-1}
+  \left( \mathbf{w}_{i1} - \boldsymbol{\mu}_0 \right)
+ &amp;= \tr\left[
+      \sum_{i = 1}^I
+        \left( \mathbf{w}_{i1} - \boldsymbol{\mu}_0 \right)
+        \left( \mathbf{w}_{i1} - \boldsymbol{\mu}_0 \right)^\top
+        \boldsymbol{\Sigma}_0^{-1}
+    \right]
+    &amp; \quad &amp; \text{(C.14), (C.15)}\\
+ &amp;= \tr\left[
+      Z \boldsymbol{\Sigma}_0^{-1}
+    \right]\end{split}\]</div>
+</div>
+<div class="section" id="(ii.b)">
+<h3>(ii.b)<a class="headerlink" href="#(ii.b)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; \sum_{i = 1}^I \sum_{n = 1}^N
+    \left(
+      \mathbf{x}_{in} - \boldsymbol{\mu}_m -
+      \boldsymbol{\Phi} \mathbf{w}_{in}
+    \right)^\top
+    \boldsymbol{\Sigma}_m^{-1}
+    \left(
+      \mathbf{x}_{in} - \boldsymbol{\mu}_m -
+      \boldsymbol{\Phi} \mathbf{w}_{in}
+    \right)\\
+ &amp;= \tr\left[
+      \sum_{i = 1}^I \sum_{n = 1}^N
+        \left(
+          \mathbf{x}_{in} - \boldsymbol{\mu}_m -
+          \boldsymbol{\Phi} \mathbf{w}_{in}
+        \right)
+        \left(
+          \mathbf{x}_{in} - \boldsymbol{\mu}_m -
+          \boldsymbol{\Phi} \mathbf{w}_{in}
+        \right)^\top
+        \boldsymbol{\Sigma}_m^{-1}
+    \right]
+    &amp; \quad &amp; \text{(C.14), (C.15)}\\
+ &amp;= \tr\left[
+      M \boldsymbol{\Sigma}_m^{-1}
+    \right]\end{split}\]</div>
+</div>
+<div class="section" id="(ii.c)">
+<h3>(ii.c)<a class="headerlink" href="#(ii.c)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; \sum_{i = 1}^I \sum_{n = 2}^N
+    \left(
+      \mathbf{w}_{in} - \boldsymbol{\mu}_p -
+      \boldsymbol{\Psi} \mathbf{w}_{i(n - 1)}
+    \right)^\top
+    \boldsymbol{\Sigma}_p^{-1}
+    \left(
+      \mathbf{w}_{in} - \boldsymbol{\mu}_p -
+      \boldsymbol{\Psi} \mathbf{w}_{i(n - 1)}
+    \right)\\
+ &amp;= \tr\left[
+      \sum_{i = 1}^I \sum_{n = 2}^N
+        \left(
+          \mathbf{w}_{in} - \boldsymbol{\mu}_p -
+          \boldsymbol{\Psi} \mathbf{w}_{i(n - 1)}
+        \right)
+        \left(
+          \mathbf{w}_{in} - \boldsymbol{\mu}_p -
+          \boldsymbol{\Psi} \mathbf{w}_{i(n - 1)}
+        \right)^\top
+        \boldsymbol{\Sigma}_p^{-1}
+    \right]
+    &amp; \quad &amp; \text{(C.14), (C.15)}\\
+ &amp;= \tr\left[
+      P \boldsymbol{\Sigma}_p^{-1}
+    \right]\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-19.9">
+<h2>Exercise 19.9<a class="headerlink" href="#Exercise-19.9" title="Permalink to this headline">¶</a></h2>
+<p>The mean and covariance of the points are respectively</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\sum_{j = 0}^{2D_\mathbf{w}} a_j \hat{\mathbf{w}}^{[j]}
+ &amp;= a_0 \boldsymbol{\mu}_{t - 1} +
+    \sum_{j = 1}^{D_\mathbf{w}}
+      \frac{1 - a_0}{2D_\mathbf{w}}
+      \left(
+        \boldsymbol{\mu}_{t - 1} +
+        \sqrt{\frac{D_\mathbf{w}}{1 - a_0}}
+          \boldsymbol{\Sigma}_{t - 1}^{1 / 2} \mathbf{e}_j
+      \right) +\\
+ &amp;\qquad
+    \sum_{j = D_\mathbf{w} + 1}^{2D_\mathbf{w}}
+      \frac{1 - a_0}{2D_\mathbf{w}}
+      \left(
+        \boldsymbol{\mu}_{t - 1} -
+        \sqrt{\frac{D_\mathbf{w}}{1 - a_0}}
+          \boldsymbol{\Sigma}_{t - 1}^{1 / 2} \mathbf{e}_{j - D_\mathbf{w}}
+      \right)
+    &amp; \quad &amp; \text{(19.40), (19.41)}\\
+ &amp;= a_0 \boldsymbol{\mu}_{t - 1} +
+    2 D_\mathbf{w} \frac{1 - a_0}{2D_\mathbf{w}} \boldsymbol{\mu}_{t - 1}\\
+ &amp;= \boldsymbol{\mu}_{t - 1}\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\sum_{j = 0}^{2D_\mathbf{w}} a_j
+   \left( \hat{\mathbf{w}}^{[j]} - \boldsymbol{\mu}_{t - 1} \right)
+   \left( \hat{\mathbf{w}}^{[j]} - \boldsymbol{\mu}_{t - 1} \right)^\top
+ &amp;= \sum_{j = 1}^{D_\mathbf{w}}
+      \frac{1 - a_0}{2D_\mathbf{w}} \frac{D_\mathbf{w}}{1 - a_0}
+      \left(
+        \boldsymbol{\Sigma}_{t - 1}^{1 / 2} \mathbf{e}_j
+      \right)
+      \left(
+        \boldsymbol{\Sigma}_{t - 1}^{1 / 2} \mathbf{e}_j
+      \right)^\top +\\
+ &amp;\qquad
+    \sum_{j = D_\mathbf{w} + 1}^{2D_\mathbf{w}}
+      \frac{1 - a_0}{2D_\mathbf{w}} \frac{D_\mathbf{w}}{1 - a_0}
+      \left(
+        -\boldsymbol{\Sigma}_{t - 1}^{1 / 2} \mathbf{e}_{j - D_\mathbf{w}}
+      \right)
+      \left(
+        -\boldsymbol{\Sigma}_{t - 1}^{1 / 2} \mathbf{e}_{j - D_\mathbf{w}}
+      \right)^\top
+    &amp; \quad &amp; \text{(19.40), (19.41)}\\
+ &amp;= \sum_{j = 1}^{D_\mathbf{w}}
+      \boldsymbol{\Sigma}_{t - 1}^{1 / 2} \mathbf{e}_j
+        \mathbf{e}_j^\top {\boldsymbol{\Sigma}_{t - 1}^{1 / 2}}^\top\\
+ &amp;= \sum_{j = 1}^{D_\mathbf{w}}
+      \mathbf{U} \boldsymbol{\Lambda}^{1/2} \mathbf{e}_j
+        \mathbf{e}_j^\top \boldsymbol{\Lambda}^{1/2} \mathbf{V}^\top\\
+ &amp;= \sum_{j = 1}^{D_\mathbf{w}}
+      \lambda_j \mathbf{U}_{\cdot j} \mathbf{V}_{j \cdot}^\top\\
+ &amp;= \boldsymbol{\Sigma}_{t - 1}\end{split}\]</div>
+<p>where the SVD of</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{\Sigma}_{t - 1}
+ &amp;= \mathbf{U} \boldsymbol{\Lambda} \mathbf{V}^\top\\
+ &amp;= \sum_j \lambda_j \mathbf{U}_{\cdot j} \mathbf{V}_{j \cdot}^\top,
+\\\\
+\boldsymbol{\Sigma}_{t - 1}^{1 / 2}
+ &amp;= \mathbf{U} \boldsymbol{\Lambda}^{1 / 2},
+\\\\
+{\boldsymbol{\Sigma}_{t - 1}^{1 / 2}}^\top
+ &amp;= \boldsymbol{\Lambda}^{1 / 2} \mathbf{V}^\top.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-19.20">
+<h2>Exercise 19.20<a class="headerlink" href="#Exercise-19.20" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{x}
+ &amp;= \mathbf{g}[\mathbf{w}, \boldsymbol{\epsilon}]
+    &amp; \quad &amp; \text{(19.30)}\\
+\begin{bmatrix} x_1\\ y_1\\ x_2\\ y_2 \end{bmatrix}
+ &amp;= \begin{bmatrix} u_1\\ v_1\\ u_2\\ v_2 \end{bmatrix} \frac{1}{1 + w} +
+    \boldsymbol{\epsilon}
+    &amp; \quad &amp; \text{(19.50)}\end{split}\]</div>
+<p><a class="bibtex reference internal" href="#hooverece8540ekf" id="id16">[Hoo]</a> has a nice worked out example that makes the following
+more understandable.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{\Phi}
+ &amp;= \frac{
+      \partial \mathbf{g}[\mathbf{w}, \boldsymbol{\epsilon}]
+    }{\partial \mathbf{w}}
+    &amp; \quad &amp; \text{(19.31)}\\
+ &amp;= \frac{
+      \partial \mathbf{g}[\mathbf{w}, \boldsymbol{\epsilon}]
+    }{
+      \partial \left\{ u_1, v_1, u_2, v_2, w\right\}
+    }\\
+ &amp;= \frac{1}{1 + w} \begin{bmatrix}
+      1 &amp; 0 &amp; 0 &amp; 0 &amp; -\frac{u_1}{1 + w}\\
+      0 &amp; 1 &amp; 0 &amp; 0 &amp; -\frac{v_1}{1 + w}\\
+      0 &amp; 0 &amp; 1 &amp; 0 &amp; -\frac{u_2}{1 + w}\\
+      0 &amp; 0 &amp; 0 &amp; 1 &amp; -\frac{v_2}{1 + w}
+    \end{bmatrix}
+\\\\
+\boldsymbol{\Upsilon}
+ &amp;= \frac{
+      \partial \mathbf{g}[\mathbf{w}, \boldsymbol{\epsilon}]
+    }{
+      \partial \boldsymbol{\epsilon}
+    }\\
+ &amp;= \mathbf{I}
+    &amp; \quad &amp; \text{(19.31).}\end{split}\]</div>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-nb/computer-vision-models-learning-and-inference-prince/chapter-19-0"><dl class="citation">
+<dt class="bibtex label" id="archambeau2008fsds"><span class="brackets"><a class="fn-backref" href="#id10">Arc</a></span></dt>
+<dd><p>Cedric Archambeau. Filtering and smoothing in dynamical systems. <span><a class="reference external" href="#"></a></span>http://www0.cs.ucl.ac.uk/staff/C.Archambeau/ATML/atml_files/atml08_lect2_dynsyst.pdf. Accessed on 2017-08-03.</p>
+</dd>
+<dt class="bibtex label" id="brushe1996forward"><span class="brackets"><a class="fn-backref" href="#id12">BMM96</a></span></dt>
+<dd><p>Gary D Brushe, Robert E Mahony, and John B Moore. A forward backward algorithm for ml state and sequence estimation. In <em>ISSPA</em>, 224–227. 1996.</p>
+</dd>
+<dt class="bibtex label" id="fletcher2010kalman"><span class="brackets"><a class="fn-backref" href="#id7">Fle</a></span></dt>
+<dd><p>Tristan Fletcher. The kalman filter explained. <span><a class="reference external" href="#"></a></span>https://tristan-fletcher-fdxe.squarespace.com/s/LDS-87ae.pdf. Accessed on 2017-08-02.</p>
+</dd>
+<dt class="bibtex label" id="hooverece8540ekf"><span class="brackets"><a class="fn-backref" href="#id16">Hoo</a></span></dt>
+<dd><p>Adam Hoover. Extended kalman filter. <span><a class="reference external" href="#"></a></span>http://www.ces.clemson.edu/ ahoover/ece854/lecture-notes/lecture-ekf.pdf. Accessed on 2017-08-02.</p>
+</dd>
+<dt class="bibtex label" id="jordan2001introduction"><span class="brackets"><a class="fn-backref" href="#id14">JB01</a></span></dt>
+<dd><p>Michael I Jordan and Chris Bishop. An introduction to graphical models. <em>unpublished book</em>, 2001. pg. 40.</p>
+</dd>
+<dt class="bibtex label" id="mackey2014lgssm"><span class="brackets"><a class="fn-backref" href="#id11">Mac</a></span></dt>
+<dd><p>Lester Mackey. Linear gaussian state space model. <span><a class="reference external" href="#"></a></span>http://web.stanford.edu/ lmackey/stats306b/doc/stats306b-spring14-lecture11_scribed.pdf. Accessed on 2017-08-03.</p>
+</dd>
+<dt class="bibtex label" id="mahony1996hybrid"><span class="brackets"><a class="fn-backref" href="#id13">MBM96</a></span></dt>
+<dd><p>Robert E Mahony, Gary D Brushe, and John B Moore. Hybrid algorithms for maximum likelihood and maximum a posterior sequence estimation. In <em>ISSPA</em>, 451–454. 1996.</p>
+</dd>
+<dt class="bibtex label" id="parrabmei5100"><span class="brackets"><a class="fn-backref" href="#id15">Par</a></span></dt>
+<dd><p>Lucas C. Parra. Hidden markov model kalman filter. <span><a class="reference external" href="#"></a></span>http://bme.ccny.cuny.edu/faculty/parra/teaching/biomed-dsp/class10.pdf. Accessed on 2017-08-03.</p>
+</dd>
+<dt class="bibtex label" id="schonborncs351gmspa"><span class="brackets"><a class="fn-backref" href="#id6">Sch</a></span></dt>
+<dd><p>Sandro Schonborn. Graphical models: sum-product algorithm. <span><a class="reference external" href="#"></a></span>http://cs-wwwarchiv.cs.unibas.ch/lehre/hs11/cs351/_Slides/Schoenborn_SumProduct.pdf. Accessed on 2017-08-02.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/nb/computer-vision-models-learning-and-inference-prince/chapter-19.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

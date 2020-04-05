@@ -1,0 +1,100 @@
+########################
+Understanding Order Flow
+########################
+
+Motivation(s)
+=============
+
+Standard microstructure models assume variables relevant to exchange rates are
+common knowledge, and thus trades have no causal effect on price.  These models
+operate on aggregated total flow and ignore order flow heterogeneity, the
+transactions initiated by agents of different types (e.g. corporations, hedge
+funds, mutual funds).  Recent empirical findings from Evans and Lyons (2004) on
+order flow heterogeneity indicate a new model is needed:
+
+- The price impact of order flow is different across end-user segments.
+- Order flow can forecast future flow, which in turn affects exchange rates.
+
+While existing models can add more variables to their regression to model
+different customer segments, the overall analysis would be wrong:
+
+- The order flow data from different segments are significantly correlated and
+  even exhibit autocorrelation.
+- The regression focuses on a single bank and ignores market-wide flows from all
+  segments that move the exchange rate.
+
+Proposed Solution(s)
+====================
+
+The authors adapt the Evans and Lyons (2004) model to focus on how differences
+across customer types affects the information contained in customer order flow,
+which in turn affects the joint dynamics of order flows and exchange rates.
+In contrast to the original model that focuses on the information aggregation
+process of FX trading, the adapted model distinguishes between
+liquidity-motivated traders, short-term investors, and long-term investors.
+
+Evaluation(s)
+=============
+
+The USD/EUR customer orders from Citibank between 1993 and 1999 were used in the
+simulations and empirical analysis.  Note that this data is only reflective of
+approximately 15% of the entire market.
+
+The simulations demonstrate that:
+
+- customer flows provide more precise information about fundamentals when the
+  mix of customers is tilted toward longer-horizon participants;
+- flows from customer segments can produce negative coefficients in
+  contemporaneous return regressions, even when positively correlated with
+  fundamentals; and
+- customer flows forecast returns because they are correlated with the future
+  market-wide information flow that dealers use to revise their FX prices.
+
+The authors' empirical analysis suggest that:
+
+- both the aggregate and disaggregated customer flows received by Citibank are
+  positively auto-correlated;
+- contemporaneous correlations across flow segments are low at the daily
+  frequency, but high at the monthly frequency;
+- some customer segments do produce negative coefficients in contemporaneous
+  return regressions;
+- the proportion of excess return variation that segment flows explain rises
+  with the horizon; and
+- about one-third of the order flow's power to forecast exchange rates one month
+  ahead comes from its ability to forecast future flow, with the remaining
+  two-thirds applying to price components unrelated to future flow.
+
+Although the authors' sequencing of quotes and trades oversimplifies actual
+trading in the market, this simplification enables them to focus on how
+information conveyed by customer orders is transmitted among dealers and
+embedded in spot rates.
+
+Future Direction(s)
+===================
+
+- Are public order flows still effective from a trader's perspective?
+- Does there exist :doc:`style factors </blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds>`
+  for forex?
+
+Question(s)
+===========
+
+- The way the technical details were written was not smooth at all.  Isn't the
+  main point simply customer order flows is another good indicator?
+
+Analysis
+========
+
+Order flows can serve as a powerful indicator in forex.  Unfortunately, this
+information is gated by market makers.  The authors should have examined
+whether traders can still benefit from order flows under adversarial market
+dealers.  Another issue is the convoluted presentation of the analysis: simple
+results are presented in an incomprehensible manner.  The arguments are too
+centered on :doc:`statistical significance </blog/2016/09/18/the-standard-error-of-regressions>`.
+Nonetheless, the notion of an equilibrium depreciation process does seem useful
+in modeling forex.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

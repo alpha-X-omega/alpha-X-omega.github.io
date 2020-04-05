@@ -1,0 +1,351 @@
+###################
+Layer Normalization
+###################
+
+Motivation(s)
+=============
+
+Consider the :math:`l^\textrm{th}` hidden layer in a deep feed-forward neural
+network, and let :math:`\mathbf{a}^l` be the vector representation of the summed
+inputs to the neurons in that layer.  The summed inputs are computed through a
+linear projection with the weight matrix :math:`\mathbf{W}^l` and the bottom-up
+inputs :math:`\mathbf{h}^l` given as follows:
+
+.. math::
+
+   a_i^l = {\mathbf{w}_i^l}^\top \mathbf{h}^l
+   \qquad \text{and} \qquad
+   \mathbf{h}^{l + 1} = \mathop{f}\left( a_i^l + b_i^l \right)
+
+where :math:`f` is an element-wise non-linear function, :math:`\mathbf{w}_i^l`
+is the incoming (row) weights to the :math:`i^\textrm{th}` hidden units, and
+:math:`b_i^l` is the scalar bias parameter.
+
+One of the challenges of deep learning is
+:doc:`internal covariate shift </blog/2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift>`.
+To reduce such undesirable covariate shift, batch normalization (BN) normalizes
+the summed inputs to each hidden unit over the training cases:
+
+.. math::
+
+   \newcommand{\E}[2][]{\left\langle #2 \right\rangle_{#1}}
+   \bar{a}_i^l = \frac{g_i^l}{\sigma_i^l} \left( a_i^l - \mu_i^l \right)
+   \qquad
+   \mu_i^l = \E[\mathbf{x} \sim P(\mathbf{x})]{a_i^l}
+   \qquad
+   \sigma_i^l =
+     \sqrt{
+       \E[\mathbf{x} \sim P(\mathbf{x})]{\left( a_i^l - \mu_i^l \right)^2}
+     }
+
+where :math:`g_i^l` is a gain parameter scaling the normalized activation before
+the non-linear activation function.  Here the expectation is over a mini-batch
+instead of the entire training data distribution.
+
+Feed-forward neural networks trained using batch normalization (BN) converge
+faster even with a simple version of stochastic gradient descent.  Despite BN's
+simplicity, it requires running averages of the summed input statistics.  In
+networks with fixed depth, the statistics can be stored separately for each
+layer.  This does not scale to recurrent neural networks (RNNs) because
+different statistics are needed for different time-steps.
+
+Proposed Solution(s)
+====================
+
+The authors observed that changes in the output of one layer will tend to cause
+highly correlated changes in the summed inputs to the next layer.  Thus, they
+propose layer normalization (LN): fix the mean and the variance of the summed
+inputs within each layer.  All the hidden units in a layer share the same
+normalization terms
+
+.. math::
+
+   \mu^l = \frac{1}{H} \sum_{i = 1}^H a_i^l
+   \qquad \text{and} \qquad
+   \sigma^l = \sqrt{\frac{1}{H} \sum_{i = 1}^H \left( a_i^l - \mu^l \right)^2}
+
+where :math:`H` denotes the number of hidden units, but different training cases
+have different normalization terms.  In regards to RNNs, this formulation
+depends only on the summed inputs to a layer at the current time-step and
+requires only one set of gain and bias parameters shared over all time-steps.
+The normalization terms make a layer invariant to any re-scaling of its summed
+inputs, which prevents both exploding and vanishing gradients.
+
+Evaluation(s)
+=============
+
+Even though the different normalization methods take on the form
+:math:`h_i = \mathop{f}\left( \frac{g_i}{\sigma_i} (a_i - \mu_i) + b_i \right)`,
+each exhibits different invariance properties as derived in
+:numref:`norm_invariance`.
+
+.. list-table::  Invariance Properties of Normalization Methods
+   :stub-columns: 1
+   :header-rows: 1
+   :name: norm_invariance
+
+   * - 
+     - Batch
+     - Weight
+     - Layer
+   * - Weight matrix re-scaling
+     - Invariant
+     - Invariant
+     - Invariant
+   * - Weight matrix re-centering
+     - No
+     - No
+     - Invariant
+   * - Weight vector re-scaling
+     - Invariant
+     - Invariant
+     - No
+   * - Dataset re-scaling
+     - Invariant
+     - No
+     - Invariant
+   * - Dataset re-centering
+     - Invariant
+     - No
+     - No
+   * - Single training case re-scaling
+     - No
+     - No
+     - Invariant
+
+The authors' geometric analysis on the generalized linear model reveals how
+normalization methods implicitly reduce learning rate and makes learning more
+stable.  The Fisher information matrix shows that for the same parameter update
+in the normalized model, the norm of the weight vector effectively controls the
+learning rate for the weight vector.  Furthermore, learning the gain parameters
+for the batch normalized and layer normalized models depends only on the
+magnitude of the prediction error.  Hence, learning the magnitude of incoming
+weights in the normalized model is more robust to the scaling of the input
+and its parameters.
+
+The authors applied LN to several RNN tasks such as image-sentence ranking,
+question-answering, contextual language modelling, generative modelling,
+handwriting sequence generation and MNIST classification.  The experimental
+results indicate LN offers a per-iteration speedup across all metrics, converges
+to the task's best validation model, and even improves generalization over the
+original model.
+
+For MNIST classification, the authors only applied LN to the fully-connected
+hidden layers that excludes the last softmax layer.  Compared to applying BN to
+all layers, LN is robust to the batch-sizes and exhibits a faster training.
+However, for convolutional layers, LN only offers a speedup over the baseline
+model without normalization while BN outperforms all methods.  With
+fully-connected layers, all the hidden units in a layer tend to make similar
+contributions to the final prediction and re-centering and re-scaling the summed
+inputs to a layer works well.  The assumption of similar contributions is not
+valid for convolutional layers where the large number of the hidden units whose
+receptive fields lie near the boundary of the image are rarely turned on and
+thus have very different statistics from the rest of the hidden units within the
+same layer.
+
+Future Direction(s)
+===================
+
+- If LN is augmented to be invariant to weight vector re-scaling, would it
+  overcome BN for CNNs?
+- How does the smoothing term affect the invariance properties of LN?
+
+Question(s)
+===========
+
+- The geometric analysis relies on the Fisher information matrix, but the
+  Adam optimizer does not even use the natural gradient.  To what extent does
+  this affect the analysis?
+- Does the initialization of the gains and bias matter?
+
+Analysis
+========
+
+Layer normalization is an effective and practical method that makes RNN training
+stable while attaining faster convergence.  With the invariance properties in
+mind, there is no reason to prefer weight normalization over LN
+:cite:`salimans2016weight`.
+
+The authors omitted too much experimental details on CNNs.  Their claim that LN
+beats BN for the fully-connected layers needs more analysis.  They should have
+presented the preliminary results on applying LN to CNN and what configurations
+they tried.
+
+Aside from :numref:`norm_invariance`, the geometric view of parameter spaces is
+a very useful technique to comprehend.  The learnable parameters in a
+statistical model form a smooth manifold that consists of all possible
+input-output relations of the model.  For models whose output is a probability
+distribution, a natural way to measure the separation of two points on this
+manifold is the KL divergence between their model output distributions.  Under
+the KL divergence metric, the parameter space is a Riemannian manifold.  The
+curvature of a Riemannian manifold is entirely captured by its Riemannian
+metric, which is well approximated using the
+:doc:`Fisher information matrix </blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification>`.
+
+A generalization of batch and layer normalization is divisive normalization (DN)
+:cite:`ren2016normalizing`.  DN modulates the neural activity by the activity of
+a pool of neighboring neurons.  This phenomenon has been deemed as a canonical
+computation of the brain.  Previous theoretical studies have outlined several
+potential computational roles for DN such as distributed neural representations,
+winner-take-all mechanisms, and contextual modulations in neural populations and
+perception.  The experiments demonstrate that smoothing the normalizers and
+adding a sparse :math:`L^1` regularizer improves the accuracy of all three
+normalizers.  Although the authors emphasized the appeal of DN, DN requires
+tuning the size of the neighboring neurons.  Instead, the most interesting
+implication is that localizing LN to individual regions cannot achieve
+significant improvements.  This is extrapolated from the results of DN without
+:math:`L^1` regularization but with a near-zero smoothing term.  The authors
+found that the smoothing term effectively modulates the rectified response to
+vary from a linear to a highly saturated response.  Furthermore, the learnable
+smoothing term tends to decrease with the depth of the network.
+
+Another interpretation of layer normalization is group normalization (GN)
+:cite:`wu2018group`.  GN is a layer that divides channels into groups and
+normalizes the features within each group.  This proposal is motivated by a
+well-accepted computational model in neuroscience that normalizes across the
+cell responses with various receptive-field centers (covering the visual field)
+and with various spatiotemporal frequency tunings.  The experiments defined a GN
+with two groupings, and the results indicate GN is 1.2% better than LN for
+visual recognition tasks.  However, the additional hyperparameter that picks
+how many groupings makes GN's significance questionable.
+
+Notes
+=====
+
+Layer Normalization Analytic Gradients
+--------------------------------------
+
+Layer normalization for a particular activation consists of
+
+.. math::
+
+   h_i &\gets \mathop{f}\left( \frac{g_i}{\sigma} (a_i - \mu) + b_i \right)\\
+   \mu &\gets \frac{1}{H} \sum_{i = 1}^H a_i\\
+   \sigma &\gets \sqrt{\frac{1}{H} \sum_{i = 1}^H \left( a_i - \mu \right)^2}.
+
+To simplify notations, define :math:`f' \triangleq
+\mathop{f'}\left( \frac{g_i}{\sigma} (a_i - \mu) + b_i \right)`.  The gradients
+of LN's parameters with respect to some loss function :math:`l` are
+
+.. math::
+
+   \frac{\partial l}{\partial g_i}
+    &= \frac{\partial l}{\partial h_i} \frac{\partial h_i}{\partial g_i}
+     = \frac{\partial l}{\partial h_i} f' \frac{a_i - \mu}{\sigma}
+   \\\\
+   \frac{\partial l}{\partial b_i}
+    &= \frac{\partial l}{\partial h_i} \frac{\partial h_i}{\partial b_i}
+     = \frac{\partial l}{\partial h_i} f'
+
+.. math::
+
+   \frac{\partial l}{\partial a_i}
+    &= \frac{\partial l}{\partial h_i} \frac{\partial h_i}{\partial a_i}\\
+    &= \frac{\partial l}{\partial h_i} f'
+       \left[
+         g_i \frac{\partial}{\partial a_i}
+           \left( a_i \sigma^{-1} - \mu \sigma^{-1} \right) +
+         \frac{\partial}{\partial a_i} b_i
+       \right]\\
+    &= \frac{\partial l}{\partial h_i} f' g_i
+       \left[
+           \sigma^{-1} + a_i \frac{\partial \sigma^{-1}}{\partial a_i} -
+           \frac{\partial \mu}{\partial a_i} \sigma^{-1} -
+           \mu \frac{\partial \sigma^{-1}}{\partial a_i}
+       \right]
+
+where
+
+.. math::
+
+   \frac{\partial \sigma^{-1}}{\partial a_i} =
+   \frac{-1}{2} \frac{1}{\sigma^3} \frac{2}{H} (a_i - \mu) =
+   \frac{-1}{H \sigma^3} (a_i - \mu)
+   \qquad \text{and} \qquad
+   \frac{\partial \mu}{\partial a_i} = H^{-1}.
+
+Consider a smoothing term :math:`s` such that
+
+.. math::
+
+   \sigma \gets
+   \sqrt{s^2 + \frac{1}{H} \sum_{i = 1}^H \left( a_i - \mu \right)^2}.
+
+The corresponding gradient is
+
+.. math::
+
+   \frac{\partial l}{\partial s}
+    &= \frac{\partial l}{\partial h_i} \frac{\partial h_i}{\partial s}\\
+    &= \frac{\partial l}{\partial h_i} f' g_i (a_i - \mu)
+       \frac{\partial \sigma^{-1}}{\partial s}\\
+    &= \frac{\partial l}{\partial h_i} f' g_i (a_i - \mu)
+       \frac{-1}{2} \frac{1}{\sigma^3} 2s\\
+    &= \frac{\partial l}{\partial h_i} f' g_i (a_i - \mu) \frac{-s}{\sigma^3}.
+
+Divisive Normalization
+----------------------
+
+DN models the response of a neuron :math:`\tilde{z}_j` as a ratio between the
+activity in a summation field :math:`\mathcal{A}_j` and a norm-like function of
+the suppression field :math:`\mathcal{B}_j`
+
+.. math::
+
+   \tilde{z}_j =
+   \gamma \frac{
+            \sum_{z_j \in \mathcal{A}_j} u_i z_i
+          }{
+            \left(
+              \sigma^2 + \sum_{z_k \in \mathcal{B}_j} w_k z_k^p
+            \right)^{1 / p}
+          }
+
+where :math:`\{ u_i \}` are the summation weights, :math:`\{ w_k \}` are the
+suppression weights, and :math:`\sigma^2` is a smoothing term.
+
+Consider the hidden input activation of one arbitrary layer in a deep neural
+network as :math:`\mathbf{z} \in \mathbb{R}^{N \times L}`.  Here :math:`N` is
+the mini-batch size, and in the case of a CNN, :math:`L = H \times W \times C`.
+For a RNN or fully-connected layers, :math:`L` is the number of hidden units.
+
+Each normalizer can be mapped to the following general form
+
+.. math::
+
+   z_{n, j} &= \sum_i w_{i, j} x_{n, i} + b_j\\
+   v_{n, j} &= z_{n, j} - \E[\mathcal{A}_{n, j}]{z}\\
+   \tilde{z}_{n, j}
+    &= \frac{
+         v_{n, j}
+       }{
+         \sqrt{\sigma^2 + \E[\mathcal{B}_{n, j}]{v^2}}
+       }
+
+through different choices of range and normalizer bias in :numref:`range_bias`.
+
+.. list-table::  Different Parameterizations
+   :header-rows: 1
+   :name: range_bias
+
+   * - Model
+     - Summation Range
+     - Suppression Range
+     - Normalizer Bias
+   * - BN
+     - :math:`\mathcal{A}_{n, j} = \left\{ z_{m, j} \colon m \in [1, N], j \in [1, H] \times [1, W] \right\}`
+     - :math:`\mathcal{B}_{n, j} = \left\{ v_{m, j} \colon m \in [1, N], j \in [1, H] \times [1, W] \right\}`
+     - :math:`\sigma = 0`
+   * - LN
+     - :math:`\mathcal{A}_{n, j} = \left\{ z_{n, i} \colon i \in [1, L] \right\}`
+     - :math:`\mathcal{B}_{n, j} = \left\{ v_{n, i} \colon i \in [1, L] \right\}`
+     - :math:`\sigma = 0`
+   * - DN
+     - :math:`\mathcal{A}_{n, j} = \left\{ z_{n, i} \colon d(i, j) \leq R_{\mathcal{A}} \right\}`
+     - :math:`\mathcal{B}_{n, j} = \left\{ v_{n, i} \colon d(i, j) \leq R_{\mathcal{B}} \right\}`
+     - :math:`\sigma \geq 0`
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

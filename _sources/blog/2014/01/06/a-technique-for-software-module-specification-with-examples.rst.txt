@@ -1,0 +1,82 @@
+###########################################################
+A Technique for Software Module Specification with Examples
+###########################################################
+
+Motivation(s)
+=============
+
+A growing problem in software engineering is the lack of technique for precisely
+specifying program segments without revealing too much information.
+
+Proposed Solution(s)
+====================
+
+The author proposes viewing a program module as a device with a set of switch
+inputs and readout indicators, whose values are completely determined by the
+previous values of the indicators and input positions.
+
+Evaluation(s)
+=============
+
+The technique have been evaluated successfully with small systems in an
+undergraduate course.
+
+Future Direction(s)
+===================
+
+- Is it possible to use code documentation (e.g. Sphinx) to derive TLA
+  capabilities, workflow validation, and unit test generation?
+
+Question(s)
+===========
+
+- Which modern language use machine checkable comments to describe exceptions
+  and assertions?
+
+Analysis
+========
+
+A set up of guidelines to produce high quality system documentation, which in
+turn can be used to automatically check system integrity.  It is unfortunate
+that TLA-like comments have not been adopted.  It would be interesting to see if
+these guidelines are enforceable under hard deadlines.
+
+Notes
+=====
+
+Goal of Specification
+---------------------
+
+(1) Provide the intended user with all the information to use the program
+    correctly, and nothing more.
+(#) Provide the implementer all the information about the intended use that
+    is needed to complete the program, and nothing more.
+(#) Information can be machine tested for consistency.
+(#) Discuss the program in the terms normally used by user and implementer
+    alike.
+
+Two Types of Functions
+----------------------
+
+1. Provide information which cannot be determined without calling that function
+   unless the user manually maintains duplicate information.
+#. Mapping functions provide redundant information.
+
+   - The value of these functions is completely predictable from the current
+     values of other functions.
+
+Specification
+-------------
+
+- Set of possible values
+- Initial Values
+
+  - Undefined is considered a special value instead of an unpredictable value.
+
+- Parameters
+- Effects (e.g. state, errors, trap, assertions, machine checkable comments)
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

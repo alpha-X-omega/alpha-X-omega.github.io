@@ -1,0 +1,81 @@
+###################################################################################
+Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market
+###################################################################################
+
+Motivation(s)
+=============
+
+In the seminal paper on frozen concentrate orange juice (FCOJ) future prices and
+weather, the author identified that fundamentals (e.g. cash flows, expected
+returns) have little explanatory power for asset returns.  Even though the
+results lack any mention of market irrationality, the excess volatility
+literature have subsequently adopted and frequently cited it in that context.
+
+Recent behavioral finance research proposed an alternative explanation that the
+relation between asset prices and fundamental information is incorrectly
+measured or not measured at all.
+
+Proposed Solution(s)
+====================
+
+The authors assert that existing literature has misinterpreted the data by
+ignoring the state dependence inherent in the structural relation between FCOJ
+returns and their underlying fundamentals.  Asset prices drift away from their
+underlying fundamentals due to irrational agents who ignore these fundamentals.
+The previously identified weather surprises should impact future returns only
+around freezing temperatures.  Examining non-weather related news about
+supply-side shocks provided further evidence for the proposed theory's
+prediction power.
+
+Evaluation(s)
+=============
+
+The data used in the experiments spanned from 1967 to 1998 and consisted of
+temperature forecasts, USDA production forecasts conditioned on a non-freeze
+season, resolution of production uncertainty, FCOJ futures returns, and
+production from areas outside of Orlando specifically Brazil.
+
+The empirical data revealed that the original FCOJ study incorrectly assigned
+nonzero importance to months that can not trigger a crop freeze.  The linear
+regression model it used cannot capture the nonlinearity of the weather: only a
+surprise that causes a transition between the freezing and nonfreezing state
+matters.  Moreover, the regression of asset returns on forecast errors
+implicitly assumes that a zero forecast error should have no effect. In contrast
+to the original study's conclusion, the FCOJ futures return variability and
+direction seems to coincide more with the author's proposed piecewise linear
+model.
+
+Since the goal is to demonstrate that relevant information about fundamentals
+affect asset prices, the authors chose to ignore return-relevant information.
+However, to build the correct structural model with all the relevant
+interactions and accurately measure the fundamentals is a difficult task.
+
+Future Direction(s)
+===================
+
+- What pieces of information returned by unsupervised learning can count as
+  fundamental?
+- How can counterfactual simulations be used to identify fundamental
+  information?
+
+Question(s)
+===========
+
+- What percentage of finance papers blindly accept results like FCOJ?
+
+Analysis
+========
+
+Fundamental information do have a strong predictable influence on asset
+returns assuming the model represents the relationships accurately enough.  When
+encountering any interpretation of data, always question the methodology that
+led to the conclusion.  The paper could have been summarized more succinctly
+while still maintaining a strong argument.  It is surprising that the excess
+volatility literature would simply cite a result without questioning its
+applicability.  The data in the appendix is very useful as labeled data for
+future exploration of identifying fundamental information.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

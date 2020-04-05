@@ -1,0 +1,87 @@
+{
+ "cells": [
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "************\n",
+    "Introduction\n",
+    "************"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 1.1: Self-Play\n",
+    "=======================\n",
+    "\n",
+    "Suppose the reinforcement learning algorithm described in tic-tac-toe played\n",
+    "against itself with both sides learning.  The result would be a faster\n",
+    "exploration of the state space, and hence a quicker convergence towards the\n",
+    "value function at equilibrium.  The policy for selecting moves may be different,\n",
+    "but all games should still end in a draw."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 1.2: Symmetries\n",
+    "========================\n",
+    "\n",
+    "Many tic-tac-toe positions appear different but are really\n",
+    "the same because of symmetries. How might we amend the learning process described\n",
+    "above to take advantage of this? In what ways would this change improve the learning\n",
+    "process? Now think again. Suppose the opponent did not take advantage of symmetries.\n",
+    "In that case, should we? Is it true, then, that symmetrically equivalent positions should\n",
+    "necessarily have the same value? \n",
+    "\n",
+    "Exercise 1.3: Greedy Play Suppose the reinforcement learning player was greedy, that is,\n",
+    "it always played the move that brought it to the position that it rated the best. Might it\n",
+    "learn to play better, or worse, than a nongreedy player? What problems might occur?\n",
+    "\n",
+    "Exercise 1.4: Learning from Exploration Suppose learning updates occurred after all\n",
+    "moves, including exploratory moves. If the step-size parameter is appropriately reduced\n",
+    "over time (but not the tendency to explore), then the state values would converge to a\n",
+    "set of probabilities. What are the two sets of probabilities computed when we do, and\n",
+    "when we do not, learn from exploratory moves? Assuming that we do continue to make\n",
+    "exploratory moves, which set of probabilities might be better to learn? Which would\n",
+    "result in more wins? \n",
+    "\n",
+    "Exercise 1.5: Other Improvements Can you think of other ways to improve the reinforcement\n",
+    "learning player? Can you think of any better way to solve the tic-tac-toe problem\n",
+    "as posed? "
+   ]
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "celltoolbar": "Raw Cell Format",
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.1"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 1
+}

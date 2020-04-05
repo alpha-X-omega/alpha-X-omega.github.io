@@ -1,0 +1,339 @@
+###########################################################################
+Architectural Styles and the Design of Network-based Software Architectures
+###########################################################################
+
+Software Architecture
+=====================
+
+Software Architecture
+  - An abstraction of a software system's run-time elements during some phase
+    of its operation.
+
+    - A system may be composed of many levels of abstraction and many phases of
+      operation, each with its own software architectures.
+    - Software structure do not have to match the software architecture.
+
+  - Defined by a configuration of architectural elements--components,
+    connectors, and data--constrained in their relationships in order to achieve
+    a desired set of architectural properties.
+
+Component
+  - An abstract unit of software instructions and internal state that provides
+    a transformation of data via its interface.
+
+Connector
+  - An abstract mechanism that mediates communication, coordination, or
+    cooperation among components.
+
+    - Some examples are shared representations, RPCs, message passing protocols,
+      and data streams.
+
+  - Transfers data elements between interfaces without changing the data.
+
+    - May consist of subsystem of components that transform the data for
+      transfer, perform the transfer, and then reverse the transformation for
+      delivery.
+
+Data
+  - A datum is an element of information that is transferred from a component,
+    or received by a component, via a connector.
+
+Configuration
+  - The structure of architectural relationships among components, connectors,
+    and data during a period of system run-time.
+
+Architectural Style
+  - A coordinated set of architectural constraints that restricts the
+    roles/features of architectural elements and the relationships among those
+    elements within any architecture that conforms to that style.
+
+Network-based Application Architectures
+=======================================
+
+Distributed System
+  - Looks like an ordinary centralized system, but runs on multiple,
+    independent CPUs.
+
+Network-based System
+  - Capable of operation across a network, but not necessarily transparent to
+    the user.
+
+Evaluating the Design of Application Architectures
+  - The space of architectural styles is a derivation tree whose root is the
+    null style (empty set of constraints).
+
+    - This tree is application domain specific and focuses on the functional
+      requirements.
+
+Network-based Architectural Styles
+==================================
+
+See Table 3-6 for a comparison of each style.
+
+Data-flow Styles
+  - e.g. (uniform) pipe and filter.
+
+Replication Styles
+  - e.g. replicated repository and cache.
+
+Hierarchical Styles
+  - e.g. client-server, layered system, client-stateless-server, remote session,
+    remote data access.
+
+Mobile Code Styles
+  - A data element is dynamically transformed into a component.
+  - e.g. virtual machine, remote evaluation, code on demand, mobile agent.
+
+Peer-to-Peer Styles
+  - e.g. event-based integration, C2, distributed objects.
+
+Designing the Web Architecture: Problems and Insights
+=====================================================
+
+Hypothesis I
+  - The design rationale behind the WWW architecture can be described by an
+    architectural style applied to the elements within the Web architecture.
+
+Hypothesis II
+  - Constraints can be added to the WWW architectural style to derive a new
+    hybrid style that better reflects the desired properties of a modern
+    Web architecture.
+
+Hypothesis III
+  - Proposals to modify the Web architecture can be compared to the updated
+    WWW architectural style and analyzed for conflicts prior to deployment.
+
+Representational State Transfer (REST)
+======================================
+
+See Figure 5-9 for a REST derivation by style constraints.  REST's uniform
+interface is designed to be efficient for large-grain hypermedia data transfer.
+
+Interface Constraints
+  - Identification of resources
+  - Manipulation of resources through representations
+  - Self-descriptive messages
+  - Hypermedia as the engine of application state
+
+Code-On-Demand
+  - This optional REST constraint improves extensibility, but reduces
+    visibility.
+
+Data Elements
+  - See Table 5-1 for modern web examples.
+  - A resource is a conceptual mapping to a set of entities (possibly the empty
+    set or temporally varying set), not the entity that corresponds to the
+    mapping at any particular point in time.
+  - REST uses a resource identifier to identify the particular resource
+    involved in an interaction between components.
+
+Connectors
+  - See Table 5-2 for modern web examples.
+  - All interactions contain enough information for a connector to understand
+    the request, independent of any requests that may have preceded it.
+
+Components
+  - See Table 5-3 for modern web examples.
+  - REST components perform actions on a resource.
+
+Views
+  - A process view elicits the interaction relationships among components by
+    revealing the path of data as it flows through the system.
+  - A connector view concentrates on the mechanics of the communication between
+    components.
+
+    - In REST, the focus is on the constraints that define the generic resource
+      identifiers.
+
+Data View
+  - Reveals the application state as information flows through the components.
+  - Response first, think later.
+
+    (i) Control state sends whatever is optimal first, then provide a list of
+        alternatives.
+    (#) Negotiating feature capabilities prior to sending a content response
+        will be very slow.
+    (#) Application state is controlled and stored by the user agent and can be
+        composed of representations from multiple servers.
+
+Experience and Evaluation
+=========================
+
+REST applied to URI
+  - Identifiers should change as infrequently as possible.
+
+    - Accomplished via defining a resource to be the semantics (concept) of what
+      the author intends to identify, rather than the value corresponding to
+      those semantics at the time the reference is created.
+
+  - REST defines the things (concepts) that are manipulated to be
+    representations of the identified resource, rather than the resource itself.
+  - A resource can have many identifiers.
+
+    - Two or more different URIs can have equivalent semantics when used to
+      access a server resulting in the same or different resources.
+
+  - The server and client software does not need to know or understand the
+    meaning of a URI.
+
+    - The URI is for the human to associate representations with the semantics
+      identified by the URI.
+    - There are no resources on the server; just mechanisms that supply answers
+      across an abstract interface defined by resources.
+
+  - The Web architecture consists of constraints on the communication model
+    between components, based on the role of each component during an
+    application action.
+
+REST mismatches in URI
+  - Syntax alone is insufficient to force naming authorities to define their own
+    URI according to the resource model.
+
+    - One form of abuse is to include information that identifies the
+      current user within all of the URI referenced by a hypermedia
+      response representation.
+
+  - Do not treat the Web as a distributed file system because the resource
+    interface does not always match the semantics of a file system.
+
+REST mismatches in HTTP
+  - Use *no-cache*, for now, to differentiate non-authoritative responses.
+  - Cookie-based applications will never be reliable.
+
+    (i) Should have been accomplished via anonymous authentication and true
+        client-side state.
+    (#) Preferences can be more efficiently implemented using context-setting
+        URI rather than cookies i.e. one URI per state.
+    (#) Shopping basket can be implemented via client-side shopping basket,
+        complete with a URI to be used for check-out.
+
+Architectural Lessons
+  - One advantage of a Network-based API is on-the-wire syntax with defined
+    semantics for application interactions.
+  - HTTP is not RPC.
+  - HTTP is not a transport protocol; it is a transfer protocol.
+  - Design of Media Types
+
+    - Frames (like cookies) were failures because it tried to provide indirect
+      application that could not be managed or interpreted by the user agent.
+
+Retrospective
+=============
+
+    Web implementations are not equivalent to Web architecture and Web
+    architecture is not equivalent to the REST style
+    :cite:`fielding2008softarch`.
+
+If the engine of application state (and hence the API) is not being driven by
+hypertext, then it cannot be RESTful and cannot be a REST API
+:cite:`fielding2008rest`.  The hypertext must send the client directly to the
+desired application state.
+
+    Here hypertext is defined as the simultaneous presentation of information
+    and controls such that the information becomes the affordance through which
+    the user (or automaton) obtains choices and selects actions.  Hypermedia is
+    just an expansion on what text means to include temporal anchors within a
+    media stream.  Hypertext does not need to be HTML on a browser.  Machines
+    can follow links when they understand the data format and relationship
+    types.
+
+    The `media type`_ identifies a specification that defines how a
+    representation is to be processed.  That is out-of-band information (all
+    communication is dependent on some prior knowledge).
+
+.. _media type: https://www.iana.org/assignments/media-types/media-types.xhtml
+
+Furthermore, REST lacks any specificity pertaining to CRUD or GET/POST because
+
+    methods defined by `HTTP`_ are part of the Web’s architecture definition,
+    not the REST architectural style.  The only thing REST requires of methods
+    is that they be uniformly defined for all resources.
+
+.. _HTTP: https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
+
+An example of applying REST to URI, HTTP, and HTML is given in
+:cite:`leonard2008mh`.  One interpretation of a RESTful API is
+:doc:`object-oriented design </blog/2013/01/22/notes-on-software-design>`
+where the methods are uniformly defined using HTTP request methods, the data
+consists of hypertext, and the state transitions are realized through URIs.
+Accordingly, all the software design techniques carry over (e.g. conceptual
+integrity, self-documenting, minimal information distribution):
+
+- Use HTTP request methods instead of CRUD function names in URIs.
+- Correctly use `HTTP status codes`_ instead of rolling your own.
+- Use hyphens (-) to improve the readability of URIs because the underscore (_)
+  character can either get partially obscured or completely hidden in some
+  browsers or screens.
+- Use lowercase letters in URIs and avoid file extensions to simplify API usage.
+- Use forward slash (/) to indicate a hierarchical relationship since that
+  concept is widely recognized.
+- The trailing forward slash (/) in URIs offers no semantic value in comparison
+  to URL query string.
+- Reuse the URL query string when appropriate (e.g. sorting, filtering); do not
+  reinvent the wheel.
+- Prefer to use an existing hypermedia format like `JSON-LD`_ instead of rolling
+  your own with just `JSON`_.
+
+.. _HTTP status codes: https://httpstatuses.com/
+.. _JSON-LD: https://json-ld.org
+.. _JSON: https://www.json.org
+
+The following are the rules related to the hypertext constraint that are most
+often violated within so-called REST APIs:
+
+    A REST API should not be dependent on any single communication protocol,
+    though its successful mapping to a given protocol may be dependent on the
+    availability of metadata, choice of methods, etc.  In general, any protocol
+    element that uses a URI for identification must allow any URI scheme to be
+    used for the sake of that identification.  Failure here implies that
+    identification is not separated from interaction.
+
+    A REST API should not contain any changes to the communication protocols
+    aside from filling out or fixing the details of underspecified bits of
+    standard protocols, such as HTTP’s PATCH method or Link header field.
+    Workarounds for broken implementations (such as those browsers stupid enough
+    to believe that HTML defines HTTP’s method set) should be defined
+    separately, or at least in appendices, with an expectation that the
+    workaround will eventually be obsolete.  Failure here implies that the
+    resource interfaces are object-specific, not generic.
+
+    A REST API should spend almost all of its descriptive effort in defining the
+    media type(s) used for representing resources and driving application state,
+    or in defining extended relation names and/or hypertext-enabled mark-up for
+    existing standard media types.  Any effort spent describing what methods to
+    use on what URIs of interest should be entirely defined within the scope of
+    the processing rules for a media type (and, in most cases, already defined
+    by existing media types).  Failure here implies that out-of-band information
+    is driving interaction instead of hypertext.
+
+    A REST API must not define fixed resource names or hierarchies (an obvious
+    coupling of client and server).  Servers must have the freedom to control
+    their own namespace.  Instead, allow servers to instruct clients on how to
+    construct appropriate URIs, such as is done in HTML forms and URI templates,
+    by defining those instructions within media types and link relations.
+    Failure here implies that clients are assuming a resource structure due to
+    out-of band information, such as a domain-specific standard, which is the
+    data-oriented equivalent to RPC’s functional coupling.
+
+    A REST API should never have “typed” resources that are significant to the
+    client.  Specification authors may use resource types for describing server
+    implementation behind the interface, but those types must be irrelevant and
+    invisible to the client.  The only types that are significant to a client
+    are the current representation’s media type and standardized relation names.
+
+    A REST API should be entered with no prior knowledge beyond the initial URI
+    (bookmark) and set of standardized media types that are appropriate for the
+    intended audience (i.e., expected to be understood by any client that might
+    use the API).  From that point on, all application state transitions must be
+    driven by client selection of server-provided choices that are present in
+    the received representations or implied by the user’s manipulation of those
+    representations.  The transitions may be determined (or limited by) the
+    client’s knowledge of media types and resource communication mechanisms,
+    both of which may be improved on-the-fly (e.g., code-on-demand).  Failure
+    here implies that out-of-band information is driving interaction instead of
+    hypertext.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

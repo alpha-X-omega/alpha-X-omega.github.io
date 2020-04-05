@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Nonlinear Problems in One Variable &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Numerical Linear Algebra Background" href="chapter-03.html" />
+    <link rel="prev" title="Introduction" href="chapter-01.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Nonlinear Problems in One Variable</a><ul>
+<li><a class="reference internal" href="#What-Is-Not-Possible">What Is Not Possible</a></li>
+<li><a class="reference internal" href="#Exercise-1">Exercise 1</a></li>
+<li><a class="reference internal" href="#Exercise-2">Exercise 2</a></li>
+<li><a class="reference internal" href="#Exercise-3">Exercise 3</a></li>
+<li><a class="reference internal" href="#Exercise-4">Exercise 4</a></li>
+<li><a class="reference internal" href="#Exercise-5">Exercise 5</a></li>
+<li><a class="reference internal" href="#Exercise-6">Exercise 6</a></li>
+<li><a class="reference internal" href="#Exercise-7">Exercise 7</a></li>
+<li><a class="reference internal" href="#Exercise-8">Exercise 8</a></li>
+<li><a class="reference internal" href="#Exercise-9">Exercise 9</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+<li><a class="reference internal" href="#(d)">(d)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-10">Exercise 10</a></li>
+<li><a class="reference internal" href="#Exercise-11">Exercise 11</a></li>
+<li><a class="reference internal" href="#Exercise-12">Exercise 12</a></li>
+<li><a class="reference internal" href="#Exercise-13">Exercise 13</a></li>
+<li><a class="reference internal" href="#Exercise-14">Exercise 14</a></li>
+<li><a class="reference internal" href="#Exercise-15">Exercise 15</a></li>
+<li><a class="reference internal" href="#Exercise-16">Exercise 16</a></li>
+<li><a class="reference internal" href="#Exercise-17">Exercise 17</a></li>
+<li><a class="reference internal" href="#Exercise-18">Exercise 18</a></li>
+<li><a class="reference internal" href="#Exercise-19">Exercise 19</a></li>
+<li><a class="reference internal" href="#Exercise-20">Exercise 20</a></li>
+<li><a class="reference internal" href="#Exercise-21">Exercise 21</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="chapter-01.html" title="Previous Chapter: Introduction"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Introduction</span>
+    </a>
+  </li>
+  <li>
+    <a href="chapter-03.html" title="Next Chapter: Numerical Linear Algebra Background"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Numerical Lin... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Nonlinear-Problems-in-One-Variable">
+<h1>Nonlinear Problems in One Variable<a class="headerlink" href="#Nonlinear-Problems-in-One-Variable" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="What-Is-Not-Possible">
+<h2>What Is Not Possible<a class="headerlink" href="#What-Is-Not-Possible" title="Permalink to this headline">¶</a></h2>
+<p>Solvers can only return an approximate answer or signal that no solution was
+found in the allotted time.</p>
+</div>
+<div class="section" id="Exercise-1">
+<h2>Exercise 1<a class="headerlink" href="#Exercise-1" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">Newtons_Method</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f_prime</span><span class="p">,</span> <span class="n">x_c</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x_c</span> <span class="o">-</span> <span class="n">f</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span> <span class="o">/</span> <span class="n">f_prime</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">12</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">47</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">60</span> <span class="o">*</span> <span class="n">x</span>
+<span class="n">f_prime</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">36</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">94</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">60</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x_c</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">Newtons_Method</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f_prime</span><span class="p">,</span> <span class="n">x_c</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Iteration {0}: {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+    <span class="n">x_c</span> <span class="o">=</span> <span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Iteration 0: 2.75
+Iteration 1: 2.954884105960265
+Iteration 2: 2.997853245312536
+Iteration 3: 2.99999465016014
+Iteration 4: 2.9999999999666165
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x_c</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">Newtons_Method</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f_prime</span><span class="p">,</span> <span class="n">x_c</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Iteration {0}: {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+    <span class="n">x_c</span> <span class="o">=</span> <span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Iteration 0: 13.0
+Iteration 1: 10.578892912571133
+Iteration 2: 8.78588342536825
+Iteration 3: 7.469644320482534
+Iteration 4: 6.517931578972248
+Iteration 5: 5.848418791850394
+Iteration 6: 5.4023336439265215
+Iteration 7: 5.139173220737766
+Iteration 8: 5.024562327545462
+Iteration 9: 5.000967258633622
+Iteration 10: 5.000001586728139
+Iteration 11: 5.000000000004287
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Exercise-2">
+<h2>Exercise 2<a class="headerlink" href="#Exercise-2" title="Permalink to this headline">¶</a></h2>
+<p>On CDC machines, the base is 2 and the mantissa has 48 bits.  The machine is
+accurate up to <span class="math notranslate nohighlight">\(\log 2^{48} \sim \log 10^{14.4} \approx 14\)</span> decimal
+digits.</p>
+<p>Given <span class="math notranslate nohighlight">\(x_k = 1 + 0.9^k\)</span>, <span class="math notranslate nohighlight">\(x_k \rightarrow 1\)</span> implies</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}2^{-48} &amp;= 0.9^k\\
+-48 \log{2} &amp;= k \log{0.9}\\
+\frac{-48 \log{2}}{\log{0.9}} &amp;= k \sim 315.78\end{split}\]</div>
+<p>Evidently, it will take <span class="math notranslate nohighlight">\(\lceil k \rceil\)</span> iterations to converge to
+<span class="math notranslate nohighlight">\(1\)</span> on a CDC machine.  The convergence rate is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\lvert x_{k + 1} - x_* \rvert &amp;\leq c \lvert x_k - x_* \rvert\\
+\left| \frac{0.9^{k + 1}}{0.9^{k}} \right| &amp;\leq c\\
+0.9 \leq c,\end{split}\]</div>
+<p>which shows that <span class="math notranslate nohighlight">\(q\)</span>-linear convergence with constant 0.9 is not
+satisfactory for general computational algorithms.</p>
+</div>
+<div class="section" id="Exercise-3">
+<h2>Exercise 3<a class="headerlink" href="#Exercise-3" title="Permalink to this headline">¶</a></h2>
+<p>The sequence <span class="math notranslate nohighlight">\(x_k = 1 + 1 / k!\)</span> converges <span class="math notranslate nohighlight">\(q\)</span>-superlinearly to one
+because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left| \frac{\frac{1}{(k + 1)!}}{\frac{1}{k!}} \right| &amp;\leq c\\
+\left| \frac{1}{k + 1} \right| &amp;\leq c.\end{split}\]</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">numpy</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x_star</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">C</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
+    <span class="n">x_k</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">x_kp1</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="n">C</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x_kp1</span> <span class="o">-</span> <span class="n">x_star</span><span class="p">)</span> <span class="o">/</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x_k</span> <span class="o">-</span> <span class="n">x_star</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Iteration $k$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Convergence Rate&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$1 + 1 / k! \rightarrow 1$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;Figure size 640x480 with 1 Axes&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Exercise-4">
+<h2>Exercise 4<a class="headerlink" href="#Exercise-4" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="bibtex reference internal" href="#potra1989onq" id="id1">[Pot89]</a> for details.</p>
+</div>
+<div class="section" id="Exercise-5">
+<h2>Exercise 5<a class="headerlink" href="#Exercise-5" title="Permalink to this headline">¶</a></h2>
+<p>Given <span class="math notranslate nohighlight">\(\left\{ x_k \right\}\)</span> has <span class="math notranslate nohighlight">\(q\)</span>-order at least <span class="math notranslate nohighlight">\(p\)</span> and
+<span class="math notranslate nohighlight">\(e_k = |x_k - x_*|\)</span>, let <span class="math notranslate nohighlight">\(b_k = |x_{k - 1} - x_*|\)</span>.  By definition
+of <span class="math notranslate nohighlight">\(q\)</span>-order at least <span class="math notranslate nohighlight">\(p\)</span>, <span class="math notranslate nohighlight">\(\left\{ b_k \right\}\)</span> converges to
+zero where <span class="math notranslate nohighlight">\(e_k \leq b_k\)</span> and
+<span class="math notranslate nohighlight">\(\left| x_k - x_* \right| \leq c \left| x_{k - 1} - x_* \right|^p\)</span> holds.</p>
+<p>Applying L’Hopital’s rule to the following indeterminate form</p>
+<div class="math notranslate nohighlight">
+\[\lim_{k \to \infty} \frac{b_k}{e_k} =
+\lim_{k \to \infty}
+  \frac{\left| x_{k - 1} - x_* \right|}{\left| x_k - x_* \right|} =
+1 &lt; \infty\]</div>
+<p>demonstrates convergence to a finite value.</p>
+</div>
+<div class="section" id="Exercise-6">
+<h2>Exercise 6<a class="headerlink" href="#Exercise-6" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="bibtex reference internal" href="#gay1979some" id="id2">[Gay79]</a> for details.</p>
+</div>
+<div class="section" id="Exercise-7">
+<h2>Exercise 7<a class="headerlink" href="#Exercise-7" title="Permalink to this headline">¶</a></h2>
+<p>To reuse the framework of Newton’s method covered so far, we need to formulate a
+local model around <span class="math notranslate nohighlight">\(f(x) = 1 / a\)</span> such that we can solve for the root of
+the model.</p>
+<p>Defining <span class="math notranslate nohighlight">\(f(x) = a x - 1\)</span> is perfectly valid and does not use any division
+operators.  Unfortunately, this model still requires a division by <span class="math notranslate nohighlight">\(f\)</span> and
+<span class="math notranslate nohighlight">\(f'\)</span> for Newton’s method.  To avoid those divisions, the model should be
+written as <span class="math notranslate nohighlight">\(f(x) = 1 / x - a\)</span> with <span class="math notranslate nohighlight">\(f'(x) = -1 / x^2\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(x) - f(x_c) &amp;= \int_{x_c}^x f'(z) dz\\
+f(x) - f(x_c) &amp;\simeq f'(x_c) (x - x_c) &amp; \quad &amp; \text{Taylor expansion}\\
+x &amp;= x_c + \frac{f(x) - f(x_c)}{f'(x_c)}\\
+x_* &amp;= x_c - \frac{f(x_c)}{f'(x_c)}\\
+x_* &amp;= x_c - \frac{1 / x_c - a}{-1 / x_c^2}\\
+x_* &amp;= x_c + x_c - a x_c^2\\
+x_* &amp;= x_c (2 - a x_c)\end{split}\]</div>
+<p>The absolute error</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left| x_k - x_* \right|
+ &amp;\leq \left| x_{k - 1} (2 - a x_{k - 1}) - \frac{1}{a} \right|\\
+ &amp;\leq \left| -a x_{k - 1}^2 + 2 x_{k - 1} - \frac{1}{a} \right|\\
+ &amp;\leq \left| a x_{k - 1}^2 - 2 x_{k - 1} + \frac{1}{a} \right|\\
+ &amp;\leq |a|
+     \left|
+       x_{k - 1}^2 - \frac{2}{a} x_{k - 1} + \frac{1}{a^2}
+     \right|\\
+ &amp;\leq |a| \left| x_{k - 1} - \frac{1}{a} \right|^2\end{split}\]</div>
+<p>indicates the convergence rate is <span class="math notranslate nohighlight">\(q\)</span>-quadratic.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x_c</span><span class="p">:</span> <span class="n">x_c</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">-</span> <span class="n">a</span> <span class="o">*</span> <span class="n">x_c</span><span class="p">)</span>
+<span class="n">x_star</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">a</span>
+<span class="n">x_c</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">C</span> <span class="o">=</span> <span class="p">[</span><span class="n">x_c</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">x_k</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+    <span class="n">x_c</span> <span class="o">=</span> <span class="n">x_k</span>
+
+    <span class="n">C</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x_k</span> <span class="o">-</span> <span class="n">x_star</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Iteration $k$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Absolute Error&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Division via Newton&#39;s Method&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_12_0.png" src="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_12_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Exercise-8">
+<h2>Exercise 8<a class="headerlink" href="#Exercise-8" title="Permalink to this headline">¶</a></h2>
+<p>Define <span class="math notranslate nohighlight">\(D = \left| x_0 - z_0 \right|\)</span> as the length of the interval around
+<span class="math notranslate nohighlight">\(x_*\)</span>.  The bisection method would stop once <span class="math notranslate nohighlight">\(D \approx 0\)</span>.  Since</p>
+<div class="math notranslate nohighlight">
+\[\left|x_{k + 1} - x_*\right| \leq
+D_{k + 1} \leq
+c \left|x_k - x_*\right|
+\leq c D_k\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}D_{k + 1} &amp;\leq c D_k\\
+\frac{1}{2} &amp;\leq c,\end{split}\]</div>
+<p>the bisection method’s convergence rate is q-linear.  Note that the bisection
+method does not extend naturally to higher dimensions.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">5</span>
+<span class="n">x_k</span><span class="p">,</span> <span class="n">z_k</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+    <span class="n">x_n</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_k</span> <span class="o">+</span> <span class="n">z_k</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="n">x_k</span><span class="p">)</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x_n</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">z_n</span> <span class="o">=</span> <span class="n">x_k</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">z_n</span> <span class="o">=</span> <span class="n">z_k</span>
+    <span class="n">x_k</span><span class="p">,</span> <span class="n">z_k</span> <span class="o">=</span> <span class="n">x_n</span><span class="p">,</span> <span class="n">z_n</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">x_n</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.55
+0.325
+0.21250000000000002
+0.15625
+0.184375
+0.19843750000000002
+0.20546875000000003
+0.201953125
+0.2001953125
+0.19931640625000002
+0.199755859375
+0.1999755859375
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Exercise-9">
+<span id="dennis1996numerical-ex-2-9"></span><h2>Exercise 9<a class="headerlink" href="#Exercise-9" title="Permalink to this headline">¶</a></h2>
+<p>The following analysis are based on Theorem 2.4.3.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="k">class</span> <span class="nc">HybridQuasiNewton</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">typx</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_kEpsilon</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_kRootEpsilon</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_kEpsilon</span><span class="p">)</span>
+
+        <span class="c1">#parameters to solver</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span> <span class="o">=</span> <span class="n">tau</span>
+        <span class="k">if</span> <span class="n">tau</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_kRootEpsilon</span><span class="p">,)</span> <span class="o">*</span> <span class="mi">2</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_typx</span> <span class="o">=</span> <span class="n">typx</span>
+        <span class="k">if</span> <span class="n">typx</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_typx</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_secant_state</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">evaluate_fdnewton</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">x_c</span><span class="p">):</span>
+        <span class="c1">#finite forward-difference</span>
+        <span class="n">h_c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kRootEpsilon</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x_c</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typx</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">f_xc</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+        <span class="n">a_c</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x_c</span> <span class="o">+</span> <span class="n">h_c</span><span class="p">)</span> <span class="o">-</span> <span class="n">f_xc</span><span class="p">)</span> <span class="o">/</span> <span class="n">h_c</span>
+        <span class="n">x_k</span> <span class="o">=</span> <span class="n">x_c</span> <span class="o">-</span> <span class="n">f_xc</span> <span class="o">/</span> <span class="n">a_c</span>
+
+        <span class="n">x_n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backtracking_strategy</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x_c</span><span class="p">,</span> <span class="n">x_k</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x_c</span><span class="p">,</span> <span class="n">x_n</span><span class="p">),</span> <span class="n">x_n</span>
+
+    <span class="k">def</span> <span class="nf">evaluate_newton</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">f_prime</span><span class="p">,</span> <span class="n">x_c</span><span class="p">):</span>
+        <span class="n">x_k</span> <span class="o">=</span> <span class="n">x_c</span> <span class="o">-</span> <span class="n">f</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span> <span class="o">/</span> <span class="n">f_prime</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+
+        <span class="n">x_n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backtracking_strategy</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x_c</span><span class="p">,</span> <span class="n">x_k</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x_c</span><span class="p">,</span> <span class="n">x_n</span><span class="p">),</span> <span class="n">x_n</span>
+
+    <span class="k">def</span> <span class="nf">evaluate_secant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">x_c</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_secant_state</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="c1">#secant method uses previous iteration&#39;s results</span>
+            <span class="n">h_c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kRootEpsilon</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x_c</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typx</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="c1">#compute finite central-difference</span>
+            <span class="n">a_c</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x_c</span> <span class="o">+</span> <span class="n">h_c</span><span class="p">)</span> <span class="o">-</span> <span class="n">f</span><span class="p">(</span><span class="n">x_c</span> <span class="o">-</span> <span class="n">h_c</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">h_c</span><span class="p">)</span>
+            <span class="n">f_xc</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+            <span class="n">x_k</span> <span class="o">=</span> <span class="n">x_c</span> <span class="o">-</span> <span class="n">f_xc</span> <span class="o">/</span> <span class="n">a_c</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_secant_state</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_c</span><span class="p">,</span> <span class="n">f_xc</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">x_m</span><span class="p">,</span> <span class="n">f_xm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_secant_state</span>
+            <span class="n">f_xc</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+            <span class="n">a_c</span> <span class="o">=</span> <span class="p">(</span><span class="n">f_xm</span> <span class="o">-</span> <span class="n">f_xc</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">x_m</span> <span class="o">-</span> <span class="n">x_c</span><span class="p">)</span>
+            <span class="n">x_k</span> <span class="o">=</span> <span class="n">x_c</span> <span class="o">-</span> <span class="n">f_xc</span> <span class="o">/</span> <span class="n">a_c</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_secant_state</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_c</span><span class="p">,</span> <span class="n">f_xc</span><span class="p">)</span>
+
+        <span class="n">x_n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backtracking_strategy</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x_c</span><span class="p">,</span> <span class="n">x_k</span><span class="p">)</span>
+
+        <span class="n">converged</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x_c</span><span class="p">,</span> <span class="n">x_n</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">converged</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_secant_state</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="k">return</span> <span class="n">converged</span><span class="p">,</span> <span class="n">x_n</span>
+
+    <span class="k">def</span> <span class="nf">_backtracking_strategy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">x_c</span><span class="p">,</span> <span class="n">x_n</span><span class="p">):</span>
+        <span class="k">while</span> <span class="nb">abs</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x_n</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x_c</span><span class="p">)):</span>
+            <span class="n">x_n</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_c</span> <span class="o">+</span> <span class="n">x_n</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">return</span> <span class="n">x_n</span>
+
+    <span class="k">def</span> <span class="nf">_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">x_c</span><span class="p">,</span> <span class="n">x_n</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x_n</span><span class="p">))</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span>\
+            <span class="nb">abs</span><span class="p">(</span><span class="n">x_n</span> <span class="o">-</span> <span class="n">x_c</span><span class="p">)</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x_n</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typx</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">plot_convergent_sequence</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">x_star</span><span class="p">):</span>
+    <span class="n">x_c</span> <span class="o">=</span> <span class="n">x_0</span>
+    <span class="n">seq</span> <span class="o">=</span> <span class="p">[</span><span class="nb">abs</span><span class="p">(</span><span class="n">x_c</span> <span class="o">-</span> <span class="n">x_star</span><span class="p">)]</span>
+    <span class="n">converged</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">converged</span><span class="p">:</span>
+        <span class="n">converged</span><span class="p">,</span> <span class="n">x_n</span> <span class="o">=</span> <span class="n">solver</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+        <span class="n">x_c</span> <span class="o">=</span> <span class="n">x_n</span>
+        <span class="n">seq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x_c</span> <span class="o">-</span> <span class="n">x_star</span><span class="p">))</span>
+        <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="n">_</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$x_0 = {0:.3f}, {1} = {2:.3f}, x_* = {3:.3f}$&#39;</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x_0</span><span class="p">,</span> <span class="s1">&#39;x_{&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span><span class="p">,</span> <span class="n">x_c</span><span class="p">,</span> <span class="n">x_star</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">seq</span><span class="p">)),</span> <span class="n">seq</span><span class="p">,</span>
+                 <span class="n">label</span><span class="o">=</span><span class="n">_</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Iteration $k$&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Absolute Error&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Convergence Rate&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hqn</span> <span class="o">=</span> <span class="n">HybridQuasiNewton</span><span class="p">()</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">f_prime</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span>
+<span class="n">x_0</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">METHODS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Newton&#39;s Method&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;Finite-Difference&quot;</span><span class="p">,</span>
+           <span class="s1">&#39;Secant Method&#39;</span><span class="p">]</span>
+<span class="n">STR_FMT</span> <span class="o">=</span> <span class="s1">&#39;{0!s:16}</span><span class="se">\t</span><span class="s1">{1!s:16}</span><span class="se">\t</span><span class="s1">{2!s:16}&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">STR_FMT</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">METHODS</span><span class="p">))</span>
+
+<span class="n">x_n</span> <span class="o">=</span> <span class="p">[</span><span class="n">x_0</span><span class="p">,</span> <span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+<span class="n">converged</span> <span class="o">=</span> <span class="p">[</span><span class="bp">False</span><span class="p">,</span> <span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+
+<span class="k">while</span> <span class="bp">False</span> <span class="ow">in</span> <span class="n">converged</span><span class="p">:</span>
+    <span class="n">converged</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x_n</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">hqn</span><span class="o">.</span><span class="n">evaluate_newton</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f_prime</span><span class="p">,</span> <span class="n">x_n</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">converged</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x_n</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">hqn</span><span class="o">.</span><span class="n">evaluate_fdnewton</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x_n</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">converged</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">x_n</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">hqn</span><span class="o">.</span><span class="n">evaluate_secant</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x_n</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">STR_FMT</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">x_n</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Newton&#39;s Method     Finite-Difference       Secant Method
+1.25                    1.2500000055879354      1.25
+1.025                   1.0250000022128225      1.0769230769230769
+1.0003048780487804      1.0003048784367878      1.0082644628099173
+1.0000000464611474      1.000000046464312       1.0003048780487804
+1.000000000000001       1.0000000000000013      1.0000012544517356
+1.0                     1.0                     1.0000000001911982
+</pre></div></div>
+</div>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(x) &amp;= \sin{(x)} - \cos{(2 x)}\\
+f'(x) &amp;= \cos{(x)} - (-2 \sin{(2 x)}) = \cos{(x)} + 2 \sin{(2 x)}\end{split}\]</div>
+<p>Newton’s method will converge <span class="math notranslate nohighlight">\(q\)</span>-quadratically given <span class="math notranslate nohighlight">\(x_0 = 1\)</span>
+because <span class="math notranslate nohighlight">\(x_* \in [0, 1]\)</span> and within that range, <span class="math notranslate nohighlight">\(\exists \rho &gt; 0\)</span>
+such that <span class="math notranslate nohighlight">\(\left| f'(x) \right| &gt; \rho\)</span>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hqn</span> <span class="o">=</span> <span class="n">HybridQuasiNewton</span><span class="p">()</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">x_0</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">x_star</span> <span class="o">=</span> <span class="mf">0.523598775598</span>
+
+<span class="n">solver</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">hqn</span><span class="o">.</span><span class="n">evaluate_secant</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">plot_convergent_sequence</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">x_star</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_19_0.png" src="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_19_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(x) &amp;= x^3 - 7 x^2 + 11 x - 5\\
+f'(x) &amp;= 3 x^2 - 14 x + 11\end{split}\]</div>
+<p>Newton’s method will converge <span class="math notranslate nohighlight">\(q\)</span>-quadratically to <span class="math notranslate nohighlight">\(x_* = 5\)</span> when
+<span class="math notranslate nohighlight">\(x_0 = 7\)</span>.  When <span class="math notranslate nohighlight">\(x_0 = 2\)</span>, it will converge <span class="math notranslate nohighlight">\(q\)</span>-linearly to
+<span class="math notranslate nohighlight">\(x_* = 1\)</span> because <span class="math notranslate nohighlight">\(f'(x_* = 1) = 0\)</span> i.e. the multiple roots at
+<span class="math notranslate nohighlight">\(x_*\)</span> violate the <span class="math notranslate nohighlight">\(\rho &gt; 0\)</span> condition.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hqn</span> <span class="o">=</span> <span class="n">HybridQuasiNewton</span><span class="p">()</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">7</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">11</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">5</span>
+<span class="n">x_0</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">x_star</span> <span class="o">=</span> <span class="mf">1.00004066672</span>
+
+<span class="n">solver</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">hqn</span><span class="o">.</span><span class="n">evaluate_secant</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">plot_convergent_sequence</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">x_star</span><span class="p">)</span>
+
+<span class="n">x_0</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">x_star</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">plot_convergent_sequence</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">x_star</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_21_0.png" src="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_21_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_21_1.png" src="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_21_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="(c)">
+<h3>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(x) &amp;= \sin{(x)} - \cos{(x)}\\
+f'(x) &amp;= \cos{(x)} + \sin{(x)}\end{split}\]</div>
+<p>Newton’s method will converge <span class="math notranslate nohighlight">\(q\)</span>-quadratically when <span class="math notranslate nohighlight">\(x_0 = 1\)</span>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hqn</span> <span class="o">=</span> <span class="n">HybridQuasiNewton</span><span class="p">()</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x_0</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">x_star</span> <span class="o">=</span> <span class="mf">0.78539816335</span>
+
+<span class="n">solver</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">hqn</span><span class="o">.</span><span class="n">evaluate_secant</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">plot_convergent_sequence</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">x_star</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_23_0.png" src="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_23_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="(d)">
+<h3>(d)<a class="headerlink" href="#(d)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(x) &amp;= x^4 - 12 x^3 + 47 x^2 - 60 x - 24\\
+f'(x) &amp;= 4 x^3 - 36 x^2 + 94 x - 60\end{split}\]</div>
+<p>Both <span class="math notranslate nohighlight">\(x_0 = 0\)</span> and <span class="math notranslate nohighlight">\(x_0 = 2\)</span> will achieve <span class="math notranslate nohighlight">\(q\)</span>-quadratic
+convergence with Newton’s method.  However, <span class="math notranslate nohighlight">\(x_0 = 2\)</span>’s convergence is
+slower than <span class="math notranslate nohighlight">\(x_0 = 0\)</span>’s because there are two zero crossings for
+<span class="math notranslate nohighlight">\(f'(x)\)</span> on the way to <span class="math notranslate nohighlight">\(x_*\)</span>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hqn</span> <span class="o">=</span> <span class="n">HybridQuasiNewton</span><span class="p">()</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">12</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">47</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">60</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">24</span>
+<span class="n">x_0</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">x_star</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.315551843713</span>
+
+<span class="n">solver</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">hqn</span><span class="o">.</span><span class="n">evaluate_secant</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">plot_convergent_sequence</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">x_star</span><span class="p">)</span>
+
+<span class="n">x_0</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">x_star</span> <span class="o">=</span> <span class="mf">5.81115950152</span>
+<span class="n">plot_convergent_sequence</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">x_star</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_25_0.png" src="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_25_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_25_1.png" src="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_25_1.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Exercise-10">
+<h2>Exercise 10<a class="headerlink" href="#Exercise-10" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}x_+ &amp;= x_c - \frac{\arctan{(x_c)}}{(1 + x_c^2)^{-1}}\\
+ &amp;= x_c - \arctan{(x_c)}(1 + x_c^2)\end{split}\]</div>
+<p>This formulation of Newton’s method will cycle when <span class="math notranslate nohighlight">\(x_+ = -x_c\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}-x_c &amp;= x_c - \arctan{(x_c)}(1 + x_c^2)\\
+0 &amp;= 2 x_c - (1 + x_c^2) \arctan{(x_c)}.\end{split}\]</div>
+<p>However, since Newton’s method was paired with backtracking, it will not cycle.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hqn</span> <span class="o">=</span> <span class="n">HybridQuasiNewton</span><span class="p">()</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x_0</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.5</span>
+<span class="n">x_star</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.39174520382</span>
+
+<span class="n">solver</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">hqn</span><span class="o">.</span><span class="n">evaluate_secant</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">plot_convergent_sequence</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">x_star</span><span class="p">)</span>
+
+<span class="n">x_0</span> <span class="o">=</span> <span class="mf">0.0001</span>
+<span class="n">x_star</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">plot_convergent_sequence</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">x_star</span><span class="p">)</span>
+
+<span class="n">x_0</span> <span class="o">=</span> <span class="mf">1.5</span>
+<span class="n">x_star</span> <span class="o">=</span> <span class="mf">1.39174520382</span>
+<span class="n">plot_convergent_sequence</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">x_star</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_27_0.png" src="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_27_0.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_27_1.png" src="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_27_1.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_27_2.png" src="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_27_2.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hqn</span> <span class="o">=</span> <span class="n">HybridQuasiNewton</span><span class="p">()</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x_0</span> <span class="o">=</span> <span class="mf">1.39174520382</span>
+<span class="n">x_star</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">solver</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">hqn</span><span class="o">.</span><span class="n">evaluate_secant</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">plot_convergent_sequence</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">x_star</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_28_0.png" src="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_28_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Exercise-11">
+<h2>Exercise 11<a class="headerlink" href="#Exercise-11" title="Permalink to this headline">¶</a></h2>
+<p>To minimize a one variable <span class="math notranslate nohighlight">\(f(x)\)</span>, a quadratic model of <span class="math notranslate nohighlight">\(f(x)\)</span>
+around <span class="math notranslate nohighlight">\(x_c\)</span> is created and the critical point of the model is
+subsequently solved for.</p>
+<p>One such quadratic model is the second-order Taylor series</p>
+<div class="math notranslate nohighlight">
+\[f(x) \approx f(x_c) + f'(x_c) (x - x_c) + \frac{1}{2}f''(x_c) (x - x_c)^2\]</div>
+<p>such that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}0 &amp;= \frac{\partial f}{\partial x}\\
+  &amp;= f'(x_c) + f''(x_c) (x - x_c)\\
+x &amp;= x_c - \frac{f'(x_c)}{f''(x_c)}.\end{split}\]</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="k">class</span> <span class="nc">NewtonQuadraticSolver1D</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">typx</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_kEpsilon</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_kRootEpsilon</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_kEpsilon</span><span class="p">)</span>
+
+        <span class="c1">#parameters to solver</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span> <span class="o">=</span> <span class="n">tau</span>
+        <span class="k">if</span> <span class="n">tau</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_kRootEpsilon</span><span class="p">,)</span> <span class="o">*</span> <span class="mi">2</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_typx</span> <span class="o">=</span> <span class="n">typx</span>
+        <span class="k">if</span> <span class="n">typx</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_typx</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span>
+
+    <span class="k">def</span> <span class="nf">evaluate_newton</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">f_p1</span><span class="p">,</span> <span class="n">f_p2</span><span class="p">,</span> <span class="n">x_c</span><span class="p">):</span>
+        <span class="n">denom</span> <span class="o">=</span> <span class="n">f_p2</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">denom</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">x_k</span> <span class="o">=</span> <span class="n">x_c</span> <span class="o">-</span> <span class="n">f_p1</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span> <span class="o">/</span> <span class="n">denom</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">x_k</span> <span class="o">=</span> <span class="n">x_c</span> <span class="o">+</span> <span class="n">f_p1</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span> <span class="o">/</span> <span class="n">denom</span>
+
+        <span class="n">x_n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backtracking_strategy</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x_c</span><span class="p">,</span> <span class="n">x_k</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f_p1</span><span class="p">,</span> <span class="n">x_c</span><span class="p">,</span> <span class="n">x_n</span><span class="p">),</span> <span class="n">x_n</span>
+
+    <span class="k">def</span> <span class="nf">_backtracking_strategy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">x_c</span><span class="p">,</span> <span class="n">x_n</span><span class="p">):</span>
+        <span class="k">while</span> <span class="n">f</span><span class="p">(</span><span class="n">x_n</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_c</span><span class="p">):</span>
+            <span class="n">x_n</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_c</span> <span class="o">+</span> <span class="n">x_n</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">return</span> <span class="n">x_n</span>
+
+    <span class="k">def</span> <span class="nf">_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">f_prime</span><span class="p">,</span> <span class="n">x_c</span><span class="p">,</span> <span class="n">x_n</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">f_prime</span><span class="p">(</span><span class="n">x_n</span><span class="p">)</span> <span class="o">*</span> <span class="n">x_n</span> <span class="o">/</span> <span class="n">f</span><span class="p">(</span><span class="n">x_n</span><span class="p">))</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span>\
+            <span class="nb">abs</span><span class="p">(</span><span class="n">x_n</span> <span class="o">-</span> <span class="n">x_c</span><span class="p">)</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x_n</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typx</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">nqs1d</span> <span class="o">=</span> <span class="n">NewtonQuadraticSolver1D</span><span class="p">()</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span>
+<span class="n">f_p1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">f_p2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">12</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">x</span>
+<span class="n">x_star</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.75</span>
+<span class="n">x_0</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1</span>
+
+<span class="n">solver</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">nqs1d</span><span class="o">.</span><span class="n">evaluate_newton</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f_p1</span><span class="p">,</span> <span class="n">f_p2</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">plot_convergent_sequence</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">x_star</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_31_0.png" src="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_31_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Exercise-12">
+<h2>Exercise 12<a class="headerlink" href="#Exercise-12" title="Permalink to this headline">¶</a></h2>
+<p>According to theorem 2.4.3, <span class="math notranslate nohighlight">\(f(x) = x^2\)</span> and <span class="math notranslate nohighlight">\(f(x) = x^3\)</span> converges
+q-linearly while <span class="math notranslate nohighlight">\(f(x) = x + x^3\)</span> and <span class="math notranslate nohighlight">\(f(x) = x + x^4\)</span> have
+q-quadratic convergence rate because <span class="math notranslate nohighlight">\(f'(x_* = 0)\)</span> must have a non-zero
+lower bound for Newton’s method to converge quadratically.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hqn</span> <span class="o">=</span> <span class="n">HybridQuasiNewton</span><span class="p">()</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">f_p1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span>
+<span class="n">x_star</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">x_0</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">solver</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">hqn</span><span class="o">.</span><span class="n">evaluate_newton</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f_p1</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">plot_convergent_sequence</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">x_star</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_33_0.png" src="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_33_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hqn</span> <span class="o">=</span> <span class="n">HybridQuasiNewton</span><span class="p">()</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span>
+<span class="n">f_p1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">x_star</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">x_0</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">solver</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">hqn</span><span class="o">.</span><span class="n">evaluate_newton</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f_p1</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">plot_convergent_sequence</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">x_star</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_34_0.png" src="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_34_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hqn</span> <span class="o">=</span> <span class="n">HybridQuasiNewton</span><span class="p">()</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span>
+<span class="n">f_prime</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">x_star</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">x_0</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">solver</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">hqn</span><span class="o">.</span><span class="n">evaluate_newton</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f_prime</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">plot_convergent_sequence</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">x_star</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_35_0.png" src="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_35_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hqn</span> <span class="o">=</span> <span class="n">HybridQuasiNewton</span><span class="p">()</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">4</span>
+<span class="n">f_prime</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span>
+<span class="n">x_star</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">x_0</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">solver</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">hqn</span><span class="o">.</span><span class="n">evaluate_newton</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f_prime</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">plot_convergent_sequence</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">x_star</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_36_0.png" src="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_36_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Exercise-13">
+<h2>Exercise 13<a class="headerlink" href="#Exercise-13" title="Permalink to this headline">¶</a></h2>
+<p>Assume <span class="math notranslate nohighlight">\(f(x)\)</span> has <span class="math notranslate nohighlight">\(n\)</span> continuous derivatives on an interval about
+<span class="math notranslate nohighlight">\(x = x_*\)</span>.  <span class="math notranslate nohighlight">\(f\)</span> has a root (a.k.a. a zero) of multiplicity <span class="math notranslate nohighlight">\(m\)</span>
+at <span class="math notranslate nohighlight">\(x_*\)</span> if and only if</p>
+<div class="math notranslate nohighlight">
+\[f(x_*) = f'(x_*) = \ldots = f^{(m - 1)}(x_*) = 0
+\quad \text{and} \quad
+f^{(m)}(x_*) \neq 0.\]</div>
+<p>The foregoing implies <span class="math notranslate nohighlight">\(f\)</span> can be factorized as</p>
+<div class="math notranslate nohighlight">
+\[f(x) = \left( x - x_* \right)^m q(x)\]</div>
+<p>where <span class="math notranslate nohighlight">\(\lim_{x \to x_*} q(x) \neq 0\)</span>.  Define
+<span class="math notranslate nohighlight">\(e_{k + 1} = x_{k + 1} - x_*\)</span> and <span class="math notranslate nohighlight">\(e_k = x_k - x_*\)</span>.  Newton’s
+method converges <span class="math notranslate nohighlight">\(q\)</span>-linearly to <span class="math notranslate nohighlight">\(x_*\)</span> because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x_{k + 1} - x_* &amp;= x_k - x_* - \frac{f(x_k)}{f'(x_k)}\\
+ &amp;= x_k - x_* -
+    \frac{(x_k - x_*)^m q(x_k)}{
+      m (x_k - x_*)^{m - 1} q(x_k) + (x_k - x_*)^m q'(x_k)
+    }\\
+ &amp;= x_k - x_* - \frac{(x_k - x_*) q(x_k)}{m q(x_k)  + (x_k - x_*) q'(x_k)}\\
+\frac{x_{k + 1} - x_*}{x_k - x_*}
+ &amp;= 1 - \frac{q(x_k)}{m q(x_k)  + (x_k - x_*) q'(x_k)}\\
+ &amp;= \frac{m q(x_k) +
+    (x_k - x_*) q'(x_k) - q(x_k)}{m q(x_k)  + (x_k - x_*) q'(x_k)}\\
+ &amp;= \frac{
+      m - 1  + (x_k - x_*) \frac{q'(x_k)}{q(x_k)}
+    }{
+      m + (x_k - x_*) \frac{q'(x_k)}{q(x_k)}
+    }\\
+\lim_{k \to \infty} \frac{e_{k + 1}}{e_k} &amp;= \frac{m - 1}{m}.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-14">
+<h2>Exercise 14<a class="headerlink" href="#Exercise-14" title="Permalink to this headline">¶</a></h2>
+<p>Assume <span class="math notranslate nohighlight">\(f\)</span> has <span class="math notranslate nohighlight">\(n + 1\)</span> continuous derivatives on an interval about
+<span class="math notranslate nohighlight">\(x = x_*\)</span> and satisfies</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f'(x_*) &amp;\neq 0,\\
+f(x_*) &amp;= f''(x_*) = \ldots = f^{(n)}(x_*) = 0,\\
+f^{(n + 1)}(x_*) &amp;\neq 0.\end{split}\]</div>
+<p>By inspection, <span class="math notranslate nohighlight">\(f\)</span> can be factorized as</p>
+<div class="math notranslate nohighlight">
+\[f(x) = (x - x_*)^{(n + 1)} q(x) + a (x - x_*)\]</div>
+<p>where <span class="math notranslate nohighlight">\(a \in \mathbb{R} \setminus \left\{ (x - x_*) \right\}\)</span> and
+<span class="math notranslate nohighlight">\(\lim_{x \to x_*} q(x) \neq 0\)</span>.  Newton’s method converges
+<span class="math notranslate nohighlight">\(q\)</span>-cubicly to <span class="math notranslate nohighlight">\(x_*\)</span> because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x_{k + 1} - x_* &amp;= x_k - x_* - \frac{f(x_k)}{f'(x_k)}\\
+ &amp;= x_k - x_* -
+    \frac{
+      (x_k - x_*)^{(n + 1)} q(x_k) + a (x_k - x_*)
+    }{
+      (n + 1) (x_k - x_*)^{(n)} q(x_k) + (x_k - x_*)^{(n + 1)} q'(x_k) + a
+    }\\
+ &amp;= \frac{
+      (n + 1) (x_k - x_*)^{(n + 1)} q(x_k) + (x_k - x_*)^{(n + 2)} q'(x_k) +
+      a (x_k - x_*) - (x_k - x_*)^{(n + 1)} q(x_k) - a (x_k - x_*)
+    }{
+      (n + 1) (x_k - x_*)^{(n)} q(x_k) + (x_k - x_*)^{(n + 1)} q'(x_k) + a
+    }\\
+ &amp;= \frac{
+      n (x_k - x_*)^{(n + 1)} q(x_k) + (x_k - x_*)^{(n + 2)} q'(x_k)
+    }{
+      (n + 1) (x_k - x_*)^{(n)} q(x_k) + (x_k - x_*)^{(n + 1)} q'(x_k) + a
+    }\\
+ &amp;= \frac{
+      n (x_k - x_*)^{(n + 1)} + (x_k - x_*)^{(n + 2)} \frac{q'(x_k)}{q(x_k)}
+    }{
+      (n + 1) (x_k - x_*)^{(n)} +
+      (x_k - x_*)^{(n + 1)} \frac{q'(x_k)}{q(x_k)} +
+      \frac{a}{q(x_k)}
+    }\\
+\left| x_{k + 1} - x_* \right|
+ &amp;= \left\vert
+      \frac{
+        n (x_k - x_*)^{(n + 1)} +
+        (x_k - x_*)^{(n + 2)} \frac{q'(x_k)}{q(x_k)}
+      }{
+        (n + 1) (x_k - x_*)^{(n)} +
+        (x_k - x_*)^{(n + 1)} \frac{q'(x_k)}{q(x_k)} + \frac{a}{q(x_k)}
+      }
+    \right\vert\\
+ &amp;= \frac{1}{\rho}
+    \left\vert
+      n (x_k - x_*)^{(n + 1)} + (x_k - x_*)^{(n + 2)} \frac{q'(x_k)}{q(x_k)}
+    \right\vert\\
+ &amp;\leq \frac{\gamma}{\rho} \left\vert x_k - x_* \right\vert^{(n + 1)}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\rho, \gamma &gt; 0\)</span>.</p>
+</div>
+<div class="section" id="Exercise-15">
+<h2>Exercise 15<a class="headerlink" href="#Exercise-15" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}0 &amp;\approx M(x)\\
+ &amp;= f(x_c) + f'(x_c) (x - x_c) + \frac{1}{2} f''(x_c) (x - x_c)^2\\
+ &amp;= \frac{f(x_c)}{f''(x_c)} +
+    \frac{f'(x_c)}{f''(x_c)} (x - x_c) +
+    \frac{1}{2} (x - x_c)^2\\
+ &amp;= \frac{f(x_c)}{f''(x_c)} + \frac{f'(x_c)}{f''(x_c)} x -
+    \frac{f'(x_c)}{f''(x_c)} x_c +
+    \frac{1}{2} x^2 - x x_c + \frac{1}{2} x_c^2\\
+ &amp;= \frac{1}{2} x^2 +
+    \left( \frac{f'(x_c)}{f''(x_c)} - x_c \right) x +
+    \frac{1}{2} x_c^2 -
+    \frac{f'(x_c)}{f''(x_c)} x_c +
+    \frac{f(x_c)}{f''(x_c)}\\
+ &amp;= a x^2 + b x + c\end{split}\]</div>
+<p>An exact solution to the foregoing quadratic equation is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} x &amp;= \frac{-b \pm \sqrt{b^2 - 4 a c}}{2 a}\\
+  &amp;= -\left(\frac{f'(x_c)}{f''(x_c)} - x_c \right) \pm
+     \sqrt{\left(\frac{f'(x_c)}{f''(x_c)} - x_c \right)^2 - 2 c}\\
+  &amp;= x_c - \frac{f'(x_c)}{f''(x_c)} \pm
+     \sqrt{
+       \left(\frac{f'(x_c)}{f''(x_c)} \right)^2 -
+       2 \frac{f'(x_c)}{f''(x_c)} x_c +
+       x_c^2 - x_c^2 +
+       2 \frac{f'(x_c)}{f''(x_c)} x_c - 2 \frac{f(x_c)}{f''(x_c)}
+     }\\
+  &amp;= x_c - \frac{f'(x_c)}{f''(x_c)} \pm
+     \sqrt{
+       \left( \frac{f'(x_c)}{f''(x_c)} \right)^2 - 2 \frac{f(x_c)}{f''(x_c)}
+     }\\
+&amp;= x_c - \frac{f'(x_c) \pm \sqrt{f'(x_c)^2 - 2 f(x_c) f''(x_c)}}{f''(x_c)}.\end{split}\]</div>
+<p>There are two (possibly three) major issues with this approach.  The first is
+loss of significance due to the square root operation.  The second is when
+<span class="math notranslate nohighlight">\(f'(x_c)^2 \gg 2 f(x_c) f''(x_c)\)</span> or
+<span class="math notranslate nohighlight">\(f'(x_c)^2 \sim 2 f(x_c) f''(x_c)\)</span>.  Lastly, <span class="math notranslate nohighlight">\(x_k\)</span> can be complex
+even if all the previous iterates were real.</p>
+<p>A quadratic model is appropriate when the affine model is not satisfactory
+with respect to the desired criteria.  It turns out this is equivalent to
+Halley’s irrational method <a class="bibtex reference internal" href="#acklamhm" id="id3">[Ack]</a>.</p>
+</div>
+<div class="section" id="Exercise-16">
+<h2>Exercise 16<a class="headerlink" href="#Exercise-16" title="Permalink to this headline">¶</a></h2>
+<p>Assume <span class="math notranslate nohighlight">\(f \in C^1(D)\)</span>, <span class="math notranslate nohighlight">\(x_c \in D\)</span>, <span class="math notranslate nohighlight">\(f(x_c) \neq 0\)</span>,
+<span class="math notranslate nohighlight">\(f'(x_c) \neq 0\)</span>, and <span class="math notranslate nohighlight">\(\mathrm{d} = -f(x_c) / f'(x_c)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(x_c + \lambda \mathrm{d}) - f(x_c)
+ &amp;= \int_0^\lambda \mathrm{d} f'(x_c + \alpha \mathrm{d}) d\alpha\\
+ &amp;= \int_0^\lambda
+      \frac{-f(x_c)}{f'(x_c)} f'(x_c + \alpha \mathrm{d}) d\alpha\\
+1 - \frac{f(x_c + \lambda \mathrm{d})}{f(x_c)}
+ &amp;= \int_0^\lambda \frac{f'(x_c + \alpha \mathrm{d})}{f'(x_c)} d\alpha\\
+ &amp;&gt; 0.\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(t\)</span> such that <span class="math notranslate nohighlight">\(f'(x_c + \lambda d) f'(x_c) &gt; 0\)</span> for all
+<span class="math notranslate nohighlight">\(\lambda \in (0, t)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}1 &amp;&gt; \frac{f(x_c + \lambda \mathrm{d})}{f(x_c)}\\
+\frac{
+  \left\vert f(x_c) \right\vert
+}{
+  \left\vert f(x_c + \lambda \mathrm{d}) \right\vert
+}
+ &amp;&gt; \frac{
+      \text{sgn}\left(
+        f(x_c + \lambda \mathrm{d})
+      \right)
+    }{
+      \text{sgn}\left(
+        f(x_c)
+      \right)
+    }\\
+\left\vert f(x_c) \right\vert
+ &amp;&gt; \left\vert f(x_c + \lambda \mathrm{d}) \right\vert
+    \text{sgn}\left( f(x_c + \lambda \mathrm{d}) f(x_c) \right).\end{split}\]</div>
+<p>This illustrates that once the minimizing point <span class="math notranslate nohighlight">\(x_*\)</span> is almost reached
+using the suggested <span class="math notranslate nohighlight">\(\mathrm{d}\)</span> step size, the optimization can stop.
+However, this only works when the region has the same sign.</p>
+</div>
+<div class="section" id="Exercise-17">
+<h2>Exercise 17<a class="headerlink" href="#Exercise-17" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\frac{
+  \left| x_+ - x_c \right|
+}{
+  \max \left\{ \left| x_+ \right|, \left| x_c \right| \right\}
+} &lt; 10^{-7}\]</div>
+<p>will not be satisfied for <span class="math notranslate nohighlight">\(f(x) = x^2\)</span> because the relative error is
+constant (either 0.5 or 1.0) at each time step.</p>
+<div class="math notranslate nohighlight">
+\[\frac{
+  \left| x_+ - x_c \right|
+}{
+  \max \left\{ \left| x_+ \right|, \text{typ}x \right\}
+} &lt; 10^{-7}\]</div>
+<p>will be satisfied with an appropriately selected <span class="math notranslate nohighlight">\(\text{typ}x\)</span>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">f_prime</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span>
+<span class="n">x_star</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">x_c</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">METHODS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Absolute Error&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Current Value&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Relative Error&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Satisfy Condition&#39;</span><span class="p">]</span>
+<span class="n">STR_FMT</span> <span class="o">=</span> <span class="s1">&#39;{0!s:16}</span><span class="se">\t</span><span class="s1">{1!s:16}</span><span class="se">\t</span><span class="s1">{2!s:16}</span><span class="se">\t</span><span class="s1">{3!s:16}&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">STR_FMT</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">METHODS</span><span class="p">))</span>
+
+<span class="n">typx</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">SC</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">X_i</span> <span class="o">=</span> <span class="p">[</span><span class="n">x_c</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
+    <span class="n">x_k</span> <span class="o">=</span> <span class="n">Newtons_Method</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f_prime</span><span class="p">,</span> <span class="n">x_c</span><span class="p">)</span>
+    <span class="n">x_c</span> <span class="o">=</span> <span class="n">x_k</span>
+
+    <span class="n">X_i</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x_k</span><span class="p">)</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">X_i</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">X_i</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">bot</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">X_i</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">typx</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">STR_FMT</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x_k</span> <span class="o">-</span> <span class="n">x_star</span><span class="p">),</span> <span class="n">f</span><span class="p">(</span><span class="n">x_k</span><span class="p">),</span> <span class="n">top</span> <span class="o">/</span> <span class="n">bot</span><span class="p">,</span>
+                         <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x_k</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">10e-5</span><span class="p">,</span> <span class="n">top</span> <span class="o">/</span> <span class="n">bot</span> <span class="o">&lt;</span> <span class="mf">10e-7</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Absolute Error          Current Value           Relative Error          Satisfy Condition
+0.5                     0.25                    0.5                     (False, False)
+0.25                    0.0625                  0.25                    (False, False)
+0.125                   0.015625                0.125                   (False, False)
+0.0625                  0.00390625              0.0625                  (False, False)
+0.03125                 0.0009765625            0.03125                 (False, False)
+0.015625                0.000244140625          0.015625                (False, False)
+0.0078125               6.103515625e-05         0.0078125               (True, False)
+0.00390625              1.52587890625e-05       0.00390625              (True, False)
+0.001953125             3.814697265625e-06      0.001953125             (True, False)
+0.0009765625            9.5367431640625e-07     0.0009765625            (True, False)
+0.00048828125           2.384185791015625e-07   0.00048828125           (True, False)
+0.000244140625          5.960464477539063e-08   0.000244140625          (True, False)
+0.0001220703125         1.4901161193847656e-08  0.0001220703125         (True, False)
+6.103515625e-05         3.725290298461914e-09   6.103515625e-05         (True, False)
+3.0517578125e-05        9.313225746154785e-10   3.0517578125e-05        (True, False)
+1.52587890625e-05       2.3283064365386963e-10  1.52587890625e-05       (True, False)
+7.62939453125e-06       5.820766091346741e-11   7.62939453125e-06       (True, False)
+3.814697265625e-06      1.4551915228366852e-11  3.814697265625e-06      (True, False)
+1.9073486328125e-06     3.637978807091713e-12   1.9073486328125e-06     (True, False)
+9.5367431640625e-07     9.094947017729282e-13   9.5367431640625e-07     (True, True)
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Exercise-18">
+<h2>Exercise 18<a class="headerlink" href="#Exercise-18" title="Permalink to this headline">¶</a></h2>
+<p>Choose <span class="math notranslate nohighlight">\(\widehat{D} \subset D\)</span> such that
+<span class="math notranslate nohighlight">\(\left| f'(x) \right| \leq \alpha\)</span> for all
+<span class="math notranslate nohighlight">\(x \in \widehat{D}\)</span> where <span class="math notranslate nohighlight">\(\alpha &gt; 0\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(x) - f(x_*) &amp;= \int_{x_*}^x f'(z) dz\\
+\left\vert f(x) \right\vert
+ &amp;= \left\vert \int_{x_*}^x f'(z) dz \right\vert\\
+ &amp;\leq \left\vert \int_{x_*}^x \alpha dz \right\vert\\
+ &amp;= \alpha \left\vert \left. z \right|_{x_*}^x \right\vert\\
+ &amp;= \alpha \left\vert x - x_* \right\vert.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-19">
+<h2>Exercise 19<a class="headerlink" href="#Exercise-19" title="Permalink to this headline">¶</a></h2>
+<p>The following is one way of deriving the forward finite difference formula for
+first order derivative of <span class="math notranslate nohighlight">\(f\)</span> using Taylor expansion at <span class="math notranslate nohighlight">\(x\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(x + h) &amp;\approx f(x) + h f'(x)\\
+f'(x) &amp;\approx \frac{f(x + h) - f(x)}{h}.\end{split}\]</div>
+<p>Invoking Corollary 2.6.2 and the derivations in
+<a class="reference internal" href="#dennis1996numerical-ex-2-20"><span class="std std-ref">Exercise 20</span></a> gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left| \frac{f(x_c + h_c) - f(x_c)}{h_c} - f'(x_c) \right|
+ &amp;\leq \left|
+         \frac{
+           f(x_c + h_c) + \eta |f(x_c + h_c)| - f(x_c) - \eta |f(x_c)|
+         }{h_c} - f'(x_c)
+       \right|\\
+ &amp;\leq \left|
+         \frac{
+           f(x_c + h_c) - f(x_c)}{h_c} - f'(x_c) +
+           \eta \frac{|f(x_c + h_c)| - |f(x_c)|
+         }{h_c}
+       \right|\\
+ &amp;\leq \left| \frac{f(x_c + h_c) - f(x_c)}{h_c} - f'(x_c) \right| +
+       \left| \eta \frac{|f(x_c + h_c)| + |f(x_c)|}{h_c} \right|\\
+ &amp;\leq \frac{\gamma \left| h_c \right|}{2} +
+       \eta \frac{|f(x_c + h_c)| + |f(x_c)|}{|h_c|}.\end{split}\]</div>
+<p>Assuming <span class="math notranslate nohighlight">\(f(x_c + h_c) \cong f(x_c)\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}0 &amp;\leq \frac{\gamma \left| h_c \right|}{2} +
+        \eta \frac{|f(x_c + h_c)| + |f(x_c)|}{|h_c|}\\
+0 &amp;\cong \frac{\gamma}{2} h_c^2 + 2 \eta |f(x_c)|\\
+h_c &amp;\approx \pm \sqrt{\frac{- 4 \eta |f(x_c)|}{\gamma}}\\
+ &amp;\approx \pm 2i \sqrt{\frac{\eta |f(x_c)|}{\gamma}}.\end{split}\]</div>
+<p>Note that if <span class="math notranslate nohighlight">\(|f'(x)| \ll |f(x)|\)</span>, then the finite difference is going
+to evaluate to zero before ever reaching <span class="math notranslate nohighlight">\(f'(x)\)</span>’s vicinity because
+<span class="math notranslate nohighlight">\(\text{fl}(f(x + h)) = \text{fl}(f(x))\)</span>.</p>
+</div>
+<div class="section" id="Exercise-20">
+<span id="dennis1996numerical-ex-2-20"></span><h2>Exercise 20<a class="headerlink" href="#Exercise-20" title="Permalink to this headline">¶</a></h2>
+<p>A couple useful facts to recall are</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(f'' \in \text{Lip}_\gamma(D)\)</span> implies <span class="math notranslate nohighlight">\(f''\)</span> is continuously
+differentiable, which means <span class="math notranslate nohighlight">\(f'''\)</span> exists and is itself a continous
+function.</p></li>
+<li><p>Any function can be written as <span class="math notranslate nohighlight">\(f(z) \approx T_n(z) + R_n(z)\)</span> where
+<span class="math notranslate nohighlight">\(T_n(z)\)</span> is the <span class="math notranslate nohighlight">\(n\)</span>-th degree Taylor polynomial of <span class="math notranslate nohighlight">\(f\)</span> at
+<span class="math notranslate nohighlight">\(x\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[R_n(z) = \frac{1}{n!} \int_x^z (z - t)^n f^{(n + 1)}(t) dt\]</div>
+<p>is the remainder of the series.</p>
+</li>
+<li><p>Weighted Mean Value Theorem for Integrals.</p>
+<ul>
+<li><p>If <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span> are continuous on <span class="math notranslate nohighlight">\([a, b]\)</span> and <span class="math notranslate nohighlight">\(g\)</span>
+does not change sign in <span class="math notranslate nohighlight">\([a, b]\)</span>, then there exists
+<span class="math notranslate nohighlight">\(c \in [a, b]\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[\int_a^b f(x) g(x) dx = f(c) \int_a^b g(x) dx.\]</div>
+</li>
+</ul>
+</li>
+</ul>
+<p>Observe that when <span class="math notranslate nohighlight">\(n = 2\)</span> and <span class="math notranslate nohighlight">\((z - t)^n\)</span> does not change sign in
+the interval <span class="math notranslate nohighlight">\([x, z]\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left| f(z) - T_n \right| &amp;\leq \left| R_n(z) \right|\\
+ &amp;= \left| \frac{1}{n!} \int_x^z (z - t)^n f^{(n + 1)}(t) dt \right|\\
+ &amp;= \frac{\gamma}{n!} \left| \int_x^z (z - t)^n dt \right|\\
+ &amp;= \frac{\gamma}{n!} \left|
+      \left. -\frac{(z - t)^{n + 1}}{n + 1} \right|_x^z
+    \right|\\
+ &amp;= \frac{\gamma}{(n + 1)!} \left| z - x \right|^{n + 1}\\
+ &amp;= \frac{\gamma}{6} \left| z - x \right|^{3}.\end{split}\]</div>
+<p>A more rigorous proof would involve the Squeeze Theorem bounding
+<span class="math notranslate nohighlight">\(R_n(z)\)</span> as <span class="math notranslate nohighlight">\(x \to z\)</span> from the left and right side.</p>
+<p>The following is one way of deriving the central difference formula for second
+order derivative of <span class="math notranslate nohighlight">\(f\)</span> using Taylor expansion at <span class="math notranslate nohighlight">\(x\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(x + h) &amp;\approx f(x) + h f'(x) + \frac{h^2}{2}f''(x)\\
+f(x - h) &amp;\approx f(x) - h f'(x) + \frac{h^2}{2}f''(x)\\
+f(x + h) + f(x - h) &amp;\approx 2 f(x) + h^2 f''(x)\\
+f''(x) &amp;\approx \frac{f(x + h) - 2 f(x) + f(x - h)}{h^2}.\end{split}\]</div>
+<p>The following illustrates that the central difference formula has a tighter
+upper bound via invoking the previous derivations with <span class="math notranslate nohighlight">\(z = x_c + h_c\)</span> and
+<span class="math notranslate nohighlight">\(x = x_c\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left| f(x_c + h_c) - f(x_c) - h_c f'(x_c) - \frac{h_c^2}{2} f''(x_c) \right|
+ &amp;\leq \frac{\gamma}{6} \left| h_c \right|^3\\
+\left|
+  f(x_c + h_c) - f(x_c) - h_c f'(x_c) -
+  \frac{h_c^2}{2}
+    \left( \frac{f(x_c + h_c) - 2 f(x_c) + f(x_c - h_c)}{h_c^2} \right)
+\right|
+ &amp;\leq \frac{\gamma}{6} \left| h_c \right|^3\\
+\left|
+  f(x_c + h_c) - f(x_c) - h_c f'(x_c) - \frac{1}{2} f(x_c + h_c) +
+  f(x_c) - \frac{1}{2} f(x_c - h_c)
+\right|
+ &amp;\leq \frac{\gamma}{6} \left| h_c \right|^3\\
+\left| \frac{f(x_c + h_c) - f(x_c - h_c)}{2} - h_c f'(x_c) \right|
+ &amp;\leq \frac{\gamma}{6} \left| h_c \right|^3\\
+\left| \frac{f(x_c + h_c) - f(x_c - h_c)}{2 h_c} - f'(x_c) \right|
+ &amp;\leq \frac{\gamma}{6} \left| h_c \right|^2\\
+\left| a_c - f'(x_c) \right| &amp;\leq \frac{\gamma}{6} \left| h_c \right|^2.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-21">
+<h2>Exercise 21<a class="headerlink" href="#Exercise-21" title="Permalink to this headline">¶</a></h2>
+<p>As demonstrated in <a class="reference internal" href="#dennis1996numerical-ex-2-9"><span class="std std-ref">Exercise 9</span></a>, one approach
+is to compute the central finite difference for <span class="math notranslate nohighlight">\(f''(x)\)</span> using
+<span class="math notranslate nohighlight">\(f'(x)\)</span> and then apply the secant approximation to the forward finite
+difference for subsequent iterations.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="k">class</span> <span class="nc">SecantQuadraticSolver1D</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">typx</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_kEpsilon</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_kRootEpsilon</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_kEpsilon</span><span class="p">)</span>
+
+        <span class="c1">#parameters to solver</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span> <span class="o">=</span> <span class="n">tau</span>
+        <span class="k">if</span> <span class="n">tau</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_kRootEpsilon</span><span class="p">,)</span> <span class="o">*</span> <span class="mi">2</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_typx</span> <span class="o">=</span> <span class="n">typx</span>
+        <span class="k">if</span> <span class="n">typx</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_typx</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_secant_state</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">evaluate_cfd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">f_p1</span><span class="p">,</span> <span class="n">x_c</span><span class="p">):</span>
+        <span class="n">h_c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kRootEpsilon</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x_c</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typx</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">denom</span> <span class="o">=</span> <span class="p">(</span><span class="n">f_p1</span><span class="p">(</span><span class="n">x_c</span> <span class="o">+</span> <span class="n">h_c</span><span class="p">)</span> <span class="o">-</span> <span class="n">f_p1</span><span class="p">(</span><span class="n">x_c</span> <span class="o">-</span> <span class="n">h_c</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">h_c</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">denom</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">x_k</span> <span class="o">=</span> <span class="n">x_c</span> <span class="o">-</span> <span class="n">f_p1</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span> <span class="o">/</span> <span class="n">denom</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">x_k</span> <span class="o">=</span> <span class="n">x_c</span> <span class="o">+</span> <span class="n">f_p1</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span> <span class="o">/</span> <span class="n">denom</span>
+
+        <span class="n">x_n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backtracking_strategy</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x_c</span><span class="p">,</span> <span class="n">x_k</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f_p1</span><span class="p">,</span> <span class="n">x_c</span><span class="p">,</span> <span class="n">x_n</span><span class="p">),</span> <span class="n">x_n</span>
+
+    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">x_c</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_secant_state</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="c1">#first iteration, so no previous results to use</span>
+            <span class="n">h_c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kRootEpsilon</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x_c</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typx</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="c1">#compute central finite difference</span>
+            <span class="n">a_c</span> <span class="o">=</span> <span class="p">(</span><span class="n">fp</span><span class="p">(</span><span class="n">x_c</span> <span class="o">+</span> <span class="n">h_c</span><span class="p">)</span> <span class="o">-</span> <span class="n">fp</span><span class="p">(</span><span class="n">x_c</span> <span class="o">-</span> <span class="n">h_c</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">h_c</span><span class="p">)</span>
+
+            <span class="c1">#evaluate local model</span>
+            <span class="n">fp_xc</span> <span class="o">=</span> <span class="n">fp</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">a_c</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">x_k</span> <span class="o">=</span> <span class="n">x_c</span> <span class="o">-</span> <span class="n">fp_xc</span> <span class="o">/</span> <span class="n">a_c</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">x_k</span> <span class="o">=</span> <span class="n">x_c</span> <span class="o">+</span> <span class="n">fp_xc</span> <span class="o">/</span> <span class="n">a_c</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_secant_state</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_c</span><span class="p">,</span> <span class="n">fp_xc</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1">#define h_c = x_previous - x_current</span>
+            <span class="n">x_</span><span class="p">,</span> <span class="n">fp_x_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_secant_state</span>
+
+            <span class="c1">#evaluate model with secant approximation</span>
+            <span class="n">fp_xc</span> <span class="o">=</span> <span class="n">fp</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+            <span class="n">a_c</span> <span class="o">=</span> <span class="p">(</span><span class="n">fp_x_</span> <span class="o">-</span> <span class="n">fp_xc</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">x_</span> <span class="o">-</span> <span class="n">x_c</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">a_c</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">x_k</span> <span class="o">=</span> <span class="n">x_c</span> <span class="o">-</span> <span class="n">fp_xc</span> <span class="o">/</span> <span class="n">a_c</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">x_k</span> <span class="o">=</span> <span class="n">x_c</span> <span class="o">+</span> <span class="n">fp_xc</span> <span class="o">/</span> <span class="n">a_c</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_secant_state</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_c</span><span class="p">,</span> <span class="n">fp_xc</span><span class="p">)</span>
+
+        <span class="n">x_n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backtracking_strategy</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x_c</span><span class="p">,</span> <span class="n">x_k</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">x_c</span><span class="p">,</span> <span class="n">x_n</span><span class="p">),</span> <span class="n">x_k</span>
+
+    <span class="k">def</span> <span class="nf">_backtracking_strategy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">x_c</span><span class="p">,</span> <span class="n">x_n</span><span class="p">):</span>
+        <span class="n">f_xc</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">f</span><span class="p">(</span><span class="n">x_n</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">f_xc</span><span class="p">:</span>
+            <span class="n">x_n</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_c</span> <span class="o">+</span> <span class="n">x_n</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">return</span> <span class="n">x_n</span>
+
+    <span class="k">def</span> <span class="nf">_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">f_prime</span><span class="p">,</span> <span class="n">x_c</span><span class="p">,</span> <span class="n">x_n</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">f_prime</span><span class="p">(</span><span class="n">x_n</span><span class="p">)</span> <span class="o">*</span> <span class="n">x_n</span> <span class="o">/</span> <span class="n">f</span><span class="p">(</span><span class="n">x_n</span><span class="p">))</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span>\
+            <span class="nb">abs</span><span class="p">(</span><span class="n">x_n</span> <span class="o">-</span> <span class="n">x_c</span><span class="p">)</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x_n</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typx</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span>
+<span class="n">f_p1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">x_star</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.75</span>
+<span class="n">x_0</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1</span>
+
+<span class="n">sqs1d</span> <span class="o">=</span> <span class="n">SecantQuadraticSolver1D</span><span class="p">()</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">sqs1d</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f_p1</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">plot_convergent_sequence</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">x_star</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_48_0.png" src="../../_images/nb_numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds_chapter-02_48_0.png" />
+</div>
+</div>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/chapter-02-0"><dl class="citation">
+<dt class="bibtex label" id="acklamhm"><span class="brackets"><a class="fn-backref" href="#id3">Ack</a></span></dt>
+<dd><p>Peter John Acklam. A small paper on halley’s method. <span><a class="reference external" href="#"></a></span>http://web.archive.org/web/20151030212505/http://home.online.no/ pjacklam/notes/halley/halley.pdf. Accessed on 2017-01-28.</p>
+</dd>
+<dt class="bibtex label" id="gay1979some"><span class="brackets"><a class="fn-backref" href="#id2">Gay79</a></span></dt>
+<dd><p>David M Gay. Some convergence properties of broyden’s method. <em>SIAM Journal on Numerical Analysis</em>, 16(4):623–630, 1979.</p>
+</dd>
+<dt class="bibtex label" id="potra1989onq"><span class="brackets"><a class="fn-backref" href="#id1">Pot89</a></span></dt>
+<dd><p>FA Potra. On q-order and r-order of convergence. <em>Journal of Optimization Theory and Applications</em>, 63(3):415–431, 1989.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/chapter-02.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

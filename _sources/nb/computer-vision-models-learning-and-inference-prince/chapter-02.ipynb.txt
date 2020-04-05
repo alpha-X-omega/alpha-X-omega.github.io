@@ -1,0 +1,264 @@
+{
+ "cells": [
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "***************************\n",
+    "Introduction to Probability\n",
+    "***************************\n",
+    "\n",
+    "Random Variables\n",
+    "================\n",
+    "\n",
+    "A random variable denotes a quantity that is uncertain."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 2.1\n",
+    "============\n",
+    "\n",
+    "Weather Prediction: let :math:`x` denote the state (e.g. sunny, raining) and\n",
+    ":math:`y` denote some quantitative measure of interest (e.g temperature, wind,\n",
+    "humidity)."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 2.2\n",
+    "============\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\int \\int Pr(v, w, x, y, z) dw dy = \\int Pr(v, x, y, z) dy = Pr(v, x, z)\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\int Pr(v, x, z) dv = Pr(x, z)"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 2.3\n",
+    "============\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   Pr(w, x, y, z) &= Pr(w, y, z \\mid x) Pr(x)\\\\\n",
+    "    &= Pr(w, z \\mid x, y) Pr(y \\mid x) Pr(x)\n",
+    "       & \\quad & \\text{(2.5)}\\\\\n",
+    "    &= Pr(w, z \\mid x, y) Pr(x, y)\n",
+    "       & \\quad & \\text{(2.6)}\\\\\n",
+    "    &= Pr(z \\mid w, x, y) Pr(w \\mid x, y) Pr(x, y)\n",
+    "       & \\quad & \\text{(2.7)}"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 2.4\n",
+    "============\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   Pr(c = 2 \\mid h = 1)\n",
+    "    &= \\frac{Pr(h = 1 \\mid c = 2) Pr(c = 2)}{Pr(h = 1)}\\\\\n",
+    "    &= \\frac{(0.8) (0.5)}{\\sum_c Pr(h = 1, c)}\\\\\n",
+    "    &= \\frac{0.4}{\\sum_c Pr(h = 1 \\mid c) P(c)}\\\\\n",
+    "    &= \\frac{0.4}{\n",
+    "         Pr(h = 1 \\mid c = 1) P(c = 1) + Pr(h = 1 \\mid c = 2) Pr(c = 2)\n",
+    "       }\\\\\n",
+    "    &= \\frac{0.4}{(0.5) (0.5) + (0.8) (0.5)}\\\\\n",
+    "    &= \\frac{8}{13}"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 2.5\n",
+    "============\n",
+    "\n",
+    "No.  Consider any general distribution :math:`Pr(y, z)` where :math:`y` and\n",
+    ":math:`z` are not independent.  Any distribution :math:`Pr(x)` that does not\n",
+    "provide any information about :math:`y` or :math:`z` can be tacked on to the\n",
+    "marginal distributions :math:`Pr(y)` and :math:`Pr(z)`."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 2.6\n",
+    "============\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\newcommand{\\Perp}{\\mathbin{\\unicode{x2AEB}}}\n",
+    "   Pr(x \\mid y = y^*)\n",
+    "    &= \\frac{Pr(x, y = y^*)}{\\int Pr(x, y = y^*) dx}\\\\\n",
+    "    &= \\frac{Pr(x) Pr(y = y^*)}{Pr(y = y^*) \\int Pr(x) dx}\n",
+    "       & \\quad & x \\Perp y\\\\\n",
+    "    &= Pr(x)\n",
+    "       & \\quad & \\int Pr(x) dx = 1"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 2.7\n",
+    "============\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   Pr(x, w)\n",
+    "    &= \\int \\int Pr(w, x, y, z) dz dy\n",
+    "       & \\quad & \\text{(2.2)}\\\\\n",
+    "    &= \\int \\int Pr(w) Pr(z \\mid y) Pr(y \\mid x, w) Pr(x) dz dy\n",
+    "       & \\quad & \\text{initial assumption}\\\\\n",
+    "    &= Pr(x) Pr(w) \\int Pr(y \\mid x, w) \\int Pr(z \\mid y) dz dy\\\\\n",
+    "    &= Pr(x) Pr(w)\n",
+    "       & \\quad & \\text{(2.3)}"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 2.8\n",
+    "============\n",
+    "\n",
+    "Let :math:`X` denote the number of points on the face turned up with the\n",
+    "corresponding probabilities.\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\mathrm{E}[X] =\n",
+    "   \\sum_x x \\Pr(x) =\n",
+    "   (1) 12^{-1} + (2) 12^{-1} + (3) 12^{-1} +\n",
+    "     (4) 12^{-1} + (5) 6^{-1} + (6) 2^{-1} =\n",
+    "   4.\\bar{6}.\n",
+    "\n",
+    "Since die rolls are independent, rolling the die twice is equivalent to\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\mathrm{E}[X + X] = 2 \\mathrm{E}[X] = 9.\\bar{3}."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 2.9\n",
+    "============\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\mathrm{E}[\\kappa]\n",
+    "    &= \\int \\kappa Pr(x) dx\\\\\n",
+    "    &= \\kappa \\int Pr(x) dx\\\\\n",
+    "    &= \\kappa\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\mathrm{E}[\\kappa f[x]]\n",
+    "    &= \\int \\kappa f[x] Pr(x) dx\\\\\n",
+    "    &= \\kappa \\int f[x] Pr(x) dx\\\\\n",
+    "    &= \\kappa \\mathrm{E}[f[x]]\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\mathrm{E}[f[x] + g[x]]\n",
+    "    &= \\int \\left( f[x] + g[x] \\right) Pr(x) dx\\\\\n",
+    "    &= \\int \\left( f[x] Pr(x) + g[x] Pr(x) \\right) dx\\\\\n",
+    "    &= \\int f[x] Pr(x) dx + \\int g[x] Pr(x) dx\\\\\n",
+    "    &= \\mathrm{E}[f[x]] + \\mathrm{E}[g[x]]\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\mathrm{E}[f[x] g[y]]\n",
+    "    &= \\int \\int f[x] g[y] Pr(x, y) dx dy\n",
+    "       & \\quad & \\text{(2.13)}\\\\\n",
+    "    &= \\int \\int f[x] g[y] Pr(x) Pr(y) dx dy\n",
+    "       & \\quad & \\text{(2.11)}\\\\\n",
+    "    &= \\int f[x] Pr(x) dx \\int g[y] Pr(y) dy\\\\\n",
+    "    &= \\mathrm{E}[f[x]] \\mathrm{E}[g[y]]"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    ".. _prince2012computer-ex-2.10:\n",
+    "\n",
+    "Exercise 2.10\n",
+    "=============\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\mathrm{E}\\left[ (x - \\mu)^2 \\right]\n",
+    "    &= \\mathrm{E}\\left[ x^2 - 2 \\mu x + \\mu^2 \\right]\\\\\n",
+    "    &= \\mathrm{E}[x^2] - 2 \\mu \\mathrm{E}[x] + \\mu^2\n",
+    "       & \\quad & \\text{(2.16), (2.15), (2.14)}\\\\\n",
+    "    &= \\mathrm{E}[x^2] - 2 \\mathrm{E}[x]^2 + \\mathrm{E}[x]^2\n",
+    "       & \\quad & \\mu \\triangleq \\mathrm{E}[x]\\\\\n",
+    "    &= \\mathrm{E}[x^2] - \\mathrm{E}[x]^2"
+   ]
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "celltoolbar": "Raw Cell Format",
+  "kernelspec": {
+   "display_name": "Python [default]",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.5.2"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}

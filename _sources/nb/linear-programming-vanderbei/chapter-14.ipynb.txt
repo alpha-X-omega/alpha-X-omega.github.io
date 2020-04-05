@@ -1,0 +1,766 @@
+{
+ "cells": [
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "*********************\n",
+    "Network Flow Problems\n",
+    "*********************\n",
+    "\n",
+    "The network flow problem is defined as\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "  \\begin{aligned}\n",
+    "    \\text{minimize} \\quad c^\\top x &\\\\\n",
+    "    \\text{subject to} \\quad\n",
+    "      Ax &= -b\\\\\n",
+    "      x &\\geq 0.\n",
+    "  \\end{aligned}\n",
+    "\n",
+    "Rewriting into standard form gives\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "  \\begin{aligned}\n",
+    "    \\mathcal{P} \\quad -\\text{maximize} \\quad -c^\\top x &\\\\\n",
+    "      Ax &= -b\\\\\n",
+    "    \\text{subject to} \\quad\n",
+    "      x &\\geq 0\n",
+    "  \\end{aligned}\n",
+    "  \\quad \\iff \\quad\n",
+    "  \\begin{aligned}\n",
+    "    \\mathcal{D} \\quad -\\text{minimize} \\quad -b^\\top y &\\\\\n",
+    "    \\text{subject to} \\quad\n",
+    "      A^\\top y &\\geq -c\n",
+    "  \\end{aligned}\n",
+    "  \\quad \\iff \\quad\n",
+    "  \\begin{aligned}\n",
+    "    \\mathcal{D} \\quad \\text{maximize} \\quad b^\\top y &\\\\\n",
+    "    \\text{subject to} \\quad\n",
+    "      -A^\\top y &\\leq c.\n",
+    "  \\end{aligned}\n",
+    "\n",
+    "Affixing (dual) slack variables to the foregoing formulation yields\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\mathcal{D} \\quad \\text{maximize} \\quad b^\\top y &\\\\\n",
+    "   \\text{subject to} \\quad\n",
+    "     z &= c + A^\\top y\\\\\n",
+    "     z &\\geq 0,\n",
+    "\n",
+    "which differs from the textbook's notation by a negative sign.\n",
+    "\n",
+    "Given a network flow problem, any selection of primal flow values that satisfies\n",
+    "the balance equations at every node will be called a balanced flow.  If all the\n",
+    "flows are nonnegative, then a balanced flow is called a feasible flow.\n",
+    "\n",
+    "Given a spanning tree, a balanced flow that assigns zero flow to every arc not\n",
+    "on the spanning tree will be called a tree solution.  From duality theory, the\n",
+    "tree solution is optimal if all the primal flows are nonnegative and if all the\n",
+    "dual slacks are nonnegative."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "from operator import itemgetter\n",
+    "from pprint import pprint\n",
+    "from pymprog import model\n",
+    "\n",
+    "import itertools\n",
+    "import numpy\n",
+    "\n",
+    "class NetworkFlowSolver:\n",
+    "    def __init__(self, nodes, edges):\n",
+    "        _ = sorted(edges, key=itemgetter(0, 2))\n",
+    "        self.arcs = [edge[0] + edge[2] for edge in _]\n",
+    "        self.c = [edge[1] for edge in _]\n",
+    "        self.n = len(self.arcs)\n",
+    "        self.m = len(nodes)\n",
+    "        self.nodes = nodes\n",
+    "        self.edges = edges\n",
+    "\n",
+    "        self.A = numpy.zeros((self.m, self.n))\n",
+    "        for i, (name, _) in enumerate(nodes):\n",
+    "            for j, arc in enumerate(self.arcs):\n",
+    "                if name == arc[0]:\n",
+    "                    self.A[i, j] = -1\n",
+    "                elif name == arc[1]:\n",
+    "                    self.A[i, j] = 1\n",
+    "\n",
+    "        self.b = numpy.asarray([_[1] for _ in nodes])\n",
+    "\n",
+    "    def solve_primal(self):\n",
+    "        lp = model('Original Primal LP')\n",
+    "        #lp.verbose(True)\n",
+    "        x = lp.var('x', self.n, bounds=(0, None))\n",
+    "\n",
+    "        lp.minimize(sum(x_j * c_j for x_j, c_j in zip(x, self.c)))\n",
+    "        for i, b_i in enumerate(self.b):\n",
+    "            sum(a_ij * x_j for a_ij, x_j in zip(self.A[i, :], x)) == -b_i\n",
+    "\n",
+    "        lp.solve()\n",
+    "        lp.sensitivity()\n",
+    "\n",
+    "        lp.end()\n",
+    "\n",
+    "        self.lp = lp\n",
+    "        self.x = x\n",
+    "\n",
+    "    @property\n",
+    "    def primal_flows(self):\n",
+    "        _ = []\n",
+    "        for x_i, arc_name in zip(self.x, self.arcs):\n",
+    "            if not numpy.isclose(x_i.primal, 0):\n",
+    "                _.append((arc_name, x_i.primal))\n",
+    "\n",
+    "        groups = {}\n",
+    "        for k, v in itertools.groupby(_, key=lambda x: x[0][0]):\n",
+    "            groups[k] = list(v)\n",
+    "\n",
+    "        return groups\n",
+    "\n",
+    "    @property\n",
+    "    def dual_variables(self):\n",
+    "        _ = []\n",
+    "        for con in range(1, self.lp.get_num_rows() + 1):\n",
+    "            _.append((self.nodes[con - 1][0], self.lp.get_row_dual(con)))\n",
+    "\n",
+    "        return _\n",
+    "\n",
+    "    @property\n",
+    "    def dual_slacks(self):\n",
+    "        _ = []\n",
+    "        for x_i, arc_name in zip(self.x, self.arcs):\n",
+    "            if numpy.isclose(x_i.primal, 0):\n",
+    "                _.append((arc_name, x_i.dual))\n",
+    "\n",
+    "        groups = {}\n",
+    "        for k, v in itertools.groupby(_, key=lambda x: x[0][0]):\n",
+    "            groups[k] = list(v)\n",
+    "\n",
+    "        return groups"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "collapsed": true,
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 14.1\n",
+    "=============\n",
+    "\n",
+    "The proposed tree solution is not optimal.  It is neither primal feasible nor\n",
+    "dual feasible."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "PyMathProg 1.0 Sensitivity Report Created: 2018/03/04 Sun 15:49PM\n",
+      "================================================================================\n",
+      "Variable            Activity   Dual.Value     Obj.Coef   Range.From   Range.Till\n",
+      "--------------------------------------------------------------------------------\n",
+      "*x[0]                      0            0           -3           -4           -2\n",
+      " x[1]                      0            9            0           -9          inf\n",
+      "*x[2]                      8            0            1            0 1.79769e+308\n",
+      " x[3]                      0            2            5            3          inf\n",
+      "*x[4]                      3            0           12            7           13\n",
+      " x[5]                      0            1           10            9          inf\n",
+      "*x[6]                      6            0            1            0            7\n",
+      "*x[7]                      8            0            3           -5           12\n",
+      "*x[8]                      3            0            1           -5            2\n",
+      " x[9]                      0            8            6           -2          inf\n",
+      " x[10]                     0            8            5           -3          inf\n",
+      "*x[11]                     0            0           11            2           19\n",
+      " x[12]                     0            1            3            2          inf\n",
+      " x[13]                     0           13            5           -8          inf\n",
+      " x[14]                     0            6            6            0          inf\n",
+      "*x[15]                     8            0            7           -6           12\n",
+      " x[16]                     0            5            3           -2          inf\n",
+      "================================================================================\n",
+      "================================================================================\n",
+      "Constraint       Activity Dual.Value  Lower.Bnd  Upper.Bnd RangeLower RangeUpper\n",
+      "--------------------------------------------------------------------------------\n",
+      " R1                     9         10          9          9          9          9\n",
+      " R2                     0          7          0          0          0          0\n",
+      " R3                    -3         -2         -3         -3         -3         -3\n",
+      " R4                   -17          9        -17        -17        -17        -17\n",
+      " R5                     8         12          8          8          8          8\n",
+      " R6                     0          1          0          0          0          0\n",
+      " R7                     8          8          8          8          8          8\n",
+      " R8                     3         10          3          3          3          3\n",
+      "*R9                    -8          0         -8         -8         -8         -8\n",
+      "================================================================================\n"
+     ]
+    }
+   ],
+   "source": [
+    "# supplies/demands\n",
+    "nodes = [('a', -9),\n",
+    "         ('b', 0),\n",
+    "         ('c', 3),\n",
+    "         ('d', 17),\n",
+    "         ('e', -8),\n",
+    "         ('f', 0),\n",
+    "         ('g', -8),\n",
+    "         ('h', -3),\n",
+    "         ('i', 8),]\n",
+    "# costs\n",
+    "edges = [('a', -3, 'b'), ('a', 0, 'f'),\n",
+    "         ('b', 1, 'g'), ('b', 5, 'h'),\n",
+    "         ('c', 10, 'b'), ('c', 12, 'a'),\n",
+    "         ('d', 1, 'h'), ('d', 3, 'e'), ('d', 1, 'a'),\n",
+    "         ('e', 6, 'a'),\n",
+    "         ('f', 5, 'c'), ('f', 11, 'e'),\n",
+    "         ('g', 3, 'h'), ('g', 5, 'i'),\n",
+    "         ('h', 6, 'a'),\n",
+    "         ('i', 7, 'b'),\n",
+    "         ('i', 3, 'c')]\n",
+    "\n",
+    "nfs = NetworkFlowSolver(nodes, edges)\n",
+    "nfs.solve_primal()"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "(a)\n",
+    "---\n",
+    "\n",
+    "Recall that each node :math:`k \\in \\mathcal{N}` must satisfy the flow balance\n",
+    "constraint\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\sum_{i \\colon (i, k) \\in \\mathcal{A}} x_{ik} -\n",
+    "     \\sum_{j \\colon (k, j) \\in \\mathcal{A}} x_{kj} =\n",
+    "   -b_k.\n",
+    "\n",
+    "The primal flows for the proposed spanning tree can be obtained by starting at\n",
+    "the leaves and working inward:\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   x_{de} &= 8\\\\\n",
+    "   -x_{de} - x_{da} &= -17 &\\implies& x_{da} &= 9\\\\\n",
+    "   x_{af} &= 0\\\\\n",
+    "   x_{da} - x_{fa} - x_{ab} &= 9 &\\implies& x_{ab} &= 0\\\\\n",
+    "   x_{gi} &= -8\\\\\n",
+    "   x_{bg} - x_{gi} &= 8 &\\implies& x_{bg} &= 0\\\\\n",
+    "   x_{bh} &= 3\\\\\n",
+    "   x_{cb} + x_{ab} - x_{bh} - x_{bg} &= 0 &\\implies& x_{cb} &= 3.\n",
+    "\n",
+    "The remaining non-tree arcs have zero flow.\n",
+    "\n",
+    "The optimal primal flows for each tree arc correspond to the LP's basic\n",
+    "variables."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'b': [('bg', 8.0)],\n",
+      " 'c': [('ca', 3.0)],\n",
+      " 'd': [('da', 6.0), ('de', 8.0), ('dh', 3.0)],\n",
+      " 'i': [('ib', 8.0)]}\n"
+     ]
+    }
+   ],
+   "source": [
+    "pprint(nfs.primal_flows)"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "(b)\n",
+    "---\n",
+    "\n",
+    "The dual feasibility conditions are\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   y_j - y_i + z_{ij} = c_{ij}, \\qquad (i, j) \\in \\mathcal{A}.\n",
+    "\n",
+    "By complementarity, :math:`z_{ij} = 0` for each :math:`(i, j)` in the spanning\n",
+    "tree :math:`\\mathcal{T}`.\n",
+    "\n",
+    "Let node :math:`d` be the root node in the proposed spanning tree.  The dual\n",
+    "variables can be obtained by starting at the root and working outward:\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   y_d &= 0\\\\\n",
+    "   y_e - y_d &= 3 &\\implies& y_e &= 3\\\\\n",
+    "   y_a - y_d &= 1 &\\implies& y_a &= 1\\\\\n",
+    "   y_f - y_a &= 0 &\\implies& y_f &= 1\\\\\n",
+    "   y_b - y_a &= -3 &\\implies& y_b &= -2\\\\\n",
+    "   y_b - y_c &= 10 &\\implies& y_c &= -12\\\\\n",
+    "   y_h - y_b &= 5 &\\implies& y_h &= 3\\\\\n",
+    "   y_g - y_b &= 1 &\\implies& y_g &= -1\\\\\n",
+    "   y_i - y_g &= 5 &\\implies& y_i &= -2.\n",
+    "\n",
+    "The optimal dual variables for each node correspond to the duals of the primal\n",
+    "slacks."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[('a', 10.0),\n",
+      " ('b', 7.0),\n",
+      " ('c', -2.0),\n",
+      " ('d', 9.0),\n",
+      " ('e', 12.0),\n",
+      " ('f', 1.0),\n",
+      " ('g', 8.0),\n",
+      " ('h', 10.0),\n",
+      " ('i', 0.0)]\n"
+     ]
+    }
+   ],
+   "source": [
+    "pprint(nfs.dual_variables)"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "(c)\n",
+    "---\n",
+    "\n",
+    "Given the dual variables, the dual slacks must satisfy\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   z_{ij} = c_{ij} + y_i - y_j, \\qquad (i, j) \\not\\in \\mathcal{T}.\n",
+    "\n",
+    "The dual slacks for the proposed spanning tree are\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   z_{ea} &= 6 + y_e - y_a &= 4\\\\\n",
+    "   z_{fc} &= 5 + y_f - y_c &= 18\\\\\n",
+    "   z_{ca} &= 12 + y_c - y_a &= -1\\\\\n",
+    "   z_{ha} &= 6 + y_h - y_a &= 8\\\\\n",
+    "   z_{ic} &= 3 + y_i - y_c &= 13\\\\\n",
+    "   z_{gh} &= 3 + y_g - y_h &= -1.\n",
+    "\n",
+    "The optimal dual slacks for each non-tree arc correspond to the duals of the\n",
+    "nonbasic variables."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'a': [('ab', 0.0), ('af', 9.0)],\n",
+      " 'b': [('bh', 2.0)],\n",
+      " 'c': [('cb', 1.0)],\n",
+      " 'e': [('ea', 8.0)],\n",
+      " 'f': [('fc', 8.0), ('fe', 0.0)],\n",
+      " 'g': [('gh', 1.0), ('gi', 13.0)],\n",
+      " 'h': [('ha', 6.0)],\n",
+      " 'i': [('ic', 5.0)]}\n"
+     ]
+    }
+   ],
+   "source": [
+    "pprint(nfs.dual_slacks)"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 14.2\n",
+    "=============\n",
+    "\n",
+    "(a)\n",
+    "---\n",
+    "\n",
+    "The leaving arc with the most infeasible primal flow is :math:`(c, a)`.\n",
+    "\n",
+    "(b)\n",
+    "---\n",
+    "\n",
+    "Removing the leaving arc disconnects the spanning tree into two disjoint\n",
+    "subtrees :math:`\\mathcal{T}_c = \\{b, c, d, g, h, i\\}` and\n",
+    ":math:`\\mathcal{T}_a = \\{a, e, f\\}`.\n",
+    "\n",
+    "The bridging arcs are\n",
+    ":math:`\\left\\{ (f, c), (a, b), (h, a), (d, a), (d, e) \\right\\}`.\n",
+    "\n",
+    "The arcs in the opposite direction from the leaving arc :math:`(c, a)` are\n",
+    ":math:`\\left\\{ (f, c), (a, b) \\right\\}`.  Here opposite direction means the arc\n",
+    "must start from :math:`\\mathcal{T}_a` and enter :math:`\\mathcal{T}_c`.\n",
+    "\n",
+    "The entering arc with the smallest dual slack is :math:`(a, b)`.\n",
+    "\n",
+    "(c)\n",
+    "---\n",
+    "\n",
+    "The new tree solution after the pivot is given by steps (9), (10), and (11) of\n",
+    "the self-dual network simplex method.\n",
+    "\n",
+    "Update Primal Flows\n",
+    "^^^^^^^^^^^^^^^^^^^\n",
+    "\n",
+    "The entering arc creates a cycle containing nodes :math:`c, a, b`.  Let\n",
+    ":math:`t` denote the flow of the leaving arc :math:`(c, a)`.\n",
+    "\n",
+    ":math:`(a, b)` is oriented in the same direction as the leaving arc\n",
+    ":math:`(c, a)`, so its flow is decreased by :math:`t`.  :math:`(c, b)` is in the\n",
+    "opposite direction, so its flow increased by :math:`t`.\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   x'_{ca} &= -16 - t &= 0\\\\\n",
+    "   x'_{ab} &= 0 - t &= 16\\\\\n",
+    "   x'_{cb} &= 16 + t &= 0.\n",
+    "\n",
+    "Update Dual Slacks\n",
+    "^^^^^^^^^^^^^^^^^^\n",
+    "\n",
+    "All dual slacks remain unchanged except for those associated with nontree arcs\n",
+    "that bridge the two subtrees :math:`\\mathcal{T}_a` and :math:`\\mathcal{T}_c`.\n",
+    "\n",
+    "The old dual slack of the entering arc is :math:`z_{ab} = 8`.  The dual slacks\n",
+    "corresponding to those arcs that bridge in the same direction as the entering\n",
+    "arc get decremented by :math:`z_{ab}` whereas those that correspond to arcs\n",
+    "bridging in the opposite direction get incremented by this amount.\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   z'_{ab} &= 8 - z_{ab} &= 0\\\\\n",
+    "   z'_{fc} &= 14 - z_{ab} &= 6\\\\\n",
+    "   z'_{ca} &= 0 + z_{ab} &= 8\\\\\n",
+    "   z'_{da} &= 0 + z_{ab} &= 8\\\\\n",
+    "   z'_{de} &= 12 + z_{ab} &= 20\\\\\n",
+    "   z'_{ha} &= 6 + z_{ab} &= 14.\n",
+    "\n",
+    "Update Dual Variables\n",
+    "^^^^^^^^^^^^^^^^^^^^^\n",
+    "\n",
+    "The dual variables for nodes in :math:`\\mathcal{T}_a` remains unchanged.  The\n",
+    "dual variables for nodes in :math:`\\mathcal{T}_c` get incremented by the\n",
+    "old dual slack of the entering arc :math:`z_{ab}`."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 14.3\n",
+    "=============\n",
+    "\n",
+    "The proposed tree solution is not optimal.  It is primal feasible, but not dual\n",
+    "feasible.\n",
+    "\n",
+    "(a)\n",
+    "---\n",
+    "\n",
+    "The primal flows for the proposed spanning tree are\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   x_{de} &= 6\\\\\n",
+    "   x_{af} &= 0\\\\\n",
+    "   x_{da} - x_{af} &= -1 &\\implies& x_{da} &= -1\\\\\n",
+    "   x_{hd} - x_{de} - x_{da} &= 8 &\\implies& x_{hd} &= 13\\\\\n",
+    "   x_{bh} - x_{hd} &= 0 &\\implies& x_{bh} &= 13\\\\\n",
+    "   x_{cb} - x_{bh} &= -7 &\\implies& x_{cb} &= 6.\n",
+    "\n",
+    "The remaining non-tree arcs have zero flow.\n",
+    "\n",
+    "(b)\n",
+    "---\n",
+    "\n",
+    "Let node :math:`c` be the root node in the proposed spanning tree.  The dual\n",
+    "variables are\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   y_c &= 0\\\\\n",
+    "   y_b - y_c &= 7 &\\implies& y_b &= 7\\\\\n",
+    "   y_h - y_b &= 14 &\\implies& y_h &= 21\\\\\n",
+    "   y_d - y_h &= -4 &\\implies& y_d &= 17\\\\\n",
+    "   y_e - y_d &= 6 &\\implies& y_e &= 23\\\\\n",
+    "   y_a - y_d &= 0 &\\implies& y_a &= 17\\\\\n",
+    "   y_f - y_a &= 6 &\\implies& y_f &= 23.\n",
+    "\n",
+    "(c)\n",
+    "---\n",
+    "\n",
+    "The dual slacks are\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   z_{cf} &= 3 + y_c - y_f &= -20\\\\\n",
+    "   z_{ef} &= 8 + y_e - y_f &= 8\\\\\n",
+    "   z_{ab} &= 0 + y_a - y_b &= 10\\\\\n",
+    "   z_{ac} &= 7 + y_a - y_c &= 24\\\\\n",
+    "   z_{ha} &= -1 + y_h - y_a &= 3."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 14.4\n",
+    "============="
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 14.5\n",
+    "============="
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 14.6\n",
+    "============="
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "PyMathProg 1.0 Sensitivity Report Created: 2018/03/04 Sun 15:56PM\n",
+      "================================================================================\n",
+      "Variable            Activity   Dual.Value     Obj.Coef   Range.From   Range.Till\n",
+      "--------------------------------------------------------------------------------\n",
+      "*x[0]                      1            0            3            3            5\n",
+      "*x[1]                      1            0            1           -1            1\n",
+      "*x[2]                      2            0            0            0            2\n",
+      " x[3]                      0            3            0           -3          inf\n",
+      "*x[4]                      0            0            1            1            3\n",
+      "*x[5]                      1            0            2            1 1.79769e+308\n",
+      "*x[6]                      6            0            4            2            4\n",
+      " x[7]                      0            2            2            0          inf\n",
+      " x[8]                      0            1            3            2          inf\n",
+      " x[9]                      0            0            1            1          inf\n",
+      "*x[10]                     3            0            0           -2            1\n",
+      " x[11]                     0            2            1           -1          inf\n",
+      "================================================================================\n",
+      "================================================================================\n",
+      "Constraint       Activity Dual.Value  Lower.Bnd  Upper.Bnd RangeLower RangeUpper\n",
+      "--------------------------------------------------------------------------------\n",
+      " R1                    -2         -5         -2         -2         -2         -2\n",
+      " R2                    -1         -2         -1         -1         -1         -1\n",
+      " R3                     2         -2          2          2          2          2\n",
+      " R4                    -6         -4         -6         -6         -6         -6\n",
+      " R5                     1         -2          1          1          1          1\n",
+      " R6                     0         -1          0          0          0          0\n",
+      " R7                     3          0          3          3          3          3\n",
+      "*R8                     3          0          3          3          3          3\n",
+      "================================================================================\n"
+     ]
+    }
+   ],
+   "source": [
+    "nodes = [('a', 2),\n",
+    "         ('b', 1),\n",
+    "         ('c', -2),\n",
+    "         ('d', 6),\n",
+    "         ('e', -1),\n",
+    "         ('f', 0),\n",
+    "         ('g', -3),\n",
+    "         ('h', -3),]\n",
+    "edges = [('a', 3, 'b'), ('a', 1, 'd'),\n",
+    "         ('b', 0, 'c'),\n",
+    "         ('c', 0, 'a'), ('c', 1, 'f'),\n",
+    "         ('d', 2, 'e'), ('d', 4, 'g'),\n",
+    "         ('e', 2, 'b'), ('e', 3, 'h'),\n",
+    "         ('f', 1, 'g'),\n",
+    "         ('g', 0, 'h'),\n",
+    "         ('h', 1, 'f')]\n",
+    "\n",
+    "nfs = NetworkFlowSolver(nodes, edges)\n",
+    "nfs.solve_primal()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'a': [('ab', 1.0), ('ad', 1.0)],\n",
+      " 'b': [('bc', 2.0)],\n",
+      " 'd': [('de', 1.0), ('dg', 6.0)],\n",
+      " 'g': [('gh', 3.0)]}\n"
+     ]
+    }
+   ],
+   "source": [
+    "pprint(nfs.primal_flows)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[('a', -5.0),\n",
+      " ('b', -2.0),\n",
+      " ('c', -2.0),\n",
+      " ('d', -4.0),\n",
+      " ('e', -2.0),\n",
+      " ('f', -1.0),\n",
+      " ('g', 0.0),\n",
+      " ('h', 0.0)]\n"
+     ]
+    }
+   ],
+   "source": [
+    "pprint(nfs.dual_variables)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'c': [('ca', 3.0), ('cf', 0.0)],\n",
+      " 'e': [('eb', 2.0), ('eh', 1.0)],\n",
+      " 'f': [('fg', 0.0)],\n",
+      " 'h': [('hf', 2.0)]}\n"
+     ]
+    }
+   ],
+   "source": [
+    "pprint(nfs.dual_slacks)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "#http://orfe.princeton.edu/~rvdb/307/lectures/lec14_show.pdf\n",
+    "#http://orfe.princeton.edu/~rvdb/307/lectures/lec13_show.pdf"
+   ]
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "celltoolbar": "Raw Cell Format",
+  "kernelspec": {
+   "display_name": "Python [default]",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.5.2"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 1
+}

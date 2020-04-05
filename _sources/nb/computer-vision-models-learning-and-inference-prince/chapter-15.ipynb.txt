@@ -1,0 +1,475 @@
+{
+ "cells": [
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "**************************\n",
+    "Models for Transformations\n",
+    "**************************\n",
+    "\n",
+    "Affine Transformation Model\n",
+    "===========================\n",
+    "\n",
+    "Affine transformations provide a good mapping when the depth variation of the\n",
+    "plane as seen by the camera is small relative to the mean distance from the\n",
+    "camera.  This scenario occurs when the viewing angle is not too oblique, the\n",
+    "camera is distant, and the field of view is small.\n",
+    "\n",
+    "Geometric Properties of the Homography\n",
+    "======================================\n",
+    "\n",
+    "For a geometric interpretation, see Figures 15.13 and 15.14.  The homography\n",
+    "maps between:\n",
+    "\n",
+    "- points on a plane in the real world and their positions in an image,\n",
+    "- points in two different images of the same plane, and\n",
+    "- two images of a 3D object where the camera has rotated but not translated."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 15.1\n",
+    "=============\n",
+    "\n",
+    "The inverse of\n",
+    ":math:`\\mathbf{x}_2 = \\boldsymbol{\\Omega}_1 \\mathbf{x}_1 + \\boldsymbol{\\tau}_1`\n",
+    "needs to satisfy\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\mathbf{x}_1\n",
+    "    &= \\boldsymbol{\\Omega}_2 \\mathbf{x}_2 + \\boldsymbol{\\tau}_2\\\\\n",
+    "    &= \\boldsymbol{\\Omega}_2\n",
+    "         \\left(\n",
+    "           \\boldsymbol{\\Omega}_1 \\mathbf{x}_1 + \\boldsymbol{\\tau}_1\n",
+    "         \\right) +\n",
+    "       \\boldsymbol{\\tau}_2\\\\\n",
+    "    &= \\boldsymbol{\\Omega}_2 \\boldsymbol{\\Omega}_1 \\mathbf{x}_1 +\n",
+    "       \\boldsymbol{\\Omega}_2 \\boldsymbol{\\tau}_1 + \\boldsymbol{\\tau}_2.\n",
+    "\n",
+    "Thus\n",
+    ":math:`\\boldsymbol{\\Omega}_2 = \\boldsymbol{\\Omega}_1^{-1} =\n",
+    "\\boldsymbol{\\Omega}_1^\\top` and\n",
+    ":math:`\\boldsymbol{\\tau}_2 = -\\boldsymbol{\\Omega}_2 \\boldsymbol{\\tau}_1 =\n",
+    "-\\boldsymbol{\\Omega}_1^\\top \\boldsymbol{\\tau}_1`."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 15.2\n",
+    "=============\n",
+    "\n",
+    "A 2D line is defined as\n",
+    ":math:`\\mathbf{l} \\cdot \\tilde{\\mathbf{x}} =\n",
+    "\\mathbf{l}^\\top \\tilde{\\mathbf{x}} = 0`.\n",
+    "\n",
+    "If the points are transformed such that\n",
+    ":math:`\\tilde{\\mathbf{x}}' = \\mathbf{T} \\tilde{\\mathbf{x}}`, then the line\n",
+    "becomes :math:`\\mathbf{l}' = \\mathbf{T}^{-\\top} \\mathbf{l}` such that\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\mathbf{l}' \\cdot \\tilde{\\mathbf{x}}'\n",
+    "    &= \\mathbf{l}'^\\top \\tilde{\\mathbf{x}}'\\\\\n",
+    "    &= \\mathbf{l}^\\top \\mathbf{T}^{-1} \\mathbf{T} \\tilde{\\mathbf{x}}\\\\\n",
+    "    &= \\mathbf{l}^\\top \\tilde{\\mathbf{x}}\\\\\n",
+    "    &= 0."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    ".. _prince2012computer-ex-15.3:\n",
+    "\n",
+    "Exercise 15.3\n",
+    "=============\n",
+    "\n",
+    "The DLT algorithm in section :math:`15.2.4` can be reused for lines\n",
+    ":math:`\\mathbf{l}` and :math:`\\mathbf{l}'` such that\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\tilde{\\mathbf{l}}_2 \\sim H \\tilde{\\mathbf{l}}_1\n",
+    "   \\rightarrow\n",
+    "   \\min_{\\mathbf{H}} \\tilde{\\mathbf{l}}_2 - H \\tilde{\\mathbf{l}}_1."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 15.4\n",
+    "=============\n",
+    "\n",
+    "A conic is defined as\n",
+    ":math:`\\tilde{\\mathbf{x}}^\\top \\mathbf{C} \\tilde{\\mathbf{x}} = 0`.\n",
+    "\n",
+    "If the points are transformed such that\n",
+    ":math:`\\tilde{\\mathbf{x}}' = \\mathbf{T} \\tilde{\\mathbf{x}}`, then the conic\n",
+    "becomes :math:`\\mathbf{C}' = \\mathbf{T}^{-\\top} \\mathbf{C} \\mathbf{T}^{-1}`\n",
+    "such that\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   {\\tilde{\\mathbf{x}}'}^\\top \\mathbf{C}' \\tilde{\\mathbf{x}}'\n",
+    "    &= \\tilde{\\mathbf{x}}^\\top \\mathbf{T}^\\top\n",
+    "       \\mathbf{T}^{-\\top} \\mathbf{C} \\mathbf{T}^{-1}\n",
+    "       \\mathbf{T} \\tilde{\\mathbf{x}}\\\\\n",
+    "    &= \\tilde{\\mathbf{x}}^\\top \\mathbf{C} \\tilde{\\mathbf{x}}\\\\\n",
+    "    &= 0."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    ".. _prince2012computer-ex-15.5:\n",
+    "\n",
+    "Exercise 15.5\n",
+    "=============\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\mathbf{T}_\\text{Euclidean}\n",
+    "    &= \\begin{bmatrix}\n",
+    "         \\omega_{11} & \\omega_{12} & \\omega_{13} & \\tau_x\\\\\n",
+    "         \\omega_{21} & \\omega_{22} & \\omega_{23} & \\tau_y\\\\\n",
+    "         \\omega_{31} & \\omega_{32} & \\omega_{33} & \\tau_z\\\\\n",
+    "         0 & 0 & 0 & 1\n",
+    "       \\end{bmatrix}\\\\\\\\\n",
+    "   \\mathbf{T}_\\text{similarity}\n",
+    "    &= \\begin{bmatrix}\n",
+    "         \\rho \\omega_{11} & \\rho \\omega_{12} & \\rho \\omega_{13} & \\tau_x\\\\\n",
+    "         \\rho \\omega_{21} & \\rho \\omega_{22} & \\rho \\omega_{23} & \\tau_y\\\\\n",
+    "         \\rho \\omega_{31} & \\rho \\omega_{32} & \\rho \\omega_{33} & \\tau_z\\\\\n",
+    "         0 & 0 & 0 & 1\n",
+    "       \\end{bmatrix}\\\\\\\\\n",
+    "   \\mathbf{T}_\\text{affine}\n",
+    "    &= \\begin{bmatrix}\n",
+    "         \\phi_{11} & \\phi_{12} & \\phi_{13} & \\tau_x\\\\\n",
+    "         \\phi_{21} & \\phi_{22} & \\phi_{23} & \\tau_y\\\\\n",
+    "         \\phi_{31} & \\phi_{32} & \\phi_{33} & \\tau_z\\\\\n",
+    "         0 & 0 & 0 & 1\n",
+    "       \\end{bmatrix}\\\\\\\\\n",
+    "   \\mathbf{T}_\\text{projective}\n",
+    "    &= \\begin{bmatrix}\n",
+    "         \\phi_{11} & \\phi_{12} & \\phi_{13} & \\phi_{14}\\\\\n",
+    "         \\phi_{21} & \\phi_{22} & \\phi_{23} & \\phi_{24}\\\\\n",
+    "         \\phi_{31} & \\phi_{32} & \\phi_{33} & \\phi_{34}\\\\\n",
+    "         \\phi_{41} & \\phi_{42} & \\phi_{43} & \\phi_{44}\n",
+    "       \\end{bmatrix}\n",
+    "\n",
+    "Euclidean, similarity, affine, and perspective have respectively 6, 7, 12, and\n",
+    "15 unconstrained parameters.  Notice that even though a 3D rotation matrix has\n",
+    "nine parameters, there are six (orthonormal) constraints:\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\left\\vert \\boldsymbol{\\omega}_{\\cdot, 1} \\right\\vert =\n",
+    "   \\left\\vert \\boldsymbol{\\omega}_{\\cdot, 2} \\right\\vert =\n",
+    "   \\left\\vert \\boldsymbol{\\omega}_{\\cdot, 3} \\right\\vert\\\\\\\\\n",
+    "   \\boldsymbol{\\omega}_{\\cdot, 3} =\n",
+    "   \\boldsymbol{\\omega}_{\\cdot, 1} \\times \\boldsymbol{\\omega}_{\\cdot, 2}."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 15.6\n",
+    "=============\n",
+    "\n",
+    "The DLT algorithm can be used to solve for the parameters.  Each matched pair\n",
+    "of 2D points on the plane or 3D points would generate two or three equations\n",
+    "respectively, so only six pairs of 2D points or four pairs of 3D points are\n",
+    "needed to solve for the twelve unknowns."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 15.7\n",
+    "=============\n",
+    "\n",
+    "The 1D affine transformation is defined as\n",
+    ":math:`x' = ax + b\\; \\forall x \\in \\mathbb{R}`.  The ratio of two distances is\n",
+    "invariant to a 1D affine transformation because\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\frac{x_1' - x_2'}{x_2' - x_3'}\n",
+    "    &= \\frac{(a x_1 + b) - (a x_2 + b)}{(a x_2 + b) - (a x_3 + b)}\\\\\n",
+    "    &= \\frac{a (x_1 - x_2)}{a (x_2 - x_3)}\\\\\n",
+    "    &= \\frac{x_1 - x_2}{x_2 - x_3}\\\\\n",
+    "    &= I."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 15.8\n",
+    "=============\n",
+    "\n",
+    "The 1D projective transformation is defined as\n",
+    ":math:`x' = \\frac{ax + b}{cx + d}\\; \\forall x \\in \\mathbb{R}`.  The cross-ratio\n",
+    "of distances is invariant to a 1D projective transformation because\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\frac{(x_3' - x_1') (x_4' - x_2')}{(x_3' - x_2') (x_4' - x_1')}\n",
+    "    &= \\frac{\n",
+    "         \\left(\n",
+    "           \\frac{a x_3 + b}{c x_3 + d} - \\frac{a x_1 + b}{c x_1 + d}\n",
+    "         \\right)\n",
+    "         \\left(\n",
+    "           \\frac{a x_4 + b}{c x_4 + d} - \\frac{a x_2 + b}{c x_2 + d}\n",
+    "         \\right)\n",
+    "       }{\n",
+    "         \\left(\n",
+    "           \\frac{a x_3 + b}{c x_3 + d} - \\frac{a x_2 + b}{c x_2 + d}\n",
+    "         \\right)\n",
+    "         \\left(\n",
+    "           \\frac{a x_4 + b}{c x_4 + d} - \\frac{a x_1 + b}{c x_1 + d}\n",
+    "         \\right)\n",
+    "       }\\\\\n",
+    "    &= \\frac{\n",
+    "         \\left[ (a x_1 + b) (c x_3 + d) - (a x_3 + b) (c x_1 + d) \\right]\n",
+    "         \\left[ (a x_2 + b) (c x_4 + d) - (a x_4 + b) (c x_2 + d) \\right]\n",
+    "       }{\n",
+    "         \\left[ (a x_1 + b) (c x_4 + d) - (a x_4 + b) (c x_1 + d) \\right]\n",
+    "         \\left[ (a x_2 + b) (c x_3 + d) - (a x_3 + b) (c x_2 + d) \\right]\n",
+    "       }\n",
+    "       & \\quad & \\text{(a)}\\\\\n",
+    "    &= \\frac{\n",
+    "         \\left( ad x_1 - ad x_3 - bc x_1 + bc x_3 \\right)\n",
+    "         \\left( ad x_2 - ad x_4 - bc x_2 + bc x_4 \\right)\n",
+    "       }{\n",
+    "         \\left( ad x_1 - ad x_4 - bc x_1 + bc x_4 \\right)\n",
+    "         \\left( ad x_2 - ad x_3 - bc x_2 + bc x_3 \\right)\n",
+    "       }\\\\\n",
+    "    &= \\frac{\n",
+    "         (ad - bc) (x_1 - x_3) (ad - bc) (x_2 - x_4)\n",
+    "       }{\n",
+    "         (ad - bc) (x_1 - x_4) (ad - bc) (x_2 - x_3)\n",
+    "       }\\\\\n",
+    "    &= \\frac{\n",
+    "         (x_3 - x_1) (x_4 - x_2)\n",
+    "       }{\n",
+    "         (x_3 - x_2) (x_4 - x_1)\n",
+    "       }.\n",
+    "\n",
+    "(a)\n",
+    "---\n",
+    "\n",
+    "The common denominator :math:`(c x_1 + d) (c x_2 + d) (c x_3 + d) (c x_4 + d)`\n",
+    "is canceled out."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 15.9\n",
+    "=============\n",
+    "\n",
+    "Let :math:`\\boldsymbol{\\phi}_{k,\\cdot}` represent the :math:`k^\\text{th}` row of\n",
+    "the matrix :math:`\\boldsymbol{\\Phi}`.\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\tilde{\\mathbf{x}} \\times \\boldsymbol{\\Phi} \\tilde{\\mathbf{w}}\n",
+    "    &= \\begin{vmatrix}\n",
+    "         i & j & k\\\\\n",
+    "         x & y & 1\\\\\n",
+    "         \\boldsymbol{\\phi}_{1,\\cdot} \\tilde{\\mathbf{w}} &\n",
+    "           \\boldsymbol{\\phi}_{2,\\cdot} \\tilde{\\mathbf{w}} &\n",
+    "           \\boldsymbol{\\phi}_{3,\\cdot} \\tilde{\\mathbf{w}}\n",
+    "       \\end{vmatrix}\\\\\n",
+    "    &= \\begin{bmatrix}\n",
+    "         y \\boldsymbol{\\phi}_{3,\\cdot} \\tilde{\\mathbf{w}} -\n",
+    "           \\boldsymbol{\\phi}_{2,\\cdot} \\tilde{\\mathbf{w}}\\\\\n",
+    "         \\boldsymbol{\\phi}_{1,\\cdot} \\tilde{\\mathbf{w}} -\n",
+    "           x \\boldsymbol{\\phi}_{3,\\cdot} \\tilde{\\mathbf{w}}\\\\\n",
+    "         x \\boldsymbol{\\phi}_{2,\\cdot} \\tilde{\\mathbf{w}} -\n",
+    "           y \\boldsymbol{\\phi}_{1,\\cdot} \\tilde{\\mathbf{w}}\n",
+    "       \\end{bmatrix}\\\\\n",
+    "    &= \\begin{bmatrix}\n",
+    "         y (\\phi_{3,1} u + \\phi_{3,2} v + \\phi_{3,3}) -\n",
+    "           (\\phi_{2,1} u + \\phi_{2,2} v + \\phi_{2,3})\\\\\n",
+    "         (\\phi_{1,1} u + \\phi_{1,2} v + \\phi_{1,3}) -\n",
+    "           x (\\phi_{3,1} u + \\phi_{3,2} v + \\phi_{3,3})\\\\\n",
+    "         x (\\phi_{2,1} u + \\phi_{2,2} v + \\phi_{2,3}) -\n",
+    "           y (\\phi_{1,1} u + \\phi_{1,2} v + \\phi_{1,3})\n",
+    "       \\end{bmatrix}\\\\\n",
+    "    &= \\boldsymbol{0}.\n",
+    "\n",
+    "Note that cross product is merely one interpretation; see\n",
+    ":ref:`Exercise 15.3 <prince2012computer-ex-15.3>` for a different perspective."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 15.10\n",
+    "==============\n",
+    "\n",
+    "The camera model in homogeneous coordinates (14.24) is\n",
+    ":math:`\\tilde{\\mathbf{x}} = \\boldsymbol{\\Lambda}\n",
+    "\\left[\n",
+    "\\begin{array}{c|c} \\boldsymbol{\\Omega} & \\boldsymbol{\\tau} \\end{array}\n",
+    "\\right] \\tilde{\\mathbf{w}}`.\n",
+    "\n",
+    "Since the initial camera extrinsic parameters are\n",
+    ":math:`\\boldsymbol{\\Omega} = \\mathbf{I}` and\n",
+    ":math:`\\boldsymbol{\\tau} = \\boldsymbol{0}`,\n",
+    ":math:`\\tilde{\\mathbf{x}}_1 = \\boldsymbol{\\Lambda} \\mathbf{w}`.\n",
+    "\n",
+    "The camera then undergoes a pure rotation transformation, with\n",
+    ":math:`\\boldsymbol{\\Omega} = \\boldsymbol{\\Omega}_1`, resulting in\n",
+    ":math:`\\tilde{\\mathbf{x}}_2 =\n",
+    "\\boldsymbol{\\Lambda} \\boldsymbol{\\Omega}_1 \\mathbf{w}`.\n",
+    "\n",
+    "The homography :math:`\\boldsymbol{\\Phi}` mapping from image 1 to image 2 needs\n",
+    "to satisfy\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\tilde{\\mathbf{x}}_2 &= \\boldsymbol{\\Phi} \\tilde{\\mathbf{x}}_1\\\\\n",
+    "   \\boldsymbol{\\Lambda} \\boldsymbol{\\Omega}_1 \\mathbf{w}\n",
+    "    &= \\boldsymbol{\\Phi} \\boldsymbol{\\Lambda} \\mathbf{w};\n",
+    "\n",
+    "thus :math:`\\boldsymbol{\\Phi} = \\boldsymbol{\\Lambda}\n",
+    "\\boldsymbol{\\Omega}_1 \\boldsymbol{\\Lambda}^{-1}`."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 15.11\n",
+    "==============\n",
+    "\n",
+    "As mentioned in :ref:`Exercise 15.5 <prince2012computer-ex-15.5>`, the 3D\n",
+    "rotation matrix has three degrees of freedom so either one 3D point match or two\n",
+    "2D point matches are needed."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    ".. _prince2012computer-ex-15.12:\n",
+    "\n",
+    "Exercise 15.12\n",
+    "==============\n",
+    "\n",
+    "Let :math:`k` denote the number of iterations to run RANSAC.  Let :math:`p` be\n",
+    "the probability that RANSAC selects only inliers from the input data set when it\n",
+    "chooses the :math:`n` points from which the model parameters are estimated.  Let\n",
+    ":math:`w` denote the probability of choosing an inlier each time a single point\n",
+    "is selected.\n",
+    "\n",
+    "Each point is selected independently, so :math:`w^n` is the probability that all\n",
+    ":math:`n` points are inliers and :math:`1 - w^n` is the probability that at\n",
+    "least one of the :math:`n` points is an outlier.\n",
+    "\n",
+    "We can upper bound :math:`k` by assuming a point which has been selected once is\n",
+    "replaced and can be selected again in the same iteration.  The probability that\n",
+    "RANSAC never selects a set of :math:`n` points which all are inliers is\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   (1 - w^n)^k &= 1 - p\\\\\n",
+    "   k &= \\frac{\\log(1 - p)}{\\log(1 - w^n)}."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 15.13\n",
+    "==============\n",
+    "\n",
+    "Apply the EM algorithm as shown in \"Mixture of Gaussians\" (section 7.4).\n",
+    "\n",
+    "I think the t-distribution is more appropriate to handle the outliers.  The\n",
+    "mixture of Gaussians makes more sense when the data is multimodal.  The\n",
+    "noise can be large or small, so it is unclear which distribution is the noise."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 15.14\n",
+    "==============\n",
+    "\n",
+    "This is analogous to forward mapping versus reverse mapping.  The former\n",
+    "requires hole-filling while the latter is hole-free and even supports filtering\n",
+    "of the source image."
+   ]
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "celltoolbar": "Raw Cell Format",
+  "kernelspec": {
+   "display_name": "Python [default]",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.5.2"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}

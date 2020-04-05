@@ -1,0 +1,389 @@
+##############################################
+A Fast Learning Algorithm for Deep Belief Nets
+##############################################
+
+Motivation(s)
+=============
+
+Learning is difficult in densely-connected, directed, multilayer belief nets
+(DBN) because it is difficult to draw samples from the conditional distribution
+of hidden activities when given a data vector.  This is manifested in the
+phenomenon of explaining away: hidden states are independent in the prior but
+dependent in the posterior.  Furthermore, even though belief networks can be
+easily ancestral sampled, learning the model parameters for the first hidden
+layer requires knowing the model parameters of higher layers.
+
+The posterior distribution over the hidden variables
+:math:`p(\mathbf{h} \mid \mathbf{v})` is intractable except for mixture models
+or linear models with additive Gaussian noise.  Markov Chain Monte Carlo methods
+can be used to sample from the posterior if time is not a constraint.
+Variational methods approximate the true posterior with a more tractable
+distribution, and learning is guaranteed to improve a variational bound even
+when the inference of the hidden states is done incorrectly.  However, the
+approximations may be poor and variational learning requires all the parameters
+to be learned together, which scales poorly as the number of parameters
+increase.
+
+One greedy procedure described in :cite:`frean2009dbn` to train a deep belief
+network layer-by-layer is as follows:
+
+1) Given the visible data layer :math:`\mathbf{v}` that is connected to the
+   hidden layer :math:`\mathbf{h}_1`, maximize the likelihood of generating the
+   training data
+
+   .. math::
+
+      p(\mathbf{v} \mid \mathbf{W}_1) =
+      \int p(\mathbf{v} \mid \mathbf{h}_1, \mathbf{W}_1)
+           p(\mathbf{h}_1) d\mathbf{h}_1.
+
+   - :math:`\mathbf{h}_1` is driven by an ephemeral hidden layer
+     :math:`\mathbf{b}_1` that will serve as the :doc:`bias layer </blog/2016/11/19/a-tutorial-on-helmholtz-machines>`.
+   - The :doc:`EM </blog/2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants>`
+     algorithm can be used to optimize the weights
+     :math:`\{ \mathbf{b}_1, \mathbf{W}_1 \}` to maximize the probability of
+     generating the data patterns.
+
+     - When the posterior is not available analytically, one must resort to
+       drawing samples from
+       :math:`p(\mathbf{h}_1 \mid \mathbf{v}, \mathbf{W}_1)`.
+
+   - Averaging over the :math:`N` training examples gives the aggregate
+     posterior :math:`\frac{1}{N} \sum_{\mathbf{v} \in \mathcal{D}}
+     p(\mathbf{h}_1 \mid \mathbf{v}, \mathbf{W}_1)`.
+
+     - The weights :math:`\mathbf{W}_1` end up at values that maximize the
+       likelihood of the data, given :math:`\mathbf{h}_1` sampled from the
+       aggregated posterior distribution.
+     - The bias weights :math:`\mathbf{b}_1` end up at values that approximate
+       the aggregate posterior distribution.
+
+#) Freeze the weights :math:`\mathbf{W}_1`, replace :math:`\mathbf{h}_1`'s
+   bias inputs by a second layer of weights :math:`\mathbf{W}_2`.
+
+   - This stage discards the existing bias layer and its weights
+     :math:`\mathbf{b}_1` to introduce the next hidden layer
+     :math:`\mathbf{h}_2`.
+   - A new ephemeral hidden bias layer :math:`\mathbf{b}_2` will drive
+     :math:`\mathbf{h}_2`.
+
+#) Given :math:`\mathbf{W}_1` and treating :math:`\mathbf{h}_1` as the data
+   (visible) layer, proceed to maximize the likelihood
+
+   .. math::
+
+      p(\mathbf{h}_1 \mid \mathbf{W}_2) =
+      \int p(\mathbf{h}_1 \mid \mathbf{h}_2, \mathbf{W}_2)
+           p(\mathbf{h}_2) d\mathbf{h}_2.
+
+   - For each visible pattern :math:`\mathbf{v}`, the freezed weights are used
+     to sample from :math:`p(\mathbf{h}_1 \mid \mathbf{v}, \mathbf{W}_1)`.
+   - This will make the :math:`\mathbf{h}_2` learn the aggregate posterior
+     distribution over :math:`\mathbf{h}_1`.
+
+#) Proceed recursively until all the layers are learned.
+
+This greedy procedure does not work well at all.  Recall that if
+:math:`p(\mathbf{v})` is factorial i.e. :math:`p(\mathbf{v}) = \prod_i p(v_i)`,
+there is no point in having hidden units in the generative model because a model
+that has hidden units can do no better than a model with just bias inputs to the
+visible units.
+
+In a directed belief network with one hidden layer connected by weights
+:math:`\mathbf{W}`, the prior :math:`p(\mathbf{h})` is factorial, and the
+posterior :math:`p(\mathbf{h} \mid \mathbf{v})` is non-factorial due to
+explaining away.  Learning weights :math:`\mathbf{W}` with EM will result in
+features that are independent in the prior, which tends to make the aggregate
+posterior as factorial as possible.
+
+Proposed Solution(s)
+====================
+
+The authors observe that when trying to improve
+
+.. math::
+
+   p(\mathbf{v}) =
+   \int p(\mathbf{h}) p(\mathbf{v} \mid \mathbf{h}) d\mathbf{h},
+
+solely focusing on the prior can indirectly refine :math:`p(\mathbf{v})`.  To
+improve the prior, a better model of the aggregate posterior distribution is
+desirable.
+
+One way to enhance the aggregate posterior distribution is to make drawing
+samples easier by removing the effects of explaining away.  This can be done by
+restricting the likelihood and prior to the :doc:`exponential family </blog/2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval>`.
+As shown in the appendix, the exponential family always have a (complementary)
+prior that makes the posterior exactly factorize.
+
+In order to create a complementary prior for each greedily learned layer, first
+recall how the first layer of a directed belief network is learned.  Let
+:math:`\mathbf{v} = \mathbf{x}^{(0)}, \mathbf{h}_1 = \mathbf{y}^{(0)},
+\mathbf{x}^{(1)}, \mathbf{y}^{(1)}, \ldots,
+\mathbf{x}^{(\infty)}, \mathbf{y}^{(\infty)}` be an infinite sequence (stack) of
+variables where :math:`p( \mathbf{x}^{(0)} \mid \mathbf{y}^{(0)})`
+and :math:`p( \mathbf{y}^{(0)} \mid \mathbf{x}^{(0)})` factorizes.
+:math:`\mathbf{x}^{(i)}` and :math:`\mathbf{y}^{(i)}` represent a sequence of
+successively deeper layers with tied weights, i.e., the parameters defining the
+conditional distributions between layers are shared.  This sequence can be
+interpreted as unrolling the Gibbs sampling scheme in space such that each
+parallel update of the variables defines the states of a separate layer in the
+graph.  The infinite stack of directed graphs with tied weights has been proven
+(in the appendix) to produce a factorial posterior but non-factorial prior,
+assuming first-order Markovian dependency and detailed balance holds.  The
+Markov chain's detailed balance property reveals that a top-down pass of the
+directed belief network is equivalent to letting a :doc:`RBM </blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory>`
+settle to equilibrium :cite:`faulkner2010dbnrl`.  Since a RBM has a factorial
+posterior but non-factorial prior, the learning process does not force the
+aggregate posterior to be factorial.
+
+The model above :math:`\mathbf{y}^{(0)}` implements a complementary prior.
+However, once the next hidden layer changes the tied weights, the priors for the
+already learned lower layers cease to be complementary.  Consequently, the
+posterior distributions in the lower layers are no longer factorial.  This
+approximation, which assumes higher layers exist but have tied weights
+initially, is more reasonable than one that ignores the higher layers.
+
+The authors assert that if image-label pairs were generated as
+*stuff -> image -> label*, it would make sense to learn a mapping from images to
+labels.  However, if image-label pairs are generated as
+*image <- stuff -> label*, it makes economic sense to do unsupervised learning
+on the image followed by supervised learning with the labels
+:cite:`hintonucldbn`.
+
+Unsupervised Pre-training
+  Unlabeled data can be used to discover good features as follows:
+
+  1) Given the visible data layer :math:`\mathbf{v}` that is connected to the
+     hidden layer :math:`\mathbf{h}_1`, proceed to learn the weights
+     :math:`\mathbf{W}` in the same manner as a RBM.
+
+     - :doc:`Contrastive divergence </blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence>`
+       can be used instead of alternating Gibbs sampling.
+     - The typical application of contrastive divergence fails for deep,
+       multilayer networks with different weights at each layer because these
+       networks take far too long even to reach conditional equilibrium.
+
+  2) Freeze (i.e. make a copy of) :math:`\mathbf{W}` and denote it as
+     :math:`\mathbf{W}_1`.
+
+     - :math:`\mathbf{W}_1` is typically described as being untied from the
+       tied weights :math:`\mathbf{W}`.
+
+  3) Given :math:`\mathbf{W}_1` and treating
+     :math:`\mathbf{h}_1 \sim p(\mathbf{h}_1 \mid \mathbf{v}, \mathbf{W}_1)` as
+     the data (visible) layer, train the next hidden layer :math:`\mathbf{h}_2`
+     with a RBM.
+
+     - This will make :math:`\mathbf{h}_2` refine :math:`\mathbf{W}` to better
+       model the aggregated posterior distribution.
+
+  4) Proceed recursively until all the layers are learned.
+
+Supervised Fine-tuning
+  The pre-training stage uses the frozen weights as recognition weights and
+  generative weights.  As a result, neither the weights nor the inference
+  procedure are optimal for the lower layers due to underfitting.
+
+  To refine the weights, the :doc:`contrastive wake-sleep </blog/2016/11/19/a-tutorial-on-helmholtz-machines>`
+  algorithm is one way to untie the recognition weights from the generative
+  ones.  The wake-phase is still the same: perform a bottom-up pass, starting
+  with a pattern from the training set, and use the delta rule to increase the
+  likelihood of the generative model.  The goal of the sleep-phase is still the
+  same: perform a top-down pass and use the delta rule to increase the
+  likelihood of the recognition model.  However, instead of starting from an
+  equilibrium sample from the top-level associative memory, the associative
+  memory is initialized by a bottom-up pass followed by contrastive divergence.
+  This ensures that the recognition weights capture representations that
+  resemble real data and eliminate the problem of mode averaging.
+
+  Note that a DBN is not a multilayer Boltzmann machine
+  :cite:`salakhutdinov2009deep`: it has undirected connections between its top
+  two layers and downward directed connections between all its lower layers.
+  After the weights are untied, the whole probabilistic framework can be
+  discarded.  Only the generative weights in the bottom-up direction are used to
+  initialize all the feature detecting layers of a deterministic feedforward
+  deep neural network (:doc:`DNN </blog/2016/12/02/learning-internal-representations-by-error-propagation>`).
+  The network can then be augmented with the desired final output layer (e.g.
+  softmax) and trained discriminatively via backpropagation.
+
+  The proposed consecutive phases of fine-tuning only modifies the features
+  slightly to get the category boundaries right.  It does not need to discover
+  features.  The resulting network is called DBN-DNN to differentiate its
+  training regime from typical DNNs :cite:`hinton2012deep`.
+
+Evaluation(s)
+=============
+
+The authors reasoned at a high level that the RBM learning rule is the same as
+the maximum likelihood learning rule for the infinite logistic belief network
+with tied weights.
+
+Recall that each pair of layers in the infinite belief network with tied weights
+takes the form of
+
+.. math::
+
+   p(\mathbf{x}, \mathbf{y}) =
+   Z^{-1} \exp\left(
+     \sum_{i, j} \Psi_{i, j}(x_i, y_j) +
+     \sum_i \gamma_i(x_i) +
+     \sum_j \alpha_j(y_j)
+   \right) =
+   Z^{-1} \exp E(\mathbf{x}, \mathbf{y})
+
+where
+
+.. math::
+
+   Z = \sum_{\mathbf{x}', \mathbf{y}'} \exp E(\mathbf{x}', \mathbf{y}').
+
+To simplify notation from here on, define :math:`E^{(i, j)} =
+\mathop{E}\left( \mathbf{x}^{(i)}, \mathbf{y}^{(j)} \right)`.
+
+The derivatives of the log-probability of each layer are given by
+
+.. math::
+
+   \frac{\partial}{\partial w_{ij}} \log p(\mathbf{x}^{(i)})
+    &= \frac{\partial}{\partial w_{ij}} \left(
+         \log \sum_{\mathbf{y}^{(i)}} \exp E^{(i, i)} -
+         \log Z
+       \right)\\
+    &= \left( \sum_{\mathbf{y}^{(i)}} \exp E^{(i, i)} \right)^{-1}
+         \sum_{\mathbf{y}^{(i)}}
+           \exp \left\{ E^{(i, i)} \right\}
+           \frac{\partial E^{(i, i)}}{\partial w_{ij}} -
+       Z^{-1} \sum_{\mathbf{x}', \mathbf{y}^{(i)}}
+         \exp \left\{ E^{(', i)} \right\}
+         \frac{\partial E^{(', i)}}{\partial w_{ij}}\\
+    &= \sum_{\mathbf{y}^{(i)}}
+         p(\mathbf{y}^{(i)} \mid \mathbf{x}^{(i)})
+         \frac{\partial E^{(i, i)}}{\partial w_{ij}} -
+       \sum_{\mathbf{x}', \mathbf{y}^{(i)}}
+         p(\mathbf{x}', \mathbf{y}^{(i)})
+         \frac{\partial E^{(', i)}}{\partial w_{ij}}\\
+    &= \left\langle
+         \frac{\partial E^{(i, i)}}{\partial w_{ij}}
+       \right\rangle_{p(\mathbf{y}^{(i)} \mid \mathbf{x}^{(i)})} -
+       \left\langle
+         \frac{\partial E^{(', i)}}{\partial w_{ij}}
+       \right\rangle_{p(\mathbf{x}', \mathbf{y}^{(i)})}
+       & \quad & p(\mathbf{x}', \mathbf{y}^{(i)}) =
+                 p(\mathbf{x}' \mid \mathbf{y}^{(i)}) p(\mathbf{y}^{(i)})
+
+and
+
+.. math::
+
+   \frac{\partial}{\partial w_{ij}} \log p(\mathbf{y}^{(i)})
+    &= \frac{\partial}{\partial w_{ij}} \left(
+         \log \sum_{\mathbf{x}^{(i + 1)}} \exp E^{(i + 1, i)} -
+         \log Z
+       \right)\\
+    &= \left\langle
+         \frac{\partial E^{(i, i)}}{\partial w_{ij}}
+       \right\rangle_{p(\mathbf{x}^{(i + 1)} \mid \mathbf{y}^{(i)})} -
+       \left\langle
+         \frac{\partial E^{(i + 1, i')}}{\partial w_{ij}}
+       \right\rangle_{p(\mathbf{x}^{(i + 1)}, \mathbf{y}')}
+       & \quad & p(\mathbf{x}^{(i + 1)}, \mathbf{y}') =
+                 p(\mathbf{y}' \mid \mathbf{x}^{(i + 1)})
+                   p(\mathbf{x}^{(i + 1)}).
+
+The quantity :math:`\langle \cdot \rangle` can be estimated via :doc:`Gibbs sampling </blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory>`.
+Notice how :math:`\mathbf{x}'` can be either :math:`\mathbf{x}^{(i)}` or
+:math:`\mathbf{x}^{(i + 1)}` because the weights are tied (see Figure 3) and
+the generative process converges to the stationary distribution of the Markov
+chain :cite:`hinton2007nipsdbn`.  Likewise, :math:`\mathbf{y}'` can be either
+:math:`\mathbf{y}^{(i)}` or :math:`\mathbf{y}^{(i + 1)}`.  Note that the bias
+terms in the :doc:`conditional probability distributions </blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory>`
+can be rolled into :math:`\mathbf{W}`.  Since the weights are tied, the full
+derivative for a generative weight is obtained by
+
+.. math::
+
+   \sum_{i = 0}^{\infty - 1}
+     \frac{\partial}{\partial w_{ij}} \left(
+       \log p(\mathbf{x}^{(i)}) + \log p(\mathbf{y}^{(i)})
+     \right) =
+   \left\langle
+     \frac{\partial E^{(0, 0)}}{\partial w_{ij}}
+   \right\rangle_{p(\mathbf{y}^{(0)} \mid \mathbf{x}^{(0)})} -
+     \left\langle
+       \frac{\partial E^{(\infty, \infty)}}{\partial w_{ij}}
+     \right\rangle_{p(\mathbf{x}^{(\infty)}, \mathbf{y}^{(\infty)})}.
+
+Another justification for the greedy learning algorithm is that the incorrect
+inference procedure gives a :doc:`variational lower bound </blog/2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants>`
+on the log probability of the data.  The higher layers learn a prior that is
+closer to the aggregated posterior distribution of the first hidden layer.
+
+The greedy layer-by-layer training enabled the network to find a solution that
+achieved a competitive low error rate on MNIST without the use of data
+augmentation and domain-specific tricks such as weight-sharing and subsampling.
+
+Unlike existing discriminative models, the generative model after learning
+:math:`n` layers can generate data in the same manner as a
+:doc:`Helmholtz machine </blog/2016/11/19/a-tutorial-on-helmholtz-machines>`:
+
+1) Get an equilibrium sample from the top-level RBM by performing alternating
+   Gibbs sampling between the top-level layer and the penultimate layer.
+#) Perform a top-down pass to get states for all the other layers.
+
+This additional insight into the network makes it possible to interpret the
+non-linear, distributed representations of the hidden layers.  The samples drawn
+from the learned generative model were representative of the real data.
+
+Future Direction(s)
+===================
+
+- How would one interpret the non-linear, distributed presentations when dealing
+  with abstract concepts such as mathematics?
+- How to quantify the suboptimality of assuming the likelihood factorizes?
+- Since a single layer feedforward neural network is a
+  :doc:`universal approximator </blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators>`,
+  would greedy learning lose information?  Would it make recovering the original
+  information much more difficult?
+- How to validate the learned concepts of each layer?
+
+Question(s)
+===========
+
+- The test cases that the network got wrong were pretty easy.  Were these
+  scenarios not covered by the training set?
+
+Analysis
+========
+
+Supervised learning of a mapping between data and labels is inefficient due to
+the limited supply of labels.  Unsupervised feature learning is one way to make
+use of unlabeled data.
+
+A brief introductory overview can be found in :cite:`hinton2006reducing`, but
+reading it is unnecessary if one has or is going to read :cite:`hinton2006fast`.
+A thorough understanding :doc:`EFHs </blog/2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval>`
+will make this paper easier to understand.
+
+The idea of fine-tuning appeared previously as graph transformer networks
+:cite:`bottou1997global`.  The main takeaway is to connect pipelined components
+together as a feed-forward network of differentiable modules and perform
+backpropagation to tune the parameters of each component simultaneously.
+
+The proof techniques and concept of complementary priors look to be very useful
+for future directions.  The paper would be even better if not for the confusing
+summary of :doc:`RBM contrastive divergence </blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence>`.
+The most interesting insight is that ancestral sampling on an infinitely deep
+belief network with tied weights is equivalent to block Gibbs sampling on a RBM.
+
+As an aside, do not bother reading :cite:`bengio2007greedy`.  It offers zero new
+insights compared to the other papers.  Similarly, :cite:`erhan2010does` is too
+verbose.  In essence, the paper goes over a set of experiments suggesting
+unsupervised pre-training may be classified as an
+initialization-as-regularization strategy.  The experiments' results can be
+summarized as verifying the consistent usefulness of unsupervised pre-training.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

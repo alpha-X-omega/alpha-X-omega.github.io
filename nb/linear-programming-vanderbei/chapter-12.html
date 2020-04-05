@@ -1,0 +1,2051 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Regression &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Financial Applications" href="chapter-13.html" />
+    <link rel="prev" title="Game Theory" href="chapter-11.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Regression</a><ul>
+<li><a class="reference internal" href="#Exercise-12.1">Exercise 12.1</a></li>
+<li><a class="reference internal" href="#Exercise-12.2">Exercise 12.2</a></li>
+<li><a class="reference internal" href="#Exercise-12.3">Exercise 12.3</a></li>
+<li><a class="reference internal" href="#Exercise-12.4">Exercise 12.4</a></li>
+<li><a class="reference internal" href="#Exercise-12.5">Exercise 12.5</a></li>
+<li><a class="reference internal" href="#Exercise-12.6">Exercise 12.6</a></li>
+<li><a class="reference internal" href="#Exercise-12.7">Exercise 12.7</a><ul>
+<li><a class="reference internal" href="#(i)">(i)</a></li>
+<li><a class="reference internal" href="#(ii)">(ii)</a></li>
+<li><a class="reference internal" href="#(iii)">(iii)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-12.8">Exercise 12.8</a></li>
+<li><a class="reference internal" href="#Exercise-12.9">Exercise 12.9</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+<li><a class="reference internal" href="#(d)">(d)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-12.10">Exercise 12.10</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a><ul>
+<li><a class="reference internal" href="#Iteration-1">Iteration 1</a></li>
+<li><a class="reference internal" href="#Iteration-2">Iteration 2</a></li>
+<li><a class="reference internal" href="#Iteration-3">Iteration 3</a></li>
+<li><a class="reference internal" href="#Iteration-4">Iteration 4</a></li>
+<li><a class="reference internal" href="#Iteration-5">Iteration 5</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#(d)">(d)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-12.11">Exercise 12.11</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="chapter-11.html" title="Previous Chapter: Game Theory"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Game Theory</span>
+    </a>
+  </li>
+  <li>
+    <a href="chapter-13.html" title="Next Chapter: Financial Applications"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Financial App... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Regression">
+<h1>Regression<a class="headerlink" href="#Regression" title="Permalink to this headline">¶</a></h1>
+<p><a class="bibtex reference internal" href="#sullivandd3364lmkktc" id="id1">[Sul]</a> contains an elegant illustration of the KKT
+conditions.  Given the constrained optimization problem</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\min_{\mathbf{x} \in \mathbb{R}^n} \quad f(\mathbf{x})\\
+\text{subject to} \quad
+  h_i(\mathbf{x}) &amp;= 0 \quad i = 1, \ldots, l\\
+  g_j(\mathbf{x}) &amp;\leq 0 \quad j = 1, \ldots, m,\end{split}\]</div>
+<p>define the Lagrangian as</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{L}(\mathbf{x}, \boldsymbol{\mu}, \boldsymbol{\lambda}) =
+f(\mathbf{x}) + \boldsymbol{\mu}^\top \mathbf{h}(\mathbf{x}) +
+    \boldsymbol{\lambda}^\top \mathbf{g}(\mathbf{x}).\]</div>
+<p>The KKT optimality conditions are</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Lagrangian Stationarity</dt><dd><p><span class="math notranslate nohighlight">\(\nabla_{\mathbf{x}} \mathcal{L} = \boldsymbol{0}\)</span>.</p>
+</dd>
+<dt>Primal Feasibility</dt><dd><p><span class="math notranslate nohighlight">\(\nabla_{\boldsymbol{\lambda}} \mathcal{L} =
+\mathbf{g}(\mathbf{x}^*) \preceq \boldsymbol{0}\)</span> and
+<span class="math notranslate nohighlight">\(\nabla_{\boldsymbol{\mu}} \mathcal{L} =
+\mathbf{h}(\mathbf{x}^*) = \boldsymbol{0}\)</span>.</p>
+</dd>
+<dt>Dual Feasibility</dt><dd><p><span class="math notranslate nohighlight">\(\boldsymbol{\lambda}^* \succeq \boldsymbol{0}\)</span>.</p>
+</dd>
+<dt>Complementary Slackness</dt><dd><p><span class="math notranslate nohighlight">\(\lambda_j^* g_j(\mathbf{x}^*) = 0\)</span> for all <span class="math notranslate nohighlight">\(j = 1, \ldots, m\)</span>.</p>
+</dd>
+<dt>Positive Definiteness</dt><dd><p><span class="math notranslate nohighlight">\(\mathbf{w}^\top
+\left( \nabla_{\mathbf{x} \mathbf{x}} \mathcal{L} \right) \mathbf{w} &gt; 0\)</span>
+for all <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> in the feasible set.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Note that non-negativity constraints are merely a subset of inequality
+constraints <a class="bibtex reference internal" href="#lusbysdokkt" id="id2">[Lus]</a>.  For example,
+<span class="math notranslate nohighlight">\(\mathbf{x} \succeq \boldsymbol{0}\)</span> can be incorporated explicitly by
+defining the corresponding Lagrangian as</p>
+<div class="math notranslate nohighlight">
+\[\tilde{\mathcal{L}}(\mathbf{x}, \boldsymbol{\mu},
+            \boldsymbol{\lambda}, \boldsymbol{\nu}) =
+\mathcal{L}(\mathbf{x}, \boldsymbol{\mu}, \boldsymbol{\lambda}) +
+\boldsymbol{\nu}^\top (-\mathbf{x})
+\quad \text{where} \quad
+\boldsymbol{\nu} \succeq \boldsymbol{0}.\]</div>
+<p>To incorporate it implicitly, <a class="bibtex reference internal" href="#wildemcnktt" id="id3">[Wil]</a> used</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{0}
+ &amp;= \nabla_{\mathbf{x}} \tilde{\mathcal{L}}\\
+ &amp;= \frac{\partial \mathcal{L}}{\partial \mathbf{x}} - \boldsymbol{\nu}\\
+\boldsymbol{\nu} &amp;= \frac{\partial \mathcal{L}}{\partial \mathbf{x}}\end{split}\]</div>
+<p>to simplify the Lagrange multipliers <span class="math notranslate nohighlight">\(\boldsymbol{\nu}\)</span> in the
+(additional) complementary slackness conditions to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}0 &amp;= -x_k^* \nu_k^*\\
+  &amp;= -x_k^* \frac{\partial \mathcal{L}}{\partial x_k}\\
+  &amp;= x_k^* \frac{\partial \mathcal{L}}{\partial x_k}.\end{split}\]</div>
+<p>Furthermore, the Lagrangian stationarity conditions are replaced by
+<span class="math notranslate nohighlight">\(\nabla_{\mathbf{x}} \mathcal{L} \succeq \boldsymbol{0}\)</span>, and the
+(additional) primal feasibility conditions are typically rewritten as
+<span class="math notranslate nohighlight">\(\mathbf{x} \succeq \boldsymbol{0}\)</span>.</p>
+<p>In some cases, it may seem that the appropriate constraint is a strict
+inequality.  However, a strict inequality constraint may lead to an optimization
+problem that is ill-posed in that a minimizer is infeasible but on the boundary
+of the feasible set <a class="bibtex reference internal" href="#gockenbach2003sic" id="id4">[Goc]</a>.  For this reason, strict
+inequality constraints are not used in nonlinear programming.  In practice,
+if the strict inequality constraint is not active, one can treat it as a
+nonstrict inequality.  The alternative is to select the smallest value that is
+feasible and use that to establish a nonstrict inequality.</p>
+<div class="section" id="Exercise-12.1">
+<h2>Exercise 12.1<a class="headerlink" href="#Exercise-12.1" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asfarray</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asfarray</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">_</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">shape</span><span class="p">)))</span><span class="o">.</span><span class="n">T</span>
+
+<span class="n">lhs</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="n">rhs</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">A</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;L2-Regression: x = {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="n">lhs</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+L2-Regression: x = [0.28571429 1.        ]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Exercise-12.2">
+<h2>Exercise 12.2<a class="headerlink" href="#Exercise-12.2" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="kn">from</span> <span class="nn">pymprog</span> <span class="kn">import</span> <span class="n">model</span>
+
+<span class="n">lp</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="s1">&#39;L1-Regression LP&#39;</span><span class="p">)</span>
+
+<span class="c1">#lp.verbose(True)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">lp</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">))</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">lp</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">None</span><span class="p">))</span>
+
+<span class="n">lp</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+<span class="n">lp</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>
+<span class="n">lp</span><span class="o">.</span><span class="n">sensitivity</span><span class="p">()</span>
+
+<span class="n">lp</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+PyMathProg 1.0 Sensitivity Report Created: 2020/04/04 Sat 19:42PM
+================================================================================
+Variable            Activity   Dual.Value     Obj.Coef   Range.From   Range.Till
+--------------------------------------------------------------------------------
+*x[0]                    0.5            0            0           -3            1
+*x[1]                      0            0            0        -0.25         0.75
+ t[0]                      0         0.25            1         0.75          inf
+*t[1]                    2.5            0            1            0      1.33333
+ t[2]                      0            1            1            0          inf
+ t[3]                      0         0.75            1         0.25          inf
+================================================================================
+================================================================================
+Constraint       Activity Dual.Value  Lower.Bnd  Upper.Bnd RangeLower RangeUpper
+--------------------------------------------------------------------------------
+ R1                     0      -0.75       -inf          0          0          0
+*R2                     0          0       -inf          0          0          0
+*R3                    -2          0       -inf          3         -2         -2
+ R4                    -3         -1       -inf         -3 -1.79769e+308       -0.5
+*R5                     1          0       -inf          1          1          1
+*R6                    -1          0       -inf         -1         -1         -1
+ R7                     2      -0.25       -inf          2          2          2
+*R8                    -2          0       -inf         -2         -2         -2
+================================================================================
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>model(&#39;L1-Regression LP&#39;) is not the default model.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Exercise-12.3">
+<h2>Exercise 12.3<a class="headerlink" href="#Exercise-12.3" title="Permalink to this headline">¶</a></h2>
+<p>The minimization of the maximum deviation over a sorted set of real numbers
+<span class="math notranslate nohighlight">\(\{ b_1, \ldots, b_m \}\)</span></p>
+<div class="math notranslate nohighlight">
+\[\min_{x \in \mathbb{R}} \max_i \left\vert x - b_i \right\vert\]</div>
+<p>can be recasted as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{P} \quad \text{minimize} \quad t\\
+\text{subject to} \quad
+  x - b_i &amp;\leq t\\
+  -x + b_i &amp;\leq t\\
+  t &amp;\geq 0.\end{split}\]</div>
+<p>Recall that <span class="math notranslate nohighlight">\(\left\vert x - b \right\vert\)</span> is the distance to <span class="math notranslate nohighlight">\(b\)</span>
+from <span class="math notranslate nohighlight">\(x\)</span> on the number line.  The midrange is defined as</p>
+<div class="math notranslate nohighlight">
+\[\tilde{x} = \frac{b_1 + b_m}{2}\]</div>
+<p>where <span class="math notranslate nohighlight">\(b_1\)</span> and <span class="math notranslate nohighlight">\(b_m\)</span> are the minimum and maximum values in the
+data set.  Suppose <span class="math notranslate nohighlight">\(\tilde{x}\)</span> is not the minimizer.  Then there must
+exist <span class="math notranslate nohighlight">\(\epsilon \neq 0\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[\left\vert \tilde{x} + \epsilon - b_i \right\vert &lt;
+\left\vert \tilde{x} - b_i \right\vert
+\qquad \forall\, i = 1, \ldots, m.\]</div>
+<p>Define the data points in terms of the midrange: <span class="math notranslate nohighlight">\(d_i = \tilde{x} - b_i\)</span>.
+The preceding observation must still hold, but</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\vert \tilde{x} + \epsilon - b_i \right\vert
+ &amp;&lt; \left\vert \tilde{x} - b_i \right\vert\\
+\left\vert \epsilon - d_i \right\vert
+ &amp;&lt; \left\vert d_i \right\vert\end{split}\]</div>
+<p>is a contradiction because it can only hold for half of the data points.
+Therefore, the midrange minimizes the maximum deviation from the set of
+observations.</p>
+</div>
+<div class="section" id="Exercise-12.4">
+<h2>Exercise 12.4<a class="headerlink" href="#Exercise-12.4" title="Permalink to this headline">¶</a></h2>
+<p>Given a set of points <span class="math notranslate nohighlight">\(\left\{ b_i \in \mathbb{R}^2 \right\}_{i = 1}^m\)</span>,
+the <span class="math notranslate nohighlight">\(\bar{x}\)</span> that solves</p>
+<div class="math notranslate nohighlight">
+\[L = \min_x \sum_{i = 1}^m \left\Vert x - b_i \right\Vert_2^2\]</div>
+<p>satisfies</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial L}{\partial x}
+ &amp;= \sum_{i = 1}^m \frac{\partial}{\partial x} (x - b_i)^\top (x - b_i)\\
+0 &amp;= \sum_{i = 1}^m 2x - 2b_i\\
+x &amp;= \frac{1}{m} \sum_{i = 1}^m b_i.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-12.5">
+<h2>Exercise 12.5<a class="headerlink" href="#Exercise-12.5" title="Permalink to this headline">¶</a></h2>
+<p>Given a set of points <span class="math notranslate nohighlight">\(\left\{ b_i \in \mathbb{R}^2 \right\}_{i = 1}^m\)</span>,
+the <span class="math notranslate nohighlight">\(\hat{x}\)</span> that solves</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}L &amp;= \min_x \sum_{i = 1}^m \left\Vert x - b_i \right\Vert_1\\
+  &amp;= \min_x \sum_i \sum_j \left\vert x_j - b_{ij} \right\vert\end{split}\]</div>
+<p>satisfies</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial L}{\partial x_j}
+ &amp;= \sum_{i = 1}^m \sum_{j'}
+       \frac{x_{j'} - b_{ij'}}{\left\vert x_{j'} - b_{ij'} \right\vert}
+       \delta[j - j']\\
+0 &amp;= \sum_i
+       \frac{x_j - b_{ij}}{\left\vert x_j - b_{ij} \right\vert}\\
+\sum_i \frac{x_j}{\epsilon_{ij}(x)}
+ &amp;= \sum_i \frac{b_{ij}}{\epsilon_{ij}(x)}
+    &amp; \quad &amp; \epsilon_{ij}(x) = \left\vert x_j - b_{ij} \right\vert\\
+x_j &amp;= \left(
+         \sum_i \frac{1}{\epsilon_{ij}(x)}
+       \right)^{-1}
+       \sum_i \frac{b_{ij}}{\epsilon_{ij}(x)}
+       &amp; \quad &amp; \forall\, j = 1, \ldots, n.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-12.6">
+<h2>Exercise 12.6<a class="headerlink" href="#Exercise-12.6" title="Permalink to this headline">¶</a></h2>
+<p>Given a set of points <span class="math notranslate nohighlight">\(\left\{ b_i \in \mathbb{R}^2 \right\}_{i = 1}^3\)</span>,
+the <span class="math notranslate nohighlight">\(\hat{x}\)</span> that solves</p>
+<div class="math notranslate nohighlight">
+\[L = \min_x \sum_i \left\Vert x - b_i \right\Vert_2\]</div>
+<p>satisfies</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial L}{\partial x}
+ &amp;= \sum_i \frac{2x - 2b_i}{\left\Vert x - b_i \right\Vert_2}\\
+0 &amp;= \sum_i \frac{x}{\left\Vert x - b_i \right\Vert_2} -
+     \sum_i \frac{b_i}{\left\Vert x - b_i \right\Vert_2}\\
+x &amp;= \left(
+       \sum_i \frac{1}{\epsilon_i(x)}
+     \right)^{-1}
+     \sum_i \frac{b_i}{\epsilon_i(x)}
+     &amp; \quad &amp; \epsilon_i(x) = \left\Vert x - b_i \right\Vert_2.\end{split}\]</div>
+<p>The solution <span class="math notranslate nohighlight">\(\hat{x}\)</span> is known as the Fermat point
+<a class="bibtex reference internal" href="#hajja1994advanced" id="id5">[Haj94]</a>.  When one of the angles exceeds <span class="math notranslate nohighlight">\(120^\circ\)</span>,
+the minimum is at the vertex holding the largest angle, which is opposite the
+edge with the greatest length.</p>
+</div>
+<div class="section" id="Exercise-12.7">
+<h2>Exercise 12.7<a class="headerlink" href="#Exercise-12.7" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(a_i\)</span> denote the number of hours of labor needed for month <span class="math notranslate nohighlight">\(i\)</span>,
+and let <span class="math notranslate nohighlight">\(x\)</span> denote the number of hours per month of labor that will be
+handled by regular employees.  The total labor costs</p>
+<div class="math notranslate nohighlight">
+\[\min_{x &gt; 0} L(x) =
+\min_{x &gt; 0} \sum_{i = 1}^{12} 25 \max(a_i - x, 0) + 17.5x\]</div>
+<p>is a piecewise-linear minimization.</p>
+<div class="section" id="(i)">
+<h3>(i)<a class="headerlink" href="#(i)" title="Permalink to this headline">¶</a></h3>
+<p>The optimization problem can be recasted as a LP</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\text{minimize} \quad \sum_i 17.5x + 25t_i\\
+\text{subject to} \quad
+  a_i - x &amp;\leq t_i \quad i = 1, \ldots, 12\\
+  0 &amp;\leq t_i, x.\end{split}\]</div>
+</div>
+<div class="section" id="(ii)">
+<h3>(ii)<a class="headerlink" href="#(ii)" title="Permalink to this headline">¶</a></h3>
+<p>Given the projected labor hours by month in Table 12.2, the optimal solution is
+<span class="math notranslate nohighlight">\(x^* = 340\)</span>.</p>
+</div>
+<div class="section" id="(iii)">
+<h3>(iii)<a class="headerlink" href="#(iii)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial L}{\partial x} =
+\sum_{i = 1}^{12} 25 f(x) + 17.5
+\quad \text{where} \quad
+f(x) =
+\begin{cases}
+  -1 &amp; \text{if } a_i &gt; x\\
+   0 &amp; \text{otherwise.}
+\end{cases}\end{split}\]</div>
+<p>Applying gradient descent with an adaptive learning rate schedule converges to
+<span class="math notranslate nohighlight">\(x^* \approx 340\)</span>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">390</span><span class="p">,</span> <span class="mi">420</span><span class="p">,</span> <span class="mi">340</span><span class="p">,</span> <span class="mi">320</span><span class="p">,</span>
+     <span class="mi">310</span><span class="p">,</span> <span class="mi">590</span><span class="p">,</span> <span class="mi">340</span><span class="p">,</span> <span class="mi">580</span><span class="p">,</span>
+     <span class="mi">550</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">420</span><span class="p">,</span> <span class="mi">600</span><span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">pymprog</span> <span class="kn">import</span> <span class="n">model</span>
+
+<span class="n">lp</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="s1">&#39;Piecewise-Linear LP&#39;</span><span class="p">)</span>
+
+<span class="c1">#lp.verbose(True)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">lp</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">None</span><span class="p">))</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">lp</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">None</span><span class="p">))</span>
+
+<span class="n">lp</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="mf">17.5</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">25</span> <span class="o">*</span> <span class="n">t_i</span> <span class="k">for</span> <span class="n">t_i</span> <span class="ow">in</span> <span class="n">t</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">a_i</span><span class="p">,</span> <span class="n">t_i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="n">a_i</span> <span class="o">-</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">t_i</span>
+
+<span class="n">lp</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>
+<span class="n">lp</span><span class="o">.</span><span class="n">sensitivity</span><span class="p">()</span>
+
+<span class="n">lp</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+PyMathProg 1.0 Sensitivity Report Created: 2020/04/04 Sat 19:42PM
+================================================================================
+Variable            Activity   Dual.Value     Obj.Coef   Range.From   Range.Till
+--------------------------------------------------------------------------------
+*x                       340            0          210          200          225
+*t[0]                     50            0           25           10           35
+*t[1]                     80            0           25           10           35
+ t[2]                      0           25           25            0          inf
+ t[3]                      0           25           25            0          inf
+ t[4]                      0           25           25            0          inf
+*t[5]                    250            0           25           10           35
+ t[6]                      0           15           25           10          inf
+*t[7]                    240            0           25           10           35
+*t[8]                    210            0           25           10           35
+*t[9]                     20            0           25           10           35
+*t[10]                    80            0           25           10           35
+*t[11]                   260            0           25           10           35
+================================================================================
+================================================================================
+Constraint       Activity Dual.Value  Lower.Bnd  Upper.Bnd RangeLower RangeUpper
+--------------------------------------------------------------------------------
+ R1                  -390        -25       -inf       -390 -1.79769e+308       -340
+ R2                  -420        -25       -inf       -420 -1.79769e+308       -340
+*R3                  -340          0       -inf       -340       -340       -340
+*R4                  -340          0       -inf       -320       -340       -340
+*R5                  -340          0       -inf       -310       -340       -340
+ R6                  -590        -25       -inf       -590 -1.79769e+308       -340
+ R7                  -340        -10       -inf       -340       -360       -340
+ R8                  -580        -25       -inf       -580 -1.79769e+308       -340
+ R9                  -550        -25       -inf       -550 -1.79769e+308       -340
+ R10                 -360        -25       -inf       -360 -1.79769e+308       -340
+ R11                 -420        -25       -inf       -420 -1.79769e+308       -340
+ R12                 -600        -25       -inf       -600 -1.79769e+308       -340
+================================================================================
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>model(&#39;Piecewise-Linear LP&#39;) is not the default model.
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Exercise-12.8">
+<h2>Exercise 12.8<a class="headerlink" href="#Exercise-12.8" title="Permalink to this headline">¶</a></h2>
+<p>Minimizing over the square of the <span class="math notranslate nohighlight">\(L^2\)</span>-norm of</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator*{\argmin}{arg\,min}
+\argmin_{f, g} L(f, g)
+ &amp;= \argmin_{f, g}
+      \sum_{i = 1}^n \left( \frac{1}{f} - \frac{f}{g} x_i - t_i \right)^2\\
+ &amp;= \argmin_{a, b}
+      \sum_i \left( a + b x_i - t_i \right)^2\end{split}\]</div>
+<p>gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial L}{\partial a}
+ &amp;= \sum_i 2 \left( a + b x_i - t_i \right) (1)\\
+0 &amp;= \sum_i a + b x_i - t_i\\
+a &amp;= \frac{1}{n} \sum_i t_i - b x_i\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial L}{\partial b}
+ &amp;= \sum_i 2 \left( a + b x_i - t_i \right) (x_i)\\
+0 &amp;= \sum_i a x_i + b x_i^2 - t_i x_i\\
+\sum_i b x_i^2 &amp;= \sum_i t_i x_i - a x_i\\
+b &amp;= \frac{\sum_i t_i x_i - a x_i}{\sum_i x_i^2}.\end{split}\]</div>
+<p>These resulting update equations converge to <span class="math notranslate nohighlight">\(f = 1 / a^* \approx 3.00\)</span>
+and <span class="math notranslate nohighlight">\(g = -\left( a^* b^* \right)^{-1} \approx 8.92\)</span>.</p>
+<p>The <span class="math notranslate nohighlight">\(L^1\)</span>-regression converges to <span class="math notranslate nohighlight">\(f \approx 3.125\)</span> and
+<span class="math notranslate nohighlight">\(g \approx 9.25\)</span>.  Note that this solver requires the use of an equivalent
+formulation where <span class="math notranslate nohighlight">\(b = f / g\)</span>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">obs</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.72</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mf">7.06</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mf">10.46</span><span class="p">),</span>
+       <span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.71</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mf">7.00</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mf">10.48</span><span class="p">),</span>
+       <span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.67</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mf">7.08</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mf">10.33</span><span class="p">)]</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+
+<span class="n">denom_const</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x_i</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x_i</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">obs</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">256</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">t_i</span> <span class="o">-</span> <span class="n">b</span> <span class="o">*</span> <span class="n">x_i</span> <span class="k">for</span> <span class="n">x_i</span><span class="p">,</span> <span class="n">t_i</span> <span class="ow">in</span> <span class="n">obs</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">t_i</span> <span class="o">*</span> <span class="n">x_i</span> <span class="o">-</span> <span class="n">a</span> <span class="o">*</span> <span class="n">x_i</span> <span class="k">for</span> <span class="n">x_i</span><span class="p">,</span> <span class="n">t_i</span> <span class="ow">in</span> <span class="n">obs</span><span class="p">)</span> <span class="o">/</span> <span class="n">denom_const</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">a</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">),</span> <span class="mi">7</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;L2-Regression: f = {}, g = {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+L2-Regression: f = 3.0, g = 8.9241448
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pymprog</span> <span class="kn">import</span> <span class="n">model</span>
+
+<span class="n">lp</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="s1">&#39;L1-Regression LP&#39;</span><span class="p">)</span>
+
+<span class="c1">#lp.verbose(True)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">lp</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">None</span><span class="p">))</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">lp</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">None</span><span class="p">))</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">lp</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">None</span><span class="p">))</span>
+
+<span class="n">lp</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="n">x_i</span><span class="p">,</span> <span class="n">t_i</span><span class="p">),</span> <span class="n">s_i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+    <span class="o">-</span><span class="n">s_i</span> <span class="o">&lt;=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span> <span class="o">*</span> <span class="n">x_i</span> <span class="o">-</span> <span class="n">t_i</span> <span class="o">&lt;=</span> <span class="n">s_i</span>
+
+<span class="n">lp</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>
+<span class="n">lp</span><span class="o">.</span><span class="n">sensitivity</span><span class="p">()</span>
+
+<span class="n">lp</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">a</span><span class="o">.</span><span class="n">primal</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">primal</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">primal</span><span class="p">),</span> <span class="mi">7</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;L1-Regression: f = {}, g = {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+PyMathProg 1.0 Sensitivity Report Created: 2020/04/04 Sat 19:42PM
+================================================================================
+Variable            Activity   Dual.Value     Obj.Coef   Range.From   Range.Till
+--------------------------------------------------------------------------------
+*a                      0.32            0            0            0            0
+*b                     0.338            0            0            0            0
+*s[0]                   0.02            0            1            1            1
+*s[1]                   0.02            0            1            0            1
+ s[2]                      0            0            1            1          inf
+*s[3]                   0.01            0            1            1            1
+*s[4]                   0.08            0            1            0            1
+*s[5]                   0.02            0            1            1            2
+*s[6]                   0.03            0            1            1            1
+ s[7]                      0            1            1            0          inf
+*s[8]                   0.13            0            1            0            1
+================================================================================
+================================================================================
+Constraint       Activity Dual.Value  Lower.Bnd  Upper.Bnd RangeLower RangeUpper
+--------------------------------------------------------------------------------
+ R1                 -3.72         -1       -inf      -3.72 -1.79769e+308       -3.7
+*R2                  3.68          0       -inf       3.72       3.68       3.68
+*R3                  -7.1          0       -inf      -7.06       -7.1       -7.1
+ R4                  7.06         -1       -inf       7.06 -1.79769e+308       7.08
+ R5                -10.46         -1       -inf     -10.46     -10.46     -10.45
+*R6                 10.46          0       -inf      10.46      10.46      10.46
+ R7                 -3.71         -1       -inf      -3.71 -1.79769e+308       -3.7
+*R8                  3.69          0       -inf       3.71       3.69       3.69
+*R9                 -7.16          0       -inf         -7      -7.16      -7.16
+ R10                    7         -1       -inf          7 -1.79769e+308       7.08
+ R11               -10.48         -1       -inf     -10.48 -1.79769e+308     -10.46
+*R12                10.44          0       -inf      10.48      10.44      10.44
+*R13                -3.73          0       -inf      -3.67      -3.73      -3.73
+ R14                 3.67         -1       -inf       3.67 -1.79769e+308        3.7
+*R15                -7.08          0       -inf      -7.08      -7.08      -7.08
+ R16                 7.08          0       -inf       7.08       7.08      7.085
+*R17               -10.59          0       -inf     -10.33     -10.59     -10.59
+ R18                10.33         -1       -inf      10.33 -1.79769e+308      10.46
+================================================================================
+L1-Regression: f = 3.125, g = 9.2455621
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Exercise-12.9">
+<h2>Exercise 12.9<a class="headerlink" href="#Exercise-12.9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>A minimum of <span class="math notranslate nohighlight">\(g_x(z)\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\nabla g_x(z)
+  &amp;= \frac{\partial}{\partial z}
+     \left(
+       b^\top E_x^{-1} b - 2 b^\top E_x^{-1} A z + z^\top A^\top E_x^{-1} A z
+     \right)
+     &amp; \quad &amp; E_x = E_x^\top\\
+0 &amp;= 2 A^\top E_x^{-1} A z - 2 A^\top E_x^{-1} b\\
+z &amp;= \left( A^\top E_x^{-1} A \right)^{-1} A^\top E_x^{-1} b\\
+  &amp;= T(x)\end{split}\]</div>
+<p>because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\nabla^2 g_x(z)
+ &amp;= \frac{\partial}{\partial z}
+    \left(
+      2 A^\top E_x^{-1} A z - 2 A^\top E_x^{-1} b
+    \right)\\
+ &amp;= 2 A^\top E_x^{-1} A\end{split}\]</div>
+<p>is positive semi-definite.  Furthermore, <span class="math notranslate nohighlight">\(T(x)\)</span> is a global minimum
+seeing that <span class="math notranslate nohighlight">\(g_x(z)\)</span> is convex:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}g_x(\alpha z_1 + (1 - \alpha) z_2)
+ &amp;= b^\top E_x^{-1} b -
+    2 b^\top E_x^{-1} A \left( \alpha z_1 + (1 - \alpha) z_2 \right) +
+    \left( \alpha z_1 + (1 - \alpha) z_2 \right)^\top
+      A^\top E_x^{-1} A \left( \alpha z_1 + (1 - \alpha) z_2 \right)\\
+ &amp;= \alpha g_x(z_1) + (1 - \alpha) g_x(z_2) -
+    \alpha (1 - \alpha)
+      \left\Vert E_x^{-1 / 2} A (z_1 - z_2) \right\Vert_2^2\\
+ &amp;\leq \alpha g_x(z_1) + (1 - \alpha) g_x(z_2).\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}g_x(x)
+ &amp;= \sum_{i = 1}^m \frac{\epsilon_i^2(x)}{\epsilon_i(x)}\\
+ &amp;= \sum_{i = 1}^m \epsilon_i(x)\\
+ &amp;= f(x).\end{split}\]</div>
+<p>The preceding equality implies that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert E_x^{-1 / 2} \left( b - Ax \right) \right\Vert_2^2
+ &amp;= \left( b - Ax \right)^\top E_x^{-1} \left( b - Ax \right)\\
+ &amp;= \left\Vert b - Ax \right\Vert_1.\end{split}\]</div>
+</div>
+<div class="section" id="(c)">
+<h3>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(y = T(x)\)</span> and
+<span class="math notranslate nohighlight">\(\epsilon_i(y) =
+\epsilon_i(x) + \left( \epsilon_i(y) - \epsilon_i(x) \right)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}g_x(y)
+ &amp;= \sum_i \frac{\epsilon^2_i(y)}{\epsilon_i(x)}\\
+ &amp;= \sum_i \frac{
+             \left[
+               \epsilon_i(x) + \left( \epsilon_i(y) - \epsilon_i(x) \right)
+             \right]^2
+           }{
+             \epsilon_i(x)
+           }\\
+ &amp;= \sum_i \frac{
+             \epsilon^2_i(x) +
+             2 \epsilon_i(x) \left( \epsilon_i(y) - \epsilon_i(x) \right) +
+             \left( \epsilon_i(y) - \epsilon_i(x) \right)^2
+           }{
+             \epsilon_i(x)
+           }\\
+ &amp;= \sum_i 2 \epsilon_i(y) - \epsilon_i(x) +
+           \frac{
+             \left( \epsilon_i(y) - \epsilon_i(x) \right)^2
+           }{
+             \epsilon_i(x)
+           }\\
+ &amp;= 2 f(y) - f(x) +
+    \sum_i \frac{
+             \left( \epsilon_i(y) - \epsilon_i(x) \right)^2
+           }{
+             \epsilon_i(x)
+           }\\
+ &amp;\geq 2 f\left( T(x) \right) - f(x)\end{split}\]</div>
+</div>
+<div class="section" id="(d)">
+<h3>(d)<a class="headerlink" href="#(d)" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(y = T(x)\)</span>.  By inspection, <span class="math notranslate nohighlight">\(T(x) \neq x\)</span> for each valid
+<span class="math notranslate nohighlight">\(x\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(y) &amp;\leq \frac{1}{2} \left[ g_x(y) + f(x) \right]
+           &amp; \quad &amp; \text{(c)}\\
+ &amp;&lt; \frac{1}{2} \left[ g_x(x) + f(x) \right]
+    &amp; \quad &amp; \text{(a)}\\
+ &amp;&lt; f(x)
+    &amp; \quad &amp; \text{(b)}\end{split}\]</div>
+<p>Therefore, the sequence of iterates in the iteratively reweighted least squares
+algorithm produces a monotonically decreasing sequence of objective function
+values.</p>
+</div>
+</div>
+<div class="section" id="Exercise-12.10">
+<h2>Exercise 12.10<a class="headerlink" href="#Exercise-12.10" title="Permalink to this headline">¶</a></h2>
+<p>Let parameter <span class="math notranslate nohighlight">\(\mu \in \mathbb{R}\)</span> and the set of numbers
+<span class="math notranslate nohighlight">\(\left\{ b_j \right\}_{j = 1}^n\)</span>.</p>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>The optimization problem can be recast as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\min_x L
+ &amp;= \min_x \sum_j \left\vert x - b_j \right\vert + \mu (x - b_j)\\
+ &amp;= \min_x \sum_i^{P} (x - b_i) + \mu (x - b_i) +
+           \sum_k^{N} (b_k - x) + \mu (x - b_k)
+    &amp; \quad &amp; P + N = n \land x \geq b_i \land x &lt; b_k.\end{split}\]</div>
+<p>The optimal solution satisfies</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial L}{\partial x}
+ &amp;= \left( \sum_i^{P} 1 + \mu \right) + \left( \sum_k^{N} -1 + \mu \right)\\
+0 &amp;= n \mu + P - N.\end{split}\]</div>
+<p>The following analysis shows that this optimization problem can be interpreted
+as quantile estimation.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mu = 0 \implies P = N\)</span>.</p>
+<ul>
+<li><p>This is the median or second quantile.</p></li>
+</ul>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\mu = \frac{1}{2} \implies P = \frac{1}{4} n \land N = \frac{3}{4} n\)</span>.</p>
+<ul>
+<li><p>This is the first quantile.</p></li>
+</ul>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\mu = -\frac{1}{2} \implies P = \frac{3}{4} n \land N = \frac{1}{4} n\)</span>.</p>
+<ul>
+<li><p>This is the third quantile.</p></li>
+</ul>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\mu = 1 \implies P = 0 \land N = n\)</span>.</p>
+<ul>
+<li><p>This is the minimum value of the set or zeroth quantile.</p></li>
+</ul>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\mu = -1 \implies P = n \land N = 0\)</span>.</p>
+<ul>
+<li><p>This is the maximum value of the set or fourth quantile.</p></li>
+</ul>
+</li>
+</ul>
+<p>By inspection, the minimum does not exist when <span class="math notranslate nohighlight">\(\mu \not\in [-1, 1]\)</span>.</p>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator*{\argmax}{arg\,max}
+\text{minimize} \quad \sum_j t_j + \mu (x - b_j)\\
+\text{subject to} \quad
+  x - b_j &amp;\leq t_j\\
+  -x + b_j &amp;\leq t_j\\
+  t_j &amp;\geq 0.\end{split}\]</div>
+<p>Observe that the constant term <span class="math notranslate nohighlight">\(\sum_j \mu b_j\)</span> in the LP objective does
+not affect the <span class="math notranslate nohighlight">\(\argmax L\)</span>.  Therefore, the LP in standard form is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\text{maximize} \quad -n \mu x - \sum_j t_j\\
+\text{subject to} \quad
+  x - b_j &amp;\leq t_j\\
+  -x + b_j &amp;\leq t_j\\
+  t_j &amp;\geq 0.\end{split}\]</div>
+</div>
+<div class="section" id="(c)">
+<h3>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h3>
+<p>The LP in standard form can be thought of as a
+<a class="reference internal" href="chapter-07.html#vanderbei2014linear-ex-7-11"><span class="std std-ref">one parameter family of linear programming problems</span></a>.</p>
+<p>Suppose <span class="math notranslate nohighlight">\(n = 4\)</span> and <span class="math notranslate nohighlight">\(b_j = 2^{j - 1}\)</span>.  Rewriting the standard form
+LP into matrix form gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\text{maximize} \quad -n \mu x - \sum_j t_j\\
+\text{subject to} \quad
+  x - b_j &amp;\leq t_j\\
+  -x + b_j &amp;\leq t_j\\
+  t_j &amp;\geq 0.\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 5, 6, 7, 8, 9, 10, 11, 12 \} \quad &amp; \quad
+  \mathcal{N} &amp;= \{ 0, 1, 2, 3, 4 \}\\
+B &amp;= \mathbf{I}_8 \quad &amp; \quad
+  N &amp;= \begin{bmatrix}
+         1 &amp; -1\\
+         -1 &amp; -1\\
+         1 &amp; &amp; -1\\
+         -1 &amp; &amp; -1\\
+         1 &amp; &amp; &amp; -1\\
+         -1 &amp; &amp; &amp; -1\\
+         1 &amp; &amp; &amp; &amp; -1\\
+         -1 &amp; &amp; &amp; &amp; -1
+       \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= b = \begin{bmatrix}
+                         1\\ -1\\ 2\\ -2\\ 4\\ -4\\ 8\\ -8
+                       \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= -c_\mathcal{N} =
+      \begin{bmatrix} n\mu' \\ 1\\ 1\\ 1\\ 1 \end{bmatrix}.\end{split}\]</div>
+<p>To analyze the one parameter family of LPs, arbitrarily perturb the initial
+dictionary to make it optimal by defining
+<span class="math notranslate nohighlight">\(\bar{x}_\mathcal{B} = \boldsymbol{1}_8\)</span> and
+<span class="math notranslate nohighlight">\(\bar{z}_\mathcal{N} = \boldsymbol{1}_5\)</span>.</p>
+<p>Evaluating <span class="math notranslate nohighlight">\(x^*_\mathcal{B} + \bar{x}_\mathcal{B} \mu \geq \boldsymbol{0}\)</span>
+and <span class="math notranslate nohighlight">\(z^*_\mathcal{N} + \bar{z}_\mathcal{N} \mu \geq \boldsymbol{0}\)</span>
+reveals the current range for <span class="math notranslate nohighlight">\(\mu\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[2^{n - 1} \leq -n\mu' \leq \mu \leq \infty.\]</div>
+<p>By inspection, the initial dictionary is optimal as long as
+<span class="math notranslate nohighlight">\(\mu' \leq -\frac{8}{n}\)</span>.</p>
+<div class="section" id="Iteration-1">
+<h4>Iteration 1<a class="headerlink" href="#Iteration-1" title="Permalink to this headline">¶</a></h4>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{n\mu'}{1},
+        -\frac{1}{1}, -\frac{1}{1}, -\frac{1}{1}, -\frac{1}{1}
+      \right\},
+      \max\left\{
+        -\frac{1}{1}, -\frac{-1}{1},
+        -\frac{2}{1}, -\frac{-2}{1},
+        -\frac{4}{1}, -\frac{-4}{1},
+        -\frac{8}{1}, -\frac{-8}{1}
+      \right\}
+    \right\}\\
+ &amp;= -n\mu'\end{split}\]</div>
+<p>shows that <span class="math notranslate nohighlight">\(x_0\)</span> is the entering variable for
+<span class="math notranslate nohighlight">\(\mu' &lt; -\frac{8}{n}\)</span>.</p>
+</dd>
+<dt>Step 2</dt><dd><p>The maximum is achieved by <span class="math notranslate nohighlight">\(j = 0 \in \mathcal{N}\)</span>, so do one step of
+the primal simplex method.</p>
+<p>The primal step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} =
+B^{-1} N e_j =
+\begin{bmatrix}
+  1 &amp; -1\\
+  -1 &amp; -1\\
+  1 &amp; &amp; -1\\
+  -1 &amp; &amp; -1\\
+  1 &amp; &amp; &amp; -1\\
+  -1 &amp; &amp; &amp; -1\\
+  1 &amp; &amp; &amp; &amp; -1\\
+  -1 &amp; &amp; &amp; &amp; -1
+\end{bmatrix} \begin{bmatrix} 1\\ 0\\ 0\\ 0\\ 0 \end{bmatrix} =
+\begin{bmatrix} 1\\ -1\\ 1\\ -1\\ 1\\ -1\\ 1\\ -1 \end{bmatrix}.\end{split}\]</div>
+<p>The index of the leaving variable is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\argmin_{i \in \mathcal{B}}
+  \left\{
+    \frac{x^*_i + \mu^* \bar{x}_i}{\Delta x_i} \colon \Delta x_i &gt; 0
+  \right\}
+ &amp;= \argmin_{i \in \mathcal{B}}\left\{
+      \frac{1 + \mu^* (1)}{1},
+      \frac{2 + \mu^* (1)}{1},
+      \frac{4 + \mu^* (1)}{1},
+      \frac{8 + \mu^* (1)}{1}
+    \right\}\\
+ &amp;= 5.\end{split}\]</div>
+<p>The dual step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+-\left( B^{-1} N \right)^\top e_i =
+-\begin{bmatrix}
+  1 &amp; -1 &amp; 1 &amp; -1 &amp; 1 &amp; -1 &amp; 1 &amp; -1\\
+  -1 &amp; -1\\
+   &amp; &amp; -1 &amp; -1\\
+   &amp; &amp; &amp; &amp; -1 &amp; -1\\
+   &amp; &amp; &amp; &amp; &amp; &amp;-1 &amp; -1
+ \end{bmatrix} \begin{bmatrix}
+                 1\\ 0\\ 0\\ 0\\ 0\\ 0\\ 0\\ 0
+               \end{bmatrix} =
+\begin{bmatrix} -1\\ 1\\ 0\\ 0\\ 0 \end{bmatrix}.\end{split}\]</div>
+</dd>
+<dt>Step 3</dt><dd><p>The step length adjustments are given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t &amp;= \frac{x^*_i}{\Delta x_i} = \frac{1}{1} = 1
+  \quad &amp; \quad
+  \bar{t} = \frac{\bar{x}_i}{\Delta x_i} = \frac{1}{1} = 1\\
+s &amp;= \frac{z^*_j}{\Delta z_j} = \frac{n\mu'}{-1} = -n\mu'
+  \quad &amp; \quad
+  \bar{s} = \frac{\bar{z}_j}{\Delta z_j} = \frac{1}{-1} = -1.\end{split}\]</div>
+</dd>
+<dt>Step 4</dt><dd><p>The current primal and dual solutions are updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x^*_\mathcal{B} &amp;\leftarrow x^*_\mathcal{B} - t \Delta x_\mathcal{B} =
+    \begin{bmatrix} 1\\ -1\\ 2\\ -2\\ 4\\ -4\\ 8\\ -8 \end{bmatrix} -
+      (1) \begin{bmatrix} 1\\ -1\\ 1\\ -1\\ 1\\ -1\\ 1\\ -1 \end{bmatrix} =
+    \begin{bmatrix} 0\\ 0\\ 1\\ -1\\ 3\\ -3\\ 7\\ -7 \end{bmatrix}
+  \quad &amp; \quad
+  x^*_j &amp;\leftarrow t = 1\\
+\bar{x}_\mathcal{B} &amp;\leftarrow
+      \bar{x}_\mathcal{B} - \bar{t} \Delta x_\mathcal{B} =
+    \begin{bmatrix} 1\\ 1\\ 1\\ 1\\ 1\\ 1\\ 1\\ 1 \end{bmatrix} -
+      (1) \begin{bmatrix} 1\\ -1\\ 1\\ -1\\ 1\\ -1\\ 1\\ -1 \end{bmatrix} =
+    \begin{bmatrix} 0\\ 2\\ 0\\ 2\\ 0\\ 2\\ 0\\ 2 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{x}_j &amp;\leftarrow \bar{t} = 1\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} &amp;\leftarrow z^*_\mathcal{N} - s \Delta z_\mathcal{N} =
+    \begin{bmatrix} n\mu' \\ 1\\ 1\\ 1\\ 1 \end{bmatrix} -
+      (-n\mu') \begin{bmatrix} -1\\ 1\\ 0\\ 0\\ 0 \end{bmatrix} =
+    \begin{bmatrix} 0\\ 1 + n\mu'\\ 1\\ 1\\ 1 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_i &amp;\leftarrow s = -n\mu'\\
+\bar{z}_\mathcal{N} &amp;\leftarrow
+      \bar{z}_\mathcal{N} - \bar{s} \Delta z_\mathcal{N} =
+    \begin{bmatrix} 1\\ 1\\ 1\\ 1\\ 1 \end{bmatrix} -
+      (-1) \begin{bmatrix} -1\\ 1\\ 0\\ 0\\ 0 \end{bmatrix} =
+    \begin{bmatrix} 0\\ 2\\ 1\\ 1\\ 1 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_i &amp;\leftarrow \bar{s} = -1.\end{split}\]</div>
+</dd>
+<dt>Step 5</dt><dd><p>The current basis is updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 0, 6, 7, 8, 9, 10, 11, 12 \} \quad &amp; \quad
+  \mathcal{N} &amp;= \{ 5, 1, 2, 3, 4 \}\\
+B &amp;= \begin{bmatrix}
+       1\\
+       -1 &amp; 1\\
+       1 &amp; &amp; 1\\
+       -1 &amp; &amp; &amp; 1\\
+       1 &amp; &amp; &amp; &amp; 1\\
+       -1 &amp; &amp; &amp; &amp; &amp; 1\\
+       1 &amp; &amp; &amp; &amp; &amp; &amp; 1\\
+       -1 &amp; &amp; &amp; &amp; &amp; &amp; &amp; 1
+     \end{bmatrix} \quad &amp; \quad
+  N &amp;= \begin{bmatrix}
+         1 &amp; -1\\
+           &amp; -1\\
+           &amp;    &amp; -1\\
+           &amp;    &amp; -1\\
+           &amp;    &amp;    &amp; -1\\
+           &amp;    &amp;    &amp; -1\\
+           &amp;    &amp;    &amp;    &amp; -1\\
+           &amp;    &amp;    &amp;    &amp; -1
+       \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= \begin{bmatrix}
+                     1\\ 0\\ 1\\ -1\\ 3\\ -3\\ 7\\ -7
+                   \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= \begin{bmatrix}
+                       -n\mu' \\ 1 + n\mu'\\ 1\\ 1\\ 1
+                     \end{bmatrix}\\
+\bar{x}_\mathcal{B} &amp;= \begin{bmatrix}
+                         1\\ 2\\ 0\\ 2\\ 0\\ 2\\ 0\\ 2
+                       \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_\mathcal{N} &amp;= \begin{bmatrix} -1\\ 2\\ 1\\ 1\\ 1 \end{bmatrix}.\end{split}\]</div>
+<p>The current range for <span class="math notranslate nohighlight">\(\mu\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\frac{-1 - n\mu'}{2} \leq \mu \leq -n\mu'.\]</div>
+<p>By inspection, the dictionary is optimal as long as
+<span class="math notranslate nohighlight">\(\mu' \leq -\frac{8}{n}\)</span>.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="Iteration-2">
+<h4>Iteration 2<a class="headerlink" href="#Iteration-2" title="Permalink to this headline">¶</a></h4>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{1 + n\mu'}{2},
+        -\frac{1}{1}, -\frac{1}{1}, -\frac{1}{1}
+      \right\},
+      \max\left\{
+        -\frac{1}{1}, -\frac{0}{2}, -\frac{-1}{2},
+        -\frac{-3}{2}, -\frac{-7}{2}
+      \right\}
+    \right\}\\
+ &amp;= -\frac{1 + n\mu'}{2}\end{split}\]</div>
+<p>shows that <span class="math notranslate nohighlight">\(x_1\)</span> is the entering variable for
+<span class="math notranslate nohighlight">\(\mu' &lt; -\frac{8}{n}\)</span>.</p>
+</dd>
+<dt>Step 2</dt><dd><p>The maximum is achieved by <span class="math notranslate nohighlight">\(j = 1 \in \mathcal{N}\)</span>, so do one step of
+the primal simplex method.</p>
+<p>The primal step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} =
+B^{-1} N e_j =
+\begin{bmatrix}
+  1 &amp; -1\\
+  1 &amp; -2\\
+  -1 &amp; 1 &amp; -1\\
+  1 &amp; -1 &amp; -1\\
+  -1 &amp; 1 &amp; 0 &amp; -1\\
+  1 &amp; -1 &amp; 0 &amp; -1\\
+  -1 &amp; 1 &amp; 0 &amp; 0 &amp; -1\\
+  1 &amp; -1 &amp; 0 &amp; 0 &amp; -1
+\end{bmatrix} \begin{bmatrix} 0\\ 1\\ 0\\ 0\\ 0 \end{bmatrix} =
+\begin{bmatrix} -1\\ -2\\ 1\\ -1\\ 1\\ -1\\ 1\\ -1 \end{bmatrix}.\end{split}\]</div>
+<p>The index of the leaving variable is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\argmin_{i \in \mathcal{B}}
+  \left\{
+    \frac{x^*_i + \mu^* \bar{x}_i}{\Delta x_i} \colon \Delta x_i &gt; 0
+  \right\}
+ &amp;= \argmin_{i \in \mathcal{B}}\left\{
+      \frac{1 + \mu^* (0)}{1},
+      \frac{3 + \mu^* (0)}{1},
+      \frac{7 + \mu^* (0)}{1}
+    \right\}\\
+ &amp;= 7.\end{split}\]</div>
+<p>The dual step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+-\left( B^{-1} N \right)^\top e_i =
+-\begin{bmatrix}
+  1 &amp; 1 &amp; -1 &amp; 1 &amp; -1 &amp; 1 &amp; -1 &amp; 1\\
+  -1 &amp; -2 &amp; 1 &amp; -1 &amp; 1 &amp; -1 &amp; 1 &amp; -1\\
+   &amp; &amp; -1 &amp; -1\\
+   &amp; &amp; &amp; &amp; -1 &amp; -1\\
+   &amp; &amp; &amp; &amp; &amp; &amp; -1 &amp; -1
+ \end{bmatrix} \begin{bmatrix}
+                 0\\ 0\\ 1\\ 0\\ 0\\ 0\\ 0\\ 0
+               \end{bmatrix} =
+\begin{bmatrix} 1\\ -1\\ 1\\ 0\\ 0 \end{bmatrix}.\end{split}\]</div>
+</dd>
+<dt>Step 3</dt><dd><p>The step length adjustments are given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t &amp;= \frac{x^*_i}{\Delta x_i} = \frac{1}{1} = 1
+  \quad &amp; \quad
+  \bar{t} = \frac{\bar{x}_i}{\Delta x_i} = \frac{0}{1} = 0\\
+s &amp;= \frac{z^*_j}{\Delta z_j} = \frac{1 + n\mu'}{-1} = -1 - n\mu'
+  \quad &amp; \quad
+  \bar{s} = \frac{\bar{z}_j}{\Delta z_j} = \frac{2}{-1} = -2.\end{split}\]</div>
+</dd>
+<dt>Step 4</dt><dd><p>The current primal and dual solutions are updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x^*_\mathcal{B} &amp;\leftarrow x^*_\mathcal{B} - t \Delta x_\mathcal{B} =
+    \begin{bmatrix} 1\\ 0\\ 1\\ -1\\ 3\\ -3\\ 7\\ -7 \end{bmatrix} -
+      (1) \begin{bmatrix}
+            -1\\ -2\\ 1\\ -1\\ 1\\ -1\\ 1\\ -1
+          \end{bmatrix} =
+    \begin{bmatrix} 2\\ 2\\ 0\\ 0\\ 2\\ -2\\ 6\\ -6 \end{bmatrix}
+  \quad &amp; \quad
+  x^*_j &amp;\leftarrow t = 1\\
+\bar{x}_\mathcal{B} &amp;\leftarrow
+      \bar{x}_\mathcal{B} - \bar{t} \Delta x_\mathcal{B} =
+    \begin{bmatrix} 1\\ 2\\ 0\\ 2\\ 0\\ 2\\ 0\\ 2 \end{bmatrix} -
+      (0) \begin{bmatrix}
+            -1\\ -2\\ 1\\ -1\\ 1\\ -1\\ 1\\ -1
+          \end{bmatrix} =
+    \begin{bmatrix} 1\\ 2\\ 0\\ 2\\ 0\\ 2\\ 0\\ 2 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{x}_j &amp;\leftarrow \bar{t} = 0\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} &amp;\leftarrow z^*_\mathcal{N} - s \Delta z_\mathcal{N} =
+    \begin{bmatrix} -n\mu' \\ 1 + n\mu'\\ 1\\ 1\\ 1 \end{bmatrix} -
+      (-1 - n\mu') \begin{bmatrix} 1\\ -1\\ 1\\ 0\\ 0 \end{bmatrix} =
+    \begin{bmatrix} 1\\ 0\\ 2 + n\mu'\\ 0\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_i &amp;\leftarrow s = -1 - n\mu'\\
+\bar{z}_\mathcal{N} &amp;\leftarrow
+      \bar{z}_\mathcal{N} - \bar{s} \Delta z_\mathcal{N} =
+    \begin{bmatrix} -1\\ 2\\ 1\\ 1\\ 1 \end{bmatrix} -
+      (-2) \begin{bmatrix} 1\\ -1\\ 1\\ 0\\ 0 \end{bmatrix} =
+    \begin{bmatrix} 1\\ 0\\ 3\\ 1\\ 1 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_i &amp;\leftarrow \bar{s} = -2.\end{split}\]</div>
+</dd>
+<dt>Step 5</dt><dd><p>The current basis is updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 0, 6, 1, 8, 9, 10, 11, 12 \} \quad &amp; \quad
+  \mathcal{N} &amp;= \{ 5, 7, 2, 3, 4 \}\\
+B &amp;= \begin{bmatrix}
+       1 &amp; &amp; -1\\
+       -1 &amp; 1 &amp; -1\\
+       1\\
+       -1 &amp; &amp; &amp; 1\\
+       1 &amp; &amp; &amp; &amp; 1\\
+       -1 &amp; &amp; &amp; &amp; &amp; 1\\
+       1 &amp; &amp; &amp; &amp; &amp; &amp; 1\\
+       -1 &amp; &amp; &amp; &amp; &amp; &amp; &amp; 1
+     \end{bmatrix} \quad &amp; \quad
+  N &amp;= \begin{bmatrix}
+         1\\
+          \\
+           &amp; 1 &amp; -1\\
+           &amp;   &amp; -1\\
+           &amp;   &amp;    &amp; -1\\
+           &amp;   &amp;    &amp; -1\\
+           &amp;   &amp;    &amp;    &amp; -1\\
+           &amp;   &amp;    &amp;    &amp; -1
+       \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= \begin{bmatrix}
+                     2\\ 2\\ 1\\ 0\\ 2\\ -2\\ 6\\ -6
+                   \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= \begin{bmatrix}
+                       1\\ -1 - n\mu'\\ 2 + n\mu'\\ 0\\ 0
+                     \end{bmatrix}\\
+\bar{x}_\mathcal{B} &amp;= \begin{bmatrix}
+                         1\\ 2\\ 0\\ 2\\ 0\\ 2\\ 0\\ 2
+                       \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_\mathcal{N} &amp;= \begin{bmatrix} 1\\ -2\\ 3\\ 1\\ 1 \end{bmatrix}.\end{split}\]</div>
+<p>The current range for <span class="math notranslate nohighlight">\(\mu\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\frac{-2 - n\mu'}{3} \leq \mu \leq \frac{-1 - n\mu'}{2}.\]</div>
+<p>By inspection, the dictionary is optimal as long as
+<span class="math notranslate nohighlight">\(\mu' \leq -\frac{2}{n}\)</span>.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="Iteration-3">
+<h4>Iteration 3<a class="headerlink" href="#Iteration-3" title="Permalink to this headline">¶</a></h4>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{1}{1}, -\frac{2 + n\mu'}{3}, -\frac{0}{1}, -\frac{0}{1}
+      \right\},
+      \max\left\{
+        -\frac{2}{1}, -\frac{2}{2},
+        -\frac{0}{2}, -\frac{-2}{2}, -\frac{-6}{2}
+      \right\}
+    \right\}\\
+ &amp;= -\frac{1 + n\mu'}{2}\end{split}\]</div>
+<p>shows that <span class="math notranslate nohighlight">\(x_2\)</span> is the entering variable for
+<span class="math notranslate nohighlight">\(\mu' &lt; -\frac{2}{n}\)</span>.</p>
+</dd>
+<dt>Step 2</dt><dd><p>The maximum is achieved by <span class="math notranslate nohighlight">\(j = 2 \in \mathcal{N}\)</span>, so do one step of
+the primal simplex method.</p>
+<p>The primal step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} =
+B^{-1} N e_j =
+\begin{bmatrix}
+     &amp;  1 &amp; -1\\
+  -1 &amp;  2 &amp; -2\\
+  -1 &amp;  1 &amp; -1\\
+     &amp;  1 &amp; -2\\
+     &amp; -1 &amp;  1 &amp; -1\\
+     &amp;  1 &amp; -1 &amp; -1\\
+     &amp; -1 &amp;  1 &amp;    &amp; -1\\
+     &amp;  1 &amp; -1 &amp;    &amp; -1
+\end{bmatrix} \begin{bmatrix} 0\\ 0\\ 1\\ 0\\ 0 \end{bmatrix} =
+\begin{bmatrix} -1\\ -2\\ -1\\ -2\\ 1\\ -1\\ 1\\ -1 \end{bmatrix}.\end{split}\]</div>
+<p>The index of the leaving variable is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\argmin_{i \in \mathcal{B}}
+  \left\{
+    \frac{x^*_i + \mu^* \bar{x}_i}{\Delta x_i} \colon \Delta x_i &gt; 0
+  \right\}
+ &amp;= \argmin_{i \in \mathcal{B}}\left\{
+      \frac{2 + \mu^* (0)}{1},
+      \frac{6 + \mu^* (0)}{1}
+    \right\}\\
+ &amp;= 9.\end{split}\]</div>
+<p>The dual step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+-\left( B^{-1} N \right)^\top e_i =
+-\begin{bmatrix}
+     &amp; -1 &amp; -1\\
+  1  &amp;  2 &amp;  1 &amp;  1 &amp; -1 &amp;  1 &amp; -1 &amp;  1\\
+  -1 &amp; -2 &amp; -1 &amp; -2 &amp;  1 &amp; -1 &amp;  1 &amp; -1\\
+   &amp; &amp; &amp; &amp; -1 &amp; -1\\
+   &amp; &amp; &amp; &amp; &amp; &amp; -1 &amp; -1
+ \end{bmatrix} \begin{bmatrix}
+                 0\\ 0\\ 0\\ 0\\ 1\\ 0\\ 0\\ 0
+               \end{bmatrix} =
+\begin{bmatrix} 0\\ 1\\ -1\\ 1\\ 0 \end{bmatrix}.\end{split}\]</div>
+</dd>
+<dt>Step 3</dt><dd><p>The step length adjustments are given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t &amp;= \frac{x^*_i}{\Delta x_i} = \frac{2}{1} = 2
+  \quad &amp; \quad
+  \bar{t} = \frac{\bar{x}_i}{\Delta x_i} = \frac{0}{1} = 0\\
+s &amp;= \frac{z^*_j}{\Delta z_j} = \frac{2 + n\mu'}{-1} = -2 - n\mu'
+  \quad &amp; \quad
+  \bar{s} = \frac{\bar{z}_j}{\Delta z_j} = \frac{3}{-1} = -3.\end{split}\]</div>
+</dd>
+<dt>Step 4</dt><dd><p>The current primal and dual solutions are updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x^*_\mathcal{B} &amp;\leftarrow x^*_\mathcal{B} - t \Delta x_\mathcal{B} =
+    \begin{bmatrix} 2\\ 2\\ 1\\ 0\\ 2\\ -2\\ 6\\ -6 \end{bmatrix} -
+      (2) \begin{bmatrix}
+            -1\\ -2\\ -1\\ -2\\ 1\\ -1\\ 1\\ -1
+          \end{bmatrix} =
+    \begin{bmatrix} 4\\ 6\\ 3\\ 4\\ 0\\ 0\\ 4\\ -4 \end{bmatrix}
+  \quad &amp; \quad
+  x^*_j &amp;\leftarrow t = 2\\
+\bar{x}_\mathcal{B} &amp;\leftarrow
+      \bar{x}_\mathcal{B} - \bar{t} \Delta x_\mathcal{B} =
+    \begin{bmatrix} 1\\ 2\\ 0\\ 2\\ 0\\ 2\\ 0\\ 2 \end{bmatrix} -
+      (0) \begin{bmatrix}
+            -1\\ -2\\ -1\\ -2\\ 1\\ -1\\ 1\\ -1
+          \end{bmatrix} =
+    \begin{bmatrix} 1\\ 2\\ 0\\ 2\\ 0\\ 2\\ 0\\ 2 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{x}_j &amp;\leftarrow \bar{t} = 0\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} &amp;\leftarrow z^*_\mathcal{N} - s \Delta z_\mathcal{N} =
+    \begin{bmatrix} 1\\ -1 - n\mu'\\ 2 + n\mu'\\ 0\\ 0 \end{bmatrix} -
+      (-2 - n\mu') \begin{bmatrix} 0\\ 1\\ -1\\ 1\\ 0 \end{bmatrix} =
+    \begin{bmatrix} 1\\ 1\\ 0\\ 2 + n\mu'\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  z^*_i &amp;\leftarrow s = -2 - n\mu'\\
+\bar{z}_\mathcal{N} &amp;\leftarrow
+      \bar{z}_\mathcal{N} - \bar{s} \Delta z_\mathcal{N} =
+    \begin{bmatrix} 1\\ -2\\ 3\\ 1\\ 1 \end{bmatrix} -
+      (-3) \begin{bmatrix} 0\\ 1\\ -1\\ 1\\ 0 \end{bmatrix} =
+    \begin{bmatrix} 1\\ 1\\ 0\\ 4\\ 1 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_i &amp;\leftarrow \bar{s} = -3.\end{split}\]</div>
+</dd>
+<dt>Step 5</dt><dd><p>The current basis is updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 0, 6, 1, 8, 2, 10, 11, 12 \} \quad &amp; \quad
+  \mathcal{N} &amp;= \{ 5, 7, 9, 3, 4 \}\\
+B &amp;= \begin{bmatrix}
+       1 &amp; &amp; -1\\
+       -1 &amp; 1 &amp; -1\\
+       1 &amp; &amp; &amp; &amp; -1\\
+       -1 &amp; &amp; &amp; 1 &amp; -1\\
+       1\\
+       -1 &amp; &amp; &amp; &amp; &amp; 1\\
+       1 &amp; &amp; &amp; &amp; &amp; &amp; 1\\
+       -1 &amp; &amp; &amp; &amp; &amp; &amp; &amp; 1
+     \end{bmatrix} \quad &amp; \quad
+  N &amp;= \begin{bmatrix}
+         1\\
+         \\
+           &amp; 1\\
+         \\
+           &amp;   &amp; 1 &amp; -1\\
+           &amp;   &amp;   &amp; -1\\
+           &amp;   &amp;   &amp;    &amp; -1\\
+           &amp;   &amp;   &amp;    &amp; -1
+       \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= \begin{bmatrix}
+                     4\\ 6\\ 3\\ 4\\ 2\\ 0\\ 4\\ -4
+                   \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= \begin{bmatrix}
+                       1\\ 1\\ -2 - n\mu'\\ 2 + n\mu'\\ 0
+                     \end{bmatrix}\\
+\bar{x}_\mathcal{B} &amp;= \begin{bmatrix}
+                         1\\ 2\\ 0\\ 2\\ 0\\ 2\\ 0\\ 2
+                       \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_\mathcal{N} &amp;= \begin{bmatrix} 1\\ 1\\ -3\\ 4\\ 1 \end{bmatrix}.\end{split}\]</div>
+<p>The current range for <span class="math notranslate nohighlight">\(\mu\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\frac{-2 - n\mu'}{4} \leq \mu \leq \frac{-2 - n\mu'}{3}.\]</div>
+<p>By inspection, the dictionary is optimal as long as
+<span class="math notranslate nohighlight">\(\mu' \leq -\frac{10}{n}\)</span>.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="Iteration-4">
+<h4>Iteration 4<a class="headerlink" href="#Iteration-4" title="Permalink to this headline">¶</a></h4>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{1}{1}, -\frac{1}{1}, -\frac{2 + n\mu'}{4}, -\frac{0}{1}
+      \right\},
+      \max\left\{
+        -\frac{4}{1}, -\frac{6}{2},
+        -\frac{4}{2}, -\frac{0}{2}, -\frac{-4}{2}
+      \right\}
+    \right\}\\
+ &amp;= -\frac{2 + n\mu'}{4}\end{split}\]</div>
+<p>shows that <span class="math notranslate nohighlight">\(x_3\)</span> is the entering variable for
+<span class="math notranslate nohighlight">\(\mu' &lt; -\frac{10}{n}\)</span>.</p>
+</dd>
+<dt>Step 2</dt><dd><p>The maximum is achieved by <span class="math notranslate nohighlight">\(j = 3 \in \mathcal{N}\)</span>, so do one step of
+the primal simplex method.</p>
+<p>The primal step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} =
+B^{-1} N e_j =
+\begin{bmatrix}
+     &amp;    &amp;  1 &amp; -1\\
+  -1 &amp;    &amp;  2 &amp; -2\\
+  -1 &amp;    &amp;  1 &amp; -1\\
+     &amp; -1 &amp;  2 &amp; -2\\
+     &amp; -1 &amp;  1 &amp; -1\\
+     &amp;    &amp;  1 &amp; -2\\
+     &amp;    &amp; -1 &amp;  1 &amp; -1\\
+     &amp;    &amp;  1 &amp; -1 &amp; -1
+\end{bmatrix} \begin{bmatrix} 0\\ 0\\ 0\\ 1\\ 0 \end{bmatrix} =
+\begin{bmatrix} -1\\ -2\\ -1\\ -2\\ -1\\ -2\\ 1\\ -1 \end{bmatrix}.\end{split}\]</div>
+<p>The index of the leaving variable is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\argmin_{i \in \mathcal{B}}
+  \left\{
+    \frac{x^*_i + \mu^* \bar{x}_i}{\Delta x_i} \colon \Delta x_i &gt; 0
+  \right\}
+ &amp;= \argmin_{i \in \mathcal{B}}\left\{
+      \frac{4 + \mu^* (0)}{1}
+    \right\}\\
+ &amp;= 11.\end{split}\]</div>
+<p>The dual step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta z_\mathcal{N} =
+-\left( B^{-1} N \right)^\top e_i =
+-\begin{bmatrix}
+     &amp; -1 &amp; -1\\
+   &amp; &amp; &amp; -1 &amp; -1\\
+  1  &amp;  2 &amp;  1 &amp;  2 &amp; 1 &amp;  1 &amp; -1 &amp;  1\\
+  -1 &amp; -2 &amp; -1 &amp; -2 &amp;  -1 &amp; -2 &amp;  1 &amp; -1\\
+   &amp; &amp; &amp; &amp; &amp; &amp; -1 &amp; -1
+ \end{bmatrix} \begin{bmatrix}
+                 0\\ 0\\ 0\\ 0\\ 0\\ 0\\ 1\\ 0
+               \end{bmatrix} =
+\begin{bmatrix} 0\\ 0\\ 1\\ -1\\ 1 \end{bmatrix}.\end{split}\]</div>
+</dd>
+<dt>Step 3</dt><dd><p>The step length adjustments are given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t &amp;= \frac{x^*_i}{\Delta x_i} = \frac{4}{1} = 4
+  \quad &amp; \quad
+  \bar{t} = \frac{\bar{x}_i}{\Delta x_i} = \frac{0}{1} = 0\\
+s &amp;= \frac{z^*_j}{\Delta z_j} = \frac{2 + n\mu'}{-1} = -2 - n\mu'
+  \quad &amp; \quad
+  \bar{s} = \frac{\bar{z}_j}{\Delta z_j} = \frac{4}{-1} = -4.\end{split}\]</div>
+</dd>
+<dt>Step 4</dt><dd><p>The current primal and dual solutions are updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x^*_\mathcal{B} &amp;\leftarrow x^*_\mathcal{B} - t \Delta x_\mathcal{B} =
+    \begin{bmatrix} 4\\ 6\\ 3\\ 4\\ 2\\ 0\\ 4\\ -4 \end{bmatrix} -
+      (4) \begin{bmatrix}
+            -1\\ -2\\ -1\\ -2\\ -1\\ -2\\ 1\\ -1
+          \end{bmatrix} =
+    \begin{bmatrix} 8\\ 14\\ 7\\ 12\\ 6\\ 8\\ 0\\ 0 \end{bmatrix}
+  \quad &amp; \quad
+  x^*_j &amp;\leftarrow t = 4\\
+\bar{x}_\mathcal{B} &amp;\leftarrow
+      \bar{x}_\mathcal{B} - \bar{t} \Delta x_\mathcal{B} =
+    \begin{bmatrix} 1\\ 2\\ 0\\ 2\\ 0\\ 2\\ 0\\ 2 \end{bmatrix} -
+      (0) \begin{bmatrix}
+            -1\\ -2\\ -1\\ -2\\ -1\\ -2\\ 1\\ -1
+          \end{bmatrix} =
+    \begin{bmatrix} 1\\ 2\\ 0\\ 2\\ 0\\ 2\\ 0\\ 2 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{x}_j &amp;\leftarrow \bar{t} = 0\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z^*_\mathcal{N} &amp;\leftarrow z^*_\mathcal{N} - s \Delta z_\mathcal{N} =
+    \begin{bmatrix} 1\\ 1\\ -2 - n\mu'\\ 2 + n\mu'\\ 0 \end{bmatrix} -
+      (-2 - n\mu') \begin{bmatrix} 0\\ 0\\ 1\\ -1\\ 1 \end{bmatrix} =
+    \begin{bmatrix} 1\\ 1\\ 0\\ 0\\ 2 + n\mu' \end{bmatrix}
+  \quad &amp; \quad
+  z^*_i &amp;\leftarrow s = -2 - n\mu'\\
+\bar{z}_\mathcal{N} &amp;\leftarrow
+      \bar{z}_\mathcal{N} - \bar{s} \Delta z_\mathcal{N} =
+    \begin{bmatrix} 1\\ 1\\ -3\\ 4\\ 1 \end{bmatrix} -
+      (-4) \begin{bmatrix} 0\\ 0\\ 1\\ -1\\ 1 \end{bmatrix} =
+    \begin{bmatrix} 1\\ 1\\ 1\\ 0\\ 5 \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_i &amp;\leftarrow \bar{s} = -4.\end{split}\]</div>
+</dd>
+<dt>Step 5</dt><dd><p>The current basis is updated to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B} &amp;= \{ 0, 6, 1, 8, 2, 10, 3, 12 \} \quad &amp; \quad
+  \mathcal{N} &amp;= \{ 5, 7, 9, 11, 4 \}\\
+B &amp;= \begin{bmatrix}
+       1 &amp; &amp; -1\\
+       -1 &amp; 1 &amp; -1\\
+       1 &amp; &amp; &amp; &amp; -1\\
+       -1 &amp; &amp; &amp; 1 &amp; -1\\
+       1 &amp; &amp; &amp; &amp; &amp; &amp; -1\\
+       -1 &amp; &amp; &amp; &amp; &amp; 1 &amp; -1\\
+       1\\
+       -1 &amp; &amp; &amp; &amp; &amp; &amp; &amp; 1
+     \end{bmatrix} \quad &amp; \quad
+  N &amp;= \begin{bmatrix}
+         1\\
+         \\
+           &amp; 1\\
+         \\
+           &amp;   &amp; 1\\
+         \\
+           &amp;   &amp;   &amp; 1 &amp; -1\\
+           &amp;   &amp;   &amp;   &amp; -1
+       \end{bmatrix}\\
+x^*_\mathcal{B} &amp;= \begin{bmatrix}
+                     8\\ 14\\ 7\\ 12\\ 6\\ 8\\ 4\\ 0
+                   \end{bmatrix}
+  \quad &amp; \quad
+  z^*_\mathcal{N} &amp;= \begin{bmatrix}
+                       1\\ 1\\ 0\\ -2 - n\mu'\\ 2 + n\mu'
+                     \end{bmatrix}\\
+\bar{x}_\mathcal{B} &amp;= \begin{bmatrix}
+                         1\\ 2\\ 0\\ 2\\ 0\\ 2\\ 0\\ 2
+                       \end{bmatrix}
+  \quad &amp; \quad
+  \bar{z}_\mathcal{N} &amp;= \begin{bmatrix} 1\\ 1\\ 1\\ -4\\ 5 \end{bmatrix}.\end{split}\]</div>
+<p>The current range for <span class="math notranslate nohighlight">\(\mu\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\frac{-2 - n\mu'}{5} \leq \mu \leq \frac{-2 - n\mu'}{4}.\]</div>
+<p>By inspection, the dictionary is optimal as long as
+<span class="math notranslate nohighlight">\(\mu' \leq -\frac{2}{n}\)</span>.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="Iteration-5">
+<h4>Iteration 5<a class="headerlink" href="#Iteration-5" title="Permalink to this headline">¶</a></h4>
+<dl>
+<dt>Step 1</dt><dd><p>Computing</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu^*
+ &amp;= \max\left\{
+      \max_{j \in \mathcal{N}, \bar{z}_j &gt; 0} -\frac{z^*_j}{\bar{z}_j},
+      \max_{i \in \mathcal{B}, \bar{x}_i &gt; 0} -\frac{x^*_i}{\bar{x}_i},
+    \right\}\\
+ &amp;= \max\left\{
+      \max\left\{
+        -\frac{1}{1}, -\frac{1}{1}, -\frac{0}{1}, -\frac{2 + n\mu'}{5},
+      \right\},
+      \max\left\{
+        -\frac{8}{1}, -\frac{14}{2},
+        -\frac{12}{2}, -\frac{8}{2}, -\frac{0}{2}
+      \right\}
+    \right\}\\
+ &amp;= -\frac{2 + n\mu'}{5}\end{split}\]</div>
+<p>shows that <span class="math notranslate nohighlight">\(x_4\)</span> is the entering variable for
+<span class="math notranslate nohighlight">\(\mu' &lt; -\frac{2}{n}\)</span>.</p>
+</dd>
+<dt>Step 2</dt><dd><p>The maximum is achieved by <span class="math notranslate nohighlight">\(j = 4 \in \mathcal{N}\)</span>, so do one step of
+the primal simplex method.</p>
+<p>The primal step direction is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta x_\mathcal{B} =
+B^{-1} N e_j =
+\begin{bmatrix}
+     &amp;    &amp;    &amp; 1 &amp; -1\\
+  -1 &amp;    &amp;    &amp; 2 &amp; -2\\
+  -1 &amp;    &amp;    &amp; 1 &amp; -1\\
+     &amp; -1 &amp;    &amp; 2 &amp; -2\\
+     &amp; -1 &amp;    &amp; 1 &amp; -1\\
+     &amp;    &amp; -1 &amp; 2 &amp; -2\\
+     &amp;    &amp; -1 &amp; 1 &amp; -1\\
+     &amp;    &amp;    &amp; 1 &amp; -2
+\end{bmatrix} \begin{bmatrix} 0\\ 0\\ 0\\ 0\\ 1 \end{bmatrix} =
+\begin{bmatrix} -1\\ -2\\ -1\\ -2\\ -1\\ -2\\ -1\\ -2 \end{bmatrix}.\end{split}\]</div>
+<p>The index of the leaving variable is</p>
+<div class="math notranslate nohighlight">
+\[\argmin_{i \in \mathcal{B}}
+  \left\{
+    \frac{x^*_i + \mu^* \bar{x}_i}{\Delta x_i} \colon \Delta x_i &gt; 0
+  \right\} =
+\emptyset.\]</div>
+<p>Therefore, the primal is unbounded (i.e. the dual is infeasible) when
+<span class="math notranslate nohighlight">\(\mu' &lt; -\frac{2}{n}\)</span>.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="(d)">
+<h3>(d)<a class="headerlink" href="#(d)" title="Permalink to this headline">¶</a></h3>
+<p>Even though there is a pattern for the <span class="math notranslate nohighlight">\(k\)</span>-th iteration, it is unclear
+whether the results of (c) is correct because <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\mu'\)</span> have
+strict boundary conditions.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">print</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+<span class="kn">from</span> <span class="nn">pymprog</span> <span class="kn">import</span> <span class="n">model</span>
+
+<span class="n">lp</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="s1">&#39;L1-Regression LP&#39;</span><span class="p">)</span>
+
+<span class="c1">#lp.verbose(True)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">lp</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">))</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">lp</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">None</span><span class="p">))</span>
+
+<span class="n">lp</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">t_j</span> <span class="o">+</span> <span class="n">mu</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">b_j</span><span class="p">)</span> <span class="k">for</span> <span class="n">b_j</span><span class="p">,</span> <span class="n">t_j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">)))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+<span class="n">lp</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>
+<span class="n">lp</span><span class="o">.</span><span class="n">sensitivity</span><span class="p">()</span>
+
+<span class="n">lp</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[-76 -71 -61 -61 -36   7  64  74  90  93]
+
+PyMathProg 1.0 Sensitivity Report Created: 2020/04/04 Sat 19:42PM
+================================================================================
+Variable            Activity   Dual.Value     Obj.Coef   Range.From   Range.Till
+--------------------------------------------------------------------------------
+*x                         7            0            0           -1            0
+*t[0]                     83            0            1            0            1
+*t[1]                     68            0            1            0            1
+*t[2]                     86            0            1            1            2
+*t[3]                     57            0            1            1            2
+*t[4]                     78            0            1            0            1
+*t[5]                     43            0            1            0            1
+*t[6]                     67            0            1            1            2
+*t[7]                     83            0            1            1            2
+*t[8]                     68            0            1            0            1
+ t[9]                      0            0            1            1          inf
+================================================================================
+================================================================================
+Constraint       Activity Dual.Value  Lower.Bnd  Upper.Bnd RangeLower RangeUpper
+--------------------------------------------------------------------------------
+*R1                   -90          0       -inf         76        -90        -90
+ R2                   -76         -1       -inf        -76 -1.79769e+308          7
+*R3                   -75          0       -inf         61        -75        -75
+ R4                   -61         -1       -inf        -61 -1.79769e+308          7
+ R5                   -93         -1       -inf        -93 -1.79769e+308         -7
+*R6                   -79          0       -inf         93        -79        -79
+ R7                   -64         -1       -inf        -64 -1.79769e+308         -7
+*R8                   -50          0       -inf         64        -50        -50
+*R9                   -85          0       -inf         71        -85        -85
+ R10                  -71         -1       -inf        -71 -1.79769e+308          7
+*R11                  -50          0       -inf         36        -50        -50
+ R12                  -36         -1       -inf        -36 -1.79769e+308          7
+ R13                  -74         -1       -inf        -74 -1.79769e+308         -7
+*R14                  -60          0       -inf         74        -60        -60
+ R15                  -90         -1       -inf        -90 -1.79769e+308         -7
+*R16                  -76          0       -inf         90        -76        -76
+*R17                  -75          0       -inf         61        -75        -75
+ R18                  -61         -1       -inf        -61 -1.79769e+308          7
+ R19                   -7         -1       -inf         -7         -7         36
+*R20                    7          0       -inf          7          7          7
+================================================================================
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>model(&#39;L1-Regression LP&#39;) is not the default model.
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Exercise-12.11">
+<h2>Exercise 12.11<a class="headerlink" href="#Exercise-12.11" title="Permalink to this headline">¶</a></h2>
+<p>Already proved in <a class="reference internal" href="../numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/chapter-03.html#dennis1996numerical-ex-3-1"><span class="std std-ref">another exercise</span></a>.</p>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-nb/linear-programming-vanderbei/chapter-12-0"><dl class="citation">
+<dt class="bibtex label" id="gockenbach2003sic"><span class="brackets"><a class="fn-backref" href="#id4">Goc</a></span></dt>
+<dd><p>Mark S. Gockenbach. Introduction to inequality-constrained optimization: the logarithmic barrier method. <span><a class="reference external" href="#"></a></span>http://www.math.mtu.edu/ msgocken/ma5630spring2003/lectures/bar/bar.pdf. Accessed on 2017-09-09.</p>
+</dd>
+<dt class="bibtex label" id="hajja1994advanced"><span class="brackets"><a class="fn-backref" href="#id5">Haj94</a></span></dt>
+<dd><p>Mowaffaq Hajja. An advanced calculus approach to finding the fermat point. <em>Mathematics Magazine</em>, 67(1):29–34, 1994.</p>
+</dd>
+<dt class="bibtex label" id="lusbysdokkt"><span class="brackets"><a class="fn-backref" href="#id2">Lus</a></span></dt>
+<dd><p>Richard Lusby. Karush-kuhn-tucker conditions. <span><a class="reference external" href="#"></a></span>http://www2.imm.dtu.dk/courses/02711/lecture3.pdf. Accessed on 2017-09-09.</p>
+</dd>
+<dt class="bibtex label" id="sullivandd3364lmkktc"><span class="brackets"><a class="fn-backref" href="#id1">Sul</a></span></dt>
+<dd><p>Josephine Sullivan. Lagrange multipliers and the karush-kuhn-tucker conditions. <span><a class="reference external" href="#"></a></span>http://www.csc.kth.se/utbildning/kth/kurser/DD3364/Lectures/KKT.pdf. Accessed on 2017-09-09.</p>
+</dd>
+<dt class="bibtex label" id="wildemcnktt"><span class="brackets"><a class="fn-backref" href="#id3">Wil</a></span></dt>
+<dd><p>Joshua Wilde. Math camp notes: kuhn-tucker theorem. <span><a class="reference external" href="#"></a></span>http://faculty.cas.usf.edu/jkwilde/mathcamp/Kuhn-Tucker.pdf. Accessed on 2017-09-09.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/nb/linear-programming-vanderbei/chapter-12.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

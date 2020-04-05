@@ -1,0 +1,447 @@
+#################################################################
+Training Products of Experts by Minimizing Contrastive Divergence
+#################################################################
+
+Motivation(s)
+=============
+
+Fitting a mixture model via EM or gradient ascent is one way to model a
+complicated, smooth, high-dimensional data distribution.  One limitation is that
+the posterior distribution cannot be sharper than the individual models in the
+mixture.  This issue becomes more problematic in high-dimensional spaces where
+the individual models need to be broadly tuned.
+
+Proposed Solution(s)
+====================
+
+The author proposes the concept of a Product of Experts (PoE)
+
+.. math::
+
+   p(\mathbf{d} \mid \theta_1, \ldots, \theta_n) =
+   \frac{\prod_m p_m(\mathbf{d} \mid \theta_m)}{
+     \sum_\mathbf{c} \prod_m p_m(\mathbf{c} \mid \theta_m)
+   } =
+   Z^{-1} \prod_m p_m(\mathbf{d} \mid \theta_m)
+
+where :math:`\mathbf{d}` is a data vector in a discrete space, :math:`\theta_m`
+represents all the parameters of an individual model :math:`m`,
+:math:`p_m(\mathbf{d} \mid \theta_m)` is the probability of :math:`\mathbf{d}`
+under model :math:`m`, and :math:`\mathbf{c}` indexes all possible vectors in
+the data space.  This enables each expert to specialize on a different subset
+of the dimensions in a high-dimensional space.  Note that
+:math:`p_m(\mathbf{d} \mid \theta)` could be any non-negative function
+:math:`f(\mathbf{d}; \theta_m)` due to the partition function :math:`Z`.
+
+Directly fitting a PoE to a set of observed i.i.d. data vectors requires solving
+
+.. math::
+
+   \frac{\partial}{\partial \theta_m}
+       \log p(\mathbf{d} \mid \theta_1, \ldots, \theta_n)
+    &= \sum_m \frac{\partial}{\partial \theta_m}
+           \log p_m(\mathbf{d} \mid \theta_m) -
+       \frac{\partial}{\partial \theta_m} \log Z\\
+    &= \frac{\partial \log p_m(\mathbf{d} \mid \theta_m)}{\partial \theta_m} -
+       Z^{-1} \sum_\mathbf{c} \frac{\partial}{\partial \theta_m}
+           p_m(\mathbf{c} \mid \theta_m)
+           \prod_{m' \neq m} p_{m'}(\mathbf{c} \mid \theta_{m'})\\
+    &= \frac{\partial \log p_m(\mathbf{d} \mid \theta_m)}{\partial \theta_m} -
+       \sum_\mathbf{c}
+         p(\mathbf{c} \mid \theta_1, \ldots, \theta_n)
+         \frac{\partial \log p_m(\mathbf{c} \mid \theta_m)}{\partial \theta_m}.
+
+Since the hidden states of all the experts are conditionally independent given
+the data, Gibbs sampling can update each of them in parallel.  Unfortunately,
+samples drawn from the equilibrium distribution have very high variance because
+they come from different parts of the model's distribution.  Furthermore, the
+variance in the samples depends on the parameters of the model causing the
+parameters to be repelled from regions of high variance even if the gradient is
+zero.
+
+Ideally, the Markov chain that is implemented by Gibbs sampling should leave the
+initial distribution over the visible variables unaltered.  Towards this goal of
+reducing the variance, the author proposes the method of contrastive divergence:
+instead of running the Markov chain to equilibrium, run the chain for one full
+step and then update the parameters.
+
+Evaluation(s)
+=============
+
+The experiments on synthetic data (e.g. 5 x 5 clusters using 15 univariate
+Gaussian experts, 100-dimensional images containing edges) indicate that a PoE
+is able to fit data distributions that can be factorized into a product of lower
+dimensional distributions.  The simulations reveal that separate initialization
+and training causes PoE to become trapped in poor local optima.  A workaround is
+to train the experts together with random initialization.
+
+Using contrastive divergence with RBMs on the USPS digits dataset achieved an
+error rate of 1.1%.  The weights were learned by doing multinomial logistic
+regression on the training data with the labels as outputs and the unnormalised
+log probability scores from the trained (digit-specific) PoE as inputs.  Note
+that the USPS test set is drawn from a different distribution than the training
+set.  To sidestep this issue, the author created a new test set from the unused
+portion of the training data.
+
+To get an idea of the relative magnitude of the ignored term in contrastive
+divergence, extensive simulations were performed using RBMs with small
+numbers of visible and hidden units.  RBMs with few units allow a brute force
+evaluation of what would be exponential in the number of hidden/visible units.
+The results indicate the learning procedure does not always improve the log
+likelihood of the training data, though it has a strong tendency to do so.
+The paramount point to realize is the approximation did not make contrastive
+divergence worse in latter iterations.
+
+Future Direction(s)
+===================
+
+- In Andrew Ng's talk on :download:`Bias-Variance Tradeoff <nuts-and-bolts-of-building-ai-applications-using-deep-learning.pdf>`,
+  the subject of different train and test data distributions was brought up
+  again.  The proposed solution is to craft an appropriate data distribution.
+  This is in stark contrast with how humans confront novel situations.  What is
+  a reasonable formulation of transfer learning that emphasizes the minimization
+  of self-contradiction?
+
+Question(s)
+===========
+
+- Isn't a learning algorithm rather fragile if the test and training data needs
+  to come from the same distribution?  If a human is recognizing a digit, it
+  doesn't matter whether the digit is made of wood or water.
+- Have multinomial pixels and PoE HMM withstood the test of time?  They seem
+  overly complicated compared to existing techniques.
+- When is the relationship of equation (12) useful?
+
+  .. math::
+
+     P \parallel Z^{-1} \prod_m Q_m^{w_m} \leq \sum_m w_m P \parallel Q_m
+
+Analysis
+========
+
+Generative models that choose latent variables and then generate data tend to
+have a strong tendency for the posterior values of the latent variables to be
+approximately marginally independent after the model has been fitted to data.
+This is why it's hard to learn one hidden layer at a time in a greedy bottom-up
+way.  With a PoE, even though the experts have independent priors, the latent
+variables of different experts will be marginally dependent.  This means there
+may still be lots of statistical structure in the latent variables for
+additional hidden layers to capture.  Furthermore, a PoE retains the property
+of orthogonal basis functions while allowing non-orthogonal experts and a
+non-linear generative model.
+
+In order to fully understand this paper, one should already be familiar with
+:doc:`Boltzmann machines </blog/2016/11/28/a-learning-algorithm-for-boltzmann-machines>`
+and :doc:`RBMs </blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory>`.
+:cite:`ojwnocd,hpcd` present a concise and modern exposition on the application
+of contrastive divergence.  Some additional insights may exist in the
+experimental results of the original paper :cite:`hinton2002training`.
+
+One interesting tidbit is that an RBM is a PoE with one expert per hidden unit,
+and RBMs can be considered as the intersection between Boltzmann machines and
+PoE.  While a PoE is novel and possibly useful, CD-k enables sidestepping
+intractable calculations with acceptable variance and bias.
+
+Notes
+=====
+
+Maximum Likelihood Learning
+---------------------------
+
+Given a finite set of training data
+
+.. math::
+
+   \mathcal{X} = \left\{ \mathbf{x}_i \right\}_{i = 1}^N \subset \mathcal{D},
+
+one would like to model the probability of a data point :math:`\mathbf{x}_i`
+using a non-negative function of the form :math:`f(\mathbf{x}; \Theta)` where
+:math:`\Theta` is a vector of model parameters.  The corresponding likelihood
+function is
+
+.. math::
+
+   p(\mathbf{x} \mid \Theta) = \frac{1}{Z(\Theta)} f(\mathbf{x}; \Theta)
+
+where the partition function :math:`Z(\Theta)` is defined as
+
+.. math::
+
+   Z(\Theta) =
+   \int_{\mathbf{x} \in \mathcal{D}}
+     f(\mathbf{x}; \Theta) \mathop{\mathrm{d}\mathbf{x}}.
+
+The goal is to find the
+
+.. math::
+
+   \DeclareMathOperator*{\argmax}{arg\,max}
+   \argmax_{\Theta} p(\mathcal{X} \mid \Theta)
+    &= \argmax_{\Theta} \prod_{i = i}^N p(\mathbf{x}_i \mid \Theta)
+       & \quad & \text{observations are i.i.d.}\\
+    &= \argmax_{\Theta}
+         \prod_{i = i}^N \frac{f(\mathbf{x}_i; \Theta)}{Z(\Theta)}\\
+    &= \argmax_{\Theta}
+         N^{-1} \log \prod_{i = i}^N \frac{f(\mathbf{x}_i; \Theta)}{Z(\Theta)}\\
+    &= \argmax_{\Theta} -\log Z(\Theta) +
+         \frac{1}{N} \sum_{i = i}^N \log f(\mathbf{x}_i; \Theta)\\
+    &= \argmax_{\Theta} E(\mathcal{X}; \Theta).
+
+This requires computing
+
+.. math::
+
+   \frac{\partial E(\mathcal{X}; \Theta)}{\partial \Theta}
+    &= -\frac{\partial \log Z(\Theta)}{\partial \Theta} +
+       \frac{1}{N} \sum_{i = i}^N
+         \frac{\partial \log f(\mathbf{x}_i; \Theta)}{\partial \Theta}\\
+    &= -\left\langle
+         \frac{\log f(\mathbf{x}; \Theta)}{\partial \Theta}
+       \right\rangle_{p(\mathbf{D} \mid \Theta)} +
+       \left\langle
+         \frac{\log f(\mathbf{x}; \Theta)}{\partial \Theta}
+       \right\rangle_{p(\mathbf{X})}
+
+where :math:`p(\mathbf{D} \mid \Theta)` represents the true underlying
+distribution of the model, :math:`p(\mathbf{X})` denotes the empirical data
+distribution
+
+.. math::
+
+   p(\mathbf{x}) = \frac{1}{N} \sum_{i = 1}^N \delta(\mathbf{x} - \mathbf{x}_i),
+
+and the derivative of the partition function is given by
+
+.. math::
+
+   \frac{\partial \log Z(\Theta)}{\partial \Theta}
+    &= \frac{1}{Z(\Theta)} \frac{\partial Z(\Theta)}{\partial \Theta}\\
+    &= \frac{1}{Z(\Theta)}
+       \int_{\mathbf{x} \in \mathcal{D}}
+         \frac{\partial f(\mathbf{x}; \Theta)}{\partial \Theta}
+         \mathop{\mathrm{d}\mathbf{x}}\\
+    &= \frac{1}{Z(\Theta)}
+       \int f(\mathbf{x}; \Theta)
+         \frac{\partial \log f(\mathbf{x}; \Theta)}{\partial \Theta}
+         \mathop{\mathrm{d}\mathbf{x}}\\
+    &= \int p(\mathbf{x} \mid \Theta)
+         \frac{\partial \log f(\mathbf{x}; \Theta)}{\partial \Theta}
+         \mathop{\mathrm{d}\mathbf{x}}\\
+    &= \left\langle
+         \frac{\partial \log f(\mathbf{x}; \Theta)}{\partial \Theta}
+       \right\rangle_{p(\mathbf{D} \mid \Theta)}.
+
+Relationship between Maximum Likelihood and Kullback-Leibler Divergence
+-----------------------------------------------------------------------
+
+Maximizing the log-likelihood of the data averaged over the data distribution
+:math:`Q^0` is equivalent to minimizing the relative entropy between the data
+distribution and :math:`Q^\infty`, the equilibrium distribution over the visible
+variables that is produced by prolonged Gibbs sampling.
+
+.. math::
+
+   \DeclareMathOperator*{\argmin}{arg\,min}
+   \DeclareMathOperator*{\argmax}{arg\,max}
+   \DeclareMathOperator*{\entropy}{\mathit{H}}
+   \argmin_\theta Q^0 \parallel Q^\infty
+    &= \argmin_\Theta
+         p(\mathbf{D}) \parallel p(\mathbf{D} \mid \Theta)\\
+    &= \argmin_\Theta \int_{\mathbf{d} \in \mathcal{D}} p(\mathbf{d})
+         \log \frac{p(\mathbf{d})}{p(\mathbf{d} \mid \Theta)}
+         \mathop{\mathrm{d}\mathbf{d}}\\
+    &= \argmin_\Theta
+         \int
+           p(\mathbf{d}) \log p(\mathbf{d}) \mathop{\mathrm{d}\mathbf{d}} -
+         \int
+           p(\mathbf{d}) \log p(\mathbf{d} \mid \Theta)
+           \mathop{\mathrm{d}\mathbf{d}}\\
+    &= \argmin_\Theta -\entropy\left( Q^0 \right) -
+         \left\langle \log p(\mathbf{d} \mid \Theta) \right\rangle_{Q^0}\\
+    &= \argmax_\Theta
+         \left\langle \log p(\mathbf{d} \mid \Theta) \right\rangle_{Q^0}.
+
+The corresponding gradient is
+
+.. math::
+
+   \frac{\partial}{\partial \theta_m} \left( Q^0 \parallel Q^\infty \right)
+    &= -\frac{\partial}{\partial \theta_m}
+       \left\langle \log p(\mathbf{d} \mid \Theta) \right\rangle_{Q^0}\\
+    &= -\left\langle
+         \frac{\partial \log p_m(\mathbf{d} \mid \theta_m)}{\partial \theta_m} -
+         \sum_\mathbf{c}
+           p(\mathbf{c} \mid \theta_1, \ldots, \theta_n)
+           \frac{\partial \log p_m(\mathbf{c} \mid \theta_m)}{\partial \theta_m}
+       \right\rangle_{Q^0}
+       & \quad & \Theta = \theta_1, \ldots, \theta_n \text{ is a PoE}\\
+    &= -\int_{\mathbf{d} \in \mathcal{D}} p(\mathbf{d}) \left(
+         \frac{\partial \log p_m(\mathbf{d} \mid \theta_m)}{\partial \theta_m} -
+         \sum_\mathbf{c}
+           p(\mathbf{c} \mid \theta_1, \ldots, \theta_n)
+           \frac{\partial \log p_m(\mathbf{c} \mid \theta_m)}{\partial \theta_m}
+       \right) \mathop{\mathrm{d}\mathbf{d}}\\
+    &= \sum_\mathbf{c}
+         p(\mathbf{c} \mid \theta_1, \ldots, \theta_n)
+         \frac{\partial \log p_m(\mathbf{c} \mid \theta_m)}{\partial \theta_m}
+       \cdot
+       \int p(\mathbf{d}) \mathop{\mathrm{d}\mathbf{d}} -
+       \int p(\mathbf{d})
+         \frac{\partial \log p_m(\mathbf{d} \mid \theta_m)}{\partial \theta_m}
+         \mathop{\mathrm{d}\mathbf{d}}\\
+    &= \left\langle
+         \frac{\partial \log p_m(\mathbf{c} \mid \theta_m)}{\partial \theta_m}
+       \right\rangle_{Q^\infty} -
+       \left\langle
+         \frac{\partial \log p_m(\mathbf{d} \mid \theta_m)}{\partial \theta_m}
+       \right\rangle_{Q^0}.
+
+Notice that when
+:math:`p(\mathbf{d}) = N^{-1} \sum_{i = 1}^N \delta(\mathbf{d} - \mathbf{d}_i)`,
+
+.. math::
+
+   \left\langle \log p(\mathbf{d} \mid \Theta) \right\rangle_{Q^0}
+    &= \int_{\mathbf{d} \in \mathcal{D}}
+         p(\mathbf{d}) \log p(\mathbf{d} \mid \Theta)
+         \mathop{\mathrm{d}\mathbf{d}}\\
+    &= N^{-1} \int \sum_{i = 1}^N
+         \delta(\mathbf{d} - \mathbf{d}_i)
+         \log p(\mathbf{d} \mid \Theta) \mathop{\mathrm{d}\mathbf{d}}\\
+    &= \frac{1}{N} \sum_{i = 1}^N \log p(\mathbf{d}_i \mid \Theta).
+
+Contrastive Divergence
+----------------------
+
+Let :math:`Q^t` denote the data distribution of Gibbs sampling :math:`Q^0` for
+:math:`t` full steps with :math:`\lim_{t \to \infty} Q^t = Q^\infty`.
+
+The corresponding gradient is now
+
+.. math::
+
+   \frac{\partial}{\partial \theta_m} \left( Q^t \parallel Q^\infty \right)
+    &= \frac{\partial}{\partial \theta_m}
+       \int_{\mathbf{d} \in \mathcal{D}} Q(\mathbf{d} \mid \Theta)
+         \log \frac{Q(\mathbf{d} \mid \Theta)}{p(\mathbf{d} \mid \Theta)}
+         \mathop{\mathrm{d}\mathbf{d}}
+       & \quad & Q^t \equiv Q(\mathbf{d} \mid \Theta)\\
+    &= \frac{\partial}{\partial \theta_m} \int
+         Q(\mathbf{d} \mid \Theta) \log Q(\mathbf{d} \mid \Theta) -
+         Q(\mathbf{d} \mid \Theta) \log p(\mathbf{d} \mid \Theta)
+         \mathop{\mathrm{d}\mathbf{d}}\\
+    &= \frac{\partial Q(\mathbf{d} \mid \Theta)}{\partial \theta_m}
+           \frac{
+             \partial \entropy\left( Q^t \right)
+           }{
+             \partial Q(\mathbf{d} \mid \Theta)
+           } -
+       \frac{\partial}{\partial \theta_m} \int
+         Q(\mathbf{d} \mid \Theta) \log p(\mathbf{d} \mid \Theta)
+         \mathop{\mathrm{d}\mathbf{d}}
+       & \quad & \text{chain rule}\\
+    &= \frac{\partial Q(\mathbf{d} \mid \Theta)}{\partial \theta_m}
+           \frac{
+             \partial \entropy\left( Q^t \right)
+           }{
+             \partial Q(\mathbf{d} \mid \Theta)
+           } -
+       \int
+         \frac{\partial Q(\mathbf{d} \mid \Theta)}{\partial \theta_m}
+             \log p(\mathbf{d} \mid \Theta) +
+         Q(\mathbf{d} \mid \Theta)
+             \frac{\partial \log p(\mathbf{d} \mid \Theta)}{\partial \theta_m}
+         \mathop{\mathrm{d}\mathbf{d}}
+       & \quad & \text{product rule}\\
+    &= \frac{\partial Q(\mathbf{d} \mid \Theta)}{\partial \theta_m}
+           \frac{
+             \partial \entropy\left( Q^t \right)
+           }{
+             \partial Q(\mathbf{d} \mid \Theta)
+           } -
+       \frac{\partial Q(\mathbf{d} \mid \Theta)}{\partial \theta_m}
+           \frac{
+             \partial \left\langle
+               \log p(\mathbf{d} \mid \Theta)
+             \right\rangle_{Q^t}
+           }{
+             \partial Q(\mathbf{d} \mid \Theta)
+           } -
+       \int
+         Q(\mathbf{d} \mid \Theta)
+             \frac{\partial \log p(\mathbf{d} \mid \Theta)}{\partial \theta_m}
+         \mathop{\mathrm{d}\mathbf{d}}
+       & \quad & \text{chain rule}\\
+    &= \frac{\partial Q^t}{\partial \theta_m}
+           \frac{\partial \left( Q^t \parallel Q^\infty \right)}{\partial Q^t} -
+       \left\langle
+         \frac{\partial \log p(\mathbf{d} \mid \Theta)}{\partial \theta_m}
+       \right\rangle_{Q^t}
+
+where
+
+.. math::
+
+   \left\langle
+     \frac{
+       \partial \log p(\mathbf{d} \mid \Theta)
+     }{\partial \theta_m}
+   \right\rangle_{Q^t}
+    &= \left\langle
+         \frac{\partial \log p_m(\mathbf{d} \mid \theta_m)}{\partial \theta_m} -
+         \sum_\mathbf{c}
+           p(\mathbf{c} \mid \theta_1, \ldots, \theta_n)
+           \frac{\partial \log p_m(\mathbf{c} \mid \theta_m)}{\partial \theta_m}
+       \right\rangle_{Q^t}
+       & \quad & \Theta = \theta_1, \ldots, \theta_n\\
+    &= \int_{\mathbf{d} \in \mathcal{D}} Q(\mathbf{d} \mid \Theta) \left(
+         \frac{\partial \log p_m(\mathbf{d} \mid \theta_m)}{\partial \theta_m} -
+         \sum_\mathbf{c}
+           p(\mathbf{c} \mid \theta_1, \ldots, \theta_n)
+           \frac{\partial \log p_m(\mathbf{c} \mid \theta_m)}{\partial \theta_m}
+       \right) \mathop{\mathrm{d}\mathbf{d}}\\
+    &= \int Q(\mathbf{d} \mid \Theta)
+         \frac{\partial \log p_m(\mathbf{d} \mid \theta_m)}{\partial \theta_m}
+         \mathop{\mathrm{d}\mathbf{d}} -
+       \sum_\mathbf{c}
+         p(\mathbf{c} \mid \theta_1, \ldots, \theta_n)
+         \frac{\partial \log p_m(\mathbf{c} \mid \theta_m)}{\partial \theta_m}
+       \cdot
+       \int Q(\mathbf{d} \mid \Theta) \mathop{\mathrm{d}\mathbf{d}}\\
+    &= \left\langle
+         \frac{\partial \log p_m(\mathbf{d} \mid \theta_m)}{\partial \theta_m}
+       \right\rangle_{Q^t} -
+       \left\langle
+         \frac{\partial \log p_m(\mathbf{c} \mid \theta_m)}{\partial \theta_m}
+       \right\rangle_{Q^\infty}.
+
+The mathematical motivation behind contrastive divergence is the cancellation of
+the intractable expectation over :math:`Q^\infty`.  Since :math:`Q^t` is
+:math:`t` steps closer to the equilibrium distribution :math:`Q^\infty` than
+:math:`Q^0`, a reasonable gradient approximation that avoids sampling from the
+:math:`Q^\infty` is
+
+.. math::
+
+   \frac{\partial}{\partial \theta_m} \left(
+     Q^0 \parallel Q^\infty - Q^t \parallel Q^\infty
+   \right) =
+   \left\langle
+     \frac{\partial \log p_m(\mathbf{d} \mid \theta_m)}{\partial \theta_m}
+   \right\rangle_{Q^t} -
+     \left\langle
+       \frac{\partial \log p_m(\mathbf{d} \mid \theta_m)}{\partial \theta_m}
+     \right\rangle_{Q^0} -
+     \frac{\partial Q^t}{\partial \theta_m} \frac{
+       \partial \left( Q^t \parallel Q^\infty \right)
+     }{\partial Q^t} \geq 0.
+
+The last term on the right is typically ignored since computing it is
+non-trivial and its contribution is negligible.  Note that contrastive
+log-likelihood will fail because it can achieve a value of zero when all
+possible vectors in the data space are equally probable.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

@@ -1,0 +1,233 @@
+######################################################
+Learning Internal Representations by Error Propagation
+######################################################
+
+Motivation(s)
+=============
+
+Whenever the similarity structure of the input and output patterns are very
+different, a neural network without internal (hidden) representations will be
+unable to perform the necessary mappings.  An example of this is the XOR problem
+presented by Minsky and Papert.
+
+One solution to the XOR problem is to add an additional third input taking the
+value of one whenever the first two bits has a one.  Another solution is to add
+a single hidden unit that feeds into the output unit, which makes the hidden
+unit functionally equivalent to another input unit.
+
+The delta rule (perceptron convergence procedure) is guaranteed to solve
+problems that do not need hidden units.  The lack of such a guarantee for
+networks with hidden units have led to the development of
+
+- unsupervised learning rules that do not ensure appropriate hidden units are
+  learned,
+- hidden units with domain specific topology, and
+- a learning algorithm for Boltzmann machines using stochastic units.
+
+Proposed Solution(s)
+====================
+
+The author proposes the generalized delta rule as an alternative learning
+procedure for multilayer feedforward neural networks with deterministic units.
+Given enough exemplars, the network will find a generalizable solution to a
+problem without specifying the actual program.
+
+Note that any number of weights in the network can be fixed.  Error is still
+propagated as before, but the fixed weights are not modified.  Furthermore, some
+output units might not receive inputs from other output units in earlier layers.
+Those other output units will receive two different kinds of error:
+
+- error from the direct comparison with some desired target, and
+- error backpropagated from units whose activation it affects.
+
+The author asserts that the correct delta rule in this case is to add together
+the weight changes.
+
+Evaluation(s)
+=============
+
+The experiments demonstrate that the network learned an elegant solution to the
+following set of problems: XOR, parity bit, distributed representation encoding,
+palindrome detection, binary negation, and binary addition.  However, the
+solution to binary addition failed to generalize half the time.  This problem is
+different from the others in the sense that the hidden units are not
+equipotential, and adding an additional hidden unit avoids the bad
+configurations.
+
+Another simulation is the recognition of a T or C character independent of
+translation and rotation.  The network consists of a grid of hidden units where
+each hidden unit has a receptive field over the input units (e.g. 3x3 pixels)
+that overlaps with other receptive fields.  Each receptive field has the same
+shape and all hidden units feed into a single output unit.  The system was able
+to recognize the entire set of eight patterns after being shown five to ten
+thousand examples.
+
+Note that the same learning rule applies to Sigma-Pi units.  It also works on
+recurrent networks because for every recurrent network, there exists a
+feedforward network with identical behavior over a finite period of time.
+However, since feedforward networks must arrange the units into layers such that
+units do not influence units in the same or lower layers, the future states of a
+recurrent network must not affect past ones during the forward iteration.  This
+strategy successfully addressed learning a shift-register and character sequence
+completion.
+
+There are two caveats with training networks using the generalized delta rule.
+Symmetry breaking needs to occur, possibly via random initialization, otherwise
+all hidden units connected directly to the output units will get identical
+error signals.  The other issue is determining learning rate.  One way to
+increase the learning rate without leading to oscillation is to include a
+momentum term, which serves to filter out high-frequency variations of the
+error-surface in the weight space.
+
+Future Direction(s)
+===================
+
+- Deep learning have only focused on supervising the final output layer.  How to
+  use hierarchical labels to shorten the training time of a deep net?  These
+  labels would be the target of intermediate hidden layers and can be updated
+  asynchronously i.e. for :math:`\alpha \in [0, 1]`
+
+  .. math::
+
+     \Delta_p w_{ji} \approx
+     o^p_i f'_j\left( \text{net}^p_j \right) \left[
+       \alpha \left( o^p_j - t^p_j \right) +
+       (1 - \alpha) \sum_k \delta^p_k w_{kj}
+     \right].
+
+- How to use fixed weights as a mechanism to implement shrinking and growing of
+  a neural network i.e. :doc:`adapt an arbitrary network's topology </blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory>`?
+- How to approximate backpropagation through time using
+  :doc:`contrastive divergence </blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence>`?
+
+Question(s)
+===========
+
+- How does the number of hidden units change the network's error surface?
+
+Analysis
+========
+
+The error propagation scheme leads to solutions in virtually every experiment,
+but it is not guaranteed to find a solution.
+
+The encoding experiment illustrates that linear units can cover a much wider
+dynamic range and improves the overall network when used in combination with
+different activation functions.  This seems to suggest the continuous nonlinear
+:doc:`activation function itself should be learned </blog/2016/11/15/maxout-networks>`.
+
+The author claimed that the logistic function is a good activation function
+because the midpoint is at :math:`0.5` and extreme values of :math:`\{ 0, 1 \}`
+cannot be reached.  However, :doc:`recent deep learning results </blog/2016/11/09/efficient-backprop>`
+indicate that this function's vanishing gradient is very problematic.
+
+One interesting point that deserves more analysis is that the time to find the
+solution is reduced by increasing the number of hidden units.
+
+The proposed backpropagation through time scheme for recurrent networks makes
+one wonder whether the brain is performing a less memory intensive operation.
+
+Notes
+=====
+
+The generalized delta rule (a.k.a. backpropagation) is a supervised learning
+procedure for neural networks.  The proposed error measure over pairs of
+input/output patterns is
+
+.. math::
+
+   E = \sum_p E_p = \sum_p \frac{1}{2} \sum_j (t^p_j - o^p_j)^2
+
+where :math:`t^p_j` is the target value (label) of the :math:`j^\text{th}` output
+unit for a given pattern :math:`p`, and :math:`o^p_j` is the actual output
+produced by the presentation of input pattern :math:`p`.
+
+For each neuron :math:`j`, its output is defined as
+
+.. math::
+
+   o^p_j =
+   f_j\left( \text{net}^p_j \right) =
+   f_j\left( \sum_{i \in \text{parent}(o_j)} w_{ji} o^p_i \right)
+
+where :math:`o_i = i_i` if unit :math:`i` is an input unit, and unit :math:`j`'s
+activation function :math:`f_j` is non-linear and differentiable.
+
+The change in error with respect to a weight :math:`w_{ji}` is
+
+.. math::
+
+   \frac{\partial E}{\partial w_{ji}}
+    &= \sum_p \frac{\partial E_p}{\partial w_{ji}}\\
+    &= \sum_p \frac{\partial E_p}{\partial o^p_j}
+              \frac{\partial o^p_j}{\partial w_{ji}}
+       & \quad & \text{chain rule}\\
+    &= \sum_p \frac{\partial E_p}{\partial o^p_j}
+              \frac{\partial o^p_j}{\partial \text{net}^p_j}
+              \frac{\partial \text{net}^p_j}{\partial w_{ji}}
+       & \quad & \text{chain rule}\\
+    &= \sum_p \delta^p_j
+              \frac{\partial \text{net}^p_j}{\partial w_{ji}}
+       & \quad & \delta^p_j =
+                 \frac{\partial E_p}{\partial \text{net}^p_j} =
+                 \frac{\partial E_p}{\partial o^p_j}
+                   \frac{\partial o^p_j}{\partial \text{net}^p_j}
+
+where
+
+.. math::
+
+   \frac{\partial \text{net}^p_j}{\partial w_{ji}} =
+   \frac{\partial}{\partial w_{ji}}
+     \sum_{i \in \text{parent}(o_j)} w_{ji} o^p_i =
+   o^p_i,
+
+.. math::
+
+   \frac{\partial o^p_j}{\partial \text{net}^p_j} =
+   \frac{\partial}{\partial \text{net}^p_j}
+     f_j\left( \text{net}^p_j \right) =
+   f'_j\left( \text{net}^p_j \right),
+
+and
+
+.. math::
+
+   \frac{\partial E_p}{\partial o^p_j} =
+   \frac{\partial}{\partial o^p_j}
+     \frac{1}{2} \sum_j (t^p_j - o^p_j)^2 =
+   o^p_j - t^p_j.
+
+When neuron :math:`j` is not an output unit,
+
+.. math::
+
+   \frac{\partial E_p}{\partial o^p_j}
+    &= \sum_{k \in \text{child}(o_j)}
+         \frac{\partial E_p}{\partial \text{net}^p_k}
+         \frac{\partial \text{net}^p_k}{\partial o^p_j}\\
+    &= \sum_k \delta^p_k
+         \left(
+           \frac{\partial}{\partial o^p_j}
+             \sum_{i \in \text{parent}(o_k)} w_{ki} o^p_i
+         \right)\\
+    &= \sum_k \delta^p_k w_{kj}.
+
+Therefore,
+
+.. math::
+
+   \Delta_p w_{ji} \approx \delta^p_j o^p_i
+   \quad \text{with} \quad
+   \delta^p_j =
+   \begin{cases}
+     f'_j\left( \text{net}^p_j \right) \left( o^p_j - t^p_j \right) &
+       \text{if j is an output neuron,}\\
+     f'_j\left( \text{net}^p_j \right)
+       \sum_{k \in \text{child}(o_j)} \delta^p_k w_{kj} & \text{otherwise.}
+   \end{cases}
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

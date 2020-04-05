@@ -1,0 +1,489 @@
+###############################
+Collection of Notes on Research
+###############################
+
+**********
+Presenting
+**********
+
+These guidelines were extracted from :cite:`spjtalk` and :cite:`kftips`.  It is
+applicable to any kind of presentation (e.g. status report).
+
+Purpose of a Talk
+=================
+
+- Research is communication: the greatest ideas are worthless if you keep them
+  to yourself.
+
+- To give your audience an intuitive feel for your idea.
+
+  - Tell them the most important things they should know, but probably do not.
+  - Do not tell them what you did; that's what the paper is for.
+
+- To engage, excite, and provoke them to read your paper.
+
+- Get feedback from others to advance your own research.
+
+- To make them glad they came.
+
+- Do not confuse the purpose intended for your talk versus your paper.
+
+  - Your paper is the beef.
+  - Your talk is the beef advertisement.
+
+Cost Analysis of a Talk
+=======================
+
+- A bad (unclear) talk will
+
+  - waste the audience's valuable time,
+  - forfeit an opportunity for feedback or quality discussion,
+  - forgo an opportunity for collaboration,
+  - and diminish the impact of your work.
+
+- A good (clear) talk will
+
+  - nonlinearly increase the impact of your work,
+  - and increase the likelihood of others reading your paper.
+
+Strive for Clarity within your Target Audience
+==============================================
+
+- You should aim for your target audience to understand everything you say in a
+  talk.
+
+  - Even if you are targeting experts (e.g. your advisors or peers), note that
+    experts have not been thinking about your problem every day.
+
+- It is reasonable to target two audiences:
+
+  - The experts that should understand everything.
+  - A broader audience that might understand all but the most technical details.
+
+- The audience has a finite supply of mental effort.
+
+  - They probably just had lunch and are ready for a doze.
+  - They have never heard of you, much less read your paper.
+  - They want to be led by the hand through the major steps of your story.
+  - They do not want to interpret any of your figures or graphs; they want to be
+    told how to interpret them (e.g. what to look for).
+
+- The audience does want to spend their energy thinking about
+
+  - potential problems and limitations with what you did (e.g. edge cases),
+  - implications of your approach,
+  - and connections to their own work.
+
+Structuring your Talk
+=====================
+
+- Every sentence matters.
+
+  - Assess the value of why you are saying something; if you can’t justify how
+    it will help the listener, take it out.
+
+- 20% Motivational Introduction
+
+  - You have 2 minutes to engage your audience before they start to doze off.
+
+    - The audience are thinking:
+
+      - Why should I tune into this talk?
+      - What is the problem?
+      - Why is it an interesting problem?
+      - Does this talk describe a worthwhile advance?
+
+- 80% Your Key Idea
+
+  - Identify a key idea.
+  - Be specific: don't leave your audience to figure it out for themselves.
+  - Be absolutely specific: Say "If you remember nothing else, remember this."
+  - Choose narrow and deep insights over wide and shallow overviews at all
+    costs.
+  - It's ok to cover only part of your paper.
+  - Examples are your main weapon.
+
+    - When time is short, omit the general case, not the example.
+    - Use them to motivate the work, convey the basic intuition, illustrate
+      The Idea in action, show extreme cases, and highlight shortcomings.
+
+Etiquette
+=========
+
+- Your enthusiasm makes people more receptive.
+
+  - A lack of enthusiasm makes them question why should they be excited for
+    your talk.
+
+- Polish your slides the night before to keep it fresh in your mind.
+- Do not apologise.
+
+  - I didn't have time to prepare this talk properly.
+  - My computer broke down, so I don't have the results I expected.
+  - I don't have time to tell you about this.
+  - I don't feel qualified to address this audience.
+
+- Script your first few sentences precisely to improve smooth transitions.
+
+  - This could be for each slide, or just the beginning of the talk.
+
+- Face the audience, not the screen.
+- Know your material.
+- Only show a live demo after you have shown and elaborated on the key points.
+
+  - Show illustrations of your key points pertaining to your demonstration
+    first, and if you have time, only then do a live demo.
+  - This approach enables the audience to understand even if the demo goes awry.
+
+- Put your laptop in front of you, screen towards you.
+- Don't point much, but when you do, point at the screen, not at your laptop.
+- Speak to someone at the back of the room, even if you have a microphone.
+- Make eye contact.
+
+  - It may help to identify some nodders, and speak to them.
+
+- Watch audience for questions.
+- Encourage questions during your talk by pausing briefly now and
+  ask for questions.
+- Never reveal your points one by one, unless...there is a punch line.
+- Use animation effects very sparingly.
+- Absolutely without fail, finish on time.
+
+  - Be prepared to truncate your talk and conclude if you run out of time.
+  - It is better to connect, and not to present all your material.
+  - Continuing is very counter productive since the audience gets restive and
+    essentially stop listening when your time is up.
+  - Never say "would you like me to go on?"
+
+- The audience is always right.
+
+  - When receiving feedback on a practice talk, do not be defensive!
+  - Your tendency will be to be defensive when someone claims an idea in your
+    talk was not explained well or was not clear.
+
+    - You will find yourself turning to the relevant slide in your talk and
+      saying "I mentioned that here".
+
+    - Sure, you might have mentioned it, but if it wasn’t understood, it’s your
+      fault not theirs.
+
+    - Find a way to make it more clear!
+
+    - The correct response is to turn to the appropriate slide and say:
+      "I tried to explain that idea here, and this is what I was thinking.  What could I have said to make that point more clear?"
+
+    - The complainer should then work with you to explain what they interpreted
+      instead, and offer suggestions on what information they would require to
+      have better understood.
+
+Crafting the Contents of your Talk
+==================================
+
+- Do not provide an outline slide.
+
+  - It conveys near zero information at the start of your talk and bores your
+    audience.
+  - You can maybe put up an outline for orientation after your motivation and
+    signposts at pause points during the talk.
+
+    - These provide guidance for what you hope to achieve next.
+    - If a listener got lost, it’s a good place for them to re-engage.
+    - It’s a place for the audience to take a breath.
+
+- Do not present technical (math) details.
+
+  - Present specific aspects only.
+  - Refer to the paper for the details.
+  - By all means have backup slides to use in response to questions.
+
+- The goal of the intro and background is to tell the listener:
+  “Here is the right way to think about the problem I am trying to solve."
+
+  - An excellent strategy to catch the audience’s attention and frame the story
+    is to make them aware that there is something they didn’t know they didn’t
+    know i.e. “You might think you know this, but here’s a new angle on it.”
+
+- Related work should be discussed *in your framing* of the space.
+
+  - Establishing this framing is the primary value of the intro.
+  - Your solution will seem obvious given the framing is done well.
+  - You absolutely must know the related work and respond rapidly to questions.
+  - You can acknowledge co-authors on the title slide.
+  - Praise the opposition, and avoid any negative comments.
+
+- Establish goals and assumptions early (e.g. inputs, outputs, constraints).
+
+  - Your contribution is typically a system or algorithm that meets the stated
+    goals under the stated constraints.
+
+- You want the audience to always be able to anticipate what you are about to
+  say.
+
+  - This ensures your story is clear, obvious, and possibly easy to present
+    without notes.
+
+  - If you keep forgetting what's coming on the next slide, you probably need
+    to restructure your talk to achieve a clear narrative.
+
+- Give the why before the what: say where you are going and why you must go
+  there before you say what you did.
+
+  - The why provides the listener context, which is especially useful if they
+    are getting lost.
+
+    - Assessing how hard they should pay attention.
+
+      - "Is this a critical idea, or just an implementation detail?"
+
+    - Understanding how parts of the talk relate.
+
+      - "Why is the speaker now introducing a new optimization framework?”
+
+  - Example Transitions
+
+    - "We need to first establish some terminology."
+    - "Even given X, the problem we still haven’t solved is..."
+    - "Now that we have defined a cost metric, we need a method to minimize it...”
+    - "Key questions to ask about our approach are..."
+
+- Explain every figure instead of making the audience decode them.
+
+  - Explain every visual element used in the figure.
+  - Refer to highlight colors explicitly and explain why the visual element
+    is highlighted.
+  - Lead the listener through the key points of the figure.
+  - A useful phrase is "As you can see..."
+
+- Explain every results graph.
+
+  - Should start with a general intro of what the graph will address.
+  - Then describe the labeled axes.
+  - Then describe the one point that you wish to make with this results slide.
+
+- One point per slide and the point is the title of the slide.
+
+  - You don’t want to show data on a results slide that is unrelated to the
+    point of the slide.
+
+- Titles matter.
+
+  - If you read the titles of your talk all the way through, it should be a
+    great summary of the talk.
+  - Your slide titles in thumbnail view should present all the points of the
+    story you are trying to tell.
+  - The reason for meaningful slide titles is convenience and clarity for the
+    audience.
+
+- End on a positive note!
+
+  - Many talks end on future work in a manner that stresses problems with
+    the current work or enumerates obvious next steps.
+
+    - It’s boring and sort of a bummer for everyone involved.
+
+    - The introduction already covered how to think about the problem being
+      solved today.
+
+  - The conclusion is where you contribute intellectual thought to the field
+    that refects on what you have done, or about the future, on a broader note.
+
+*******
+Reading
+*******
+
+It is often helpful to read a paper in multiple passes :cite:`keshav2007read`.
+The goal of the first pass should be to determine whether the paper could be
+useful.  One way to do this is to
+
+#. Read the title, abstract, and introduction.
+#. Read the section and sub-section headings.
+#. Examine the figures, diagrams, graphs, and other illustrations.
+#. Read the conclusion.
+#. Glance over the references to check for previously read materials.
+
+Unless one needs to reproduce or extend the paper, technical details such as
+proofs and derivations can be ignored.  :cite:`wgg` provides a list of questions
+one should actively attempt to answer while progressing through a paper.
+
+.. include:: reading-guidelines.txt
+
+*******
+Writing
+*******
+
+These guidelines were extracted from :cite:`spjwrite`, :cite:`johnson1993get`,
+and :cite:`ddwrite`.
+
+Do Not Wait to Write
+====================
+
+.. list-table:: Research Process
+   :header-rows: 1
+
+   * - Typical (Wrong) Order
+     - Correct Order
+   * - Your Idea
+     - Your Idea
+   * - Do Research
+     - Write Paper
+   * - Write Paper
+     - Do Research
+
+- Writing papers is a primary mechanism for doing research and is not just for
+  reporting it.
+
+  - Forces us to be clear and focused.
+  - Crystallises what we don't understand.
+  - Enables others to critique and collaborate.
+
+One Key Idea per Paper
+======================
+
+- Your key idea must be both useful and re-usable.
+- If you have a lot of ideas, write lots of papers.
+- You want to infect the mind of your reader with your idea, like a virus.
+- It is a fallacy to think you need a fantastic idea before you can write
+  a paper.
+
+  - Writing the paper is how you develop the idea in the first place.
+  - Write a paper, and give a talk, about any idea, no matter how weedy and
+    insignificant it may seem to you.
+
+- Be explicit about your idea.
+
+  - You may not know what the one clear, sharp idea is when you start writing,
+    but you must know when you finish.
+  - "The main idea of this paper is..."
+  - "In this section we present the main contributions of the paper."
+
+Tell a Story
+============
+
+.. list-table:: Your Narrative Flow
+   :header-rows: 1
+
+   * - Whiteboard
+     - Structure
+     - Impact
+   * - 
+     - Title
+     - 1000 readers
+   * - Here is a problem
+     - Abstract
+     - 4 sentences, 100 readers
+   * - It's an interesting problem
+     - Introduction
+     - 1 page, 100 readers
+   * - It's an unsolved problem
+     - The problem
+     - 1 page, 10 readers
+   * - Here is my idea
+     - My Idea
+     - 2 pages, 10 readers
+   * - My idea works
+     - The Details
+     - 5 pages, 3 readers
+   * - Here's how my idea compares to other people's approaches
+     - Related Work
+     - 1-2 pages, 10 readers
+   * - 
+     - Conclusions and Future Work
+     - 0.5 pages
+
+- Write your abstract after you finish the rest of the paper.
+
+    I try to have four sentences in my abstract.  The first states the problem.
+    The second states why the problem is a problem. The third is my startling
+    sentence. The fourth states the implication of my startling sentence.
+
+    -- Kent Beck
+
+- The introduction should describe the problem and state your contributions.
+
+  - Use examples to introduce the problem.
+  - The problem should be narrow and deep (i.e. molehills) instead of broad
+    and shallow (i.e. mountains).
+  - Your list of contributions drives the entire paper: the paper substantiates
+    the claims you have made.
+
+    - Use a bulleted list of contributions to make it explicit to the readers.
+    - Your contributions should be refutable.
+
+- The introduction (including the contributions) should survey the whole paper,
+  and therefore forward reference every important part.
+
+  - For each claim, identify the evidence (e.g. analysis, theorems,
+    measurements, case studies), and forward-reference that from the claim.
+
+  - Never write anything along the lines of
+
+      The rest of this paper is structured as follows.  Section 2 introduces the
+      problem.  Section 3 ....Finally, Section 8 concludes.
+
+- Explain your idea (as well as the problem) as if you were speaking to someone
+  using a whiteboard.
+
+  - Conveying the intuition through concrete examples is primary, not secondary.
+  - The intuition guides the readers through the details.
+  - Focus on the takeaway and leave the technical details to the next section.
+
+- Be careful when presenting statistics such as
+  :doc:`geometric mean </blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results>` and
+  :doc:`harmonic mean </blog/2016/10/23/characterizing-computer-performance-with-a-single-number>` as evidence.
+- Always put related work after the details section of your paper.
+
+  - You should strive to minimize the gap between your reader and your idea.
+  - It is a fallacy to think you need to make other people's work look bad in
+    order to make your work look good.
+
+    - Crediting others does not diminish the credit you get from your paper.
+    - Warmly acknowledge people who have helped you.
+    - Be generous to the competition.
+    - Acknowledge weaknesses in your approach.
+
+Listen to your Readers
+======================
+
+- Each reader (experts and non-experts) can only read your paper for the first
+  time once.
+- Explain carefully what you want them to focus on (e.g. flow, clarity).
+- When you think you are done, send the draft to the competition saying
+  "could you help me ensure that I described your work fairly?"
+
+  - They will often response with helpful critique since they are interested
+    in the area.
+
+- Treat every review like gold dust.
+
+  - Read every criticism as a positive suggestion for something you could
+    explain more clearly.
+
+Establishing Flow and Coherence
+===============================
+
+- Old to New
+
+  - Begin sentences with old info, which implicitly creates a link to earlier
+    text.
+  - End sentences with new info to create a link to the text that follows.
+
+- One paragraph, one point.
+
+  - A paragraph should have one main point expressed in a single point sentence.
+
+    - Typically the point sentence should appear at or near the beginning of the
+      paragraph.
+
+- Give information precisely when it is needed, not before.
+- Give unique names to things and use them consistently.
+- Carve into your mind :doc:`The Science of Scientific Writing </blog/2013/01/18/the-science-of-scientific-writing>`
+  and :doc:`Style: Lessons in Clarity and Grace </blog/2013/01/19/style-lessons-in-clarity-and-grace>`.
+
+Proofs
+======
+
+If you are providing a proof, make sure that it is hierarchically structured
+:cite:`lamport2012write`.  Limit the use of jargon.  Save the most technical
+material for an appendix.
+
+.. bibliography:: refs.bib

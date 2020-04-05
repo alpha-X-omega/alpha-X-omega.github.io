@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Estimation – 2D Projective Transformations &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Algorithm Evaluation and Error Analysis" href="chapter-05.html" />
+    <link rel="prev" title="Projective Geometry and Transformations of 3D" href="chapter-03.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Estimation – 2D Projective Transformations</a><ul>
+<li><a class="reference internal" href="#(i)-Computing-Homographies-of-\mathbb{P}^n">(i) Computing Homographies of <span class="math notranslate nohighlight">\(\mathbb{P}^n\)</span></a></li>
+<li><a class="reference internal" href="#(ii)-Computing-Homographies-for-Ideal-Points">(ii) Computing Homographies for Ideal Points</a></li>
+<li><a class="reference internal" href="#(iii)-Scaling-Unbounded-Point-Sets">(iii) Scaling Unbounded Point Sets</a><ul>
+<li><a class="reference internal" href="#Isotropic-Scaling">Isotropic Scaling</a></li>
+<li><a class="reference internal" href="#Non-Isotropic-Scaling">Non-Isotropic Scaling</a></li>
+<li><a class="reference internal" href="#Scaling-with-Points-Near-Infinity">Scaling with Points Near Infinity</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#(iv)-Transformation-Invariance-of-DLT">(iv) Transformation Invariance of DLT</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#(v)-Expressions-for-Image-Coordinate-Derivatives">(v) Expressions for Image Coordinate Derivatives</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#(vi)-Sampson-Error-with-Non-Isotropic-Error-Distributions">(vi) Sampson Error with Non-Isotropic Error Distributions</a></li>
+<li><a class="reference internal" href="#(vii)-Sampson-Error-Programming-Hint">(vii) Sampson Error Programming Hint</a></li>
+<li><a class="reference internal" href="#(viii)-Minimizing-Geometric-Error-for-Affine-Transformations">(viii) Minimizing Geometric Error for Affine Transformations</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+<li><a class="reference internal" href="#(d)">(d)</a></li>
+<li><a class="reference internal" href="#(e)">(e)</a><ul>
+<li><a class="reference internal" href="#(e.1)">(e.1)</a></li>
+<li><a class="reference internal" href="#(e.2)">(e.2)</a></li>
+<li><a class="reference internal" href="#(e.3)">(e.3)</a></li>
+<li><a class="reference internal" href="#(e.4)">(e.4)</a></li>
+<li><a class="reference internal" href="#(e.5)">(e.5)</a></li>
+<li><a class="reference internal" href="#(e.6)">(e.6)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#(ix)-Computing-Homographies-of-\mathbb{P}^3-from-Line-Correspondences">(ix) Computing Homographies of <span class="math notranslate nohighlight">\(\mathbb{P}^3\)</span> from Line Correspondences</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="chapter-03.html" title="Previous Chapter: Projective Geometry and Transformations of 3D"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Projective Ge...</span>
+    </a>
+  </li>
+  <li>
+    <a href="chapter-05.html" title="Next Chapter: Algorithm Evaluation and Error Analysis"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Algorithm Eva... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="Estimation-–-2D-Projective-Transformations">
+<h1>Estimation – 2D Projective Transformations<a class="headerlink" href="#Estimation-–-2D-Projective-Transformations" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="(i)-Computing-Homographies-of-\mathbb{P}^n">
+<span id="hartley2004-ex-4-i"></span><h2>(i) Computing Homographies of <span class="math notranslate nohighlight">\(\mathbb{P}^n\)</span><a class="headerlink" href="#(i)-Computing-Homographies-of-\mathbb{P}^n" title="Permalink to this headline">¶</a></h2>
+<p>Each pair of point correspondences
+<span class="math notranslate nohighlight">\(\mathbf{x}, \mathbf{x}' \in \mathbb{R}^m\)</span> is related by a homography
+<span class="math notranslate nohighlight">\(\mathbf{H} \in \mathbb{R}^{m \times m}\)</span> such that
+<span class="math notranslate nohighlight">\(\mathbf{x}' \sim \mathbf{H} \mathbf{x}\)</span>.  Let <span class="math notranslate nohighlight">\(\mathbf{h}_i^\top\)</span>
+denote the <span class="math notranslate nohighlight">\(i^\text{th}\)</span> row of <span class="math notranslate nohighlight">\(\mathbf{H}\)</span>.</p>
+<p>Since equality is only up to a scale in homogeneous coordinates, set
+<span class="math notranslate nohighlight">\(x'_m = 1\)</span> so that for <span class="math notranslate nohighlight">\(i = 1, \ldots, m\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{x'_i}{x'_m}
+ &amp;= \frac{\mathbf{h}_i^\top \mathbf{x}}{\mathbf{h}_m^\top \mathbf{x}}\\
+0 &amp;= \mathbf{x} \cdot \mathbf{h}_i -
+     \frac{x'_i}{x'_m} \mathbf{x} \cdot \mathbf{h}_m\\
+0 &amp;= \mathbf{x} \cdot \mathbf{h}_i - x'_i \mathbf{x} \cdot \mathbf{h}_m.\end{split}\]</div>
+<p>Given a set of <span class="math notranslate nohighlight">\(n\)</span> point correspondences, organize them as
+<span class="math notranslate nohighlight">\(\mathbf{X}, \mathbf{X}' \in \mathbb{R}^{n \times m}\)</span>.  The previous
+equations can be rearranged into the following sparse linear system</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator{\diag}{diag}
+\boldsymbol{0} =
+\begin{bmatrix}
+  \mathbf{X} &amp;            &amp;        &amp;            &amp; -\diag(\mathbf{X}'_{\colon 1}) \mathbf{X}\\
+             &amp; \mathbf{X} &amp;        &amp;            &amp; -\diag(\mathbf{X}'_{\colon 2}) \mathbf{X}\\
+             &amp;            &amp; \ddots &amp;            &amp; \vdots\\
+             &amp;            &amp;        &amp; \mathbf{X} &amp; -\diag(\mathbf{X}'_{\colon (m - 1)}) \mathbf{X}
+\end{bmatrix}
+\begin{bmatrix} \mathbf{h}_1\\ \mathbf{h}_2\\ \vdots\\ \mathbf{h}_m \end{bmatrix}.\end{split}\]</div>
+</div>
+<div class="section" id="(ii)-Computing-Homographies-for-Ideal-Points">
+<h2>(ii) Computing Homographies for Ideal Points<a class="headerlink" href="#(ii)-Computing-Homographies-for-Ideal-Points" title="Permalink to this headline">¶</a></h2>
+<p>When one of the points <span class="math notranslate nohighlight">\(\mathbf{x}'_i\)</span> is an ideal point,
+<a class="reference internal" href="#hartley2004-ex-4-i"><span class="std std-ref">the previous formulation</span></a> results in a degenerate
+system of equations.  One solution is to rewrite the corresponding constraint as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{x}'_i &amp;= \mathbf{H} \mathbf{x}_i\\
+\boldsymbol{0} &amp;= \mathbf{H} \mathbf{x}_i - \mathbf{x}'_i\\
+\boldsymbol{0}
+ &amp;= \left[ \mathbf{x}'_i \right]^\perp
+    \begin{bmatrix}
+      \mathbf{h}_1^\top \mathbf{x}_i\\
+      \mathbf{h}_2^\top \mathbf{x}_i\\
+      \vdots\\
+      \mathbf{h}_m^\top \mathbf{x}_i
+    \end{bmatrix}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\left[ \mathbf{x}'_i \right]^\perp \mathbf{x}'_i = \boldsymbol{0}\)</span>.
+The matrix <span class="math notranslate nohighlight">\(\left[ \mathbf{x}'_i \right]^\perp \triangleq \mathbf{P}^i\)</span>
+may be obtained by deleting the first row of the
+<a class="reference internal" href="../numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/chapter-03.html#dennis1996numerical-ex-3-14"><span class="std std-ref">Householder matrix</span></a> <span class="math notranslate nohighlight">\(\mathbf{M}\)</span>
+satisfying <span class="math notranslate nohighlight">\(\mathbf{M} \mathbf{x}'_i = \alpha \mathbf{e}_1\)</span>.  By
+inspection, the constraints for the <span class="math notranslate nohighlight">\(i^\text{th}\)</span> correspondence pair
+satisfy</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{0} =
+\begin{bmatrix}
+  \mathbf{P}^i_{11} \mathbf{x}_i^\top &amp; \mathbf{P}^i_{12} \mathbf{x}_i^\top &amp;
+    \cdots &amp; \mathbf{P}^i_{1m} \mathbf{x}_i^\top\\
+  \mathbf{P}^i_{21} \mathbf{x}_i^\top &amp; \mathbf{P}^i_{22} \mathbf{x}_i^\top &amp;
+    \cdots &amp; \mathbf{P}^i_{2m} \mathbf{x}_i^\top\\
+  \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+  \mathbf{P}^i_{(m - 1)1} \mathbf{x}_i^\top &amp;
+    \mathbf{P}^i_{(m - 1)2} \mathbf{x}_i^\top &amp; \cdots &amp;
+    \mathbf{P}^i_{(m - 1)m} \mathbf{x}_i^\top\\
+\end{bmatrix}
+\begin{bmatrix}
+  \mathbf{h}_1\\ \mathbf{h}_2\\ \vdots\\ \mathbf{h}_m
+\end{bmatrix}.\end{split}\]</div>
+</div>
+<div class="section" id="(iii)-Scaling-Unbounded-Point-Sets">
+<h2>(iii) Scaling Unbounded Point Sets<a class="headerlink" href="#(iii)-Scaling-Unbounded-Point-Sets" title="Permalink to this headline">¶</a></h2>
+<p>In mathematics, a moment is a specific quantitative measure of the shape of a
+set of points.  The zeroth moment is the sum of the measurements, and the first
+moment is the mean of the measurements.  The second moment recentered around a
+known, definite mean is the variance of the distribution.</p>
+<p>Denote <span class="math notranslate nohighlight">\(\mathbf{X} \in \mathbb{R}^{n \times m}\)</span> as a data matrix
+representing a set of <span class="math notranslate nohighlight">\(n\)</span> observations measuring <span class="math notranslate nohighlight">\(m\)</span> variables where
+<span class="math notranslate nohighlight">\(\left\{ \mathbf{x}_i \in \mathbb{R}^m \right\}_{i = 1}^n\)</span> is a set of
+independent and identically distributed real-valued random vector.</p>
+<p>The centroid (a.k.a. first moment, sample mean) over the random vectors is
+defined as <span class="math notranslate nohighlight">\(\overline{\mathbf{x}} = n^{-1} \sum_i \mathbf{x}_i\)</span>.</p>
+<div class="section" id="Isotropic-Scaling">
+<h3>Isotropic Scaling<a class="headerlink" href="#Isotropic-Scaling" title="Permalink to this headline">¶</a></h3>
+<p>The goal of isotropic scaling is to compute a similarity transformation</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathrm{T} =
+\begin{bmatrix}
+  s &amp; 0 &amp; t_x\\
+  0 &amp; s &amp; t_y\\
+  0 &amp; 0 &amp; 1
+\end{bmatrix}\end{split}\]</div>
+<p>such that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathrm{T} \overline{\mathbf{x}} =
+\begin{bmatrix}
+  s &amp; 0 &amp; t_x\\
+  0 &amp; s &amp; t_y\\
+  0 &amp; 0 &amp; 1
+\end{bmatrix}
+\begin{bmatrix} \overline{x}\\ \overline{y}\\ 1 \end{bmatrix} =
+\begin{bmatrix}
+  s \overline{x} + t_x\\
+  s \overline{y} + t_x\\
+  1
+\end{bmatrix} =
+(0, 0, 1)^\top =
+\mathbf{e}_3\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\DeclareMathOperator{\dist}{dist}
+n^{-1} \sum_i \dist\left( \mathrm{T} \mathbf{x}_i, \mathbf{e}_3 \right) =
+n^{-1} \sum_i \sqrt{(s x_i + t_x)^2 + (s y_i + t_y)^2} =
+\sqrt{2}.\]</div>
+<p>By inspection, assigning <span class="math notranslate nohighlight">\(t_x = -s \overline{x}\)</span> and
+<span class="math notranslate nohighlight">\(t_y = -s \overline{y}\)</span> accomplishes the former objective and restricts
+the latter criterion to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}n^{-1} \sum_i \sqrt{
+  (s x_i - s \overline{x})^2 + (s y_i - s \overline{y})^2
+} &amp;= \sqrt{2}\\
+s &amp;= \frac{n \sqrt{2}}{
+       \sum_i \sqrt{(x_i - \overline{x})^2 + (y_i - \overline{y})^2}
+     }.\end{split}\]</div>
+<p>The normalized DLT can be understood as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathrm{T}' \mathbf{x}'_i &amp;= \tilde{\mathrm{H}} \mathrm{T} \mathbf{x}_i\\
+\mathbf{x}'_i &amp;= \mathrm{H} \mathbf{x}_i\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathrm{H} = {\mathrm{T}'}^{-1} \tilde{\mathrm{H}} \mathrm{T}\)</span>.</p>
+</div>
+<div class="section" id="Non-Isotropic-Scaling">
+<h3>Non-Isotropic Scaling<a class="headerlink" href="#Non-Isotropic-Scaling" title="Permalink to this headline">¶</a></h3>
+<p>The goal of non-isotropic scaling (a.k.a. decorrelating and whitening) is to
+produce a normalized moment with zero mean and identity covariance.  Both
+moments are unknown and have to be estimated.</p>
+<p>Recall that the covariance matrix of two random vectors is defined as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\Cov}{\mathrm{Cov}}
+\Cov(X, Y)
+ &amp;= \E\left[ \left( X - \E[X] \right) \left( Y - \E[Y] \right)^\top \right]\\
+ &amp;= \E\left[ X Y^\top \right] - \E\left[ X \E[Y]^\top \right] -
+    \E\left[ \E[X] Y^\top \right] + \E\left[ \E[X] \E[Y]^\top \right]\\
+ &amp;= \E\left[ X Y^\top \right] - 2 \E[X] \E[Y]^\top + \E[X] \E[Y]^\top\\
+ &amp;= \E\left[ X Y^\top \right] - \E[X] \E[Y]^\top.\end{split}\]</div>
+<p>A special case of the covariance matrix is the correlation matrix</p>
+<div class="math notranslate nohighlight">
+\[\DeclareMathOperator{\diag}{\mathrm{diag}}
+\DeclareMathOperator{\Corr}{\mathrm{Corr}}
+\DeclareMathOperator{\sd}{\mathrm{sd}}
+\Corr(X, Y) =
+\sd(X)^{-1} \Cov(X, Y) \sd(Y)^{-1}\]</div>
+<p>where
+<span class="math notranslate nohighlight">\(\sd(\cdot) \triangleq \diag\left( \Cov(\cdot, \cdot) \right)^{1 / 2}\)</span>
+represents the standard deviation.</p>
+<p>The covariance matrix of a random vector with itself is called the
+variance-covariance matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator*{\Var}{\mathrm{Var}}
+\Var(X) =
+\Cov(X, X) =
+\E\left[ X X^\top \right] - \E[X] \E[X]^\top =
+\begin{bmatrix}
+  \Var(X_1) &amp; \Cov(X_1, X_2) &amp; \cdots &amp; \Cov(X_1, X_m)\\
+  \Cov(X_2, X_1) &amp; \Var(X_2) &amp; \cdots &amp; \Cov(X_2, X_m)\\
+  \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+  \Cov(X_m, X_1) &amp; \Cov(X_m, X_2) &amp; \cdots &amp; \Var(X_m)
+\end{bmatrix}.\end{split}\]</div>
+<p>The sample mean <span class="math notranslate nohighlight">\(\overline{\mathbf{x}}\)</span> is assumed to be an estimate of
+the population mean such that
+<span class="math notranslate nohighlight">\(\E\left[ \mathbf{x}_i \right] = \overline{\mathbf{x}}\)</span>.</p>
+<p>To estimate the population covariance, the sample mean must be made
+independent of the samples used to compute it.  Hence</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Var(\mathbf{X})
+ &amp;= (n - 1)^{-1} \sum_i \Var(\mathbf{x}_i)\\
+ &amp;= (n - 1)^{-1} \sum_i
+      \E\left[ \mathbf{x}_i \mathbf{x}_i^\top \right] -
+      \overline{\mathbf{x}} \overline{\mathbf{x}}^\top\\
+ &amp;= (n - 1)^{-1} \left(
+      \E\left[ \sum_i \mathbf{x}_i \mathbf{x}_i^\top \right] -
+      n \overline{\mathbf{x}} \overline{\mathbf{x}}^\top
+    \right)
+    &amp; \quad &amp; \E[X + Y] = \E[X] + \E[Y]\\
+ &amp;= (n - 1)^{-1} \left(
+      \E\left[ \mathbf{X}^\top \mathbf{X} \right] -
+      n \overline{\mathbf{x}} \overline{\mathbf{x}}^\top
+    \right)
+    &amp; \quad &amp;
+        \sum_i \mathbf{x}_i \mathbf{x}_i^\top =
+        \begin{bmatrix} \mathbf{x}_i &amp; \cdots &amp; \mathbf{x}_n \end{bmatrix}
+        \begin{bmatrix}
+          \mathbf{x}_i^\top\\ \vdots\\ \mathbf{x}_n^\top
+        \end{bmatrix} = \mathbf{X}^\top \mathbf{X}\\
+ &amp;= (n - 1)^{-1} \E\left[
+      \mathbf{X}^\top \mathbf{X} -
+      n \overline{\mathbf{x}} \overline{\mathbf{x}}^\top
+    \right]\end{split}\]</div>
+<p>reserves one of the observations (“-1”) to account for the loss of a degree of
+freedom (given the sample mean, only <span class="math notranslate nohighlight">\(n - 1\)</span> observations are needed to
+reconstruct the samples).  Occasionally the quantity
+<span class="math notranslate nohighlight">\(\mathbf{X}^\top \mathbf{X}\)</span> is mentioned as the uncorrected sums of
+squares and cross products (SSCP) matrix.  Likewise, the corrected SSCP
+(co-scatter) matrix is defined as
+<span class="math notranslate nohighlight">\(\mathbf{X}^\top \mathbf{X} - n \overline{x} \overline{x}^\top\)</span>.</p>
+<p>While the preceding formulas can be used to achieve non-isotropic scaling, a
+simpler approach is to realize that the SSCP matrix is always positive
+semi-definite.  Since <span class="math notranslate nohighlight">\(m &lt; n\)</span> in this scenario,</p>
+<div class="math notranslate nohighlight">
+\[\DeclareMathOperator*{\rank}{\mathrm{rank}}
+\rank\left( \mathbf{X}^\top \mathbf{X} \right) =
+\rank(\mathbf{X}) \leq
+\min(m, n)\]</div>
+<p>implies <span class="math notranslate nohighlight">\(\mathbf{X}^\top \mathbf{X}\)</span> is full rank (nonsingular) and thus
+positive definite.  The desired non-isotropic transformation is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator*{\chol}{\mathrm{cholesky}}
+\mathrm{T} =
+\mathbf{L}^{-1}
+  \begin{bmatrix}
+    1 &amp; 0 &amp; -\overline{x}\\
+    0 &amp; 1 &amp; -\overline{y}\\
+    0 &amp; 0 &amp; 1
+  \end{bmatrix}
+\quad \text{with} \quad
+\mathbf{L} \mathbf{L}^\top =
+\chol\left(
+  \mathbf{X}^\top \mathbf{X} -
+  n \overline{\mathbf{x}} \overline{\mathbf{x}}^\top
+\right).\end{split}\]</div>
+</div>
+<div class="section" id="Scaling-with-Points-Near-Infinity">
+<h3>Scaling with Points Near Infinity<a class="headerlink" href="#Scaling-with-Points-Near-Infinity" title="Permalink to this headline">¶</a></h3>
+<p>Given a set of points <span class="math notranslate nohighlight">\(\mathbf{x}_i = (x_i, y_i, w_i)^\top\)</span>, the goal is
+to compute an affine transformation</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathrm{T}_0 =
+\begin{bmatrix}
+  1 &amp; 0 &amp; 0 &amp; t_x\\
+  0 &amp; 1 &amp; 0 &amp; t_y\\
+  0 &amp; 0 &amp; c &amp; 0
+\end{bmatrix}\end{split}\]</div>
+<p>such that</p>
+<div class="math notranslate nohighlight">
+\[\sum_i x_i + t_x = \sum_i y_i + t_y = 0;\quad
+\sum_i (x_i + t_x)^2 + (y_i + t_y)^2 = 2 \sum_i (c w_i)^2;\quad
+(x_i + t_x)^2 + (y_i + t_y)^2 + (c w_i)^2 = 1 \forall i.\]</div>
+<p>By inspection, assigning <span class="math notranslate nohighlight">\(t_x = -\overline{x}\)</span> and
+<span class="math notranslate nohighlight">\(t_y = -\overline{y}\)</span> satisfies the first condition, and defining</p>
+<div class="math notranslate nohighlight">
+\[c^2 = \frac{\sum_i (x_i + t_x)^2 + (y_i + t_y)^2}{2 \sum_i w_i^2}\]</div>
+<p>fulfills the second criterion.  To meet the last specification, one should not
+directly normalize the result of
+<span class="math notranslate nohighlight">\(\mathrm{T}_0 \begin{bmatrix} \mathbf{x}_i\\ 1 \end{bmatrix}\)</span> because that
+will invalidate the previous conditions.</p>
+<p>Notice that</p>
+<div class="math notranslate nohighlight">
+\[\sum_i (x_i + t_x)^2 + (y_i + t_y)^2 + (c w_i)^2 = \sum_i 1 = n.\]</div>
+<p>While meeting this alternative normalization is not equivalent to the original,
+the set of points will form an approximately symmetric circular point cloud of
+radius 1.  The desired transformation is</p>
+<div class="math notranslate nohighlight">
+\[\mathrm{T} = \mathbf{L}^{-1} \mathrm{T}_0
+\quad \text{with} \quad
+\mathbf{L} \mathbf{L}^\top = \chol\left( \mathbf{Y}^\top \mathbf{Y} \right)\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{Y}\)</span> represents <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> already transformed to
+satisfy the first two conditions.</p>
+</div>
+</div>
+<div class="section" id="(iv)-Transformation-Invariance-of-DLT">
+<h2>(iv) Transformation Invariance of DLT<a class="headerlink" href="#(iv)-Transformation-Invariance-of-DLT" title="Permalink to this headline">¶</a></h2>
+<p>Result 4.3 shows that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\tilde{\boldsymbol{\epsilon}}_i
+ &amp;= \tilde{\mathtt{A}}_i \tilde{\mathbf{h}}
+    &amp; \quad &amp; \text{(4.1)}\\
+ &amp;= \tilde{\mathbf{x}}'_i \times \tilde{\mathtt{H}} \tilde{\mathbf{x}}_i\\
+ &amp;= {\mathtt{T}'}^* \boldsymbol{\epsilon}_i
+    &amp; \quad &amp; \text{(A4.8)}\\
+ &amp;= \det(\mathtt{T}') {\mathtt{T}'}^{-\top}
+    \left( \mathbf{x}'_i \times \mathtt{H} \mathbf{x}_i \right)
+    &amp; \quad &amp; \text{(A4.7)}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathtt{T}'\)</span> and <span class="math notranslate nohighlight">\(\mathtt{T}\)</span> are arbitrary projective
+transformations (2.13).</p>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>Suppose <span class="math notranslate nohighlight">\(\mathtt{T}'\)</span> is a similarity transformation (2.9).</p>
+<p>If <span class="math notranslate nohighlight">\(\left\Vert \mathtt{A} \mathbf{h} \right\Vert\)</span> is minimized subject to
+the constraint <span class="math notranslate nohighlight">\(h_9 = \mathtt{H}_{33} = 1\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\tilde{\mathtt{H}}_{33}
+ &amp;= \left( \mathtt{T}' \mathtt{H} \mathtt{T}^{-1} \right)_{33}\\
+ &amp;= \mathbf{h}_3^\top
+    \begin{bmatrix} \mathbf{t}\\ \upsilon \end{bmatrix}\\
+ &amp;= h_7 t_x + h_8 t_y + \upsilon.\end{split}\]</div>
+<p>Notice that <span class="math notranslate nohighlight">\(\tilde{h}_9 = 1\)</span> holds for any 2D homography when
+<span class="math notranslate nohighlight">\(\upsilon = 1\)</span> and <span class="math notranslate nohighlight">\(\mathtt{T}\)</span> does not contain translations.  By
+inspection, changing the scaling factor of either transformation does not
+influence the constraint.</p>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>Recall that multiplying <span class="math notranslate nohighlight">\(\mathtt{T}\)</span> by <span class="math notranslate nohighlight">\(s^{-1}\)</span> still gives the
+same result in homogeneous coordinates.</p>
+<p>Now suppose the constraint is <span class="math notranslate nohighlight">\(\mathtt{H}_{31}^2 + \mathtt{H}_{32}^2 = 1\)</span>.
+The result is similarity invariant because for <span class="math notranslate nohighlight">\(j = 1, 2\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\tilde{\mathtt{H}}_{3j}
+ &amp;= \left( \mathtt{T}' \mathtt{H} \mathtt{T}^{-1} \right)_{3j}\\
+ &amp;= h_7 a_{1j} + h_8 a_{2j} + h_9 v_{j}
+    &amp; \quad &amp; \text{(2.10)}\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\tilde{\mathtt{H}}^2_{31} + \tilde{\mathtt{H}}^2_{32}
+ &amp;= \left(
+      h_7 a_{11} + h_8 a_{21} + h_9 v_1
+    \right)^2 +
+    \left(
+      h_7 a_{12} + h_8 a_{22} + h_9 v_2
+    \right)^2\\
+ &amp;= \left(
+      h_7 s \cos \theta + h_8 s \sin \theta
+    \right)^2 +
+    \left(
+      -h_7 s \sin \theta + h_8 s \cos \theta
+    \right)^2
+    &amp; \quad &amp; \text{(2.8)}\\
+ &amp;= s^2 \left(
+      h_7^2 + \cos^2 \theta +
+      2 h_7 h_8 \cos \theta \sin \theta +
+      h_8^2 + \sin^2 \theta
+    \right) +
+    s^2 \left(
+      h_7^2 \sin^2 \theta -
+      2 h_7 h_8 \cos \theta \sin \theta +
+      h_8^2 + \cos^2 \theta
+    \right)\\
+ &amp;= s^2 \left( h_7^2 + h_8^2 \right)
+    &amp; \quad &amp; \text{Pythagorean identity}\\
+ &amp;= s^2
+    &amp; \quad &amp; h_7^2 + h_8^2 = 1.\end{split}\]</div>
+</div>
+<div class="section" id="(c)">
+<h3>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h3>
+<p>If the constraint becomes
+<span class="math notranslate nohighlight">\(\mathtt{H}_{31} = \mathtt{H}_{32} = 0\)</span> and <span class="math notranslate nohighlight">\(\mathtt{H}_{33} = 1\)</span>,
+then for <span class="math notranslate nohighlight">\(j = 1, 2\)</span></p>
+<div class="math notranslate nohighlight">
+\[\tilde{\mathtt{H}}_{3j} = v_{j} \qquad \text{(b)}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\tilde{\mathtt{H}}_{33} = \upsilon \qquad \text{(a).}\]</div>
+<p>By inspection, the result is affinity invariant (2.11).</p>
+</div>
+</div>
+<div class="section" id="(v)-Expressions-for-Image-Coordinate-Derivatives">
+<h2>(v) Expressions for Image Coordinate Derivatives<a class="headerlink" href="#(v)-Expressions-for-Image-Coordinate-Derivatives" title="Permalink to this headline">¶</a></h2>
+<p>Observe that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{x}' &amp;= \mathtt{H} \mathbf{x}\\
+\begin{bmatrix} x'\\ y'\\ w' \end{bmatrix}
+ &amp;= \begin{bmatrix}
+      \mathbf{h}_1^\top \mathbf{x}\\
+      \mathbf{h}_2^\top \mathbf{x}\\
+      \mathbf{h}_3^\top \mathbf{x}
+    \end{bmatrix}\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\tilde{\mathbf{x}}'
+ &amp;= \begin{bmatrix} \tilde{x}'\\ \tilde{y}' \end{bmatrix}\\
+ &amp;= \begin{bmatrix} x' / w' \\ y' / w' \end{bmatrix}\\
+ &amp;= \begin{bmatrix}
+      \frac{\mathbf{h}_1^\top \mathbf{x}}{\mathbf{h}_3^\top \mathbf{x}}\\
+      \frac{\mathbf{h}_2^\top \mathbf{x}}{\mathbf{h}_3^\top \mathbf{x}}
+    \end{bmatrix}.\end{split}\]</div>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial \tilde{\mathbf{x}}'}{\partial \mathbf{x}}
+ &amp;= \begin{bmatrix}
+      \frac{\partial \tilde{x}'}{\partial x} &amp;
+        \frac{\partial \tilde{x}'}{\partial y} &amp;
+        \frac{\partial \tilde{x}'}{\partial w}\\
+      \frac{\partial \tilde{y}'}{\partial x} &amp;
+        \frac{\partial \tilde{y}'}{\partial y} &amp;
+        \frac{\partial \tilde{y}'}{\partial w}
+    \end{bmatrix}\\
+ &amp;= \begin{bmatrix}
+      \frac{\mathbf{h}_1^\top}{\mathbf{h}_3 \cdot \mathbf{x}} -
+        \mathbf{h}_1 \cdot \mathbf{x}
+          \left( \mathbf{h}_3 \cdot \mathbf{x} \right)^{-2}
+            \mathbf{h}_3^\top\\
+      \frac{\mathbf{h}_2^\top}{\mathbf{h}_3 \cdot \mathbf{x}} -
+        \mathbf{h}_2 \cdot \mathbf{x}
+            \left( \mathbf{h}_3 \cdot \mathbf{x} \right)^{-2}
+            \mathbf{h}_3^\top
+    \end{bmatrix}
+    &amp; \quad &amp; \text{Product Rule with Chain Rule Inside}\\
+ &amp;= \frac{1}{w'} \begin{bmatrix}
+      \mathbf{h}_1^\top -
+        \frac{\mathbf{h}_1 \cdot \mathbf{x}}{w'} \mathbf{h}_3^\top\\
+      \mathbf{h}_2^\top -
+        \frac{\mathbf{h}_2 \cdot \mathbf{x}}{w'} \mathbf{h}_3^\top
+    \end{bmatrix}
+    &amp; \quad &amp; w' = \mathbf{h}_3 \cdot \mathbf{x}\\
+ &amp;= \frac{1}{w'}
+      \begin{bmatrix}
+        \mathbf{h}_1^\top - \tilde{x}' \mathbf{h}_3^\top\\
+        \mathbf{h}_2^\top - \tilde{y}' \mathbf{h}_3^\top
+      \end{bmatrix}\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial \tilde{\mathbf{x}}'}{\partial \mathbf{h}}
+ &amp;= \begin{bmatrix}
+      \frac{\partial \tilde{x}'}{\partial h_1} &amp;
+        \frac{\partial \tilde{x}'}{\partial h_2} &amp; \cdots &amp;
+        \frac{\partial \tilde{x}'}{\partial h_9}\\
+      \frac{\partial \tilde{y}'}{\partial h_1} &amp;
+        \frac{\partial \tilde{y}'}{\partial h_2} &amp; \cdots &amp;
+        \frac{\partial \tilde{y}'}{\partial h_9}
+    \end{bmatrix}\\
+ &amp;= \begin{bmatrix}
+      \frac{x}{w'} &amp; \frac{y}{w'} &amp; \frac{w}{w'} &amp; 0 &amp; 0 &amp; 0 &amp;
+        -x' \left( w' \right)^{-2} x &amp;
+        -x' \left( w' \right)^{-2} y &amp;
+        -x' \left( w' \right)^{-2} w\\
+      0 &amp; 0 &amp; 0 &amp; \frac{x}{w'} &amp; \frac{y}{w'} &amp; \frac{w}{w'} &amp;
+        -y' \left( w' \right)^{-2} x &amp;
+        -y' \left( w' \right)^{-2} y &amp;
+        -y' \left( w' \right)^{-2} w\\
+    \end{bmatrix}
+    &amp; \quad &amp; \text{(4.2)}\\
+ &amp;= \frac{1}{w'} \begin{bmatrix}
+      \mathbf{x}^\top &amp; \boldsymbol{0} &amp; -\tilde{x}' \mathbf{x}^\top\\
+      \boldsymbol{0} &amp; \mathbf{x}^\top &amp; -\tilde{y}' \mathbf{x}^\top
+    \end{bmatrix}\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="(vi)-Sampson-Error-with-Non-Isotropic-Error-Distributions">
+<h2>(vi) Sampson Error with Non-Isotropic Error Distributions<a class="headerlink" href="#(vi)-Sampson-Error-with-Non-Isotropic-Error-Distributions" title="Permalink to this headline">¶</a></h2>
+<p>Given (4.10) still holds and the point <span class="math notranslate nohighlight">\(\mathbf{X} = (x, y, x', y')\)</span> is
+measured with covariance matrix <span class="math notranslate nohighlight">\(\Sigma_{\mathbf{X}}\)</span>, the minimization
+problem becomes</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\min_{\boldsymbol{\delta}_{\mathbf{X}}} \quad
+  \left\Vert
+    \boldsymbol{\delta}_{\mathbf{X}}
+  \right\Vert^2_{\Sigma_{\mathbf{X}}} &amp;\\
+\text{subject to} \quad
+  \mathtt{J} \boldsymbol{\delta}_{\mathbf{X}} &amp;= -\boldsymbol{\epsilon}.\end{split}\]</div>
+<p>The corresponding Lagrangian is</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{L} =
+\boldsymbol{\delta}_{\mathbf{X}}^\top
+  \Sigma_{\mathbf{X}}^{-1}
+  \boldsymbol{\delta}_{\mathbf{X}} -
+2 \boldsymbol{\lambda}^\top \left(
+  \mathtt{J} \boldsymbol{\delta}_{\mathbf{X}} + \boldsymbol{\epsilon}
+\right).\]</div>
+<p>The extrema of <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> must satisfy</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{0}
+ &amp;= \frac{\partial \mathcal{L}}{\partial \boldsymbol{\delta}_{\mathbf{X}}}\\
+ &amp;= 2 \Sigma_{\mathbf{X}}^{-1} \boldsymbol{\delta}_{\mathbf{X}} -
+    2 \mathtt{J}^\top \boldsymbol{\lambda}
+    &amp; \quad &amp; \text{covariance matrix is always symmetric}\\
+\boldsymbol{\delta}_{\mathbf{X}}
+ &amp;= \Sigma_{\mathbf{X}} \mathtt{J}^\top \boldsymbol{\lambda}\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{0}
+ &amp;= \frac{\partial \mathcal{L}}{\partial \boldsymbol{\lambda}}\\
+ &amp;= \mathtt{J} \boldsymbol{\delta}_{\mathbf{X}} + \boldsymbol{\epsilon}\\
+\mathtt{J} \Sigma_{\mathbf{X}} \mathtt{J}^\top \boldsymbol{\lambda}
+ &amp;= -\boldsymbol{\epsilon}\\
+\boldsymbol{\lambda}
+ &amp;= -\left(
+      \mathtt{J} \Sigma_{\mathbf{X}} \mathtt{J}^\top
+    \right)^{-1} \boldsymbol{\epsilon}.\end{split}\]</div>
+<p>Therefore,</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{\delta}_{\mathbf{X}} =
+-\Sigma_{\mathbf{X}} \mathtt{J}^\top \left(
+  \mathtt{J} \Sigma_{\mathbf{X}} \mathtt{J}^\top
+\right)^{-1} \boldsymbol{\epsilon}\]</div>
+<p>and the Sampson error is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert
+  \boldsymbol{\delta}_{\mathbf{X}}
+\right\Vert^2_{\Sigma_{\mathbf{X}}}
+ &amp;= \boldsymbol{\delta}_{\mathbf{X}}^\top
+    \Sigma_{\mathbf{X}}^{-1}
+    \boldsymbol{\delta}_{\mathbf{X}}\\
+ &amp;= \boldsymbol{\epsilon}^\top
+    \left(
+      \mathtt{J} \Sigma_{\mathbf{X}} \mathtt{J}^\top
+    \right)^{-\top}
+    \mathtt{J} \Sigma_{\mathbf{X}}^\top \mathtt{J}^\top
+    \left(
+      \mathtt{J} \Sigma_{\mathbf{X}} \mathtt{J}^\top
+    \right)^{-1} \boldsymbol{\epsilon}\\
+ &amp;= \boldsymbol{\epsilon}^\top
+    \left(
+      \mathtt{J} \Sigma_{\mathbf{X}} \mathtt{J}^\top
+    \right)^{-1}
+    \boldsymbol{\epsilon}
+    &amp; \quad &amp; \left( \mathbf{A}^\top \right)^{-1} =
+              \left( \mathbf{A}^{-1} \right)^\top.\end{split}\]</div>
+</div>
+<div class="section" id="(vii)-Sampson-Error-Programming-Hint">
+<h2>(vii) Sampson Error Programming Hint<a class="headerlink" href="#(vii)-Sampson-Error-Programming-Hint" title="Permalink to this headline">¶</a></h2>
+<p>Recall that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\newcommand{\variety}[2]{\operatorname{\mathcal{#1}}_\mathtt{#2}}
+\variety{C}{H}(\mathbf{X})
+ &amp;= \mathtt{A}(\mathbf{X}) \mathbf{h}
+    &amp; \quad &amp; \text{(4.10)}\\
+ &amp;= \begin{bmatrix}
+      \boldsymbol{0}^\top &amp; -\mathbf{x}^\top &amp; y' \mathbf{x}^\top\\
+      \mathbf{x}^\top &amp; \boldsymbol{0}^\top &amp; -x' \mathbf{x}^\top
+    \end{bmatrix}
+    \begin{bmatrix} \mathbf{h}_1\\ \mathbf{h}_2\\ \mathbf{h}_3 \end{bmatrix}
+    &amp; \quad &amp; \text{(4.3)}.\end{split}\]</div>
+<p>The partial derivative matrix may be computed as</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial \variety{C}{H}(\mathbf{X})}{\partial \mathbf{X}} =
+\begin{bmatrix}
+  \frac{\partial \variety{C}{H}(\mathbf{X})}{\partial X_1} &amp;
+    \cdots &amp;
+    \frac{\partial \variety{C}{H}(\mathbf{X})}{\partial X_4}
+\end{bmatrix} =
+\mathtt{J}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial \variety{C}{H}(\mathbf{X})}{\partial X_i} =
+\variety{C}{H}\left( \mathbf{X} + \mathbf{E}_i \right) -
+\variety{C}{H}(\mathbf{X})\]</div>
+<p>because w.l.o.g.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial \variety{C}{H}(\mathbf{X})}{\partial X_1}
+ &amp;= \frac{\partial}{\partial x}
+    \begin{bmatrix}
+      0 &amp; 0 &amp; 0 &amp; -x &amp; -y &amp; -1 &amp; y' x &amp; y' y &amp; y'\\
+      x &amp; y &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; -x' x &amp; -x' y &amp; -x'
+    \end{bmatrix}
+    \mathbf{h}\\
+ &amp;= \begin{bmatrix}
+      0 &amp; 0 &amp; 0 &amp; -1 &amp; 0 &amp; 0 &amp; y' &amp; 0 &amp; 0\\
+      1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; -x' &amp; 0 &amp; 0
+    \end{bmatrix}
+    \mathbf{h}\\
+ &amp;= \left(
+      \begin{bmatrix}
+        0 &amp; 0 &amp; 0 &amp; -(x + 1) &amp; -y &amp; -1 &amp; y' (x + 1) &amp; y' y &amp; y'\\
+        x + 1 &amp; y &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; -x' (x + 1) &amp; -x' y &amp; -x'
+      \end{bmatrix} -
+      \begin{bmatrix}
+        0 &amp; 0 &amp; 0 &amp; -x &amp; -y &amp; -1 &amp; y' x &amp; y' y &amp; y'\\
+        x &amp; y &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; -x' x &amp; -x' y &amp; -x'
+      \end{bmatrix}
+    \right)
+    \mathbf{h}\\
+&amp;= \variety{C}{H}\left( \mathbf{X} + \mathbf{E}_1 \right) -
+   \variety{C}{H}(\mathbf{X}).\end{split}\]</div>
+<p>Consider a matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> and
+<span class="math notranslate nohighlight">\(B \in \mathbb{R}^{n \times p}\)</span> where <span class="math notranslate nohighlight">\(a_i \in \mathbb{R}^m\)</span> and
+<span class="math notranslate nohighlight">\(b_i \in \mathbb{R}^p\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\newcommand{\textemdash}{\unicode{x2014}}
+AB =
+\begin{bmatrix}
+  \vert &amp; \vert &amp;  &amp; \vert\\
+  a_1 &amp; a_2 &amp; \cdots &amp; a_n\\
+  \vert &amp; \vert &amp;  &amp; \vert
+\end{bmatrix}
+  \begin{bmatrix}
+    \textemdash &amp; b_1^\top &amp; \textemdash\\
+    \textemdash &amp; b_2^\top &amp; \textemdash\\
+     &amp; \vdots &amp; \\
+    \textemdash &amp; b_n^\top &amp; \textemdash\\
+  \end{bmatrix} =
+\sum_{i = 1}^n a_i b_i^\top\end{split}\]</div>
+<p>Observe that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathtt{J} \mathtt{J}^\top
+ &amp;= \sum_i
+      \frac{\partial \variety{C}{H}}{\partial X_i}
+      \frac{\partial \variety{C}{H}}{\partial X_i}^\top\\
+ &amp;= \sum_i
+      \left[
+        \variety{C}{H}\left( \mathbf{X} + \mathbf{E}_i \right) -
+        \variety{C}{H}(\mathbf{X})
+      \right]
+      \left[
+        \variety{C}{H}\left( \mathbf{X} + \mathbf{E}_i \right) -
+        \variety{C}{H}(\mathbf{X})
+      \right]^\top.\end{split}\]</div>
+</div>
+<div class="section" id="(viii)-Minimizing-Geometric-Error-for-Affine-Transformations">
+<h2>(viii) Minimizing Geometric Error for Affine Transformations<a class="headerlink" href="#(viii)-Minimizing-Geometric-Error-for-Affine-Transformations" title="Permalink to this headline">¶</a></h2>
+<p>Given a set of correspondences <span class="math notranslate nohighlight">\((x_i, y_i) \leftrightarrow (x'_i, y'_i)\)</span>,
+the goal is to find an affine transformation <span class="math notranslate nohighlight">\(\mathtt{H}_{\mathrm{A}}\)</span>
+that minimizes the reprojection error (4.8):</p>
+<div class="math notranslate nohighlight">
+\[\sum_i
+  d\left( \mathbf{x}_i, \hat{\mathbf{x}}_i \right)^2 +
+  d\left( \mathbf{x}'_i, \hat{\mathbf{x}}'_i \right)^2
+\quad \text{subject to }
+\hat{\mathbf{x}}'_i = \mathtt{H}_{\mathrm{A}} \hat{\mathbf{x}}_i\, \forall i.\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\mathbf{h}_3 = \mathbf{e}_3\)</span> in (2.10), the minimal solution would
+assign
+<span class="math notranslate nohighlight">\(w_i = \hat{w}_i = w'_i = \mathbf{h}_3 \cdot \hat{\mathbf{x}}_i = 1\)</span>
+resulting in</p>
+<div class="math notranslate nohighlight">
+\[\sum_i
+  (x_i - \hat{x}_i)^2 + (y_i - \hat{y}_i)^2 +
+  (x'_i - \mathbf{h}_1 \cdot \hat{\mathbf{x}}_i)^2 +
+  (y'_i - \mathbf{h}_2 \cdot \hat{\mathbf{x}}_i)^2.\]</div>
+<p>Recall that the reprojection error measured in both the images is equivalent to
+geometric distance in <span class="math notranslate nohighlight">\(\mathbb{R}^4\)</span>.  This means finding the homography
+<span class="math notranslate nohighlight">\(\mathtt{H}_{\mathrm{A}}\)</span> and the estimated points
+<span class="math notranslate nohighlight">\(\hat{\mathbf{x}}_i\)</span> and <span class="math notranslate nohighlight">\(\hat{\mathbf{x}}'_i\)</span> that minimize (4.8)
+is equivalent to finding the variety <span class="math notranslate nohighlight">\(\mathcal{V}_{\mathtt{H}}\)</span> and points
+<span class="math notranslate nohighlight">\(\hat{\mathbf{X}}_i\)</span> on <span class="math notranslate nohighlight">\(\mathcal{V}_{\mathtt{H}}\)</span> that minimize</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\sum_i \left\Vert \mathbf{X}_i - \hat{\mathbf{X}}_i \right\Vert^2 =
+\sum_i
+  \left\Vert
+    \begin{bmatrix} x_i\\ y_i\\ x'_i\\ y'_i \end{bmatrix} -
+    \begin{bmatrix}
+      \hat{x}_i\\ \hat{y}_i\\ \hat{x}'_i\\ \hat{y}'_i
+    \end{bmatrix}
+  \right\Vert^2.\end{split}\]</div>
+<p>The point <span class="math notranslate nohighlight">\(\hat{\mathbf{X}}\)</span> on <span class="math notranslate nohighlight">\(\mathcal{V}_{\mathtt{H}}\)</span> that lies
+closest to a measured point <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> is a point where the line
+between <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> and <span class="math notranslate nohighlight">\(\hat{\mathbf{X}}\)</span> is perpendicular to the
+tangent plane to <span class="math notranslate nohighlight">\(\mathcal{V}_{\mathtt{H}}\)</span> at <span class="math notranslate nohighlight">\(\hat{\mathbf{X}}\)</span>.
+In other words, the perpendicular distance of each point to the variety</p>
+<div class="math notranslate nohighlight">
+\[d_\perp\left( \mathbf{X}_i, \mathcal{V}_{\mathtt{H}} \right)^2 =
+d\left( \mathbf{x}_i, \hat{\mathbf{x}}_i \right)^2 +
+    d\left( \mathbf{x}'_i, \hat{\mathbf{x}}'_i \right)^2.\]</div>
+<p>The foregoing are merely different interpretations of the same non-linear
+estimation problem.  The points <span class="math notranslate nohighlight">\(\hat{\mathbf{X}}_i\)</span> cannot be estimated
+directly except via iteration because of the non-linear nature of the variety
+<span class="math notranslate nohighlight">\(\mathcal{V}_{\mathtt{H}}\)</span>.</p>
+<p>The idea of the Sampson error function (4.10) is to estimate a first-order
+approximation to the point <span class="math notranslate nohighlight">\(\hat{\mathbf{X}}\)</span>, assuming the cost function
+is well approximated linearly in the neighborhood of the estimated point.
+The variety <span class="math notranslate nohighlight">\(\mathcal{V}_{\mathtt{H}}\)</span> for this problem must satisfy
+(4.3), or</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{C}_{\mathtt{H}}(\mathbf{X}) =
+\mathtt{A}(\mathbf{X}) \mathbf{h} =
+\boldsymbol{0},\]</div>
+<p>so that
+<span class="math notranslate nohighlight">\(\boldsymbol{\epsilon}_i = \mathcal{C}_{\mathtt{H}}(\mathbf{X}_i)\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathtt{J}_i
+ &amp;= \frac{
+      \partial \mathcal{C}_{\mathtt{H}}(\mathbf{X}_i)
+    }{
+      \partial \mathbf{X}
+    }\\
+ &amp;= \frac{\partial}{\partial \mathbf{X}}
+    \begin{bmatrix}
+      \boldsymbol{0}^\top &amp; -w'_i \mathbf{x}_i^\top &amp;
+        y'_i \mathbf{x}_i^\top\\
+      w'_i \mathbf{x}_i^\top &amp; \boldsymbol{0}^\top &amp;
+        -x'_i \mathbf{x}_i^\top
+    \end{bmatrix}
+    \begin{bmatrix}
+      \mathbf{h}_1\\ \mathbf{h}_2\\ \mathbf{h}_3
+    \end{bmatrix}
+    &amp; \quad &amp; \text{(4.3)}\\
+ &amp;= \frac{\partial}{\partial \mathbf{X}}
+    \begin{bmatrix}
+      w'_i \mathbf{x}^\top \mathbf{h}_1 -
+          x'_i \mathbf{x}_i^\top \mathbf{h}_3\\
+      w'_i \mathbf{x}^\top \mathbf{h}_2 -
+          y'_i \mathbf{x}_i^\top \mathbf{h}_3
+    \end{bmatrix}
+    &amp; \quad &amp; \text{negated and swapped first row}\\
+ &amp;= \begin{bmatrix}
+      w'_i h_{11} - x'_i h_{31} &amp; -w'_i h_{12} - x'_i h_{32} &amp;
+          -\mathbf{x}_i^\top \mathbf{h}_3 &amp; 0\\
+      w'_i h_{21} - y'_i h_{31} &amp; w'_i h_{22} - y'_i h_{32} &amp;
+          0 &amp; -\mathbf{x}_i^\top \mathbf{h}_3
+    \end{bmatrix}\\
+ &amp;= \begin{bmatrix}
+      w'_i h_{11} &amp; -w'_i h_{12} &amp; -w_i &amp; 0\\
+      w'_i h_{21} &amp; w'_i h_{22} &amp; 0 &amp; -w_i
+    \end{bmatrix}
+    &amp; \quad &amp; \mathbf{h}_3 = \mathbf{e}_3\\
+ &amp;= \left[
+      \begin{array}{c|c} \mathtt{H}_{2 \times 2} &amp; -\mathtt{I} \end{array}
+    \right]
+    &amp; \quad &amp; w' = w = 1.\end{split}\]</div>
+<p>One benefit of the Sampson error function is that it avoids computing
+<span class="math notranslate nohighlight">\(\hat{\mathbf{X}}\)</span>, and hence only the estimation of
+<span class="math notranslate nohighlight">\(\mathtt{H}_{\mathrm{A}}\)</span> remains.  The error over all the point
+correspondences is defined as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{D}_\perp
+ &amp;= \sum_i \left\Vert \boldsymbol{\delta}_{\mathbf{X}_i} \right\Vert^2
+    &amp; \quad &amp; \text{(4.12)}\\
+ &amp;= \sum_i
+      \boldsymbol{\epsilon}_i^\top
+      \left( \mathtt{J}_i \mathtt{J}_i^\top \right)^{-1}
+      \boldsymbol{\epsilon}_i
+    &amp; \quad &amp; \text{(4.13)}\\
+ &amp;= \sum_i
+      \begin{bmatrix}
+        -\mathbf{x}_i^\top \mathbf{h}_2 + y'_i &amp;
+          \mathbf{x}_i^\top \mathbf{h}_1 - x'_i
+      \end{bmatrix}
+      \left(
+        \mathtt{H}_{2 \times 2} \mathtt{H}_{2 \times 2}^\top + \mathtt{I}
+      \right)^{-1}
+      \begin{bmatrix}
+        -\mathbf{x}_i^\top \mathbf{h}_2 + y'_i\\
+        \mathbf{x}_i^\top \mathbf{h}_1 - x'_i
+      \end{bmatrix}.\end{split}\]</div>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>Abstracting away the terms that are not related to <span class="math notranslate nohighlight">\(h_{\cdot 3}\)</span> yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}0 = \frac{\partial \mathcal{D}_\perp}{\partial h_{23}}
+ &amp;= \frac{\partial}{\partial h_{23}}
+    \sum_i \sum_j \sum_k a_{ijk} \epsilon_{ij} \epsilon_{ik}
+    &amp; \quad &amp; a_{ijk} =
+              \left( \mathtt{J}_i \mathtt{J}_i^\top \right)^{-1}_{jk}\\
+ &amp;= \sum_i
+      a_{i11} \frac{\partial \epsilon_{i1}^2}{\partial h_{23}} +
+      2 a_{i21} \epsilon_{i2} \frac{\partial \epsilon_{i1}}{\partial h_{23}}
+    &amp; \quad &amp; a_{i12} = a_{i21}\\
+ &amp;= \sum_i
+      2 a_{i11}
+        \left( -\mathbf{x}_i^\top \mathbf{h}_2 + y'_i \right) (-w_i) +
+      2 a_{i21} \left( \mathbf{x}_i^\top \mathbf{h}_1 - x'_i \right) (-w_i)\\
+ &amp;= (a_{11} h_{21} - a_{21} h_{11}) \sum_i x_i +
+    (a_{11} h_{22} - a_{21} h_{12}) \sum_i y_i +
+    a_{11} \sum_i h_{23} -
+    a_{11} \sum_i y'_i -
+    a_{21} \sum_i h_{13} +
+    a_{21} \sum_i x'_i
+    &amp; \quad &amp; w_i = 1 \text{ and } a_{ijk} = a_{jk} \, \forall i\\
+a_{21} h_{13} &amp;= a_{11} h_{23} +
+                 (a_{11} h_{21} - a_{21} h_{11}) \bar{x}_i +
+                 (a_{11} h_{22} - a_{21} h_{12}) \bar{y}_i +
+                 a_{21} \bar{x}'_i - a_{11} \bar{y}'_i\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}0 = \frac{\partial \mathcal{D}_\perp}{\partial h_{13}}
+ &amp;= \sum_i
+      a_{i22} \frac{\partial \epsilon_{i2}^2}{\partial h_{13}} +
+      2 a_{i12} \epsilon_{i1} \frac{\partial \epsilon_{i2}}{\partial h_{13}}
+    &amp; \quad &amp; a_{i12} = a_{i21}\\
+ &amp;= \sum_i
+      2 a_{i22}
+        \left( \mathbf{x}_i^\top \mathbf{h}_1 - x'_i \right) (w_i) +
+      2 a_{i12} \left( -\mathbf{x}_i^\top \mathbf{h}_2 + y'_i \right) (w_i)\\
+ &amp;= (a_{22} h_{11} - a_{12} h_{21}) \sum_i x_i +
+    (a_{22} h_{12} - a_{12} h_{22}) \sum_i y_i +
+    a_{22} \sum_i h_{13} -
+    a_{22} \sum_i x'_i -
+    a_{12} \sum_i h_{23} +
+    a_{12} \sum_i y'_i
+    &amp; \quad &amp; w_i = 1 \text{ and } a_{jk} = a_{ijk}\, \forall i\\
+a_{12} h_{23} &amp;= a_{22} h_{13} +
+                 (a_{22} h_{11} - a_{12} h_{21}) \bar{x}_i +
+                 (a_{22} h_{12} - a_{12} h_{22}) \bar{y}_i -
+                 a_{22} \bar{x}'_i + a_{12} \bar{y}'_i.\end{split}\]</div>
+<p>By inspection, translating the points so that the centroids
+<span class="math notranslate nohighlight">\(\bar{\mathbf{x}}\)</span> and <span class="math notranslate nohighlight">\(\bar{\mathbf{x}}'\)</span> are at the origin
+restricts <span class="math notranslate nohighlight">\(h_{\cdot 3}\)</span> to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{0}
+ &amp;= \begin{bmatrix} a_{22} &amp; -a_{12}\\ -a_{21} &amp; a_{11} \end{bmatrix}
+    \begin{bmatrix} h_{13}\\ h_{23} \end{bmatrix}\\
+ &amp;= \frac{1}{a_{11} a_{22} - a_{12} a_{21}}
+    \begin{bmatrix} a_{22} &amp; -a_{12}\\ -a_{21} &amp; a_{11} \end{bmatrix}
+    \begin{bmatrix} h_{13}\\ h_{23} \end{bmatrix}\\
+ &amp;= \mathtt{J} \mathtt{J}^\top
+    \begin{bmatrix} h_{13}\\ h_{23} \end{bmatrix}
+    &amp; \quad &amp; \mathtt{J} \mathtt{J}^\top =
+              \mathtt{J}_i \mathtt{J}_i^\top \, \forall i.\end{split}\]</div>
+<p>For nondegenerate affinities, <span class="math notranslate nohighlight">\(\mathtt{J} \mathtt{J}^\top\)</span> is
+nonsingular, so the nullspace is the set containing only the zero vector.</p>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>A variety is the simultaneous zero-set of one or more multivariate polynomials
+defined in <span class="math notranslate nohighlight">\(\mathbb{R}^N\)</span>.</p>
+<p>For a given affinity <span class="math notranslate nohighlight">\(\mathtt{H}_{\mathrm{A}}\)</span> (4.9), the image
+correspondences <span class="math notranslate nohighlight">\(\mathbf{x} \iff \mathbf{x}'\)</span> that satisfy</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{0}
+ &amp;= \mathcal{C}_\mathtt{H}\left( \mathbf{X} \right)
+    &amp; \quad &amp; \text{(4.10) and (4.11)}\\
+ &amp;= \begin{bmatrix}
+      \boldsymbol{0}^\top &amp; -w' \mathbf{x}^\top &amp; y' \mathbf{x}^\top\\
+      w' \mathbf{x}^\top &amp; \boldsymbol{0}^\top &amp; -x' \mathbf{x}^\top
+    \end{bmatrix}
+    \begin{bmatrix}
+      \mathbf{h}_1\\ \mathbf{h}_2\\ \mathbf{h}_3
+    \end{bmatrix}
+    &amp; \quad &amp; \text{(4.3)}\\
+ &amp;= \begin{bmatrix}
+      y' - h_{21} x - h_{22} y - h_{23}\\
+      h_{11} x + h_{12} y + h_{13} - x'
+    \end{bmatrix}
+    &amp; \quad &amp; w' = w = 1\end{split}\]</div>
+<p>define an algebraic variety <span class="math notranslate nohighlight">\(\mathcal{V}_\mathtt{H} \in \mathbb{R}^4\)</span>
+which is the intersection of two hyperplanes.  Each hyperplane is in
+<span class="math notranslate nohighlight">\(\mathbb{R}^4\)</span> and represents a linear constraint.</p>
+<p>Recall that the intersection of two hyperplanes in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> defines
+a linear subspace of dimension <span class="math notranslate nohighlight">\(n - 2\)</span>, which could be interpreted as the
+space of free variables.  By definition of codimension,
+<span class="math notranslate nohighlight">\(\mathcal{V}_\mathtt{H}\)</span> is a codimension-2 subspace of
+<span class="math notranslate nohighlight">\(\mathbb{R}^4\)</span>.</p>
+<p>To prove the sufficient condition, suppose <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> lies on
+<span class="math notranslate nohighlight">\(\mathcal{V}_\mathtt{H}\)</span> and
+<span class="math notranslate nohighlight">\(\mathtt{H}_{2 \times 2} \mathbf{x} - \mathbf{x}' \neq \boldsymbol{0}\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{0}
+ &amp;= \mathcal{C}_\mathtt{H}\left( \mathbf{X} \right)\\
+ &amp;= \begin{bmatrix}
+      h_{11} x + h_{12} y + h_{13} - x'\\
+      h_{21} x + h_{22} y + h_{23} - y'
+    \end{bmatrix}
+    &amp; \quad &amp; \text{negated and swapped first row of (4.3)}\\
+ &amp;= \mathtt{H}_{2 \times 2} \mathbf{x} - \mathbf{x}' +
+    \begin{bmatrix} h_{13}\\ h_{23} \end{bmatrix}\\
+ &amp;= \mathtt{H}_{2 \times 2} \mathbf{x} - \mathbf{x}'\end{split}\]</div>
+<p>holds according to (a), but this contradicts the initial assumption that
+<span class="math notranslate nohighlight">\(\mathtt{H}_{2 \times 2} \mathbf{x} - \mathbf{x}' \neq \boldsymbol{0}\)</span>.</p>
+<p>To prove the necessary condition, suppose
+<span class="math notranslate nohighlight">\(\mathtt{H}_{2 \times 2} \mathbf{x} - \mathbf{x}' = \boldsymbol{0}\)</span> and
+<span class="math notranslate nohighlight">\(\mathbf{X}\)</span> does not lie on <span class="math notranslate nohighlight">\(\mathcal{V}_\mathtt{H}\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{C}_\mathtt{H}\left( \mathbf{X} \right)
+ &amp;= \mathtt{H}_{2 \times 2} \mathbf{x} - \mathbf{x}' +
+    \begin{bmatrix} h_{13}\\ h_{23} \end{bmatrix}
+    &amp; \quad &amp; \text{negated and swapped first row of (4.3)}\\
+ &amp;= \begin{bmatrix} h_{13}\\ h_{23} \end{bmatrix}\\
+ &amp;= \boldsymbol{0}\end{split}\]</div>
+<p>holds according to (a), but this contradicts the initial assumption that
+<span class="math notranslate nohighlight">\(\mathbf{X}\)</span> does not lie on <span class="math notranslate nohighlight">\(\mathcal{V}_\mathtt{H}\)</span>.</p>
+</div>
+<div class="section" id="(c)">
+<h3>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h3>
+<p>According to (b), any codimension-2 subspace may be expressed as
+<span class="math notranslate nohighlight">\(\left[
+\begin{array}{c|c} \mathtt{H}_{2 \times 2} &amp; -\mathtt{I} \end{array} \right]
+\mathbf{X} = \boldsymbol{0}\)</span>.</p>
+<p>Section 4.2.5 shows that the task of estimating the homography
+<span class="math notranslate nohighlight">\(\hat{\mathtt{H}}\)</span> and points <span class="math notranslate nohighlight">\(\hat{\mathbf{x}}_i\)</span> and
+<span class="math notranslate nohighlight">\(\hat{\mathbf{x}}_i'\)</span> that minimizes (4.8) is equivalent to finding a
+variety <span class="math notranslate nohighlight">\(\mathcal{V}_\mathtt{H}\)</span> that passes through the points
+<span class="math notranslate nohighlight">\(\mathbf{X}_i\)</span>.</p>
+<p>Therefore, the estimation task is equivalent to finding the best-fitting
+codimension-2 subspace.</p>
+</div>
+<div class="section" id="(d)">
+<h3>(d)<a class="headerlink" href="#(d)" title="Permalink to this headline">¶</a></h3>
+<p>The matrix <span class="math notranslate nohighlight">\(\mathtt{M}\)</span> with rows <span class="math notranslate nohighlight">\(\mathbf{X}_i^\top\)</span> has a rank
+of <span class="math notranslate nohighlight">\(4\)</span>.  According to (c), the codimension of best fitting subspace is
+<span class="math notranslate nohighlight">\(2\)</span>.  Here best means minimize the sum of the squares of the perpendicular
+distances of the points to the subspace.</p>
+<p>Since the (right) singular vectors <span class="math notranslate nohighlight">\(\mathbf{V}_1\)</span> and <span class="math notranslate nohighlight">\(\mathbf{V}_2\)</span>
+correspond to the two largest singular values of <span class="math notranslate nohighlight">\(\mathtt{M}\)</span> and
+form an orthonormal basis, Theorem 4.1 in <a class="bibtex reference internal" href="../computer-science-theory-for-the-information-age-hk/index.html#hopcroft2012computer" id="id6">[HK12]</a>
+guarantees that <span class="math notranslate nohighlight">\(\mathcal{V}_\mathtt{H}\)</span> spanned by
+<span class="math notranslate nohighlight">\(\mathbf{V}_1, \mathbf{V}_2\)</span> is the best-fit <span class="math notranslate nohighlight">\(2\)</span>-dimensional
+subspace for <span class="math notranslate nohighlight">\(\mathtt{M}\)</span>.</p>
+</div>
+<div class="section" id="(e)">
+<h3>(e)<a class="headerlink" href="#(e)" title="Permalink to this headline">¶</a></h3>
+<p>Since <span class="math notranslate nohighlight">\(\mathcal{V}_{\mathtt{H}}\)</span> is spanned by <span class="math notranslate nohighlight">\(\mathbf{V}_1\)</span> and
+<span class="math notranslate nohighlight">\(\mathbf{V}_2\)</span>, each point that lies on <span class="math notranslate nohighlight">\(\mathcal{V}_{\mathtt{H}}\)</span>
+can be expressed as</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{X} =
+\begin{bmatrix} \mathbf{V}_1 &amp; \mathbf{V}_2 \end{bmatrix} \mathbf{t}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{t} \in \mathbb{R}^2\)</span>.  By (b) and (c), each point must also
+satisfy</p>
+<div class="math notranslate nohighlight">
+\[\left[
+  \begin{array}{c|c} \mathtt{H}_{2 \times 2} &amp; -\mathtt{I} \end{array}
+\right] \mathbf{X} =
+\left[
+  \begin{array}{c|c} \mathtt{H}_{2 \times 2} &amp; -\mathtt{I} \end{array}
+\right]
+  \begin{bmatrix} \mathbf{V}_1 &amp; \mathbf{V}_2 \end{bmatrix} \mathbf{t} =
+\boldsymbol{0}.\]</div>
+<p>For non-trivial solutions where <span class="math notranslate nohighlight">\(\mathbf{t} \neq \boldsymbol{0}\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[
+  \begin{array}{c|c} \mathtt{H}_{2 \times 2} &amp; -\mathtt{I} \end{array}
+\right]
+  \begin{bmatrix} \mathbf{V}_1 &amp; \mathbf{V}_2 \end{bmatrix}
+ &amp;= \boldsymbol{0}\\
+\mathtt{H}_{2 \times 2} \mathtt{B}
+ &amp;= \mathtt{C}
+    &amp; \quad &amp; \begin{bmatrix} \mathbf{V}_1 &amp; \mathbf{V}_2 \end{bmatrix} =
+              \begin{bmatrix} \mathtt{B}\\ \mathtt{C} \end{bmatrix}\\
+\mathtt{H}_{2 \times 2} &amp;= \mathtt{C} \mathtt{B}^{-1}.\end{split}\]</div>
+<p>The desired affinity can be derived as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{x}'_i + \mathbf{t}'
+ &amp;= \mathtt{H}_{2 \times 2} \left( \mathbf{x}_i + \mathbf{t} \right)
+    &amp; \quad &amp; \text{(a)}\\
+\mathbf{x}'_i
+ &amp;= \mathtt{H}_{2 \times 2} \left( \mathbf{x}_i + \mathbf{t} \right) -
+    \mathbf{t}'\\
+\begin{bmatrix} \mathbf{x}'_i\\ 1 \end{bmatrix}
+ &amp;= \mathtt{H}_{\mathtt{A}}
+    \begin{bmatrix} \mathbf{x}_i\\ 1 \end{bmatrix}\end{split}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathtt{H}_{\mathtt{A}} =
+\begin{bmatrix}
+  \mathtt{H}_{2 \times 2} &amp;
+    \mathtt{H}_{2 \times 2} \mathbf{t} - \mathbf{t}'\\
+  \boldsymbol{0}^\top &amp; 1
+\end{bmatrix}\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\hat{\mathbf{X}}_i
+ &amp;= \mathbf{X}_i + \boldsymbol{\delta}_{\mathbf{X}_i}\\
+ &amp;= \begin{bmatrix}
+      \mathtt{B} \mathtt{B}^\top &amp; \mathtt{B} \mathtt{C}^\top\\
+      \mathtt{C} \mathtt{B}^\top &amp; \mathtt{C} \mathtt{C}^\top
+    \end{bmatrix}
+    \mathbf{X}_i
+    &amp; \quad &amp; \text{(e.1)}\\
+ &amp;= \begin{bmatrix} \mathtt{B}\\ \mathtt{C} \end{bmatrix}
+    \begin{bmatrix} \mathtt{B}^\top &amp; \mathtt{C}^\top \end{bmatrix}
+    \mathbf{X}_i\\
+ &amp;= \begin{bmatrix} \mathbf{V}_1 &amp; \mathbf{V}_2 \end{bmatrix}
+    \begin{bmatrix} \mathbf{V}_1^\top\\ \mathbf{V}_2^\top \end{bmatrix}
+    \mathbf{X}_i\\
+ &amp;= \left( \sum_{i = 1}^2 \mathbf{V}_i \mathbf{V}_i^\top \right)
+    \mathbf{X}_i.\end{split}\]</div>
+<div class="section" id="(e.1)">
+<h4>(e.1)<a class="headerlink" href="#(e.1)" title="Permalink to this headline">¶</a></h4>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{\delta}_{\mathbf{X}_i}
+ &amp;= -\mathtt{J}^\top
+    \left( \mathtt{J} \mathtt{J}^\top \right)^{-1}
+    \boldsymbol{\epsilon}_i
+    &amp; \quad &amp; \text{(4.11)}\\
+ &amp;= -\begin{bmatrix} \mathtt{H}_{2 \times 2}\\ -\mathtt{I} \end{bmatrix}
+    \left(
+      \mathtt{I} + \mathtt{H}_{2 \times 2} \mathtt{H}_{2 \times 2}^\top
+    \right)^{-1}
+    \begin{bmatrix} \mathtt{H}_{2 \times 2} &amp; -\mathtt{I} \end{bmatrix}
+    \mathbf{X}_i\\
+ &amp;= -\begin{bmatrix}
+      \mathtt{H}_{2 \times 2}^\top (\bullet) \mathtt{H}_{2 \times 2} &amp;
+        -\mathtt{H}_{2 \times 2}^\top (\bullet)\\
+      -(\bullet) \mathtt{H}_{2 \times 2}^\top &amp; (\bullet)
+    \end{bmatrix} \mathbf{X}_i
+    &amp; \quad &amp; \text{(e.2) and } \bullet =
+                                \mathtt{I} - \mathtt{C} \mathtt{C}^\top\\
+ &amp;= \left(
+      \begin{bmatrix}
+        \mathtt{B} \mathtt{B}^\top &amp; \mathtt{B} \mathtt{C}^\top\\
+        \mathtt{C} \mathtt{B}^\top &amp; \mathtt{C} \mathtt{C}^\top
+      \end{bmatrix} -
+      \mathtt{I}
+    \right) \mathbf{X}_i
+    &amp; \quad &amp; \text{(e.3), (e.4), (e.5), and (e.6)}\end{split}\]</div>
+</div>
+<div class="section" id="(e.2)">
+<h4>(e.2)<a class="headerlink" href="#(e.2)" title="Permalink to this headline">¶</a></h4>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left(
+  \mathtt{I} + \mathtt{H}_{2 \times 2} \mathtt{H}_{2 \times 2}^\top
+\right)^{-1}
+ &amp;= \mathtt{I} -
+    \mathtt{H}_{2 \times 2} \left(
+      \mathtt{I} + \mathtt{H}_{2 \times 2}^\top \mathtt{H}_{2 \times 2}
+    \right)^{-1} \mathtt{H}_{2 \times 2}^\top
+    &amp; \quad &amp; \text{Woodbury matrix identity}\\
+ &amp;= \mathtt{I} -
+    \mathtt{H}_{2 \times 2}
+      \mathtt{B} \mathtt{B}^\top \mathtt{H}_{2 \times 2}^\top
+    &amp; \quad &amp; \text{(e.3)}\\
+ &amp;= \mathtt{I} - \mathtt{C} \mathtt{C}^\top
+    &amp; \quad &amp; \mathtt{H}_{2 \times 2} = \mathtt{C} \mathtt{B}^{-1}\end{split}\]</div>
+</div>
+<div class="section" id="(e.3)">
+<h4>(e.3)<a class="headerlink" href="#(e.3)" title="Permalink to this headline">¶</a></h4>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathtt{I}
+ &amp;= \begin{bmatrix} \mathbf{V}_1^\top\\ \mathbf{V}_2^\top \end{bmatrix}
+    \begin{bmatrix} \mathbf{V}_1 &amp; \mathbf{V}_2 \end{bmatrix}\\
+ &amp;= \begin{bmatrix} \mathtt{B}^\top &amp; \mathtt{C}^\top \end{bmatrix}
+    \begin{bmatrix} \mathtt{B}\\ \mathtt{C} \end{bmatrix}\\
+ &amp;= \mathtt{B}^\top \mathtt{B} + \mathtt{C}^\top \mathtt{C}\\
+\mathtt{B}^{-\top} \mathtt{B}^{-1}
+ &amp;= \mathtt{I} +
+    \mathtt{B}^{-\top} \mathtt{C}^\top \mathtt{C} \mathtt{B}^{-1}\\
+ &amp;= \mathtt{I} + \mathtt{H}_{2 \times 2}^\top \mathtt{H}_{2 \times 2}\end{split}\]</div>
+</div>
+<div class="section" id="(e.4)">
+<h4>(e.4)<a class="headerlink" href="#(e.4)" title="Permalink to this headline">¶</a></h4>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathtt{H}_{2 \times 2}^\top (\bullet) \mathtt{H}_{2 \times 2}
+ &amp;= \mathtt{B}^{-\top} \mathtt{C}^\top
+    \left( \mathtt{I} - \mathtt{C} \mathtt{C}^\top \right)
+    \mathtt{C} \mathtt{B}^{-1}
+    &amp; \quad &amp; \text{(e.2)}\\
+ &amp;= \mathtt{B}^{-\top} \mathtt{C}^\top \mathtt{C} \mathtt{B}^\top
+    &amp; \quad &amp; \mathtt{B}^{-\top} \mathtt{C}^\top \mathtt{C}
+                \mathtt{I} \mathtt{B}^{-1} =
+              \mathtt{B}^{-\top} \mathtt{C}^\top \mathtt{C}
+                \mathtt{B}^\top \mathtt{B} \mathtt{B}^{-1} +
+              \mathtt{B}^{-\top} \mathtt{C}^\top \mathtt{C}
+                \mathtt{C}^\top \mathtt{C} \mathtt{B}^{-1}\\
+ &amp;= \mathtt{I} - \mathtt{B} \mathtt{B}^\top
+    &amp; \quad &amp; \mathtt{B}^{-\top} \mathtt{I} \mathtt{B}^\top =
+              \mathtt{B}^{-\top} \mathtt{B}^\top \mathtt{B} \mathtt{B}^\top +
+              \mathtt{B}^{-\top} \mathtt{C}^\top \mathtt{C} \mathtt{B}^\top\end{split}\]</div>
+</div>
+<div class="section" id="(e.5)">
+<h4>(e.5)<a class="headerlink" href="#(e.5)" title="Permalink to this headline">¶</a></h4>
+<div class="math notranslate nohighlight">
+\[\begin{split}-\mathtt{H}_{2 \times 2}^\top (\bullet)
+ &amp;= -\mathtt{B}^{-\top} \mathtt{C}^\top
+    \left( \mathtt{I} - \mathtt{C} \mathtt{C}^\top \right)
+    &amp; \quad &amp; \text{(e.2)}\\
+ &amp;= -\mathtt{B} \mathtt{C}^\top
+    &amp; \quad &amp; \mathtt{B}^{-\top} \mathtt{I} \mathtt{C}^{\top} =
+              \mathtt{B}^{-\top} \mathtt{B}^\top
+                \mathtt{B} \mathtt{C}^{\top} +
+              \mathtt{B}^{-\top} \mathtt{C}^\top
+                \mathtt{C} \mathtt{C}^{\top}\end{split}\]</div>
+</div>
+<div class="section" id="(e.6)">
+<h4>(e.6)<a class="headerlink" href="#(e.6)" title="Permalink to this headline">¶</a></h4>
+<div class="math notranslate nohighlight">
+\[\begin{split}-(\bullet) \mathtt{H}_{2 \times 2}^\top
+ &amp;= -\left( \mathtt{I} - \mathtt{C} \mathtt{C}^\top \right)
+    \mathtt{C} \mathtt{B}^{-1}
+    &amp; \quad &amp; \text{(e.2)}\\
+ &amp;= -\mathtt{C} \mathtt{B}^\top
+    &amp; \quad &amp; \mathtt{C} \mathtt{I} \mathtt{B}^{-1} =
+              \mathtt{C} \mathtt{B}^\top \mathtt{B} \mathtt{B}^{-1} +
+              \mathtt{C} \mathtt{C}^\top \mathtt{C} \mathtt{B}^{-1}\end{split}\]</div>
+</div>
+</div>
+</div>
+<div class="section" id="(ix)-Computing-Homographies-of-\mathbb{P}^3-from-Line-Correspondences">
+<h2>(ix) Computing Homographies of <span class="math notranslate nohighlight">\(\mathbb{P}^3\)</span> from Line Correspondences<a class="headerlink" href="#(ix)-Computing-Homographies-of-\mathbb{P}^3-from-Line-Correspondences" title="Permalink to this headline">¶</a></h2>
+<p>Invariants are measurements that remain fixed under collineations.  The book
+incorrectly references <a class="bibtex reference internal" href="#hartley1994projective" id="id7">[Har94]</a> instead of
+<a class="bibtex reference internal" href="#hartley1993invariants" id="id8">[Har93]</a> for the discussion of isotropy subgroups.
+<a class="bibtex reference internal" href="#hartley1993invariants" id="id9">[Har93]</a> considers invariants that can be derived from two
+views of an object.  The alternative is to consider constrained sets of points
+(e.g. solids of revolution) because no invariants of arbitrary point sets in
+3-dimensions may be computed from a single image.</p>
+<p>The invariants of lines in space can not be computed from two views of lines
+only.  Given two images of a line and two arbitrary cameras, there is always a
+line in space that corresponds to the two images.  Unless the epipolar geometry
+of the two views is known, two images of an unknown line do not in any way
+constrain the cameras.</p>
+<p>Given four lines in <span class="math notranslate nohighlight">\(\mathcal{P}^3\)</span> in general positions, there exist
+exactly two transverse lines that meet all four of these lines.  The cross ratio
+of the points of intersection of lines with each of the transverse lines give
+two independent projective invariants of the set of four lines.  One algebraic
+way of defining the invariants of four lines is as a homogeneous vector</p>
+<div class="math notranslate nohighlight">
+\[I(\lambda_1, \lambda_2, \lambda_3, \lambda_4) =
+\left(
+  \left\vert \lambda_1 \lambda_2 \right\vert,
+  \left\vert \lambda_3 \lambda_4 \right\vert,
+  \left\vert \lambda_1 \lambda_3 \right\vert,
+  \left\vert \lambda_2 \lambda_4 \right\vert,
+  \left\vert \lambda_1 \lambda_4 \right\vert,
+  \left\vert \lambda_2 \lambda_3 \right\vert
+\right)
+\quad \text{where} \quad
+\left\vert \lambda_i \lambda_j \right\vert =
+\det\left( \begin{bmatrix} \lambda_i &amp; \lambda_j \end{bmatrix} \right).\]</div>
+<p>Two such computed invariants are deemed equal if they differ by a scalar factor.
+One application of this formulation is
+<span class="math notranslate nohighlight">\(\text{Pl}\mathrm{\ddot{u}}\text{cker}\)</span>
+<a class="reference internal" href="chapter-03.html"><span class="doc">line coordinates</span></a> (3.13).</p>
+<p><span class="math notranslate nohighlight">\(\left\vert \lambda_i \lambda_j \right\vert\)</span> will vanish if and only if
+the four points involved are coplanar i.e. when the two lines are coincident.
+The proposed definition of the invariant avoids the (near-)vanishing denominator
+problems of cross ratios.  However, if three of the determinants vanish, then
+the invariant is undefined. This occurs when</p>
+<ol class="arabic simple">
+<li><p>Three of the lines lie in a plane.</p></li>
+<li><p>One of the lines meets all the other three.</p></li>
+</ol>
+<p>The configuration where one line meets two of the other lines is not degenerate,
+but is not useful because two of the determinants vanish.  Any two such
+configurations cannot be distinguished and are equivalent under collineation.</p>
+<p>A configuration of four lines in <span class="math notranslate nohighlight">\(\mathbb{P}^3\)</span> is degenerate because
+there is a one-parameter subgroup of projectivities fixing the four lines.  This
+reduces the number of degrees of freedom of the projectivities of
+<span class="math notranslate nohighlight">\(\mathbb{P}^3\)</span> on sets of four lines in space to 14, which explains why
+there are two independent invariants (result 2.16).</p>
+<p>There is no natural or canonical way to fix the coordinate system by specifying
+line coordinates.  To fix a basis using lines will lead to the use of a maximum
+of three lines which have in total <span class="math notranslate nohighlight">\(3 \times 4 = 12\)</span> degrees of freedom.
+The other degrees of freedom must be determined by the cameras or another point.
+<a class="bibtex reference internal" href="#oskarsson2004minimal" id="id10">[OZAAstrom04]</a> observed that a well-defined parameterization of
+structure and motion problems must satisfy</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{\pi}_i^\top \mathtt{H} \mathbf{X}_j = 0
+\qquad
+i = 1, 2; j = 1, 2\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathtt{H}\)</span> transfers a line defined by the two points
+<span class="math notranslate nohighlight">\((\mathbf{X}_1\)</span>, <span class="math notranslate nohighlight">\(\mathbf{X}_2)\)</span> to a line defined by the
+intersection of the two planes
+<span class="math notranslate nohighlight">\((\boldsymbol{\pi}_1\)</span>, <span class="math notranslate nohighlight">\(\boldsymbol{\pi}_2)\)</span>.</p>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-nb/multiple-view-geometry-hz/chapter-04-0"><dl class="citation">
+<dt class="bibtex label" id="hartley1993invariants"><span class="brackets">Har93</span><span class="fn-backref">(<a href="#id8">1</a>,<a href="#id9">2</a>)</span></dt>
+<dd><p>R Hartley. Invariants of lines in space. In <em>Proc. DARPA Image Understanding Workshop</em>, 737–744. 1993.</p>
+</dd>
+<dt class="bibtex label" id="hartley1994projective"><span class="brackets"><a class="fn-backref" href="#id7">Har94</a></span></dt>
+<dd><p>Richard I Hartley. Projective reconstruction and invariants from multiple images. <em>IEEE Transactions on Pattern Analysis and Machine Intelligence</em>, 16(10):1036–1041, 1994.</p>
+</dd>
+<dt class="bibtex label" id="oskarsson2004minimal"><span class="brackets"><a class="fn-backref" href="#id10">OZAAstrom04</a></span></dt>
+<dd><p>Magnus Oskarsson, Andrew Zisserman, and Kalle Åström. Minimal projective reconstruction for combinations of points and lines in three views. <em>Image and Vision Computing</em>, 22(10):777–785, 2004.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/nb/multiple-view-geometry-hz/chapter-04.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

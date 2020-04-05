@@ -1,0 +1,10 @@
+##############################################################################################
+The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz
+##############################################################################################
+
+.. include:: /_templates/toctree-nb-complete-musician-laitz
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

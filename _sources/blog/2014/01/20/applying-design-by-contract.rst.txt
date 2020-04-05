@@ -1,0 +1,152 @@
+#############################
+Applying "Design by Contract"
+#############################
+
+Motivation(s)
+=============
+
+Despite the quick adoption of OOD, there has been few contributions toward a
+methodology of reliable OO software construction.  Defensive programming is the
+most emphasized technique to improve software reliability at the cost of
+redundant checking and unnecessary complexity.
+
+Proposed Solution(s)
+====================
+
+The author proposes a methodological way to use assertions, subcontracts, and
+exception handling.
+
+Evaluation(s)
+=============
+
+The technique was applied to several generic scenarios and were soundly
+analyzed.  An outstanding problem is the use of design by contract in parallel
+computation.
+
+Future Direction(s)
+===================
+
+- In parallel architectures, would design by contract be reduced to event
+  logging?
+- :cite:`bocchi2010theory` proposed a distributed version of design by contract,
+  but wouldn't a DbC version at the service level be satisfactory?
+
+Question(s)
+===========
+
+- Why is there no mention of Parnas' works at all?
+- It seems that the rescue clause is very similar to try-catch-finally
+  construct?
+- How come invariants can only be applied to classes?  Shouldn't it be
+  applicable to any computation that carries state?
+
+Analysis
+========
+
+Effective use of assertions, subcontracts, and exception handling on top of the
+:doc:`system decomposition </blog/2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules>`
+is necessary for maintainable and reliable software.
+
+Notes
+=====
+
+Assertions
+----------
+
+- A mechanism to express the relationship between the client (caller) and the
+  supplier (callee).
+- Describes expected (not special) cases that needs special treatment
+  (see Figure 3).
+- Types
+
+  - Precondition/Require
+
+    (i) Expresses requirements that any call must satisfy if it is to be
+        correct.
+    (#) Violation indicates a bug in the client (caller) i.e. the caller did not
+        observe the conditions imposed on correct calls.
+
+  - Postcondition/Ensure
+
+    (i) Expresses properties that are ensured when the call finishes execution.
+    (#) Violation indicates a bug in the supplier (callee) i.e. the callee
+        failed to deliver on its promises.
+
+  - Invariants
+
+    (i) Only feasible with OO design.
+    (#) A property that applies to all instances of the class.
+    (#) Must be satisfied after the creation of every instance of the class.
+    (#) Must be preserved by every routine available to clients.
+
+Software Contracts
+------------------
+
+- Opposite Idea of Defensive Programming
+
+  - A function either asserts a precondition or checks it manually in the
+    routine (e.g. if-statement), but never both.
+
+- Who should perform the checks?
+
+  - Optimize for overall architecture simplicity.
+  - Making the client handle the checks can be quite successful.
+
+    (i) Clients do not have to necessarily perform any checks if they can
+        guarantee the preconditions.
+    (#) Each client has a more global view than the routine in terms of how to
+        handle violations of preconditions.
+
+  - Should many clients have the same special treatment for violating the
+    preconditions, the callee's contract should be relaxed to include the
+    special treatment as part of the specification.
+
+Inheritance
+-----------
+
+- Redeclaration Types
+
+  (i) Redefinition assumes the abstract feature already had an implementation
+      and changes the specification and/or implementation to handle specific
+      cases.
+  (#) Effecting applies to features for which the abstract feature had no
+      implementation and only specification.
+
+- Redeclaration is not a way to turn a routine into something completely
+  different i.e. set of (inherited) assertions cannot contradict.
+- Subcontracting: redeclaration -> polymorphism and dynamic binding.
+
+  - The new set of preconditions must be guaranteed to be weaker than or equal
+    to the original set.
+  - The new set of postconditions must be guaranteed to be stronger than or
+    equal to the original set.
+  - The invariant of a class is always stronger than or equal to the invariants
+    of each of its parents.
+
+Dealing with Abnormal Situations
+--------------------------------
+
+- Failure is the basic concept, and exception is a derived notion.
+- An exception occurs when a certain strategy for fulfilling a routine's
+  contract has not succeeded.
+- Possible Responses
+
+  (i) Resumption reverts to the previous consistent state and tries again using
+      a different strategy.
+  (#) Organized panic reverts to the previous consistent state and report
+      failure to the caller.
+  (#) False alarm (applicable to OS and hardware signals) performs some
+      corrective actions before continuing execution.
+
+- Do versus Rescue Execution
+
+  - A module's implementation assumes that the preconditions are satisfied,
+    preserves the class invariant, and ensures that the postconditions are
+    satisfied.
+  - Exception handling mechanism has no preconditions and needs to restore the
+    invariants, but it does not have to worry about postconditions.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

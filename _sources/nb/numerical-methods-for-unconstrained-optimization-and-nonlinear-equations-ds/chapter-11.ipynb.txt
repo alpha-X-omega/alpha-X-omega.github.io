@@ -1,0 +1,393 @@
+{
+ "cells": [
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "*******************************************\n",
+    "Methods for Problems with Special Structure\n",
+    "*******************************************\n",
+    "\n",
+    "Sparse Secant Methods\n",
+    "=====================\n",
+    "\n",
+    "- Sparse symmetric secant updates do not necessarily preserve positive\n",
+    "  definiteness.\n",
+    "\n",
+    "  - Experiments with these updates did not yield good results.\n",
+    "\n",
+    "- Feasible solutions are either the finite-difference technique of Section\n",
+    "  11.1 or conjugate gradient.\n",
+    "\n",
+    "  - Conjugate gradient are inefficient for small problems, but have proven to\n",
+    "    be a leading contender for large problems."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 1\n",
+    "==========\n",
+    "\n",
+    "From definition :math:`4.1.7`, :math:`J(x) = F'(x) \\in \\mathbb{R}^{n \\times n}`\n",
+    "because :math:`F \\colon \\mathbb{R}^n \\rightarrow \\mathbb{R}^n`.\n",
+    "\n",
+    "For a banded matrix,\n",
+    ":math:`J(x)_{ij} = F'(x)_{ij} = \\frac{\\partial f_i}{\\partial x_j}(x) = 0` if\n",
+    ":math:`\\left\\vert i - j \\right\\vert > m` and\n",
+    ":math:`m < \\lfloor \\frac{n}{2} \\rfloor`.\n",
+    "\n",
+    "As shown in (4.2.1), evaluating a finite difference along parameter\n",
+    ":math:`j`'s dimension (:math:`h_j e_j`) is equivalent to approximating the\n",
+    ":math:`j\\text{th}` column of :math:`J(x)`.\n",
+    "\n",
+    "Generalizing the technique in Section 11.1 gives\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\{ j \\mid j = k \\bmod (1 + 2m) \\},\n",
+    "\n",
+    "which means :math:`(1 + 2m)` additional evaluations of :math:`F(x)` are required\n",
+    "at each iteration to approximate :math:`J(x)`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "def printSparseMatrix(n, m):\n",
+    "    m = min(m, n / 2)\n",
+    "    for i in range(n):\n",
+    "        for j in range(n):\n",
+    "            if abs(i - j) > m:\n",
+    "                print(' 0', end='')\n",
+    "            else:\n",
+    "                print(' 1', end='')\n",
+    "        print('\\n')\n",
+    "\n",
+    "printSparseMatrix(8, 3)"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 2\n",
+    "==========\n",
+    "\n",
+    ":math:`\\Gamma = \\varnothing` when :math:`J(x)` is not symmetric because each\n",
+    "column will have at least two non-zero elements.  Thus this technique will\n",
+    "require the full five evaluations of :math:`F(x)` in addition to :math:`F(x_c)`\n",
+    "to approximate :math:`J(x)`.\n",
+    "\n",
+    "When :math:`J(x)` is symmetric, :math:`F(x_c + h_5 e_5)` could be evaluated to\n",
+    "indirectly approximate the bottom row of :math:`J(x)`.  The left four columns of\n",
+    ":math:`J(x)` can be evaluated simultaneously using\n",
+    ":math:`w = F(x_c + \\sum_{j = 1}^4 h_j e_j)` while ignoring the result `w_5`."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 3\n",
+    "==========\n",
+    "\n",
+    "Let :math:`A_{i.}, B_{i.} \\in \\mathbb{R}^n` denote the :math:`i\\text{th}` row of\n",
+    "each matrix and :math:`\\mathrm{b_i} = B_{i.}` be defined by (11.2.6).  This\n",
+    "minimization problem is (11.2.4) with one fewer constraint:\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\left\\Vert B - A \\right\\Vert_F^2\n",
+    "    &= \\sum_{i = 1}^n \\left\\Vert B_{i.} - A_{i.} \\right\\Vert_2^2\\\\\n",
+    "    &= \\sum_{i = 1}^n \\sum_{j = 1}^n (\\mathrm{b_i}_j - A_{ij})^2\\\\\n",
+    "    &= \\sum_{i = 1}^n \\left(\n",
+    "         \\sum_{k \\in \\mathcal{Z}_{i1}} (\\mathrm{b_i}_k - A_{ik})^2 +\n",
+    "         \\sum_{l \\in \\mathcal{Z}_{i0}} A_{il}^2\n",
+    "       \\right)\n",
+    "\n",
+    "where :math:`\\mathcal{Z}_{i1} = \\{ j \\mid Z_{ij} = 1 \\}` and\n",
+    ":math:`\\mathcal{Z}_{i0} = \\{ j \\mid Z_{ij} = 0 \\}`.  By inspection, this is\n",
+    "minimized when :math:`B = P_Z(A)`."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 4\n",
+    "==========\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\left\\Vert A_{+_{i.}} - A_{i.} \\right\\Vert_2\n",
+    "    &= \\left\\Vert\n",
+    "         (\\mathrm{s_i}^\\top \\mathrm{s_i})^+ (y - As)_i \\mathrm{s_i}^\\top\n",
+    "       \\right\\Vert_2\n",
+    "       & \\quad & \\text{(11.2.9)}\\\\\n",
+    "    &= \\left\\Vert (y - As)_i \\right\\Vert_2\n",
+    "       \\left\\Vert\n",
+    "         (\\mathrm{s_i}^\\top \\mathrm{s_i})^+ \\mathrm{s_i}\n",
+    "       \\right\\Vert_2\n",
+    "       & \\quad & \\text{(3.1.17)}\\\\\n",
+    "    &= \\left\\Vert (B_{i.} - A_{i.})^\\top \\mathrm{s_i} \\right\\Vert_2\n",
+    "       \\left\\Vert\n",
+    "         (\\mathrm{s_i}^\\top \\mathrm{s_i})^+ \\mathrm{s_i}\n",
+    "       \\right\\Vert_2\n",
+    "       & \\quad & \\text{(11.2.8)}\\\\\n",
+    "    &\\leq \\left\\Vert (B_{i.} - A_{i.}) \\right\\Vert_2\n",
+    "          \\left\\Vert \\mathrm{s_i} \\right\\Vert_2\n",
+    "          \\left\\Vert\n",
+    "            (\\mathrm{s_i}^\\top \\mathrm{s_i})^+ \\mathrm{s_i}\n",
+    "          \\right\\Vert_2\n",
+    "          & \\quad & \\text{Cauchy-Schwarz inequality}\\\\\n",
+    "    &= \\left\\Vert (B_{i.} - A_{i.}) \\right\\Vert_2\n",
+    "       (\\mathrm{s_i}^\\top \\mathrm{s_i})^+\n",
+    "       \\left\\Vert \\mathrm{s_i} \\right\\Vert_2^2\n",
+    "       & \\quad & \\text{(3.1.1b)}\\\\\n",
+    "    &= \\left\\Vert (B_{i.} - A_{i.}) \\right\\Vert_2\n",
+    "       & \\quad & \\text{(3.6.6)}"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 5\n",
+    "==========\n",
+    "\n",
+    "Notice that applying lemma 4.1.9 yields\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   y = F(x_+) - F(x) = F(x + s) - F(x) = \\int_0^1 J(x + ts) s dt.\n",
+    "\n",
+    "A component-by-component application of (4.1.2) (see\n",
+    ":ref:`Exercise 4.4 <dennis1996numerical-ex-4.4>`) reveals\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   y_i =\n",
+    "   F(x_+)_i - F(x)_i =\n",
+    "   F(x + s)_i - F(x)_i =\n",
+    "   \\int_0^1 \\nabla f_i(x + ts)^\\top \\mathrm{s_i} dt\n",
+    "\n",
+    "where :math:`\\mathrm{s_i}` denotes the result of imposing on :math:`s` on the\n",
+    "sparsity pattern of the :math:`i\\text{th}` row of\n",
+    ":math:`F'(x) = J(x) \\in SP(Z)`.  When :math:`\\mathrm{s_i} = 0`, the entire\n",
+    "integral evaluates to :math:`0 = y_i`."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 6\n",
+    "=========="
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "import numpy\n",
+    "\n",
+    "n = 5\n",
+    "A = numpy.zeros((n, n))\n",
+    "for i in range(n):\n",
+    "    for j in range(n):\n",
+    "        v = 4\n",
+    "        _ = abs(i - j)\n",
+    "        if _ == 1:\n",
+    "            v = 1\n",
+    "        elif _ > 1:\n",
+    "            v = 0\n",
+    "        A[i,j] = v\n",
+    "\n",
+    "print(A)\n",
+    "print(numpy.linalg.inv(A))"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 7\n",
+    "==========\n",
+    "\n",
+    "The Thomas algorithm can be used to solve the tridiagonal system of :math:`n`\n",
+    "unknowns, but it's not stable in general.  Since :math:`A` is symmetric positive\n",
+    "definite, another approach is to rewrite :math:`A = LL^\\top` (Cholesky\n",
+    "decomposition) and compute the resulting quantities :cite:`bar1997fast`."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 8\n",
+    "==========\n",
+    "\n",
+    "Let :math:`f(x) = \\rho(R(x))` where\n",
+    ":math:`R \\colon \\mathbb{R}^n \\rightarrow \\mathbb{R}^m` and\n",
+    ":math:`\\rho \\colon \\mathbb{R}^m \\rightarrow \\mathbb{R}`.\n",
+    "\n",
+    "Only :math:`\\nabla \\rho(R(x))` was derived because the derivation for\n",
+    ":math:`\\nabla^2 \\rho(R(x))` is essentially\n",
+    ":ref:`Exercise 6.17 <dennis1996numerical-ex-6.17>` and\n",
+    ":ref:`Exercise 6.18 <dennis1996numerical-ex-6.18>`.  See (11.3.4) for a more\n",
+    "generalized derivation.\n",
+    "\n",
+    "(a)\n",
+    "---\n",
+    "\n",
+    "Recall that :math:`\\lvert x \\rvert = \\sqrt{x^2}` and\n",
+    ":math:`\\frac{d}{dx} \\lvert x \\rvert = \\frac{d}{dx} \\sqrt{x^2} =\n",
+    "\\frac{x}{\\lvert x \\rvert}`.\n",
+    "\n",
+    "Let :math:`\\rho(z) = \\sum_{i = 1}^m \\rho_1(z_i)` where :math:`\\rho_1` is defined\n",
+    "as (10.4.4).  Applying definition 4.1.1 with the chain rule yields\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\nabla \\rho(z = R(x)) &= \\frac{d}{dx} \\sum_{i = 1}^m \\rho_1(z_i)\\\\\n",
+    "    &= \\sum_{i = 1}^m\n",
+    "         \\begin{bmatrix}\n",
+    "           \\frac{\\partial}{\\partial x_1} \\rho_1(z_i)\\\\\n",
+    "           \\vdots\\\\\n",
+    "           \\frac{\\partial}{\\partial x_n} \\rho_1(z_i)\\\\\n",
+    "         \\end{bmatrix}\\\\\n",
+    "    &= \\sum_{i = 1}^m\n",
+    "         \\rho_1'(z_i)\n",
+    "         \\begin{bmatrix}\n",
+    "           \\frac{\\partial z_i}{\\partial x_1}\\\\\n",
+    "           \\vdots\\\\\n",
+    "           \\frac{\\partial z_i}{\\partial x_n}\\\\\n",
+    "         \\end{bmatrix}\n",
+    "       & \\quad & \\text{(a.1)}\\\\\n",
+    "    &= \\sum_{i = 1}^m \\rho_1'(z_i) \\nabla z_i.\n",
+    "\n",
+    "(a.1)\n",
+    "^^^^^\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\frac{\\partial}{\\partial x_j} \\rho_1(z_i)\n",
+    "    &= \\begin{cases}\n",
+    "         \\frac{\\partial}{\\partial x_j} \\frac{z_i^2}{2}, &\n",
+    "             \\text{$|z_i| \\leq k$},\\\\\n",
+    "         \\frac{\\partial}{\\partial x_j} \\left( k |z_i| - \\frac{k^2}{2} \\right), &\n",
+    "             \\text{$|z_i| > k$}.\n",
+    "       \\end{cases}\\\\\n",
+    "    &= \\begin{cases}\n",
+    "         z_i \\frac{\\partial z_i}{\\partial x_j}, & \\text{$|z_i| \\leq k$},\\\\\n",
+    "         k \\frac{z_i}{|z_i|} \\frac{\\partial z_i}{\\partial x_j}, &\n",
+    "             \\text{$|z_i| > k$}.\n",
+    "       \\end{cases}\n",
+    "       & \\quad & \\frac{\\partial}{\\partial x_j} =\n",
+    "                 \\frac{\\partial}{\\partial z_i}\n",
+    "                 \\frac{\\partial z_i}{\\partial x_j}\\\\\n",
+    "    &= \\rho_1'(z_i) \\frac{\\partial z_i}{\\partial x_j}\n",
+    "\n",
+    "(b)\n",
+    "---\n",
+    "\n",
+    "Let :math:`\\rho(z) = \\sum_{i = 1}^m \\rho_2(z_i)` where :math:`\\rho_2` is defined\n",
+    "as (10.4.5).  Applying definition 4.1.1 with the chain rule yields\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\nabla \\rho(z = R(x)) &= \\frac{d}{dx} \\sum_{i = 1}^m \\rho_2(z_i)\\\\\n",
+    "    &= \\sum_{i = 1}^m\n",
+    "         \\rho_2'(z_i) \\nabla z_i\n",
+    "       & \\quad & \\text{(a) and (b.1)}\n",
+    "\n",
+    "(b.1)\n",
+    "^^^^^\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\frac{\\partial}{\\partial x_j} \\rho_2(z_i)\n",
+    "    &= \\begin{cases}\n",
+    "         \\frac{\\partial}{\\partial x_j} \\frac{k^2}{6}\n",
+    "             \\left(\n",
+    "               1 - \\left( 1 - \\left( \\frac{z_i}{k} \\right)^2 \\right)^3\n",
+    "             \\right), & \\text{$|z_i| \\leq k$},\\\\\n",
+    "         \\frac{\\partial}{\\partial x_j} \\frac{k^2}{6}, & \\text{$|z_i| > k$}.\n",
+    "       \\end{cases}\\\\\n",
+    "    &= \\begin{cases}\n",
+    "         z_i \\left( 1 - \\left( \\frac{z_i}{k} \\right)^2 \\right)^2\n",
+    "             \\frac{\\partial z_i}{\\partial x_j}, & \\text{$|z_i| \\leq k$},\\\\\n",
+    "         0, & \\text{$|z_i| > k$}.\n",
+    "       \\end{cases}\n",
+    "       & \\quad & \\frac{\\partial}{\\partial x_j} =\n",
+    "                 \\frac{\\partial}{\\partial z_i}\n",
+    "                 \\frac{\\partial z_i}{\\partial x_j}\\\\\n",
+    "    &= \\rho_2'(z_i) \\frac{\\partial z_i}{\\partial x_j}"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    ".. rubric:: References\n",
+    "\n",
+    ".. bibliography:: chapter-11.bib"
+   ]
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "celltoolbar": "Raw Cell Format",
+  "kernelspec": {
+   "display_name": "Python [default]",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.5.2"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}

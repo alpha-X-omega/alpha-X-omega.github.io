@@ -1,0 +1,118 @@
+####################################
+When Do Stop-Loss Rules Stop Losses?
+####################################
+
+Motivation(s)
+=============
+
+The stopping premium characterizes the marginal impact of stop-loss rules on any
+given portfolio's expected return.  Under a random walk model, returns are
+unforecastable, so stop-loss rules force the portfolio out of higher-yielding
+assets on occasion.  Hence stop-loss rules never stop losses in this market,
+which is why financial planners recommend buy-and-hold lifecycle funds.
+
+However, passive investors often behave irrationally during market swings
+resulting in selling at the low and buying at the high.  These behavioral
+patterns have been studied previously in the context of stop-loss rules, albeit
+the overall literature is rather limited despite the popularity of stop-loss
+orders.
+
+Proposed Solution(s)
+====================
+
+The authors propose a simple stop-loss heuristic that is not derived from any
+optimization problem.  The goal is a systematic analysis of the impact of a
+stop-loss rule on an existing investment policy.  This idea of overlaying one
+set of heuristics on top of an existing portfolio strategy have recently grabbed
+the interest of institutional investors (e.g. portable alpha strategies).
+
+The heuristic assumes the returns :math:`\{ r_t \}` for the portfolio strategy
+:math:`P` are stationary with finite mean :math:`\mu` and variance
+:math:`\sigma^2`.  The expected return :math:`\mu` of :math:`P` is greater than
+the risk-free rate :math:`r_f`; :math:`\mu - r_f \equiv \pi` denotes the risk
+premium of :math:`P`.  See the paper for the intuitive derivations of the
+stop-loss policy, stopping premium, stopping ratio, and variance difference of
+a stopping strategy.
+
+Evaluation(s)
+=============
+
+The authors analyze the proposed heuristic under different return-generating
+processes using an autoregressive model of order one.  Note that the proposed
+policy focuses solely on binary asset allocation.
+
+Under the Random Walk Hypothesis, the heuristic will always reduce the
+portfolio's returns.  The derivations show that the only effect of a stop-loss
+policy in this market is to replace the portfolio strategy :math:`P` with the
+risk-free asset when the strategy is stopped out, thereby reducing the expected
+return by the risk premium of :math:`P`.
+
+When the underlying process exhibits mean-reversion, the stop-loss policy hurts
+expected returns to a first-order approximation.  This is consistent with the
+intuition that mean-reversion strategies benefit from reversals, and thus a
+stop-loss policy that switches out of the portfolio after certain cumulative
+losses will miss the reversal and lower the expected return of the portfolio.
+
+Markets with momentum may yield positive stopping premium.  This is also
+consistent with the intuition that in the presence of momentum, losses are
+likely to persist; therefore, switching to the risk-free asset after certain
+cumulative losses can be more profitable than staying fully invested.
+
+When the portfolio return follows a two-state Markov regime-switching, the only
+source of potential value-added for the stop-loss policy is if the equity
+investment in the low-mean regime has a lower expected return than the risk-free
+rate.
+
+The authors also tested their heuristic on daily futures prices between 1993 and
+2011.  The IMM S&P futures contract is used for a position in U.S. Equities and
+the 10-year CBT Treasury note futures contract.  The results indicate the
+use of longer term stop-loss strategies might have improved performance
+consistent with how investors use the strategy in practice.  Shorter term, lower
+frequency stop-loss policies have negative stopping premiums over large ranges
+of parameters.  Longer term stop-loss at frequencies above one month perform
+better and can achieve positive stopping premiums.  The decision to exit and the
+stopping threshold seems to have a larger impact on the variation in results
+than the re-entry threshold.
+
+Future Direction(s)
+===================
+
+- What kind of heuristics would deep reinforcement learning learn in the context
+  of stop-loss rules?
+- How to learn the market condition in an unsupervised manner?
+- How does applying this heuristic over
+  :doc:`contrarian </blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction>`
+  or :doc:`momentum strategies </blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations>`
+  affect profits?
+
+Question(s)
+===========
+
+- How often do models with little theoretical insights succeed at backtesting
+  and yield profits?  Note that backtesting includes different market
+  conditions (e.g. momentum, reversal, trending, ranging).
+
+Analysis
+========
+
+The effectiveness of stop-loss rules depends on the market conditions.  When
+there is market momentum, stop-loss heuristics may yield positive gains and
+reduce volatility.
+
+The authors would have a stronger argument if the experiments included stocks
+in addition to futures.  Futures are slowly varying compared to stocks, so
+perhaps the latter will demonstrate stop-loss rules are better than buy-and-hold
+strategies.
+
+One interesting point is the claim that there is now substantial evidence from
+the cognitive sciences literature that losses and gains are processed by
+different components of the brain.  This newfound explanation for market
+irrationality is more amenable to analysis than the
+:doc:`adaptive market hypothesis </blog/2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective>`.
+Overall, the derivations of the heuristic are crystal clear, very intuitive, and
+practical.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

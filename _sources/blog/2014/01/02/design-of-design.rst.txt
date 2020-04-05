@@ -1,0 +1,314 @@
+################
+Design of Design
+################
+
+Rational Model
+==============
+
+- Typical Process
+
+  (1) Goal
+  (#) Desiderata
+  (#) Utility Function
+  (#) Constraints
+  (#) Resource Allocations, Budgets, and Crucial Budgets
+  (#) Design Trees (with attribute and alternative branches)
+
+- The hardest part of design is deciding what to design.
+- A chief service of a designer is helping clients discover what they want
+  designed.
+- We usually don't know the design tree, we discover it as we go.
+
+  - At each node of a design tree, one faces not a simple alternative choice
+    among options for one design decision, but an alternative choice among
+    multiple tentative complete designs.
+
+- The goodness function cannot be evaluated incrementally due to
+  combinatorial explosion.
+
+  - One must trim the design tree as one goes down via experience and
+    estimators.
+
+- The desiderata and their weightings keep changing.
+- The constraints keep changing, which makes the Waterfall Model wrong and
+  harmful.
+- Fighting requirements bloat and creep.
+
+  - Appoint early-on strong, seasoned, domain-knowledgeable managers who can
+    stay with the program through initial systems delivery.
+  - Empower them to tailor standardized processes and procedures as they feel
+    is necessary.
+  - The use of a Requirements Traceability Matrix ensures that each
+    requirement detailed, defined, and laid on is indeed derived from one or
+    more of the initial overall requirements.
+  - The definition of clear key performance parameters by Milestone A and
+    clear requirements by Milestone B that can remain stable through
+    Initial Operational Capacity can be essential to an efficient development
+    phase.
+  - The necessity for contracts best explains the persistence of the Waterfall
+    Model for designing and building complex systems.
+
+The Co-Evolution Model
+======================
+
+- Creative design is not a matter of first fixing the problem and then
+  searching for a satisfactory solution concept.
+- Creative design is a matter of developing and refining together both the
+  formulation of a problem and ideas for a solution, with constant iteration
+  of analysis, synthesis, and evaluation processes between the problem space
+  and the solution space.
+- Although this is a better model than the Rational Model, Fred Brooks does not
+  think it is sufficient.
+- Hickling's Whirligig Model is too complex with its cycles and epicycles.
+
+Raymond's Bazaar Model
+======================
+
+- Raymond argues that the system products produced by the bazaar process are
+  in general technically superior to those produced by the cathedral process.
+
+  (i) The market mechanism selects, in evolutionary fashion, the best-designed
+      modules.
+  (#) Subjecting a new module simultaneously to hundreds of testers smokes
+      out the bugs sooner, yielding a more robust product.
+  (#) Bugs are fixed better because of market selection among fixes.
+
+- When the bazaar will work (according to Brooks).
+
+  (a) The results are not always quite polished or quite debugged; they only
+      have to be good enough for the purpose of the builder.
+  (#) An overall system design already exists.
+  (#) A key to all design processes is the discovery of the users' needs,
+      wants, and criteria.
+
+Boehm's Spiral Model
+====================
+
+- Brooks suggest punctuating the spiral with explicit contracting points,
+  augmented with clear specification of what can be contracted, with what
+  certainties, and with what explicit distribution of risk.
+- Brooks advocate frequent but not continuous interaction with representative
+  users, with successive prototypes as the vehicles.
+- The Rational Model has persisted in practice despite its inadequacies and
+  plenty of cogent critiques because of its seductive logical simplicity, and
+  that builders and clients need contracts.
+
+Costs of Collaboration
+======================
+
+- Partitioning Cost
+- Learning/Teaching Cost
+- Communication Cost during Design
+- A mechanism for change control must be put into place so that each designer
+  makes only those changes that affect only his part, or have been negotiated
+  with the designers of the affected parts.
+
+The Challenge is Conceptual Integrity
+=====================================
+
+- Properties of conceptual integrity: Coherence, Consistency, Uniformity of
+  Style, Orthogonality, Propriety, and Generality.
+
+- How to achieve conceptual integrity with team design?
+
+  - Negotiation among peers is the classic recipe for bloated products.
+
+    - The result is design by committee where none dare say "No" to another's
+      suggestion.
+
+  - Empower a single system architect.
+  - The user interface must be tightly controlled by one mind.
+  - Name the scarce resource explicitly, track it publicly, and control it
+    firmly.
+
+When Collaboration Helps
+========================
+
+- Determining needs and desiderata from stackholders.
+- Brainstorming
+- Competition as an alternative to collaboration, which could lead to
+  unplanned design competitions resulting in product fights.
+- Multidisciplinary design review
+
+When Collaboration Doesn't Work for Design Itself
+=================================================
+
+- Each part of a design has at any time one owner.
+- Some resolution procedure must be in place for settling conflicts.
+- Some version control must be established so that each designs against a
+  single time-stamped version of all the earlier design work.
+- If collaboration tools are designed so they encourage committee design, they
+  will do more harm than good.
+- Even in the conceptual design stage, when conceptual integrity is most
+  imperiled, pairs of designers acting uno amino can be more fruitful than
+  solo designers.
+
+Making Telecollaboration Work
+=============================
+
+- Face-to-face time is crucial.
+- Clean interfaces.
+- Technologies for Telecollaboration: Document, Telephone, Telephone +
+  Shared Document, and Videoconferencing.
+
+Design Perspectives
+===================
+
+- Rationalism vs Empiricism
+- User Models
+
+  - Better wrong than vague.
+  - Write down exactly is known about the user, the user's purposes of use,
+    and the modes of use.
+  - Write down what is assumed (guessed) about the users and the uses.
+
+- Constraints that shrink the designer's search space.
+
+  - Real constraints
+  - Obsolete once-real constraints
+  - Constraints misperceived as real
+  - Intentional artificial constraints
+
+Esthetics and Style in Technical Design
+=======================================
+
+- Structure, Metaphor, Consistency.
+- Orthogonality: Do not link what is independent.
+- Propriety: Do not introduce what is immaterial.
+- Generality: Do not restrict what is inherent.
+
+Exemplars in Design
+===================
+
+- Exemplars provide safe models for new designs, implicit checklists of design
+  tasks, warnings of potential mistakes, and launching pads for radical new
+  designs.
+- Not laziness, but a high level enthusiam and diligence is required for the
+  mastery of the corpus of exemplars available in any design domain.
+- He who seeks to make designs that really work is most apt to come up with
+  new designs of enduring value, almost as a by-product.
+- The desire to be original has degraded many a work.
+
+  1. Study failure examples even more carefully than you study successes.
+  #. Watch yourself after success.  Success stimulates confidence in the
+     design technique, in the design itself, and in oneself.  All may lead to
+     overconfidence.
+  #. Think at the top level about the object you are designing and its
+     assumptions about the environment in which it will be used.  Is a
+     paradigm shift under way?  Will your assumptions still be valid a decade
+     later?  Are you designing the right thing?
+
+Remedies for the Divorce of Design from Use and from Implementation
+===================================================================
+
+- Use-scenario experience
+- Close interaction with users via incremental development and iterative
+  delivery.
+- Designers need to dig more energetically and personally into the actual
+  experiences and processes of implementation.
+- Design curricula simply must include both techniques for and practice at
+  understanding users' needs and desires.
+
+Linearizing the Web of Knowledge
+================================
+
+- Cut edges in the graph until it is a tree to impose a hierarchical order
+  where there was none before, whether that order is wanted or not.
+- Map the tree onto a line in any of the several well-known ways
+  (e.g. depth-first).
+
+Insights into the Design Process
+================================
+
+- Design isn't just to satisfy requirements, but also to uncover requirements.
+- Design isn't simply selecting from alternatives, but also realizing their
+  existence.
+- The tree changes as the design changes, how to represent that evolution?
+
+  - A decision tree with :math:`n` independent binary design questions yields
+    a tree of designs with :math:`2^n` nodes.
+
+- Modular versus Tightly Integrated Designs
+
+  - One may need to trade off quality of the design for speed and ease of the
+    design process itself.
+  - Modular designs are more readily represented as decision trees.
+
+- One sketches in the big units and then proceeds by progressive refinement,
+  adjusting dimensions and adding more details.
+- Progressive truthfulness start with a model that is fully detailed but only
+  resembles what is wanted.  Then one adjusts one attribute after another
+  brining the result ever closer to the mental vision of the new creation, or
+  to the real properties of a real-world object.
+- The dream system starts with a rich library of fine specimens of fully
+  detailed designs.
+
+  - Starting with exemplars that themselves have consistency of style ensures
+    that such consistency is the designer's to lose.
+
+- The true hazards of progresive truthfulness lurk in the library.
+
+  - Shortcomings (e.g. bad models, too few models, too narrow a variety of
+    models) will limit the emerging designs.
+
+Visual Displays - Multiple Concurrent Windows
+=============================================
+
+- The historical limitation of one time-shared window enforced the following
+  unnatural and wasteful behavior:
+
+  1. Study a big spatial chunk for context.
+  #. Zoom in
+  #. Create or manipulate some local portion.
+  #. Zoom out
+  #. Repeat
+
+- Have two big screens showing a context view with a detailed view all the time.
+
+The Workbook View
+=================
+
+- Yet another window concurrently displays the designer's workbook.
+- Designers come to design stations with
+
+  (a) In-progress designs.
+  (#) Action plans they take away.
+  (#) Updated in-progress designs and future action plans.
+  (#) Logs capturing all actions enable automatic backtracking.
+  (#) Notes, ideally dictated so as to leave the hands free to design,
+      documenting what was tried and reasons for rejection, acceptance, etc...
+
+Great Designs come from Great Designers
+=======================================
+
+- Product process is conservative, aiming to bring similar but somewhat
+  different things within one orderly framework.
+
+  (a) Aims at predictability.
+  (#) Encouraging tactics that have worked in the past and discouraging those
+      that have failed.
+  (#) Veto-oriented aimed at blocking bad ideas and catching oversights.
+  (#) Aims to inhibit a confused product line, where one's own products are
+      one's most dealy competitors, and customers don't know what to buy.
+  (#) Demand consensus by many people and the past precedence.
+  (#) Designed for follow-on products.
+
+Capability Maturity Model
+=========================
+
+  We're at Level I [on the Capability Maturity Model] and will always be.
+
+  -- Steve Jobs
+
+How to make a process that encourages great designs?
+====================================================
+
+- The product procedure must explicitly identify the matters of fundamental
+  importance and constrain those and only those.
+- All rules can be broken.
+- Go for conceptual integrity: entrust your design to a chief designer.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

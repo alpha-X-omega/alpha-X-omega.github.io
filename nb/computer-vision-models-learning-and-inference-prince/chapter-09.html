@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Classification Models &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Graphical Models" href="chapter-10.html" />
+    <link rel="prev" title="Regression Models" href="chapter-08.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Classification Models</a><ul>
+<li><a class="reference internal" href="#Bayesian-Logistic-Regression">Bayesian Logistic Regression</a></li>
+<li><a class="reference internal" href="#Exercise-9.1">Exercise 9.1</a><ul>
+<li><a class="reference internal" href="#(i)">(i)</a></li>
+<li><a class="reference internal" href="#(ii)">(ii)</a></li>
+<li><a class="reference internal" href="#(iii)">(iii)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-9.2">Exercise 9.2</a></li>
+<li><a class="reference internal" href="#Exercise-9.3">Exercise 9.3</a></li>
+<li><a class="reference internal" href="#Exercise-9.4">Exercise 9.4</a></li>
+<li><a class="reference internal" href="#Exercise-9.5">Exercise 9.5</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-9.6">Exercise 9.6</a></li>
+<li><a class="reference internal" href="#Exercise-9.7">Exercise 9.7</a></li>
+<li><a class="reference internal" href="#Exercise-9.8">Exercise 9.8</a></li>
+<li><a class="reference internal" href="#Exercise-9.9">Exercise 9.9</a></li>
+<li><a class="reference internal" href="#Exercise-9.10">Exercise 9.10</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-9.11">Exercise 9.11</a></li>
+<li><a class="reference internal" href="#Exercise-9.12">Exercise 9.12</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="chapter-08.html" title="Previous Chapter: Regression Models"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Regression Models</span>
+    </a>
+  </li>
+  <li>
+    <a href="chapter-10.html" title="Next Chapter: Graphical Models"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Graphical Models &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Classification-Models">
+<h1>Classification Models<a class="headerlink" href="#Classification-Models" title="Permalink to this headline">¶</a></h1>
+<p><a class="bibtex reference internal" href="#tipping2004bayesian" id="id1">[Tip04]</a> should be read after completing this chapter.
+Concepts and techniques from previous chapters are used to illustrate the
+difference between frequentist versus Bayesian approaches.  Be aware that the
+generative equation in section 2.3 builds upon the exercises in the previous
+chapters.</p>
+<ul class="simple">
+<li><p>Parameterized model <span class="math notranslate nohighlight">\(P(B \mid A) = f(A; w)\)</span> may over-specialize to the
+observed data resulting in a poor model of the true underlying distribution.</p>
+<ul>
+<li><p>The Bayesian inference paradigm is to treat parameters such as <span class="math notranslate nohighlight">\(w\)</span> as
+random variables.</p></li>
+</ul>
+</li>
+<li><p>The common convention of “probability” versus “likelihood”.</p>
+<ul>
+<li><p>Probability is interpreted as a function of some random variable.</p></li>
+<li><p>Likelihood is interpreted as a function of the parameters.</p></li>
+</ul>
+</li>
+<li><p>Writing <span class="math notranslate nohighlight">\(p(t \mid x, w, \sigma^2)\)</span> as <span class="math notranslate nohighlight">\(p(t | w, \sigma^2)\)</span> is
+purely for notational convenience.</p>
+<ul>
+<li><p>This signifies that the input data <span class="math notranslate nohighlight">\(x\)</span> is not modeled: any effects
+<span class="math notranslate nohighlight">\(x\)</span> might have on the overall distribution are ignored.</p></li>
+</ul>
+</li>
+<li><p>Specifying a Bayesian Prior</p>
+<ul>
+<li><p>When you specify a Gaussian prior on the parameters, it is essentially
+giving small weights to large parameter values.</p></li>
+</ul>
+</li>
+<li><p>Ockham’s Razor is automatically implemented during marginalization.</p>
+<ul>
+<li><p>Instead of estimating all nuisance model variables, integrate them out.</p></li>
+</ul>
+</li>
+<li><p>The goal of the Bayesian framework is to compute the posterior distribution
+over all unknowns (possibly via marginalization).</p></li>
+</ul>
+<p><a class="bibtex reference internal" href="#wellingme" id="id2">[Wela]</a> presents supervised learning alongside unsupervised to
+illustrate the similarities between the two methods.  The information after
+equation (41) requires a knowledge base beyond the completion of this chapter.</p>
+<ul class="simple">
+<li><p>The Bayesian approach allows one to ask how the prior of the random variable
+<span class="math notranslate nohighlight">\(\theta\)</span> changes in the light of new observations <span class="math notranslate nohighlight">\(d\)</span>.</p>
+<ul>
+<li><p>The data will move the modes of the distributions to the most probable
+values of <span class="math notranslate nohighlight">\(\theta\)</span> and determine a spread around those values.</p></li>
+</ul>
+</li>
+<li><p>Given sufficient data, there are no significant differences between ML, MAP,
+and Bayesian.</p>
+<ul>
+<li><p>When the number of parameters (model complexity) becomes too large with
+respect to the amount of data samples, MAP and Bayesian are necessary.</p></li>
+</ul>
+</li>
+<li><p>Robustness implies the estimate of <span class="math notranslate nohighlight">\(\theta\)</span> is not influenced too much
+by deviations from the assumptions (e.g. outliers, wrong priors/models).</p></li>
+<li><p><a class="reference internal" href="../../blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html"><span class="doc">Bias-Variance Tradeoff</span></a></p></li>
+<li><p>Minimum Description Length</p>
+<ul>
+<li><p>Minimizing the following costs will generate the best generalization:</p>
+<ul>
+<li><p>Specifics of the model.</p></li>
+<li><p>Activities of the model when applied to the data.</p></li>
+<li><p>The reconstruction errors.</p></li>
+</ul>
+</li>
+<li><p>Jorma Rissanen also proposed (54) as a way to gauge how many parameters to
+introduce, assuming the data is large.</p></li>
+</ul>
+</li>
+</ul>
+<p><a class="bibtex reference internal" href="#wellingmlm" id="id3">[Welb]</a><a class="bibtex reference internal" href="#wellingmmofa" id="id4">[Welc]</a> should only be read after completing this
+chapter.  It’s clearly written, and the derivations are useful when
+independently deriving the update equations.  However, the approach is not as
+elegant compared to the book’s explanations.  Hence reading these notes are not
+essential.  One interesting insight from <a class="bibtex reference internal" href="#wellingmlm" id="id5">[Welb]</a> is that PCA is not
+probabilistic so it is hard to apply PCA to MAP estimation.</p>
+<div class="section" id="Bayesian-Logistic-Regression">
+<h2>Bayesian Logistic Regression<a class="headerlink" href="#Bayesian-Logistic-Regression" title="Permalink to this headline">¶</a></h2>
+<p><a class="bibtex reference internal" href="#cevhervla" id="id6">[Cev]</a> contains a completely understandable derivation of the Laplace
+approximation.</p>
+<p><a class="bibtex reference internal" href="#jordanmibmil15" id="id7">[Jor]</a> has a section about Laplace approximation.  The
+derivation emphasizes the Taylor expansion of higher order terms.  This enables
+one to derive more accurate Laplace approximations.  It also has useful asides
+on the multivariate case and conditional expectation.</p>
+<p><a class="bibtex reference internal" href="#tokdarstlap" id="id8">[Tok]</a> should be read after the previous two references.  This
+exposition contains motivational examples and presents a cool
+Bernstein-von Mises theorem.</p>
+<p><a class="bibtex reference internal" href="#criminisi2011decision" id="id9">[CSK11]</a> is a beautifully written survey on applications of
+random forests.  This contains a lot of useful information (especially the
+references), so one should just read it in its entirety.</p>
+<p>See <a class="bibtex reference internal" href="../../blog/2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html#bernardo2007generative" id="id10">[BBB+07]</a> for a prior-based approach of combining
+generative and discriminative models.</p>
+</div>
+<div class="section" id="Exercise-9.1">
+<h2>Exercise 9.1<a class="headerlink" href="#Exercise-9.1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="(i)">
+<h3>(i)<a class="headerlink" href="#(i)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\DeclareMathOperator{\sigmoid}{sig}
+\lim_{a \rightarrow -\infty} \sigmoid[a] =
+\lim_{a \rightarrow -\infty} \frac{1}{1 + \exp[-a]} =
+\frac{1}{1 + \infty} = 0\]</div>
+</div>
+<div class="section" id="(ii)">
+<h3>(ii)<a class="headerlink" href="#(ii)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\sigmoid[0] =
+\frac{1}{1 + \exp[-0]} =
+\frac{1}{1 + 2} = 0.5\]</div>
+</div>
+<div class="section" id="(iii)">
+<h3>(iii)<a class="headerlink" href="#(iii)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\lim_{a \rightarrow \infty} \sigmoid[a] =
+\lim_{a \rightarrow \infty} \frac{1}{1 + \exp[-a]} =
+\frac{1}{1 + 0} = 1\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-9.2">
+<h2>Exercise 9.2<a class="headerlink" href="#Exercise-9.2" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}L &amp;= \sum_{i = 1}^I
+       w_i \log \frac{1}{
+         1 + \exp\left[ -\boldsymbol{\phi}^\top \mathbf{x}_i \right]
+       } +
+     \sum_{i = 1}^I
+       (1 - w_i) \log \frac{
+         \exp\left[ -\boldsymbol{\phi}^\top \mathbf{x}_i \right]
+       }{
+         1 + \exp\left[ -\boldsymbol{\phi}^\top \mathbf{x}_i \right]
+       }\\
+ &amp;= \sum_{i = 1}^I
+      -w_i \log\left(
+        1 + \exp\left[ -\boldsymbol{\phi}^\top \mathbf{x}_i \right]
+      \right) +
+      (1 - w_i) (-\boldsymbol{\phi}^\top \mathbf{x}_i) -
+      (1 - w_i) \log\left(
+        1 + \exp\left[ -\boldsymbol{\phi}^\top \mathbf{x}_i \right]
+      \right)\\
+ &amp;= \sum_{i = 1}^I
+      -(1 - w_i) \boldsymbol{\phi}^\top \mathbf{x}_i -
+      \log\left(
+        1 + \exp\left[ -\boldsymbol{\phi}^\top \mathbf{x}_i \right]
+      \right)\\\\\\
+\frac{\partial L}{\partial \boldsymbol{\phi}}
+ &amp;= \sum_{i = 1}^I
+      -(1 - w_i) \mathbf{x}_i -
+      \frac{
+        \exp\left[ -\boldsymbol{\phi}^\top \mathbf{x}_i \right]
+      }{
+        1 + \exp\left[ -\boldsymbol{\phi}^\top \mathbf{x}_i \right]
+      } (-\mathbf{x}_i)\\
+ &amp;= -\sum_{i = 1}^I
+      (1 - w_i) \mathbf{x}_i -
+      \left( 1 - \sigmoid[a_i] \right) \mathbf{x}_i
+    &amp; \quad &amp; a_i = \boldsymbol{\phi}^\top \mathbf{x}_i\\
+ &amp;= -\sum_{i = 1}^I \left( \sigmoid[a_i] - w_i \right) \mathbf{x}_i\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-9.3">
+<h2>Exercise 9.3<a class="headerlink" href="#Exercise-9.3" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial^2 L}{\partial \boldsymbol{\phi}^2}
+ &amp;= \frac{\partial}{\partial \boldsymbol{\phi}^\top}
+    \frac{\partial L}{\partial \boldsymbol{\phi}}\\
+ &amp;= -\frac{\partial}{\partial \boldsymbol{\phi}^\top}
+    \sum_{i = 1}^I \left( \sigmoid[a_i] - w_i \right) \mathbf{x}_i\\
+ &amp;= -\sum_{i = 1}^I
+      (-1) \frac{1}{\left( 1 + \exp[-a_i] \right)^2} \exp[-a_i]
+      \mathbf{x}_i \left( -\mathbf{x}_i^\top \right)\\
+ &amp;= -\sum_{i = 1}^I
+      \sigmoid[a_i]
+      \frac{\exp[-a_i]}{1 + \exp[-a_i]} \mathbf{x}_i \mathbf{x}_i^\top\\
+ &amp;= -\sum_{i = 1}^I
+      \sigmoid[a_i]
+      \left( 1 - \sigmoid[a_i] \right)
+      \mathbf{x}_i \mathbf{x}_i^\top\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-9.4">
+<h2>Exercise 9.4<a class="headerlink" href="#Exercise-9.4" title="Permalink to this headline">¶</a></h2>
+<p>Maximizing the concave log-likelihood caused the parameters
+<span class="math notranslate nohighlight">\(\boldsymbol{\phi}\)</span> to grow exponentially fast resulting in a singular
+Hessian with a gradient vector that is not even close to tangent.  Minimizing
+the negative log-likelihood rectified this issue.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="k">def</span> <span class="nf">sig</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+    <span class="n">gradient</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">w_i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+        <span class="n">x_i</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+        <span class="n">a_i</span> <span class="o">=</span> <span class="p">(</span><span class="n">phi</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">x_i</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">gradient</span> <span class="o">+=</span> <span class="p">(</span><span class="n">sig</span><span class="p">(</span><span class="n">a_i</span><span class="p">)</span> <span class="o">-</span> <span class="n">w_i</span><span class="p">)</span> <span class="o">*</span> <span class="n">x_i</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">gradient</span>
+
+<span class="k">def</span> <span class="nf">H</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="n">D</span><span class="p">,</span> <span class="n">I</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">hessian</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">D</span><span class="p">,</span> <span class="n">D</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">I</span><span class="p">):</span>
+        <span class="n">x_i</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+        <span class="n">a_i</span> <span class="o">=</span> <span class="p">(</span><span class="n">phi</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">x_i</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">sig</span><span class="p">(</span><span class="n">a_i</span><span class="p">)</span>
+        <span class="n">hessian</span> <span class="o">+=</span> <span class="n">_</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">_</span><span class="p">)</span> <span class="o">*</span> <span class="n">x_i</span> <span class="o">*</span> <span class="n">x_i</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">hessian</span>
+
+<span class="n">I</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">x_0</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">I</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.0</span>
+<span class="n">x_1</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">I</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.0</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">x_0</span><span class="p">,</span> <span class="n">x_1</span><span class="p">))</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">_</span><span class="p">)))</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">I</span> <span class="o">//</span> <span class="mi">2</span><span class="p">),</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">I</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)))</span>
+<span class="n">phi</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+
+<span class="n">phi_c</span> <span class="o">=</span> <span class="n">phi</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
+    <span class="n">g_c</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">phi_c</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+    <span class="n">H_c</span> <span class="o">=</span> <span class="n">H</span><span class="p">(</span><span class="n">phi_c</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+    <span class="n">phi_hat</span> <span class="o">=</span> <span class="n">phi_c</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">H_c</span><span class="p">)</span> <span class="o">*</span> <span class="n">g_c</span>
+    <span class="n">phi_c</span> <span class="o">=</span> <span class="n">phi_hat</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;norm: {:.7f}</span><span class="se">\t</span><span class="s1">phi: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">g_c</span><span class="p">),</span>
+                                           <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">phi_c</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+norm: 6.9079089 phi: [-0.91713355  2.15115399]
+norm: 2.1370316 phi: [-1.5443385   3.52014218]
+norm: 0.7874555 phi: [-2.15392952  4.89092508]
+norm: 0.2930404 phi: [-2.76853388  6.28971591]
+norm: 0.1091443 phi: [-3.39243853  7.72005961]
+norm: 0.0406175 phi: [-4.02572713  9.18040586]
+norm: 0.0150964 phi: [-4.66726431 10.66765018]
+norm: 0.0056035 phi: [-5.31569234 12.17839192]
+norm: 0.0020774 phi: [-5.96978747 13.70943929]
+norm: 0.0007693 phi: [-6.62855578 15.25798011]
+norm: 0.0002846 phi: [-7.29122621 16.82160216]
+norm: 0.0001052 phi: [-7.95721066 18.39825492]
+norm: 0.0000389 phi: [-8.62606076 19.98619635]
+norm: 0.0000144 phi: [-9.2974312  21.58394279]
+norm: 0.0000053 phi: [-9.97105178 23.19022694]
+norm: 0.0000020 phi: [-10.646707    24.80396395]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Exercise-9.5">
+<h2>Exercise 9.5<a class="headerlink" href="#Exercise-9.5" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(\alpha = \beta = 1.0\)</span>.  Applying (a) yields</p>
+<div class="math notranslate nohighlight">
+\[\lambda_\max = \frac{\alpha - 1}{\alpha + \beta - 2} =
+\frac{\alpha - 1}{2 (\alpha - 1)} =
+\frac{1}{2}.\]</div>
+<p>The variance of the Laplace approximation can be computed as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator{\BetaDist}{Beta}
+\sigma^2 &amp;= -\frac{1}{\BetaDist''_{\lambda_\max}[\alpha, \beta]}\\
+ &amp;= -\frac{B(\alpha, \beta)}{
+      \lambda^{\alpha - 1} (1 - \lambda)^{\beta - 1}
+      \left[
+        (\alpha - 1) (\alpha - 2) \lambda^{-2} -
+        2 (\alpha - 1) (\beta - 1) \lambda^{-1} (1 - \lambda)^{-1} +
+        (\beta - 1) (\beta - 2) (1 - \lambda)^{-2}
+      \right]
+    }\\
+ &amp;= -\frac{1}{\lambda_\max^{\alpha + \beta - 4}}
+    \frac{B(\alpha, \beta)}{
+      (\alpha - 1) (\alpha - 2) -
+      2 (\alpha - 1) (\beta - 1) +
+      (\beta - 1) (\beta - 2)
+    }
+    &amp; \quad &amp; \lambda \mapsto \lambda_\max = \frac{1}{2}\\
+ &amp;= -\frac{1}{2 \lambda_\max^{\alpha + \beta - 4}}
+    \frac{B(\alpha, \alpha)}{
+      (\alpha - 1) (\alpha - 2) - (\alpha - 1) (\alpha - 1)
+    }
+    &amp; \quad &amp; \alpha = \beta\\
+ &amp;= \frac{
+      B(\alpha, \alpha)
+    }{
+      2 \lambda_\max^{\alpha + \beta - 4}
+    }
+    (\alpha - 1)^{-1}\end{split}\]</div>
+<p>By inspection, <span class="math notranslate nohighlight">\(\lim_{\alpha \rightarrow 1^+} \sigma^2 = \infty\)</span>.  This
+makes sense because a beta distribution with this configuration of parameters
+is a uniform distribution.  In order to approximate this with a normal
+distribution, the variance needs to be infinite.</p>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>From <a class="reference internal" href="chapter-03.html#prince2012computer-ex-3-2"><span class="std std-ref">Exercise 3.2</span></a>, the peak of the beta
+distribution</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\BetaDist_\lambda[\alpha, \beta]
+ &amp;= B(\alpha, \beta)^{-1} \lambda^{\alpha - 1} (1 - \lambda)^{\beta - 1}\\
+ &amp;= \frac{
+      \lambda^{\alpha - 1} (1 - \lambda)^{\beta - 1}
+    }{
+      \int_0^1 t^{\alpha - 1} (1 - t)^{\beta - 1} dt
+    }\\
+ &amp;= \frac{\Gamma[\alpha + \beta]}{\Gamma[\alpha] \Gamma[\beta]}
+    \lambda^{\alpha - 1} (1 - \lambda)^{\beta - 1}\end{split}\]</div>
+<p>is <span class="math notranslate nohighlight">\(\lambda_\max = \frac{\alpha - 1}{\alpha + \beta - 2}\)</span>.</p>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>The second derivative of the beta distribution is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial^2}{\partial \lambda^2} \BetaDist_\lambda[\alpha, \beta]
+ &amp;= \frac{\partial}{\partial \lambda}
+    B(\alpha, \beta)^{-1}
+    \left[
+      (\alpha - 1) \lambda^{\alpha - 2} (1 - \lambda)^{\beta - 1} -
+      (\beta - 1) \lambda^{\alpha - 1} (1 - \lambda)^{\beta - 2}
+    \right]\\
+ &amp;= B(\alpha, \beta)^{-1}
+    \lambda^{\alpha - 1} (1 - \lambda)^{\beta - 1}
+    \left[
+      (\alpha - 1) (\alpha - 2) \lambda^{-2} -
+      2 (\alpha - 1) (\beta - 1) \lambda^{-1} (1 - \lambda)^{-1} +
+      (\beta - 1) (\beta - 2) (1 - \lambda)^{-2}
+    \right]\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-9.6">
+<h2>Exercise 9.6<a class="headerlink" href="#Exercise-9.6" title="Permalink to this headline">¶</a></h2>
+<p>Recall that</p>
+<div class="math notranslate nohighlight">
+\[\DeclareMathOperator{\NormDist}{Norm}
+\NormDist_x\left[ \mu, \sigma^2 \right] =
+\frac{1}{\sigma \sqrt{2 \pi}}
+    \exp\left[ -\frac{(x - \mu)^2}{2 \sigma^2} \right]\]</div>
+<p>Clearly the mean, median, and mode of the distribution is at <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
+<p>The second derivative of the normal distribution is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial^2}{\partial x^2} \NormDist_x\left[ \mu, \sigma^2 \right]
+ &amp;= \frac{\partial}{\partial x} \left(
+      \frac{1}{\sigma \sqrt{2 \pi}}
+      \exp\left[ -\frac{(x - \mu)^2}{2 \sigma^2} \right]
+      \frac{-2 (x - \mu)}{2 \sigma^2} (1)
+    \right)\\
+ &amp;= \frac{\partial}{\partial x} \left(
+      -\frac{x - \mu}{\sigma^2} \NormDist_x\left[ \mu, \sigma^2 \right]
+    \right)\\
+ &amp;= -\frac{1}{\sigma^2} \NormDist_x\left[ \mu, \sigma^2 \right] +
+    \frac{(x - \mu)^2}{\sigma^4} \NormDist_x\left[ \mu, \sigma^2 \right].\end{split}\]</div>
+<p>The variance of the Laplace approximation can be computed as</p>
+<div class="math notranslate nohighlight">
+\[\hat{\sigma}^2 =
+-\frac{1}{\NormDist''_{\mu}\left[ \mu, \sigma^2 \right]} =
+\sigma^3 \sqrt{2 \pi}.\]</div>
+<p>This illustrates that the Laplace approximation is another univariate normal
+with a scaled variance.</p>
+</div>
+<div class="section" id="Exercise-9.7">
+<h2>Exercise 9.7<a class="headerlink" href="#Exercise-9.7" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial}{\partial \boldsymbol{\phi}}
+    \log \NormDist_{\boldsymbol{\phi}}[\boldsymbol{\mu}, \boldsymbol{\Sigma}]
+ &amp;= \frac{\partial}{\partial \boldsymbol{\phi}} \left[
+      -\frac{1}{2} \log \left\vert 2 \pi \boldsymbol{\Sigma} \right\vert -
+      \frac{1}{2} (\boldsymbol{\phi} - \boldsymbol{\mu})^\top
+        \boldsymbol{\Sigma}^{-1} (\boldsymbol{\phi} - \boldsymbol{\mu})
+    \right]\\
+ &amp;= -\frac{1}{2} \left[
+      \boldsymbol{\Sigma}^{-1} (\boldsymbol{\phi} - \boldsymbol{\mu}) +
+      \boldsymbol{\Sigma}^{-\top} (\boldsymbol{\phi} - \boldsymbol{\mu})
+    \right]
+    &amp; \quad &amp; \text{(C.32)}\\
+ &amp;= -\boldsymbol{\Sigma}^{-1} (\boldsymbol{\phi} - \boldsymbol{\mu})\\\\\\
+\frac{\partial^2 L}{\partial \boldsymbol{\phi}^2}
+ &amp;= \frac{\partial}{\partial \boldsymbol{\phi}^\top}
+    \frac{\partial L}{\partial \boldsymbol{\phi}}\\
+ &amp;= \frac{\partial}{\partial \boldsymbol{\phi}^\top} \left[
+      -\boldsymbol{\Sigma}^{-1} (\boldsymbol{\phi} - \boldsymbol{\mu})
+    \right]\\
+ &amp;= -\boldsymbol{\Sigma}^{-1}\end{split}\]</div>
+<p>Since the second derivative of <span class="math notranslate nohighlight">\(L\)</span> is independent of
+<span class="math notranslate nohighlight">\(\boldsymbol{\phi}\)</span>, evaluating <span class="math notranslate nohighlight">\(\boldsymbol{\phi}\)</span> at
+<span class="math notranslate nohighlight">\(\boldsymbol{\mu}\)</span> is irrelevant.</p>
+</div>
+<div class="section" id="Exercise-9.8">
+<h2>Exercise 9.8<a class="headerlink" href="#Exercise-9.8" title="Permalink to this headline">¶</a></h2>
+<p>As shown in (8.30), one approach is to maximize the marginal likelihood using
+some nonlinear optimization procedure.</p>
+</div>
+<div class="section" id="Exercise-9.9">
+<h2>Exercise 9.9<a class="headerlink" href="#Exercise-9.9" title="Permalink to this headline">¶</a></h2>
+<p>The branching logistic regression model’s prediction is the result of a single
+logistic regression model whose activation is a linear weighted sum of experts
+(e.g. linear functions of the data).</p>
+<p>The mixture of experts model’s prediction is a weighted linear sum of logistic
+regression models.  This could be generalized so that the weights and/or the
+experts themselves contain a nonlinear activation term.  Moreover, this could
+be built hierarchically to form a tree structure.</p>
+<p>The mixture of experts model’s parameters can be estimated via direct
+optimization of the log posterior probability or the EM algorithm.</p>
+</div>
+<div class="section" id="Exercise-9.10">
+<h2>Exercise 9.10<a class="headerlink" href="#Exercise-9.10" title="Permalink to this headline">¶</a></h2>
+<p>Let</p>
+<div class="math notranslate nohighlight">
+\[\DeclareMathOperator{\softmax}{softmax}
+s_k =
+\softmax_k\left[ a_1, a_2, \ldots, a_K \right] =
+\frac{\exp a_k}{\sum_{j = 1}^K \exp a_j}.\]</div>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>Recall that <span class="math notranslate nohighlight">\(\lim_{x \rightarrow -\infty} \exp x = 0\)</span>.  Assuming
+<span class="math notranslate nohighlight">\(a_k \neq -\infty\)</span> for <span class="math notranslate nohighlight">\(1 \leq k &lt; K\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}0 &lt; \exp a_k &amp;&lt; \sum_{j = 1}^K \exp a_j\\
+\frac{\exp a_k}{\sum_{j = 1}^K \exp a_j} &amp;&lt; 1\\
+s_k &amp;&lt; 1.\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\sum_{k = 1}^K s_k
+ &amp;= \sum_{k = 1}^K \frac{\exp a_k}{\sum_{j = 1}^K \exp a_j}\\
+ &amp;= \frac{\sum_k \exp a_k}{\sum_j \exp a_j}\\
+ &amp;= 1\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-9.11">
+<h2>Exercise 9.11<a class="headerlink" href="#Exercise-9.11" title="Permalink to this headline">¶</a></h2>
+<p>The cost function is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\DeclareMathOperator{\CatDist}{Cat}
+L &amp;= \sum_{i = 1}^I \log \CatDist_{w_i} \softmax[a_1, \ldots, a_N]\\
+ &amp;= \sum_{i = 1}^I \sum_{n = 1}^N \delta[w_i - n] \log \lambda_n
+    &amp; \quad &amp; \text{(3.8)}\\
+ &amp;= \sum_{i = 1}^I \left(
+      -\log\left[ \sum_{m = 1}^N \exp a_m \right] +
+      \sum_{n = 1}^N \delta[w_i - n] \log \exp a_n
+    \right)
+    &amp; \quad &amp; \text{(9.59)}\\
+ &amp;= \sum_{i = 1}^I \left(
+      -\log\left[
+        \sum_{m = 1}^N \exp \boldsymbol{\phi}_m^\top \mathbf{x}_i
+      \right] +
+      \sum_{n = 1}^N \delta[w_i - n] \boldsymbol{\phi}_n^\top \mathbf{x}_i
+    \right)
+    &amp; \quad &amp; \text{(9.58)}.\end{split}\]</div>
+<p>The first derivative is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial L}{\partial \boldsymbol{\phi}_n}
+ &amp;= \sum_{i = 1}^I
+      -\frac{
+        \exp \boldsymbol{\phi}_n^\top \mathbf{x}_i
+      }{
+        \sum_{m = 1}^N \exp \boldsymbol{\phi}_m^\top \mathbf{x}_i
+      } \mathbf{x}_i +
+      \delta[w_i - n] \mathbf{x}_i
+    &amp; \quad &amp; \text{(C.28)}\\
+ &amp;= -\sum_{i = 1}^I \left( y_{in} - \delta[w_i - n] \right) \mathbf{x}_i.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-9.12">
+<h2>Exercise 9.12<a class="headerlink" href="#Exercise-9.12" title="Permalink to this headline">¶</a></h2>
+<p>This is essentially multi-class logistic regression (section 9.9) and
+<a class="reference internal" href="chapter-06.html#prince2012computer-ex-6-2"><span class="std std-ref">Exercise 6.2</span></a>.  In order to exploit the
+data’s discrete nature, (random) classification trees (section 9.8 and 9.10)
+could be used.</p>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-nb/computer-vision-models-learning-and-inference-prince/chapter-09-0"><dl class="citation">
+<dt class="bibtex label" id="cevhervla"><span class="brackets"><a class="fn-backref" href="#id6">Cev</a></span></dt>
+<dd><p>Volkan Cevher. Laplace approximation. <span><a class="reference external" href="#"></a></span>http://www.ece.rice.edu/ vc3/elec633/graphical_models_notes_091108.pdf. Accessed on 2017-07-03.</p>
+</dd>
+<dt class="bibtex label" id="criminisi2011decision"><span class="brackets"><a class="fn-backref" href="#id9">CSK11</a></span></dt>
+<dd><p>A Criminisi, J Shotton, and E Konukoglu. Decision forests for classification, regression, density estimation, manifold learning and semi-supervised learning. <em>Microsoft Research Cambridge, Tech. Rep. MSRTR-2011-114</em>, 5(6):12, 2011.</p>
+</dd>
+<dt class="bibtex label" id="jordanmibmil15"><span class="brackets"><a class="fn-backref" href="#id7">Jor</a></span></dt>
+<dd><p>Michael I. Jordan. Bayesian modeling and inference: lecture 15. <span><a class="reference external" href="#"></a></span>http://www.cs.berkeley.edu/ jordan/courses/260-spring10/lectures/lecture15.pdf. Accessed on 2017-07-03.</p>
+</dd>
+<dt class="bibtex label" id="tipping2004bayesian"><span class="brackets"><a class="fn-backref" href="#id1">Tip04</a></span></dt>
+<dd><p>Michael E Tipping. Bayesian inference: an introduction to principles and practice in machine learning. <em>Lecture notes in computer science</em>, 3176:41–62, 2004.</p>
+</dd>
+<dt class="bibtex label" id="tokdarstlap"><span class="brackets"><a class="fn-backref" href="#id8">Tok</a></span></dt>
+<dd><p>Surya T. Tokdar. Laplace approximation to the posterior. <span><a class="reference external" href="#"></a></span>https://stat.duke.edu/ st118/sta250/laplace.pdf. Accessed on 2017-07-03.</p>
+</dd>
+<dt class="bibtex label" id="wellingme"><span class="brackets"><a class="fn-backref" href="#id2">Wela</a></span></dt>
+<dd><p>Max Welling. Estimation. <span><a class="reference external" href="#"></a></span>http://www.ics.uci.edu/ welling/classnotes/papers_class/StatEst.ps.gz. Accessed on 2017-07-04.</p>
+</dd>
+<dt class="bibtex label" id="wellingmlm"><span class="brackets">Welb</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id5">2</a>)</span></dt>
+<dd><p>Max Welling. Linear models. <span><a class="reference external" href="#"></a></span>http://www.ics.uci.edu/ welling/classnotes/papers_class/LinMod.ps.gz. Accessed on 2017-07-04.</p>
+</dd>
+<dt class="bibtex label" id="wellingmmofa"><span class="brackets"><a class="fn-backref" href="#id4">Welc</a></span></dt>
+<dd><p>Max Welling. Mixture of factor analysers. <span><a class="reference external" href="#"></a></span>http://www.ics.uci.edu/ welling/classnotes/papers_class/MoFA.ps.gz. Accessed on 2017-07-04.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/nb/computer-vision-models-learning-and-inference-prince/chapter-09.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

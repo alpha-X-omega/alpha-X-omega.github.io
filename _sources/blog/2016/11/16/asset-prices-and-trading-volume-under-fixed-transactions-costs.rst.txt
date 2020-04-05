@@ -1,0 +1,102 @@
+##############################################################
+Asset Prices and Trading Volume Under Fixed Transactions Costs
+##############################################################
+
+Motivation(s)
+=============
+
+There is a consensus among researchers that transaction costs in asset markets
+affect the trading behavior of market participants.  However, how it affects
+market liquidity and asset prices in equilibrium are still in debate.  Existing
+equilibrium models assume agents trade infrequently.  This contradicts empirical
+HFT evidence and may underestimate the effect transaction costs on asset prices.
+
+Proposed Solution(s)
+====================
+
+The authors investigate the impact of fixed transaction costs on asset prices
+and trading behavior in a continuous-time equilibrium model in which two agents
+trade with each other to hedge their exposure to non-traded risk.
+
+The notion of equilibrium in the stock market consists of
+
+- an equilibrium price process for the risky asset,
+- an allocation of the fixed transaction costs between buyer and seller, and
+- trading policies for both agents that consist of optimal quantities and
+  optimal trade times for each agent that coincide with the other's.
+
+The proposed model serves as a bridge between the market microstructure
+literature (in which market making facilitates trading) and the equilibrium
+asset-pricing literature (in which risk sharing promotes trading).  The agents
+must wish to trade the same quantities with each other at a certain price, and
+they must want to do so at the same time.  One agent can bear a larger share of
+the cost to induce the other agent to trade earlier.
+
+Evaluation(s)
+=============
+
+The authors assume the agents and economy follow Brownian motion.  They
+calibrate their model using historical data from CRSP and TAQ.
+
+Their analysis shows that investors follow an optimal policy of not trading
+until their risk level reaches either a lower or upper boundary, at which point
+they incur the fixed cost and trade back to an optimal level of risk exposure.
+The expected time-between-trades is proportional to the fourth root of the fixed
+transaction costs.  This implies a square root power law between trading volume
+and inter-arrival times.
+
+While fixed costs do imply less-than-continuous trading and finite trading
+volume, the experiments found that an increase in such costs has only a slight
+effect on volume at the margin.  However, the size of the illiquidity discount
+increases with the agent's trading needs at high frequencies and is very
+sensitive to their risk aversion.  As the agents' endowment uncertainty
+increases, their "no-trade" region increases as well.  This reduction in the
+agents' asset demand leads to a decrease in the equilibrium price.  The price
+decrease is approximately proportional to the square root of the fixed cost.
+
+Note that the model assumes a perfect correlation between the dividend and
+endowment flows, which is likely to exaggerate the hedging motive.  The fixed
+transaction costs do not differ across agents, and the model does not allow for
+an aggregate endowment component.  The persistence of the endowment shocks in
+the proposed economy may increase both the illiquidity discount and the desire
+to trade.
+
+Future Direction(s)
+===================
+
+- Instead of using Brownian motion to simulate the economy, would using the
+  tick or minute orders to estimate the expected successful execution of a trade
+  be equivalent or more accurate?
+
+Question(s)
+===========
+
+- Are agents individual traders or firms?  Does it matter?
+- The authors focus on continuous-time stochastic processes, but how much more
+  effective is it compared to discrete stochastic processes?
+- Would backtesting with a set of agents parameterized by their risk aversion
+  yield similar results?
+
+Analysis
+========
+
+Small fixed transaction costs have a profound effect on volume, frequency of
+trades, and illiquidity premiums.  Yet increasing it further does not compound
+that effect.
+
+While it is good that the paper expanded upon the effects transaction costs
+induce, wouldn't :doc:`optimizing for execution costs </blog/2016/11/02/optimal-control-of-execution-costs>`
+already account for the effects of the fixed costs?
+
+The analysis and derivations should be useful for future work, but the rest of
+the paper could be more succinct.  The experiments would have formed a stronger
+argument if the authors focused on analyzing historical data instead of
+simulations.  For example, the authors assume a fixed economy interest rate and
+justify that it will largely not affect the overall result.  There are a lot
+of other simplifications that fail to make economy simulation preferable to
+historical order book data.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

@@ -1,0 +1,93 @@
+##############
+Software Aging
+##############
+
+Motivation(s)
+=============
+
+Both academia and industry have been overlooking the fact that software will
+age.
+
+Proposed Solution(s)
+====================
+
+The author argues that software aging is inevitable and asserts that existing
+software design techniques specifically documentation can slow down the decay
+rate.
+
+Evaluation(s)
+=============
+
+The author presents an analysis of the concept of software aging.  No real
+system implementations were discussed.
+
+Future Direction(s)
+===================
+
+- How to augment documentation to generate tests?
+- When testable documentation are updated, how can the delta differences expose
+  more design flaws and/or software errors?
+
+Question(s)
+===========
+
+- It seems documentation is still an afterthought?
+
+Analysis
+========
+
+Always analyze and question both the old and new methods.  Besides introducing
+the notion of software aging, this paper also provides a very nice illustration
+of the existing mindset towards software engineering, and that many people lack
+software design skills.  Designers should not automatically associate poor
+system performance with software aging.
+
+Notes
+=====
+
+Causes of Software Aging
+------------------------
+
+- Failing to upgrade software to meet changing needs.
+- Making changes that are inconsistent with the original concept.
+
+Costs of Aging Software
+-----------------------
+
+- Inability to add new features quickly leads to loss of customers.
+- System decreases in performance as features get integrated over time.
+- System decreases in reliability as errors accumulate with each new feature
+  despite maintenance.
+
+Slowing Down Software Aging
+---------------------------
+
+- Design for Change
+
+  - Existing software techniques (e.g. information hiding, ADTs, separation of
+    concerns, object oriented) can be applied appropriately once the
+    probabilities of each class of changes (e.g. data representation, input,
+    output) are known or estimated.
+
+- Effective documentation transfers the current developer's design decisions to
+  future developers enabling precise modifications.
+- Design reviews need to be carried out long before there is code.
+
+Treating Software Aging
+-----------------------
+
+1) The preventive measures can be combined with refactoring to slowly remove the
+   deteriorated portions of software, which may take years.
+#) Retroactive documentation can uncover bugs, performance bottlenecks, and
+   brittle design/code.
+#) Retroactive incremental modularization can be done at little cost yet greatly
+   eases future maintenance.
+#) Occasionally scrapping an entire section of code is the optimal solution.
+#) When software has aged beyond the point of no return, the only feasible
+   option is to restructure the entire system i.e. create a new design and
+   temporarily use the old codebase under the new design.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

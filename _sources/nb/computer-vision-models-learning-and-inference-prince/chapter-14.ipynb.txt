@@ -1,0 +1,314 @@
+{
+ "cells": [
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "******************\n",
+    "The Pinhole Camera\n",
+    "******************\n",
+    "\n",
+    "Homogeneous Coordinates\n",
+    "=======================\n",
+    "\n",
+    "This linearizes the projection equations i.e. a matrix-vector product.  The\n",
+    "original mapping from 3D Cartesian to 2D Cartesian is nonlinear due to the\n",
+    "division by :math:`w`.  The mapping from 4D homogeneous to 3D homogeneous is\n",
+    "linear because the division by :math:`w` have been side-stepped.\n",
+    "\n",
+    "Solutions in this representation are not guaranteed to be the same as those for\n",
+    "the original problem.  These solutions minimize more abstract objective\n",
+    "functions based on algebraic error.  They are generally close enough to provide\n",
+    "a good starting point for nonlinear optimization of the true cost function.\n",
+    "\n",
+    "Learning Extrinsic Parameters\n",
+    "=============================\n",
+    "\n",
+    "The idiosyncrasies of the camera intrinsics have been discarded via\n",
+    "pre-multiplying :math:`\\Lambda^{-1}`.  This can be interpreted as a normalized\n",
+    "camera i.e. :math:`\\Lambda` is identity.  The transformed coordinates are\n",
+    "known as normalized image coordinates.\n",
+    "\n",
+    "Reparameterization (section B.4) is one trick to convert constrained\n",
+    "optimization problems into unconstrained ones."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 14.1\n",
+    "============="
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "import numpy\n",
+    "\n",
+    "sensor_w = 1\n",
+    "sensor_h = 1\n",
+    "\n",
+    "fov_h = numpy.deg2rad(60)\n",
+    "\n",
+    "focal_length = (sensor_w / 2) / numpy.tan(fov_h / 2)\n",
+    "print('{:.4f} cm'.format(focal_length))\n",
+    "\n",
+    "pixel_w = sensor_w / 100\n",
+    "pixel_h = sensor_h / 200\n",
+    "\n",
+    "fl_x = focal_length / pixel_w\n",
+    "fl_y = focal_length / pixel_h\n",
+    "print('{:.4f} px'.format(fl_x))\n",
+    "print('{:.4f} px'.format(fl_y))"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 14.2\n",
+    "=============\n",
+    "\n",
+    "The dolly zoom adjusts the distance of the camera to a foreground object in the\n",
+    "scene while simultaneously controlling the camera's field of view (a function of\n",
+    "the focal length).  This keeps the foreground object a constant size in the\n",
+    "image throughout the entire capture sequence.\n",
+    "\n",
+    "In the illustrations, the green points :math:`(X, Y, Z)` on the constant plane\n",
+    "are projected onto the image plane :math:`(x, y)` at the same location\n",
+    "throughout the dolly zoom.  Since the image plane is a square, the focal length\n",
+    "is the same for both dimensions.\n",
+    "\n",
+    "The initial configuration gives the relation\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\frac{\\phi}{Z - w} = \\frac{x}{X} = \\frac{y}{Y}\n",
+    "\n",
+    "where :math:`w = 0` and :math:`\\phi = 1`.  When the camera moves forward to\n",
+    ":math:`w' = 100`, the focal length changes to\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\frac{\\phi'}{Z - w'} &= \\frac{x}{X} = \\frac{y}{Y} = \\frac{\\phi}{Z - w}\\\\\n",
+    "   \\phi' &= \\frac{\\phi}{Z - w} (Z - w')."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "collapsed": true,
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 14.3\n",
+    "=============\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\Lambda_\\text{ortho}\n",
+    "    &= \\begin{bmatrix}\n",
+    "         1 & 0 & 0 & 0\\\\\n",
+    "         0 & 1 & 0 & 0\\\\\n",
+    "         0 & 0 & 0 & 1\n",
+    "       \\end{bmatrix}\\\\\\\\\n",
+    "   \\Lambda_\\text{perspective}\n",
+    "    &= \\begin{bmatrix}\n",
+    "         1 & 0 & 0 & 0\\\\\n",
+    "         0 & 1 & 0 & 0\\\\\n",
+    "         0 & 0 & 1 / f & 1\n",
+    "       \\end{bmatrix}\\\\\\\\\n",
+    "   \\Lambda_\\text{weak perspective}\n",
+    "    &= \\begin{bmatrix}\n",
+    "         1 & 0 & 0 & 0\\\\\n",
+    "         0 & 1 & 0 & 0\\\\\n",
+    "         0 & 0 & 0 & z_r / f\n",
+    "       \\end{bmatrix}"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 14.4\n",
+    "=============\n",
+    "\n",
+    "The point that is orthogonal to the homogeneous lines :math:`\\mathbf{l}_1` and\n",
+    ":math:`\\mathbf{l}_2` is\n",
+    ":math:`\\tilde{\\mathbf{x}} = \\mathbf{l}_1 \\times \\mathbf{l}_2`.\n",
+    "\n",
+    "Notice that all parallel homogeneous lines will converge at infinity where the\n",
+    "last component of the homogeneous representation is zero."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "import numpy\n",
+    "\n",
+    "_ = '{} = {} x {}'\n",
+    "pair_lines = [(numpy.asarray([3, 1, 1]), numpy.asarray([-1, 0, 1])),\n",
+    "              (numpy.asarray([1, 0, 1]), numpy.asarray([3, 0, 1]))]\n",
+    "for (a, b) in pair_lines:\n",
+    "    print(_.format(numpy.cross(a, b), a, b))"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 14.5\n",
+    "=============\n",
+    "\n",
+    "Since the definition of a homogeneous line is\n",
+    ":math:`\\mathbf{l} \\tilde{\\mathbf{x}} = 0`, the line that joins the homogeneous\n",
+    "points :math:`\\tilde{\\mathbf{x}}_1` and :math:`\\tilde{\\mathbf{x}}_2` is\n",
+    ":math:`\\mathbf{l} = \\tilde{\\mathbf{x}}_1 \\times \\tilde{\\mathbf{x}}_2`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "import numpy\n",
+    "\n",
+    "_ = '{} = {} x {}'\n",
+    "pair_lines = [(numpy.asarray([2, 2, 1]), numpy.asarray([-2, -2, 1]))]\n",
+    "for (a, b) in pair_lines:\n",
+    "    print(_.format(numpy.cross(a, b), a, b))"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 14.6\n",
+    "=============\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\begin{bmatrix} x & y & 1 \\end{bmatrix}\n",
+    "     \\begin{bmatrix}\n",
+    "       a & b & c\\\\\n",
+    "       b & d & e\\\\\n",
+    "       c & e & f\n",
+    "     \\end{bmatrix}\n",
+    "     \\begin{bmatrix} x\\\\ y\\\\ 1 \\end{bmatrix} =\n",
+    "   ax^2 + 2bxy + 2cx + dy^2 + 2ey + f = 0\n",
+    "\n",
+    "Notice that we can multiply the solution by any real value (e.g.\n",
+    ":math:`\\frac{1}{f}`) and still satisfy the condition.  The scale ambiguity\n",
+    "enables us to find a unique solution with a minimum of five points.  Stacking\n",
+    "each point's equation forms :math:`\\mathbf{A} \\mathbf{w} = \\mathbf{0}`; the\n",
+    "right null space of :math:`\\mathbf{A}` can be found using the SVD (see 14.30)."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 14.7\n",
+    "=============\n",
+    "\n",
+    ":doc:`One idea </blog/2016/01/03/simple-accurate-and-robust-projector-camera-calibration>`\n",
+    "is to reduce the problem to a regular camera calibration by computing a local\n",
+    "homography for each corner and converting image coordinates to projector\n",
+    "coordinates."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 14.8\n",
+    "=============\n",
+    "\n",
+    "The minimum number of :doc:`binary striped light patterns </blog/2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light>`\n",
+    "to estimate the camera-projector correspondences for a projector image of size\n",
+    ":math:`H \\times W` are :math:`\\log_2(H)` horizontal patterns and\n",
+    ":math:`\\log_2(W)` vertical patterns."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "##Exercise 14.9\n",
+    "\n",
+    "The book's author blended the pixel contribution from different cameras using\n",
+    "the depth information as the weight.  :doc:`Another approach </blog/2016/01/05/3d-live-real-time-captured-content-for-mixed-reality>`\n",
+    "could be to estimate a set of points around that region of interest and ray cast\n",
+    "the point set."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 14.10\n",
+    "==============\n",
+    "\n",
+    "Since the position of the object and point light source are known, simply cast a\n",
+    "ray to the light from any point on the plane."
+   ]
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "celltoolbar": "Raw Cell Format",
+  "kernelspec": {
+   "display_name": "Python [default]",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.5.2"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}

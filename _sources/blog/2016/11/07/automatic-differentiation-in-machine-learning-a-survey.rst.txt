@@ -1,0 +1,177 @@
+#######################################################
+Automatic Differentiation in Machine Learning: A Survey
+#######################################################
+
+Motivation(s)
+=============
+
+There are four main methods for computing derivatives (see Figure 2):
+
+- code up the manually derived expressions,
+- numerical differentiation via finite difference approximation,
+- symbolic differentiation, and
+- automatic differentiation (AD).
+
+Although the first approach is preferred by a majority of machine learning
+researchers, it is time consuming and prone to error.  Numerical and symbolic
+differentiation could be an alternative, but both require the model to be
+expressed as a closed-form formula.  Furthermore, the former scales poorly for
+gradients and is very inaccurate due to round-off and truncation errors
+(see Figure 3) whereas the latter results in expression swell (see Table 1).
+
+The last technique refers to a very specific family of techniques that compute
+derivatives through accumulation of values and generate numerical derivative
+evaluations rather than derivative expressions.  AD relies on the fact that all
+numerical computations are ultimately compositions of a finite set of elementary
+operations (e.g. :math:`+, -, \exp, \sin`) for which derivatives are known.
+Combining the derivatives of constituent operations through the chain rule gives
+the derivative of the overall composition.  Evidently, AD can differentiate not
+only mathematical expressions in the classical sense, but also algorithms making
+use of control flow statements, loops, and procedure calls.  Its accurate
+evaluation of derivatives at machine precision, with only a small constant
+factor of overhead and ideal asymptotic efficiency, helped it gain widespread
+adoption in other fields.  Only recently did it gain recognition in the machine
+learning community through the successful application of backpropagation in
+multilayer neural networks.
+
+Proposed Solution(s)
+====================
+
+The authors review the AD technique from a machine learning perspective,
+covering its origins, potential applications in machine learning, and methods
+of implementation.  They hope to dispel some misconceptions that they believe
+have impeded wider appraisal of AD in the machine learning community.
+
+Evaluation(s)
+=============
+
+The authors adopt the “three-part notation” to describe the forward evaluation
+trace of elementary operations.  Given
+:math:`f \colon \mathbb{R}^n \rightarrow \mathbb{R}^m`,
+
+- :math:`v_{i - n} = x_i` are the input variables where
+  :math:`i = 1, \ldots, n`,
+- :math:`v_i` are the working variables where :math:`i = 1, \ldots, l`, and
+- :math:`y_{m - i} = v_{l - i}` are the output variables where
+  :math:`i = m - 1, \ldots, 0`.
+
+For each method, they computed the gradient of the Helmholtz free energy
+function for a predefined number of variables.  The results indicate AD is the
+closest approximation to the manually derived expressions in terms of
+computation and accuracy.
+
+One immediate benefit of AD is the efficient computation of the Hessian-vector
+product, which makes up the core of gradient methods.  Given
+:math:`f \colon \mathbb{R}^n \mapsto \mathbb{R}`, the evaluation point
+:math:`\mathbf{x}`, and the vector :math:`\mathbf{v}`, first computing the
+directional derivative :math:`\nabla f \cdot \mathbf{v}` through the forward
+mode via setting :math:`\dot{\mathbf{x}} = \mathbf{v}` and then applying the
+reverse mode on this result yields
+:math:`\nabla^2 f \cdot \mathbf{v} = \mathbf{H}_f \mathbf{v}`.
+
+Aside from the additional computation and memory overhead, one major issue is
+programming language support.  There are tools and library implementations of
+AD, but those are far from ideal.
+
+Future Direction(s)
+===================
+
+- The authors caution users to approximate the derivative and not differentiate
+  the approximation, but what if the only way to get at the derivative is
+  through some stochastic process (e.g. MCMC)?
+
+Question(s)
+===========
+
+- How accurate is the result from applying AD to Monte Carlo simulations?
+- For non-differentiable functions, would applying AD return subgradients?
+
+Analysis
+========
+
+Derivative expressions can be useful for analysis and offer insight into the
+problem domain.  However, for any non-trivial function of more than a handful of
+variables, analytic expressions for gradients or Hessians increase so rapidly in
+complexity as to render any interpretation unlikely.  Therefore, automatic
+differentiation should be considered as the default technique for evaluating
+derivatives.
+
+One of the more amazing result is that the backpropagation algorithm is a
+specific instance of AD in reverse mode.  The paper would be even better if the
+authors analyzed non-differentiable functions possibly involving control flow.
+Nevertheless, the references to AD implementations and successful applications
+of AD should be useful.
+
+Notes
+=====
+
+Forward Mode
+------------
+
+- AD in forward accumulation mode applies symbolic differentiation at the
+  elementary operation level and keeps intermediate numerical results in
+  lockstep with the evaluation of the main function.
+
+  - When computing the derivative of some function :math:`f` with respect to its
+    parameter :math:`x_j`, each intermediate variable :math:`v_i` is associated
+    with a derivative :math:`\dot{v}_i = \frac{\partial v_i}{\partial x_j}`.
+
+- Computing the Jacobian of a function
+  :math:`f \colon \mathbb{R}^n \mapsto \mathbb{R}^m` with :math:`n` independent
+  variables :math:`x_i` and :math:`m` dependent variables :math:`y_j`.
+
+  - Each forward pass is initialized by :math:`\dot{\mathbf{x}} = \mathbf{e}_i`
+    where :math:`\mathbf{e}_i` is the :math:`i^\text{th}` unit vector.
+  - For a given input :math:`\mathbf{x} = \mathbf{a}`, the forward pass would
+    compute each column of the Jacobian as
+
+    .. math::
+
+       \dot{y}_j =
+       \left.
+         \frac{\partial y_j}{\partial x_i}
+       \right\rvert_{\mathbf{x} = \mathbf{a}} \quad j = 1, \ldots, m.
+
+  - The full Jacobian would take :math:`n` evaluations.
+  - A Jacobian-vector product :math:`\mathbf{J}_f \mathbf{r}` can be computed
+    in a single forward pass via initializing
+    :math:`\dot{\mathbf{x}} = \mathbf{r}`.
+
+    - When :math:`f \colon \mathbb{R}^n \mapsto \mathbb{R}`, the directional
+      directive :math:`\nabla f \cdot \mathbf{r}` can be computed using the same
+      single forward pass technique.
+
+- As alluded to earlier, forward mode AD is efficient for functions
+  :math:`f \colon \mathbb{R} \mapsto \mathbb{R}^m` but would require :math:`n`
+  evaluations to compute the gradient of
+  :math:`f \colon \mathbb{R}^n \mapsto \mathbb{R}`.
+- Forward mode AD can be interpreted in terms of dual numbers.
+
+  - Dual numbers are analogous to complex numbers and take the form of
+    :math:`v + \dot{v} \epsilon` where :math:`\epsilon^2 = 0`.
+
+Reverse Mode
+------------
+
+- AD in reverse accumulation mode propagates derivatives backwards from a given
+  output produced by the forward evaluation trace.
+
+  - When computing the sensitivity of output component :math:`y_j` with respect
+    to changes in :math:`x_i`, each intermediate variable :math:`v_i` is
+    supplemented with an adjoint
+    :math:`\bar{v}_i = \frac{\partial y_j}{\partial v_i}`.
+
+- Reverse mode AD only needs one sweep to compute the gradient of
+  :math:`f \colon \mathbb{R}^n \mapsto \mathbb{R}` but would require :math:`m`
+  evaluations to compute the gradient of
+  :math:`f \colon \mathbb{R} \mapsto \mathbb{R}^m`.
+
+  - The full Jacobian would take :math:`m` evaluations.
+  - A transposed Jacobian-vector product :math:`\mathbf{J}_f^\top \mathbf{r}`
+    can be computed in a single reverse pass via initializing
+    :math:`\bar{\mathbf{y}} = \mathbf{r}`.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

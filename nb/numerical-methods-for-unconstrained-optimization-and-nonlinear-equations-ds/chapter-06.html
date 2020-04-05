@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Globally Convergent Modifications of Newton’s Method &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Scaling, Stopping, and Testing" href="chapter-07.html" />
+    <link rel="prev" title="Newton’s Method for Nonlinear Equations and Unconstrained Minimization" href="chapter-05.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Globally Convergent Modifications of Newton’s Method</a><ul>
+<li><a class="reference internal" href="#The-Model-Trust-Region-Approach">The Model Trust Region Approach</a></li>
+<li><a class="reference internal" href="#Exercise-1">Exercise 1</a></li>
+<li><a class="reference internal" href="#Exercise-2">Exercise 2</a></li>
+<li><a class="reference internal" href="#Exercise-3">Exercise 3</a></li>
+<li><a class="reference internal" href="#Exercise-4">Exercise 4</a></li>
+<li><a class="reference internal" href="#Exercise-5">Exercise 5</a></li>
+<li><a class="reference internal" href="#Exercise-6">Exercise 6</a></li>
+<li><a class="reference internal" href="#Exercise-7">Exercise 7</a></li>
+<li><a class="reference internal" href="#Exercise-8">Exercise 8</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-9">Exercise 9</a></li>
+<li><a class="reference internal" href="#Exercise-10">Exercise 10</a></li>
+<li><a class="reference internal" href="#Exercise-11">Exercise 11</a></li>
+<li><a class="reference internal" href="#Exercise-12">Exercise 12</a></li>
+<li><a class="reference internal" href="#Exercise-13">Exercise 13</a></li>
+<li><a class="reference internal" href="#Exercise-14">Exercise 14</a></li>
+<li><a class="reference internal" href="#Exercise-15">Exercise 15</a></li>
+<li><a class="reference internal" href="#Exercise-16">Exercise 16</a></li>
+<li><a class="reference internal" href="#Exercise-17">Exercise 17</a></li>
+<li><a class="reference internal" href="#Exercise-18">Exercise 18</a></li>
+<li><a class="reference internal" href="#Exercise-19">Exercise 19</a></li>
+<li><a class="reference internal" href="#Exercise-20">Exercise 20</a></li>
+<li><a class="reference internal" href="#Exercise-21">Exercise 21</a></li>
+<li><a class="reference internal" href="#Exercise-22">Exercise 22</a></li>
+<li><a class="reference internal" href="#Exercise-23">Exercise 23</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-24">Exercise 24</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-25">Exercise 25</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="chapter-05.html" title="Previous Chapter: Newton’s Method for Nonlinear Equations and Unconstrained Minimization"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Newton’s Meth...</span>
+    </a>
+  </li>
+  <li>
+    <a href="chapter-07.html" title="Next Chapter: Scaling, Stopping, and Testing"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Scaling, Stop... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Globally-Convergent-Modifications-of-Newton's-Method">
+<h1>Globally Convergent Modifications of Newton’s Method<a class="headerlink" href="#Globally-Convergent-Modifications-of-Newton's-Method" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="The-Model-Trust-Region-Approach">
+<h2>The Model Trust Region Approach<a class="headerlink" href="#The-Model-Trust-Region-Approach" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="bibtex reference internal" href="#gay1981computing" id="id1">[Gay81]</a> showed that perturbing the Hessian to ensure positive
+semidefiniteness still yields a solution that minimizes (6.4.1).</p></li>
+</ul>
+<p>The level set of <span class="math notranslate nohighlight">\(f\)</span> at value <span class="math notranslate nohighlight">\(c\)</span> is the set of all points
+<span class="math notranslate nohighlight">\(\mathbf{x} \in \mathbb{R}^n\)</span> such that <span class="math notranslate nohighlight">\(f(\mathbf{x}) = c\)</span>.  When
+<span class="math notranslate nohighlight">\(n = 2\)</span>, a level set is called a level curve, contour line, or isoline.
+When <span class="math notranslate nohighlight">\(n = 3\)</span>, it is known as the level surface or isosurface.  Higher
+dimensions classifies them as hypersurface.</p>
+<p><a class="bibtex reference internal" href="#djoycedd" id="id2">[Joy]</a> provides a clear derivation of why the gradient of a function
+is in the direction of steepest ascent (or greatest change).  To see why it is
+normal to the surface, suppose that <span class="math notranslate nohighlight">\(\mathbf{t} \in \mathbb{R}^n\)</span> is
+tangent to the level surface of <span class="math notranslate nohighlight">\(f\)</span> through <span class="math notranslate nohighlight">\(\mathbf{x}_0\)</span>.  As you
+move in the <span class="math notranslate nohighlight">\(\mathbf{t}\)</span> direction, you are at that instant moving along
+the level surface, and hence the value of <span class="math notranslate nohighlight">\(f\)</span> does not change.  This is
+another of saying the directional derivative in this direction is zero.
+Therefore, the gradient is orthogonal to the tangent plane.</p>
+</div>
+<div class="section" id="Exercise-1">
+<h2>Exercise 1<a class="headerlink" href="#Exercise-1" title="Permalink to this headline">¶</a></h2>
+<p>A descent direction <span class="math notranslate nohighlight">\(p\)</span> of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(x_c\)</span> satisfies
+<span class="math notranslate nohighlight">\(\nabla f(x_c)^\top p &lt; 0\)</span>.</p>
+<p>The steepest-descent direction is the solution to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\min_{p \in \mathbb{R}^n} \nabla f(x)^\top p &amp;\\
+\text{subject to} \quad
+  \left\Vert p \right\Vert &amp;= 1.\end{split}\]</div>
+<p>The <span class="math notranslate nohighlight">\(l_2\)</span>-norm restricts the solution to be on the unit ball around
+<span class="math notranslate nohighlight">\(x\)</span>, so
+<span class="math notranslate nohighlight">\(p = -\frac{\nabla f(x)}{\left\Vert \nabla f(x) \right\Vert_2}\)</span>
+is the steepest-descent direction because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\nabla f(x)^\top p
+ &amp;\leq \left\Vert \nabla f(x) \right\Vert_2
+       \left\Vert p \right\Vert_2
+       &amp; \quad &amp; \text{Cauchy-Schwarz Inequality}\\
+ &amp;= \left\Vert \nabla f(x) \right\Vert_2.\end{split}\]</div>
+<p>Given <span class="math notranslate nohighlight">\(f(x) = 3 x_1^2 + 2 x_1 x_2 + x_2^2\)</span> and
+<span class="math notranslate nohighlight">\(\nabla f(x) =
+\begin{bmatrix} 6 x_1 + 2 x_2\\ 2 x_1 + 2 x_2\end{bmatrix}\)</span>, the
+steepest-descent direction at <span class="math notranslate nohighlight">\(x_0 = (1,1)^\top\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}p =
+-\begin{pmatrix} 8\\ 4 \end{pmatrix} \frac{1}{\sqrt{8^2 + 4^2}} =
+-\frac{1}{\sqrt{5}} \begin{pmatrix} 2\\ 1 \end{pmatrix}.\end{split}\]</div>
+<p>The vector <span class="math notranslate nohighlight">\((1, -1)^\top\)</span> is not a descent direction at <span class="math notranslate nohighlight">\(x_0\)</span>
+because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\nabla f(x_c)^\top \begin{pmatrix} 1\\ -1\end{pmatrix} =
+8 + (-4) = 4 \not&lt; 0.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-2">
+<h2>Exercise 2<a class="headerlink" href="#Exercise-2" title="Permalink to this headline">¶</a></h2>
+<p>Given <span class="math notranslate nohighlight">\(s = -\lambda_k \nabla f(x_k) = -\lambda_k g\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[f(x_k + s) =
+f(x_k - \lambda_k g) =
+-\lambda_k g^\top g + \frac{\lambda_k^2}{2} g^\top \nabla^2 f(x_k) g\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial f}{\partial \lambda_k} =
+-g^\top g + \lambda_k g^\top \nabla^2 f(x_k) g.\]</div>
+<p>By Theorem 4.3.2,</p>
+<div class="math notranslate nohighlight">
+\[\lambda_k = \frac{g^\top g}{g^\top \nabla^2 f(x_k) g}.\]</div>
+</div>
+<div class="section" id="Exercise-3">
+<h2>Exercise 3<a class="headerlink" href="#Exercise-3" title="Permalink to this headline">¶</a></h2>
+<p>Define <span class="math notranslate nohighlight">\(\hat{c} \in (0, 1)\)</span> and
+<span class="math notranslate nohighlight">\(\nabla^2 f(x) =
+\begin{bmatrix} \lambda_0 &amp; 0\\ 0 &amp; \lambda_1 \end{bmatrix}\)</span> where
+<span class="math notranslate nohighlight">\(x \in \mathbb{R}^2\)</span> and <span class="math notranslate nohighlight">\(\lambda_0 \geq \lambda_1 &gt; 0\)</span>.</p>
+<p>By (6.2.4),
+<span class="math notranslate nohighlight">\(\hat{c} \triangleq \frac{\lambda_0 - \lambda_1}{\lambda_0 + \lambda_1}\)</span>.
+This sets
+<span class="math notranslate nohighlight">\(\nabla f(x) =
+\begin{bmatrix} \lambda_0 x_1\\ \lambda_1 x_2 \end{bmatrix}\)</span> and
+<span class="math notranslate nohighlight">\(f(x) = \frac{\lambda_0}{2} x_1^2 + \frac{\lambda_1}{2} x_2^2\)</span>.
+Clearly, <span class="math notranslate nohighlight">\(x_* = (0,0)^\top\)</span> still holds and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x_{k + 1} &amp;= x_k - \frac{g^\top g}{g^\top \nabla^2 f(x_k) g} g\\
+ &amp;= x_k -
+    \frac{
+      \lambda_0^2 x_1^2 + \lambda_1^2 x_2^2
+    }{
+      \lambda_0^3 x_1^2 + \lambda_1^3 x_2^2
+    } \begin{bmatrix} \lambda_0 x_1\\ \lambda_1 x_2 \end{bmatrix}\\
+ &amp;= \frac{1}{\lambda_0^3 x_1^2 + \lambda_1^3 x_2^2}
+    \begin{bmatrix}
+      x_1 \left( \lambda_0^3 x_1^2 + \lambda_1^3 x_2^2 \right) -
+        \left( \lambda_0^2 x_1^2 + \lambda_1^2 x_2^2 \right) \lambda_0 x_1\\
+      x_2 \left( \lambda_0^3 x_1^2 + \lambda_1^3 x_2^2 \right) -
+        \left( \lambda_0^2 x_1^2 + \lambda_1^2 x_2^2 \right) \lambda_1 x_2
+    \end{bmatrix}\\
+ &amp;= \frac{1}{\lambda_0^3 x_1^2 + \lambda_1^3 x_2^2}
+    \begin{bmatrix}
+      x_1 \left( \lambda_1^3 x_2^2 \right) -
+        \left( \lambda_1^2 x_2^2 \right) \lambda_0 x_1\\
+      x_2 \left( \lambda_0^3 x_1^2 \right) -
+        \left( \lambda_0^2 x_1^2 \right) \lambda_1 x_2
+    \end{bmatrix}\\
+ &amp;= \frac{1}{\lambda_0^3 x_1^2 + \lambda_1^3 x_2^2}
+    \begin{bmatrix}
+      \left( \lambda_1^3 - \lambda_0 \lambda_1^2 \right) x_1 x_2^2\\
+      \left( \lambda_0^3 - \lambda_0^2 \lambda_1 \right) x_1^2 x_2
+    \end{bmatrix}\end{split}\]</div>
+<p>will converge as long as</p>
+<div class="math notranslate nohighlight">
+\[\frac{
+  \left\Vert x_{k + 1} - x_* \right\Vert
+}{
+  \left\Vert x_k - x_* \right\Vert
+} =
+\frac{\left\Vert x_{k + 1} \right\Vert}{\left\Vert x_k \right\Vert} \leq
+\hat{c}.\]</div>
+</div>
+<div class="section" id="Exercise-4">
+<h2>Exercise 4<a class="headerlink" href="#Exercise-4" title="Permalink to this headline">¶</a></h2>
+<p>Given</p>
+<div class="math notranslate nohighlight">
+\[f(x) = x^2,\quad
+x_0 = 2,\quad
+\left\{ p_k \right\} = \left\{ \left( -1 \right)^{k + 1} \right\},\quad
+\left\{ \lambda_k \right\} = \left\{ 2 + \frac{3}{2^{k + 1}} \right\},\]</div>
+<p><span class="math notranslate nohighlight">\(\left\{ x_k \right\} =
+\left\{ \left( -1 \right)^k \left( 1 + 2^{-k} \right) \right\}\)</span> for
+<span class="math notranslate nohighlight">\(k \in \mathbb{N}_0\)</span>.</p>
+<p>This infinite sequence is not permitted by (6.3.3) because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(x_k + \lambda_k p_k)
+ &amp;\leq f(x_k) + \alpha \lambda_k \nabla f(x_k)^\top p_k
+       &amp; \quad &amp; \text{(6.3.3)}\\
+x_k^2 + 2 \lambda_k x_k p_k + \lambda_k^2 p_k^2
+ &amp;\leq x_k^2 + \alpha 2 \lambda_k x_k p_k\\
+\frac{\lambda_k^2}{2} + \lambda_k x_k p_k - \alpha \lambda_k x_k p_k
+ &amp;\leq 0\\
+\frac{\lambda_k^2}{2} - \lambda_k \left( 1 + 2^{-k} \right) +
+    \alpha \lambda_k \left( 1 + 2^{-k} \right) &amp;\leq 0\\
+2^{-(2k + 3)} \left( 2^{k + 2} + 3 \right)
+    \left( \alpha 2^{k + 2} + 4 \alpha - 1 \right) &amp;\leq 0\\
+\alpha &amp;\leq \left( 2^{k + 2} + 4 \right)^{-1}\end{split}\]</div>
+<p>where the last inequality holds <span class="math notranslate nohighlight">\(\forall k \in \mathbb{N}_0\)</span> only when
+<span class="math notranslate nohighlight">\(\alpha \leq 0\)</span>.</p>
+</div>
+<div class="section" id="Exercise-5">
+<h2>Exercise 5<a class="headerlink" href="#Exercise-5" title="Permalink to this headline">¶</a></h2>
+<p>Given</p>
+<div class="math notranslate nohighlight">
+\[f(x) = x^2,\quad
+x_0 = 2,\quad
+\left\{ p_k \right\} = \left\{ -1 \right\},\quad
+\left\{ \lambda_k \right\} = \left\{ 2^{-k + 1} \right\},\]</div>
+<p><span class="math notranslate nohighlight">\(\left\{ x_k \right\} = \left\{ 1 + 2^{-k} \right\}\)</span> for
+<span class="math notranslate nohighlight">\(k \in \mathbb{N}_0\)</span>.</p>
+<p>The infinite sequence is permitted by (6.3.3) when
+<span class="math notranslate nohighlight">\(\alpha \leq \frac{1}{2}\)</span> because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(x_k + \lambda_k p_k)
+ &amp;\leq f(x_k) + \alpha \lambda_k \nabla f(x_k)^\top p_k
+       &amp; \quad &amp; \text{(6.3.3)}\\
+x_k^2 + 2 \lambda_k x_k p_k + \lambda_k^2 p_k^2
+ &amp;\leq x_k^2 + \alpha 2 \lambda_k x_k p_k\\
+\frac{\lambda_k^2}{2} + \lambda_k x_k p_k - \alpha \lambda_k x_k p_k
+ &amp;\leq 0\\
+\frac{\lambda_k^2}{2} - \lambda_k \left( 1 + 2^{-k} \right) +
+    \alpha \lambda_k \left( 1 + 2^{-k} \right) &amp;\leq 0\\
+2^{1 - 2k} \left( \alpha 2^k - 2^k + \alpha \right) &amp;\leq 0\\
+\alpha &amp;\leq \frac{2^k}{2^k + 1}\\
+ &amp;= \left( 1 + 2^{-k} \right)^{-1}.\end{split}\]</div>
+<p>The infinite sequence is prohibited by (6.3.4) because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\nabla f(x_k + \lambda_k p_k)^\top p_k
+ &amp;\geq \beta \nabla f(x_k)^\top p_k
+       &amp; \quad &amp; \text{(6.3.4)}\\
+2 \left( x_k + \lambda_k p_k \right)^\top p_k &amp;\geq 2 \beta x_k^\top p_k\\
+\beta x_k &amp;\geq x_k - \lambda_k\\
+\beta &amp;\geq \frac{1 - 2^{-k}}{1 + 2^{-k}}\end{split}\]</div>
+<p>where the last inequality holds <span class="math notranslate nohighlight">\(\forall k \in \mathbb{N}_0\)</span> when
+<span class="math notranslate nohighlight">\(\beta \geq 1\)</span>, but <span class="math notranslate nohighlight">\(\beta \in (\alpha, 1)\)</span>.</p>
+</div>
+<div class="section" id="Exercise-6">
+<h2>Exercise 6<a class="headerlink" href="#Exercise-6" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(f(x)\)</span> be a positive definite quadratic such that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(x) &amp;= \frac{1}{2} x^\top A x + b^\top x + c\\
+\nabla f(x) &amp;= A x + b\\
+\nabla^2 f(x) &amp;= A\end{split}\]</div>
+<p>with <span class="math notranslate nohighlight">\(x \in \mathbb{R}^n\)</span> and <span class="math notranslate nohighlight">\(A \succ 0\)</span>.</p>
+<p>Recall that a full Newton step at <span class="math notranslate nohighlight">\(x_k \in \mathbb{R}^n\)</span> means
+<span class="math notranslate nohighlight">\(\lambda = 1\)</span> and <span class="math notranslate nohighlight">\(p = -H_k^{-1} \nabla f(x_k)\)</span> where
+<span class="math notranslate nohighlight">\(H_k = \nabla^2 f(x_k) + \mu_k I\)</span> is positive definite with
+<span class="math notranslate nohighlight">\(\mu_k = 0\)</span> if <span class="math notranslate nohighlight">\(\nabla^2 f(x_k)\)</span> is positive definite.  Applying a
+full Newton step to <span class="math notranslate nohighlight">\(f(x)\)</span> yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(x_k + \lambda p)
+ &amp;= \frac{1}{2} (x_k + p)^\top \nabla^2 f(x_k) (x_k + p) +
+    b^\top (x_k + p) + c\\
+ &amp;= f(x_k) + \frac{1}{2} p^\top \nabla^2 f(x_k) p +
+    x_k^\top \nabla^2 f(x_k) p + b^\top p
+    &amp; \quad &amp; \text{definition of } f(x)\\
+ &amp;= f(x_k) + \frac{1}{2} p^\top \nabla^2 f(x_k) p + \nabla f(x_k)^\top p
+    &amp; \quad &amp; \text{definition of } \nabla f(x)\\
+ &amp;= f(x_k) +
+    \frac{1}{2} \left( -H_k^{-1} \nabla f(x_k) \right)^\top
+        \nabla^2 f(x_k) \left( -H_k^{-1} \nabla f(x_k) \right) +
+    \nabla f(x_k)^\top \left( -H_k^{-1} \nabla f(x_k) \right)\\
+ &amp;= f(x_k) -
+    \frac{1}{2} \nabla f(x_k)^\top \nabla^2 f(x_k)^{-1} \nabla f(x_k)
+    &amp; \quad &amp; \text{Hessian is symmetric and }
+              \left( A^{-1} \right)^\top = \left( A^\top \right)^{-1}\\
+ &amp;= f(x_k) + \frac{1}{2} \nabla f(x_k)^\top p\\
+ &amp;\leq f(x_k) + \alpha \nabla f(x_k)^\top p,\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\alpha \leq \frac{1}{2}\)</span>, which satisfies condition (6.3.3).</p>
+<p>Condition (6.3.4) is also satisfied when <span class="math notranslate nohighlight">\(\beta \in (0, 1)\)</span> because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\nabla f(x_k + \lambda p) p
+ &amp;= \left[ \nabla^2 f(x_k) (x_k + p) + b \right]^\top p
+    &amp; \quad &amp; \text{definition of } \nabla f(x)\\
+ &amp;= x_k^\top \nabla^2 f(x_k)^\top p +
+    b^\top p + p^\top \nabla^2 f(x_k)^\top p\\
+ &amp;= \nabla f(x_k)^\top p + p^\top \nabla^2 f(x_k) p\\
+ &amp;\geq \beta \nabla f(x_k)^\top p
+       &amp; \quad &amp; \text{Hessian is assumed to be positive definite.}\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-7">
+<h2>Exercise 7<a class="headerlink" href="#Exercise-7" title="Permalink to this headline">¶</a></h2>
+<p>Let (6.3.4) be replaced with
+<span class="math notranslate nohighlight">\(f(x_{k + 1}) \geq f(x_k) + \beta \nabla f(x_k)^\top (x_{k + 1} - x_k)\)</span>
+where <span class="math notranslate nohighlight">\(\beta \in (\alpha, 1)\)</span>.</p>
+<p>The proof for Theorem 6.3.2 still proceeds as in (6.3.5).  Observe that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(\hat{x}) &amp;= f(x_k) + \alpha \hat{\lambda} \nabla f(x_k)^\top p_k\\
+f(\hat{x}) - f(x_k) &amp;= \alpha \hat{\lambda} \nabla f(x_k)^\top p_k\\
+ &amp;&gt; \beta \hat{\lambda} \nabla f(x_k)^\top p_k
+    &amp; \quad &amp; \alpha &lt; \beta \text{ and } \nabla f(x_k)^\top p_k &lt; 0\\
+f(\hat{x}) &amp;&gt; f(x_k) + \beta \nabla f(x_k)^\top (\hat{x} - x_k).\end{split}\]</div>
+<p>Thus, by the continuity of <span class="math notranslate nohighlight">\(\nabla f\)</span>, Theorem 6.3.2 holds as long as
+<span class="math notranslate nohighlight">\(\lambda_k \in (\beta \hat{\lambda}, \alpha \hat{\lambda})\)</span>.</p>
+<p>The proof for Theorem 6.3.3 is the same except for the direct usage of
+condition (6.3.4).  That condition needs to be derived as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(x_{k + 1}) &amp;\geq f(x_k) + \beta \nabla f(x_k)^\top (x_{k + 1} - x_k)\\
+\alpha \nabla f(x_k)^\top p_k
+ &amp;\geq \beta \nabla f(x_k)^\top p_k
+       &amp; \quad &amp; \text{(6.3.3)}\\
+\nabla f(x_k + \bar{\lambda} p_k)^\top p_k
+ &amp;\geq \beta \nabla f(x_k)^\top p_k
+       &amp; \quad &amp; \text{(6.3.7)}\\
+\nabla f(x_k + \lambda_k p_k) \lambda_k p_k
+ &amp;\geq \beta \nabla f(x_k)^\top \lambda_k p_k
+       &amp; \quad &amp; \text{pick } \lambda_k \in (\lambda_l, \lambda_r)
+                 \text{ about } \bar{\lambda}\\
+\nabla f(x_{k + 1}) s_k &amp;\geq \beta \nabla f(x_k)^\top s_k.\end{split}\]</div>
+<p>This derivation can also be used as a transition into the part of Theorem
+6.3.4’s proof that uses condition (6.3.4).</p>
+</div>
+<div class="section" id="Exercise-8">
+<h2>Exercise 8<a class="headerlink" href="#Exercise-8" title="Permalink to this headline">¶</a></h2>
+<p>Given</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x_c = \begin{pmatrix} 1\\ 1 \end{pmatrix}^\top,\quad
+f(x) = x_1^4 + x_2^2,\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\nabla f(x) = \begin{bmatrix} 4 x_1^3\\ 2 x_2 \end{bmatrix}\)</span> and
+<span class="math notranslate nohighlight">\(\nabla^2 f(x) = \begin{bmatrix} 12 x_1^2 &amp; 0\\ 0 &amp; 2 \end{bmatrix}\)</span>.</p>
+<p>Since the Hessian is positive definite,</p>
+<div class="math notranslate nohighlight">
+\[p_c =
+-H_k^{-1} \nabla f(x_c) =
+-\nabla^2 f(x_c)^{-1} \nabla f(x_c) =
+\begin{bmatrix} -\frac{1}{3} &amp; -1 \end{bmatrix}^\top.\]</div>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>Performing a full Newton step (<span class="math notranslate nohighlight">\(\lambda = 1\)</span>) gives</p>
+<div class="math notranslate nohighlight">
+\[x_+ =
+x_c + \lambda p_c =
+\begin{bmatrix} \frac{2}{3} &amp; 0 \end{bmatrix}^\top.\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>Given <span class="math notranslate nohighlight">\(\alpha = 10^{-4}\)</span> and <span class="math notranslate nohighlight">\(\lambda_k = 1\)</span>, the backtracking
+line-search gives the same <span class="math notranslate nohighlight">\(x_+\)</span> as in (a) because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(x_k + \lambda_k p_k) &amp;&lt; f(x_k) + \alpha \lambda_k \nabla f(x_k)^\top p_k\\
+\left( \frac{2}{3} \right)^4 + 0^2
+ &amp;&lt; \left( 1^4 + 1^2 \right) + 10^{-4} (1) \left( -\frac{4}{3} - 2 \right)\\
+0.1975 &amp;&lt; 1.9996\end{split}\]</div>
+<p>shows that condition (6.3.3) is satisfied.</p>
+</div>
+<div class="section" id="(c)">
+<h3>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h3>
+<p>The only thing I can think of is to use (6.3.17) yielding
+<span class="math notranslate nohighlight">\(\lambda = 1.08871\)</span>, which makes <span class="math notranslate nohighlight">\(x_+\)</span> closer to the minimizer than
+in (b).</p>
+</div>
+</div>
+<div class="section" id="Exercise-9">
+<h2>Exercise 9<a class="headerlink" href="#Exercise-9" title="Permalink to this headline">¶</a></h2>
+<p>Given <span class="math notranslate nohighlight">\(x_c = (1, 1)^\top\)</span> and <span class="math notranslate nohighlight">\(f(x) = \frac{1}{2} x_1^2 + x_2^2\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\nabla f(x) = \begin{bmatrix} x_1\\ 2 x_2 \end{bmatrix}
+\quad \text{and} \quad
+\nabla^2 f(x) = \begin{bmatrix} 1 &amp; 0\\ 0 &amp; 2 \end{bmatrix}.\end{split}\]</div>
+<p>The unconstrained solution to (6.4.1) is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\partial m_c}{\partial x} &amp;= 0\\
+\nabla f(x_c)^\top + H_c s &amp;= 0\\
+s &amp;= -H_c^{-1} \nabla f(x_c)\\
+ &amp;= -\begin{bmatrix} 1 &amp; 0\\ 0 &amp; 0.5 \end{bmatrix}
+    \begin{bmatrix} 1\\ 2 \end{bmatrix}\\
+ &amp;= -\begin{bmatrix} 1 &amp; 1 \end{bmatrix}^\top.\end{split}\]</div>
+<p>When <span class="math notranslate nohighlight">\(\delta = 2\)</span>, then the unconstrained solution is valid.</p>
+<p>When <span class="math notranslate nohighlight">\(\delta = \frac{5}{6}\)</span>, (6.4.2) needs to be invoked:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert -\left( H_c + \mu I \right)^{-1} \nabla f(x_c) \right\Vert_2
+ &amp;\leq \delta\\
+\left\Vert
+  -\begin{bmatrix} (1 + \mu)^{-1} &amp; 0\\ 0 &amp; (2 + \mu)^{-1} \end{bmatrix}
+  \begin{bmatrix} 1\\ 2 \end{bmatrix}
+\right\Vert_2 &amp;\leq \delta\\
+\left( 1 + \mu \right)^{-2} + 2^2 \left( 2 + \mu \right)^{-2} &amp;\leq \delta\\
+\mu &amp;\geq 0.7798.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-10">
+<h2>Exercise 10<a class="headerlink" href="#Exercise-10" title="Permalink to this headline">¶</a></h2>
+<p>Given <span class="math notranslate nohighlight">\(f(x) = x_1^2 + 2 x_2^2 + 3 x_3^2\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\nabla f(x) = \begin{bmatrix} 2 x_1\\ 4 x_2\\ 6 x_3 \end{bmatrix}
+\quad \text{and} \quad
+\nabla^2 f(x) =
+    \begin{bmatrix} 2 &amp; 0 &amp; 0\\ 0 &amp; 4 &amp; 0\\ 0 &amp; 0 &amp; 6 \end{bmatrix}.\end{split}\]</div>
+<p>When <span class="math notranslate nohighlight">\(x_c = (1, 1, 1)^\top\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\nabla f(x_c) = (2, 4, 6)^\top
+\quad \text{and} \quad
+H_c^{-1} \nabla f(x_c) = (1, 1, 1)^\top.\]</div>
+<p>Let <span class="math notranslate nohighlight">\(\mu_0 = 1\)</span>, <span class="math notranslate nohighlight">\(\mu_1 = 2\)</span>, and <span class="math notranslate nohighlight">\(\mu_2 = 3\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}s(\mu_0) = -(H_c + \mu_0 I)^{-1} \nabla f(x_c) =
+    -(\frac{2}{3}, \frac{4}{5}, \frac{6}{7})^\top\\
+s(\mu_1) = -(H_c + \mu_1 I)^{-1} \nabla f(x_c) =
+    -(\frac{2}{4}, \frac{4}{6}, \frac{6}{8})^\top\\
+s(\mu_2) = -(H_c + \mu_2 I)^{-1} \nabla f(x_c) =
+    -(\frac{2}{5}, \frac{4}{7}, \frac{6}{9})^\top.\end{split}\]</div>
+<p>As shown below, the volume of the tetrahedron defined by these points is not
+zero and none of the singular values are zero.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="n">M</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">,:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asfarray</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">,:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">asfarray</span><span class="p">([</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="o">/</span><span class="mi">7</span><span class="p">])</span>
+<span class="n">M</span><span class="p">[</span><span class="mi">2</span><span class="p">,:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">asfarray</span><span class="p">([</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="o">/</span><span class="mi">8</span><span class="p">])</span>
+<span class="n">M</span><span class="p">[</span><span class="mi">3</span><span class="p">,:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">asfarray</span><span class="p">([</span><span class="mi">2</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="o">/</span><span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="o">/</span><span class="mi">9</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Volume of Tetrahedron = {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">M</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Singular Values = {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">M</span><span class="p">[:,:</span><span class="mi">3</span><span class="p">])[</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Volume of Tetrahedron = 0.0005139833711262165
+Singular Values = [2.63921809 0.20381107 0.00683625]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Exercise-11">
+<h2>Exercise 11<a class="headerlink" href="#Exercise-11" title="Permalink to this headline">¶</a></h2>
+<p>Given <span class="math notranslate nohighlight">\(H \in \mathbb{R}^{n \times n}\)</span> is symmetric and positive
+definite, it has an eigendecomposition of
+<span class="math notranslate nohighlight">\(H = Q \Lambda Q^\top = \sum_{i = 1}^n \lambda_i v_i v_i^\top\)</span>.</p>
+<p>Let <span class="math notranslate nohighlight">\(g = \sum_{j = 1}^n \alpha_j v_j\)</span> and <span class="math notranslate nohighlight">\(\mu \geq 0\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left( H + \mu I \right)^{-1} g
+ &amp;= \left( Q \Lambda Q^\top + Q \text{M} Q^\top \right)^{-1} g
+    &amp; \quad &amp; \text{M is a diagonal matrix of } \mu\\
+ &amp;= \sum_{j = 1}^n \sum_{i = 1}^n
+        \frac{\alpha_j}{\lambda_i + \mu} v_i v_i^\top v_j\\
+ &amp;= \sum_{j = 1}^n \frac{\alpha_j}{\lambda_j + \mu} v_j
+    &amp; \quad &amp; \text{eigenvectors form an orthonormal basis}\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\Vert \left( H + \mu I \right)^{-1} g \right\Vert_2^2
+ &amp;= \left\Vert
+      \sum_{j = 1}^n \frac{\alpha_j}{\lambda_j + \mu} v_j
+    \right\Vert_2^2\\
+ &amp;= \left( \sum_{j = 1}^n \frac{\alpha_j}{\lambda_j + \mu} v_j \right)^\top
+    \left( \sum_{j = 1}^n \frac{\alpha_j}{\lambda_j + \mu} v_j \right)\\
+ &amp;= \sum_{j = 1}^n \sum_{i = 1}^n \frac{\alpha_j}{\lambda_j + \mu}
+    \frac{\alpha_i}{\lambda_i + \mu} v_j^\top v_i\\
+ &amp;= \sum_{j = 1}^n \left( \frac{\alpha_j}{\lambda_j + \mu} \right)^2
+    &amp; \quad &amp; \text{definition of orthonormal basis}\\
+\left\Vert s(\mu) \right\Vert_2
+ &amp;= \left[
+      \sum_{j = 1}^n \left( \frac{\alpha_j}{\lambda_j + \mu} \right)^2
+    \right]^{1/2}.\end{split}\]</div>
+<p>This relates to <span class="math notranslate nohighlight">\(m_c(\mu)\)</span> in (6.4.5) in the sense that
+<span class="math notranslate nohighlight">\(g = -\nabla f(x_c)\)</span>.</p>
+</div>
+<div class="section" id="Exercise-12">
+<h2>Exercise 12<a class="headerlink" href="#Exercise-12" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(s(\mu) = (H + \mu I)^{-1} g\)</span> for <span class="math notranslate nohighlight">\(\mu \geq 0\)</span> and
+<span class="math notranslate nohighlight">\(\eta(\mu) = \left\Vert s(\mu) \right\Vert\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{d}{d \mu} \eta(\mu)
+ &amp;= \frac{d}{d \mu}
+    \left[
+      \sum_{j = 1}^n \left( \frac{\alpha_j}{\lambda_j + \mu} \right)^2
+    \right]^{1/2}\\
+ &amp;= \frac{1}{2} \left\Vert s(\mu) \right\Vert_2^{-1}
+    \left[ \frac{d}{d \mu}
+      \sum_{j = 1}^n \left( \frac{\alpha_j}{\lambda_j + \mu} \right)^2
+    \right]
+    &amp; \quad &amp; \text{chain rule}\\
+ &amp;= \frac{1}{2} \left\Vert s(\mu) \right\Vert_2^{-1}
+    \left[
+      \sum_{j = 1}^n 2 \frac{\alpha_j}{\lambda_j + \mu}
+          \frac{d \alpha_j \left( \lambda_j + \mu \right)^{-1}}{d \mu}
+    \right]
+    &amp; \quad &amp; \text{linearity of differentiation and chain rule}\\
+ &amp;= \left\Vert s(\mu) \right\Vert_2^{-1}
+    \left[
+      \sum_{j = 1}^n -\frac{\alpha_j^2}{\left( \lambda_j + \mu \right)^3}
+    \right]
+    &amp; \quad &amp; \text{linearity of differentiation and chain rule}\\
+ &amp;= -\left\Vert s(\mu) \right\Vert_2^{-1}
+    \left[ g^\top Q \left( \Lambda + \text{M} \right)^{-3} Q^\top g \right]
+    &amp; \quad &amp; s(\mu)^\top s(\mu)\\
+ &amp;= -\frac{
+      s(\mu)^\top \left( H + \mu I \right)^{-1} s(\mu)
+    }{
+      \left\Vert s(\mu) \right\Vert_2
+    }
+    &amp; \quad &amp; Q Q^\top = Q^\top Q = I.\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-13">
+<h2>Exercise 13<a class="headerlink" href="#Exercise-13" title="Permalink to this headline">¶</a></h2>
+<p>Given <span class="math notranslate nohighlight">\(f(x) = \frac{1}{2} x_1^2 + x_2^2\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\nabla f(x) = (x_1, 2 x_2)^\top
+\quad \text{and} \quad
+\nabla^2 f(x) = \begin{bmatrix} 1 &amp; 0\\ 0 &amp; 2 \end{bmatrix}.\end{split}\]</div>
+<p>Let <span class="math notranslate nohighlight">\(x_0 = (1,1)^\top\)</span>, <span class="math notranslate nohighlight">\(g = \nabla f(x_0) = (1, 2)^\top\)</span>, and
+<span class="math notranslate nohighlight">\(H = \nabla^2 f(x_0) = \begin{bmatrix} 1 &amp; 0\\ 0 &amp; 2 \end{bmatrix}\)</span>.</p>
+<p>When <span class="math notranslate nohighlight">\(\delta = 1\)</span>, the Cauchy point is outside the region and does not
+trigger the estimation of the parameterized line unlike when
+<span class="math notranslate nohighlight">\(\delta = 1.25\)</span>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="k">def</span> <span class="nf">double_dogleg_step</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
+    <span class="n">s_N</span> <span class="o">=</span> <span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="o">*</span> <span class="n">g</span>
+
+    <span class="c1">#return the Newton point via Newton step</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">s_N</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">s_N</span><span class="p">)</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">delta</span><span class="o">**</span><span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">s_N</span>
+
+    <span class="c1">#compute Cauchy point</span>
+    <span class="n">lambda_star</span> <span class="o">=</span> <span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">g</span> <span class="o">/</span> <span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">H</span> <span class="o">*</span> <span class="n">g</span><span class="p">))</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">C_P</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">lambda_star</span> <span class="o">*</span> <span class="n">g</span>
+
+    <span class="c1">#compute Newton point</span>
+    <span class="n">s_CP</span> <span class="o">=</span> <span class="o">-</span><span class="n">lambda_star</span> <span class="o">*</span> <span class="n">g</span>
+
+    <span class="n">_</span> <span class="o">=</span> <span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">H</span> <span class="o">*</span> <span class="n">g</span><span class="p">)</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="o">*</span> <span class="n">g</span><span class="p">)</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">g</span><span class="p">)</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">_</span>
+    <span class="n">eta</span> <span class="o">=</span> <span class="mf">0.8</span> <span class="o">*</span> <span class="n">gamma</span> <span class="o">+</span> <span class="mf">0.2</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">eta</span> <span class="o">*</span> <span class="n">s_N</span>
+
+    <span class="n">s_hat_N</span> <span class="o">=</span> <span class="n">eta</span> <span class="o">*</span> <span class="n">s_N</span>
+
+    <span class="n">a</span> <span class="o">=</span> <span class="p">((</span><span class="n">s_hat_N</span> <span class="o">-</span> <span class="n">s_CP</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="p">(</span><span class="n">s_hat_N</span> <span class="o">-</span> <span class="n">s_CP</span><span class="p">))</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">((</span><span class="n">s_hat_N</span> <span class="o">-</span> <span class="n">s_CP</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">s_CP</span><span class="p">)</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">s_CP</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">s_CP</span><span class="p">)</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">delta</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="k">if</span> <span class="n">delta</span> <span class="o">&lt;=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="o">*</span> <span class="n">lambda_star</span><span class="p">:</span>
+        <span class="c1">#C.P. exceeds delta-region</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">delta</span> <span class="o">/</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="o">*</span> <span class="n">g</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1">#C.P. is within delta-region, so solve for parameterized line</span>
+        <span class="n">lambda_c</span> <span class="o">=</span> <span class="nb">max</span><span class="p">((</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">b</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">c</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">a</span><span class="p">),</span>
+                       <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">b</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">c</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">a</span><span class="p">))</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">s_CP</span> <span class="o">+</span> <span class="n">lambda_c</span> <span class="o">*</span> <span class="p">(</span><span class="n">s_hat_N</span> <span class="o">-</span> <span class="n">s_CP</span><span class="p">)</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">16</span><span class="p">,</span><span class="mi">8</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">C_P</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">C_P</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+             <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">N</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">N</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+             <span class="n">marker</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\checkmark$&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">C_P</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">N</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">C_P</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">N</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+             <span class="n">marker</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\bowtie$&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">_</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">_</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+             <span class="n">marker</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\lambda$&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">circ</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">delta</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">circ</span><span class="p">),</span>
+             <span class="n">x</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">delta</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">circ</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Double Dogleg Curve $\delta = {0}$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">delta</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">_</span>
+
+<span class="k">def</span> <span class="nf">fp</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">flat</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([</span><span class="n">_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">_</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="k">def</span> <span class="nf">fpp</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+
+<span class="n">x_0</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">fp</span><span class="p">(</span><span class="n">x_0</span><span class="p">)</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">fpp</span><span class="p">(</span><span class="n">x_0</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">delta</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span> <span class="o">/</span> <span class="mi">4</span><span class="p">]:</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">double_dogleg_step</span><span class="p">(</span><span class="n">x_0</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;Figure size 1600x800 with 1 Axes&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;Figure size 1600x800 with 1 Axes&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Exercise-14">
+<h2>Exercise 14<a class="headerlink" href="#Exercise-14" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left( g^\top g \right)^2
+ &amp;= \left( u^\top v \right)^2
+    &amp; \quad &amp; \text{change of variables with }
+              u = H^{1/2} g \text{ and } v = H^{-1/2} g\\
+ &amp;\leq \left( u^\top u \right) \left( v^\top v \right)
+       &amp; \quad &amp; \text{Cauchy-Schwarz inequality}\\
+ &amp;= \left( g^\top H g \right) \left( g^\top H^{-1} g \right).\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-15">
+<h2>Exercise 15<a class="headerlink" href="#Exercise-15" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(f(x_1, x_2) = x_1^4 + x_1^2 + x_2^2\)</span>, then
+<span class="math notranslate nohighlight">\(\nabla f(x) = (4 x_1^3 + 2 x_1, 2 x_2)^\top\)</span> and
+<span class="math notranslate nohighlight">\(H = \nabla^2 f(x) =
+\begin{bmatrix} 12 x_1^2 + 2 &amp; 0\\ 0 &amp; 2 \end{bmatrix}\)</span>.</p>
+<p>With the update of <span class="math notranslate nohighlight">\(\delta_c = 1\)</span> and <span class="math notranslate nohighlight">\(x_c = (0.666, 0.665)^\top\)</span>,
+<span class="math notranslate nohighlight">\(\nabla f(x_c) = (2.514, 1.33)^\top\)</span> and
+<span class="math notranslate nohighlight">\(H = \begin{bmatrix} 7.323 &amp; 0\\ 0 &amp; 2 \end{bmatrix}\)</span>.</p>
+<p>Based on lemma 6.4.1, performing a Newton step yields
+<span class="math notranslate nohighlight">\(s_c^N = -H^{-1} \nabla f(x_c) = (-0.343, -0.665)^\top\)</span>.</p>
+<p>Since <span class="math notranslate nohighlight">\(\left\Vert s_c^N \right\Vert_2 = 0.74 \leq \delta_c\)</span>, the solution
+for (6.4.2) is <span class="math notranslate nohighlight">\(s(0) = s_c^N\)</span>.</p>
+</div>
+<div class="section" id="Exercise-16">
+<h2>Exercise 16<a class="headerlink" href="#Exercise-16" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(F(x) = (x_1, 2 x_2)^\top\)</span> and <span class="math notranslate nohighlight">\(x_0 = (1, 1)^\top\)</span>, then
+<span class="math notranslate nohighlight">\(J(x_0) = \begin{bmatrix} 1 &amp; 0\\ 0 &amp; 2 \end{bmatrix}\)</span>.</p>
+<p>The steepest-descent direction for (6.5.3) is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}s = -\frac{\nabla f(x_0) }{\left\Vert \nabla f(x_0) \right\Vert_2} =
+-\frac{
+  J(x_0)^\top F(x_c)
+}{
+  \left\Vert \nabla J(x_0)^\top F(x_c) \right\Vert_2
+} =
+\begin{bmatrix} -0.323\\ -1.291 \end{bmatrix}.\end{split}\]</div>
+<p>Applying (6.2.4) shows that
+<span class="math notranslate nohighlight">\(c \triangleq \frac{2 - 1}{2 + 1} = \frac{1}{3}\)</span>.  Therefore, the
+convergence rate will be slower than linear.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">F</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">flat</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="k">def</span> <span class="nf">J</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+
+<span class="n">x_c</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="n">J</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">F</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="o">-</span><span class="n">top</span> <span class="o">/</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">top</span><span class="p">)</span>
+    <span class="n">x_c</span> <span class="o">=</span> <span class="n">x_c</span> <span class="o">+</span> <span class="n">s</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Iteration {0}: {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Iteration 0: [0.75746437 0.0298575 ]
+Iteration 1: [-0.23033265 -0.12588923]
+Iteration 2: [0.18562906 0.7834929 ]
+Iteration 3: [ 0.12650144 -0.21475753]
+Iteration 4: [-0.01918811  0.77457283]
+Iteration 5: [-0.0129951 -0.225408 ]
+Iteration 6: [0.00141627 0.77448815]
+Iteration 7: [ 0.00095911 -0.22551174]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Exercise-17">
+<span id="dennis1996numerical-ex-6-17"></span><h2>Exercise 17<a class="headerlink" href="#Exercise-17" title="Permalink to this headline">¶</a></h2>
+<p>The following facts are useful in the proof that follows.</p>
+<p>Given a matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> of rank <span class="math notranslate nohighlight">\(r\)</span>, the
+nullspace <span class="math notranslate nohighlight">\(\mathbf{N}(A)\)</span> is the space of all vectors <span class="math notranslate nohighlight">\(x\)</span> such that
+<span class="math notranslate nohighlight">\(Ax = 0\)</span>.  Likewise, the left nullspace is the space of all vectors
+<span class="math notranslate nohighlight">\(y\)</span> such that <span class="math notranslate nohighlight">\(A^\top y = 0\)</span> or equivalently <span class="math notranslate nohighlight">\(y^\top A = 0\)</span>.
+The dimension of the column space <span class="math notranslate nohighlight">\(\mathbf{C}(A)\)</span> is <span class="math notranslate nohighlight">\(r\)</span> and the
+dimension of the row space <span class="math notranslate nohighlight">\(\mathbf{C}(A^\top)\)</span> is also <span class="math notranslate nohighlight">\(r\)</span>.  The
+dimension of the nullspace <span class="math notranslate nohighlight">\(\mathbf{N}(A)\)</span> is <span class="math notranslate nohighlight">\(n - r\)</span> and the
+dimension of the left nullspace <span class="math notranslate nohighlight">\(\mathbf{N}(A^\top)\)</span> is <span class="math notranslate nohighlight">\(m - r\)</span>.</p>
+<p>Let <span class="math notranslate nohighlight">\(f(x) = \frac{1}{2} F(x)^\top F(x)\)</span> where
+<span class="math notranslate nohighlight">\(F \colon \mathbb{R}^n \rightarrow \mathbb{R}^n\)</span> and each component
+<span class="math notranslate nohighlight">\(f_i\)</span> for <span class="math notranslate nohighlight">\(i = 1 \ldots, n\)</span> is continuously differentiable.</p>
+<p>Recall from definition 4.1.7 that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}F'(x) = \nabla F(x)^\top =
+\begin{bmatrix}
+  \frac{\partial}{\partial x_1}\\
+  \vdots\\
+  \frac{\partial}{\partial x_n}
+\end{bmatrix}
+  \begin{bmatrix}
+    f_1(x) &amp; \cdots &amp; f_n(x)
+  \end{bmatrix} =
+\begin{bmatrix}
+  \frac{\partial f_1(x)}{\partial x_1} &amp; \cdots &amp;
+    \frac{\partial f_1(x)}{\partial x_n}\\
+  \vdots &amp; \ddots &amp; \vdots\\
+  \frac{\partial f_n(x)}{\partial x_1} &amp; \cdots &amp;
+    \frac{\partial f_n(x)}{\partial x_n}\\
+\end{bmatrix} =
+J(x).\end{split}\]</div>
+<p>Since <span class="math notranslate nohighlight">\(F(\hat{x}) \neq 0\)</span>, by the definition of local minimizer
+(Lemma 4.3.1),</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\nabla f(x_c)
+ &amp;= \frac{d}{dx} \sum_{i = 1}^n \frac{1}{2} \left( f_i(x_c) \right)^2\\
+ &amp;= \frac{1}{2} \sum_{i = 1}^n \frac{d}{dx} \left( f_i(x_c) \right)^2\\
+ &amp;= \frac{1}{2} \sum_{i = 1}^n
+      \begin{bmatrix}
+        \frac{\partial}{\partial x_1} \left( f_i(x_c) \right)^2\\
+        \vdots\\
+        \frac{\partial}{\partial x_n} \left( f_i(x_c) \right)^2
+      \end{bmatrix}\\
+ &amp;= \frac{1}{2} \sum_{i = 1}^n
+      \begin{bmatrix}
+        2 f_i(x_c) \frac{\partial f_i(x_c)}{\partial x_1}\\
+        \vdots\\
+        2 f_i(x_c) \frac{\partial f_i(x_c)}{\partial x_n}\\
+      \end{bmatrix}\\
+ &amp;= \sum_{i = 1}^n \nabla f_i(x_c) f_i(x_c)\\
+ &amp;= J(x_c)^\top F(x_c)\end{split}\]</div>
+<p>implies that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\nabla f(x_c) = \boldsymbol{0} = J(\hat{x})^\top F(\hat{x}) =
+\begin{bmatrix}
+  \frac{\partial f_1(x)}{\partial x_1} &amp; \cdots &amp;
+    \frac{\partial f_n(x)}{\partial x_1}\\
+  \vdots &amp; \ddots &amp; \vdots\\
+  \frac{\partial f_1(x)}{\partial x_n} &amp; \cdots &amp;
+    \frac{\partial f_n(x)}{\partial x_n}
+\end{bmatrix}
+  \begin{bmatrix}
+    f_1(x)\\
+    \vdots\\
+    f_n(x)
+  \end{bmatrix}.\end{split}\]</div>
+<p>By the fundamental theorem of linear algebra, the corank of <span class="math notranslate nohighlight">\(J(\hat{x})\)</span>
+is not zero.  Since <span class="math notranslate nohighlight">\(J\)</span> is a square matrix, its corank is equal to its
+nullity.  Thus, <span class="math notranslate nohighlight">\(J(\hat{x})\)</span> is singular.</p>
+<p>As shown in Figure 6.5.1, when <span class="math notranslate nohighlight">\(J(\hat{x})\)</span> is singular,
+<span class="math notranslate nohighlight">\(\hat{x}\)</span> could also be a global minimizer.</p>
+</div>
+<div class="section" id="Exercise-18">
+<span id="dennis1996numerical-ex-6-18"></span><h2>Exercise 18<a class="headerlink" href="#Exercise-18" title="Permalink to this headline">¶</a></h2>
+<p>A useful fact to observe is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}J(x)^\top J(x) =
+\begin{bmatrix}
+  \frac{\partial f_1(x)}{\partial x_1} &amp; \cdots &amp;
+    \frac{\partial f_n(x)}{\partial x_1}\\
+  \vdots &amp; \ddots &amp; \vdots\\
+  \frac{\partial f_1(x)}{\partial x_n} &amp; \cdots &amp;
+    \frac{\partial f_n(x)}{\partial x_n}\\
+\end{bmatrix}
+  \begin{bmatrix}
+    \frac{\partial f_1(x)}{\partial x_1} &amp; \cdots &amp;
+      \frac{\partial f_1(x)}{\partial x_n}\\
+    \vdots &amp; \ddots &amp; \vdots\\
+    \frac{\partial f_n(x)}{\partial x_1} &amp; \cdots &amp;
+      \frac{\partial f_n(x)}{\partial x_n}\\
+  \end{bmatrix}.\end{split}\]</div>
+<p>To show that the model holds, we need to compute the gradient (see
+<a class="reference internal" href="#dennis1996numerical-ex-6-17"><span class="std std-ref">Exercise 17</span></a>) and Hessian of the
+second-order Taylor series.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\nabla^2 f(x_c) &amp;= \sum_{i = 1}^n \frac{d}{dx} f_i(x_c) \nabla f_i(x_c)\\
+ &amp;= \sum_{i = 1}^n f_i(x_c) \frac{d \nabla f_i(x_c)}{dx} +
+      \frac{d f_i(x_c)}{dx} \nabla f_i(x_c)^\top\\
+ &amp;= \sum_{i = 1}^n f_i(x_c) \nabla^2 f_i(x_c) +
+      \frac{d f_i(x_c)}{dx} \nabla f_i(x_c)^\top
+    &amp; \quad &amp; \text{(4.1.5)}\\
+ &amp;= \sum_{i = 1}^n f_i(x_c) \nabla^2 f_i(x_c) +
+      \begin{bmatrix}
+        \frac{\partial f_i(x_c)}{\partial x_1}\\
+        \vdots\\
+        \frac{\partial f_i(x_c)}{\partial x_n}
+      \end{bmatrix}
+      \begin{bmatrix}
+        \frac{\partial f_i(x_c)}{\partial x_1} &amp; \cdots &amp;
+          \frac{\partial f_i(x_c)}{\partial x_n}
+      \end{bmatrix}\\
+ &amp;= J(x_c)^\top J(x_c) + \sum_{i = 1}^n f_i(x_c) \nabla^2 f_i(x_c).\end{split}\]</div>
+<p>Compared to (6.5.4), this model requires the extra term
+<span class="math notranslate nohighlight">\(\sum_{i = 1}^n f_i(x_c) \nabla^2 f_i(x_c)\)</span>.  The Newton step for
+minimizing <span class="math notranslate nohighlight">\(m_c(x)\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{d}{ds} m_c(x_c + s)
+ &amp;= \frac{d}{ds} \left(
+      \frac{1}{2} F(x_c)^\top F(x_c) +
+      \left[ J(x_c)^\top F(x_c) \right]^\top s +
+      \frac{1}{2} s^\top \left[
+        J(x_c)^\top J(x_c) + \sum_{i = 1}^n f_i(x_c) \nabla^2 f_i(x_c)
+      \right] s
+    \right)\\
+0 &amp;= J(x_c)^\top F(x_c) +
+    \left[
+      J(x_c)^\top J(x_c) + \sum_{i = 1}^n f_i(x_c) \nabla^2 f_i(x_c)
+    \right] s\\
+-J(x_c)^\top F(x_c)
+ &amp;= \left[
+      J(x_c)^\top J(x_c) + \sum_{i = 1}^n f_i(x_c) \nabla^2 f_i(x_c)
+    \right] s,\end{split}\]</div>
+<p>which is the same as the Newton step for <span class="math notranslate nohighlight">\(F(x) = 0\)</span> if <span class="math notranslate nohighlight">\(J\)</span> is
+nonsingular and the extra term evaluates to zero.  Compared to (6.5.5)
+and the section after example 6.5.1, the attractiveness of this approach is
+that it does not need to arbitrarily perturb the model when <span class="math notranslate nohighlight">\(J\)</span> is
+singular as long as the overall sum is nonsingular.</p>
+</div>
+<div class="section" id="Exercise-19">
+<h2>Exercise 19<a class="headerlink" href="#Exercise-19" title="Permalink to this headline">¶</a></h2>
+<p>The second term of the original <span class="math notranslate nohighlight">\(x_0\)</span>, which is very close to
+<span class="math notranslate nohighlight">\(\frac{e}{6} \cong 0.45\)</span>, would make <span class="math notranslate nohighlight">\(J(x_0)\)</span> singular.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="k">def</span> <span class="nf">J</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">flat</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+                           <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">]])</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">e</span> <span class="o">/</span> <span class="mi">6</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Singular Values of J(x_0): {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">J</span><span class="p">(</span><span class="n">x</span><span class="p">))[</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Singular Values of J(x_0): [4.95875147e+00 1.18964640e-17]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Exercise-20">
+<h2>Exercise 20<a class="headerlink" href="#Exercise-20" title="Permalink to this headline">¶</a></h2>
+<p>If the approximation is the one in <a class="reference internal" href="#dennis1996numerical-ex-6-18"><span class="std std-ref">Exercise 18</span></a>,
+then the double dogleg strategy would return the Newton point.</p>
+<p>If the approximation was using (6.5.4), the strategy would compute the point
+along the line connecting the Cauchy point and the Newton point.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">F</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">flat</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span>
+        <span class="k">elif</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">_</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">2</span>
+
+    <span class="n">_</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span>
+                           <span class="n">_</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="k">def</span> <span class="nf">Fpp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">flat</span>
+    <span class="k">if</span> <span class="mi">0</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">elif</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([[</span><span class="n">_</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]]])</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Invalid dimension {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">J</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">flat</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+                           <span class="p">[</span><span class="n">_</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">]])</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">fp</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">J</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">fpp</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">J</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">J</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">Fpp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">Fpp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">x_0</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">fp</span><span class="p">(</span><span class="n">x_0</span><span class="p">)</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">fpp</span><span class="p">(</span><span class="n">x_0</span><span class="p">)</span>
+<span class="n">delta_c</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">double_dogleg_step</span><span class="p">(</span><span class="n">x_0</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">delta_c</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;x_+ = {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">_</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+x_+ = [1.64273563 0.41561734]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Exercise-21">
+<span id="dennis1996numerical-ex-6-21"></span><h2>Exercise 21<a class="headerlink" href="#Exercise-21" title="Permalink to this headline">¶</a></h2>
+<p>Recall that <span class="math notranslate nohighlight">\(m_c(x_c + s) = f(x_c) + \nabla f(x_c)^\top s +
+\frac{1}{2} s^\top H_c s\)</span>.  The residual in nonlinear <a class="reference internal" href="../../blog/2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html"><span class="doc">conjugate gradient</span></a>
+is <span class="math notranslate nohighlight">\(-\nabla f(x_c) = s^{\text{C.P}}\)</span>.  Nonlinear CG and the dogleg step
+proceed with computing the step size that minimizes
+<span class="math notranslate nohighlight">\(f(x_c - \lambda \nabla f(x_c))\)</span>.</p>
+<p>When</p>
+<div class="math notranslate nohighlight">
+\[\hat{N} =
+x_+^N =
+x_c - H_c^{-1} \nabla f(x_c) = x_c + s^N,\]</div>
+<p><span class="math notranslate nohighlight">\(\eta = 1\)</span> must be true by definition.</p>
+<p>By definition of linear subspace, the parameterized line segment</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x_+(\lambda)
+ &amp;= x_c + s^{\text{C.P}} + \lambda (s^{N} - s^{\text{C.P}})\\
+ &amp;= x_c + (1 - \lambda) s^{\text{C.P}} + \lambda s^{N}\end{split}\]</div>
+<p>occupies the convex space spanned by the steepest-descent and Newton directions.
+In nonlinear CG, the conjugate directions are sums of scaled residuals defining
+a linear subspace.  Q.E.D. because any linear subspace is a convex subspace.</p>
+</div>
+<div class="section" id="Exercise-22">
+<h2>Exercise 22<a class="headerlink" href="#Exercise-22" title="Permalink to this headline">¶</a></h2>
+<p>Notice that the analysis of <a class="reference internal" href="#dennis1996numerical-ex-6-21"><span class="std std-ref">Exercise 21</span></a>
+is applicable only when <span class="math notranslate nohighlight">\(\hat{N} = x_+^N\)</span>.  One way to alleviate this
+criticism is to use the conjugate direction as a solution i.e. combine dogleg
+with conjugate gradient.  See <a class="bibtex reference internal" href="#steihaug1983conjugate" id="id3">[Ste83]</a> for more details.
+At the time of reading (2016) this paper, the steps taken in the proof and
+the accompanying algorithm are reasonable (i.e. no mysterious jumps in
+reasoning) but the reader needs to be willing to work out the details step
+by step.</p>
+</div>
+<div class="section" id="Exercise-23">
+<h2>Exercise 23<a class="headerlink" href="#Exercise-23" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(J \in \mathbb{R}^{n \times n}\)</span> be singular.  By Theorem 3.6.4, there
+exists a decomposition
+<span class="math notranslate nohighlight">\(J = U D V^\top = \sum_{i = 1}^r \sigma_i u_i v_i^\top\)</span> where
+<span class="math notranslate nohighlight">\(r &lt; n\)</span> is the rank of <span class="math notranslate nohighlight">\(J\)</span> with <span class="math notranslate nohighlight">\(U^\top U = I\)</span>,
+<span class="math notranslate nohighlight">\(V^\top V = I\)</span>, and <span class="math notranslate nohighlight">\(D^\top D = \Lambda\)</span>.</p>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<p>For finite square matrices <span class="math notranslate nohighlight">\(AB = I\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{0}_{n, n} = B - B = B - B I = B - B (AB) = (I - BA) B\]</div>
+<p>i.e. <span class="math notranslate nohighlight">\(I = BA\)</span> implies <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are both orthogonal
+matrices.</p>
+<p><span class="math notranslate nohighlight">\(\alpha =
+\left(n \epsilon \right)^{1/2} \left\Vert J^\top J \right\Vert_1 &gt; 0\)</span>
+unless <span class="math notranslate nohighlight">\(J\)</span> is the null matrix because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rcl}
+  n^{-1/2} \left\Vert J^\top J \right\Vert_1
+   \leq&amp; \left\Vert J^\top J \right\Vert_2
+   &amp;\leq n^{1/2} \left\Vert J^\top J \right\Vert_1
+   &amp; \quad &amp; \text{(3.1.13)}\\
+  n^{-1/2} \left\Vert J^\top J \right\Vert_1
+   \leq&amp;
+     \left(
+       \max_{\lambda} \left\{ \left( J^\top J \right)^\top J^\top J \right\}
+      \right)^{1/2}
+   &amp;\leq n^{1/2} \left\Vert J^\top J \right\Vert_1
+   &amp; \quad &amp; \text{(3.1.8b)}\\
+  n^{-1/2} \left\Vert J^\top J \right\Vert_1
+   \leq&amp; \lambda_1
+   &amp;\leq n^{1/2} \left\Vert J^\top J \right\Vert_1
+\end{array}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\lambda_1 \geq \cdots \geq \lambda_r\)</span> and
+<span class="math notranslate nohighlight">\(\lambda_{r + 1} = \cdots = \lambda_{n} = 0\)</span>.</p>
+<p>Applying Theorem 3.5.7 to <span class="math notranslate nohighlight">\(A = J^\top J + \alpha I\)</span> gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A &amp;= V \Lambda V^\top + \alpha V V^\top
+     &amp; \quad &amp; \text{orthogonal matrix}\\
+ &amp;= V \left( \Lambda + \alpha I \right) V^\top\end{split}\]</div>
+<p>which affirms that <span class="math notranslate nohighlight">\(J^\top J + \alpha I\)</span> is nonsingular while
+<span class="math notranslate nohighlight">\(J^\top J\)</span> is singular.</p>
+<p>The condition number in the induced <span class="math notranslate nohighlight">\(l_2\)</span> matrix norm is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\kappa_2(A)
+ &amp;= \left\Vert A \right\Vert_2 \left\Vert A^{-1} \right\Vert_2
+    &amp; \quad &amp; \text{definition of condition number page 53}\\
+ &amp;= \left( \max_{\lambda} \left\{ A^\top A \right\} \right)^{1/2}
+    \left( \min_{\lambda} \left\{ A^\top A \right\} \right)^{-1/2}
+    &amp; \quad &amp; \text{(3.1.8b), (3.1.18)}\\
+ &amp;= \frac{\lambda_1 + \alpha}{\alpha}\\
+ &amp;= \frac{\lambda_1}{
+    \left(n \epsilon \right)^{1/2} \left\Vert J^\top J \right\Vert_1} + 1.\end{split}\]</div>
+<p>See <a class="reference internal" href="chapter-03.html#dennis1996numerical-ex-3-6"><span class="std std-ref">Exercise 3.6</span></a> for a proof on (3.1.8b).</p>
+<p>The foregoing derivations imply</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rcl}
+  n^{-1/2} + \left( n \epsilon \right)^{1/2}
+   \leq&amp; \left( n \epsilon \right)^{1/2} \kappa_2(A)
+   &amp;\leq n^{1/2} + \left( n \epsilon \right)^{1/2}\\
+  \frac{1}{n \epsilon^{1/2}}
+   \leq&amp; \kappa_2 \left( J^\top J + \left( n \epsilon \right)^{1/2}
+         \left\Vert J^\top J \right\Vert_1 I \right) - 1
+   &amp;\leq \frac{1}{\epsilon^{1/2}}.
+\end{array}\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>The case <span class="math notranslate nohighlight">\(\kappa_2(J) \geq \epsilon^{-1/2}\)</span> implies that
+<span class="math notranslate nohighlight">\(J\)</span> is nonsingular because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\kappa_2(J) &amp;= \left\Vert J \right\Vert_2 \left\Vert J^{-1} \right\Vert_2\\
+ &amp;= \left( \max_\lambda J^\top J \right)^{1/2}
+    \left( \min_\lambda J^\top J \right)^{-1/2}\\
+ &amp;= \left( \frac{\lambda_1}{\lambda_n} \right)^{1/2}\\
+ &amp;= \frac{\sigma_1}{\sigma_n}.\end{split}\]</div>
+<p>Applying (3.1.13) yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rcl}
+  n^{-1/2} \left\Vert J \right\Vert_1
+   \leq&amp; \sigma_1
+   &amp;\leq n^{1/2} \left\Vert J \right\Vert_1\\
+  n^{-1/2} \left\Vert J \right\Vert_1
+   \leq&amp; \kappa_2(J) \sigma_n
+   &amp;\leq n^{1/2} \left\Vert J \right\Vert_1.
+\end{array}\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-24">
+<h2>Exercise 24<a class="headerlink" href="#Exercise-24" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(F \in \mathbb{R}^n\)</span> be nonzero and
+<span class="math notranslate nohighlight">\(J \in \mathbb{R}^{n \times n}\)</span> be singular.</p>
+<p>By Theorem 3.6.4, there exists a decomposition
+<span class="math notranslate nohighlight">\(J = U D V^\top = \sum_{i = 1}^r \sigma_i u_i v_i^\top\)</span> where
+<span class="math notranslate nohighlight">\(r &lt; n\)</span> is the rank of <span class="math notranslate nohighlight">\(J\)</span> with <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span> being
+orthogonal matrices and <span class="math notranslate nohighlight">\(D^\top D = \Lambda\)</span>.</p>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\lim_{\alpha \rightarrow 0} \left( J^\top J + \alpha I \right)^{-1} J^\top
+ &amp;= \lim_{\alpha \rightarrow 0}
+      \left( V \left( \Lambda + \alpha I \right) V^\top \right)^{-1}
+      V D U^\top\\
+ &amp;= \lim_{\alpha \rightarrow 0}
+      V \left( \Lambda + \alpha I \right)^{-1} D U^\top\\
+ &amp;= \sum_{i = 1}^r \lim_{\alpha \rightarrow 0}
+      \frac{\sigma_i}{\sigma_i^2 + \alpha} v_i u_i^\top
+    &amp; \quad &amp; D_{ii} = 0\, \forall i &gt; r\\
+ &amp;= V D^+ U^\top.\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<p>Recall that the null space <span class="math notranslate nohighlight">\(\mathbf{N}(J)\)</span> is the space of all vectors
+<span class="math notranslate nohighlight">\(w\)</span> such that <span class="math notranslate nohighlight">\(Jw = U D V^\top w = 0\)</span>.  A useful observation is</p>
+<div class="math notranslate nohighlight">
+\[I^+ = D D^+ = \text{diag}(d_1, d_2, \ldots, d_r, d_{r + 1}, \ldots, d_n)\]</div>
+<p>where <span class="math notranslate nohighlight">\(d_i = 1\)</span> when <span class="math notranslate nohighlight">\(i \leq r\)</span> and zero otherwise.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w^\top \left( J^\top J + \alpha I \right) J^\top v
+ &amp;= w^\top V \left( \Lambda + \alpha I \right)^{-1} D U^\top v\\
+ &amp;= w^\top V I^+ \left( \Lambda + \alpha I \right)^{-1} D U^\top v
+    &amp; \quad &amp; \text{(a)}\\
+ &amp;= w^\top V D U^\top U D^+ \left( \Lambda + \alpha I \right)^{-1} D U^\top v
+    &amp; \quad &amp; U^\top U = I\\
+ &amp;= w^\top J^\top U D^+ \left( \Lambda + \alpha I \right)^{-1} D U^\top v\\
+ &amp;= \vec{0}^\top U D^+ \left( \Lambda + \alpha I \right)^{-1} D U^\top v\\
+ &amp;= 0\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}w^\top J^+ v &amp;= w^\top V D^+ U^\top v\\
+ &amp;= w^\top V I^+ D^+ U^\top v\\
+ &amp;= w^\top V D U^\top U D^+ D^+ U^\top v\\
+ &amp;= w^\top J^\top U D^+ D^+ U^\top v\\
+ &amp;= \vec{0}^\top U D^+ D^+ U^\top v\\
+ &amp;= 0.\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-25">
+<h2>Exercise 25<a class="headerlink" href="#Exercise-25" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="bibtex reference internal" href="#shultz1985family" id="id8">[SSB85]</a> for a nice proof on the convergence of line search
+and trust region algorithms.</p>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/chapter-06-0"><dl class="citation">
+<dt class="bibtex label" id="gay1981computing"><span class="brackets"><a class="fn-backref" href="#id1">Gay81</a></span></dt>
+<dd><p>David M Gay. Computing optimal locally constrained steps. <em>SIAM Journal on Scientific and Statistical Computing</em>, 2(2):186–197, 1981.</p>
+</dd>
+<dt class="bibtex label" id="djoycedd"><span class="brackets"><a class="fn-backref" href="#id2">Joy</a></span></dt>
+<dd><p>David Joyce. Directional derivatives, steepest ascent, tangent planes. <span><a class="reference external" href="#"></a></span>http://aleph0.clarku.edu/ djoyce/ma131/directional.pdf. Accessed on 2017-04-20.</p>
+</dd>
+<dt class="bibtex label" id="shultz1985family"><span class="brackets"><a class="fn-backref" href="#id8">SSB85</a></span></dt>
+<dd><p>Gerald A Shultz, Robert B Schnabel, and Richard H Byrd. A family of trust-region-based algorithms for unconstrained minimization with strong global convergence properties. <em>SIAM Journal on Numerical Analysis</em>, 22(1):47–67, 1985.</p>
+</dd>
+<dt class="bibtex label" id="steihaug1983conjugate"><span class="brackets"><a class="fn-backref" href="#id3">Ste83</a></span></dt>
+<dd><p>Trond Steihaug. The conjugate gradient method and trust regions in large scale optimization. <em>SIAM Journal on Numerical Analysis</em>, 20(3):626–637, 1983.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/chapter-06.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

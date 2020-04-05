@@ -1,0 +1,451 @@
+################################
+A Tutorial on Helmholtz Machines
+################################
+
+Motivation(s)
+=============
+
+The goal is to modernize the notations and clarify the concepts presented in
+:cite:`hinton1995wake`, which assumes some familiarity with variational free
+energy.
+
+Supervised learning algorithms for multilayer neural networks require a teacher
+to specify the desired output of the network and some method of communicating
+error information to all of the connections.  When there is no external teaching
+signal, some other goal is required to force the hidden units to extract the
+underlying structure.
+
+Proposed Solution(s)
+====================
+
+:cite:`hinton1995wake` proposes the concept of a Helmholtz machine, a multilayer
+neural network with generative and recognition weights.  It sees the world as
+patterns of flickering bits, with each bit pattern
+:math:`\mathbf{d} \in \{0, 1\}^N` appearing with some probability distribution
+:math:`p(\mathbf{d})`.  In a completely random world, each bit in a random bit
+vector can be assumed to be an independent and identically distributed random
+variable.  This means the random bit vector can be described as a joint
+distribution
+
+.. math::
+
+   p(\mathbf{d}) =
+   p(d_1, d_2, \ldots, d_N) =
+   \prod_i p(d_i) =
+   \prod_i p_0^{d_i} (1 - p_0)^{1 - d_i}
+
+where the probability value :math:`p_0 \in [0, 1]` is unknown.  To specify
+:math:`p(\mathbf{d})`, :math:`2^N` bits are needed.
+
+Let :math:`\boldsymbol{\theta}_G =
+\{ \mathbf{b}, \mathbf{W}^1_G, \ldots, \mathbf{W}^L_G \}` denote the set of
+model parameters to learn.  Let :math:`\mathcal{M}_{\boldsymbol{\theta}_G}
+\equiv \mathcal{M}(\boldsymbol{\theta}_G) =
+\{ \mathbf{h}^1, \ldots, \mathbf{h}^L \}` represent the proposed neural network
+model.  The Helmholtz machine attempts to find the minimum description length of
+the data assuming :math:`p(\mathbf{d})` can be approximated with a generative
+factorial distribution :math:`G` such that
+
+.. math::
+
+   p(\mathbf{d}) \approx
+   p_G(\mathbf{d}) &= \sum p_G(\mathbf{d}, \mathcal{M}_{\theta_G})\\
+    &= \sum p_G(\mathbf{d}, \mathbf{h}^1, \mathbf{h}^2, \ldots, \mathbf{h}^L)\\
+    &= \sum p_G(\mathbf{d} \mid \mathbf{h}^1) \cdot
+         \prod_{l = 1}^{L - 1} p_G(\mathbf{h}^l \mid \mathbf{h}^{l + 1}) \cdot
+         p_G(\mathbf{h}^L)\\
+    &= \sum_{\mathbf{h}^1} p_G(\mathbf{d} \mid \mathbf{h}^1) \cdots
+         \sum_{\mathbf{h}^{l + 1}}
+           p_G(\mathbf{h}^l \mid \mathbf{h}^{l + 1}) \cdots
+         \sum_{\mathbf{h}^L}
+           p_G(\mathbf{h}^{L - 1} \mid \mathbf{h}^L) p_G(\mathbf{h}^L)
+       \quad & \quad \text{variable elimination}
+
+where
+
+.. math::
+
+   p_G(\mathbf{h}^L)
+    &= \prod_j^{n_L} p_G(h^L_j)^{h^L_j}
+       \left[ 1 - p_G(h^L_j) \right]^{1 - h^L_j}
+       \quad & \quad \text{with } p_G(h^L_j) = \sigma(b_j),\\
+   p_G(\mathbf{h}^l \mid \mathbf{h}^{l + 1})
+    &= \prod_j^{n_l} p_G(h^l_j \mid \mathbf{h}^{l + 1})^{h^l_j}
+       \left[ 1 - p_G(h^l_j \mid \mathbf{h}^{l + 1}) \right]^{1 - h^l_j}
+       \quad & \quad \text{with }
+       p_G(h^l_j \mid \mathbf{h}^{l + 1}) =
+         \sigma\left(
+           \mathbf{W}^{l + 1}_G[j \colon]
+           \begin{bmatrix} \mathbf{h}^{l + 1}\\ 1 \end{bmatrix}
+         \right),\\
+   p_G(\mathbf{d} \mid \mathbf{h}^1)
+    &= \prod_i^N p_G(d_i \mid \mathbf{h}^1)^{d^i}
+       \left[ 1 - p_G(d_i \mid \mathbf{h}^1) \right]^{1 - d_i}
+       \quad & \quad \text{with }
+       p_G(d_i \mid \mathbf{h}^1) =
+         \sigma\left(
+           \mathbf{W}^1_G[j \colon]
+           \begin{bmatrix} \mathbf{h}^1\\ 1 \end{bmatrix}
+         \right),
+
+and :math:`\sigma` is the sigmoid activation function.  The net's bottom layer
+:math:`\mathbf{d}` is called the data (visible) layer; the remaining layers
+above are called hidden layers.  Generating a data pattern :math:`\mathbf{d}`
+begins with stochastically sampling :math:`p_G(\mathbf{h}^L)` to yield a sample
+:math:`\mathbf{h}^L`.  This is implemented by having a single input value equal
+to one coming into each neuron :math:`j` in the top layer, each with a bias
+weight :math:`b_j \in [0, 1]`.  Each layer below follows the same procedure with
+the corresponding weights until a bit vector :math:`\mathbf{d}` is generated;
+note that this procedure is known as ancestral sampling.
+
+Minimizing the difference between :math:`p(\mathbf{d})` and
+:math:`p_G(\mathbf{d})` can be expressed as
+
+.. math::
+
+   \DeclareMathOperator*{\argmin}{arg\,min}
+   \argmin_\boldsymbol{\theta} p(\mathbf{D}) \parallel p_G(\mathbf{D})
+    &= \argmin_\boldsymbol{\theta} \sum_\mathbf{d}
+         p(\mathbf{d}) \log \frac{p(\mathbf{d})}{p_G(\mathbf{d})}\\
+    &= \argmin_\boldsymbol{\theta} \left[
+         \sum_\mathbf{d} p(\mathbf{d}) \log p(\mathbf{d}) -
+         \sum_\mathbf{d} p(\mathbf{d}) \log p_G(\mathbf{d})
+       \right]\\
+    &= \argmin_\boldsymbol{\theta}
+         -H(\mathbf{D}) +
+         \langle -\log p_G(\mathbf{D}) \rangle\\
+    &= \argmin_\boldsymbol{\theta} \langle -\log p_G(\mathbf{D}) \rangle.
+
+While it is natural to minimize the expected surprise by applying
+:doc:`stochastic gradient descent </blog/2016/11/08/stochastic-gradient-descent-tricks>`
+to evaluate
+
+.. math::
+
+   \nabla \langle -\log p_G(\mathbf{D}) \rangle =
+   \sum_\mathbf{d} p(\mathbf{d}) \nabla \left[ -\log p_G(\mathbf{d}) \right] =
+   \sum_\mathbf{d} p(\mathbf{d}) \nabla \left[ F_G(\mathbf{d}) \right],
+
+deriving the change in free energy with respect to the model parameters
+:math:`\frac{\partial F_G(\mathbf{d})}{\partial \theta}` is non-trivial.  One
+alternative optimization strategy is to minimize the variational free energy
+using a separate recognition distribution :math:`R` such that
+
+.. math::
+
+   p_R(\mathcal{M}_{\boldsymbol{\theta}_R}, \mid \mathbf{d}) =
+   p_R(\mathbf{h}^1, \mathbf{h}^2, \ldots, \mathbf{h}^L \mid \mathbf{d}) =
+   p_R(\mathbf{h}^1 \mid \mathbf{d})
+     \prod_{l = 1}^{L - 1} p_R(\mathbf{h}^{l + 1} \mid \mathbf{h}^l)
+
+where :math:`\boldsymbol{\theta}_R =
+\{ \mathbf{W}^1_R, \ldots, \mathbf{W}^L_R \}` and
+
+.. math::
+
+   p_R(\mathbf{h}^{l + 1} \mid \mathbf{h}^l)
+    &= \prod_j^{n_{l + 1}} p_R(h^{l + 1}_j \mid \mathbf{h}^l)^{h^{l + 1}_j}
+       \left[ 1 - p_R(h^{l + 1}_j \mid \mathbf{h}^l) \right]^{1 - h^{l + 1}_j}
+       \quad & \quad \text{with }
+       p_R(h^{l + 1}_j \mid \mathbf{h}^l) =
+         \sigma\left(
+           \mathbf{W}^{l + 1}_R[j \colon]
+           \begin{bmatrix} \mathbf{h}^l\\ 1 \end{bmatrix}
+         \right),\\
+   p_R(\mathbf{h}^1 \mid \mathbf{d})
+    &= \prod_j^{n_1} p_R(h^1_j \mid \mathbf{d})^{h^1_j}
+       \left[ 1 - p_R(h^1_j \mid \mathbf{d}) \right]^{1 - h^1_j}
+       \quad & \quad \text{with }
+       p_R(h^1_j \mid \mathbf{d}) =
+         \sigma\left(
+           \mathbf{W}^1_R[j \colon]
+           \begin{bmatrix} \mathbf{d}\\ 1 \end{bmatrix}
+         \right).
+
+Each iteration in this revised gradient descent algorithm involves two phases.
+The wake phase uses the recognition weights to minimize the variational free
+energy :math:`F_G^R` with respect to :math:`G` using real world data.  The sleep
+phase uses the generative weights to minimize
+
+.. math::
+
+   p_G(\mathcal{M} \mid \mathbf{d}) \parallel p_R(\mathcal{M} \mid \mathbf{d})
+
+with respect to :math:`R` using stochastically sampled data.  Starting the
+optimization with the wake phase and then alternating between wake and sleep
+will make the recognition and generative models approximate inverses of each
+other because they are optimizing in some sense the symmetrised KL divergence.
+
+Evaluation(s)
+=============
+
+The tutorial generalizes the binary classification example presented in
+:cite:`hinton1995wake`.  The world consists of :math:`3 \times 3` images of
+vertical and horizontal bars; the former occurs with twice the probability of
+the latter, but within each category each configuration occurs with the same
+probability.
+
+The author simulates a 1-6-9 Helmholtz machine in the proposed world.  Each
+layer has a different learning rate, and the weights were initialized to zero to
+give each neuron a 50-50 chance of firing regardless of its input.
+
+The results indicate the machine is successful at capturing much of this
+world's structure.  However, minimizing the KL divergence does not guarantee the
+machine will learn sensible distributions for regions of no data.
+
+Since the wake-sleep algorithm is unsupervised, it will needlessly expend
+resources on regions that are of no interest.  Furthermore, the gradient of the
+variational free energy may lead to incorrect mode-averaging.
+
+Future Direction(s)
+===================
+
+- Would modeling each unit in a neural network as a (Gaussian) stochastic
+  process speed up learning?
+- Is it worthwhile to replace the variational method with automatic
+  differentiation to evaluate the desired free energy?
+- Would the Metropolis-Hastings algorithm speed up convergence?
+- Since neural networks are :doc:`universal approximators </blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators>`,
+  would the network learn anything useful if each hidden layer
+  (or at the least the last layer) is connected to the data layer?  Use the
+  data at both ends of the neural network and apply backpropagation with
+  automatic differentiation for gradients to remove the factorial assumption.
+
+Question(s)
+===========
+
+- The sigmoid activation function converts the output of a real-valued neuron to
+  the probability that a binary-valued neuron fires; have neuroscience confirmed
+  that real neurons only care about binary outcomes?
+
+Analysis
+========
+
+Helmholtz machines alternately maximizes
+:math:`\langle \log p_G(\mathcal{M}, \mathbf{d}) \rangle_R` and
+:math:`\langle \log p_R(\mathcal{M} \mid \mathbf{d}) \rangle_G`.
+
+The most blatant issue of :cite:`hinton1995wake` is its muddled exposition.
+This tutorial effectively presents much more insights into Helmholtz machines
+than one can possibly extract from :cite:`hinton1995wake`.  The connections
+between energy, free energy, and variational free energy to a probabilistic
+model are beautifully derived.  The derivation of the wake-sleep algorithm will
+certainly be useful in future unsupervised learning research.  The tutorial
+would be even better if the author explored other :doc:`initialization schemes </blog/2016/11/09/efficient-backprop>`
+to see if the machine dreams up more monsters.
+
+Even though the machine is capable of capturing the data distribution, it is
+still unclear how to extract meaningful relationships beyond probabilities.
+This uncertainty casts some doubt on Karl Friston's belief that the brain works
+in a similar manner to the wake-sleep algorithm.
+
+Notes
+=====
+
+Notations
+---------
+
+- It is often convenient to recast a probability value :math:`p \in [0, 1]` into
+  a quantity called surprise :math:`s \equiv -\log p`.
+- The expected value of the surprise is called entropy:
+
+  .. math::
+
+     H(\mathbf{X}) = \mathbb{E}\left[ s(\mathbf{X}) \right] =
+     -\sum_{\mathbf{x} \in \mathbf{X}} p(\mathbf{x}) \log p(\mathbf{x})
+
+  where :math:`\mathbf{X}` is a discrete random variable.
+
+- The conditional entropy is defined as
+
+  .. math::
+
+     H(\mathbf{Y} \mid \mathbf{X})
+      &= \sum_{\mathbf{x} \in \mathbf{X}}
+           p(\mathbf{x}) H(\mathbf{Y} \mid \mathbf{x})\\
+      &= \sum_{\mathbf{x} \in \mathbf{X}}
+           p(\mathbf{x}) \left(
+             -\sum_{\mathbf{y} \in \mathbf{Y}}
+               p(\mathbf{y} \mid \mathbf{x}) \log p(\mathbf{y} \mid \mathbf{x})
+           \right)\\
+      &= -\sum_{\mathbf{x} \in \mathbf{X}, \mathbf{y} \in \mathbf{Y}}
+           p(\mathbf{x}, \mathbf{y}) \log p(\mathbf{y} \mid \mathbf{x}).
+
+- Given two probability distributions :math:`p_A(\mathbf{d})` and
+  :math:`p_B(\mathbf{d})`, the relative entropy is defined as
+
+  .. math::
+
+     p_A(\mathbf{D}) \parallel p_B(\mathbf{D})
+      &= \sum_{\mathbf{d} \in \mathbf{D}}
+           p_A(\mathbf{d}) \log \frac{p_A(\mathbf{d})}{p_B(\mathbf{d})}\\
+      &= -H(A) -
+         \sum_{\mathbf{d} \in \mathbf{D}} p_A(\mathbf{d}) \log p_B(\mathbf{d})\\
+      &= -H(A) +
+         \sum_{\mathbf{d} \in \mathbf{D}}
+           p_A(\mathbf{d}) \log \frac{1}{p_B(\mathbf{d})}\\
+      &= H(A, B) - H(A)
+
+  where :math:`H(A, B)` is known as the cross entropy.
+
+Energy
+------
+
+- Suppose the state of a physical system fluctuates among a set of states
+  :math:`\{ q_1, q_2, \ldots \}`.  One sign that the system is in thermal
+  equilibrium is that the probability of finding the system in a state
+  :math:`q_i` is related to its energy :math:`E(q_i)` according to the
+  Boltzmann distribution
+
+  .. math::
+
+     p(q_i) = \frac{\exp -\frac{E(q_i)}{T}}{\sum_j \exp -\frac{E(q_j)}{T}}
+
+  where :math:`T` is the temperature.
+
+  - The denominator is known as the partition function :math:`Z` and is often
+    the ultimate intractable quantity of interest.
+
+- In non-physical systems, it may be desirable to work backwards and devise an
+  "energy" function so that the probability distribution over the states obey
+  a Boltzmann distribution.
+
+  - This enables one to employ theorems and relationships from statistical
+    physics.
+
+- Given a fixed piece of data :math:`\mathbf{d}` and a generative distribution
+  :math:`G` modeled as
+  :math:`\mathcal{M}(\boldsymbol{\theta}) \equiv \mathcal{M}`, the likelihood
+
+  .. math::
+
+     p_G(\mathcal{M} \mid \mathbf{d}) =
+     \frac{p_G(\mathcal{M}, \mathbf{d})}{p_G(\mathbf{d})} =
+     \frac{p_G(\mathcal{M}, \mathbf{d})}{
+       \sum_\mathcal{M} p_G(\mathcal{M}, \mathbf{d})
+     }
+
+  can be reformulated as
+
+  .. math::
+
+     p_G(\mathcal{M} \mid \mathbf{d}) =
+     \frac{\exp -E_G(\mathcal{M}; \mathbf{d})}{
+       \sum_\mathcal{M} \exp -E_G(\mathcal{M}; \mathbf{d})
+     }
+
+  where :math:`E_G(\mathcal{M}; \mathbf{d})
+  \equiv -\log p_G(\mathcal{M}, \mathbf{d})` is the energy of the explanation
+  :math:`\mathcal{M}` of the data pattern :math:`\mathbf{d}`.
+
+  - The energy is the surprise associated with the occurrence of a particular
+    complete state.
+
+Free Energy
+-----------
+
+- The Helmholtz free energy of a system with average energy
+  :math:`\langle E \rangle`, temperature :math:`T`, and entropy :math:`H` is
+  given by
+
+  .. math::
+
+     F = \langle E \rangle - TH.
+
+- Given a fixed piece of data :math:`\mathbf{d}` and a generative distribution
+  :math:`G` modeled as
+  :math:`\mathcal{M}(\boldsymbol{\theta}) \equiv \mathcal{M}`, the surprise of
+  :math:`\mathbf{d}` in :math:`G` can be interpreted as the Helmholtz free
+  energy of :math:`\mathbf{d}` in :math:`G` because
+
+  .. math::
+
+     -\log p_G(\mathbf{d})
+      &= -(1)\log p_G(\mathbf{d})\\
+      &= -\left( \sum_\mathcal{M} p_G(\mathcal{M} \mid \mathbf{d}) \right)
+         \log p_G(\mathbf{d})\\
+      &= -\sum_\mathcal{M} p_G(\mathcal{M} \mid \mathbf{d})
+         \log \frac{
+           p_G(\mathcal{M}, \mathbf{d})
+         }{
+           p_G(\mathcal{M} \mid \mathbf{d})
+         }\\
+      &= -\sum_\mathcal{M}
+           p_G(\mathcal{M} \mid \mathbf{d}) \log p_G(\mathcal{M}, \mathbf{d}) -
+           p_G(\mathcal{M} \mid \mathbf{d})
+             \log p_G(\mathcal{M} \mid \mathbf{d})\\
+      &= \langle E_G(\mathcal{M}; \mathbf{d}) \rangle_G -
+         H_G(\mathcal{M} \mid \mathbf{d})\\
+      &= F_G(\mathbf{d}).
+
+  - The first term is the energy of explanations of :math:`\mathbf{d}` weighted
+    by the distribution :math:`G`.
+  - The second term is the entropy of explanations of :math:`\mathbf{d}`
+    weighted by the distribution :math:`G`.
+
+Variational Free Energy
+-----------------------
+
+- Given a fixed piece of data :math:`\mathbf{d}`, a generative distribution
+  :math:`G` modeled as :math:`\mathcal{M}_{\boldsymbol{\theta}_G}`, and another
+  arbitrary distribution :math:`R` using
+  :math:`\mathcal{M}_{\boldsymbol{\theta}_R}` (i.e. uses the same model but
+  different parameter estimates), the variational free energy
+  :math:`F^R_G(\mathbf{d})` from :math:`R` to :math:`G` is defined as
+
+  .. math::
+
+     p_R(\mathcal{M} \mid \mathbf{d}) \parallel p_G(\mathcal{M} \mid \mathbf{d})
+      &= \sum_\mathcal{M} p_R(\mathcal{M} \mid \mathbf{d})
+         \log \frac{
+           p_R(\mathcal{M} \mid \mathbf{d})
+         }{
+           p_G(\mathcal{M} \mid \mathbf{d})
+         }\\
+      &= \sum_\mathcal{M} p_R(\mathcal{M} \mid \mathbf{d})
+           \log p_R(\mathcal{M} \mid \mathbf{d}) -
+         \sum_\mathcal{M}
+           p_R(\mathcal{M} \mid \mathbf{d}) \log p_G(\mathcal{M}, \mathbf{d}) +
+         \sum_\mathcal{M}
+           p_R(\mathcal{M} \mid \mathbf{d}) \log p_G(\mathbf{d})\\
+      &= -H_R(\mathcal{M} \mid \mathbf{d}) +
+         \sum_\mathcal{M}
+           p_R(\mathcal{M} \mid \mathbf{d}) E_G(\mathcal{M}; \mathbf{d}) +
+         \log p_G(\mathbf{d})
+           \sum_\mathcal{M} p_R(\mathcal{M} \mid \mathbf{d})\\
+      &= -H_R(\mathcal{M} \mid \mathbf{d}) +
+         \langle E_G(\mathcal{M}; \mathbf{d}) \rangle_R -
+         F_G(\mathbf{d})\\
+      &= F^R_G(\mathbf{d}) - F_G(\mathbf{d}).
+
+  - Since KL divergences are never negative,
+
+    .. math::
+
+       F^R_G(\mathbf{d}) \equiv
+       \langle E_G(\mathcal{M}; \mathbf{d}) \rangle_R -
+         H_R(\mathcal{M} \mid \mathbf{d}) \geq F_G(\mathbf{d}).
+
+  - Notice that minimizing the variational free energy on both :math:`R` and
+    :math:`G` results in :math:`p_R \rightarrow p_G` and :math:`F_G(\mathbf{d})`
+    being minimized.
+  - Observe that the Kullback-Leibler divergence is not symmetric because
+
+  .. math::
+
+     p_G(\mathcal{M} \mid \mathbf{d}) \parallel p_R(\mathcal{M} \mid \mathbf{d})
+      &= \sum_\mathcal{M} p_G(\mathcal{M} \mid \mathbf{d})
+         \log \frac{
+           p_G(\mathcal{M} \mid \mathbf{d})
+         }{
+           p_R(\mathcal{M} \mid \mathbf{d})
+         }\\
+      &= \left\langle
+           -\log p_R(\mathcal{M} \mid \mathbf{d})
+         \right\rangle_G -
+         H_G(\mathcal{M} \mid \mathbf{d}).
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

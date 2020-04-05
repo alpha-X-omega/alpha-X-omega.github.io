@@ -1,0 +1,51 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+
+\begin{document}
+
+%89.1.1 Commands
+\pgfmathsetmacro{\Ex}{7.2}
+\pgfmathsetmacro{\Ey}{7.2}
+\pgfmathsetmacro{\Ez}{7.2}
+
+\begin{tikzpicture}[
+  %25.3 Coordinate Transformations
+  rotate around y=0,
+  %2.8 Adding a Touch of Style
+  grid/.style={very thin, lightgray},
+  axis/.style={-{Latex}, black, thick},
+]
+
+  %2.20 Repeating Things: For-Loops
+  %draw a grid in the xy-plane
+  \foreach \x in {0, 1, ..., \Ex}
+    \foreach \y in {0, 1, ..., \Ey} {
+      \draw[grid] (\x, 0, 0) -- (\x, \Ey, 0);
+      \draw[grid] (0, \y, 0) -- (\Ex, \y, 0);
+    }
+
+  %draw a grid in the xy-plane
+  \foreach \x in {0, 1, ..., \Ex}
+    \foreach \z in {0, 1, ..., \Ez} {
+      \draw[grid] (\x, 0, 0) -- (\x, 0, \Ez);
+      \draw[grid] (0, 0, \z) -- (\Ex, 0, \z);
+    }
+
+  %draw a grid in the yz-plane
+  \foreach \y in {0, 1, ..., \Ey}
+    \foreach \z in {0, 1, ..., \Ez} {
+      \draw[grid] (0, \y, 0) -- (0, \y, \Ez);
+      \draw[grid] (0, 0, \z) -- (0, \Ey, \z);
+    }
+
+  %13.2.1 Canvas, XYZ, and Polar Coordinate Systems
+  %draw the axes
+  \coordinate (O) at (0, 0, 0);
+  \draw[axis] (O) -- (xyz cs:x=\Ex) node[anchor=west] {\Huge $X$};
+  \draw[axis] (O) -- (xyz cs:y=\Ey) node[anchor=south] {\Huge $Y$};
+  \draw[axis] (O) -- (xyz cs:z=\Ez) node[anchor=north east] {\Huge $Z$};
+
+\end{tikzpicture}
+\end{document}

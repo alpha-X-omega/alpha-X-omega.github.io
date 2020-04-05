@@ -1,0 +1,114 @@
+###################################################################################################
+Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns
+###################################################################################################
+
+Motivation(s)
+=============
+
+Analysis of 2D textures have many potential applications (e.g. industrial
+surface inspection, remote sensing, biomedical imaging).  Zernike moments is one
+of the first studies to include invariance with respect to spatial scale,
+rotation, and gray scale at the cost of increased computational complexity.
+Another work focuses on gray scale and rotation invariant texture
+classification.  The gray scale invariance is achieved through histogram
+equalization of the input image, which cannot correct intra-image (local) gray
+scale variations.
+
+Proposed Solution(s)
+====================
+
+The authors propose a gray scale and rotation invariant texture operator
+(see Figure 1) based on local binary patterns (LBPs).  The LBPs can be thought
+of as detecting microstructures (e.g. edges, lines, spots, flat areas).  The
+number of histogram bins were chosen such that an average of 10 entries per bin
+is satisfied.  The entries in the bins are the LBP of each pixel.
+
+Evaluation(s)
+=============
+
+Training on the Outex image database (using only one lighting angle) achieved a
+classification accuracy between 80-98%.  After a certain amount of granularity,
+increasing the discretization factor did not significantly improve accuracy.
+
+Future Direction(s)
+===================
+
+- Would extending LBPs to deal with distributions (i.e. spectral distribution)
+  improve classification?
+- How can be histogram be estimated using sparse sampling and still maintain all
+  the desired invariants?
+- What kinds of LBPs would a neural network learn?
+
+Question(s)
+===========
+
+- Does the performance change when the generic chi-square statistic is used
+  instead of the log-likelihood ratio?
+- Multiresolution analysis is easy in this case, but the proposed criterion
+  barely improved accuracy?
+
+Analysis
+========
+
+LBPs are biologically-inspired features that can be computed efficiently and
+stored as a histogram.  The authors recognized that certain LBPs are fundamental
+properties of local image texture.  These LBPs have uniform appearance in the
+sense that there is a limited number of transitions or discontinuities in the
+circular presentation of the pattern.
+
+One minor issue with the paper is the poorly worded results section.  More
+illustrative figures and concise descriptions would be appreciated.  The
+underlying theory and and computation seems amenable to GPU acceleration.
+
+It is surprising that the uniformity measure of 2 usually captured 90% of the
+texture variations.  It would have been interesting if the author compared their
+simple circular pattern against the patterns a human eye exhibits.
+
+Notes
+=====
+
+- Achieving Gray Scale Invariance
+
+  - Invariant against gray scale shifts
+
+    - Subtract the center pixel's value from each of the surrounding neighbors'
+      pixel values.
+
+  - Invariant against scaling of gray scale
+
+    - Consider just the signs of the differences i.e. pass the pixel differences
+      through the Heaviside step function.
+
+  - Invariant against any monotonic transformation of the gray scale
+
+    - Assign a power of two for each thresholded sign difference i.e. each
+      result is a different bit location.
+
+- Achieving Rotation Invariance
+
+  - Naive Solution: Rotate the neighbor set clockwise until the maximal number
+    of the most significant bits are 0.
+
+    #. Occurrence frequencies of individual LBPs vary greatly.
+    #. Crude quantization of the angular space at :math:`45^\circ` intervals,
+       which can be fixed via increasing the quantization factor :math:`P` and
+       radius :math:`r`.
+
+  - Uniformity Measure
+
+    - The number of 0 to 1 or 1 to 0 transitions.
+
+  - See (9) and (10) for the uniform pattern.
+
+    - The histogram of these outputs accumulated over a texture sample is the
+      final texture feature.
+
+- Trading Gray Scale Invariance for Local Contrast
+
+  - Divide the previous texture measure by the local variance computed from the
+    pixel values on the circular chain.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

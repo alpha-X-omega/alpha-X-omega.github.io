@@ -1,0 +1,178 @@
+########################################################
+Designing Software for Ease of Extension and Contraction
+########################################################
+
+Motivation(s)
+=============
+
+Designing software to expose a proper subset of intended capabilities that
+allows future extension and contraction of features often run into flexibility
+issues.  The reason is that software engineers have not been trained to design
+for change.  Although programs can be treated as abstract mathematical objects,
+a mathematician's technique of generalizing a result will not suffice for
+engineering products.
+
+Proposed Solution(s)
+====================
+
+The author proposes focusing on the minimal subset that might be useful and
+later changes be incremental and minimal.
+
+Evaluation(s)
+=============
+
+This technique was applied to designing an address processing subsystem.
+
+Future Direction(s)
+===================
+
+- Could machine learning be applied to recommend which level a module is be on?
+- How to record design decisions easily and enable discovery of new ones?
+
+Question(s)
+===========
+
+- How did these design decisions arise?
+- Have these approaches been adopted on github?
+
+Analysis
+========
+
+The author describes a useful sandwiching technique as well as laying out the
+criteria for the "uses" relationship.  The insight is brilliant, however, the
+discussion is lacking in extension and contraction.  Critiquing a subsystem is
+rather hard.  One interesting note is the reformulation of "uses" to mean
+"requires the presence of a correct version of".
+
+Notes
+=====
+
+How does the lack of subsets and extensions manifest itself?
+------------------------------------------------------------
+
+- Excessive Information Distribution
+
+  - Too many programs were written assuming that a given feature is present or
+    not present.
+
+    - An example would be deciding that a new OS would support only three human
+      languages, and the person designing the error message tables allocate
+      enough room for exactly three languages, and later designers build upon
+      that fact.
+
+- A Chain of Data Transforming Components
+
+  - Programs that are structured as a chain of components, each receiving data
+    from the previous component, processing it (and changing the format), before
+    sending the data to the next program in the chain.
+
+    - An example would be a payroll program that assumed unsorted input and uses
+      an internal module to sort the input, but later on the input data becomes
+      sorted resulting in unnecessary processing or additional module whose
+      purpose is to massage data into different formats.
+
+- Components that Perform More than One Function
+
+  - Combining two simple functions into one component because the functions seem
+    too simple to separate.
+
+    - An example would be combining synchronization with message sending and
+      acknowledgement, but later on synchronization is needed more frequently.
+    - Another example is to include run-time type-checking in the basic
+      subroutine call mechanism that later on compile-time checking removes.
+
+- Loops in the "Uses" Relation
+
+  - Software reuse resulting in a system in which nothing works until everything
+    works.
+
+    - The OS scheduler can certainly reuse the file system to store its data,
+      but only a subset of such functionalities are needed.
+
+Steps Towards a Better Structure
+--------------------------------
+
+- Requirements Definition: Identifying the Subsets First
+
+  - Search for the minimal subset that might be useful and then search for a set
+    of minimal increments to the system.
+
+- Information Hiding: Interface and Module Definition
+
+  - Procedure
+
+    (i) Identification of secrets i.e. items that are likely to change.
+    (#) Location of the specialized components in separate modules.
+    (#) Designing intermodule interfaces that are insensitive to the anticipated
+        changes i.e. the interface does not reveal the secrets.
+
+  - The presence or absence of a component should be hidden from other
+    components.
+
+    - All data structures that violate this property should be included in
+      separate information hiding modules with abstract interfaces.
+
+- Virtual Machine (VM) Concept
+
+  - When designing software families, think of writing new general instructions
+    for a VM to handle new data types and transformations.
+  - These small incremental instructions make up a useful subset of the system.
+
+- Designing the "Uses" Structure
+
+  (1) The Relation "Uses"
+
+      - A uses B if there exists situations in which the correct functioning of
+        A depends upon the availability of a correct implementation of B.
+
+        - The implementation and specification of A determines whether A uses B
+          or not.
+
+      - Uses versus Invokes
+
+        - A's specification requires only that A invokes B when certain
+          conditions occur regardless of B's correctness or presence.
+        - A may use B without ever invoking it (e.g. interrupt handling,
+          memory segments).
+        - Think of "uses" to mean "requires the presence of a correct version
+          of".
+
+  (#) The "Uses" Hierarchy
+
+      - Level 0 is the set of all programs that use no other program.
+      - Level :math:`i > 0` is the set of all programs that use at least one
+        program on level :math:`i - 1` and no program at a level higher than
+        :math:`i - 1`.
+
+  (#) The criteria to be used in allowing one program to use another.
+
+      - A is essentially simpler than B.
+      - B is not substantially more complex because it is not allowed to use A.
+      - There is a useful subset containing B and not A.
+      - There is no conceivably useful subset containing A but not B.
+      - Sandwiching Technique
+
+        - When two programs could obviously benefit from using each other, slice
+          one of the programs B into B1 and B2 where A is allowed to use B2 and
+          B1 is allowed to use A.
+        - The filling A could be further sliced if necessary.
+        - An example could be splitting virtual memory mechanism into address
+          translation and dynamic allocation of memory areas to segments.
+
+  (#) Use of the word "convenience".
+
+      - As one goes higher in the levels, one can lose capabilities due to
+        consumption of resources, but the resulting programs are simpler due to
+        the reuse of the lower levels programs.
+      - A function should be implemented at the lowest level in which the
+        features that are useful for implementing that function are available.
+
+        - Available functions at the next higher level are not useful for
+          implementing this function.
+        - Implementing this function one level lower would result in duplicate
+          programs.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

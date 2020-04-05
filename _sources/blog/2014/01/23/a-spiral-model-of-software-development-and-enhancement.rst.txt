@@ -1,0 +1,127 @@
+######################################################
+A Spiral Model of Software Development and Enhancement
+######################################################
+
+Motivation(s)
+=============
+
+Software process models provide guidance on the order in which a project should
+carry out its major tasks.  Many software projects pursue various development
+and evolution phases in the wrong order resulting in unnecessary grief.
+
+Proposed Solution(s)
+====================
+
+The author proposed the spiral model (see Figure 2) to handle all of the
+previous models' issues.
+
+Evaluation(s)
+=============
+
+A case study of the TRW Software Productivity Project showed that productivity
+increased by 50%.  The benefit of this risk-driven model is that it will reduce
+to the previous models in the appropriate situation where those models are
+effective.
+
+Future Direction(s)
+===================
+
+- What is a good metric to measure productivity?
+- Would a data-driven circular software model be more effective than the
+  spiral model?
+- Would testable criteria be more effective?
+
+Question(s)
+===========
+
+- How was productivity measured?
+
+Analysis
+========
+
+The spiral model can be used effectively, but using it effectively is itself
+another problem.  Even though the model elegantly combined all the previous
+models' advantages, it has not established its benefits over the circular
+software process where one constantly evaluates all criteria
+:cite:`brooks1995mythical`.  An example of this is how the spiral is always
+advancing.  It does not allow reexamining and possibly going back to the origin.
+
+One interesting note is that the Risk Management Plan (see Table 4 and 5)
+portion of the spiral model can be loosely integrated with all existing
+processes.
+
+Notes
+=====
+
+Software Process Model
+----------------------
+
+- Determine the order of the stages involved in development and evolution.
+- Establish the transition criteria for advancing between stages.
+
+  (i) What shall we do next?
+  (#) How long shall we continue to do it?
+
+Software Methodology
+--------------------
+
+- How to navigate through each phase.
+
+  (i) Determine data, control, or uses hierarchies.
+  (#) Partition functions.
+  (#) Allocate requirements.
+
+- How to represent phase products.
+
+  (i) Structure charts
+  (#) Stimulus-response threads
+  (#) State transition diagrams
+
+Evolution of Process Models
+---------------------------
+
+- Code-and-Fix
+
+  - Lack of structure and preparation and requirements i.e. spaghetti code.
+
+- Stagewise Waterfall
+
+  - Emphasis on document-driven standards for early requirements and design
+    phases led to large quantities of unusable code.
+
+- Evolutionary (direction, incremental) Development
+
+  - Evolving a lot of hard-to-change code before addressing long-range
+    architectural and usage considerations reduced model's effectiveness to
+    code-and-fix and stagewise waterfall models.
+
+- Transform
+
+  - Automatic conversion of formal specifications to software requires solving
+    the knowledge-base-maintenance problem (e.g. reusable software components,
+    commercial products).
+
+Spiral Model
+------------
+
+- Focus early attention on options involving the reuse of existing software.
+- Apply software techniques (e.g. information hiding) to prepare for life-cycle
+  evolution, growth, and changes of the software product.
+- Keep track of objectives and constraints as software is being developed.
+- Risk-analysis, validation, and commitment tries to eliminate errors and
+  unattractive alternatives.
+- Risk-driven approach estimates allocation of time and resources.
+- Software enhancement and maintenance are first-class citizens.
+- Applicable to software and hardware.
+- Difficulties
+
+  - Works great with internal software developments, but integrates with
+    contract software acquisition.
+  - Requires risk-assessment expertise.
+  - The general process steps is only a guideline, so each project needs to
+    figure out the details.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

@@ -1,0 +1,98 @@
+##################################################
+The Rise and Fall of React, Flux, Redux, and Cycle
+##################################################
+
+Apart from brilliant researchers, many individuals and companies (e.g. Facebook)
+are trying to improve the state of web development.  One entity that have
+received a lot of attention is Facebook's `React library`_.  It presents an
+intuitive `mental model`_ through its more or less thorough `tutorial`_.  Its
+popularity is rising at an unsettling pace as more developers successfully adopt
+and exhort the benefits they have personally experienced:
+
+- `Rethinking best practices`_
+- `Secrets of the Virtual DOM`_
+- `Building Applications with a Unidirectional Data Flow`_
+- `A Deep Dive into React Native`_
+- `Communicating with Channels`_
+- `react-router increases your productivity`_
+- `Full Stack Flux`_
+- `Turning the database inside out with Apache Samza`_
+- `Formatting with FormatJS and react-intl`_
+- `Removing User Interface Complexity, or Why React is Awesome`_
+
+.. _React library: https://facebook.github.io/react/docs/getting-started.html
+.. _mental model: https://facebook.github.io/react/docs/thinking-in-react.html
+.. _tutorial: https://facebook.github.io/react/docs/tutorial.html
+.. _Rethinking best practices: https://www.youtube.com/watch?v=x7cQ3mrcKaY
+.. _Secrets of the Virtual DOM: https://www.youtube.com/watch?v=-DX3vJiqxm4
+.. _Building Applications with a Unidirectional Data Flow: https://www.youtube.com/watch?v=i__969noyAM
+.. _A Deep Dive into React Native: https://www.youtube.com/watch?v=7rDsRXj9-cU
+.. _Communicating with Channels: https://www.youtube.com/watch?v=W2DgDNQZOwo
+.. _react-router increases your productivity: https://www.youtube.com/watch?v=XZfvW1a8Xac
+.. _Full Stack Flux: https://www.youtube.com/watch?v=KtmjkCuV-EU
+.. _Turning the database inside out with Apache Samza: https://www.youtube.com/watch?v=fU9hR3kiOK0
+.. _Formatting with FormatJS and react-intl: https://www.youtube.com/watch?v=Sla-DkvmIHY
+.. _Removing User Interface Complexity, or Why React is Awesome: http://jlongster.com/Removing-User-Interface-Complexity,-or-Why-React-is-Awesome
+
+Indeed Facebook's Flux UI design pattern have inspired a lot of variations such
+`Redux`_, `container components`_, `higher-order components`_, and
+`CSS in JS`_.  While all of them together present a very attractive story, when
+one tries to put it into practice, there are many hurdles to overcome:
+
+- `no concensus on how to structure the application`_,
+- `many different ways to specialize Flux`_,
+- `differing best practices`_,
+- `no one to rein in the plethora of software packages`_,
+- and worst of all is the vast amount of useless information
+  (at best mediocre content) on the web.
+
+.. _Redux: http://redux.js.org/
+.. _container components: https://medium.com/@learnreact/container-components-c0e67432e005
+.. _higher-order components: https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750
+.. _CSS in JS: http://blog.namangoel.com/css-in-js-in-css
+.. _no concensus on how to structure the application: http://marmelab.com/blog/2015/12/17/react-directory-structure.html
+.. _many different ways to specialize Flux: https://github.com/acdlite/flux-standard-action
+.. _differing best practices: https://medium.com/lexical-labs-engineering/redux-best-practices-64d59775802e
+.. _no one to rein in the plethora of software packages: https://github.com/gaearon/normalizr
+
+Fortunately, there is an `excellent tutorial`_, a `decent minimal example`_, and
+a `good cookbook`_.  Unfortunately, taking the intuitive mental model that
+Facebook proposed and turning it into a real nontrivial application is
+`still hard`_; yet `the majority of developers are glossing over this issue`_.
+`Is the high learning curve necessary`_?  The attractive idea in React is its
+`unidirectional user interface architecture`_, but that is merely an
+`instantiation of Model-View-Intent`_.  If all the `noise in React / Flux`_ are
+removed, then one would arrive at `reactive programming`_.  There are several
+`library implementations`_ and even an optional `framework`_ that focus on this
+paradigm; each of them has a very low learning curve.  See the following for a
+handful of helpful introductory materials:
+
+- `Functional Programming in Javascript`_
+- `The Reactive Manifesto`_
+- `How to Quantify Scalability`_
+- `A Dead-Simple Todo List with RxJS`_
+- `Cold vs Hot Observables`_
+- `RxJS GitBook`_
+
+Hopefully the next generation of Javascript will include
+`Observables as native code`_.
+
+.. _excellent tutorial: https://github.com/happypoulp/redux-tutorial
+.. _decent minimal example: http://blog.simonstrom.xyz/start-from-scratch-with-reactredux/
+.. _good cookbook: https://christianalfoni.github.io/react-webpack-cookbook/Lazy-loaded-entry-points.html
+.. _still hard: https://medium.com/@wob/the-sad-state-of-web-development-1603a861d29f
+.. _the majority of developers are glossing over this issue: http://intercoolerjs.org/2016/01/18/rescuing-rest.html
+.. _Is the high learning curve necessary: http://staltz.com/why-react-redux-is-an-inferior-paradigm.html
+.. _unidirectional user interface architecture: http://staltz.com/unidirectional-user-interface-architectures.html
+.. _instantiation of Model-View-Intent: http://futurice.com/blog/reactive-mvc-and-the-virtual-dom
+.. _noise in React / Flux: http://staltz.com/nothing-new-in-react-and-flux-except-one-thing.html
+.. _reactive programming: https://gist.github.com/staltz/868e7e9bc2a7b8c1f754
+.. _library implementations: https://github.com/Reactive-Extensions/RxJS/blob/master/doc/mapping/bacon.js/whyrx.md
+.. _framework: https://rpominov.github.io/kefir/
+.. _Functional Programming in Javascript: http://reactivex.io/learnrx/
+.. _The Reactive Manifesto: http://www.reactivemanifesto.org/glossary
+.. _How to Quantify Scalability: http://www.perfdynamics.com/Manifesto/USLscalability.html
+.. _A Dead-Simple Todo List with RxJS: http://blog.edanschwartz.com/2015/09/18/dead-simple-rxjs-todo-list/
+.. _Cold vs Hot Observables: https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/creating.md#cold-vs-hot-observables
+.. _RxJS GitBook: https://xgrommx.github.io/rx-book/index.html
+.. _Observables as native code: http://webreflection.blogspot.com/2015/04/the-dom-is-not-slow-your-abstraction-is.html

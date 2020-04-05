@@ -1,0 +1,156 @@
+###############
+Maxout Networks
+###############
+
+Motivation(s)
+=============
+
+Dropout is an approximate model averaging technique that yields a modest
+improvement in performance when applied to almost any neural net architecture.
+Training a net with dropout requires taking relatively large steps in parameter
+space, which differs significantly from existing approaches that use SGD.
+Despite this blatant difference, dropout is generally viewed as a mechanical
+performance enhancing tool.
+
+Proposed Solution(s)
+====================
+
+The authors propose a new activation function called maxout, which selects the
+largest component of the input vector that would have been passed to an ReLU.
+Assuming the network is the usual feed-forward affine model, a single maxout
+unit can be interpreted as a convex piecewise linear function.  This enables
+maxout networks to learn not just the relationship between hidden units, but
+also the activation function of each hidden unit.  Since a maxout unit is
+locally linear almost everywhere, dropout could potentially do exact model
+averaging in deep nets.
+
+Evaluation(s)
+=============
+
+The authors sketched a proof showing that a two hidden unit maxout network can
+approximate any continuous function i.e. it's a universal approximator.
+
+They showed that maxout networks with dropout set new records on datasets such
+MNIST, CIFAR-10, CIFAR-100, and SVHN.  They also cross-validated their pipeline
+via using other rectifiers to confirm the gains in accuracy is due to maxout and
+not preprocessing.
+
+Note that when the authors stated their results used the geometric mean of model
+predictions, they meant
+
+.. math::
+
+   \frac{1}{n} \sum_i^n \log p_i =
+   \frac{1}{n} \log \prod_i^n p_i =
+   \log \left( \prod_i^n p_i \right)^{1 / n}.
+
+The empirical results on unit saturation illustrate that rectifiers with dropout
+saturates at 0 more than 60% of the time while rectifiers without dropout
+results in less than 5% saturation of units.  This phenomenon does not occur
+with maxout because gradient always flows through every maxout unit.  Since the
+gradient information is not lost through saturation, maxout can better propagate
+varying information downward to the lower layers.
+
+Note that maxout networks do not enforce sparsity; it instead delegates that
+task to dropout.
+
+Future Direction(s)
+===================
+
+- What are the activation functions that maxout networks learn from running on
+  ImageNet and other datasets?
+- How to design a mechanism to learn dropout's parameter?
+
+Question(s)
+===========
+
+- The authors mentioned that in the case of softmax models, the average
+  prediction of exponentially many sub-models can be computed by running the
+  full model with the weights divided by 2.  Why is this the case?
+- Not sure why bagging was emphasized with the lower layer gradients?
+
+Analysis
+========
+
+Maxout is a convex piecewise linear activation function that is capable of
+learning to express arbitrary functions.  It delegates the task of inducing
+sparsity to :doc:`dropout </blog/2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting>`.
+
+The propositions the authors use in their sketchy proof are very interesting.
+Proposition 4.1 guarantees that the feed-forward affine model is capable of
+combining maxout units as a continuous piecewise linear function.  Proposition
+4.2 shows that continuous piecewise linear function can approximate any
+function.  The proof would be more convincing if the authors focused on proving
+maxout satisfies :doc:`certain properties as an activation function </blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators>`.
+
+More experiments on different activation functions (e.g. minout) without dropout
+should be done to verify the effectiveness of piecewise linear functions.
+
+One entertaining point is the hypothesis that maxout is better than max pooling
+because the latter potentially cuts off negative contributions.  ReLUs also cuts
+off negative contributions yet it has several justifications for that scheme.
+It seems the fundamental question of what defines a good activation function is
+still left to be answered.  Regardless, the use of an activation function that
+is capable of learning the necessary activation function seems to be a promising
+direction.
+
+The paper cited :cite:`glorot2011deep`, but there are better ways to spend one's
+time than reading an over-glorified set of experiments on the effects of
+pre-training over the different activation functions: tanh, softplus, and ReLU.
+In fact, the contents of :cite:`glorot2011deep` can be summarized into a few
+slides.  The neuroscience references it gives are interesting, but one should
+contact neuroscientists and ask specific questions instead of extrapolating from
+limited knowledge.
+
+Another related paper :cite:`srivastava2013compete` proposes a local
+winner-take-all (LWTA) strategy.  The motivation stems from neuroscience: many
+cortical and sub-cortical regions of the brain (e.g. hippocampal, cerebellar)
+exhibit a recurrent on-center, off-surround anatomy, where cells provide
+excitatory feedback to nearby cells, while scattering inhibitory signals over a
+broader range.  Even though LWTA is not an activation function, its effect can
+be interpreted as a subset of maxout because backpropagating maxout achieves
+similar gradient updates.  Overall, the experiments with LWTA were not extensive
+enough to conclude that one should prefer LWTA's block size parameter over
+dropout's weight scaling.
+
+Notes
+=====
+
+Given :math:`\mathbf{x} \in \mathbb{R}^d` as the output of some layer, a maxout
+hidden unit implements the function
+
+.. math::
+
+   h(\mathbf{x}) = \max \left\{ x_1, \ldots, x_d \right\}.
+
+Suppose the result of :math:`h` selects index :math:`j` as the maximum.  The
+gradient of this activation function is
+
+.. math::
+
+   \frac{\partial h(\mathbf{x})}{\partial x_n}
+    &= \begin{cases}
+         1 & \text{if } n = j\\
+         0 & \text{otherwise.}
+       \end{cases}
+
+In the case of ties, the function is not differentiable hence break the tie
+consistently e.g. default to the smallest index.
+
+The authors propose a maxout hidden layer consisting of
+
+.. math::
+
+   h_i(\mathbf{x}) =
+   \max_{j = 1, \ldots, k} z_{ij} =
+   \max_{j = 1, \ldots, k} \mathbf{x}^\top W_{\colon ij} + b_{ij}
+
+where :math:`W \in \mathbb{R}^{d \times m \times k}` and
+:math:`B \in \mathbb{R}^{m \times k}` are
+:doc:`learned parameters </blog/2016/12/02/learning-internal-representations-by-error-propagation>`
+specific to hidden layer :math:`i`.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

@@ -1,0 +1,54 @@
+#########################
+Bayesian Face Recognition
+#########################
+
+Motivation(s)
+=============
+
+Existing face recognition systems rely on similarity metrics based on Euclidean
+distance or normalized correlation, which corresponds to template-matching i.e.
+nearest-neighbor.  The drawback of these metrics is that they do not exploit
+knowledge of which types of variation are critical in expressing similarity.
+
+Proposed Solution(s)
+====================
+
+The authors propose a probabilistic similarity measure based on the image
+differences to characterize facial image variations into intrapersonal and
+extrapersonal variations.  This Bayesian formulation casts the M-ary
+classification problem into a binary classification problem i.e.
+:math:`Pr(\Omega_I \mid \Updelta) > Pr(\Omega_E \mid \Updelta)`.
+
+Evaluation(s)
+=============
+
+The proposed metric was compared with the eigenface matching algorithm using the
+ARPA FERET dataset.  The cumulative match score showed that the probabilistic
+metric bested the baseline by 10-20%.  An additional benefit is that the
+database only needs to store a single image of an individual through the use of
+the whitening transformation (7).
+
+Future Direction(s)
+===================
+
+- How does this compare to multi-linear models?
+
+Question(s)
+===========
+
+- Do the image differences of different individuals live in close proximity in
+  the proposed subspace?
+
+Analysis
+========
+
+Modeling some observations with a Gaussian establishes a good baseline.  This
+approach can be viewed as an application of factor analyzers.  The Bayesian
+formulation is brilliant, but I'm not too convinced of the image difference
+metric.  As the authors admitted, multiple models should be used for dealing
+with large pose variations to avoid diluting the density models.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

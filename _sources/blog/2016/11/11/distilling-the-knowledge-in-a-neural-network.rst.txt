@@ -1,0 +1,84 @@
+############################################
+Distilling the Knowledge in a Neural Network
+############################################
+
+Motivation(s)
+=============
+
+Existing deep models identify the knowledge in a trained model with the learned
+parameter values.  Recently, a more abstract view of the knowledge has been
+shown to be just as effective.  The latest trend is learning a mapping from
+input vectors to output vectors: an ensemble of deep models is trained and its
+knowledge is transferred to a single less complex model.  This approach works
+for small datasets, but it would take weeks to train on a hundred million images
+with fifteen thousand categories.
+
+Proposed Solution(s)
+====================
+
+The authors generalize the existing approach of knowledge transfer between
+different models, which they claim is a special case of their distillation
+(training process).  To handle large datasets, they combine a generalist deep
+model with an ensemble of specialist deep models.
+
+Evaluation(s)
+=============
+
+The distillation uses a softmax output layer that has a global temperature
+parameter.  The cross-entropy gradient of this layer is mathematically
+equivalent to the corresponding matching logits used in the existing knowledge
+transfer approach.
+
+The authors demonstrated that a distilled model is capable of attaining similar
+accuracy to an ensemble of deep models with respect to MNIST and automatic
+speech recognition.
+
+For very large datasets, they first trained a generalist deep model on the
+entire dataset.  Each specialist model used the weights of the generalist as a
+starting point of the retraining process.  To determine which categories a
+specialist would handle, the authors applied an on-line version of the K-means
+algorithm to the columns of the covariance matrix of the generalist model.
+Note that each each specialist has an additional "do not care" class.
+
+Formulating the inference as a minimization of a sum of KL-divergence between
+the target distribution and each model, the authors reported an increase in
+test accuracy and a reduction from weeks to days in terms of training time.
+
+Future Direction(s)
+===================
+
+- How to reframe the generalist and specialists in terms of boosting?
+- Withholding a specific category of examples still achieved high accuracy when
+  the other categories are similar enough.  How to differentiate between a new
+  category/cluster versus garbage?
+
+Question(s)
+===========
+
+- The ensemble of specialists with a single generalist looks quite similar to
+  boosting?
+- How necessary is the temperature parameter?
+
+Analysis
+========
+
+Specializing deep models is one way to reduce training times while enhancing
+accuracy on huge datasets.
+
+The authors claimed that distilling works very well for transferring knowledge
+from an ensemble or from a large highly regularized model into a smaller,
+distilled model.  While that appears to be true, it is definitely
+:doc:`not novel enough </blog/2016/11/10/do-deep-nets-really-need-to-be-deep>`
+to warrant wasting half a paper.  Furthermore, they did not provide enough
+experiments to justify an additional temperature parameter.  Why introduce more
+tunable parameters just to stick with softmax outputs?
+
+One peculiar point is the proposal to keep model training separate from
+deployment.  The authors use an analogy of an insect's life cycle to justify the
+foregoing.  While that is a very reasonable suggestion, it sidesteps the central
+question of why shallow models need to learn from deep models.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

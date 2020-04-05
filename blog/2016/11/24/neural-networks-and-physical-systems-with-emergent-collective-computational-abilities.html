@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Neural Networks and Physical Systems with Emergent Collective Computational Abilities &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Training Products of Experts by Minimizing Contrastive Divergence" href="../23/training-products-of-experts-by-minimizing-contrastive-divergence.html" />
+    <link rel="prev" title="The Sharpe Ratio" href="../25/the-sharpe-ratio.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a><ul>
+<li><a class="reference internal" href="#motivation-s">Motivation(s)</a></li>
+<li><a class="reference internal" href="#proposed-solution-s">Proposed Solution(s)</a></li>
+<li><a class="reference internal" href="#evaluation-s">Evaluation(s)</a></li>
+<li><a class="reference internal" href="#future-direction-s">Future Direction(s)</a></li>
+<li><a class="reference internal" href="#question-s">Question(s)</a></li>
+<li><a class="reference internal" href="#analysis">Analysis</a></li>
+<li><a class="reference internal" href="#notes">Notes</a><ul>
+<li><a class="reference internal" href="#ising-model">Ising Model</a></li>
+<li><a class="reference internal" href="#hopfield-network">Hopfield Network</a><ul>
+<li><a class="reference internal" href="#convergence-of-hopfield-network">Convergence of Hopfield Network</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../25/the-sharpe-ratio.html" title="Previous Chapter: The Sharpe Ratio"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; The Sharpe Ratio</span>
+    </a>
+  </li>
+  <li>
+    <a href="../23/training-products-of-experts-by-minimizing-contrastive-divergence.html" title="Next Chapter: Training Products of Experts by Minimizing Contrastive Divergence"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Training Prod... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="neural-networks-and-physical-systems-with-emergent-collective-computational-abilities">
+<h1>Neural Networks and Physical Systems with Emergent Collective Computational Abilities<a class="headerlink" href="#neural-networks-and-physical-systems-with-emergent-collective-computational-abilities" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="motivation-s">
+<h2>Motivation(s)<a class="headerlink" href="#motivation-s" title="Permalink to this headline">¶</a></h2>
+<p>All modeling is based on details.  Current neuroscience theories focus on the
+dynamic electrochemical properties neurons and synapses at the scale of a few
+neurons to analyze elementary biological behavior.  However, in many physical
+systems (e.g. a magnetic system), the nature of collective properties is
+insensitive to the details inserted in the model.  This makes one wonder whether
+analogous collective phenomena in a system of simple interacting neurons have
+useful computational correlates.</p>
+</div>
+<div class="section" id="proposed-solution-s">
+<h2>Proposed Solution(s)<a class="headerlink" href="#proposed-solution-s" title="Permalink to this headline">¶</a></h2>
+<p>The author observed that any physical system whose dynamics in phase space is
+dominated by a substantial number of locally stable states to which it is
+attracted can be regarded as a general content-addressable memory.  The system
+will be useful if any prescribed set of states can be made the stable states of
+the system.</p>
+<p>To store a set of states <span class="math notranslate nohighlight">\(\left\{ V^s \in \{0, 1\} \right\}_{s = 1}^n\)</span>,
+the author defines a complete graph whose weights use the storage prescription</p>
+<div class="math notranslate nohighlight">
+\[T_{ij} =
+\sum_s \left( 2 V^s_i - 1 \right) \left( 2 V^s_j - 1 \right) =
+\sum_s X^s_i X^s_j\]</div>
+<p>with <span class="math notranslate nohighlight">\(T_{ii} = 0\)</span>.  Notice that these particular weights can be
+interpreted as a form of Hebbian learning.  Unlike previous neural nets that
+emphasize relative timing of action potential spikes, each neuron in this
+network updates asynchronously.</p>
+</div>
+<div class="section" id="evaluation-s">
+<h2>Evaluation(s)<a class="headerlink" href="#evaluation-s" title="Permalink to this headline">¶</a></h2>
+<p>Monte Carlo calculations were made on systems of <span class="math notranslate nohighlight">\(N = 30\)</span> and
+<span class="math notranslate nohighlight">\(N = 100\)</span> neurons; both exhibited qualitative similarities.</p>
+<p>The flow in phase space produced by this neural network has the properties
+necessary for a physical content-addressable memory whether or not
+<span class="math notranslate nohighlight">\(T_{ij}\)</span> is symmetric.  Setting <span class="math notranslate nohighlight">\(T_{ij} \neq 0\)</span> and
+<span class="math notranslate nohighlight">\(T_{ji} = 0\)</span> did increase the probability of making errors, but the
+algorithm continued to generate stable minima.  However, asymmetric
+<span class="math notranslate nohighlight">\(T_{ij}\)</span> can lead to a metastable minimum.</p>
+<p>Furthermore, the phase space flow is dominated by attractors which are the
+nominally assigned memories, each of which dominates a substantial region around
+it.  Memories too close to each other are confused and tend to merge.  The flow
+is not entirely deterministic, and the system responds to an ambiguous starting
+state by a statistical choice between the memory states it most resembles.</p>
+<p>A serious limitation of this model is its capacity.  About
+<span class="math notranslate nohighlight">\(\frac{N}{4 \log N}\)</span> states can be simultaneously remembered before
+severe recall error.</p>
+</div>
+<div class="section" id="future-direction-s">
+<h2>Future Direction(s)<a class="headerlink" href="#future-direction-s" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>How to applying Hebbian learning to the hidden units within a single layer to
+avoid <a class="reference internal" href="../14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html"><span class="doc">co-adaptations of neurons</span></a>?</p></li>
+<li><p><a class="reference internal" href="../15/maxout-networks.html"><span class="doc">Maxout networks</span></a> is capable of
+learning the desired activation function, but may still encountered the
+exploding gradient problem.  Would a neuron reset scheme be an appropriate
+mechanism to simulate cell death and respawn?</p></li>
+</ul>
+</div>
+<div class="section" id="question-s">
+<h2>Question(s)<a class="headerlink" href="#question-s" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Is the analysis of the effect of the noise terms equivalent to the derivation
+of model capacity in <a class="bibtex reference internal" href="#rsnapp08hn2" id="id1">[Snab]</a>?</p></li>
+<li><p>The pseudo-orthogonality condition is not obvious by inspection.</p></li>
+</ul>
+</div>
+<div class="section" id="analysis">
+<h2>Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">¶</a></h2>
+<p>The spontaneous emergence of new computational capabilities from the collective
+behavior of large numbers of simple processing elements have been shown to be
+feasible.  While this and asynchronous parallel processing are attractive ideas,
+<a class="bibtex reference internal" href="#rsnapp08hn" id="id2">[Snaa]</a> proved that the time till convergence is too long if each
+neuron is sequentially updated.  The idea is interesting and deserves further
+research, but this network model is not practical compared to existing
+techniques that are resilient to failures.</p>
+<p>One of the interesting points is the mention of Hebbian learning: neurons that
+fire together wire together.  This particular learning paradigm has been ignored
+with respect to the hidden units in <a class="reference internal" href="../05/multilayer-feedforward-networks-are-universal-approximators.html"><span class="doc">multilayer feedforward networks</span></a>.</p>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="ising-model">
+<h3>Ising Model<a class="headerlink" href="#ising-model" title="Permalink to this headline">¶</a></h3>
+<p>Section 13.2.3 of <a class="bibtex reference internal" href="#rojas2013neural" id="id3">[Roj13]</a> states that the Ising model can be
+used to describe systems made of particles capable of adopting one of two
+states.  In the case of ferromagnetic materials, their atoms can be modeled as
+particles of spin up (<span class="math notranslate nohighlight">\(s = +1 / 2\)</span>) or spin down (<span class="math notranslate nohighlight">\(s = -1 / 2\)</span>).
+The spin points in the direction of the magnetic field.  All tiny magnets
+interact with each other.  This causes some of the atoms to flip their spin
+until equilibrium is reached and the total magnetization of the material reaches
+a constant level, which is the sum of the individual spins.</p>
+<p>The total magnetic field <span class="math notranslate nohighlight">\(h_i\)</span> sensed by the atom <span class="math notranslate nohighlight">\(i\)</span> in an ensemble
+of particles is the sum of the fields induced by each atom and the external
+field <span class="math notranslate nohighlight">\(h^*\)</span> (if present).  Formally,</p>
+<div class="math notranslate nohighlight">
+\[h_i = \sum_{j \neq i} w_{ij} s_j + h^* s_i\]</div>
+<p>where <span class="math notranslate nohighlight">\(w_{ij}\)</span> represents the magnitude of the magnetic coupling between
+the atoms labeled <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span>.  The magnetic coupling changes
+according to the distance between atoms and the magnetic permeability of the
+environment.  The potential energy <span class="math notranslate nohighlight">\(E\)</span> of a certain state
+<span class="math notranslate nohighlight">\((s_1, s_2, \ldots, s_n)\)</span> of an Ising material has the form</p>
+<div class="math notranslate nohighlight">
+\[E = -\frac{1}{2} \mathop{\sum\sum}_{i \neq j} w_{ij} s_i s_j -
+    h^* \sum_i s_i.\]</div>
+<p>In paramagnetic materials, the coupling constants are zero.  In ferromagnetic
+materials, the constants <span class="math notranslate nohighlight">\(w_{ij}\)</span> are all positive.  At zero temperature,
+both systems behave deterministically.  Notice that this potential energy
+at zero temperature is isomorphic to the energy function of Hopfield networks.
+By inspection, a Hopfield network can be seen as a microscopic model of
+magnetism <a class="bibtex reference internal" href="#rkrusenn07" id="id4">[Kru]</a>:</p>
+<table class="docutils align-default" id="id5">
+<caption><span class="caption-number">Table 4 </span><span class="caption-text">Isomorphism between the Hopfield and Ising Models</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>physical</p></th>
+<th class="head"><p>neural</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>atom</p></td>
+<td><p>neuron</p></td>
+</tr>
+<tr class="row-odd"><td><p>magnetic spin</p></td>
+<td><p>activation state</p></td>
+</tr>
+<tr class="row-even"><td><p>strength of external field</p></td>
+<td><p>threshold value</p></td>
+</tr>
+<tr class="row-odd"><td><p>magnetic coupling between atoms</p></td>
+<td><p>connection weights</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="hopfield-network">
+<h3>Hopfield Network<a class="headerlink" href="#hopfield-network" title="Permalink to this headline">¶</a></h3>
+<p>The input to a particular neuron arises from the current leaks of the synapses
+to that neuron.  The synapses in turn are activated by arriving action
+potentials that neurons emit.  Neurons are capable of propagating pulses of
+action potentials—electrochemical activity—when the average potential across
+their membrane is held well above its normal resting value.  The mean rate at
+which action potentials are generated for a typical neuron <span class="math notranslate nohighlight">\(i\)</span> can be
+modeled as</p>
+<div class="math notranslate nohighlight">
+\[V_i(t + 1) = \left( 1 + \exp \sum_j T_{ij} V_j(t) \right)^{-1}\]</div>
+<p>where the pre-synaptic sum represents the input signal to the neuron,
+<span class="math notranslate nohighlight">\(T_{ij}\)</span> is the effectiveness of a synapse, and <span class="math notranslate nohighlight">\(V_\cdot\)</span> is the
+membrane potential (Volts).</p>
+<p>A Hopfield network uses a simpler model of a neuron called the McCulloch-Pitts
+linear threshold unit.  <span class="math notranslate nohighlight">\(V_\cdot \in \{0, 1\}\)</span> now denotes whether the
+neuron fired or not and is defined as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}V_i(t + 1) = H\left( \sum_j T_{ij} V_j(t) \right)
+\quad \land \quad
+H(x) = \begin{cases}
+         1 &amp; \text{if}\ x &gt; 0\\
+         0 &amp; \text{otherwise.}
+       \end{cases}\end{split}\]</div>
+<p>Notice that all neurons are input as well as output neurons i.e. there are no
+hidden units.  To account for the delays in synaptic transmission and in the
+transmission of impulses along axons and dendrites, each neuron asynchronously
+readjusts its state randomly in time but with a mean attempt rate <span class="math notranslate nohighlight">\(W\)</span>.</p>
+<p>The energy function of a Hopfield network is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}E\left( \mathbf{V}(t) \right)
+ &amp;= -\frac{1}{2} \mathop{\sum\sum}_{j \neq k} T_{jk} V_j(t) V_k(t) -
+    \frac{1}{2} \sum_j T_{jj} V_j(t)^2\\
+ &amp;= -\frac{1}{2} \sum_{j \neq i} \sum_{k \neq i} T_{jk} V_j(t) V_k(t) -
+    \frac{1}{2} V_i(t) \sum_{l \neq i} (T_{il} + T_{li}) V_l(t) -
+    \frac{1}{2} T_{ii} V_i(t)^2.\end{split}\]</div>
+<div class="section" id="convergence-of-hopfield-network">
+<h4>Convergence of Hopfield Network<a class="headerlink" href="#convergence-of-hopfield-network" title="Permalink to this headline">¶</a></h4>
+<p>By inspection, the change in energy <span class="math notranslate nohighlight">\(\Delta E\)</span> due to
+<span class="math notranslate nohighlight">\(\Delta V_i = V_i(t + 1) - V_i(t)\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta E &amp;= E(t + 1) - E(t)\\
+ &amp;= \left(
+      -\frac{1}{2} \sum_{l \neq i} (T_{il} + T_{li}) V_i(t + 1) V_l(t) -
+      \frac{1}{2} T_{ii} V_i(t + 1)^2
+    \right) -
+    \left(
+      -\frac{1}{2} \sum_{l \neq i} (T_{il} + T_{li}) V_i(t) V_l(t) -
+      \frac{1}{2} T_{ii} V_i(t)^2
+    \right)\\
+ &amp;= -\frac{1}{2} \Delta V_i \sum_{l \neq i} (T_{il} + T_{li}) V_l(t) -
+    \frac{1}{2} T_{ii} \Delta V_i.\end{split}\]</div>
+<p>Observe that if <span class="math notranslate nohighlight">\(V_i(t + 1) = V_i(t)\)</span>, the <span class="math notranslate nohighlight">\(\Delta E = 0\)</span>.</p>
+<p>To show the convergence of the network, assume <span class="math notranslate nohighlight">\(T_{ij} = T_{ji}\)</span>,
+<span class="math notranslate nohighlight">\(T_{ii} = 0\)</span>, and only one update occurs at a time.</p>
+<div class="math notranslate nohighlight">
+\[\Delta E = -\Delta V_i \sum_{j \neq i} T_{ij} V_j(t).\]</div>
+<p>When <span class="math notranslate nohighlight">\(\Delta V_i = 1\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\Delta E = -\sum_{j \neq i} T_{ij} V_j(t) &lt; 0\]</div>
+<p>because <span class="math notranslate nohighlight">\(\sum_j T_{ij} V_j(t) &gt; 0\)</span>.</p>
+<p>When <span class="math notranslate nohighlight">\(\Delta V_i = -1\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\Delta E = \sum_{j \neq i} T_{ij} V_j(t) \leq 0\]</div>
+<p>because <span class="math notranslate nohighlight">\(\sum_j T_{ij} V_j(t) \leq 0\)</span>.</p>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-blog/2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities-0"><dl class="citation">
+<dt class="bibtex label" id="hopfield1982neural"><span class="brackets">Hop82</span></dt>
+<dd><p>John J Hopfield. Neural networks and physical systems with emergent collective computational abilities. <em>Proceedings of the national academy of sciences</em>, 79(8):2554–2558, 1982.</p>
+</dd>
+<dt class="bibtex label" id="rkrusenn07"><span class="brackets"><a class="fn-backref" href="#id4">Kru</a></span></dt>
+<dd><p>Rudolf Kruse. Neural networks: hopfield networks. <span><a class="reference external" href="#"></a></span>http://fuzzy.cs.ovgu.de/ci/nn/v07_hopfield_en.pdf. Accessed slide 15 on 2017-02-15.</p>
+</dd>
+<dt class="bibtex label" id="eorhan14"><span class="brackets">Orh</span></dt>
+<dd><p>Emin Orhan. The hopfield model. <span><a class="reference external" href="#"></a></span>http://www.cns.nyu.edu/ eorhan/notes/hopfield.pdf. Accessed on 2017-02-15.</p>
+</dd>
+<dt class="bibtex label" id="rojas2013neural"><span class="brackets"><a class="fn-backref" href="#id3">Roj13</a></span></dt>
+<dd><p>Raúl Rojas. <em>Neural Networks: A Systematic Introduction</em>. Springer Science &amp; Business Media, 2013.</p>
+</dd>
+<dt class="bibtex label" id="rsnapp08hn"><span class="brackets"><a class="fn-backref" href="#id2">Snaa</a></span></dt>
+<dd><p>Robert Snapp. Cs 256: neural computation lecture notes on hopfield networks. <span><a class="reference external" href="#"></a></span>http://www.cems.uvm.edu/ rsnapp/teaching/cs256/lectures/hopfield.pdf. Accessed on 2017-02-15.</p>
+</dd>
+<dt class="bibtex label" id="rsnapp08hn2"><span class="brackets"><a class="fn-backref" href="#id1">Snab</a></span></dt>
+<dd><p>Robert Snapp. Cs 256: neural computation lecture notes on hopfield networks (ii). <span><a class="reference external" href="#"></a></span>http://www.cems.uvm.edu/ rsnapp/teaching/cs256/lectures/hopfield2.pdf. Accessed on 2017-02-15.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/blog/2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

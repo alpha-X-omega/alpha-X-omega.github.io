@@ -1,0 +1,130 @@
+##############################################################
+Reconciling Environment Integration and Component Independence
+##############################################################
+
+Motivation(s)
+=============
+
+Separation of components and relationships minimizes the changes that have to be
+made as requirements change.  The goals of components should be:
+
+(1) They are able to execute independently.
+(#) Their source should be defined without references to relationships.
+(#) They are still accessible to other components during participation in
+    relationships.
+
+Unfortunately these are conflicting goals.  Existing systems (e.g. Unix,
+Smalltalk-80 MVC, compatibility maps) attempted to achieve this using event
+mechanisms, but each has its own set of inefficiencies.
+
+Proposed Solution(s)
+====================
+
+The authors propose mediators to localize relationships and an event mechanism
+to enable dynamic component invocation of mediators.
+
+Evaluation(s)
+=============
+
+The proposal was implemented in C++/Lisp and was successfully applied to CAGD
+and a parallel programming environment.  Another group was able to use a
+variation of the proposal to do program restructuring.
+
+Future Direction(s)
+===================
+
+- Is the Actor model a superset of this design pattern?
+- How to use code refactoring simulations to recommend design patterns?
+
+Question(s)
+===========
+
+- Does design level encapsulate requirements level?
+- What are the complications in granting independent access to components when
+  using the proposed design pattern?
+
+Analysis
+========
+
+The mediator pattern is very useful when the separation of components and
+relationships are violated.  The refinement of the software's design as changes
+are introduced is the most illustrative explanation about mediators and events
+I have ever read.  It is much more concise than the design pattern template in
+:cite:`gamma1993design`.  The proposed event mechanism guidelines appears to
+have significant influence on the DOM and JavaScript.
+
+Notes
+=====
+
+Integrated Environment
+----------------------
+
+- Requirements Level: a collection of user-level software tools and their
+  relationships.
+- Design Level: a collection of components and their relationships.
+
+Alternative Design Approaches
+-----------------------------
+
+- Scenario: a graph :math:`G` contains :math:`E` edges and :math:`V` vertices.
+
+  (A) The first change is to support eager and lazy maintenance :math:`G`.
+  (#) The second change is to track the cardinality of :math:`V`, which is
+      computed using a separate tool.
+
+- Design by Encapsulation
+
+  - See Figure 1.
+  - (A) is easy to integrate due to the modular structure.
+  - (B) requires an interface change and merging of tool's implementation.
+
+- Design by Hardwiring
+
+  - See Figure 2.
+  - Decentralized design makes (A) difficult.
+  - Independent accessibility of modules make (B) difficult.
+
+- Design by Events
+
+  - Builds on *Design by Hardwiring* (see Figure 3).
+  - Same issues for (A) as in Design by Hardwiring.
+  - Can solve (B) through enhancing the tool to handle the module's events or
+    modifying the module to handle the tool's events.
+
+- Design by Mediators and Events
+
+  - See Figure 4.
+  - Combines the best parts of Encapsulation and Events.
+
+Mediators
+---------
+
+- First class components used to represent or maintain relationships among other
+  components.
+- Can maintain state and invoke other components' commands (i.e. CQS).
+- Can export abstract interfaces and announce events.
+- Depend on the components they relate, but remain independent of relationships
+  in which they participate. 
+
+Events
+------
+
+- Characterized in terms of an event-method (EM) relation.
+
+  - An event-method tuple x.e, y.m is in EM if and only if when component
+    x announces e, y's method m is invoked.
+  - EM must minimally provide register, unregister, and lookup operations.
+
+- Environment Integration Requirements
+
+  - Events should be declared explicitly in component interfaces because they
+    are part of the specification.
+  - Any components should be able to declare events.
+  - Components should be able declare arbitrary event names and signatures.
+  - The passing of parameters from events to methods should be specified at
+    registration time.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

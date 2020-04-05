@@ -1,0 +1,1273 @@
+###################################
+Style: Lessons in Clarity and Grace
+###################################
+
+**********************************
+Ten Principles for Writing Clearly
+**********************************
+
+#. Distinguish real grammatical rules from folklore.
+#. Use subjects to name the characters in your story.
+#. Use verbs to name their important actions.
+#. Open your sentences with familiar units of information.
+#. Get to the main verb quickly:
+
+   - Avoid long introductory phrases and clauses.
+   - Avoid long abstract subjects.
+   - Avoid interrupting the subject-verb connection.
+
+#. Push new, complex units of information to the end of the sentence.
+#. Begin sentences that form a unit with consistent subjects/topics.
+#. Be concise:
+
+   - Cut meaningless and repeated words and obvious implications.
+   - Put the meaning of phrases into one or two words.
+   - Prefer affirmative sentences to negative ones.
+
+#. Control sprawl:
+
+   - Don't tack more than one subordinate clause onto another.
+   - Extend a sentence with resumptive, summative, and free modifiers.
+   - Extend a sentence with coordinate structures after verbs.
+
+#. Above all, write to others as you would have others write to you.
+
+***************
+Style as Choice
+***************
+
+Understanding Style
+===================
+
+- Unclear writing is a social problem rooted in tradition.
+- Some writers use complicated sentences to indicate deep thought.
+- Some writers are focused on minimizing grammatical errors instead of
+  readers' comprehension.
+- Some writers need more experience in their academic or professional setting.
+- Most writers don't know how readers will interpret their discourse.
+
+Correctness
+===========
+
+Present tense inflections
+-------------------------
+
+- :math:`\left\{ \text{Singular}, \text{Plural} \right\} \times \left\{ \text{1st Person}, \text{2nd Person}, \text{3rd Person} \right\}`.
+
+  - Only Singular 3rd Person still requires the additional -s.
+
+Three Kinds of Rules
+--------------------
+
+- Real Rules
+
+  - Defines the essence of a language.
+
+    - English requires articles (i.e. a / an / the) to precede nouns.
+
+- Social Rules
+
+  - Distinguish between standard and non-standard.
+  - Native speakers only think about them when they notice others
+    violating them.
+  - Only non-native speakers self-consciously try to follow them.
+
+- Invented Rules
+
+  - "Bullshit" invented by grammarians because they can.
+
+    #. Don't split infinitives (e.g. to *quietly* leave).
+    #. Don't end a sentence with a proposition (i.e. on, at, in).
+    #. Don't use *hopefully* for *I hope*.
+    #. Don't use *which* for that (e.g. a car *which* I sold).
+
+Two Kinds of Invented Rules
+---------------------------
+
+- Folklore
+
+  #. Don't begin sentences with *and* or *but*.
+
+     - This "rule" probably stems from advice aimed at avoiding
+       sentence fragments.
+     - This "rule" can be violated; however, subordinate clause beginning with
+       *because* usually introduces new information.
+     - Words like *since* can be used to begin a sentence with a clause
+       expressing familiar about causation.
+
+  #. Use the relative pronoun *that* -- not *which* -- for restrictive clauses.
+
+     - The inventor of this "rule" wanted to remove the random variation
+       between *that* and *which*.
+     - A nonrestrictive clause modifies a noun naming a referent that you can
+       identify unambiguously without the information in that clause.
+
+       - An example would be a company's bankruptcy versus product line.
+         There can only be one bankruptcy, but many products can be sold.  The
+         former is appropriate for *which* while the latter should use *that*.
+
+     - This "rule" may be broken for stylistic reasons.
+
+       - *that* sounds softer that *which*.
+       - Using two *thats* close together doesn't sound good.
+
+  #. Use *fewer* with nouns you count, *less* with nouns you cannot.
+
+     - No one uses *less* with mass nouns (e.g. dirt, pounds).
+     - Educated writers often use *less* with countable plural nouns
+       (e.g. resources).
+
+  #. Use *since* and *while* to refer only to time, not to mean *because* or
+     *although*.
+
+     - People ignore this rule.
+     - *since* can be associated with
+       "What follows I assume you already know."
+     - *while* can be associated with "I assume you know what I state in this
+       clause, but what assert in the next will qualify it."
+
+- Elegant Options
+
+  #. Don't split infinitives.
+
+     - This "rule" is nonsense.
+
+  #. Use *whom* as the object of a verb or preposition.
+
+     - A more appropriate rule: use *who* when it is the subject of a verb in
+       its own clause; use *whom* only when it is an object in its own clause.
+     - When a relative clause modifies a noun, the correct form is *whom* if
+       you can delete the relative pronoun and still make sense.  If you
+       cannot delete the *who/whom*, the correct form is *who*.
+     - You cannot delete *whom* when it begins a clause that is the object of
+       a verb.
+     - Always use *whom* as the object of a proposition.
+
+  #. Don't end a sentence with a proposition.
+
+     - This is often violated unless one wants a more formal style.
+     - Violation of this can end a sentence weakly.
+
+  #. Use the singular with *none* and *any*.
+
+     - This will make the writing style more formal.
+
+Hobgoblins
+----------
+
+- Never use *like* for *as* or *as if*.
+
+  - This "rule" is arbitrary nonsense.
+
+- Don't use "hopefully" to mean "I hope".
+
+  - No basis in grammar or logic.
+
+- Don't use *finalize* to mean *finish* or *complete*.
+
+  - Hundreds of other useful words end in -ize.
+
+- Don't use *impact* as a verb; use it only as a noun.
+
+  - No historical evidence of this.
+
+- Don't modify absolute words such as perfect, unique, final, complete,
+  etc...with very, more, quite, etc....
+
+  - This is a good "rule" in general, but can be violated.
+
+- Never ever use irregardless for regardless or irrespective.
+
+  - Follow this "rule" despite how arbitrary it is.
+
+- We currently have a problem with singular generic pronouns.
+
+  - "No one should turn in their writing unedited".
+
+    - This solution requires accepting the plural they as a correct singular.
+
+*******
+Clarity
+*******
+
+Actions
+=======
+
+Principle of Clarity
+--------------------
+
+- Make main characters subjects.
+- Make important actions verbs.
+
+Verbs and Actions
+-----------------
+
+- A sentence seems clear when its important actions are in verbs.
+- Readers will think your writing is dense if you overuse abstract nouns.
+- Using lots of nominalizations, especially as the subjects of verbs, will make
+  your writing turgid.
+
+Revision is a Three-Step Process
+--------------------------------
+
+#. Diagnose
+
+   - Ignoring short (four- or five-word) introductory phrases, underline the
+     first seven or eight words in each sentence.
+   - Look for two results:
+
+     - You underlined abstract nouns as simple subjects.
+     - You underlined seven or eight words before getting to a verb.
+
+#. Analyze
+
+   - Decide who your main characters are.
+   - Look for actions that those characters perform, especially actions in
+     nominalizations.
+
+#. Rewrite
+
+   - If the actions are nominalizations, make them verbs.
+   - Make the characters the subjects of the verbs.
+   - Rewrite the sentence with subordinating conjunctions (e.g. because, if,
+     when, although, why, how, whether, that).
+
+Common Nominalization Patterns to Revise
+----------------------------------------
+
+- The nominalization is the subject of an empty verb (e.g. be, seems, has).
+
+  #. Change the nominalization to a verb.
+  #. Find a character that would be the subject of that verb.
+  #. Make that character the subject of the new verb.
+
+- The nominalization follows an empty verb.
+
+  #. Change the nominalization to a verb.
+  #. Replace the empty verb with the new verb.
+
+- One nominalization is the subject of an empty verb and a second
+  nominalization follows it.
+
+  #. Revise the nominalizations into verbs.
+  #. Identify the characters that would be the subjects of those verbs.
+  #. Make those characters the subject of those verbs.
+  #. Link the new clauses with a logical connection.
+
+     - To express simple cause: because, since, when.
+     - To express conditional cause: if, provided that, so long as.
+     - To contradict expected causes: though, although, unless.
+
+- A nominalization follows there is or there are.
+
+  #. Change the nominalization to a verb.
+  #. Identify the character that should be the subjects of the verb.
+  #. Make that character the subject of the verb.
+
+- Two or three nominalizations in a row joined by prepositions.
+
+  #. Turn the first nominalization into a verb.
+  #. Either leave the second nominalization as it is, or turn it into a verb in
+     a clause beginning with how or why.
+
+Useful Nominalizations to Keep
+------------------------------
+
+- A nominalization that is a short subject that refers to a previous sentence.
+- A short nominalization that replaces an awkward "The fact that...".
+- A nominalization that names what would be the object of the verb.
+- A nominalization that refers to a concept so familiar to your readers that to
+  them, it is a virtual character.
+
+Characters
+==========
+
+Understanding the Importance of Characters
+------------------------------------------
+
+- Readers want actions in verbs, but they want characters as subjects even more.
+- Readers prefer concrete subjects over abstract ones (e.g. fear).
+
+Diagnosis and Revision
+----------------------
+
+#. Underline the first seven or eight words.
+#. Find the main characters.
+
+   - They may be:
+
+     - possessive pronouns attached to nominalizations,
+     - objects of prepositions (e.g. by, of),
+     - implied.
+
+#. Skim the passage for actions involving those characters, particularly actions
+   buried in nominalizations.
+
+   - Ask "who is doing what?".
+
+     - "governmental intervention" :math:`\rightarrow` "government intervenes".
+     - "interference" :math:`\rightarrow` "[government] interferes".
+
+   - Be aware that just as actions can be implied in adjectives, so can
+     characters.
+
+     - "reliable" :math:`\rightarrow` "rely".
+     - "theological" :math:`\rightarrow` "theologians".
+
+#. Reassemble those new subjects and verbs into a sentence using conjunctions.
+
+Reconstructing Absent Characters
+--------------------------------
+
+- Readers have the biggest problem with sentences devoid of all characters.
+- When you are explaining a complicated issue to someone involved in it, imagine
+  sitting across the table from that person, saying *you* as often as you can.
+
+  - If *you* seems not appropriate, change it to a character that is.
+
+- Abstractions as Characters
+
+  - Readers want the subjects of verbs to name flesh-and-blood characters.
+  - When the main characters are abstractions, make them the subjects of verbs
+    that tell a story.
+
+    - If readers are unfamiliar with the abstractions, avoid using other
+      abstract nominalizations around them.
+
+    - English does not have a good solution for naming a generic "doer".
+
+      - Try a general term to describe whoever is doing the action; when that is
+        not possible, use *we*.
+
+Characters and Passive Voice
+----------------------------
+
+- Active Voice
+
+  - Put the agent or source of an action in the subject.
+  - Put the goal or receiver of an action in a direct object.
+
+- Passive Voice
+
+  - The subject names the goal of the action.
+  - The agent or source of the action is after the verb in a *by*-phrase or
+    dropped entirely.
+
+- Beyond Grammatical Meanings of Active and Passive
+
+  - Both forms can exhibit figurative, impressionistic meanings as well as flat
+    feelings.
+  - There are exceptions to "Write in the active voice, not in the passive".
+
+- Choosing Between Active and Passive
+
+  - Must your readers know who is responsible for the action?
+
+    - Sometimes we don't know, we don't want the readers to know, or the reader
+      doesn't care.
+
+  - Would the active or passive verb help your readers move more smoothly from
+    one sentence to the next?
+
+  - Would the active or passive give readers a more consistent and appropriate
+    point of view?
+
+    - Pick a point of view and stick to it.
+
+- Passives, Characters, and Metadiscourse
+
+  - Metadiscourse is language that refers not to the substance of your ideas,
+    but to yourself, your reader, or your writing:
+
+    - Your thinking and act of writing: We/I will explain, show, argue,
+      summarize...
+    - Your readers' actions: consider now, as you recall, look at the next
+      example...
+    - The logic and form of what you have written: first, second; to begin;
+      therefore, however, consequently...
+
+  - Beware of dangling modifiers when writing passive sentences.
+
+    - You dangle a modifier when an introductory phrase has an implied subject
+      that differs from the explicit subject in the following or preceding
+      clause.
+
+  - Deleting *I* or *we* from a sentence does not make it more objective.
+
+    - Avoid using too many *I*'s and *we*'s.
+
+    - Avoid writing a narrative prose.
+
+- Long Compound Noun Phrase
+
+  - Strings of nouns feel lumpy, so avoid them.
+  - Revise all compound nouns that consists of more than two nouns, especially
+    if they contain nominalizations.
+
+    #. Reverse the order of words.
+    #. Find propositions to connect them.
+
+Cohesion and Coherence
+======================
+
+Cohesion
+--------
+
+- Sense of Flow
+
+  - The last few words of one sentence set up information that appears in the
+    first few words of the next sentence.
+  - Passive voice allows us to arrange sentences so that they flow from one to
+    the next easily.
+  - Writers often put words (e.g. this, these, that, those, another, such,
+    second, more) at or close to the beginning of a sentence to refer to
+    something in a previous sentence.
+
+- Diagnosis and Revision
+
+  #. Begin sentences with information familiar to your readers.
+
+     - Readers get that familiar information from either the words they remember
+       from the sentences they just read or prior knowledge.
+
+  #. End sentences with information that readers cannot anticipate.
+
+     - Readers always prefer to read what's new and complex after they read
+       what's familiar and simple.
+
+- A passage's overall cohesion trumps the clarity of individual sentences.
+
+Coherence
+---------
+
+- A Sense of the Whole
+
+  - The subjects of the sentences need to be related.
+
+- Subjects, Topics, and Cohesion
+
+  - The flaw of defining *subject* as what a sentence is about, its main topic.
+
+    - The subject of a sentence doesn't state its main topic.
+    - Other parts of the sentence often "comments" on the topic.
+
+- Diagnosis and Revision
+
+  #. Diagnose
+
+     - Underline the first seven or eight words of every sentence in a passage,
+       stopping when you hit a verb.
+     - If possible, underline the first five or six words of every clause in
+       those sentences.
+
+  #. Analyze
+
+     - Do the underlined words constitute a relatively small set of related
+       ideas?  Will the readers see that?
+     - Do the underlined words name the most important characters, real or
+       abstract?
+
+  #. Rewrite
+
+     - In most of your sentences, use subjects to name their topics.
+     - Be sure those topics are, in context, familiar to your readers.
+
+Avoiding Distractions at the Beginning of a Sentence
+----------------------------------------------------
+
+- Before you begin writing, name the things you are writing about.
+
+  - Those are your topics; they should be short, concrete, familiar words, and
+    more often than not, they should name the main characters in your story.
+  - Your topics should tell your readers what a passage is globally about.
+
+- Most of your subjects should be topics.
+- Do not vary your subjects for the sake of variety.
+
+Two Qualifications
+------------------
+
+- Alleged Monotony
+
+  - "Vary how you begin your sentences" is a BAD idea, especially when you
+    change subjects just to make them different.
+  - If you have used exactly the same words for the same topics in exactly the
+    same positions, you can vary a few of the words that refer to a repeated
+    topic.
+
+- Faked Coherence
+
+  - Readers do not need conjunctions (e.g. thus, therefore, however) when your
+    sentences are cohesive and the passage they constitute is coherent.
+  - Use *but* and *however* when you contradict or qualify what you just said.
+  - Use *therefore* or *consequently* to wind up a line of reasoning.
+  - Minimize the number of times these words show up in a single page.
+
+Emphasis
+========
+
+Understanding How Sentences End
+-------------------------------
+
+- Your readers want you to organize your sentences to help them manage:
+
+  i. long and complex phrases and clauses;
+  ii. new information, particularly unfamiliar technical terms.
+
+- Carry the reader from simplicity to complexity:
+
+  i. a short introductory phrase or clause,
+  ii. followed by a short, concrete subject,
+  iii. followed by a verb expressing a specific action;
+  iv. after the verb, the sentence can go on for several lines.
+
+Diagnosis and Revision: Stress
+------------------------------
+
+- Readers look at the last few words for emphasis.
+- Three Tactical Revisions
+
+  #. Trim the end.
+  #. Shift peripheral (insignificant) ideas to the left.
+  #. Shift new information to the right.
+
+- Six Syntactic Devices to Emphasize the Right Words
+
+  #. There shift: Using "there is/there are" constructions lets you shift a
+     subject to the right, thereby emphasizing it more.
+  #. Passives: A passive verb lets you flip a subject and object; use it to get
+     old and new information in the right order.
+  #. What shift: Another device that shifts a part of the sentence to the right,
+     thereby emphasizing it more.
+  #. It shift: When you have a subject consisting of a long noun clause, you can
+     move it to the end of the sentence and start with *it*.
+  #. Not only X, but (also) Y (as well): Emphasizes Y.
+  #. Pronoun substitution and ellipsis: Instead of repeating the noun, use a
+     pronoun; this will avoid flat endings and reader voice drops, which means
+     the reader will at least hear emphasis on the word just before *it*.
+
+Topics, Emphasis, Themes, and Coherence
+---------------------------------------
+
+- Put key words in the stress position of the first sentence of a passage in
+  order to emphasize the key ideas that organize the rest of it.
+
+  - We call those key concepts that run through a passage its themes.
+
+- Help readers identity concepts running through a passage in two ways:
+
+  #. Repeat those that name characters as topics of sentences, usually as
+     subjects.
+  #. Repeat others as themes elsewhere in a passage, in nouns, verbs, and
+     adjectives.
+
+***************
+Clarity of Form
+***************
+
+Motivation
+==========
+
+Understanding Motivation
+------------------------
+
+- We read most attentively when we read about a problem that is important (and
+  possibly interesting) to us.
+- Part 1: Establishing Shared Context
+
+  - Remind readers of what they know (e.g. historical background), have
+    experienced (e.g. a recent event), or readily accept (e.g. a common belief).  
+
+- Part 2: Stating the Problem
+
+  - The Two Parts of a Problem
+
+    - The first part is some condition or situation that has potential
+      to cause trouble.
+    - The second part is the intolerable consequence of that condition, a cost
+      that readers don't want to pay.
+
+  - Two Kinds of Problems
+
+    - A practical problem concerns a condition or situation in the world and
+      demands an action as its solution.
+    - A conceptual problem concerns what we think about something and demands a
+      change in understanding as a solution.
+
+      - This may be a small question that contributes to answering a larger,
+        more important one; otherwise, the question may not be worth asking.
+      - The condition is always something that we do not know or understand.
+      - The cost is the dissatisfaction we feel because we don't understand
+        something important to us; not the palpable unhappiness we feel from
+        pain, suffering, or loss.
+
+- Part 3: Stating the Solution
+
+  - To solve a practical problem, propose that the reader (or someone) do
+    something to change a condition in the world.
+  - To solve a conceptual problem, state something the writer wants readers to
+    understand or believe.
+
+- Another Part: Prelude
+
+  - Most common in humanities and writing for the general public.
+  - Typical Approaches: a quotation, a startling fact, an illustrative anecdote,
+    or a combination of the previous.
+
+Diagnosis and Revision
+----------------------
+
+#. Determine whether you are posing a practical or conceptual problem.
+#. Draw a line after your introduction.
+#. Divide the introduction into its three parts:
+   shared context + problem + solution/main point/claim.
+#. Make sure the first word of the first sentence after the shared context is
+   *but*, *however*, or some other word indicating that you will
+   challenge/qualify that shared context.
+#. Divide the problem into two parts: condition and cost.
+
+   - Is the condition the right kind for the problem?
+   - Does the cost appropriately answer "So What"?
+
+#. Underline your solution/main point/claim.
+
+Conclusions
+-----------
+
+#. Open your conclusion by stating (or restating) the gist of your point, the
+   main claim of your paper, the solution to your problem.
+#. Explain its significance by answering "So What?" in a new way, if you can;
+   if not, restate what you offered in the introduction, now as a benefit.
+#. Suggest a further question or problem to be solved, something still not
+   known.  Answer "Now What?".
+#. End with an anecdote, quotation, or fact that echoes your prelude.
+
+   - Popular writing describe this as your *coda*.
+
+Global Coherence
+================
+
+Coherence is an Experience and Does Not Refer to Anything on a Page
+-------------------------------------------------------------------
+
+Forecasting Themes to Create Coherence
+--------------------------------------
+
+- Document
+
+  #. Identify the start of each new section with a heading that includes the key
+     themes for that section.
+  #. At the end of the introduction, readers look for the document's main
+     point/solution to the problem, which should state the main themes developed
+     in the rest.
+
+     - If you choose to save your main point for the conclusion, put a sentence
+       at the end of the introduction that promises the point to come and states
+       the main themes.
+
+  #. In the body, readers look for the concepts announced as themes at the end
+     of the introduction, using them to organize their understanding of the
+     whole.
+
+     - Be sure that you repeat those themes regularly.
+
+- Section/Subsection
+
+  #. Readers look for a short segment that introduces the section or subsection.
+  #. At the end of that introductory segment, readers look for a sentence that
+     states both the point of the section and the special concepts you will
+     develop as distinctive themes for that section.
+  #. In the body of the section, readers look for the concepts announced as
+     themes at the end of the introduction segment, using them to organize their
+     understanding of that section.
+
+     - Be sure that you repeat them regularly.
+
+- Put the point sentence at the end of the short opening segment; make it the
+  last sentence (e.g. introductory segment) that your reader reads before
+  starting the longer, more complex segment that follows.
+
+Two More Requirements for Coherence
+-----------------------------------
+
+#. Readers must see how everything in a section or whole is relevant to
+   its point.
+
+   - Sentences are relevant to a point when they offer: background or context;
+     points of sections and the whole; reasons supporting a point; evidence,
+     facts, or data supporting a reason; an explanation of reasoning or methods;
+     consideration of other points of view.
+
+#. Readers must see how the parts of your document are ordered.
+
+   - Chronological: time or cause and effect.
+   - Coordinate: ordering of the sections according to some criterion
+     (e.g. importance, complexity).
+   - Logical: complex ordering such as
+     :math:`\text{example} \leftrightarrow \text{generalization}`,
+     :math:`\text{premise} \leftrightarrow \text{conclusion}`, and
+     :math:`\text{assertion} \leftrightarrow \text{contradiction}`.
+
+A Basic Principle of Clarity
+----------------------------
+
+- Readers are more likely to judge as clear any unit of writing that opens with
+  a short segment that they can easily grasp and that frames the longer and more
+  complex segment that follows.
+
+  - A unit of writing entails either a simple or complex sentence, one or more
+    paragraphs, one or more pages.
+
+- Get beginnings of the document, major sections, subsections, paragraphs, and
+  sentences straight, and the rest is likely to take care of itself.
+
+*****
+Grace
+*****
+
+Concision
+=========
+
+Six Principles of Concision
+---------------------------
+
+#. Delete meaningless words.
+
+   - E.g. kind of, actually, particular, really, certain, various, virtually,
+     individual, basically, generally, given, practically.
+
+#. Delete doubled words.
+
+   - E.g. full and complete, hope and trust, any and all, true and accurate,
+     each and every, basic and fundamental, hopes and desires, first and
+     foremost, various and sundry.
+
+#. Delete what readers can infer.
+
+   - Redundant Modifiers
+
+     - E.g. terrible tragedy, various different, free gift, basic fundamentals,
+       future plans, each individual, final outcome, true facts, consensus of
+       opinion.
+
+   - Redundant Categories
+
+     - May have to change an adjective into an adverb or a noun.
+
+   - General Implications
+
+     - Example: imagine someone trying to learn the rules for playing the game
+       of chess.
+
+       - Learn -> trying, rules -> playing the game, and chess -> game.
+       - Imagine learning the rules of chess.
+
+#. Replace a phrase with a word.
+#. Change negatives to affirmatives unless you want to emphasize the negative.
+
+   - Implicitly Negative Words
+
+     - Example verbs: preclude, prevent, lack, fail, doubt, reject, avoid, deny,
+       refuse, exclude, contradict, prohibit, bar.
+     - Example prepositions: without, against, lacking, but for, except.
+     - Example conjunctions: unless, except when.
+
+   - Avoid combining not with negative words.
+   - Avoid combining explicitly and implicitly negative words with passives and
+     nominalizations.
+
+#. Delete adjectives and adverbs.
+
+Redundant Metadiscourse
+-----------------------
+
+- Metadiscourse that attributes your ideas to a source.
+
+  - Announce that something has been observed, noticed, noted, etc...
+
+- Metadiscourse that announces your topic.
+
+  - Call attention to a topic i.e. separate topic and subject.
+
+Hedges and Intensifiers
+-----------------------
+
+- Hedges qualify your certainty.
+
+  - Common adverbs: usually, often, sometimes, almost, virtually, possibly,
+    alledgely, arguably, perhaps, apparently, in some ways, to a certain extent,
+    somewhat, in some/certain respects.
+  - Common adjectives: most, many, some, a certain number of.
+  - Common verbs: may, might, can, could seem, tend, appear, suggest, indicate.
+
+- Intensifiers increase your certainty.
+
+  - The most common intensifier is the absence of a hedge i.e. 100% certainty.
+  - Common adverbs: very, pretty, quite, rather, clearly, obviously,
+    undoubtedly, certainly, of course, indeed, inevitably, invariably, always,
+    literally.
+  - Common adjectives: key, central, crucial, basic, fundamental, major,
+    principal, essential.
+  - Common verbs: show, prove, establish, as you/we/everyone knows/can see,
+    it is clear/obvious that.
+
+- When most readers encounter words like *obviously, undoubtedly, it is clear
+  that*, they reflexively think the opposite.
+- When using metadiscourse to state a solution, beware of making it sound like
+  announcing a topic instead of sounding like advancing a claim.
+
+  - If without the metadiscourse the resulting claim seems self-evident, you
+    need to say more or do more thinking about what you want to say.
+
+Concise, Not Terse
+------------------
+
+- Mind how your writing feels to your readers.
+
+Shape
+=====
+
+Diagnosis and Revision: Sprawl
+------------------------------
+
+- You feel out of breathe before you come to a place where you can pause to
+  integrate all of its parts into a whole that communicates a single conceptual
+  structure.
+- Rule of Thumb 1: Get to the subject quickly.
+
+  - Move the long introductory clause to the end or turn it into a separate
+    sentence.
+  - English style have clauses beginning with *if, since, when, although* before
+    main clauses, so keep those subordinate clauses short.
+  - Use periodic/suspended style sparingly because the deliberately piled up
+    introductory subordinate clauses are still tiring to read.
+
+- Rule of Thumb 2: Get to the verb and object quickly.
+
+  - Avoid long, abstract subjects.
+  - Avoid interrupting the subject-verb connection; if not possible, then
+    minimize the duration.
+  - Avoid interrupting the verb-object connection.
+  - When a movable prepositional phrase is shorter than a long object, try
+    putting the phrase between the verb and object.
+
+Starting with Your Point
+------------------------
+
+- Begin a paragraph with a sentence (or two) expressing its point so that
+  readers can understand what follows.
+- Begin a section of a document with a paragraph or two stating its point.
+- Begin a whole document with an introduction that states its point and frames
+  the rest.
+- The explanation or support material should always follow a point and not
+  before.
+
+Reshaping Sprawl
+----------------
+
+#. Cut
+
+   - Reduce some of the relative clauses e.g. delete combinations of
+     *who, that, which* and *is, was*.
+   - Rewrite remaining verb into an *-ing* form.
+
+#. Turn subordinate clauses into independent sentences.
+#. Change clauses to modifying phrases.
+
+   - Resumptive Modifiers
+
+     - Find the noun the tacked-on clause modifies, pause after it with a comma,
+       repeat the noun, and continue with a restrictive relative clause
+       beginning with that.
+     - For an adjective or verb, repeat it after a comma and continue.
+     - *one that* can be used as a resumptive modifier.
+
+   - Summative Modifiers
+
+     - End a grammatically complete segment of a sentence with a comma, add a
+       term that sums up the substance of the sentence so far, and continue with
+       a restrictive relative clause beginning with *that*.
+
+   - Free Modifiers
+
+     - Can either begin or end a sentence.
+     - Resembles resumptive and summative modifiers, but more focused towards
+       commenting on the subject of the closest verb.
+     - An adjective, a past participle verb, or an *-ing* present participle can
+       denote the start of a free modifier.
+
+#. Coordinate
+
+   - Group the elements into blocks and order them from shorter to longer, from
+     simpler to more complex.
+   - Emphasize a coordination with correlative conjunctions: both X and Y, not
+     only X but Y, (n)either X (n)or Y.
+
+     - The word that comes after *both, not only, (n)either* must be coordinate
+       with the word that comes after *and, but, (n)or*.
+
+Troubleshooting Long Sentences
+------------------------------
+
+- Faulty Grammatical Coordination
+
+  - We coordinate elements only of the same structure: clause and clause,
+    prepositional phrase and prepositional phrase, etc...
+  - Nonparallel coordinations do occur in two forms:
+
+    - A noun phrase with a how clause.
+    - An adverb with a prepositional phrase.
+
+- Faulty Rhetorical Coordination
+
+  - Ensure the elements are coordinated in thought.
+
+- Unclear Connections
+
+  - Long coordinations can make readers lose track of the internal connections
+    and pronoun references.
+
+- Ambiguous Modifiers
+
+  - A modifier at the end of a clause can ambiguously modify either a
+    neighboring or a more distant phrase.
+
+- Dangling Modifiers
+
+  - Occurs when its implied subject differs from the explicit subject of the
+    main clause.
+
+Elegance
+========
+
+Balance and Symmetry
+--------------------
+
+- Balanced Coordination: see the block anatomy of Walter Lippmann's speech.
+- Uncoordinated Balance: see the block anatomy.
+- Use these literary devices to emphasize important points.
+
+Climatic Emphasis
+-----------------
+
+#. Weighty Words
+
+   - Adjectives and adverbs are heavier than prepositions, but lighter than
+     nouns, the heaviest of which are nominalizations.
+   - Nominalizations at the end of a sentence provide a satisfyingly climatic
+     thump, particularly when a pair of them are used in coordinate balance.
+
+#. Of + Weighty Word
+
+   - The light *of* (followed by a lighter *a* or *the*) quickens the rhythm of
+     a sentence just before the stress of the climatic end.
+
+#. Echoing Salience
+
+   - At the end of a sentence, readers hear special emphasis when a stressed
+     word or phrase balances the sound or meaning of an earlier one.
+
+#. Chiasmus
+
+   - This device balances elements in two parts of a sentence, but the second
+     part reverses the order of the elements in the first part.
+
+#. Suspension
+
+   - One way to heighten a sense of climax is to open a sentence with a series
+     of parallel and coordinated phrases and clauses.
+   - The impact of a long suspension is inversely proportional to its
+     frequency of use: the less it's used, the bigger the bang.
+
+Nuances of Length and Rhythm
+----------------------------
+
+- Think about the length of your sentences only if they are all longer than
+  thirty words or so or shorter than fifteen.
+
+  - Some write short sentences to strike a note of urgency, terse certainty, or
+    directness.
+  - Some write long sentences imbue feelings and thoughts.
+
+***********************
+Appendix I: Punctuation
+***********************
+
+Punctuated Sentence
+===================
+
+- Begins with a capital letter.
+- Ends with a period or question/exclamation mark.
+- Contains at least one word.
+
+Grammatical Sentence
+====================
+
+- Subject and verb in a main clause along with everything else depending on that
+  clause.
+
+Punctuating the Ends of Sentences
+=================================
+
+Common Forms
+------------
+
+- Period (or Question/Exclamation Mark) Alone
+
+  - Too many short punctuated sentences may make the prose seem choppy or
+    simplistic.
+  - Combine too many short grammatical sentences into one long one may result
+    in sentence sprawl.
+
+- Semicolon Alone
+
+  - Whatever is on either side of it should be a grammatical sentence.
+  - The first grammatical sentence has fewer than fifteen words.
+  - The content of the second grammatical sentence is closely linked
+    with the first.
+  - If used with *however*, *however* must come after it followed up with a
+    comma.
+
+- Comma + Coordinating Conjunction
+
+  - Readers expect the end of a grammatical sentence when they see a comma
+    followed by two signals: a coordinating conjunction i.e. FANBOYS, or
+    another subject and verb.
+
+  - When readers begin a coordinated series of three or more grammatical
+    sentences, they expect a comma between them and no internal punctuation.
+
+    - If any of the grammatical sentences has internal punctuation, separate
+      them with a semicolon.
+    - All of these sentences should be short; otherwise, use a period instead.
+
+  - Omit the comma between a coordinated pair of short grammatical sentences
+    if you introduce them with a modifier that applies to both of them.
+  - Use comma before *but* to qualify preceding sentence.
+  - Minimize the use of this sentence structure to promote style.
+
+Less Common Forms
+-----------------
+
+- Period + Coordinating Conjunction
+
+  - Minimize the use of this sentence structure to promote style.
+  - Use period before *But* if what follows is important and you intend to go
+    on discussing it.
+
+- Semicolon + Coordinating Conjunction
+
+  - Minimize the use of this sentence structure to promote style.
+
+- Conjunction Alone i.e. no preceding comma
+
+  - Though writers of the best prose do this, some teachers consider this
+    an error.
+
+- Comma Alone
+
+  - The grammatical sentences are short, a few words each; closely linked in
+    meaning e.g. cause-effect, first-second, if-then; and no internal commas.
+
+Special Cases
+-------------
+
+- Colon
+
+  - Shorthand for to illustrate, for example, that is, therefore.
+  - Avoid a colon if it breaks a clause into two pieces, neither of which is a
+    grammatically complete sentence.
+  - Put a colon only after a whole subject-verb-object.
+
+- Dash: suggests a casual afterthought.
+
+- Parentheses: insert a short afterthought inside a grammatical sentence.
+
+Intended Sentence Fragments
+---------------------------
+
+- Relatively short, fewer than ten or so words.
+
+- Reflect a mind at work: the writer is speaking to you, finishes a sentence,
+  then immediately expanding and qualifying it.
+
+  - Almost as an afterthought, often ironically.
+
+Punctuating Beginnings
+======================
+
+Five Reliable Rules
+-------------------
+
+#. Always separate an introductory element from the subject of a sentence with
+   a comma if a reader might misunderstand the structure of the sentence.
+#. Never end an introductory clause or phrase with a semicolon, no matter how
+   long it is.
+#. Never put a comma right after a subordinating conjunction if the next
+   element of the clause is its subject.
+#. Avoid putting a comma after the coordinating conjunctions if the next
+   element is the subject.
+#. Put a comma after an introductory word or phrase if it comments on the
+   whole of the following sentence or connects one sentence to another.
+
+   - Example introductory words are: fortunately, alledgely, however,
+     nevertheless, otherwise.
+   - Omit the comma for the exceptional cases: now, thus, hence.
+
+Two Reliable Principles
+-----------------------
+
+#. Readers usually need no punctuation between a short introductory phrase and
+   the subject.
+#. Readers usually need a comma between a long (four or five words or more)
+   introductory phrase or clause and the subject.
+
+Punctuating Middles
+===================
+
+Subject-Verb, Verb-Object
+-------------------------
+
+- Do not put a comma between a subject and its verb, no matter how long the
+  subject (nor between the verb and its object).
+- If the sentence consists of a list with internal punctuation:
+
+  - Use a colon or a dash at the end of the list of subjects.
+  - Add a one-word subject that summarizes the preceding list.
+
+Interruptions
+-------------
+
+- Avoid interrupting a subject-verb or verb-object except for reasons of
+  emphasis or nuance.
+- Always put paired commas around the interruption.
+
+  - Unnecessary clauses should be separated from the main clause with a comma.
+  - Do not use a comma when tacking on a necessary subordinate clause at the
+    end of an independent clause.
+
+- Adverbial phrases can go before, after, or in the middle of a clause
+  depending on the desired emphasis.
+
+Loose Commentary
+----------------
+
+- Set off with paired commas, parentheses, or dashes.
+- Restrictive Modifiers
+
+  - Uniquely identify the noun they modify.
+  - Do not use commas with this.
+
+- Nonrestrictive Modifiers
+
+  - Always set off with paired commas.
+  - Adds information that does not change the meaning of the sentence.
+
+- An appositive is a truncated nonrestrictive clause.
+- A dash is useful when the loose commentary has internal commas.
+- Use parentheses for explanatory footnotes or sotto voce asides.
+
+Punctuating Coordinated Elements
+================================
+
+Punctuating Two Coordinated Elements
+------------------------------------
+
+- Do not put a comma between just two coordinated elements.
+- Four Exceptions
+
+  #. For a dramatic contrast, put a comma after the first coordinate element
+     to emphasize the second (keep the second short).
+  #. If you want your readers to feel the cumulative power of a coordinated
+     pair (or more), drop the *and* leave just a comma.
+  #. Put a comma between long coordinated pairs only if you think your readers
+     need a chance to breathe or to sort out the grammar.
+
+     - The writer should revise the sentence to avoid this scenario.
+
+  #. If a sentence begins with a phrase or subordinate clause modifying two
+     following clauses that are independent and coordinated, put a comma after
+     the introductory phrase or clause, but do not put a comma between the two
+     coordinated independent clauses.
+
+Punctuating Three or More Coordinated Elements
+----------------------------------------------
+
+- A comma must always precede the last one.
+- If any of the items in the series has its own internal commas, use
+  semicolons to show how readers should group the coordinated items.
+
+Apostrophes
+===========
+
+Contractions
+------------
+
+- Use an apostrophe in all contracted words.
+- Contracted words gives off an informal tone.
+
+Plurals
+-------
+
+- Never use an apostrophe to form a plural.
+- Exceptions:
+
+  - All lower case single letters.
+  - Single capital letters: A, I, U.
+
+- When a word is unambiguously all numbers or multiple capital letters, add
+  just *s*, with no apostrophe.
+
+Possessives
+-----------
+
+- Singular common or proper nouns.
+
+  - Add apostrophe + s.
+  - For singular nouns that already end in *s* or with the sound of *s*, add
+    the apostrophe only.
+
+- Plural common and proper nouns that end in *s*: add an apostrophe only.
+- Singular compound noun: add an apostrophe + s to the last word.
+
+**************************
+Appendix II: Using Sources
+**************************
+
+Paraphrasing Recasts the Source in a New Sentence Structure
+===========================================================
+
+Weaving in the Quotation
+========================
+
+- Don't change its meaning.
+- Indicate added or changed words with square brackets.
+- Signal deletions with three space dots.
+
+  - Use four space dots if you delete a whole sentence or more.
+
+- Add *[my emphasis]* or *[emphasis mine]* after the parts of the quote you
+  emphasized using italics, boldface, or underlineation.
+
+Punctuating Quotations
+======================
+
+- If the quotation ends in a period, comma, semicolon, or colon, replace it with
+  the punctuation you need in your own sentence.
+
+  - If your punctuation is a period or comma, put it before a final
+    quotation mark.
+  - If your punctuation is a question mark, colon, or semicolon, put it after
+    the final question mark.
+
+- If the quotation ends with a question mark or exclamation point and your
+  punctuations is a period or comma, drop your punctuation and put the question
+  mark before the quotation mark.
+
+- If you use quotation marks inside a quotation, put your comma or period before
+  both of the marks.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

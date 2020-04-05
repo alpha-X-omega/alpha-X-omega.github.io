@@ -1,0 +1,94 @@
+########################################################
+Characterizing Computer Performance with a Single Number
+########################################################
+
+Motivation(s)
+=============
+
+Even though computer performance is fundamentally multidimensional, researchers
+that analyze the performance of different systems tend to focus on a single
+number.  Thus, it is important that the best single-number measure be used;
+otherwise, the results could be off by several orders of magnitude.  This issue
+have spurred researchers to analyze single-number measures such as the
+arithmetic mean and geometric mean.  The outcome of the study favored the
+geometric mean due to its
+:doc:`consistency </blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results>`.
+Unfortunately, the geometric mean is consistently wrong.
+
+Proposed Solution(s)
+====================
+
+The author asserts that the time required to perform a specified amount of
+computation is the ultimate measure of computer performance due to its intuitive
+appeal and unambiguous context.  If the desired measure is a rate that is some
+entity per unit time, then it should be highly correlated with the time measure.
+These are the properties a good measure must exhibit.
+
+Evaluation(s)
+=============
+
+Instead of tackling the issue of designing accurate benchmark, the author
+studies how the arithmetic, geometric, and harmonic mean maintains the accuracy
+of the original benchmarks.
+
+Let :math:`T_i` and :math:`F_i` denote respectively the time benchmark :math:`i`
+took to accomplish some work.  Define :math:`M_i = \frac{F_i}{T_i}` as the rate
+of doing work.  Defining the means in these terms yields
+
+.. math::
+
+   A_\text{mean} &= \sum_{i = 1}^n w_i M_i =
+       \sum_{i = 1}^n w_i \frac{F_i}{T_i}\\
+   \\
+   G_\text{mean} &= \prod_{i = 1}^n M_i^{w_i} =
+       \prod_{i = 1}^n \left( \frac{F_i}{T_i} \right)^{w_i}\\
+   \\
+   H_\text{mean} &= \left( \sum_{i = 1}^n \frac{w_i}{M_i} \right)^{-1} =
+       \left( \sum_{i = 1}^n \frac{w_i}{F_i} T_i \right)^{-1}.
+
+Observe that the harmonic mean is the only measure in accordance with
+Amdahl’s law.  Applying these measures to published benchmark results confirms
+that only the arithmetic and harmonic mean satisfy the proposed good properties.
+Moreover, the geometric mean yields consistent but contradictory results that
+are blatantly wrong.
+
+Future Direction(s)
+===================
+
+- It seems that previous papers came to the wrong conclusion because their
+  examples were not exhaustive enough.  How many existing performance measures
+  would pass if they were to be applied to seminal benchmark results?
+
+Question(s)
+===========
+
+- When would the geometric mean be applicable to performance?
+
+Analysis
+========
+
+This paper rejects :doc:`rule 2 </blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results>`,
+proposes the harmonic mean as a replacement for the geometric mean, and
+recommends normalization only be applied after computing an aggregate
+performance measure.  Note that the harmonic mean does not exhibit the desired
+multiplicative property.  Overall, the formulations of the arithmetic,
+geometric, and harmonic mean crystallized when one measure is preferred over the
+others.
+
+Notes
+=====
+
+Properties of Good Performance Measures
+---------------------------------------
+
+#. A single-number performance measure for a set of benchmarks expressed in
+   units of time should be directly proportional to the total (weighted) time
+   consumed by the benchmarks.
+#. A single-number performance measure for benchmarks expressed as a rate should
+   be inversely proportional to the total (weighted) time consumed by the
+   benchmarks.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

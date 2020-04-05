@@ -1,0 +1,58 @@
+################
+Svegan Lifestyle
+################
+
+Svegan stems from the words shaka and vegan: given the choice, one chooses
+to be vegan.  There are proponents that strongly assert one must always be
+vegan, but they don't realize the time, effort, and money required to do so.
+
+`This diet`_ have been verified through five health and wellness blood tests
+over the span of four years, each separated by approximately nine months.
+Supplements are not needed to `build muscle`_.  As the numbers illustrate,
+getting the right amount of macronutrients is much easier with supplements.
+
+.. _This diet: https://1drv.ms/x/s!AnJ47wTf8diM4hNtYMLBGcTV0ZCJ
+.. _build muscle: https://1drv.ms/x/s!AnJ47wTf8diM3mEjq2UmIZDv99RG
+
+The proposed combination of exercise and diet should be taken as a `guideline`_.
+One should eat until one is no longer hungry, but avoid feeling full.  The focus
+is centered around lifestyle, macronutrients, and micronutrients.
+
+.. _guideline: https://exrx.net/Lists/Directory
+
+Exercise is an `easy`_ activity to `incorporate`_ into one's daily life.  Body
+fat is a general concept to be aware of, but one should focus on how the muscles
+look instead.  Bodybuilding itself is quite simple when one ignores a lot of
+false concepts that are out there (e.g. `somatotype`_).  Make sure the amount
+(in grams) of fats, carbohydrates, and proteins are met; once that happens, the
+rest revolves around `Total Daily Energy Expenditure`_ (in calories).  Increase
+or decrease calorie intake to lose or gain mass respectively.
+
+.. _easy: http://forum.bodybuilding.com/showthread.php?t=156380183
+.. _incorporate: http://scoobysworkshop.com/accurate-calorie-calculator/
+.. _somatotype: https://www.t-nation.com/training/things-you-need-to-unlearn
+.. _Total Daily Energy Expenditure: https://tdeecalculator.net/
+
+With all the free online resources (e.g. `The World's Healthiest Foods`_,
+`Self NutritionData`_, `rich-vegan-foods`_, `SuperTracker`_), hitting all the
+micronutrients is easy nowadays.  Unfortunately, buying the right foods has
+become a `huge burden`_.  One should examine the `additives`_ and `ingredients`_
+that gets used in `processed foods`_.
+
+.. _The World's Healthiest Foods: http://www.whfoods.com/foodstoc.php
+.. _Self NutritionData: http://nutritiondata.self.com/
+.. _rich-vegan-foods: http://www.rich-vegan-foods.com/
+.. _SuperTracker: https://www.supertracker.usda.gov/foodtracker.aspx
+.. _huge burden: http://www.cornucopia.org/shopping-guide-to-avoiding-organic-foods-with-carrageenan/
+.. _additives: http://whole30.com/downloads/additives.pdf
+.. _ingredients: http://www.befoodsmart.com
+.. _processed foods: http://www.foodfacts.com
+
+Another often neglected topic is wardrobe.  Contrary to popular belief, one does
+not need to put in a lot of effort to look `chic`_; the key focus is on how well
+one's clothing `fits`_.  As long as one avoids the
+:download:`major style mistakes <style-mistakes.pdf>`, the rest of the
+:download:`fashion tips <summer-essentials.pdf>` can be integrated over time.
+
+.. _chic: http://ashleyweston.com/mens-wardrobe-essentials/
+.. _fits: http://ashleyweston.com/mens-clothing-fit-guide/

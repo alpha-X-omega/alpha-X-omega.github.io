@@ -1,0 +1,146 @@
+##################################
+Optimal Control of Execution Costs
+##################################
+
+Motivation(s)
+=============
+
+A hypothetical portfolio can exhibit 20% in annual returns when trading costs
+are ignored, yet the realized gains can be reduced to a fraction (e.g. tenth) of
+the original when the strategy is implemented.  This demonstrates that execution
+costs (e.g. commissions, bid/ask spreads, opportunity costs of waiting, price
+impact from trading) have a substantial impact on investment performance.
+
+Since the typical institutional investor's trades are so large, they tend to be
+broken up into smaller trades executed over the course of several days.
+Denoting these trade sequences as packages, recent studies on the transactions
+of large investment firms show that only one fifth of the market value of these
+packages are completed within one day and more than half are spread over four
+trading days or more.  Since the act of trading affects price dynamics which in
+turn affects future trading costs, the best proprietary execution strategies
+cannot be defined in the context of a single transaction.
+
+Proposed Solution(s)
+====================
+
+The authors propose a new notion of best-execution strategies: given the price
+dynamics that capture market price impact, find the optimal sequence of trades
+that minimizes the expected cost of executing :math:`\bar{S}` shares within
+:math:`T` periods.  Formally, this is
+
+.. math::
+
+   \begin{aligned}
+     \min_{\{S_t\}} \quad
+       \mathrm{E}\left[ \sum_{t = 1}^T P_t S_t \right] &\\
+     \text{subject to} \quad
+       \sum_{t = 1}^T S_t &= \bar{S}\\
+       0 &\leq S_t \quad t = 1, 2, \ldots, T
+   \end{aligned}
+
+where the price dynamics :math:`P_t` follow some "law of motion" such as
+
+.. math::
+
+   P_t = P_{t - 1} + \theta S_t + \epsilon_t, \quad
+   \theta > 0, \quad
+   \mathrm{E}\left[ \epsilon_t \mid S_t, P_{t - 1} \right] = 0.
+
+They argue that the search for the best-execution strategies needs to be modeled
+as a dynamic optimization problem because trading takes time, the demand for
+financial securities is not perfectly elastic, and the price impact of current
+(possibly small) trades can affect the course of future prices.  The common
+naive strategy — breaking up :math:`\bar{S}` shares evenly into a package of
+:math:`T` trades each of size :math:`\bar{S} / T` — is a subset of the
+best-execution strategies and is optimal only when the price-impact function and
+price dynamics obey the proposed (naive) law of motion.
+
+Evaluation(s)
+=============
+
+The naive law of motion's purpose is to demonstrate the basic approach to
+deriving the best-execution strategies.  Since the objective function is convex,
+each decision is optimal for the remaining program and is attained when the
+derivative is zero.
+
+The authors derived a closed-form model of linear price impact with information
+to better capture market conditions.  Although the numerical examples illustrate
+that the best-execution strategies have lower expected execution costs compared
+to the naive strategy, the model does not guarantee the lowest execution costs.
+This stems from the law of motion's linearity and the assumption that prices
+follow arithmetic random walks.  The linearity forces the percentage price
+impact, as a percentage of execution price, to be a decreasing function of
+price level, which contradicts the fact that absolute price impact increases
+linearly with trade size.  The arithmetic random walk could lead to negative
+prices and implies that both price impact and information have only permanent
+effects on prices, which differs from several empirical studies suggesting
+some combination of permanent and temporary effects.
+
+To address the previous limitations, the authors propose a more plausible
+law of motion called linear-percentage temporary (LPT) and assume a geometric
+Brownian motion for price dynamics.  One additional benefit is that the model is
+able to capture the implementation shortfall in executing :math:`\bar{S}`.
+Monte Carlo simulations indicate that this model reduces on average 25% to 40%
+of the naive strategy's execution costs.
+
+For all of the proposed models, the optimization is unconstrained and consists
+of a single security.  Adding constraints require discretization of the state
+space or approximating the optimal-value function at each stage.  The former
+yields an exact numerical solution while the latter gives an analytical
+approximate solution.  Extending these models to a portfolio of securities is
+literally rewriting them in vector notation.
+
+Despite the reduction in execution costs, the authors admit there are still many
+issues left to resolve:
+
+- The price impact model does not account for market versus limit orders.
+- The overall risk of best-execution strategies is due to the variability of
+  prices, not to the variability of price impact.
+- There are no simple solutions to handle the uncertainty resulting from
+  parameter estimation errors and parameter instabilities.
+- The maximization of expected utility with transaction costs is analytically
+  and computationally intractable.
+- The proposed law of motion are unaffected by the investor's trades.
+
+Future Direction(s)
+===================
+
+- How to uncover a firm's execution strategy using their published transactions
+  history and earnings?
+- How should game theory be incorporated into the objective function?
+- How can deep learning be used to model an appropriate execution strategy?
+
+Question(s)
+===========
+
+- How should the parameters of the proposed models be calibrated?
+- How accurate is the claim that the minimum variation of prices on most US
+  stocks is $0.125?
+- The authors focused on convex solutions to ensure a global optimum, but is the
+  desired objective function convex?
+
+Analysis
+========
+
+All proposed trading strategies need to account for execution costs to avoid
+overoptimistic returns.  Furthermore, the model extension to list trading is
+necessary to account for
+:doc:`cross effects among the securities </blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction>`.
+
+One glaring issue is the lack of backtesting the proposed best-execution
+strategies.  It would have been much more interesting to see than simulations
+with carefully calibrated models.  These results would make the claim in
+cost avoidance more believable.  Likewise, the claim that the approach is still
+valid in the presence of adversarial strategies needs to be supported by
+evidence.
+
+Nevertheless, the application of the Bellman equation and the derivations in the
+appendix are very insightful into future modeling.  The concept of a law of
+motion for price dynamics enables future integration of features like
+:doc:`illiquidity </blog/2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns>`
+and :doc:`style factors </blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds>`.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

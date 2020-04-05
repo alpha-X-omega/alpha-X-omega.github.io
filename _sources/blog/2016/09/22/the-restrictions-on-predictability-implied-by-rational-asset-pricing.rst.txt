@@ -1,0 +1,77 @@
+###########################################################################
+The Restrictions on Predictability Implied by Rational Asset Pricing Models
+###########################################################################
+
+Motivation(s)
+=============
+
+The use of regression analysis to predict asset returns has become commonplace
+because it is simple to implement and the resulting estimates of the slope
+coefficients and regression :math:`R^2` have an appealing interpretation.  Some
+argue that the ability to predict returns arises from market inefficiencies,
+while others point to rational variation in expected returns as the cause.
+
+In frictionless markets, rational asset pricing models imply that some
+transformation of the equilibrium price process is a martingale with respect to
+the information that market participants use to form expectations.  This
+martingale property establishes a direct link between the ability to predict
+returns and market efficiency.  As a consequence, it imposes tight restrictions
+on the intercept, slope coefficients, and :math:`R^2` of the linear models used
+to predict returns.
+
+Prior research has not shown how rational models of asset pricing restrict the
+regression-based criteria used to measure predictability.
+
+Proposed Solution(s)
+====================
+
+The author builds off of the approach developed in Hansen and Jagannathan (1991)
+to characterize the restrictions on predictability.  Standard no-arbitrage
+pricing arguments are used to infer the values of the coefficients in a
+regression of asset returns on a set of instrumental variables (see appendix).
+The restrictions make it possible to construct the linear specification for
+forecasting asset returns that is implied by the asset pricing model under
+consideration.
+
+Evaluation(s)
+=============
+
+The estimations and tests were done using Hansen's (1982) generalized method of
+moments on portfolios constructed from CRSP and CITIBASE.  The empirical
+investigation revealed the size portfolio returns are too predictable to be
+compatible with a number of well-known pricing models.  These models include the
+consumption-based specifications of Lucas (1978), Abel (1990), and Epstein and
+Zin (1991), along with simple conditional versions of the Sharpe (1964) and
+Lintner (1965) CAPM and the Fama and French (1993) three-factor model.
+
+Although none of the pricing models fully explains the ability to predict
+returns, the observed cross-sectional relation between market capitalization and
+return predictability appears consistent under circumstances where
+predictability is rational.  If the factors that explain cross-sectional
+differences in average returns can be identified, then those factors may explain
+cross-sectional differences in predictability as well.
+
+Future Direction(s)
+===================
+
+- How would the proposed model perform when the signal is replaced with the
+  cross-sectional differences in average returns?
+
+Question(s)
+===========
+
+- Why make the restriction sound so grandiose when it's merely specifying a
+  linear projection model?
+
+Analysis
+========
+
+Perhaps this paper is too dated given the current machine learning curriculum,
+so the proposed model isn't too impressive.  The results and entire paper could
+have been written more succinctly.  The argument for rational asset pricing
+models was not very convincing due to the lack of transactions costs.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

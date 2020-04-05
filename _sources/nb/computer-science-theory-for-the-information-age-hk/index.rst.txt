@@ -1,0 +1,10 @@
+###################################################################
+Computer Science Theory for the Information Age - Hopcroft & Kannan
+###################################################################
+
+.. include:: /_templates/toctree-nb-computer-science-theory-for-the-information-age-hk
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

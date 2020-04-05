@@ -1,0 +1,77 @@
+################################
+Set Up Data Analysis Environment
+################################
+
+Download and run the `Anaconda`_ installation script.  Unless
+:envvar:`PATH` is modified permanently, each terminal session needs to redefine
+the path as follows
+
+.. code:: bash
+
+   export PATH=<absolute_path_to_anaconda>/bin:$PATH
+
+.. _Anaconda: https://www.anaconda.com/distribution/#download-section
+
+The `Jupyter`_ notebook installation is as easy as running a single command.
+
+.. _Jupyter: http://jupyter.readthedocs.org/en/latest/install.html
+
+In order to enhance the notebook with `R`_, install :program:`rpy2`.
+
+.. _R: http://sites.psu.edu/theubunturblog/installing-r-in-ubuntu/
+
+.. code:: bash
+
+   sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+   echo "deb http://cran.r-project.org/bin/linux/ubuntu xenial/" | sudo tee -a /etc/apt/sources.list
+   sudo apt-get update
+   sudo apt-get install r-base
+   sudo apt-get install r-base-dev
+   export PATH=<absolute-path-to-anaconda>/bin:$PATH
+   pip install rpy2
+
+R packages can be `installed directly`_ or via `rpy2`_.  Note that direct
+installation requires the notebook to be relaunched in order to access the new
+packages.
+
+.. _installed directly: https://cran.r-project.org/doc/manuals/R-admin.html#Installing-packages
+.. _rpy2: http://rpy.sourceforge.net/rpy2/doc-dev/html/robjects_rpackages.html#installing-removing-r-packages
+
+PyMathProg
+==========
+
+`PyMathProg`_ is an easy to use solver for linear programming.
+
+.. _PyMathProg: http://pymprog.sourceforge.net/index.html
+
+ImportError: :file:`<path>/anaconda3/lib/libgomp.so.1`: version 'GOMP_4.0' not found (required by /usr/lib/R/lib/libR.so)
+=========================================================================================================================
+
+This error may be resolved by telling the run-time shared library loader where
+to look for the shared library before launching the notebook.
+
+.. code:: bash
+
+   export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/:$LD_LIBRARY_PATH
+   jupyter-notebook
+
+ImportError: :file:`<path>/anaconda3/bin/../lib/libreadline.so.6`: undefined symbol: PC
+=======================================================================================
+
+This error may be resolved by manually importing :program:`readline` before
+executing the notebook :program:`rpy2` magic command.
+
+.. code:: python
+
+   import readline
+   %load_ext rpy2.ipython
+
+:file:`libgfortran.so.3`: version GFORTRAN_1.4 not found
+========================================================
+
+This error usually means the library was installed incorrectly.
+
+.. code:: bash
+
+   conda remove libgfortran
+   conda install libgcc --force

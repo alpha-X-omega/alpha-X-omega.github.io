@@ -1,0 +1,55 @@
+#########################################################
+Robust Mixture Modelling using the :math:`t`-distribution
+#########################################################
+
+Motivation(s)
+=============
+
+GMM is a flexible method of modelling a variety of random phenomena.  However,
+for many applied problems, the tails of the normal distribution are often
+shorter than required and the parameter estimates are sensitive to outliers.
+Existing attempts of replacing the normals with the more robust t-distributions
+have been ad-hoc.
+
+Proposed Solution(s)
+====================
+
+The authors propose introducing an extra latent variable and marginalizing to
+yield the mixture of t-distributions, which can still be learned via EM.  The
+ad-hoc approaches are collapsed into the extra variable included in the
+t-distribution and treated as the degrees of freedom.
+
+Evaluation(s)
+=============
+
+TMM has a lower test error rate than GMM due to it being less sensitive to
+outliers at the extra cost of computation.
+
+Future Direction(s)
+===================
+
+- What are some real applications of TMM and how effective is this compared to
+  other mixture models.
+
+Question(s)
+===========
+
+- What other distributions are resistent against outliers?
+- Why was there an emphasis on ECM when it's such an obvious and known
+  optimization technique they used?
+
+Analysis
+========
+
+Consider the t-distribution as the first line of defense when Gaussians fail due
+to outliers.
+
+This is a horribly written paper: the derivations are all over the place and the
+authors misuse the notations.  This should be read after the more elegant
+explanation of :doc:`Section 7.5 The t-distribution </nb/computer-vision-models-learning-and-inference-prince/chapter-07>`.
+Nevertheless, the update equations are useful to check your own derivations.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

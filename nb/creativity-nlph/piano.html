@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Piano &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Differential Geometry from a Graphics Perspective - NLPH" href="../differential-geometry-from-a-graphics-perspective-nlph/index.html" />
+    <link rel="prev" title="Drum Kit" href="drum_kit.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Piano</a><ul>
+<li><a class="reference internal" href="#Introduction">Introduction</a></li>
+<li><a class="reference internal" href="#MuseScore-&amp;-Pianoteq">MuseScore &amp; Pianoteq</a></li>
+<li><a class="reference internal" href="#Digital-Piano-&amp;-Pianoteq">Digital Piano &amp; Pianoteq</a></li>
+<li><a class="reference internal" href="#Level-0">Level 0</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="drum_kit.html" title="Previous Chapter: Drum Kit"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Drum Kit</span>
+    </a>
+  </li>
+  <li>
+    <a href="../differential-geometry-from-a-graphics-perspective-nlph/index.html" title="Next Chapter: Differential Geometry from a Graphics Perspective - NLPH"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Differential ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="Piano">
+<h1>Piano<a class="headerlink" href="#Piano" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Introduction">
+<h2>Introduction<a class="headerlink" href="#Introduction" title="Permalink to this headline">¶</a></h2>
+<p><a class="bibtex reference internal" href="#chang2007fundamentals" id="id1">[Cha07]</a> is a very long winded book.  All the essential
+information is nicely summarized in <a class="reference external" href="https://fundamentals-of-piano-practice.readthedocs.io/chapter1/ch1_topics/III.22.html">Summary of Method</a>.  Some more
+complementary resources are <a class="reference external" href="https://www.youtube.com/playlist?list=PL753730BB176690A0">Dr. John Mortensen’s Piano Technique</a> and
+<a class="bibtex reference internal" href="#maydwell2007sight" id="id2">[May07]</a>.  The former gives concise and very intuitive
+suggestions on posture.  The latter presents a roadmap on sight reading and
+its importance.</p>
+<p>When starting to learn the piano, it is helpful to hear the correct version of
+the music piece.  One way to generate piano sounds is to import MIDI from
+<a class="reference external" href="https://musescore.org">MuseScore</a>.  Note that the default sound samples are limited; some free
+decent ones are</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://sites.google.com/site/soundfonts4u/">Yamaha C5 Grand</a>,</p></li>
+<li><p><a class="reference external" href="https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html">Salamander Grand Piano</a>,</p></li>
+<li><p><a class="reference external" href="https://sites.google.com/view/hed-sounds/aegean-symphonic-orchestra">Aegean Symphonic Orchestra</a>, and</p></li>
+<li><p><a class="reference external" href="https://vis.versilstudios.com/vsco-community.html">Versilian Studios Virtual Instruments</a>.</p></li>
+</ul>
+<p>These soundfont (<a class="reference external" href="http://ariaengine.com/overview/sfz-format/">SFZ</a>) files can be <a class="reference external" href="https://musescore.org/en/handbook/soundfonts-and-sfz-files">imported into MuseScore</a>.</p>
+<p>My ideal setup is a <a class="reference external" href="http://www.kawaivpc.com/">Kawai VPC1</a> with <a class="reference external" href="https://www.pianoteq.com/">Pianoteq</a>.</p>
+<p>Before attempting this autodidactic method, it is very helpful to acquire some
+<a class="reference external" href="https://www.musictheory.net/lessons">initial background in music theory</a>.  The goal is not to learn everything
+about music theory upfront.  That is not as effective as getting the minimum
+needed to start practicing piano.  As one practices at the piano, read up on
+more theory.  Furthermore, avoid doing exercises such as
+<a class="reference external" href="https://www.musictheory.net/exercises">ear training, staff identification, and staff construction</a>.  That will
+neither cultivate your rhythm nor commit the knowledge to long term memory.
+You should instead study and complete the exercises in <a class="bibtex reference internal" href="../complete-musician-laitz/index.html#laitz2012complete" id="id3">[Lai12]</a>
+via <a class="reference external" href="https://lilypond.org/">LilyPond</a>, which is superior to MuseScore in terms of typing up scores
+and exporting MIDI.</p>
+<p>The following are my own experience of learning piano from
+scratch as an adult:</p>
+<ul class="simple">
+<li><p>Maintain a proper posture, breathe, and relax at all times.</p></li>
+<li><p>Instead of memorizing mnemonics, memorize the notes!</p>
+<ul>
+<li><p>Mnemonics for note recognition will hinder your ability to
+recognize notes because it’s a two step procedure.</p></li>
+</ul>
+</li>
+<li><p>Always strive for evenness, accuracy, and expression over speed.</p>
+<ul>
+<li><p>Play the piece at a speed, such as half of the target speed, that
+allows all the criteria to be satisfied.</p></li>
+<li><p>Increase the speed until one of the criteria starts to fail.</p></li>
+</ul>
+</li>
+<li><p>Use a metronome to practice.</p></li>
+<li><p>Play without a metronome at the target speed before moving on to
+the next piece.</p></li>
+<li><p>Play through mistakes; do not stop to correct them because you will develop
+stuttering habits.</p>
+<ul>
+<li><p>This will help you develop the quick recovery needed after a mistake.</p></li>
+<li><p>Correct the mistakes later using segmental practice around each mistake.</p></li>
+</ul>
+</li>
+<li><p>Practice hands separate until the speed is faster than the target speed.</p>
+<ul>
+<li><p>Research has revealed that proficient instrumentalists read single-line
+melodies up to seven notes ahead.</p></li>
+</ul>
+</li>
+<li><p>Practice hands together slowly and work towards the target speed even though
+hands separate is faster than the target speed.</p>
+<ul>
+<li><p>The goal is limb independence while satifying all the foregoing criteria.</p></li>
+</ul>
+</li>
+<li><p>As you practice, you will notice that recognizing the notes is faster if you
+use the previous note as a reference.</p>
+<ul>
+<li><p>This is a crutch since it breaks down when notes are too far apart.</p></li>
+<li><p>More practice will enable you to recognize the note’s pitch, your hand
+placement, and eventually the pitch’s sound.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="MuseScore-&amp;-Pianoteq">
+<h2>MuseScore &amp; Pianoteq<a class="headerlink" href="#MuseScore-&-Pianoteq" title="Permalink to this headline">¶</a></h2>
+<p>This configuration requires a user account with real time scheduling.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add the following three lines to /etc/security/limits.conf:</span>
+@audio - rtprio <span class="m">90</span>
+@audio - nice -10
+@audio - memlock <span class="m">500000</span>
+
+<span class="c1"># Add user account to audio group that has real time scheduling.</span>
+sudo adduser <span class="nv">$USER</span> audio
+</pre></div>
+</div>
+<p><a class="reference external" href="https://qjackctl.sourceforge.io/">QjackCtl</a> is the easiest way to hook up MuseScore with Pianoteq.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install qjackctl libjack-jackd2-dev audacity
+</pre></div>
+</div>
+<p>After launching it, just hit the <span class="guilabel">Start</span> button followed by the
+<span class="guilabel">Connect</span> button to display a pop-up dialog that contains a
+<span class="guilabel">MIDI</span> tab.  This tab automatically lists MuseScore and Pianoteq once
+those programs start.</p>
+<p>After <a class="reference external" href="https://opensource.com/article/17/4/install-musescore">installing MuseScore</a>, open up the settings at
+<span class="menuselection">Edit ‣ Preferences ‣ I/O ‣ JACK audio server</span>.  Select
+<span class="guilabel">Use JACK Audio</span>, <span class="guilabel">Use JACK MIDI</span>, and
+<span class="guilabel">Remember last connection(s)</span>.  <a class="reference external" href="https://musescore.org/en/developers-handbook/google-summer-code/google-summer-code-2014/implementation-full-jack-support">Do not select</a>
+<span class="guilabel">Use JACK Transport</span> or <span class="guilabel">Timebase Master</span>.</p>
+<p>Note that enabling QjackCtl will prevent <a class="reference internal" href="../../blog/2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html"><span class="doc">VLC</span></a>
+from playing any sound.  One fix is to run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install vlc-plugin-jack
+</pre></div>
+</div>
+<p>and change the VLC’s
+<span class="menuselection">Tools ‣ Preferences ‣ Audio ‣ Output module</span> to
+<span class="guilabel">JACK Audio output</span>.</p>
+</div>
+<div class="section" id="Digital-Piano-&amp;-Pianoteq">
+<h2>Digital Piano &amp; Pianoteq<a class="headerlink" href="#Digital-Piano-&-Pianoteq" title="Permalink to this headline">¶</a></h2>
+<p>Given the foregoing QjackCtl setup, simply connect the digital piano to the
+computer running Pianoteq via the MIDI interface e.g. <a class="reference external" href="https://www.roland.com/us/products/um-one_mk2/">UM-ONE mk2</a>.  Pianoteq
+should automatically detect the MIDI inputs without any tweaks to the settings.</p>
+</div>
+<div class="section" id="Level-0">
+<h2>Level 0<a class="headerlink" href="#Level-0" title="Permalink to this headline">¶</a></h2>
+<p>The best way to waste a lot of time is to practice on ineffective books such as
+<a class="bibtex reference internal" href="#palmer2005alfred" id="id4">[PML05]</a><a class="bibtex reference internal" href="#palmer1995adult" id="id5">[PML95]</a><a class="bibtex reference internal" href="#faber1993faber" id="id6">[Fab93]</a>.  One should instead
+seek out books that actually have produced amazing musicians.  There are plenty
+of sites that host public domain music:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://imslp.org/">IMSLP</a>.</p></li>
+</ul>
+<p>The following are useful introductory practice books that should be completed in
+parallel: <a class="bibtex reference internal" href="#bartoksz107" id="id7">[Bartok40]</a>, <a class="bibtex reference internal" href="#schaferop45" id="id8">[Sch08]</a>,
+<a class="bibtex reference internal" href="#mathews1892standard" id="id9">[Mat92]</a>, and <a class="bibtex reference internal" href="#manookian2006gradus" id="id10">[Man06]</a>.  One approach is
+to start practicing with a book until you encounter a piece that is difficult to
+play.  Play that piece (slowly measure-by-measure if needed) until the end.
+Move to another book and repeat.  The main idea is to cycle through the books
+making progress where you can before going back to the problematic piece.  This
+allows you to improve while reducing frustration.  As the pieces get longer, a
+one hour session may not be enough to finish a piece.</p>
+<p>By the time you finish the first volume of <a class="bibtex reference internal" href="#bartoksz107" id="id11">[Bartok40]</a>, you should be
+surprised at how much quicker you’re able to read music.</p>
+<p><a class="bibtex reference internal" href="#schirmer1903" id="id12">[Gui03]</a> overview of classical works.</p>
+<p>After finish Bartok Volume II:
+, <a class="bibtex reference internal" href="#kunzop14" id="id13">[Kun75]</a>,
+<a class="bibtex reference internal" href="#gurlittop82" id="id14">[Gur77]</a>, <a class="bibtex reference internal" href="#gurlittop117" id="id15">[Gur95]</a>, and <a class="bibtex reference internal" href="#loeschhornop65" id="id16">[Loe60]</a></p>
+<p>Berens 70
+Kohler 190, 151
+Couppey - Op17
+Streabbog - Op63, 64
+Lemoine - Op37
+Gurlitt 130, 101, 113, 140, 228
+Bertini Op100, Op29, Op32, 12 Little/Short Pieces
+Loeschhorn - Op181
+Clementi - Art of Playing on the Piano Forte
+Jonas - Master School of Piano Playing &amp; Virtuosity 1
+Beyer - Op101
+Kohler Op157, 209
+Duvernoy - 176, 120, 276</p>
+<p>after level 3:
+<a class="bibtex reference internal" href="#jonas1929master" id="id17">[Jon29]</a></p>
+<p>Test yourself with</p>
+<p><a class="reference external" href="https://us.abrsm.org/en/our-exams/">https://us.abrsm.org/en/our-exams/</a></p>
+<p><a class="reference external" href="https://www.yamaha-mf.or.jp/english/grade/">https://www.yamaha-mf.or.jp/english/grade/</a></p>
+<p><a class="reference external" href="https://www.rcmusic.com/learning/examinations/academic-resources-and-policies/syllabi-look-for-any-syllabus-below">https://www.rcmusic.com/learning/examinations/academic-resources-and-policies/syllabi-look-for-any-syllabus-below</a></p>
+<dl>
+<dt>Robert Estrin’s Living Piano Videos</dt><dd><p><a class="reference external" href="https://www.youtube.com/playlist?list=PLb9dheYKfknSU6X0sK0raACZ8yaszLGBf">https://www.youtube.com/playlist?list=PLb9dheYKfknSU6X0sK0raACZ8yaszLGBf</a></p>
+<p>Lifting your fingers is the most strenuous activity when playing the piano.
+In order to strengthen your fingers, lift all of your fingers up except the
+one that is pressing on the key when practicing scales and arpeggios.</p>
+<dl class="simple">
+<dt>Piano tone</dt><dd><p>Play the notes that have a longer duration louder so that their sound
+fades away at the same time as the shorter notes.  You’re trying to
+equalize how fast each note fades away.
+Play the notes higher on the octave louder than the ones lower on the
+octave to equalize their texture.</p>
+</dd>
+<dt>Stacatto</dt><dd><p>Play deattached using wrist.  It just so happens that you need to play
+it quickly in fast music.</p>
+</dd>
+<dt>Hanon fingering is golden standard</dt><dd><dl class="simple">
+<dt>Czerny is also good practice</dt><dd><p>but pracice music instead</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Rubato is keeping the higher level beats and playing in the others faster/slower
+Portato is legato on phrases instead of just notes
+repeated notes can be legato via different fingers on the same note
+Mentral practice can reduce practice time at the piano</p>
+</dd>
+<dt>Alan Belkin</dt><dd><p>Don’t bother reading his website, the books are good though?  maybe…?</p>
+</dd>
+<dt><a class="reference external" href="https://outsideshore.teachable.com/p/jazz-improvisation-primer">https://outsideshore.teachable.com/p/jazz-improvisation-primer</a></dt><dd><p>Not worthwhile to read</p>
+</dd>
+<dt><a class="reference external" href="http://openmusictheory.com/contents.html">http://openmusictheory.com/contents.html</a></dt><dd><p>Better books out there by real composers.</p>
+</dd>
+</dl>
+<p>start with: Laitz - The Complete Musician An Integrated Approach to Tonal Theory, Analysis, and Listening
+and if possible simultaneously Ligon - Jazz Theory Resources.</p>
+<p>Once you get to chapter 10 for Jazz, start reading the other two books of Ligon.</p>
+<p>Caplin
+Piston Harmony - Counterpoint - Orchestration</p>
+<blockquote>
+<div><p>too old</p>
+</div></blockquote>
+<p>Persichetti
+Schillinger</p>
+<blockquote>
+<div><p>Incomplete notes, so not worthwhile</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Ligon - Jazz Theory Resources</dt><dd><ul class="simple">
+<li><p>Ligon - Comprehensive Technique For Jazz Musicians</p></li>
+<li><p>Connecting Chords with Linear Harmony</p></li>
+</ul>
+</dd>
+</dl>
+<p>Levine - The Jazz Theory Book
+Levine - The Jazz Piano Book</p>
+<p>Peterson - Jazz for the Young Pianist</p>
+<p><a class="reference external" href="https://www3.northern.edu/wieland/index.htm">https://www3.northern.edu/wieland/index.htm</a></p>
+<dl class="simple">
+<dt>Abby Whiteside</dt><dd><p>Don’t bother</p>
+</dd>
+</dl>
+<p>Small handed piano</p>
+<p>Disney Fake Book</p>
+<p>Elementary Training for Musicians
+Techniques and Materials of Music</p>
+<p>Ulehla - Contemporary Harmony Romanticism Through the Twelve-Tone Row</p>
+<p>Haerle - The Jazz Language
+Mantooth - Voicings for Jazz Keyboard
+DeGreg - Jazz Keyboard Harmony &amp; Voicings</p>
+<p>qpdfview for the win!</p>
+<p>violin
+<a class="reference external" href="https://imslp.org/wiki/School_of_Violin_Technics_(Schradieck,_Henry">https://imslp.org/wiki/School_of_Violin_Technics_(Schradieck,_Henry</a>)
+<a class="reference external" href="https://www.youtube.com/playlist?list=PLqTTFPCw1dEEl5NDZE00pUxuBppU2exiN">https://www.youtube.com/playlist?list=PLqTTFPCw1dEEl5NDZE00pUxuBppU2exiN</a></p>
+<p><a class="reference external" href="https://www.violinmasterclass.com/posts/148">https://www.violinmasterclass.com/posts/148</a></p>
+<p>Sassmannshaus method</p>
+<p><a class="reference external" href="https://imslp.org/wiki/Modern_Violin_School,_Op.51_(Henley,_William">https://imslp.org/wiki/Modern_Violin_School,_Op.51_(Henley,_William</a>)
+<a class="reference external" href="https://imslp.org/wiki/Violin_Method_(Bang%2C_Maia">https://imslp.org/wiki/Violin_Method_(Bang%2C_Maia</a>)
+<a class="reference external" href="https://imslp.org/wiki/M%C3%A9thode_de_violon%2C_Op.102_(B%C3%A9riot%2C_Charles-Auguste_de">https://imslp.org/wiki/M%C3%A9thode_de_violon%2C_Op.102_(B%C3%A9riot%2C_Charles-Auguste_de</a>)</p>
+<p><a class="reference external" href="https://www.youtube.com/channel/UCV4kkWn2CqsWSUSO1KXk3Eg">https://www.youtube.com/channel/UCV4kkWn2CqsWSUSO1KXk3Eg</a></p>
+<p><a class="reference external" href="https://imslp.org/wiki/Category:%C5%A0ev%C4%8D%C3%ADk,_Otakar">https://imslp.org/wiki/Category:%C5%A0ev%C4%8D%C3%ADk,_Otakar</a>
+<a class="reference external" href="https://www.youtube.com/watch?v=0k8sjq668ag">https://www.youtube.com/watch?v=0k8sjq668ag</a></p>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-nb/creativity-nlph/piano-0"><dl class="citation">
+<dt class="bibtex label" id="bargue2017charles"><span class="brackets">BGeromeAP17</span></dt>
+<dd><p>Charles Bargue, Jean Léon Gérôme, Gerald M Ackerman, and Graydon Parrish. <em>Charles Bargue Drawing Course: With the Collaboration of Jean-Léon Gérôme</em>. ACR Edition, 2017.</p>
+</dd>
+<dt class="bibtex label" id="bartoksz107"><span class="brackets">Bartok40</span><span class="fn-backref">(<a href="#id7">1</a>,<a href="#id11">2</a>)</span></dt>
+<dd><p>Béla Bartók. Mikrokosmos. 1940.</p>
+</dd>
+<dt class="bibtex label" id="chang2007fundamentals"><span class="brackets"><a class="fn-backref" href="#id1">Cha07</a></span></dt>
+<dd><p>Chuan C Chang. Fundamentals of piano practice. 2007.</p>
+</dd>
+<dt class="bibtex label" id="dodson1990keys"><span class="brackets">Dod90</span></dt>
+<dd><p>Bert Dodson. <em>Keys to drawing</em>. Penguin, 1990.</p>
+</dd>
+<dt class="bibtex label" id="dodson2006keys"><span class="brackets">Dod06</span></dt>
+<dd><p>Bert Dodson. <em>Keys to Drawing with Imagination: Strategies and exercises for gaining confidence and enhancing your creativity</em>. Penguin, 2006.</p>
+</dd>
+<dt class="bibtex label" id="faber1993faber"><span class="brackets"><a class="fn-backref" href="#id6">Fab93</a></span></dt>
+<dd><p>N Faber. Faber piano adventures. 1993.</p>
+</dd>
+<dt class="bibtex label" id="schirmer1903"><span class="brackets"><a class="fn-backref" href="#id12">Gui03</a></span></dt>
+<dd><p>The Piano Teacher’s Guide. Schirmer, gustav. 1903.</p>
+</dd>
+<dt class="bibtex label" id="gurlittop82"><span class="brackets"><a class="fn-backref" href="#id14">Gur77</a></span></dt>
+<dd><p>Cornelius Gurlitt. The first steps of the young pianist. 1877.</p>
+</dd>
+<dt class="bibtex label" id="gurlittop117"><span class="brackets"><a class="fn-backref" href="#id15">Gur95</a></span></dt>
+<dd><p>Cornelius Gurlitt. The first lessons. 1895.</p>
+</dd>
+<dt class="bibtex label" id="jonas1929master"><span class="brackets"><a class="fn-backref" href="#id17">Jon29</a></span></dt>
+<dd><p>Alberto Jonás. Master school of piano playing &amp; virtuosity. 1929.</p>
+</dd>
+<dt class="bibtex label" id="kunzop14"><span class="brackets"><a class="fn-backref" href="#id13">Kun75</a></span></dt>
+<dd><p>Konrad Max Kunz. 200 short two-part canons. 1875.</p>
+</dd>
+<dt class="bibtex label" id="loeschhornop65"><span class="brackets"><a class="fn-backref" href="#id16">Loe60</a></span></dt>
+<dd><p>Albert Loeschhorn. Studies for the piano. 1860.</p>
+</dd>
+<dt class="bibtex label" id="loomis1939fun"><span class="brackets">Loo39</span></dt>
+<dd><p>Andrew Loomis. <em>Fun with a Pencil</em>. Viking Press, 1939.</p>
+</dd>
+<dt class="bibtex label" id="manookian2006gradus"><span class="brackets"><a class="fn-backref" href="#id10">Man06</a></span></dt>
+<dd><p>Jeff Manookian. Gradus. 2006.</p>
+</dd>
+<dt class="bibtex label" id="mathews1892standard"><span class="brackets"><a class="fn-backref" href="#id9">Mat92</a></span></dt>
+<dd><p>William Smythe Babcock Mathews. Standard graded course of studies for the pianoforte. 1892.</p>
+</dd>
+<dt class="bibtex label" id="maydwell2007sight"><span class="brackets"><a class="fn-backref" href="#id2">May07</a></span></dt>
+<dd><p>Faith Maydwell. Sight reading skills: a guide for sight reading piano music accurately and expressively. 2007.</p>
+</dd>
+<dt class="bibtex label" id="nicolaides1941natural"><span class="brackets">Nic41</span></dt>
+<dd><p>Kimon Nicolaides. <em>The natural way to draw: A working plan for art study</em>. Houghton Mifflin Harcourt, 1941.</p>
+</dd>
+<dt class="bibtex label" id="palmer1995adult"><span class="brackets"><a class="fn-backref" href="#id5">PML95</a></span></dt>
+<dd><p>Willard A Palmer, Morton Manus, and Amanda Vick Lethco. Adult all-in-one course: alfred’s basic adult piano course level 1. 1995.</p>
+</dd>
+<dt class="bibtex label" id="palmer2005alfred"><span class="brackets"><a class="fn-backref" href="#id4">PML05</a></span></dt>
+<dd><p>Willard A Palmer, Morton Manus, and Amanda Vick Lethco. Alfred’s basic piano course. 2005.</p>
+</dd>
+<dt class="bibtex label" id="schaferop45"><span class="brackets"><a class="fn-backref" href="#id8">Sch08</a></span></dt>
+<dd><p>Christian Schafer. Sight reading exercises. 1908.</p>
+</dd>
+<dt class="bibtex label" id="vilppu1997vilppu"><span class="brackets">Vil97</span></dt>
+<dd><p>Glenn V Vilppu. <em>The Vilppu drawing manual</em>. buy direct from Vilppu LLC, 1997.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/nb/creativity-nlph/piano.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

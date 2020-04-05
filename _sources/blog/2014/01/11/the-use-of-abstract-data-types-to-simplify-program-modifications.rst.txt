@@ -1,0 +1,109 @@
+################################################################
+The Use of Abstract Data Types to Simplify Program Modifications
+################################################################
+
+Motivation(s)
+=============
+
+Existing programming approaches (e.g. top-down programming, iterative
+enhancements, high level languages) all suffer from simple modifications or
+extensions that require entire code changes.
+
+Proposed Solution(s)
+====================
+
+The author proposes that if abstract data types (ADTs) are used as the basic
+unit of modularity, then modules can be more independent of each other resulting
+in localized modifications or extensions.
+
+Evaluation(s)
+=============
+
+This technique was applied to compute prime numbers using the sieve of
+Eratosthenes.  When the ADT is viewed as providing an abstract machine for the
+execution of a program, all the modifications can be seen as tailoring the
+abstract machine to a particular algorithm.  When compared to existing
+techniques (e.g. Hoare), ADT yields better structural designs while maintaining
+all the desirable properties.
+
+Future Direction(s)
+===================
+
+- Is it possible to determine whether a particular design has good ADTs through
+  comparing it with existing open source code?
+
+Question(s)
+===========
+
+- When would ADT worsen a design?
+
+Analysis
+========
+
+ADT should be used as the basic unit of modularity a.k.a. module.  This is a
+brilliant idea and demonstrates how over time, the reason behind modifiers (e.g.
+*public*, *protected*, and *private*) got lost.  The purpose of said modifiers
+is to determine (by a program) which portion of the code base will change.  As
+usual, the code presented in this paper's era is quite messy and verbose.  It is
+interesting to note that ADT is very simple to explain and comprehend, but later
+programming languages love to invent new words to describe the same thing.
+
+Notes
+=====
+
+Abstract Data Types as Units of Modularity
+------------------------------------------
+
+- Conflicting Modularity Requirements
+
+  1. The modules must be relatively independent, their interactions must be
+     understandable, and there must be no unanticipated interactions between
+     them.
+  #. The modules must be small.
+  #. The modularity must not cause serious inefficiencies.
+
+- Concept of ADT
+
+  - One module should be responsible for maintaining the data structure and
+    guaranteeing its consistency, and other modules should be forced to access
+    the data through this module.
+  - An ADT is a set of operations grouped around common data structures.
+
+Realizations and Uses of ADTs
+-----------------------------
+
+- Uniform Reference Problem
+
+  - Tradeoff between efficient manipulation of data objects and hiding of data
+    object implementation details.
+
+    - Repeated procedure calls can be avoided either by implementing the
+      repetition inside an operation of the type or by using macros.
+
+- Protection to Support ADT
+
+  - Implemented by either compiler or OS (e.g. Hydra).
+  - Explicit definition and control of access can be used to identify modules
+    that could be affected by a proposed change.
+
+    - This goes beyond simply preventing direct access.
+
+- Data abstraction, isolation, and protection are needed when
+
+  a) the data has a complex structure,
+  #) the data might get into an inconsistent state, or
+  #) the data needs to be protected for reasons of privacy and security.
+
+- ADT exhibit the desirable properties for a unit of modularity in a
+  hierarchical structured system.
+
+  - An ADT includes many operations or entry points.
+  - Objects of an ADT are preserved independent of calls to operations of the
+    type.
+  - The representation of a data object is normally not accessible except by the
+    operations defined as part of its type definition.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

@@ -1,0 +1,244 @@
+####################
+Typical FFmpeg Usage
+####################
+
+Lossless Transcoding
+====================
+
+.. code:: bash
+
+   ffmpeg -i <input video> -vcodec copy -acodec copy -o <output video>
+   ffmpeg -i <input video> -c:v copy -c:a copy -o <output video>
+   ffmpeg -i <input video> -c copy -o <output video>
+
+Lossless Transformations
+========================
+
+Vertically Flip Video
+---------------------
+
+.. code:: bash
+
+   ffmpeg -i <input video> -vf vflip -c:a copy <output video>
+
+Horizontally Flip Video
+-----------------------
+
+.. code:: bash
+
+   ffmpeg -i <input video> -vf hflip -c:a copy <output video>
+
+Rotate Video by :math:`90^\circ` Clockwise
+------------------------------------------
+
+.. code:: bash
+
+   ffmpeg -i <input video> -vf transpose=1 -c:a copy <output video>
+
+Rotate Video by :math:`90^\circ` Counterclockwise
+-------------------------------------------------
+
+.. code:: bash
+
+   ffmpeg -i <input video> -vf transpose=2 -c:a copy <output video>
+
+Cropping
+========
+
+.. code:: bash
+
+   ffmpeg -i <input video> -filter:v "crop=out_w:out_h:x:y" -c:a copy -o <output video>
+
+Extract Left Half of Video
+--------------------------
+
+.. code:: bash
+
+   ffmpeg -i <input video> -filter:v "crop=in_w/2:in_h:0:0" -c:a copy -o <output video>
+
+Extract Right Half of Video
+---------------------------
+
+.. code:: bash
+
+   ffmpeg -i <input video> -filter:v "crop=in_w/2:in_h:in_w/2:0" -c:a copy -o <output video>
+
+Extract Top Half of Video
+--------------------------
+
+.. code:: bash
+
+   ffmpeg -i <input video> -filter:v "crop=in_w:in_h/2:0:0" -c:a copy -o <output video>
+
+Extract Bottom Half of Video
+----------------------------
+
+.. code:: bash
+
+   ffmpeg -i <input video> -filter:v "crop=in_w:in_h/2:0:in_h/2" -c:a copy -o <output video>
+
+Video to OpenGL/Vulkan Compatible Raw Data
+==========================================
+
+.. code:: bash
+
+   ffmpeg -ss <hh:mm:ss> -i <input video> -f rawvideo -pix_fmt <pixel format> -vframes <n frames to save> <output video>
+   ffmpeg -start_number <start with frame n> -i <input video> -f rawvideo -pix_fmt <pixel format> <output video>
+
+`I420 or IYUV`_
+---------------
+
+.. code:: bash
+
+   ffmpeg -i <input video> -f rawvideo -pix_fmt yuv420p <output video>
+
+This format is guaranteed to work on `Android`_ and `iOS`_.  A related format is
+`YV12`_, which reverses the U and V plane order.
+
+.. _I420 or IYUV: https://www.fourcc.org/pixel-format/yuv-i420/
+.. _Android: https://developer.android.com/guide/topics/media/media-formats.html
+.. _iOS: https://developer.apple.com/documentation/avfoundation/media_assets_playback_and_editing/file_format_utis
+.. _YV12: https://www.fourcc.org/pixel-format/yuv-yv12/
+
+`NV12`_
+-------
+
+.. code:: bash
+
+   ffmpeg -i <input video> -f rawvideo -pix_fmt nv12 <output video>
+
+.. _NV12: https://www.fourcc.org/pixel-format/yuv-nv12/
+
+`YUV444`_
+---------
+
+.. code:: bash
+
+   ffmpeg -i <input video> -f rawvideo -pix_fmt yuv444p <output video>
+
+.. _YUV444: https://developer.android.com/reference/android/graphics/ImageFormat.html#YUV_444_888
+
+`RGB`_
+------
+
+.. code:: bash
+
+   ffmpeg -i <input video> -f rawvideo -pix_fmt rgb24 <output video>
+
+.. _RGB: https://www.fourcc.org/pixel-format/rgb-bi_rgb/
+
+`RGBA`_
+-------
+
+.. code:: bash
+
+   ffmpeg -i <input video> -f rawvideo -pix_fmt rgba <output video>
+
+.. _RGBA: https://www.fourcc.org/pixel-format/rgb-rgba/
+
+Raw Data to Video
+=================
+
+.. code:: bash
+
+   ffmpeg -f rawvideo -s <width>x<height> -pix_fmt <pixel format> -i <input video> <output video>
+   ffmpeg -f rawvideo -s <width>x<height> -pix_fmt <pixel format> -i <input video> -c:v <encoder> <output video>
+
+Miscellanea
+===========
+
+`Image to video operations`_, `video to image operations`_, `concatenating
+videos`_, and `video mosaics`_ are other operations supported by `FFmpeg`_.
+`Desktop screen capture`_ is also supported, but `SimpleScreenRecorder`_ is much
+easier to use alternative.
+
+.. _Image to video operations: https://trac.ffmpeg.org/wiki/Slideshow
+.. _video to image operations: https://trac.ffmpeg.org/wiki/Create%20a%20thumbnail%20image%20every%20X%20seconds%20of%20the%20video
+.. _concatenating videos: https://trac.ffmpeg.org/wiki/Concatenate
+.. _video mosaics: https://trac.ffmpeg.org/wiki/Create%20a%20mosaic%20out%20of%20several%20input%20videos
+.. _FFmpeg: https://trac.ffmpeg.org/wiki
+.. _Desktop screen capture: https://trac.ffmpeg.org/wiki/Capture/Desktop
+.. _SimpleScreenRecorder: http://www.maartenbaert.be/simplescreenrecorder/
+
+Stack Images Horizontally
+-------------------------
+
+.. code:: bash
+
+   convert +append <input images> <output image>
+
+Stack Images Vertically
+-----------------------
+
+.. code:: bash
+
+   convert -append <input images> <output image>
+
+Tile Images
+-----------
+
+.. code:: bash
+
+   montage -mode concatenate -tile <col>x<row> <list images> <output image>
+   montage -mode concatenate -tile <col>x <image prefix>*.<ext> <output image>
+
+Change `Video Bitrate`_
+-----------------------
+
+.. code:: bash
+
+   ffmpeg -i <input video> -vb <number>M <output video>
+
+.. _Video Bitrate: https://support.google.com/youtube/answer/1722171?hl=en
+
+`Change Video Frame Rate`_
+--------------------------
+
+.. code:: bash
+
+   ffmpeg -i <input video> -filter "minterpolate='mi_mode=mci:mc_mode=aobmc:vsbmc=1:fps=<number>'" <output video>
+
+.. _Change Video Frame Rate: https://trac.ffmpeg.org/wiki/How%20to%20speed%20up%20/%20slow%20down%20a%20video
+
+Speed Up/Slow Down Video
+------------------------
+
+.. code:: bash
+
+   ffmpeg -i <input video> -vf "setpts=(1/<speed>)*PTS" <output video>
+
+*setpts* only modifies the video's metadata to adjust how long each frame is
+displayed.
+
+Merge Two Videos into a Stereoscopic Video
+------------------------------------------
+
+.. code:: bash
+
+   ffmpeg -i top.mp4 -vf "[in] pad=iw:2*ih [top]; movie=bottom.mp4 [bottom]; [top][bottom] overlay=0:main_h/2 [out]" output_TB.mp4
+   ffmpeg -i left.mp4 -vf "[in] pad=2*iw:ih [left]; movie=right.mp4 [right]; [left][right] overlay=main_w/2:0 [out]" output_LR.mp4
+
+Combine Separate Videos into One Multitrack Video
+-------------------------------------------------
+
+.. code:: bash
+
+   ffmpeg -i <input video 0> -i <input video 1> ... -c copy -map <track 0> -map <track 1> ... <output video>
+
+Query Video Frame Information
+-----------------------------
+
+.. code:: bash
+
+   ffprobe -show_frames -pretty <file>
+
+Visualize Bitrate of a Stream Over Time
+---------------------------------------
+
+`PlotBitrate`_ uses the following command to query the bitrate data:
+
+.. code:: bash
+
+   ffprobe -show_entries frame=pkt_size,pkt_pts_time <input>
+
+.. _PlotBitrate: https://github.com/zeroepoch/plotbitrate

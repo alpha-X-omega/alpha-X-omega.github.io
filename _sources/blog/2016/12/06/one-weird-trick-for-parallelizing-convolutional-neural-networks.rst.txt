@@ -1,0 +1,144 @@
+===============================================================
+One Weird Trick for Parallelizing Convolutional Neural Networks
+===============================================================
+
+Motivation(s)
+=============
+
+The training of convolutional neural networks typically exploits model
+parallelism or data parallelism.
+
+In model parallelism, each worker trains a different part of the model.
+Whenever the model part (subset of neuron activities) trained by one worker
+requires output from a model part trained by another worker, the two workers
+must synchronize the neuron activities.  This approach is efficient when the
+amount of computation per neuron activity is high.
+
+In contrast, the data parallelism scheme requires workers to synchronize model
+parameters (or gradients) to ensure that they are training a consistent model.
+This design is efficient when the amount of computation per weight is high.
+Since parameter synchronization is performed once per batch, increasing the
+batch size can make data parallelism arbitrarily efficient.  However, very large
+batch sizes adversely affect the rate at which SGD converges as well as the
+quality of the final solution.
+
+Proposed Solution(s)
+====================
+
+The author proposes data parallelism for convolutional layers and model
+parallelism for fully-connected layers due to their distinct properties:
+
+- Convolutional layers make up 90-95% of the computation, about 5% of the
+  parameters, and have large representations.
+- Fully-connected layers claim 5-10% of the computation, about 95% of the
+  parameters, and have small representations.
+
+The forward pass consists of
+
+#. Each of the :math:`K` workers is given a different data batch of :math:`B`
+   examples.
+#. Each of the :math:`K` workers computes all of the convolutional layer
+   activities on its batch.
+#. The workers have a variety of ways to synchronize their last-stage
+   convolutional layer activities.
+
+   (a) Each worker sends its activities to each of the other workers.  The
+       workers then compute the fully-connected activities on the activities of
+       :math:`BK` examples.  This scheme pauses all useful work during the batch
+       assembly and consumes a lot of memory in exchange for GPU utilization.
+   (#) The workers take turns broadcasting their activities.  The workers compute
+       the fully-connected activities on the batch of :math:`B` examples and
+       proceed to backpropagate the gradients.  Note that :math:`\frac{K - 1}{K}`
+       parts of the communication can be done in parallel with the computation.
+   (#) All workers send :math:`B / K` of their activities to all other workers.
+       The workers then proceed as in (b).  This scheme is capable of utilizing
+       more workers.
+
+The backward pass consists of
+
+#. The workers compute the gradients in the fully-connected layers as usual.
+#. Backpropagation of gradients depends on the scheme of the forward pass.
+
+   (a) Each worker sends the gradient for each example to the worker which
+       generated that example in the forward pass.
+   (#) Each worker sends the gradients to the worker responsible for this batch
+       of :math:`B` examples.  In parallel with this, the workers compute the
+       fully connected forward pass on the next batch of :math:`B` examples.
+       After :math:`K` such iterations, the workers then propagate the gradients
+       all the way through the convolutional layers.
+   (#) After a round of broadcasts, each worker has a :math:`B`-example batch
+       assembled from :math:`B / K` examples contributed by each worker.  The
+       distribution of gradients must be in the reverse order; the rest proceeds
+       as in scheme (b).
+
+Once the backward pass is complete, the workers can synchronize the weights of
+their convolutional layers as follows:
+
+#. Each worker is designated :math:`1/K\text{th}` of the gradient matrix to
+   synchronize.
+#. Each worker accumulates the corresponding :math:`1/K\text{th}` of the
+   gradient from every other worker.
+#. Each worker broadcasts this accumulated :math:`1/K\text{th}` of the gradient
+   to every other worker.
+
+Note that each of the proposed schemes is equivalent to running synchronous SGD.
+
+Evaluation(s)
+=============
+
+Since the accuracy of large batch sizes is dataset dependent, the author chose
+to focus on cross-entropy error using the recent ILSVRC 2012 dataset.  The
+error rates on the validation set indicate that independently tuning the batch
+size for the convolutional layers and fully-connected layers may lead to faster
+convergence to better minima.
+
+Even though the use of multiple GPUs did not scale linearly, scheme (b) is still
+a huge reduction in training time compared to existing solutions.  Resolving the
+following issues will lead to better scalability:
+
+- The fully-connected layer's dense matrix multiplication needs to be larger to
+  make the data transfer worth it.
+- Scheme (b) did not transfer data at full speed due to GPU P2P limitations.
+
+This proposed heuristic does eventually break down for batch sizes larger than
+2K.
+
+Future Direction(s)
+===================
+
+- The author suggests that when multiplying the batch size by :math:`k`, one
+  should multiply the learning rate :math:`\epsilon` by :math:`\sqrt{k}` to keep
+  the variance in the gradient expectation constant.  Furthermore, the weight
+  decay penalty should have the same effect regardless of the batch size.  How
+  should one incorporate Parallel Markov Chain Monte Carlo to remove these pesky
+  parameters?
+
+Question(s)
+===========
+
+- Is the two-tower architecture mainly used to imitate an ensemble approach?
+
+Analysis
+========
+
+Data parallelism for the convolutional layers and model parallelism for the
+fully-connected layers is capable of near-linear scaling without negatively
+impacting the error rate.
+
+See :cite:`chen2015mxnet,abadi2016tensorflow,tokui2015chainer` for an
+implementation of the proposed schemes.  Note that the define-by-run
+functionality of :cite:`tokui2015chainer` have been incorporated into the other
+two frameworks.
+
+One interesting point is that even though data transfer is not optimal, the
+training time was significantly reduced due to the additional GPUs.  However,
+the author's claim that the accuracy cost can be "greatly reduced" seems
+exaggerated because that reduction amounts to less than half a percent in terms
+of the top-1 error.  The paper would be even more interesting if the author
+presented the speedup achieved when the network is capable of operating purely
+in half precision and fixed-point.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

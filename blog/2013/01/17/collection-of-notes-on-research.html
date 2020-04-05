@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Collection of Notes on Research &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Typical FFmpeg Usage" href="../16/typical-ffmpeg-usage.html" />
+    <link rel="prev" title="The Science of Scientific Writing" href="../18/the-science-of-scientific-writing.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Collection of Notes on Research</a><ul>
+<li><a class="reference internal" href="#presenting">Presenting</a><ul>
+<li><a class="reference internal" href="#purpose-of-a-talk">Purpose of a Talk</a></li>
+<li><a class="reference internal" href="#cost-analysis-of-a-talk">Cost Analysis of a Talk</a></li>
+<li><a class="reference internal" href="#strive-for-clarity-within-your-target-audience">Strive for Clarity within your Target Audience</a></li>
+<li><a class="reference internal" href="#structuring-your-talk">Structuring your Talk</a></li>
+<li><a class="reference internal" href="#etiquette">Etiquette</a></li>
+<li><a class="reference internal" href="#crafting-the-contents-of-your-talk">Crafting the Contents of your Talk</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#reading">Reading</a><ul>
+<li><a class="reference internal" href="#motivation-s">Motivation(s)</a></li>
+<li><a class="reference internal" href="#proposed-solution-s">Proposed Solution(s)</a></li>
+<li><a class="reference internal" href="#evaluation-s">Evaluation(s)</a></li>
+<li><a class="reference internal" href="#future-direction-s">Future Direction(s)</a></li>
+<li><a class="reference internal" href="#question-s">Question(s)</a></li>
+<li><a class="reference internal" href="#analysis">Analysis</a></li>
+<li><a class="reference internal" href="#notes">Notes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#writing">Writing</a><ul>
+<li><a class="reference internal" href="#do-not-wait-to-write">Do Not Wait to Write</a></li>
+<li><a class="reference internal" href="#one-key-idea-per-paper">One Key Idea per Paper</a></li>
+<li><a class="reference internal" href="#tell-a-story">Tell a Story</a></li>
+<li><a class="reference internal" href="#listen-to-your-readers">Listen to your Readers</a></li>
+<li><a class="reference internal" href="#establishing-flow-and-coherence">Establishing Flow and Coherence</a></li>
+<li><a class="reference internal" href="#proofs">Proofs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../18/the-science-of-scientific-writing.html" title="Previous Chapter: The Science of Scientific Writing"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; The Science o...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../16/typical-ffmpeg-usage.html" title="Next Chapter: Typical FFmpeg Usage"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Typical FFmpeg Usage &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="collection-of-notes-on-research">
+<h1>Collection of Notes on Research<a class="headerlink" href="#collection-of-notes-on-research" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="presenting">
+<h2>Presenting<a class="headerlink" href="#presenting" title="Permalink to this headline">¶</a></h2>
+<p>These guidelines were extracted from <a class="bibtex reference internal" href="#spjtalk" id="id1">[Jona]</a> and <a class="bibtex reference internal" href="#kftips" id="id2">[Fat]</a>.  It is
+applicable to any kind of presentation (e.g. status report).</p>
+<div class="section" id="purpose-of-a-talk">
+<h3>Purpose of a Talk<a class="headerlink" href="#purpose-of-a-talk" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Research is communication: the greatest ideas are worthless if you keep them
+to yourself.</p></li>
+<li><p>To give your audience an intuitive feel for your idea.</p>
+<ul>
+<li><p>Tell them the most important things they should know, but probably do not.</p></li>
+<li><p>Do not tell them what you did; that’s what the paper is for.</p></li>
+</ul>
+</li>
+<li><p>To engage, excite, and provoke them to read your paper.</p></li>
+<li><p>Get feedback from others to advance your own research.</p></li>
+<li><p>To make them glad they came.</p></li>
+<li><p>Do not confuse the purpose intended for your talk versus your paper.</p>
+<ul>
+<li><p>Your paper is the beef.</p></li>
+<li><p>Your talk is the beef advertisement.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="cost-analysis-of-a-talk">
+<h3>Cost Analysis of a Talk<a class="headerlink" href="#cost-analysis-of-a-talk" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>A bad (unclear) talk will</p>
+<ul>
+<li><p>waste the audience’s valuable time,</p></li>
+<li><p>forfeit an opportunity for feedback or quality discussion,</p></li>
+<li><p>forgo an opportunity for collaboration,</p></li>
+<li><p>and diminish the impact of your work.</p></li>
+</ul>
+</li>
+<li><p>A good (clear) talk will</p>
+<ul>
+<li><p>nonlinearly increase the impact of your work,</p></li>
+<li><p>and increase the likelihood of others reading your paper.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="strive-for-clarity-within-your-target-audience">
+<h3>Strive for Clarity within your Target Audience<a class="headerlink" href="#strive-for-clarity-within-your-target-audience" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>You should aim for your target audience to understand everything you say in a
+talk.</p>
+<ul>
+<li><p>Even if you are targeting experts (e.g. your advisors or peers), note that
+experts have not been thinking about your problem every day.</p></li>
+</ul>
+</li>
+<li><p>It is reasonable to target two audiences:</p>
+<ul>
+<li><p>The experts that should understand everything.</p></li>
+<li><p>A broader audience that might understand all but the most technical details.</p></li>
+</ul>
+</li>
+<li><p>The audience has a finite supply of mental effort.</p>
+<ul>
+<li><p>They probably just had lunch and are ready for a doze.</p></li>
+<li><p>They have never heard of you, much less read your paper.</p></li>
+<li><p>They want to be led by the hand through the major steps of your story.</p></li>
+<li><p>They do not want to interpret any of your figures or graphs; they want to be
+told how to interpret them (e.g. what to look for).</p></li>
+</ul>
+</li>
+<li><p>The audience does want to spend their energy thinking about</p>
+<ul>
+<li><p>potential problems and limitations with what you did (e.g. edge cases),</p></li>
+<li><p>implications of your approach,</p></li>
+<li><p>and connections to their own work.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="structuring-your-talk">
+<h3>Structuring your Talk<a class="headerlink" href="#structuring-your-talk" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Every sentence matters.</p>
+<ul>
+<li><p>Assess the value of why you are saying something; if you can’t justify how
+it will help the listener, take it out.</p></li>
+</ul>
+</li>
+<li><p>20% Motivational Introduction</p>
+<ul>
+<li><p>You have 2 minutes to engage your audience before they start to doze off.</p>
+<ul>
+<li><p>The audience are thinking:</p>
+<ul>
+<li><p>Why should I tune into this talk?</p></li>
+<li><p>What is the problem?</p></li>
+<li><p>Why is it an interesting problem?</p></li>
+<li><p>Does this talk describe a worthwhile advance?</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>80% Your Key Idea</p>
+<ul>
+<li><p>Identify a key idea.</p></li>
+<li><p>Be specific: don’t leave your audience to figure it out for themselves.</p></li>
+<li><p>Be absolutely specific: Say “If you remember nothing else, remember this.”</p></li>
+<li><p>Choose narrow and deep insights over wide and shallow overviews at all
+costs.</p></li>
+<li><p>It’s ok to cover only part of your paper.</p></li>
+<li><p>Examples are your main weapon.</p>
+<ul>
+<li><p>When time is short, omit the general case, not the example.</p></li>
+<li><p>Use them to motivate the work, convey the basic intuition, illustrate
+The Idea in action, show extreme cases, and highlight shortcomings.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="etiquette">
+<h3>Etiquette<a class="headerlink" href="#etiquette" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Your enthusiasm makes people more receptive.</p>
+<ul>
+<li><p>A lack of enthusiasm makes them question why should they be excited for
+your talk.</p></li>
+</ul>
+</li>
+<li><p>Polish your slides the night before to keep it fresh in your mind.</p></li>
+<li><p>Do not apologise.</p>
+<ul>
+<li><p>I didn’t have time to prepare this talk properly.</p></li>
+<li><p>My computer broke down, so I don’t have the results I expected.</p></li>
+<li><p>I don’t have time to tell you about this.</p></li>
+<li><p>I don’t feel qualified to address this audience.</p></li>
+</ul>
+</li>
+<li><p>Script your first few sentences precisely to improve smooth transitions.</p>
+<ul>
+<li><p>This could be for each slide, or just the beginning of the talk.</p></li>
+</ul>
+</li>
+<li><p>Face the audience, not the screen.</p></li>
+<li><p>Know your material.</p></li>
+<li><p>Only show a live demo after you have shown and elaborated on the key points.</p>
+<ul>
+<li><p>Show illustrations of your key points pertaining to your demonstration
+first, and if you have time, only then do a live demo.</p></li>
+<li><p>This approach enables the audience to understand even if the demo goes awry.</p></li>
+</ul>
+</li>
+<li><p>Put your laptop in front of you, screen towards you.</p></li>
+<li><p>Don’t point much, but when you do, point at the screen, not at your laptop.</p></li>
+<li><p>Speak to someone at the back of the room, even if you have a microphone.</p></li>
+<li><p>Make eye contact.</p>
+<ul>
+<li><p>It may help to identify some nodders, and speak to them.</p></li>
+</ul>
+</li>
+<li><p>Watch audience for questions.</p></li>
+<li><p>Encourage questions during your talk by pausing briefly now and
+ask for questions.</p></li>
+<li><p>Never reveal your points one by one, unless…there is a punch line.</p></li>
+<li><p>Use animation effects very sparingly.</p></li>
+<li><p>Absolutely without fail, finish on time.</p>
+<ul>
+<li><p>Be prepared to truncate your talk and conclude if you run out of time.</p></li>
+<li><p>It is better to connect, and not to present all your material.</p></li>
+<li><p>Continuing is very counter productive since the audience gets restive and
+essentially stop listening when your time is up.</p></li>
+<li><p>Never say “would you like me to go on?”</p></li>
+</ul>
+</li>
+<li><p>The audience is always right.</p>
+<ul>
+<li><p>When receiving feedback on a practice talk, do not be defensive!</p></li>
+<li><p>Your tendency will be to be defensive when someone claims an idea in your
+talk was not explained well or was not clear.</p>
+<ul>
+<li><p>You will find yourself turning to the relevant slide in your talk and
+saying “I mentioned that here”.</p></li>
+<li><p>Sure, you might have mentioned it, but if it wasn’t understood, it’s your
+fault not theirs.</p></li>
+<li><p>Find a way to make it more clear!</p></li>
+<li><p>The correct response is to turn to the appropriate slide and say:
+“I tried to explain that idea here, and this is what I was thinking.  What could I have said to make that point more clear?”</p></li>
+<li><p>The complainer should then work with you to explain what they interpreted
+instead, and offer suggestions on what information they would require to
+have better understood.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="crafting-the-contents-of-your-talk">
+<h3>Crafting the Contents of your Talk<a class="headerlink" href="#crafting-the-contents-of-your-talk" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Do not provide an outline slide.</p>
+<ul>
+<li><p>It conveys near zero information at the start of your talk and bores your
+audience.</p></li>
+<li><p>You can maybe put up an outline for orientation after your motivation and
+signposts at pause points during the talk.</p>
+<ul>
+<li><p>These provide guidance for what you hope to achieve next.</p></li>
+<li><p>If a listener got lost, it’s a good place for them to re-engage.</p></li>
+<li><p>It’s a place for the audience to take a breath.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Do not present technical (math) details.</p>
+<ul>
+<li><p>Present specific aspects only.</p></li>
+<li><p>Refer to the paper for the details.</p></li>
+<li><p>By all means have backup slides to use in response to questions.</p></li>
+</ul>
+</li>
+<li><p>The goal of the intro and background is to tell the listener:
+“Here is the right way to think about the problem I am trying to solve.”</p>
+<ul>
+<li><p>An excellent strategy to catch the audience’s attention and frame the story
+is to make them aware that there is something they didn’t know they didn’t
+know i.e. “You might think you know this, but here’s a new angle on it.”</p></li>
+</ul>
+</li>
+<li><p>Related work should be discussed <em>in your framing</em> of the space.</p>
+<ul>
+<li><p>Establishing this framing is the primary value of the intro.</p></li>
+<li><p>Your solution will seem obvious given the framing is done well.</p></li>
+<li><p>You absolutely must know the related work and respond rapidly to questions.</p></li>
+<li><p>You can acknowledge co-authors on the title slide.</p></li>
+<li><p>Praise the opposition, and avoid any negative comments.</p></li>
+</ul>
+</li>
+<li><p>Establish goals and assumptions early (e.g. inputs, outputs, constraints).</p>
+<ul>
+<li><p>Your contribution is typically a system or algorithm that meets the stated
+goals under the stated constraints.</p></li>
+</ul>
+</li>
+<li><p>You want the audience to always be able to anticipate what you are about to
+say.</p>
+<ul>
+<li><p>This ensures your story is clear, obvious, and possibly easy to present
+without notes.</p></li>
+<li><p>If you keep forgetting what’s coming on the next slide, you probably need
+to restructure your talk to achieve a clear narrative.</p></li>
+</ul>
+</li>
+<li><p>Give the why before the what: say where you are going and why you must go
+there before you say what you did.</p>
+<ul>
+<li><p>The why provides the listener context, which is especially useful if they
+are getting lost.</p>
+<ul>
+<li><p>Assessing how hard they should pay attention.</p>
+<ul>
+<li><p>“Is this a critical idea, or just an implementation detail?”</p></li>
+</ul>
+</li>
+<li><p>Understanding how parts of the talk relate.</p>
+<ul>
+<li><p>“Why is the speaker now introducing a new optimization framework?”</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Example Transitions</p>
+<ul>
+<li><p>“We need to first establish some terminology.”</p></li>
+<li><p>“Even given X, the problem we still haven’t solved is…”</p></li>
+<li><p>“Now that we have defined a cost metric, we need a method to minimize it…”</p></li>
+<li><p>“Key questions to ask about our approach are…”</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Explain every figure instead of making the audience decode them.</p>
+<ul>
+<li><p>Explain every visual element used in the figure.</p></li>
+<li><p>Refer to highlight colors explicitly and explain why the visual element
+is highlighted.</p></li>
+<li><p>Lead the listener through the key points of the figure.</p></li>
+<li><p>A useful phrase is “As you can see…”</p></li>
+</ul>
+</li>
+<li><p>Explain every results graph.</p>
+<ul>
+<li><p>Should start with a general intro of what the graph will address.</p></li>
+<li><p>Then describe the labeled axes.</p></li>
+<li><p>Then describe the one point that you wish to make with this results slide.</p></li>
+</ul>
+</li>
+<li><p>One point per slide and the point is the title of the slide.</p>
+<ul>
+<li><p>You don’t want to show data on a results slide that is unrelated to the
+point of the slide.</p></li>
+</ul>
+</li>
+<li><p>Titles matter.</p>
+<ul>
+<li><p>If you read the titles of your talk all the way through, it should be a
+great summary of the talk.</p></li>
+<li><p>Your slide titles in thumbnail view should present all the points of the
+story you are trying to tell.</p></li>
+<li><p>The reason for meaningful slide titles is convenience and clarity for the
+audience.</p></li>
+</ul>
+</li>
+<li><p>End on a positive note!</p>
+<ul>
+<li><p>Many talks end on future work in a manner that stresses problems with
+the current work or enumerates obvious next steps.</p>
+<ul>
+<li><p>It’s boring and sort of a bummer for everyone involved.</p></li>
+<li><p>The introduction already covered how to think about the problem being
+solved today.</p></li>
+</ul>
+</li>
+<li><p>The conclusion is where you contribute intellectual thought to the field
+that refects on what you have done, or about the future, on a broader note.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="reading">
+<h2>Reading<a class="headerlink" href="#reading" title="Permalink to this headline">¶</a></h2>
+<p>It is often helpful to read a paper in multiple passes <a class="bibtex reference internal" href="#keshav2007read" id="id3">[Kes07]</a>.
+The goal of the first pass should be to determine whether the paper could be
+useful.  One way to do this is to</p>
+<ol class="arabic simple">
+<li><p>Read the title, abstract, and introduction.</p></li>
+<li><p>Read the section and sub-section headings.</p></li>
+<li><p>Examine the figures, diagrams, graphs, and other illustrations.</p></li>
+<li><p>Read the conclusion.</p></li>
+<li><p>Glance over the references to check for previously read materials.</p></li>
+</ol>
+<p>Unless one needs to reproduce or extend the paper, technical details such as
+proofs and derivations can be ignored.  <a class="bibtex reference internal" href="#wgg" id="id4">[Gri]</a> provides a list of questions
+one should actively attempt to answer while progressing through a paper.</p>
+<div class="section" id="motivation-s">
+<h3>Motivation(s)<a class="headerlink" href="#motivation-s" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Does it solve the people problem i.e. a pain point for the world at large?</p></li>
+<li><p>Does it solve the technical problem i.e. why doesn’t the people problem have a
+trivial solution or why are the previous solutions inadequate?</p></li>
+</ul>
+</div>
+<div class="section" id="proposed-solution-s">
+<h3>Proposed Solution(s)<a class="headerlink" href="#proposed-solution-s" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Why is it believed that this solution will work?</p></li>
+<li><p>Why is it better than previous solutions?</p></li>
+</ul>
+</div>
+<div class="section" id="evaluation-s">
+<h3>Evaluation(s)<a class="headerlink" href="#evaluation-s" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>What argument, implementation, and/or experiment makes the case for the value
+of the ideas?</p></li>
+<li><p>What problems or benefits are identified?</p></li>
+</ul>
+</div>
+<div class="section" id="future-direction-s">
+<h3>Future Direction(s)<a class="headerlink" href="#future-direction-s" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>What ideas did you come up with while reading the paper?</p></li>
+</ul>
+</div>
+<div class="section" id="question-s">
+<h3>Question(s)<a class="headerlink" href="#question-s" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>What do you find confusing or difficult to understand?</p></li>
+</ul>
+</div>
+<div class="section" id="analysis">
+<h3>Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>What are the main implications of the paper you would like to remember?</p></li>
+<li><p>Is this a good idea?</p></li>
+<li><p>How does it relate to other papers if any?</p></li>
+<li><p>What flaws (e.g. assumptions, claims, methodology, interpretations of data) do
+you perceive?</p></li>
+<li><p>What are the most interesting points?</p></li>
+<li><p>What are the most controversial points?</p></li>
+<li><p>Beyond the insights on the research question, what else could be valuable
+(e.g. ideas, software, techniques, survey)?</p></li>
+<li><p>Is this really going to work in practice?</p></li>
+<li><p>Who would want it?</p></li>
+<li><p>What is needed to make this a reality?</p></li>
+<li><p>When might this become a reality?</p></li>
+</ul>
+</div>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="writing">
+<h2>Writing<a class="headerlink" href="#writing" title="Permalink to this headline">¶</a></h2>
+<p>These guidelines were extracted from <a class="bibtex reference internal" href="#spjwrite" id="id5">[Jonb]</a>, <a class="bibtex reference internal" href="#johnson1993get" id="id6">[JBBC93]</a>,
+and <a class="bibtex reference internal" href="#ddwrite" id="id7">[Dre]</a>.</p>
+<div class="section" id="do-not-wait-to-write">
+<h3>Do Not Wait to Write<a class="headerlink" href="#do-not-wait-to-write" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default" id="id9">
+<caption><span class="caption-number">Table 6 </span><span class="caption-text">Research Process</span><a class="headerlink" href="#id9" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Typical (Wrong) Order</p></th>
+<th class="head"><p>Correct Order</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Your Idea</p></td>
+<td><p>Your Idea</p></td>
+</tr>
+<tr class="row-odd"><td><p>Do Research</p></td>
+<td><p>Write Paper</p></td>
+</tr>
+<tr class="row-even"><td><p>Write Paper</p></td>
+<td><p>Do Research</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Writing papers is a primary mechanism for doing research and is not just for
+reporting it.</p>
+<ul>
+<li><p>Forces us to be clear and focused.</p></li>
+<li><p>Crystallises what we don’t understand.</p></li>
+<li><p>Enables others to critique and collaborate.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="one-key-idea-per-paper">
+<h3>One Key Idea per Paper<a class="headerlink" href="#one-key-idea-per-paper" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Your key idea must be both useful and re-usable.</p></li>
+<li><p>If you have a lot of ideas, write lots of papers.</p></li>
+<li><p>You want to infect the mind of your reader with your idea, like a virus.</p></li>
+<li><p>It is a fallacy to think you need a fantastic idea before you can write
+a paper.</p>
+<ul>
+<li><p>Writing the paper is how you develop the idea in the first place.</p></li>
+<li><p>Write a paper, and give a talk, about any idea, no matter how weedy and
+insignificant it may seem to you.</p></li>
+</ul>
+</li>
+<li><p>Be explicit about your idea.</p>
+<ul>
+<li><p>You may not know what the one clear, sharp idea is when you start writing,
+but you must know when you finish.</p></li>
+<li><p>“The main idea of this paper is…”</p></li>
+<li><p>“In this section we present the main contributions of the paper.”</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="tell-a-story">
+<h3>Tell a Story<a class="headerlink" href="#tell-a-story" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default" id="id10">
+<caption><span class="caption-number">Table 7 </span><span class="caption-text">Your Narrative Flow</span><a class="headerlink" href="#id10" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Whiteboard</p></th>
+<th class="head"><p>Structure</p></th>
+<th class="head"><p>Impact</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td></td>
+<td><p>Title</p></td>
+<td><p>1000 readers</p></td>
+</tr>
+<tr class="row-odd"><td><p>Here is a problem</p></td>
+<td><p>Abstract</p></td>
+<td><p>4 sentences, 100 readers</p></td>
+</tr>
+<tr class="row-even"><td><p>It’s an interesting problem</p></td>
+<td><p>Introduction</p></td>
+<td><p>1 page, 100 readers</p></td>
+</tr>
+<tr class="row-odd"><td><p>It’s an unsolved problem</p></td>
+<td><p>The problem</p></td>
+<td><p>1 page, 10 readers</p></td>
+</tr>
+<tr class="row-even"><td><p>Here is my idea</p></td>
+<td><p>My Idea</p></td>
+<td><p>2 pages, 10 readers</p></td>
+</tr>
+<tr class="row-odd"><td><p>My idea works</p></td>
+<td><p>The Details</p></td>
+<td><p>5 pages, 3 readers</p></td>
+</tr>
+<tr class="row-even"><td><p>Here’s how my idea compares to other people’s approaches</p></td>
+<td><p>Related Work</p></td>
+<td><p>1-2 pages, 10 readers</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>Conclusions and Future Work</p></td>
+<td><p>0.5 pages</p></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Write your abstract after you finish the rest of the paper.</p>
+<blockquote>
+<div><p>I try to have four sentences in my abstract.  The first states the problem.
+The second states why the problem is a problem. The third is my startling
+sentence. The fourth states the implication of my startling sentence.</p>
+<p class="attribution">—Kent Beck</p>
+</div></blockquote>
+</li>
+<li><p>The introduction should describe the problem and state your contributions.</p>
+<ul class="simple">
+<li><p>Use examples to introduce the problem.</p></li>
+<li><p>The problem should be narrow and deep (i.e. molehills) instead of broad
+and shallow (i.e. mountains).</p></li>
+<li><p>Your list of contributions drives the entire paper: the paper substantiates
+the claims you have made.</p>
+<ul>
+<li><p>Use a bulleted list of contributions to make it explicit to the readers.</p></li>
+<li><p>Your contributions should be refutable.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>The introduction (including the contributions) should survey the whole paper,
+and therefore forward reference every important part.</p>
+<ul>
+<li><p>For each claim, identify the evidence (e.g. analysis, theorems,
+measurements, case studies), and forward-reference that from the claim.</p></li>
+<li><p>Never write anything along the lines of</p>
+<blockquote>
+<div><p>The rest of this paper is structured as follows.  Section 2 introduces the
+problem.  Section 3 ….Finally, Section 8 concludes.</p>
+</div></blockquote>
+</li>
+</ul>
+</li>
+<li><p>Explain your idea (as well as the problem) as if you were speaking to someone
+using a whiteboard.</p>
+<ul class="simple">
+<li><p>Conveying the intuition through concrete examples is primary, not secondary.</p></li>
+<li><p>The intuition guides the readers through the details.</p></li>
+<li><p>Focus on the takeaway and leave the technical details to the next section.</p></li>
+</ul>
+</li>
+<li><p>Be careful when presenting statistics such as
+<a class="reference internal" href="../../../2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html"><span class="doc">geometric mean</span></a> and
+<a class="reference internal" href="../../../2016/10/23/characterizing-computer-performance-with-a-single-number.html"><span class="doc">harmonic mean</span></a> as evidence.</p></li>
+<li><p>Always put related work after the details section of your paper.</p>
+<ul class="simple">
+<li><p>You should strive to minimize the gap between your reader and your idea.</p></li>
+<li><p>It is a fallacy to think you need to make other people’s work look bad in
+order to make your work look good.</p>
+<ul>
+<li><p>Crediting others does not diminish the credit you get from your paper.</p></li>
+<li><p>Warmly acknowledge people who have helped you.</p></li>
+<li><p>Be generous to the competition.</p></li>
+<li><p>Acknowledge weaknesses in your approach.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="listen-to-your-readers">
+<h3>Listen to your Readers<a class="headerlink" href="#listen-to-your-readers" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Each reader (experts and non-experts) can only read your paper for the first
+time once.</p></li>
+<li><p>Explain carefully what you want them to focus on (e.g. flow, clarity).</p></li>
+<li><p>When you think you are done, send the draft to the competition saying
+“could you help me ensure that I described your work fairly?”</p>
+<ul>
+<li><p>They will often response with helpful critique since they are interested
+in the area.</p></li>
+</ul>
+</li>
+<li><p>Treat every review like gold dust.</p>
+<ul>
+<li><p>Read every criticism as a positive suggestion for something you could
+explain more clearly.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="establishing-flow-and-coherence">
+<h3>Establishing Flow and Coherence<a class="headerlink" href="#establishing-flow-and-coherence" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Old to New</p>
+<ul>
+<li><p>Begin sentences with old info, which implicitly creates a link to earlier
+text.</p></li>
+<li><p>End sentences with new info to create a link to the text that follows.</p></li>
+</ul>
+</li>
+<li><p>One paragraph, one point.</p>
+<ul>
+<li><p>A paragraph should have one main point expressed in a single point sentence.</p>
+<ul>
+<li><p>Typically the point sentence should appear at or near the beginning of the
+paragraph.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Give information precisely when it is needed, not before.</p></li>
+<li><p>Give unique names to things and use them consistently.</p></li>
+<li><p>Carve into your mind <a class="reference internal" href="../18/the-science-of-scientific-writing.html"><span class="doc">The Science of Scientific Writing</span></a>
+and <a class="reference internal" href="../19/style-lessons-in-clarity-and-grace.html"><span class="doc">Style: Lessons in Clarity and Grace</span></a>.</p></li>
+</ul>
+</div>
+<div class="section" id="proofs">
+<h3>Proofs<a class="headerlink" href="#proofs" title="Permalink to this headline">¶</a></h3>
+<p>If you are providing a proof, make sure that it is hierarchically structured
+<a class="bibtex reference internal" href="#lamport2012write" id="id8">[Lam12]</a>.  Limit the use of jargon.  Save the most technical
+material for an appendix.</p>
+<p id="bibtex-bibliography-blog/2013/01/17/collection-of-notes-on-research-0"><dl class="citation">
+<dt class="bibtex label" id="ddwrite"><span class="brackets"><a class="fn-backref" href="#id7">Dre</a></span></dt>
+<dd><p>Derek Dreyer. How to write papers so people can read them. <span><a class="reference external" href="#"></a></span>https://www.mpi-sws.org/ dreyer/talks/talk-plmw16.pdf. Accessed: 2016-10-21.</p>
+</dd>
+<dt class="bibtex label" id="kftips"><span class="brackets"><a class="fn-backref" href="#id2">Fat</a></span></dt>
+<dd><p>Kayvon Fatahalian. Tips for giving clear talks. <span><a class="reference external" href="#"></a></span>https://www.cs.cmu.edu/ kayvonf/misc/cleartalktips.pdf. Accessed: 2016-10-21.</p>
+</dd>
+<dt class="bibtex label" id="wgg"><span class="brackets"><a class="fn-backref" href="#id4">Gri</a></span></dt>
+<dd><p>William G. Griswold. How to read an engineering research paper. <span><a class="reference external" href="#"></a></span>https://cseweb.ucsd.edu/ wgg/CSE210/howtoread.html. Accessed: 2016-10-21.</p>
+</dd>
+<dt class="bibtex label" id="johnson1993get"><span class="brackets"><a class="fn-backref" href="#id6">JBBC93</a></span></dt>
+<dd><p>Ralph Johnson, Kent Beck, Grady Booch, and William Cook. How to get a paper accepted at oopsla. <em>ACM SIGPLAN NOTICES</em>, 28(429):429, 1993.</p>
+</dd>
+<dt class="bibtex label" id="spjtalk"><span class="brackets"><a class="fn-backref" href="#id1">Jona</a></span></dt>
+<dd><p>Simon Peyton Jones. How to give a great research talk. <span><a class="reference external" href="#"></a></span>https://www.microsoft.com/en-us/research/academic-program/give-great-research-talk/. Accessed: 2016-10-21.</p>
+</dd>
+<dt class="bibtex label" id="spjwrite"><span class="brackets"><a class="fn-backref" href="#id5">Jonb</a></span></dt>
+<dd><p>Simon Peyton Jones. How to write a great research paper. <span><a class="reference external" href="#"></a></span>https://www.microsoft.com/en-us/research/academic-program/write-great-research-paper/. Accessed: 2016-10-21.</p>
+</dd>
+<dt class="bibtex label" id="keshav2007read"><span class="brackets"><a class="fn-backref" href="#id3">Kes07</a></span></dt>
+<dd><p>S Keshav. How to read a paper. <em>ACM SIGCOMM Computer Communication Review</em>, 37(3):83–84, 2007.</p>
+</dd>
+<dt class="bibtex label" id="lamport2012write"><span class="brackets"><a class="fn-backref" href="#id8">Lam12</a></span></dt>
+<dd><p>Leslie Lamport. How to write a 21 st century proof. <em>Journal of fixed point theory and applications</em>, 11(1):43–63, 2012.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/blog/2013/01/17/collection-of-notes-on-research.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+#################
+Creativity - NLPH
+#################
+
+This is a collection of notes compiled from a variety of references as I was
+learning how to draw, write, bake, and play piano, drum kit, and taiko.
+
+.. include:: /_templates/toctree-nb-creativity-nlph
+
+.. rubric:: References
+
+.. bibliography:: refs.bib

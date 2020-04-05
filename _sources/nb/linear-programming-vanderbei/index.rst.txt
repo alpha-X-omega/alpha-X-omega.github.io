@@ -1,0 +1,10 @@
+##############################
+Linear Programming - Vanderbei
+##############################
+
+.. include:: /_templates/toctree-nb-linear-programming-vanderbei
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

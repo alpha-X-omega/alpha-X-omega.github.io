@@ -1,0 +1,76 @@
+####################################
+Hedge Funds: The Living and the Dead
+####################################
+
+Motivation(s)
+=============
+
+Several studies on hedge funds have tried to document survivorship bias, but
+often draw conflicting conclusions due to the usage of different hedge fund
+data.  The bias comes from the fact that data vendors collect only survived
+funds, which can make the resulting analysis overstate a fund's performance.
+Since hedge funds report information on a voluntary basis, minimizing bias may
+require examining the dataset.
+
+Proposed Solution(s)
+====================
+
+The author propose examining survivorship biases in hedge funds by comparing
+different databases (e.g. TASS, HFR) under the lens of different investment
+styles.  While the evaluation of survivorship bias is nothing new, this analysis
+is trying to address the reliability of commercial hedge fund data.
+
+Evaluation(s)
+=============
+
+The author examined the hedge fund data from TASS and HFR.  The average
+survivorship bias is over 2% per year, which is consistent with existing
+studies.  Contradicting reports of smaller bias is due to the relatively low
+number of dissolved funds in the HFR/MAR database.  Note that the survivorship
+biases are different across styles.  They are significant for 10 out of 15
+styles in TASS but none is significant for HFR.  As exhibited in a fund's
+declining returns toward the date of liquidation, the reason for its
+disappearance is mainly poor performance.
+
+Across the two databases, at least 5% of return numbers and 5% of NAV numbers
+differ dramatically.  TASS has more return observations and NAV observations due
+to including more funds and a longer return history than HFR.  The return
+numbers in TASS are consistent with the NAV numbers.  TASS has more funds with
+incentive fee and management fee information than HFR.  Mismatching between the
+reported returns and the percentage changes in NAVs can partially explain the
+difference.
+
+The author promote the TASS data for doing hedge fund research because of its
+relative completeness and accuracy.
+
+Future Direction(s)
+===================
+
+- How would one construct models that are resilient to inaccurate data?
+- How can unsupervised learning determine the data's accuracy?
+
+Question(s)
+===========
+
+- How much would the switch from a probit regression to a logit regression
+  change the underlying analysis?
+
+Analysis
+========
+
+When computing any statistic over data, one should verify whether the data
+should exhibit such characteristics before proceeding to a conclusion.  The
+reason for conflicting survivorship biases was due to a lack of understanding of
+the data.  Although a reasonable cause was identified, the author should have
+quantified how much these biases influence other statistics.  At such a small
+percentage, is it even worthwhile to filter out the data?  One interesting
+point, which reinforces the practice of verifying the data, was that one
+previous study claimed the small bias was due to onshore and offshore funds in
+HFR despite the data showing otherwise.  The baseless use of probit regression
+stands out the most in the analysis; perhaps it was selected out of conventional
+practice in economics.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

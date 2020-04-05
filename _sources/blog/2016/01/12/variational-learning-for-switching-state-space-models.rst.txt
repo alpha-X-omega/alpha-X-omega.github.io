@@ -1,0 +1,80 @@
+#####################################################
+Variational Learning for Switching State-Space Models
+#####################################################
+
+Motivation(s)
+=============
+
+Time series probabilistic models commonly fall under HMM or SSM (state-space
+model a.k.a. stochastic linear dynamic systems).  The former has discrete states
+while the latter's state is continuous.  Most real-world processes cannot be
+characterized purely using HMM or SSM.  Existing hybrid models assume a single
+real-valued observed state vector (see Figure 2).
+
+Proposed Solution(s)
+====================
+
+This paper generalized the hybrid models to multiple real-valued hidden state
+vectors.  The derived inference algorithm consists of applying structured
+variational approximation to switching state-space models.  The derived learning
+algorithm consists of forward-backward recursions on a HMM and Kalman smoothing
+recursions on each state-space model.  The HMM's states determine the soft
+assignment of each observation to a state-space model.  The SSM's prediction
+errors determine the observation probabilities for the HMM.  See Figure 3 for
+a graphical model representation.
+
+Evaluation(s)
+=============
+
+The proposed hybrid model performed much better than simple dynamical models on
+sleep apnea data.  However, the method is easily influenced by model selection
+and initialization.
+
+Future Direction(s)
+===================
+
+- How to apply belief propagation to state switching?
+
+Question(s)
+===========
+
+- What is the purpose of the hamiltonian and Boltzmann distribution?
+
+Analysis
+========
+
+A very intuitive way to apply HMM and SSM on real-world problems.  Thinking in
+terms of graphical models and then deriving the factorizations can shed light
+into why exact EM would not work.
+
+Although the idea is very elegant and quite intuitive, the experiment is not
+very convincing w.r.t real world applications.  The sleep apnea is simple enough
+to use alternative proposals instead of implementing this complicated hybrid.
+
+Notes
+=====
+
+- Variational Approximation
+
+  - The general strategy of using a parameterized approximating distribution.
+  - The free parameters of the distribution are called variational parameters.
+
+- Generative Model
+
+  - See Equation (7) and (8)
+
+- Learning
+
+  - The exact E-step for switching state-space models is intractable.
+
+    - The posterior probability of the real-valued states is a Gaussian mixture
+      with :math:`M^T` terms.
+    - Hidden state variables are marginally independent, but become
+      conditionally dependent given the observation sequence.
+
+  - The solution is to use a variational approximation; see Figure 4 and (14)
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

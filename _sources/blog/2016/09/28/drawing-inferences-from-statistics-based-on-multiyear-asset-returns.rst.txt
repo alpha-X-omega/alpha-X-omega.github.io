@@ -1,0 +1,99 @@
+###################################################################
+Drawing Inferences from Statistics based on Multiyear Asset Returns
+###################################################################
+
+Motivation(s)
+=============
+
+Random walk finance model of stock prices using multiyear returns has recently
+gained traction due to promising attempts of uncovering low-frequency
+correlations in the data (e.g. slowly mean-reverting component of stock prices).
+Statistical findings such as long-run negative correlation in stock returns have
+generally been assessed using asymptotic theory (e.g. checking whether the
+estimates lie within two standard errors of the null).  This theory seems to
+provide a poor approximation to the sampling distribution according to the
+latest Monte Carlo experiments, which brings up the question whether the
+long-term trends and patterns are valid.
+
+Proposed Solution(s)
+====================
+
+The major practical value of asymptotic theory is to provide a robust
+approximation to the small-sample distribution of the statistics; determining
+which theory is most appropriate reduces to an empirical question.  Monte Carlo
+simulations of the multiyear statistics demonstrate that the proposed theory
+provides a much better approximation to the finite-sample distributions.
+
+The proposed alternative asymptotic distribution theory treats the overlap in
+the data (denoted as :math:`J`) as tending to a fixed nonzero fraction
+(:math:`\delta`) of the sample size :math:`T`, whereas the conventional theory
+treats :math:`J` as fixed so that :math:`\frac{J}{T} \rightarrow 0`.  The fixed
+:math:`J` theory implies statistics such as variance ratios and autocorrelations
+of multiyear returns are consistent and have asymptotic normal distributions;
+this may be a poor approximation since the number of non-overlapping
+observations can still be small despite a large sample size.  In contrast, the
+:math:`\frac{J}{T} \rightarrow \delta` theory imply the statistics are not
+consistent and have limiting distributions that are typically functionals of
+Brownian motion.
+
+Evaluation(s)
+=============
+
+The numerical evaluation of nonstandard asymptotic distributions by a sequence
+of Monte Carlo simulations is increasingly common.  The empirical results show
+that the Monte Carlo percentiles converge rapidly for the proposed theory, which
+verifies that the reduced number of rejections in statistical tests is accurate.
+In contrast, the fixed :math:`J` theory failed to capture the skewness of the
+Monte Carlo distributions.  This authors assert that their usage of asymptotic
+:math:`p`-values for statistics with nonnormal limits are more appropriate than
+the typical two-standard errors.  However, they admitted the conclusions drawn
+from using these values are weaker than conventional standard errors.  The
+statistics considered in this paper cannot provide decisive evidence for
+economic theories in which mean reversion at long horizons plays a central role.
+
+Future Direction(s)
+===================
+
+- Is this indicator still reliable (e.g. prediction of 2008 crash)?
+
+Question(s)
+===========
+
+- What background knowledge is needed to understand the derivations?
+
+Analysis
+========
+
+Finance models need to take into account overlapping data and finite-sample
+distributions.  While the idea of using Monte Carlo percentiles to verify the
+simulations' accuracy is very intriguing idea, the usage of :math:`p`-values is
+not so convincing.  It seems the authors favored
+:doc:`statistical over economic significance </blog/2016/09/18/the-standard-error-of-regressions>`.
+
+Notes
+=====
+
+Variance-Ratio Statistics
+-------------------------
+
+- If returns are serially uncorrelated, the variance of the
+  :math:`J`-period return will increasely linearly with :math:`J`.
+- If there is mean reversion, where the returns are negatively correlated, the
+  variance of the :math:`J`-period return will increase less than linearly.
+
+Multiyear Autocorrelation Statistics
+------------------------------------
+
+- The :math:`F`-test provides a simple way to check whether the restrictions
+  on multiperiod correlations apply simultaneously.
+- If there is mean reversion in stock prices over a long horizon, the
+  following statistics are heuristics to detect that: sum of multiyear
+  correlations, maximum correlation, minimum correlation, or maximum absolute
+  correlation.
+- The use of overlapping data will induce a moving average process in the
+  error term of a regression model.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

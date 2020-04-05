@@ -1,0 +1,50 @@
+########################################################################
+Robust Generative Subspace Modeling: The Subspace :math:`t` Distribution
+########################################################################
+
+Motivation(s)
+=============
+
+PPCA and SFA are defined as Gaussian models hence they are susceptible to
+outliers.  Several approaches tried to make them more robust to outliers through
+M-estimation methods.  Even though M-estimation has a probabilistic
+interpretation and is effective in practice, it does not yield normalized
+probabilities or define a generative model for the data.
+
+Proposed Solution(s)
+====================
+
+The authors propose using a multivariate t-distribution as the prior.  The
+derivation leads to a variation of the EM algorithm.
+
+Evaluation(s)
+=============
+
+The algorithm was compared against PPCA using synthetic 2D data points and noisy
+images of ants.  The experiments demonstrate that PPCA incorrectly handles the
+noise.  PPCA and SFA are limiting cases of the subspace t-distribution obtained
+when the degrees of freedom approach infinity.  It is important to note that the
+M-step requires a 1D nonlinear maximization to determine the degrees of freedom.
+
+Future Direction(s)
+===================
+
+- Would integrating this into neural networks do anything useful?
+
+Question(s)
+===========
+
+- I'm still not sure why the Bayes Net (Figure 2) was mentioned.
+
+Analysis
+========
+
+Consider using the t-distribution as a first step when noisy measurements are
+present.  I like how natural the derivation appears as the marginalization over
+the observed data.  It is surprising that PPCA couldn't handle the noise
+specially when it advertised about it.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

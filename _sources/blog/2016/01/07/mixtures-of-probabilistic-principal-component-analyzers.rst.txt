@@ -1,0 +1,66 @@
+#######################################################
+Mixtures of Probabilistic Principal Component Analysers
+#######################################################
+
+Motivation(s)
+=============
+
+PCA defines a linear projection of the data.  This has motivated to explore
+global nonlinear approaches as well as mixture of local linear sub-models.  None
+of the proposed algorithms thus far defines a probability density, which would
+enable model comparison, statistical testing, modeling complex densities, and
+handling missing data.
+
+Proposed Solution(s)
+====================
+
+The authors propose PPCA and extend that to a mixture model, which can be
+learned using the EM algorithm.
+
+Evaluation(s)
+=============
+
+Modelling noisy synthetic data on a hemisphere showed that VQPCA's focus on the
+reconstruction error led to sub-optimal solutions while PPCA's soft clustering
+was more resilient to over-fitting.  With respect to image compression, mixture
+PPCA yielded higher quality than VQPCA for the same bit-rate.  Even though
+mixture PPCA had a higher training error than GMM in modelling noisy spiral
+synthetic data, the relationship was reversed for the test error.
+
+Future Direction(s)
+===================
+
+- How does this approach compare to other statistical methods on contemporary
+  datasets.
+
+Question(s)
+===========
+
+- Section 3.3, (38) in A.1, and A.3 were unclear.
+
+Analysis
+========
+
+When trying to define a probability density for a non-probabilistic method,
+start from similar models and enhance it with the Bayesian framework.
+
+It is interesting to note that factor analyzers can be reduced to PPCA, which in
+turn can be simplified to PCA when the noise model is isotropic.  The ability to
+compute the posterior probabilities of class memberships enabled a confidence
+score for each prediction.
+
+This should be read after understanding
+:doc:`Section 17.5.1 Probabilistic principal component analysis </nb/computer-vision-models-learning-and-inference-prince/chapter-17>`.
+
+Notes
+=====
+
+A Latent variable model relates a :math:`d`-dimensional observed data vector to
+a corresponding :math:`q`-dimensional vector that is not directly observed but
+inferred i.e. missing data.  The joint distribution of the observed and latent
+variables known, so the expected value of the latent variables can be estimated.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

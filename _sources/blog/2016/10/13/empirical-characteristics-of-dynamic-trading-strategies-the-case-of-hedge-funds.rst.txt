@@ -1,0 +1,137 @@
+################################################################################
+Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds
+################################################################################
+
+Motivation(s)
+=============
+
+Most mutual fund managers have investment mandates similar to traditional asset
+managers with relative return targets.  They are typically constrained to hold
+assets in a well-defined number of asset classes and are frequently limited to
+little or no leverage (quantity).  Their mandates are to meet or exceed the
+returns on their asset classes.  These restrictions enabled Sharpe to model the
+stylistic and performance differences between managers.
+
+Another class of managers are hedge fund managers and commodity trading advisors
+(CTAs).  Their mandates are to make an absolute return target regardless of
+market environment.  In order to meet the mandates, they are allowed to choose
+among many asset classes and utilize dynamic trading strategies (e.g. short
+sales, leverage, derivatives).  Unfortunately, this newfound flexibility is not
+accounted for in Sharpe's asset class factor model.
+
+The only style analysis publicly disclosed by the hedge fund industry is a
+categorization of trading strategies:
+
+  Systems/Trend Following
+    Describes managers who uses technical trading rules.
+
+  Systems/Opportunistic
+    Technically driven traders who also take occasional bets relying on rule-based
+    models.
+
+  Global/Macro
+    Managers who primarily trade in the most liquid markets in the world (e.g.
+    currencies, government bonds) typically betting on macroeconomic events (e.g.
+    changes in interest rate policies, currency devaluations) and relying mostly
+    on their assessments of economic fundamentals.
+
+  Value
+    Traders who buy securities of companies they perceive to be undervalued based
+    on their microanalysis of the fundamentals.
+
+  Distressed
+    Managers who invest in companies near, in, or recently emerged from
+    bankruptcy/corporate restructuring.
+
+Proposed Solution(s)
+====================
+
+The authors propose adding new factors to Sharpe's model to capture the
+absolute return investment style.
+
+Running Sharpe's style regression on the returns of hedge funds revealed low and
+sometimes negative correlation with asset class returns, which is reflective of
+how leverage (quantity) can influence what the regression coefficient converges
+to.
+
+The additional style factors provide an analytical framework for managing
+portfolios with a better diversity of styles.  Unlike the hedge fund industry's
+qualitative descriptors, factor analysis can quantify the actual returns of
+these investment styles.  The empirical results show that style diversification
+can improve the performance of a traditional stock-bond portfolio without
+substantially increasing its risk.
+
+Evaluation(s)
+=============
+
+The authors analyzed a newly compiled dataset consisting of 3,327 US mutual
+funds and 409 hedge funds/CTA pools.  Each fund had at least 3 years of
+monthly returns and the non-mutual funds were required to have at least $5
+million in assets under management.  
+
+Applying the proposed model on the mutual funds reaffirmed the high level of
+correlation between mutual fund returns and asset classes, which indicates that
+mutual fund styles are basically buy-and-hold strategies utilizing various asset
+classes.
+
+The analysis of the hedge funds requires returns standardization (i.e. scale to
+zero mean and unit variance) to remove differences in variances caused by
+leverage differences (e.g. two funds employing the exact same trading strategy
+but different leverage will have different return variances).
+
+Treating the hedge funds as a single group, the authors extracted five mutally
+orthogonal principal components, which approximately explained 43% of
+the cross-sectional return variance.  For each of the style factors, the author
+formed a portfolio using hedge funds/CTA pools that are correlated only to that
+principal component.  The portfolio weights were chosen to maximize the
+correlation between the portfolio returns and the corresponding principal
+component.
+
+Since dynamic trading strategies deal with extreme or tail events, the authors
+focused on economical significance instead of statistical significance.  They
+divided the monthly returns of each asset class into five environments ranging
+from severe declines to sharp rallies.  The empirical evidence shows that only
+the Value style is akin to buy-and-hold.  The Distressed style is simply
+sensitive to high yield corporate bonds and is not a buy-and-hold.  The other
+styles are not sensitive to the asset markets in the normal states, but can be
+sensitive to selective markets during extreme states.
+
+The authors warned that the proposed styles do not cover arbitrage strategies
+(e.g. short sellers, spread traders) and should not be blindly used for to
+determine performance attribution.
+
+Future Direction(s)
+===================
+
+- Since hedge fund managers are not required to disclose their performance and
+  assets under management publicly, can data mining uncover this information?
+- Are market neutral strategies more aligned with volatility trading or index
+  funds?
+- How to predict diversification implosion with existing data mining techniques?
+- How much does survivorship bias influence the returns of the proposed styles?
+
+Question(s)
+===========
+
+- Not completely sure how the style factors were computed.
+
+Analysis
+========
+
+Incorporating style factors is one way to quantify the actual returns of hedge
+funds.  The methodology is still debatable: at the end of the day, does it not
+boil down to risk, money, and returns?  It is not obvious why one needs to
+establish different categories.  While the empirical results were reasonable,
+the paper would have been more convincing if there was some comparison against
+:doc:`momentum strategies </blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations>`.
+It is quite interesting that performance attribution requires such deep
+thoughts.  One would think if an algorithm can achieve similar gains, then the
+net difference is the manager's skills?  Fortunately, hedge fund managers need
+to recover all losses before getting their commission.  Even though the authors
+did not freely make available their dataset, one of the author's homepage has
+other datasets that could be useful for backtesting.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

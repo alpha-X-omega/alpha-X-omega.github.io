@@ -1,0 +1,316 @@
+##########
+Mask R-CNN
+##########
+
+Motivation(s)
+=============
+
+:doc:`R-CNN </blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation>`
+is the leading framework for object detection where the goal is to classify
+individual objects and localize each using a bounding box.  A related task is
+semantic segmentation where the solution consists of classifying each pixel into
+a fixed set of categories without differentiating object instances.  Existing
+solutions start from per-pixel classification results and attempt to cut the
+pixels of the same category into different instances.  Specifically, these
+solutions use a per-pixel softmax and a multinomial cross-entropy loss.  Alas,
+these segmentation-first exhibits systematic errors on overlapping instances and
+creates spurious edges.
+
+Proposed Solution(s)
+====================
+
+The authors extend Faster R-CNN by adding a branch for predicting segmentation
+masks on each Region of Interest (RoI), in parallel with the existing branch for
+classification and bounding box regression.  The mask branch is a small FCN
+applied to each RoI, predicting a segmentation mask in a pixel-to-pixel manner.
+This instance-first strategy decouples mask and class prediction: predict a
+binary mask for each class independently, without competition among classes, and
+rely on the network's RoI classification branch to predict the category.
+
+The mask branch has a :math:`Km^2`-dimensional output for each RoI, which
+encodes :math:`K` binary masks of solution :math:`m \times m`, one for each of
+the :math:`K` classes.  Applying a per-pixel sigmoid yields the average binary
+cross-entropy loss :math:`L_{\text{mask}}`.  For an RoI associated with
+ground-truth class :math:`k`, the loss :math:`L_{\text{mask}}` is only defined
+on the :math:`k`th mask; other mask outputs do not contribute to the loss.
+Unlike the previous methods that resort to fully-connected layers for mask
+prediction, the proposed fully convolutional mask representation more accurately
+extracts the spatial structure of an input object.
+
+Recall that RoIPool first quantizes the RoI to the discrete granularity of the
+feature map, and subsequently subdivide it into spatial bins.  These
+quantizations introduce misalignments between the RoI and the extracted
+features, and have negligible effects on image classification, which is robust
+to small translations.  However, it has a large negative effect on predicting
+pixel-accurate masks.  Instead of performing any spatial quantization, the
+authors propose RoIAlign, a uniform sampling strategy.  RoIAlign uses bilinear
+interpolation to compute the exact values of the input features at four
+regularly sampled locations in each RoI bin, and aggregate the result (e.g.
+max, average).
+
+Evaluation(s)
+=============
+
+The authors evaluated their model on the COCO dataset as well as the Cityscapes
+dataset.  Their model took approximately two days to train on a single eight
+GPU machine where each frame took 200ms to process on a GPU.  They beat
+state-of-the-art in each case without using extra bells and whistles e.g.
+multi-scale train and test, horizontal flip test, online hard example mining.
+
+Their ablation experiments reveal that once an instance has been classified as a
+whole (by the box branch), it is sufficient to predict a binary mask without
+concern for the categories, which results in an easier model to train.  They
+also uncovered a domain-shift on the val and test set of the Cityscapes dataset.
+To reduce the within-category bias, they use COCO pre-training.
+
+Future Direction(s)
+===================
+
+- The authors emphasized RoI quantization plays a greater role than the sampling
+  strategy itself.  Perhaps the feature map is already quantized to some extent
+  such that sampling plays a minor role?
+
+- How would the proposed keypoint model perform when trained on the data used
+  to train the Kinect's random forest model?
+
+Question(s)
+===========
+
+- For human pose estimation on the COCO keypoint dataset, the authors view each
+  keypoint as a one-hot binary mask and predicted :math:`K` masks, one for each
+  of the :math:`K` keypoint types.  Their unified model can simultaneously
+  predict boxes, segments, and keypoints while running at 5 FPS.  Do the
+  keypoint labels denote specific body parts e.g. left shoulder, right elbow?
+
+Analysis
+========
+
+:cite:`he2017mask` demonstrated the effectiveness of network branch heads as a
+default strategy to handle a new task without domain knowledge.  Their
+experiments reveal that quantization is typically inferior to sampling, and
+competitive loss functions may introduce undesirable optimization side effects
+compared to using individual loss functions.  However, they did not provide
+enough evidence for their verdict of different sampling strategies being
+ineffective.  Perhaps this is due to some issues further up the pipeline akin to
+the Cityscapes dataset implicit bias?
+
+Notes
+=====
+
+Fully Convolutional Networks
+----------------------------
+
+Each layer of data in a convnet has dimensions :math:`h \times w \times d`.
+The first layer is the image of size :math:`h \times w` and :math:`d` color
+channels.  Given :math:`\mathbf{x}_{ij}` for the data vector at location
+:math:`(i, j)` in a particular layer and :math:`\mathbf{y}_{ij}` for the
+following layer,
+
+.. math::
+
+   \mathbf{y}_{ij} = f_{ks} \left(
+                       \left\{
+                         \mathbf{x}_{si + \delta i, sj + \delta j}
+                       \right\}_{0 \leq \delta i, \delta j \leq k}
+                     \right)
+
+where :math:`k` is the kernel size, :math:`s` is the stride or subsampling
+factor, and :math:`f_{ks}` determines the layer type e.g. a matrix
+multiplication for convolution or average pooling, a spatial max for max
+pooling, or an elementwise nonlinearity for an activation function.
+
+A network with only layers of the functional form
+
+.. math::
+
+   f_{ks} \circ g_{k's'} = \left( f \circ g \right)_{f' + (k - 1) s', ss'}
+
+computes a nonlinear filter a.k.a. deep filter or a fully convolutional network
+(FCN).  If a FCN is composed with a real-valued loss function defined over the
+spatial dimensions of the final layer, :cite:`long2015fully` observed that its
+gradient will be a sum over the gradients of each of its spatial components.
+Hence stochastic gradient descent on whole images will be the same as stochastic
+gradient descent taking all of the final layer receptive fields as a minibatch.
+
+Since receptive fields overlap significantly, the feedforward and
+backpropagation computation are amortized over the entire image.  Thus yielding
+approximately :math:`5x` faster training and inference.  Furthermore,
+:doc:`casting fully connected layers as convolutions with kernels </blog/2016/12/12/deep-residual-learning-for-image-recognition>`
+enables the neural network to take inputs of arbitrary dimension and outputs
+coarse classification maps.
+
+To connect coarse outputs to dense pixels, the authors observed that upsampling
+with factor :math:`f` is convolution with a fractional input stride of
+:math:`1 / f`.  As long as :math:`f` is integral, the upsampling process reduces
+to a backwards convolution (a.k.a. deconvolution) with an output stride of
+:math:`f`.  This allows the deconvolution filters to be learned by
+backpropagation from the pixelwise loss.  These intermediate upsampling layers
+are initialized to bilinear upsampling, and then learned.  Only the final layer
+deconvolutional filters are fixed to bilinear interpolation.
+
+Their experiments indicate that the faster fully convolutional training has
+similar convergence rates to slower patchwise training.  To achieve higher
+accuracy, the authors added skips that combine the final prediction layer with
+finer layers.  This nonlinear feature hierarchy (a.k.a. deep jet) enables the
+model to fuse coarse global semantic structures with local appearance
+information.
+
+More concretely, they generate upsampled predictions called FCN-:math:`2^n`
+where :math:`n` is the level of pooling.  Suppose :math:`m = 5` is the final
+pooling layer.  The base FCN-:math:`2^m` contains no deconvolutional filters.
+The other FCNs are constructed as follows:
+
+1) Add a :math:`1 \times 1` convolutional layer on top of the
+   :math:`n^\mathrm{th}` pooling layer to produce additional class predictions.
+#) Add a :math:`2^{m - n}x` bilinear upsampling layer for conv7's prediction
+   outputs.
+#) For each pooling layer :math:`i` where :math:`n < i < m`, add a
+   :math:`2^{i - n}x` bilinear upsampling layer for pooling layer :math:`i`'s
+   prediction outputs resulting from step (1).
+#) These predictions are summed, and the result is upsampled back to the input
+   image size.
+
+Some interesting points from their experiments are:
+
+- Adding more skips at pool2 and pool1 did not yield significant improvements.
+- Shift-and-stitch (a.k.a. filter rarefaction) trick is worse than the layer
+  fusion.
+- Patch sampling images did not converge any faster than whole image training.
+- Class balancing is unnecessary even when training images consists of
+  :math:`3 / 4` background.
+- Partially decorrelating pixels (e.g. jittering, randomly mirroring) did not
+  help the training nor accuracy.
+
+The authors mentioned max fusion made learning difficult due to gradient
+switching.  If the fusion used the average of the predictions, would the
+learning or accuracy change significantly?  Another point the authors should
+have explored further is why learning large filters is difficult when pool5 has
+a stride of one.
+
+Even though FCNs take inputs of arbitrary dimensions, the network still operates
+via a fixed-size receptive field :cite:`noh2015learning`.  Objects that are
+substantially larger or smaller than the receptive field may be fragmented or
+mislabeled.  Large objects are only captured by local information, and small
+objects are often ignored and classified as background.  Furthermore, the
+detailed structures of an object are often lost or smoothed due to the coarse
+label map.
+
+Deconvolutional Networks
+------------------------
+
+An extension of FCNs that mitigates the foregoing limitations is a deep
+deconvolutional network :cite:`noh2015learning`.  Given a generic convolutional
+network (e.g. VGG16) with its last classification layer removed, one would first
+convert it to a FCN.  The extracted features are sent to a generator that
+produces a probability map indicating the likelihood of each pixel belonging to
+one of the predefined classes.  The generator mirrors the structure of the
+convolutional network using ReLUs, unpooling, and deconvolutions.  These two
+networks together form a deconvolutional network.
+
+The unpooling layer performs the reverse operation of pooling to reconstruct the
+original pooled location of the activations.  This entails recording the
+locations of maximum activations selected during pooling operation in switch
+variables.  In a sense, unpooling reconstructs example-specific detailed
+structures by tracing the original locations with strong activations back to
+image space in finer resolutions.
+
+The proposed deconvolutional layer associates a single input activation with
+multiple outputs.  The enlarged activation map is cropped to match the size of
+the preceding unpooling layer's output map.  Complementary to unpooling,
+deconvolutions exhibit class-specific shapes because activations close to the
+target classes are amplified while noisy activations from other regions are
+suppressed.  However, the term deconvolution is a misnomer.  Recall that a
+convolution connects multiple input activations within a filter window to a
+single activation, which can be reformulated as a sparse matrix
+:math:`\mathbf{C}`.  Although inefficient, the desired deconvolutional layer can
+be emulated via a matrix multiplication with :math:`\mathbf{C}^\top`
+:cite:`dumoulin2016guide`.  Therefore, a deconvolutional layer is actually a
+transposed convolutional layer.
+
+While the idea of a deconvolutional network is quite elegant, training it
+entails a set of hacks.  :cite:`noh2015learning` applied the network to each
+candidate object proposals extracted from the image.  The outputs of all
+proposals are aggregated in image space e.g. pixel-wise maximum, average.  Note
+that the proposals are processed in decreasing order of their sizes.
+
+The network initially needed ground truth annotations to crop the object
+instances.  However, once the network has been sufficiently trained, object
+proposals could be used directly.  It is unclear why the authors didn't explore
+training purely the deconvolutional section of the network with the outputs of
+an :doc:`R-CNN </blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation>`.
+Furthermore, the experimental findings that fully-connected CRF postprocessing
+of the output maps is debatable.  A mere 1% improvement for such a complicated
+add-on method conflicts with the unified deep learning methodology.
+
+Feature Pyramid Network
+-----------------------
+
+Recall that an image pyramid (mipmap) is a standard solution in computer vision
+for handling objects at vastly different scales.  This concept is utilized in
+the foregoing proposals in some form.  FCNs sum partial scores for each category
+over multiple scales to compute semantic segmentations.  :doc:`SSD</blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation>`
+uses featurized mipmaps, but does not reuse the multi-scale feature maps from
+different layers computed in the forward pass.  It instead computes new layers
+and predicts objects at multiple layers of the feature hierarchy without
+combining features or scores.  In an attempt to reuse the already computed
+featurized mipmaps, several scale-invariant frameworks have been proposed
+(:cite:`pinheiro2016learning`) with the latest being feature pyramid network
+(FPN) :cite:`lin2017feature`.
+
+A FPN augments an existing network (e.g. ResNet) with bottom-up pathways,
+top-down pathways, and lateral connections.  Recall that during the feedforward
+computation, many layers produce output maps of the same size.  Treat these
+layers as part of the same network stage.
+
+For each network stage, the bottom-up pathway defines a pyramid level as the
+output of the last layer of that stage.  This design assumes the deepest layer
+of each stage contains the strongest features.  However, for networks like
+ResNet, the authors avoid constructing a pyramid level for the first stage of
+ResNet due to its large memory footprint.  To incorporate semantically stronger
+features, the authors define a top-down pathway that upsamples feature maps from
+higher pyramid levels.  These upsampled maps are further refined with features
+from the bottom-up pathway via lateral connections.  The authors construct a
+FPN as follows:
+
+1) Given a feature map at any stage, augment that map's filter (channel)
+   dimension via a :math:`1 \times 1` conv layer.  Denote this as the top
+   layer.
+#) The layer below that (the bottom layer) has some size and filter dimension.
+   The top layer is upsampled (e.g. nearest neighbor) to match the bottom
+   layer's size.
+#) The bottom layer undergoes :math:`1 \times 1` convolution to match the top
+   layer's filter dimension.
+#) The two layers are element-wise added.
+
+The option of fixing the filter dimension enables all levels of the pyramid to
+use shared classifiers/regressors as in a traditional featurized image pyramid.
+To reduce the aliasing effect of upsampling, each merged map undergoes a
+:math:`3 \times 3` convolution.
+
+The authors demonstrate the effectiveness of FPN via replacing the multiscale
+features of :doc:`RPN, Fast R-CNN </blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation>`,
+and DeepMask segmentation with the FPN.  One confusing concept the experiments
+did not clarify is the pixel mask.  A pixel mask is a set of classifiers
+connected to each element of the previous layer :cite:`pinheiro2015learning`.
+Given :math:`h \times w` pixel classifiers, each is responsible for indicating
+whether a given pixel belongs to the object in the center of the patch.  Each of
+the classifiers can be locally connected or fully connected :cite:`pinheiro2015learning`.
+The former limits each classifier to a partial view of the object while the
+latter results in a massive number of redundant parameters.  The authors'
+solution is to decompose the classification layer into two linear layers with no
+non-linearity in between.  This low-rank approximation enables each pixel
+classifier in the output plane to utilize information contained in the entire
+feature map, and thus have a complete view of the object.  The mask is still
+for a single object even when multiple objects are present.
+
+One question the paper did not cover is how the effective depth of each pyramid
+level affects the accuracy.  Instead of downsampling the finer layer, would
+upsampling along the filter dimension yield higher accuracy?  Another topic to
+explore is visualizing the feature maps given an image.  Since FPN is supposed
+to be an image pyramid, the different levels should have some distinct visual
+features.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

@@ -1,0 +1,56 @@
+############################################################
+Robust Subspace Mixture Models using :math:`t`-distributions
+############################################################
+
+Motivation(s)
+=============
+
+Mixture models have been used to approximate a manifold using a relatively small
+number of localized subspaces (e.g. PCA, factor analysis).  One outstanding
+problem is robustness to outliers.  To address this, recent research have
+explored mixture of t-distributions and PPCA.
+
+Proposed Solution(s)
+====================
+
+The authors assert that for manifold learning, finding an exact local PCA
+solution is not necessary, as long as the main axes of the densities are aligned
+with the manifold.  The Gaussian prior can be replaced by the t-distribution,
+which in turn is a convolution of a Gaussian and the gamma prior.
+
+Evaluation(s)
+=============
+
+MTS beat MPPCA in the synthetic noisy data and digit recognition experiments.
+MTS was able to learn the manifold structure despite a higher level of noise.
+The proposed EM algorithm assumes that the convolution of two t-distributions is
+a t-distribution, which is a good approximation only for large :math:`\nu` or
+for small :math:`\sigma^2`.
+
+Future Direction(s)
+===================
+
+- Instead of an approximation, derive the true EM algorithm and compare its
+  performance.
+
+Question(s)
+===========
+
+- While I like the usage of indicator variables to remove a summation, I'm not
+  sure if (9) is valid probabilistically.  Then again, if one doesn't have to
+  define such a distribution, then maybe it's alright?
+
+Analysis
+========
+
+Hidden indicator variables can be used to reformulate summations for easier
+learning.
+
+The idea is great, but the reasoning for not going through with a full
+derivation is weak.  The interesting thing is that :doc:`this overview </blog/2016/01/08/robust-mixture-modelling-using-the-t-distribution>`
+is clearer than this paper itself.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

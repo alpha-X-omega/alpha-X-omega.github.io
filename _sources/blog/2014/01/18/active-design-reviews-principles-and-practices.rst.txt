@@ -1,0 +1,214 @@
+###############################################
+Active Design Reviews: Principles and Practices
+###############################################
+
+Motivation(s)
+=============
+
+Although many new software design techniques have emerged from research, there
+have been few innovations to the procedures for reviewing the design before
+writing code.  The lack of a systematic review procedure allowed subtle design
+errors to go unnoticed. 
+
+Proposed Solution(s)
+====================
+
+The author proposes an active design review process: apply software engineering
+techniques to the review process itself.
+
+Evaluation(s)
+=============
+
+The process has been applied successfully at NRL's SCR and OFP.  More errors
+were detected compared to the previous set of reviews and much more effective
+use of each reviewer's capabilities and time.  Unfortunately, the process is
+more demanding of each party involved.
+
+Future Direction(s)
+===================
+
+- Since the module guide and other documentations are structured in a hierarchy,
+  how can the issues that come up be recommended to later reviewers?
+- How many pairs of eyes on average over a mix of expert and non-experts are
+  needed to filter out design errors?
+- Would the information in one review significantly help another review?
+
+Question(s)
+===========
+
+- Would the set of assumptions be listed in a tree hierarchy?
+
+Analysis
+========
+
+A brilliant application of software engineering techniques to the almost tangent
+topic of design reviews.  It is interesting that redundant documentation is
+being praised: wouldn't keeping them consistent be more troublesome?  In
+addition, the authors state that they have found no need to have a meeting where
+all designers and all reviewers are present.  I personally think that adding a
+fifth reviewer who is a complete newbie and try to write code and/or use the
+system would reduce the cold start problem.
+
+Notes
+=====
+
+Objectives of Design Reviews
+----------------------------
+
+- Find the errors made in specifying the latest design decisions and the errors
+  made earlier.
+- Error Classification Guidelines
+
+  - Inconsistencies in assumptions due to design decisions.
+  - Inefficiencies due to artificial barriers (e.g. forced to request
+    :math:`n` bytes when one byte sufficies).
+  - Ambiguities of design specification.
+  - Inflexibilities due to a lack of accommodation for change.
+
+- Obtaining Detailed Coverage of the Design
+
+  - Each reviewer needs to focus on relevant areas and be able to identify the
+    decisions made in arriving at the design.
+  - The reviewer must provide justification for accepting or rejecting design
+    decisions.
+  - Reviewers need to study the design document possibly attempting to write
+    programs using the proposed design.
+
+Conventional Design Reviews
+---------------------------
+
+1. Reviewers are given three to four weeks to process a massive quantity of
+   highly detailed design documentation.
+
+   - This is not enough time to extract important information (e.g. structural
+     decisions, goals of design, constraints) from the mass of implementation
+     details.
+
+#. The designated reviewers often do not have experience in the covered
+   materials simply read through as much of the material as possible.
+
+   - Lack of designated individual reviewer responsibility and expertise results
+     in shallow examination.
+
+#. The design team presents a tutorial during the review and leave it up to the
+   reviewers to actively ask questions.
+
+   - Reviewers could feel intimidated by the review process and opt to say
+     nothing to avoid potential embarrassment.
+   - Often people with the wrong interests (e.g. status update, purpose of the
+     system) are present.
+   - Unstated assumptions from both parties allow subtle design errors to go
+     unnoticed.
+
+#. After the tutorial, a round-table discussion of the design leads to a list of
+   suggestions for the designers.
+
+   - The large meeting limits the interaction between individual reviewers and
+     the design team.
+   - Lack of systematic review procedure.
+
+A More Effective Review Process
+-------------------------------
+
+Making the Design Reviewable
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- Design Properties
+
+  i) Well-structured and consistent (e.g. information hiding).
+  #) Simple.
+  #) Efficient resource utilization in space and time.
+  #) Adequate i.e. satisfy requirements.
+  #) Flexible to requirements changes.
+  #) Practical and easy to use.
+  #) Implementable with the information available.
+  #) Standardized design documentation.
+
+- Making Assumptions Explicit
+
+  - Interface between modules, supported operations, supported data types,
+    effects between programs, time (e.g. compile, load, run, in a particular
+    state) at which information is available, variability of data, and undesired
+    events.
+
+- Including Redundant Information in the Design Representation
+
+  - List of assumptions about the module that will never change.
+
+    - Description of access programs and their externally-visible effects makes
+      this list redundant.
+
+  - List of assumptions that describe incorrect usage.
+
+    - Description of undesired events makes this list redundant.
+
+- Organizing Design Documentation for Review
+
+  - Information common to submodules should be grouped into a single design
+    document, cross-referenced, and reviewed separately.
+  - Each module is reviewed separately.
+
+Identifying Review Types
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+- Assumption validity: Check that all assumptions made are valid for any device
+  that can be expected to replace the current device.
+
+- Assumption sufficiency: Check that the assumption lists contain all the
+  assumptions needed by the user programs for optimal use of the device.
+
+- Consistency between assumptions and functions.
+
+  - Check for consistency between assumptions and event/function descriptions.
+  - Check if the assumptions contain enough information to enable the function
+    implementation, event detection, and intended module use.
+
+- Access function adequacy: check that user programs can use the device
+  optimally and meet all requirements using only the abstract interface.
+
+Classifying Reviewer
+^^^^^^^^^^^^^^^^^^^^
+
+1. Specialists capable of assessing the performance and feasibility aspects of
+   the design.
+#. Potential users of the system.
+#. People who are familiar with the design methodology used, but not necessarily
+   familiar with the application.
+#. People who are skilled at and enjoy finding logical inconsistencies.
+
+   - It is important that each reviewer focus only on one kind of review.
+
+Designing the Questionnaires
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- Phrase the questions in an active way i.e. make it impossible to give one word
+  or sentence answer.
+- The questions should force the reviewer to read the documentation related to
+  their responsibility.
+
+Conducting the Review
+^^^^^^^^^^^^^^^^^^^^^
+
+- Each reviewer must be allotted discussion time with the designers, both during
+  the questionnaire(s) and after completing it.
+- The discussions are either one-on-one or a small group with a single reviewer.
+- Three Stages
+
+  i) Brief overview (e.g. modular structure, secrets) of the module being
+     reviewed.
+  #) The reviewers are assigned responsibilities, time, questionnaires, and at
+     least two meetings with the designers (during and after completion of
+     questionnaires).
+  #) Designers read the completed questionnaires and meet with the reviewers to
+     resolve questions.
+
+     - The reviewer may need to justify answers.
+     - A concensus does not need to be reached, but both parties must
+       understand the issues.
+     - A new version of the documentation is drafted, which includes the
+       discussion of the design issues.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

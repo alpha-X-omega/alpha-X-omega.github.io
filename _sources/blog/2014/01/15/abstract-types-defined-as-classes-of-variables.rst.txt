@@ -1,0 +1,96 @@
+##############################################
+Abstract Types Defined as Classes of Variables
+##############################################
+
+Motivation(s)
+=============
+
+The concept of types has been used without a precise definition.  The previous
+approaches (i.e. syntatic, value space, behavior, representation, representation
+plus behavior) fail to achieve both strong compile time checking and simple
+semantic rules.
+
+Proposed Solution(s)
+====================
+
+The author propose a set of definitions for types under different scenarios.
+
+Evaluation(s)
+=============
+
+Only descriptions of the proposed techniques were presented.
+
+Future Direction(s)
+===================
+
+- Have the need for multiple type membership arise over the years?
+- It seems multiple inheritance is a subset of such a membership?
+
+Question(s)
+===========
+
+- I don't understand the purpose of param-types.  Is it just the introduction of
+  generic array types?
+- The proposed concepts for code sharing and equivalence facility (i.e. delegate
+  responsibility for consistency of data types to implementer) seems to suggest
+  polymophism?
+
+Analysis
+========
+
+This is possibly the origin of classes, interfaces, inheritance, polymorphism,
+and generic array types.  One interesting note is that increased redundancy will
+lead to more reliable programs.
+
+Notes
+=====
+
+Movivations for Type Extensions
+-------------------------------
+
+- Will not increase the class of functions that can be computed.
+- Will not enable better generation of machine code.
+- Enables abstraction (e.g. ADTs, structured programming, stepwise refinement,
+  information hiding).
+- Increased redundancy and compile-time checks.
+- Enables shorter code.
+- Increases data portability i.e. avoid rewriting programs to deal with changes
+  in irrelevant pieces of data.
+
+Mode
+----
+
+Mode defines an equivalence class on variables.  All variables that are
+identical with respect to data representation and access belong to the same
+mode.  A mode can be a member of more than one class of modes.
+
+Types as Classes of Modes
+-------------------------
+
+- Spec-Type
+
+  - A set of modes that satisfy a given specification i.e. modes with identical
+    externally visible behavior.
+
+- Rep-Type
+
+  - A set of modes that have the same representation but different
+    meaning/interpretation (e.g. integer versus real).
+  - The compiler should not recognize common representations.
+  - The programmer needs to declare explicitly rep-type membership.
+
+- Param-Type
+
+  - Invocations of parameterized mode description i.e. array definition.
+
+- Variant-Type
+
+  - A set of modes that do not have identical specifications, but have some
+    common properties.
+  - A weaker-form of spec-types that handles anything that does not fall into
+    the previous situations.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

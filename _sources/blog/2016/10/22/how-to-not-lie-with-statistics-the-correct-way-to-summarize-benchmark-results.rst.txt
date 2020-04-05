@@ -1,0 +1,92 @@
+##############################################################################
+How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results
+##############################################################################
+
+Motivation(s)
+=============
+
+In comparing computers according to some metric (e.g. object size, run time,
+throughput), it is common to run benchmarks, normalize the results to a
+"known machine", and then average these normalized quantities.  Unfortunately,
+the arithmetic mean of performance ratios has led to wrong conclusions in some
+cases.  There are alternative statistics, such as the geometric mean, that
+yield correct results at the cost of intuition.
+
+Proposed Solution(s)
+====================
+
+The authors examine these misuse of statistics and propose guidelines to avoid
+the common pitfalls of summarizing results.
+
+Evaluation(s)
+=============
+
+The analysis focused on benchmarks published in seminal papers.
+
+Through a series of examples, it is evident that the arithmetic mean produces
+inconsistent answers due to normalization.  However, the arithmetic mean or
+sum of raw, unnormalized numbers (arbitrarily weighted) can work if the result
+has inherent meaning.
+
+The authors proved that the weighted geometric mean's multiplicative property
+makes it invariant to normalization, thus achieving consistent results.  The
+multiplicative property can be thought of as the mean of the products equals the
+product of the means.  This property reduces relative performance comparisons
+to daily common sense:
+
+- Suppose machine X is A times as fast as machine Y.
+- Suppose machine Y is B times as fast as machine Z.
+- Machine X should be AB times as fast as machine Z.
+
+The authors admitted that any measure of the mean is misleading when there is
+large variance and benchmark results should be presented via a box plot.
+
+Future Direction(s)
+===================
+
+- How practical is applying learning to rank to design a metric for system
+  performance i.e. make the process more data driven?
+
+Question(s)
+===========
+
+- Why make the proof of the geometric mean's multiplicative property so overly
+  complicated when it's just two lines?
+
+Analysis
+========
+
+The rules in the notes should be followed except for rule 2 since the geometric
+mean produces :doc:`incorrect results </blog/2016/10/23/characterizing-computer-performance-with-a-single-number>`.
+Even though the intuition of why the geometric mean is desirable is clear, its
+interpretation is still baffling.  In addition, the emphasis on the geometric
+mean's multiplicative property seems unnecessary considering the single-numbers
+are used to impose a total ordering.
+
+Notes
+=====
+
+Rule 1: Do Not Use the Arithmetic Mean to Average Normalized Numbers
+--------------------------------------------------------------------
+
+- The arithmetic mean of normalized numbers are meaningless.
+
+  - Consequently, the sum of normalized numbers is also meaningless.
+
+Rule 2: Use the Geometric Mean to Average Normalized Numbers
+------------------------------------------------------------
+
+- The geometric mean can be used regardless of how the numbers are normalized.
+- The geometric mean can be used even if the numbers are not normalized; the
+  resulting means can then be normalized.
+
+Rule 3: Use the Arithmetic Mean (or Sum) of Raw, Unnormalized Results Only When This "Total" is Meaningful
+----------------------------------------------------------------------------------------------------------
+
+- Ratios of unnormalized sums can be taken to determine relative performance.
+- Each summand can be weighted to simulate some desired property.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

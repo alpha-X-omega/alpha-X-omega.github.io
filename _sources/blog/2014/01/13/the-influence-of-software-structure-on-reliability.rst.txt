@@ -1,0 +1,128 @@
+##################################################
+The Influence of Software Structure on Reliability
+##################################################
+
+Motivation(s)
+=============
+
+Existing literature have focused solely on correct software, which is important,
+but reliable software is equally important.
+
+Proposed Solution(s)
+====================
+
+To achieve reliable software, the designer needs to anticipate what to do when
+errors occur, delegate responsibility of error detection to each module, and
+enable communication of errors between modules.
+
+Evaluation(s)
+=============
+
+The author applied this technique to the design of a communication support
+system.  The questions considered when designing the system interface as well as
+the intermodule interfaces are very useful in structuring the system.  However,
+approach is quite time consuming because it requires thinking.
+
+Future Direction(s)
+===================
+
+- How should the design questions be organized by degrees of behavior?
+- How to recommend questions to the designer?
+- How long on average does this stage take?
+- Does it vary with the degree of behaviors?
+
+Question(s)
+===========
+
+- How long did it take to come up with these questions?
+
+Analysis
+========
+
+Examining a software design's reliability is another complementary technique to
+improve system structure.
+
+:cite:`parnas1976response` is a rehash of
+:cite:`parnas1972response,parnas1975influence` with a few new keywords and a
+change of organization.  Just skim it after reading the originals, but the only
+notable concepts are
+
+- Undesired Events (UEs) consist of all events that deviate from normal ideal
+  behavior (e.g. errors, exceptions).
+- Two Types of Errors
+
+  - Incidents are expected UEs that can be recovered from.
+  - All other errors are crashes.
+
+- Why Different Degrees?
+
+  - A degree of an UE is determined by its basic cause and depends on the
+    situation at the time the UE occurs.
+  - As the order of degree increases, the recovery action typically increase in
+    space-time complexity i.e. less desirable resolution.
+
+Notes
+=====
+
+Reliability
+-----------
+
+- A statistical measure relating a system to the pattern of demands requested
+  from it.
+- Programming errors do not make the system unusable.
+- Situations in which the errors have an effect do not occur very often and the
+  situations are not especially likely to occur when the system is needed.
+
+Correctness
+-----------
+
+Often based on the assumptions that the machine which interprets the software
+will function perfectly, and all data inputs to the system will be correct.
+
+Bad Structure
+-------------
+
+Many modules are based on assumptions which are likely to become false.
+
+On Incorrect External Influences
+--------------------------------
+
+- Module interfaces must enable communication about errors between modules.
+
+  - Global information is necessary for good recovery.
+
+- Confiding error handling to a single module or level in a system leads to
+  inflexible systems with limited error detection and correction.
+
+  - This violates "information hiding principle".
+
+On Incorrect Software
+---------------------
+
+Module specifications should give each module the responsibility of making
+certain basic checks on the behavior of modules each interacts with.
+
+All or Nothing Assumption
+-------------------------
+
+Define a set of predicates (used for proving correctness) where each set defines
+a degree of desired behavior i.e. what the program should do when something goes
+wrong.
+
+- Degree 0 is the ideal behavior.
+- Degree :math:`i + 1` is a set of requirements to satisfy in situations where
+  the requirements for degree :math:`i` cannot be met.
+
+Effects of Unrealistic Software Structures on Reliability
+---------------------------------------------------------
+
+- Structures is a euphemism for restricted.
+- A structure is unrealistic when it does not permit the inter-module
+  interactions that are necessary to meet realistic goals.
+- Limits error recovery procedures.
+- Encourages violation of restrictions in order to meet realistic goals.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

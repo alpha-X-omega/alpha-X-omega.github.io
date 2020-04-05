@@ -1,0 +1,200 @@
+#################################################################################################
+The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings
+#################################################################################################
+
+Motivation(s)
+=============
+
+Existing studies on the social psychology of close relationships have been
+limited to comparing those in and not in close relationships, or those in
+relationships that are close to various degrees.  All of these approaches lack
+the ability to individually manipulate the existence of a close relationship,
+the characteristics of its members, and the circumstances under which the
+relationship developed.
+
+Proposed Solution(s)
+====================
+
+The proposed methodology allows each of those issues to be treated as an
+independent variable.  It centers around sustained, escalating, reciprocal,
+personalistic self-disclosure between complete strangers.  There is no need
+to create an artificial expectation that the subject's partner would like him or
+her, and the participants can have differing attitudes on issues of personal
+importance.
+
+Evaluation(s)
+=============
+
+The questionnaire's goal is to develop a temporary feeling of closeness, not
+intimacy.  Nevertheless, the following studies received high post-experiment
+ratings of closeness and anecdotal reports of the impact of the experience over
+the next few months showed one pair even got married:
+
+- Study 1: Effectiveness of self-disclosure versus small-talk on closeness.
+
+  - Inclusion of Other in the Self (IOS) Scale
+
+    - Exhibits high levels of test-retest and alternate-form reliability and
+      convergent and discriminant validity.
+    - Capable of predicting relationship maintenance over three months.
+
+  - Subjective Closeness Index
+
+    - Complements IOS since it measures directly the feeling of closeness.
+
+- Study 2: Does agreement or expectation of liking affect closeness?
+
+  - Interpersonal Judgement Scale
+
+    - "How much would you like to work with your partner on a project?"
+    - "How much do you like your partner?"
+
+- Study 3: Effectiveness of making closeness an explicit task between subjects.
+
+  - Myers-Briggs Type Indicator determined the subjects' match based on their
+    introversion/extraversion type.
+
+Future Direction(s)
+===================
+
+- What is a practical procedure for invoking intimacy?
+- How to smoothly incorporate this on a date?
+- How to go about developing more questions along these lines?
+
+Question(s)
+===========
+
+- Why focus on statistical significance?
+- Does a mixture of both questionnaires improve closeness?
+- How were these questions developed?
+
+Analysis
+========
+
+Both questionnaires seem appropriate for dates since both involves sharing of
+non-trivial knowledge between participants.  It is surprising that the subjects
+rated their relationship to their partners of less than an hour to be about as
+close as the average relationship in their lives and in other people's lives.
+The paper's analysis should have presented some kind of graphics instead of
+a wall of text.  Moreover, the author should have justified why and how these
+set of questions came about.
+
+Notes
+=====
+
+Erikson's Ego Identity Model
+----------------------------
+
+- Low ego-identity individuals fear cross-sex intimacy in which they might lose
+  their identity and thus get close only if they feel they can protect
+  themselves from too much intimacy.
+- Same-sex friendships for those who have not developed an ego identity serve as
+  identity supports, but for those who have developed an identity, they serve as
+  sources of undesired conformity that threatens one's individuated identity.
+
+Task Slips for Closeness-Generating Procedure
+---------------------------------------------
+
+Set I
+^^^^^
+
+#. Given the choice of anyone in the world, whom would you want as a dinner guest?
+#. Would you like to be famous?  In what way?
+#. Before making a telephone call, do you ever rehearse what you are going to say?  Why?
+#. What would constitute a "perfect" day for you?
+#. When did you last sing to yourself?  To someone else?
+#. If you were able to live to the age of 90 and retain either the mind or body of a 30-year-old for the last 60 years of your life, which would you want?
+#. Do you have a secret hunch about how you will die?
+#. Name three things you and your partner appear to have in common.
+#. For what in your life do you feel most grateful?
+#. If you could change anything about the way you were raised, what would it be?
+#. Take 4 minutes and tell your partner your life story in as much detail as possible.
+#. If you could wake up tomorrow having gained any one quality or ability, what would it be?
+
+Set II
+^^^^^^
+
+#. If a crystal ball could tell you the truth about yourself, your life, the future, or anything else, what would you want to know?
+#. Is there something that you've dreamed of doing for a long time?  Why haven't you done it?
+#. What is the greatest accomplishment of your life?
+#. What do you value most in a friendship?
+#. What is your most treasured memory?
+#. What is your most terrible memory?
+#. If you knew that in one year you would die suddenly, would you change anything about the way you are now living?  Why?
+#. What does friendship mean to you?
+#. What roles do love and affection play in your life?
+#. Alternate sharing something you consider a positive characteristic of your partner.  Share a total of 5 items.
+#. How close and warm is your family?  Do you feel your childhood was happier than most other people's?
+#. How do you feel about your relationship with your mother?
+
+Set III
+^^^^^^^
+
+#. Make 3 true "we" statements each.  For instance, "We are both in this room feeling..."
+#. Complete this sentence: 'I wish I had someone with whom I could share..."
+#. If you were going to become a close friend with your partner, please share what would be important for him or her to know.
+#. Tell your partner what you like about them; be very honest this time saying things that you might not say to someone you've just met.
+#. Share with your partner an embarrassing moment in your life.
+#. When did you last cry in front of another person?  By yourself?
+#. Tell your partner something that you like about them already.
+#. What, if anything, is too serious to be joked about?
+#. If you were to die this evening with no opportunity to communicate with anyone, what would you most regret not having told someone?  Why haven't you told them yet?
+#. Your house, containing everything you own, catches fire.  After saving your loved ones and pets, you have time to safely make a final dash to save any one item.  What would it be?  Why?
+#. Of all the people in your family, whose death would you find most disturbing?  Why?
+#. Share a personal problem and ask your partner's advice on how he or she might handle it.  Also, ask your partner to reflect back to you how you seem to be feeling about the problem you have chosen.
+
+Task Slips for Small-Talk Condition
+-----------------------------------
+
+Set I
+^^^^^
+
+#. When was the last time you walked for more than an hour?  Describe where you went and what you saw.
+#. What was the best gift you ever received and why?
+#. If you had to move from California where would you go, and what would you miss the most about California?
+#. How did you celebrate last Halloween?
+#. Do you read a newspaper often and which do you prefer?  Why?
+#. What is a good number of people to have in a student household and why?
+#. If you could invent a new flavor ofice cream, what would it be?
+#. What is the best restaurant you've been to in the last month that your partner hasn't been to?  Tell your partner about it.
+#. Describe the last pet you owned.
+#. What is your favorite holiday?  Why?
+#. Tell your partner the funniest thing that ever happened to you when you were with a small child.
+#. What gifts did you receive on your last birthday?
+
+Set II
+^^^^^^
+
+#. Describe the last time you went to the zoo.
+#. Tell the names and ages of your family members, include grandparents, aunts and uncles, and where they were born (to the extent you know this information).
+#. One of you say a word, the next say a word that starts with the last letter of the word just said.  Do this until you have said 50 words.  Any words will do-you aren't making a sentence.
+#. Do you like to get up early or stay up late?  Is there anything funny that has resulted from this?
+#. Where are you from?  Name all of the places you've lived.
+#. What is your favorite class you've ever taken?  Why?
+#. What did you do this summer?
+#. What gifts did you receive last Christmas?
+#. Who is your favorite actor of your own gender?  Describe a favorite scene in which this person has acted.
+#. What was your impression first of college?
+#. What is the best TV show you've seen in the last month that your partner hasn't seen?  Tell your partner about it.
+#. What is your favorite holiday?  Why?
+
+Set III
+^^^^^^^
+
+#. Where did you go to high school?  What was your high school like?
+#. What is the best book you've read in the last three months that your partner hasn't read?  Tell your partner about it.
+#. What foreign country would you most like to visit?  What attracts you to this place?
+#. Do you prefer digital watches and clocks or the kind with hands?  Why?
+#. Describe your mother's best friend.
+#. What are the advantages and disadvantages of artificial Christmas trees?
+#. How often do you get your hair cut?  Where do you go?  Have you ever had a really bad haircut experience?
+#. Did you have a class pet when you were in elementary school?  Do you remember the pet's name?
+#. Do you think left-handed people are more creative than right-handed people?
+#. What is the last concert you saw?  How many of that band's albums do you own?  Had you seen them before?  Where?
+#. Do you subscribe to any magazines?  Which ones?  What have you subscribed to in the past?
+#. Were you ever in a school play?  What was your role?  What was the plot of the play?  Did anything funny ever happen when you were on stage?
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

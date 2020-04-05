@@ -1,0 +1,470 @@
+##################################
+Set Up Web Development Environment
+##################################
+
+https://python-packaging.readthedocs.io/en/latest/everything.html
+    name=<pip will use this, underscores are replaced by dashes>
+
+https://hynek.me/articles/sharing-your-labor-of-love-pypi-quick-and-dirty/
+https://packaging.python.org/tutorials/distributing-packages/
+    https://stackoverflow.com/questions/37972029/regex-to-match-pep440-compliant-version-strings
+    https://docs.python.org/3/distutils/setupscript.html#listing-whole-packages
+    https://docs.python.org/3/distutils/sourcedist.html#commands
+    Look at numpy git code for layout
+        Also ray framework github
+            platanios.org/assets/pdf/eaching/writing_python_libraries.pdf
+    pip and wheel (for binary distribution)
+        https://wheel.readthedocs.io/en/stable/
+        pip install dist/<either wheel or tar.gz>
+        python setup.py sdist bdist_wheel
+
+    python setup.py clean --all
+    python setup.py sdist
+    python setup.py build
+    python setup.py develop
+    python -m pytest
+
+    python -m pytest --cov-report=html --cov=src/
+        .coveragerc
+
+[aliases]
+test=pytest
+    needed because test is defined by default
+
+[bdist_wheel]
+universal = 1
+    needed to distribute with wheels
+
+cfg: https://docs.python.org/3.4/library/configparser.html
+
+https://docs.pytest.org/en/latest/goodpractices.html
+    https://agopian.info/presentations/2015_06_djangocon_europe/?full#cover
+        supercedes
+            https://docs.python.org/3/library/unittest.html
+            http://nose.readthedocs.io/en/latest/
+            http://nose2.readthedocs.io/en/latest/index.html
+
+    pytest-cov
+        https://coverage.readthedocs.io/en/coverage-4.4.2/
+        https://pytest-cov.readthedocs.io/en/latest/readme.html
+        benefit of distributed testing and coverage
+
+https://seasonofcode.com/posts/how-to-add-custom-build-steps-and-commands-to-setuppy.html
+https://realitix.github.io/python/2016/11/09/python-customize-setup/
+https://dankeder.com/posts/adding-custom-commands-to-setup-py/
+layout
+    http://pybuilder.github.io/documentation/tutorial.html#Buildingadistribution
+
+code formatting
+    https://github.com/google/yapf
+    https://github.com/PyCQA/pycodestyle
+    https://github.com/PyCQA/pydocstyle
+
+    #python -m pytest --cov-report=html --cov=src/
+    #yapf --in-place --recursive --style=pep8 --parallel --no-local-style
+    #pycodestyle --show-source tests/
+    #pydocstyle tests/
+        pydocstyle ignores test files unless specified explicitly
+
+DBC
+    https://github.com/orsinium/deal
+
+http://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_numpy.html
+    http://www.sphinx-doc.org/en/stable/ext/napoleon.html
+    http://sphinxcontrib-napoleon.readthedocs.io/en/latest/index.html
+    sphinx-apidoc --force --full --separate --output-dir=docs src -H projectx -A alphaXomega --append-syspath --ext-mathjax
+    make html
+        invoking these two commands may be wrong
+            may need to set up documentation first
+            call sphinx-apidoc to generate the files
+            and then sphinx-build instead or maybe sphinx-autobuild
+    https://samnicholls.net/2016/06/15/how-to-sphinx-readthedocs/
+    https://www.dlab.ninja/2013/12/documenting-code-with-sphinx.html
+
+    https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt
+
+        #extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon']
+
+        #napoleon_google_docstring = False
+        #napoleon_numpy_docstring = True
+
+        #TODO: sed the above into the correct conf.py
+
+CI
+    https://docs.buildbot.net/current/tutorial/
+    python3 -m venv sandbox
+    https://www.twosixlabs.com/automated-docker-deployment-kubernetes-buildbot/
+    http://docs.buildbot.net/current/tutorial/fiveminutes.html
+
+https://www.slideshare.net/adorepump/plproxy-pgbouncer-pgbalancer
+https://grimoire.ca/mysql/choose-something-else
+
+https://psutil.readthedocs.io/en/latest/
+profiling:
+
+    https://docs.python.org/3/library/profile.html
+        profile/cProfile
+            visualization via https://github.com/jrfonseca/gprof2dot
+    https://github.com/rkern/line_profiler
+
+    https://eng.uber.com/pyflame/
+        reasons: https://github.com/matrixik/python-multithread-profiling
+            pprofile, pyinstrument, vmprof
+
+    http://yyc.solvcon.net/writing/2015/pymem_survey.html
+        https://github.com/pythonprofilers/memory_profiler
+        https://docs.python.org/3/library/tracemalloc.html
+        https://docs.python.org/3/library/resource.html
+        https://objgraph.readthedocs.io/en/stable/
+        http://guppy-pe.sourceforge.net/
+
+    https://github.com/fabianp/yep
+        https://stackoverflow.com/questions/426230/what-is-the-ld-preload-trick
+        https://github.com/gperftools/gperftools/wiki
+    https://github.com/lmacken/pyrasite
+        https://triqs.ipht.cnrs.fr/1.3/reference/using_the_lib/profiling.html
+
+    to eval
+        http://hdrhistogram.github.io/HdrHistogram/
+        http://highscalability.com/blog/2015/5/27/a-toolkit-to-measure-basic-system-performance-and-os-jitter.html
+        gatling.io
+            https://stackoverflow.com/questions/47240525/alternative-to-gatling
+
+C10M
+    https://web.archive.org/web/20161231060358/http://dak1n1.com:80/blog/13-load-balancing-lvs/
+    https://web.archive.org/web/20170202125514/http://dak1n1.com/blog/12-nginx-performance-tuning
+    https://web.archive.org/web/20161121213846/http://dak1n1.com:80/blog/14-http-load-generate/
+    https://web.archive.org/web/20161124052147/http://dak1n1.com:80/blog/7-performance-tuning-intel-10gbe/
+    http://keniallee.blogspot.com/2014/11/testing-c10m-on-host-with-tornado.html
+
+tornado
+    bokeh
+
+cffi vs pybind11
+    ctypes and Cython is not that good
+    https://www.paypal-engineering.com/2016/09/22/python-by-the-c-side/
+    http://blog.conan.io/2016/04/12/Extending-python-with-C-or-C++-with-pybind11.html
+
+HTML/CSS/JS
+    https://jonbellah.com/articles/separation-of-concerns/
+    https://adamwathan.me/css-utility-classes-and-separation-of-concerns/
+
+    https://philipwalton.com/articles/decoupling-html-css-and-javascript/
+        https://philipwalton.com/articles/responsive-components-a-solution-to-the-container-queries-problem/
+        https://philipwalton.com/articles/why-web-developers-need-to-care-about-interactivity/
+
+    http://nicolasgallagher.com/about-html-semantics-front-end-architecture/
+
+    https://martinfowler.com/bliki/SegregatedDOM.html
+        http://radar.oreilly.com/2014/01/keeping-jquery-in-check.html
+        https://martinfowler.com/bliki/PresentationDomainDataLayering.html
+
+    http://getbem.com/introduction/
+    https://smacss.com/book/categorizing
+    https://github.com/suitcss/suit/tree/master/doc
+
+    https://philipwalton.com/articles/side-effects-in-css/
+
+    I personally think it should be done like this:
+        html for overall structure
+        take the best practice for CSS for style
+        javascript is split between presentation (DOM) and data (everything else)
+            if there needs to be glue code, it should be in the presentation layer
+                reasons: DOM-CSS / CSSOM, etc...
+
+    https://dev.to/massa142/javascript-is-almost-pythonic-3f8
+        this makes typescript (insert whatever else) unnecessary
+            stick to good pythonic designs
+            use linters, formatters that enforce this
+            as long as babel gets us access to all the latest goodies, it's good enough
+
+    https://www.stevesouders.com/blog/2009/03/10/performance-impact-of-css-selectors/
+    https://benfrain.com/css-performance-revisited-selectors-bloat-expensive-styles/
+    https://css-tricks.com/efficiently-rendering-css/
+    https://developer.mozilla.org/en-US/docs/Talk:CSS/Writing_Efficient_CSS
+
+    https://moduscreate.com/blog/efficient-dom-and-css/
+    https://korynunn.wordpress.com/2013/03/19/the-dom-isnt-slow-you-are/
+    https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Author_fast-loading_HTML_pages
+
+    https://github.com/localstack/localstack
+        moto, boto3
+    https://github.com/serverless/guide
+
+        https://en.bem.info/method/key-concepts/
+              * Block-Element-Modifier is an intuitive mental model.
+          - Block
+            + A logically and functionally independent page component.
+              (i) Equivalent of a component in Web Components.
+            + Defines a namespace that ensures the dependence of elements on the block.
+            + Encapsulates
+              (i) Behavior - JavaScript
+              (ii) Appearance - CSS
+              (iii) Templates - Handlebars
+              (iv) Documentation - Markdown
+            + Supports
+              (i) Nesting structure
+              (ii) Arbitrary placement
+              (iii) Re-use (e.g. multiple instances of the same block)
+          - Element
+            + A constituent part of a block that cannot be used outside of it.
+            + Avoid Nested Elements
+              (i) Elements cannot be swapped around, removed, or added without modifying
+                  the existing code.
+          - Modifier
+            + An entity that defines the appearance and behavior of a block or an
+              element.
+          - Mix
+            + An instance of different BEM entities begin hosted on a single DOM node.
+            + Combines the behaviors and styles of several BEM entities while avoiding
+              code duplication.
+            + Create semantically new interface components on the basis of existing
+              BEM entities.
+          - BEM Tree
+            + A representation of a web page structure in terms of BEM entities, their
+              states, order, nesting, and auxiliary data.
+
+        https://en.bem.info/method/naming-convention/
+              * A reasonable naming style, but the modifier seems redundant.  Would
+                using JavaScript literal object notation and nesting be more elegant?
+                A compiler can take that and output CSS code instead?
+
+        https://en.bem.info/method/filesystem/
+              * This applies the BEM convention to files; I can't seem to find a tool
+                that purely checks for filename consistency though?  Maybe this
+                methodology requires using its provide suite of tools.
+
+        https://en.bem.info/method/solved-problems/
+        https://en.bem.info/method/history/
+              * These are simply advertisements for BEM so nothing new with my current
+                knowledge base.
+
+        https://suitcss.github.io/
+              * {html-inspector, bem-linter} is exactly what I have been looking for.
+
+        https://github.com/suitcss/suit/blob/master/doc/README.md
+              * Nothing outstanding if you have those tools; don't bother reading.
+
+        http://blog.millermedeiros.com/solid-css/
+              * I found this in the previous SUIT CSS link; I am disappointed in the
+                content.  I think if you follow BEM, your usage will automatically
+                have structure.
+
+        https://github.com/unicorn-standard/pacomo
+              * Clearly this work isn't aware of BEM and Stylus.
+
+
+        phantomjs is no longer necessary since chrome will do that for you
+
+        http://blog.kewah.com/2015/tools-to-keep-a-consistent-coding-style-in-javascript/
+              * Makes a strong argument for ESLint and esformatter.  I am convinced!
+
+        A Field Guide to the Distributed Development Stack
+              * https://github.com/odewahn/dds-field-guide
+
+        https://blog.serverdensity.com/server-alerts-a-step-by-step-look-behind-the-scenes/
+              * This offers a different kind of insight.  I have been too focused on the
+                tools and performance in the web server end.  That is important for the
+                client side, but we can always add more machines.  Extracting the
+                maximum performance on the server is cost-effective, but not when it's
+                harming productivity.  Python is highly productive compared to Node.js!
+
+
+        http://mrjoes.github.io/2013/06/21/python-realtime.html
+              * I was originally looking for information about organizing Flask
+                projects, but this was a good find.  This helped me realize again that
+                productivity is what matters; you can always add more servers,
+                specialize your solution to get more performance, etc...
+        - Long-polling is essentially keeping the client connection alive.
+          + Websockets were invented to resolve this issue.
+        - sock.js may be better than socket.io.
+        - WSGI is synchronous.
+          + coroutines (greenlets), a hard context switching mechanism, enabled
+            asynchronous code to be written in an synchronous fashion.
+          + gevent uses greenlets to make existing frameworks handle many connections.
+        - Out-of-process approach to handle real-time applications.
+          + Instead of using Gevent to forcibly make WSGI asynchronous, set up a
+            separate server that is solely focused on the real-time portion
+            (e.g. redis, ZeroMQ, RabbitMQ, load balancer haproxy,
+            reverse caching proxy nginx).
+
+        http://www.cs.dartmouth.edu/~sergey/cs108/2013/C10M-Defending-the-Internet-at-Scale-Dartmouth-2013.pdf
+              * I didn't realize C10K was last decade!  This convinced me that I
+                should always optimize for productivity and decouple things I will
+                optimize into microservices.
+
+
+        http://sealedabstract.com/rants/why-mobile-web-apps-are-slow/
+              * Useful benchmark comparison between desktop ES and mobile ES.  Just read
+                the second and third to last sections.
+
+
+        https://medium.com/@jcse/clearing-up-the-babel-6-ecosystem-c7678a314bf3
+              * This is the kind of description I have been searching for.  Points to
+                "https://ponyfoo.com/articles/polyfills-or-ponyfills", which clearly
+                describes the benefits of ponyfills vs polyfills i.e. why babel-runtime
+                is preferable to babel-polyfill.
+
+
+        http://christianalfoni.github.io/javascript/2015/01/01/think-twice-about-classes.html
+              * Very good and insightful post.  I almost fell for the ES6 class feature.
+          - The following are delegations:
+            + Object.create(EventEmitter.prototype);
+            + Object.create({doSomething: function () {}});
+          - Object.assign({}, EventEmitter.prototype, {myMethod: function () {}});
+            + Not using delegation; creating new properties for each invocation.
+
+            Looking back (2018), JS is now very similar to python.  Apply pythonic styles to JS and you're golden
+
+
+        http://javascriptissexy.com/javascript-prototype-in-plain-detailed-language/
+              * This is a very nice and clear explanation of the prototype chain in
+                Javascript.
+
+        https://medium.com/javascript-scene/common-misconceptions-about-inheritance-in-javascript-d5d9bab29b0a
+              * Interesting read, but not what I was looking for.
+
+
+        https://github.com/getify/You-Dont-Know-JS/blob/master/this%20&%20object%20prototypes/ch6.md
+        http://www.datchley.name/understanding-prototypes-delegation-composition/
+        http://mcculloughwebservices.com/2015/06/27/angular-u-classes-prototypes-and-oloo/
+              * Exactly what I was looking for.  Nicely written and intuitive usage of
+                Object.create().  I am onboard for OLOO with Javascript.  I agree that
+                one should focus on the delegation and behavior instead of the usual
+                cruft that classes require.  The illustrations are also amazing!
+          - Object.create() to link prototypes.
+            + Object.setPrototypeOf() is used to link two separate objects.
+          - Use Object.assign() to copy enumerable properties from a variable
+            number of objects i.e. mixins.
+            + Think of this as instantiating without "new" operator.
+            + Object.create() on its own also serves as instantiation.
+          - Use Reflection API for type introspection.
+          - Don't use instanceof.
+          - Keep the states at the bottom of the prototype chain.
+            + The one who delegates should have the state.
+            + Method names should be specific and different instead of the polymorphic
+              overriding approach.
+
+
+        https://john-dugan.com/object-oriented-javascript-pattern-comparison/
+              * I like the idea of Durable Constructor Pattern.  Looking back, I think
+                OLOO is nice, but gives up too much.  However, the mechanisms it
+                suggests is applicable to
+                http://christianalfoni.github.io/javascript/2015/01/01/think-twice-about-classes.html
+
+        https://www.youtube.com/watch?v=bo36MrBfTk4
+        https://drive.google.com/file/d/0B9h_EQ82pIpuUi02S1dYNmRfZlk/edit
+              * Crockford's latest "Better Parts" for Javascript simplified a lot of
+                things.
+          - Tail calls, Spread/Rest, Module, Let, WeakMap
+          - array.forEach, Object.keys(object).forEach
+          - New Constructor Pattern
+            function constructor(spec) {
+                let {member} = spec,
+                    {other} = other_constructor(spec),
+                    method = function() {
+                        // member, other, method
+                    };
+                return Object.freeze({
+                    method,
+                    other,
+                };
+            }
+
+        http://speakingjs.com/es5/ch24.html
+              * Good to know unicode and Javascript; much better than previous link.
+
+
+        https://mathiasbynens.be/notes/es6-unicode-regex
+              * Good to know, but I haven't encountered a need for this yet.
+
+        https://mathiasbynens.be/notes/javascript-unicode
+              * This is what I have been searching for!
+          - ES6 Unicode
+            + [...string].length
+            + [...string].reverse().join('')
+            + String.fromCodePoint()
+            + String.normalize()
+            + String.codePointAt()
+            + String.at() is in ES7
+
+        http://xabikos.com/javascript%20module%20bundler/javascript%20dependencies%20management/2015/10/03/webpack-aliases-and-relative-paths.html
+              * This is exactly what I have been looking for.
+
+
+        https://paoloseverini.wordpress.com/2016/02/
+        http://blog.toonormal.com/2012/04/27/nook-and-emscripten-a-technical-look-at-c-gamedev-in-the-browser/
+        https://groups.google.com/forum/#!topic/emscripten-discuss/5kiRea2uDVM
+        http://faantasticcoder.blogspot.com/2013/05/loading-external-image-into-emscripten.html
+              * What I was looking for w.r.t. asm.js
+
+        http://phoboslab.org/log/2015/11/the-absolute-worst-way-to-read-typed-array-data-with-javascriptcore
+              * The first three code blocks explained what I was looking for.
+          - getImageData() returns a copy of the pixel data.
+            + Typed arrays generate a new view backed by the same data buffer.
+
+After downloading `Node.js`_, initialize a new project with
+
+.. _Node.js: https://nodejs.org/en/download/
+
+.. code:: bash
+
+   npm init
+
+The Node Package Manager (`npm`_) has somewhat confusing explanations.  They
+should have mentioned up front a set of minimal commands that covers the common
+case and that a `package.json`_ file is needed.
+
+.. _npm: https://docs.npmjs.com/files/folders
+.. _package.json: http://browsenpm.org/package.json
+
+To use the latest Javascript features, modify :file:`.babelrc` as listed:
+
+.. include:: _babel.rc
+   :code: javascript
+
+The initial :file:`package.json` lacks a :guilabel:`devDependencies` entry and
+only has a test command in :guilabel:`scripts`.
+
+.. include:: package.json
+   :code: javascript
+
+Notice that the setup so far mentions a lot of dependencies (e.g.
+:program:`babel`, :program:`webpack`).  :guilabel:`devDependencies` will
+automatically be updated whenever libraries are modified with the
+:code:`--save-dev` flag.  To install everything, run
+
+.. code:: bash
+
+   npm install
+
+To manually install the libraries, run
+
+.. code:: bash
+
+   npm install --save-dev webpack@latest webpack-dev-server@latest
+   npm install --save-dev babel-core@latest babel-loader@latest babel-preset-es2016@latest babel-preset-stage-2@latest
+   npm install --save-dev babel-runtime@latest babel-plugin-transform-runtime@latest
+   npm install --save-dev eslint@latest babel-eslint@latest eslint-loader@latest
+   npm install --save-dev kefir@latest
+
+The following :file:`webpack.config.js` (or a variation of it) is needed to use
+:program:`webpack` with :program:`babel` and :program:`eslint`.
+
+.. include:: webpack.config.js
+   :code: javascript
+
+Defined in :guilabel:`scripts` are the commands to build and run a local server:
+
+.. code:: bash
+
+   npm run build
+   npm run dev
+
+At the time of writing this, the root directory of the project must contain
+:file:`.babelrc`, :file:`package.json`, and :file:`webpack.config.js`.
+
+.. include:: web-dev-project-layout.txt
+   :code: bash
+
+The proposed file structure was inspired by :cite:`fielding2000architectural`.

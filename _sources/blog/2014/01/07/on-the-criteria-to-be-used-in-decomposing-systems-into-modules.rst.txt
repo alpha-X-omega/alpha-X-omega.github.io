@@ -1,0 +1,134 @@
+##############################################################
+On the Criteria to be Used in Decomposing Systems into Modules
+##############################################################
+
+Motivation(s)
+=============
+
+Modular programming enables one module to be written with little knowledge of
+the code in another module and allow modules to be reassembled and replaced
+without reassembly of the whole system.  Dataflow charts have been the criteria
+for dividing a system into modules thus far.
+
+Proposed Solution(s)
+====================
+
+The author proposes that it is almost always incorrect to begin the
+decomposition of a system into modules on the basis of a dataflow chart.
+Instead, a list of difficult design decisions or ones that are most likely to
+change should be constructed.  Each module is then designed to hide such
+decisions from each other.
+
+Evaluation(s)
+=============
+
+The criteria was used to decompose two example systems: KWIC index production
+and interpreter.  The resulting exposition is very convincing.
+
+The criteria does not elaborate on how many decisions should a module hide
+before it should subdivide itself.
+
+Future Direction(s)
+===================
+
+- An exponential :doc:`algorithm </blog/2014/01/01/notes-on-the-synthesis-of-form>`
+  to group the set of design decisions exists.  Can dataflow be used to reduce
+  the search space?
+- Can deep reinforcement learning come up with good system decompositions?
+
+Question(s)
+===========
+
+- Is there an equivalent for the CAP theorem in software engineering?
+
+Analysis
+========
+
+A system should not be decomposed according to the dataflow charts.  Instead, it
+should be focused on minimizing the amount of :doc:`information distribution </blog/2014/01/05/information-distribution-aspects-of-design-methodology>`.
+Furthermore, even hierarchical structure exists in both good and bad system
+decompositions, having it is mostly beneficial.
+
+It is surprising software architects still use dataflow as a way to structure
+their classes.  A controversial point is to focus on good software design and
+leave the efficiency to the compiler.
+
+On a tangent note, :cite:`parnas1989enhancing` is a rehash of this paper.
+
+Notes
+=====
+
+Expected Benefits of Modular Programming
+----------------------------------------
+
+- Managerial
+
+  - Divide and conquer.
+
+- Product Flexibility
+
+  - Loose coupling of modules.
+
+- Comprehensibility
+
+  - Learn the system one module at a time.
+
+Modularization
+--------------
+
+- Design decisions which must be made before the work on independent modules can
+  begin.
+- "Module" is associated with responsibility rather than subprogram.
+
+Criteria
+--------
+
+- Side effect of system decomposition using a dataflow chart
+
+  - Changing one module results in changing all of them.
+  - Interface between modules are complex.
+  - Understanding the system requires understanding all the modules
+    simultaneously.
+
+- Information Hiding
+
+  - Modules do not correspond to steps in the processing.
+  - Every module in the second decomposition is characterized by its knowledge
+    of a design decision which it hides from all others.
+
+    - A data structure, its internal linking, accessing procedures, and
+      modifying procedures are a part of a single module.
+    - The sequence of instructions necessary to call a given routine and the
+      routine itself are a part of the same module.
+
+  - Entities to hide:
+
+    - Format control blocks
+    - Character codes, alphabetic orderings, etc...
+    - The sequence in which certain items will be processed.
+
+  - To achieve efficiency in implementation, several representations of the
+    program must be maintained in the machine together with a program mapping
+    between them e.g. JIT, compiler optimization.
+
+Hierarchical structure
+----------------------
+
+- A partial ordering of the relations (if any) between the modules or programs.
+
+  - Benefits of partial ordering (versus none i.e. all modules are on the same
+    level).
+
+    - Reuse of established lower level services.
+    - Higher level services can be cut off and the system is still functional
+      and useful.
+
+- The relation of concern is either "uses" or "depends upon".
+- Independent of system decomposition.
+
+  - Both criteria for decomposition can make use of hierarchical structure.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

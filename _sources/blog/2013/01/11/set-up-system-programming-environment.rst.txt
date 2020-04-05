@@ -1,0 +1,268 @@
+#####################################
+Set Up System Programming Environment
+#####################################
+
+.. role:: bash(code)
+   :language: bash
+
+The following `CMake`_ setup :download:`example <example.zip>` is for a single
+project:
+
+.. include:: project-layout.txt
+   :code: bash
+
+.. _CMake: https://cmake.org/download/
+
+Top Level Directory
+===================
+
+.. literalinclude:: example/CMakeLists.txt
+   :language: cmake
+
+Macros
+======
+
+.. literalinclude:: example/cmake/macros.cmake
+   :language: cmake
+
+check_coverage
+--------------
+
+The proposed code coverage tool consists of `llvm-cov`_ and `llvm-profdata`_,
+which can be installed via
+
+.. code:: bash
+
+   sudo apt-get install llvm
+
+.. _llvm-cov: http://llvm.org/docs/CommandGuide/llvm-cov.html
+.. _llvm-profdata: http://llvm.org/docs/CommandGuide/llvm-profdata.html
+
+:program:`llvm-cov` also supports an output format put forth by `gcov`_, which
+in turn can be visualized by `lcov`_.  If one prefers to use these tools with
+`clang`_, then replace the existing
+:bash:`-fprofile-instr-generate -fcoverage-mapping` with
+:bash:`-fprofile-arcs -ftest-coverage`, which is equivalent to specifying
+:bash:`--coverage`.
+
+.. _gcov: https://gcc.gnu.org/onlinedocs/gcc/Gcov.html
+.. _lcov: http://ltp.sourceforge.net/coverage/lcov.php
+.. _clang: https://clang.llvm.org/docs/SourceBasedCodeCoverage.html
+
+check_sanitizer
+---------------
+
+`ASan`_, `MSan`_, and `TSan`_ are mutually exclusive and cannot be used
+together.  The proposed configuration enables `UBSan`_ by default.  Note that
+`LSan`_ only works on Linux and is enabled by default when using `ASan`_.
+Furthermore, MSan requires an `instrumented C++ standard library`_.
+
+.. _ASan: https://clang.llvm.org/docs/AddressSanitizer.html
+.. _MSan: https://clang.llvm.org/docs/MemorySanitizer.html
+.. _TSan: https://clang.llvm.org/docs/ThreadSanitizer.html
+.. _UBSan: https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html
+.. _LSan: https://clang.llvm.org/docs/LeakSanitizer.html
+.. _instrumented C++ standard library: https://github.com/google/sanitizers/wiki/MemorySanitizerLibcxxHowTo
+
+enable_code_hardening
+---------------------
+
+*_FORTIFY_SOURCE* is not supported by Clang at the moment.  `SafeStack`_ is the
+only instrumentation that works out of the box.  The `Control Flow Integrity`_
+(CFI) sanitizer assumes the `LLVMgold plugin`_ is already installed e.g. via
+
+.. code:: bash
+
+   sudo apt-get install llvm-5.0-dev
+
+The correct usage of CFI requires :option:`-fvisibility=hidden`, but that will
+make the source code incompatible with MSVC.
+
+Enabling `ASLR`_ requires `hacking CMake a bit`_.  To check whether the
+`security hardening features`_ have been enabled, use :program:`hardening-check`
+to examine the ELF binary.  Unfortunately, these `bare minimum features`_ are
+the only ones supported by Clang.
+
+.. _SafeStack: https://clang.llvm.org/docs/SafeStack.html
+.. _Control Flow Integrity: https://clang.llvm.org/docs/ControlFlowIntegrity.html
+.. _LLVMgold plugin: http://llvm.org/docs/GoldPlugin.html
+.. _ASLR: https://en.wikipedia.org/wiki/Address_space_layout_randomization
+.. _hacking CMake a bit: https://gitlab.kitware.com/cmake/cmake/issues/14983#note_363197
+.. _security hardening features: https://www.owasp.org/index.php/C-Based_Toolchain_Hardening
+.. _bare minimum features: https://blog.quarkslab.com/clang-hardening-cheat-sheet.html
+
+find_package
+============
+
+:file:`FindOpenGL.cmake` and :file:`FindEGL.cmake` are mandatory while
+:file:`FindGLEW.cmake` and :file:`FindGLFW.cmake` have become
+:doc:`optional conveniences for OpenGL </blog/2013/01/09/install-graphics-and-compute-linux-mint>`.
+
+Documentation
+=============
+
+The proposed :file:`docs` setup is no different from a
+:doc:`blog </blog/2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx>`.
+Two extra things to take care of are:
+
+- :file:`conf.py` should contain
+
+  .. code:: python
+
+     primary_domain='cpp'
+
+- :file:`index.rst` should contain
+
+  .. code:: rst
+
+     Indices and tables
+     ==================
+
+     * :ref:`genindex`
+     * :ref:`modindex`
+     * :ref:`search`
+
+The reason behind this is to keep documentation separate from code.  Code
+comments do not count as documentation.  This separation enables full
+utilization of a `documentation tool`_ to design the artifact before writing any
+code.  Note that the mantra of self-documentating code is also applicable during
+this design phase.
+
+.. _documentation tool: http://www.sphinx-doc.org/en/1.5.1/domains.html
+
+.. literalinclude:: example/cmake/docs.cmake
+   :language: cmake
+
+Code Coverage and Tests
+=======================
+
+.. literalinclude:: example/cmake/coverage.cmake
+   :language: cmake
+
+Since :doc:`performance analysis tools </blog/2013/01/24/profiling-on-linux>`
+are orthogonal to code coverage and tests, it will not be included in the build
+system.
+
+define_coverage
+---------------
+
+This will compile the total code coverage over the specified library modules
+via :file:`coverage-report.cmake`.  The script invocation is needed in order to
+glob all the individual coverage reports.  Note that :file:`default.profraw` is
+the default file name unless :bash:`LLVM_PROFILE_FILE="<name>.profraw"` or
+:bash:`-fprofile-instr-generate=<name>.profraw` is specified.
+
+.. literalinclude:: example/cmake/coverage-report.cmake
+   :language: cmake
+
+compile_tests
+-------------
+
+This will make the tests, possibly with code coverage instrumentation.  The
+test source code are embedded in the `doctest`_ framework.
+
+.. _doctest: https://github.com/onqtam/doctest
+
+ClangFormat
+===========
+
+`clang-format`_ is a tool that will automatically format C/C++/Java/JavaScript
+code.  One should avoid globbing files because new files will not be added to
+the existing glob.  The solution to recompute the glob is
+:bash:`touch_nocreate`.
+
+.. _clang-format: https://clang.llvm.org/docs/ClangFormat.html
+
+.. literalinclude:: example/cmake/format-cpp.cmake
+   :language: cmake
+
+GLSL
+====
+
+Since `GLSL`_ is C-like, one can use `clang-format`_ to enforce a coding style.
+
+.. _GLSL: https://en.wikipedia.org/wiki/OpenGL_Shading_Language
+
+.. literalinclude:: example/cmake/glsl.cmake
+   :language: cmake
+
+Once again, invoking the script :file:`glsl-make-shaders.cmake` is needed to
+glob all the individual shaders.  The current setup does not search for files
+with a :file:`.glsl` extension.
+
+.. _shader stage: https://github.com/KhronosGroup/glslang
+
+.. literalinclude:: example/cmake/glsl-make-shaders.cmake
+   :language: cmake
+
+`GLSL`_ does not support the include preprocessor directive, but it's quite easy
+to implement one in Python.
+
+.. include:: example/resources/scripts/cpp_include_directive.py
+   :code: python
+
+C++ Lint
+========
+
+`cpplint`_ is an additional set of style checks that one can apply after
+`clang-format`_.
+
+.. _cpplint: https://github.com/google/styleguide/tree/gh-pages/cpplint
+
+.. literalinclude:: example/cmake/lint-cpp-style.cmake
+   :language: cmake
+
+Python Lint
+===========
+
+`pycodestyle`_ and `pydocstyle`_ are mandatory when coding in Python.
+
+.. _pycodestyle: https://github.com/PyCQA/pycodestyle
+.. _pydocstyle: https://github.com/PyCQA/pydocstyle
+
+.. literalinclude:: example/cmake/lint-python-style.cmake
+   :language: cmake
+
+ClangTidy
+=========
+
+`Clang Static Analyzer`_ tries to find bugs without executing the program.  It
+can be invoked via :bash:`clang --analyze` or the `scan-build`_ script.
+The former runs the static analyzer and generates text reports.  The latter has
+the option to generate a nice looking html report.
+
+`clang-tidy`_ is a front end to `scan-build`_.  Note that a
+`static analyzer check is different from a clang-tidy check`_; it just so
+happens that `clang-tidy`_ implements the default suite of static analyzer
+checks.  A custom clang-tidy check should be implemented using `clang-check`_.
+
+Prefer :bash:`run-clang-tidy-5.0.py` to :bash:`clang-tidy-5.0` because the
+former will use multithreading while the latter is single-threaded.  The
+following uses a modified version that accepts line filters, which can be
+generated using :file:`clang_tidy_suppression.py`.
+
+.. _Clang Static Analyzer: https://clang-analyzer.llvm.org/
+.. _scan-build: https://clang-analyzer.llvm.org/scan-build.html
+.. _clang-tidy: http://clang.llvm.org/extra/clang-tidy/
+.. _static analyzer check is different from a clang-tidy check: http://clang.llvm.org/extra/clang-tidy/#choosing-the-right-place-for-your-check
+.. _clang-check: http://clang.llvm.org/docs/ClangCheck.html
+
+.. literalinclude:: example/cmake/tidy-cpp.cmake
+   :language: cmake
+
+Source Code Organization
+========================
+
+The current layout is arbitrary and is merely one way to decompose a system into
+subsystems.
+
+:file:`src/CMakeLists.txt` determines the overall system decomposition.
+
+.. literalinclude:: example/src/CMakeLists.txt
+   :language: cmake
+
+:file:`src/system/CMakeLists.txt` generates the subsystem and the corresponding
+tests, both of which could depend on other subsystems.
+
+.. literalinclude:: example/src/system/CMakeLists.txt
+   :language: cmake

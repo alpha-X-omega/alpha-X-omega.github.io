@@ -1,0 +1,102 @@
+###################################################
+Risks and Portfolio Decisions Involving Hedge Funds
+###################################################
+
+Motivation(s)
+=============
+
+Hedge funds have become the vehicle for investors wishing to earn risk premia.
+Due to the complex nature of hedge fund strategies and limited disclosure
+requirements, only two strategies have been analyzed in terms of risk: trend
+following and risk arbitrage.  However, earlier theories on asset pricing
+(e.g. capital asset pricing model, arbitrage pricing theory) inaccurately
+constrain the relation between risk factors and returns to be linear.  This
+prompted some new studies to approximate the asymmetric nonlinear payoffs with a
+collection of options on a selected number of benchmark index returns.
+
+Proposed Solution(s)
+====================
+
+The authors extend the contingent claim-based model to include call and put
+options on the market index.  Since options are frequently traded assets whose
+payoff relates in a nonlinear way with the market return, their market prices
+can be used to approximate nonlinear payoffs.  Their inclusion of exchange
+traded options
+
+- helps capture the hedge fund risk in an intuitive manner,
+- embeds investor preferences, information, and market conditions,
+- and enables replication of hedge fund payoffs.
+
+Evaluation(s)
+=============
+
+The analysis focused on equity-oriented hedge fund strategies since there are
+plenty of high quality data (e.g. S&P 500).  The following strategies were of
+interest since they have payoffs that arises primarily from relative mispricings
+of securities rather than the movement of the market as a whole: event
+arbitrage, restructuring, event driven, relative value arbitrage, convertible
+arbitrage, and equity hedge.  The authors also investigated equity non-hedge and
+short selling (dedicated short-bias) strategies whose payoffs arises from taking
+directional bets.
+
+Two separate databases, HFR spanning 1990 to mid-2000 and CSFB/Tremont spanning
+1994 to mid-2000, were analyzed to mitigate the 3% survivorship bias and 1.4%
+backfilling bias.  To estimate how hedge funds would have performed during past
+extreme events, the authors constructed a theoretical return series using Black
+and Scholes' formula i.e. they assumed current hedge funds were bearing the same
+systematic risk exposures as those in the desired time period.
+
+The results illustrate that a wide range of hedge fund strategies exhibit
+returns similar to those from writing a put option on the equity index.  The
+observed nonlinearities across multiple strategies suggest these events
+represent risks borne by hedge fund investors.  The nonlinear risk exposures
+also appear in the size, value, and momentum factors.
+
+Since hedge funds exhibit significant left-tail risks, the authors used
+conditional value-at-risk (CVaR) to account for negative tail risk.  CVaR is the
+statistical mean of the losses exceeding the VaR.  VaR focuses only on the
+frequency of extreme events while CVaR focuses on both the frequency and size of
+losses.  This approach is more appropriate than traditional mean-variance
+analysis since the latter underestimates tail losses, which is most severe for
+portfolios with low volatility.  Across the hedge fund indexes, long-run returns
+are lower, long-run volatilities are higher, and long-run tail losses are
+larger compared with hedge funds during the recent period.
+
+Although the statistics on out-of-sample test data spanning mid-2000 to 2001 for
+both databases were not statistically significant, the magnitudes were
+economically significant.
+
+Future Direction(s)
+===================
+
+- Instead of using stepwise regression deal with limited returns data, how would
+  one go about deriving a generative model that is reflective of a hedge fund's
+  SEC (e.g. F13) filings?
+- The common advise is to focus on the top 30 holdings of net long domestic
+  equity fund managers with low turnover.  How would one robustly track a hedge
+  fund's strategy?
+- How can one synthesize an options strategy to reproduce hedge fund strategies?
+
+Question(s)
+===========
+
+- Did the authors actually have an options strategy or were solely looking at
+  the magnitude of the options regression coefficient?
+
+Analysis
+========
+
+CVaR is an appropriate measure of nonlinear risks for a wide range of hedge fund
+strategies.  The authors should have tried to determine the composition of the
+nonlinear risks (e.g. :doc:`capital adequacy </blog/2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach>`).
+In addition, more validations are needed to verify whether constructing a
+theoretical return series using Black and Scholes' formula to analyze long-run
+performance with limited data is accurate.  It is worthwhile to mention that
+this study found hedge fund strategies exhibit returns similar to writing
+options.  The only annoying issue is the structure of the paper: it's not laid
+out for easy reading and the paper could have been more succinct.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

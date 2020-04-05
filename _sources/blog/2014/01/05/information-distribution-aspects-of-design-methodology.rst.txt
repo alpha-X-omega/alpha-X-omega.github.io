@@ -1,0 +1,158 @@
+######################################################
+Information Distribution Aspects of Design Methodology
+######################################################
+
+Motivation(s)
+=============
+
+Design methodology assumes that the methods used in system design strongly
+affect the quality of the final product and by selecting the appropriate
+methodology, the previously encountered problems related to constructing large
+systems can be avoided.  The focus has been on order of design decisions,
+characteristics of final product, quickly detecting errors in design decisions,
+specification techniques, and tools for system designers.
+
+Proposed Solution(s)
+====================
+
+The author asserts that information distribution is another important aspect of
+design.
+
+Evaluation(s)
+=============
+
+The author presents a set of arguments in favor of information restriction.
+
+Future Direction(s)
+===================
+
+- Can machine learning be applied to software design decisions to expose
+  commonalities among them?
+
+Question(s)
+===========
+
+- What are some bad examples of controlled information distribution?  Are the
+  good ones merely good abstractions?
+
+Analysis
+========
+
+Do not let the programmer make any decisions: the API should make it obvious
+there is only one way to do a task.  However, that should be done in moderation.
+
+The connections between modules go beyond just their interfaces: it
+must capture the implicit design assumptions of said modules.  Minimizing the
+information content of the connections enables modifications of system
+structure.
+
+Notes
+=====
+
+Structure Defined
+-----------------
+
+- Structure Description
+
+  - Modules
+
+    - Portions of a system.
+
+  - Connections between Modules
+
+    - Assumptions which the modules make about each other.
+    - Highly dangerous oversimplifications are control transfer points,
+      passed parameters, shared data, calling sequences, control block formats,
+      etc...
+
+- Importance of Structure
+
+  - Making Changes in a System
+
+    - A single module may be changed only while the connections still fit.
+    - Making the connections contain as little information as possible enables a
+      lot of changes.
+
+  - Proving System Correctness
+
+    - Correctness Criteria
+
+      (i) System properties each module is expected to guarantee.
+      (#) Properties each module expects of other modules.
+
+    - i and ii constitute the connections between modules.
+    - i can be thought of as the set of theorems to be proven.
+    - ii can be thought of as the set of axioms which may be used to
+      help prove i.
+
+Factors Influencing the Order of Decision Making
+------------------------------------------------
+
+- Obtaining good external characteristics with a top-down design.
+
+  - Make decisions about external characteristics first.
+
+    - The alternative approach would create unpleasing characteristics as a
+      by-product.
+
+  - Derive or check internal decisions against the complete specification of the
+    external factors.
+
+- Reducing the time interval between initiation and completion of the project
+
+  - Time pressures encourage groups to make the split before the external are
+    defined; this results in splitting a system into modules which are then
+    designed independently.
+
+- Obtaining an easily changed system
+
+  - Early decisions should be those that are least likely to change followed by
+    those that are most general.
+
+    - As more decisions are made, the earlier ones become more entrenched.
+    - These early decisions tend to be based on universal truths or reasoning
+      that are independent of environment.
+
+- It is difficult to satisfy all of the foregoing conditions.
+
+Documentation Systems
+---------------------
+
+- Standards tend to force system structure into a standard mold, which may not
+  be appropriate for the system at hand.
+- If there are to be standard documentation organization, they must be designed
+  to make the minimum number of assumptions about the system being documented.
+
+On Some Properties of Good Programmers
+--------------------------------------
+
+A good programmer makes use of the usable information given to him, which could
+lead to bit-twiddlers and increased connectivity of the system structure.
+
+The Use of Designer Controlled Information Distribution
+-------------------------------------------------------
+
+- Allow designers to control the distribution of design information as it is
+  developed, which consists of:
+
+  (i) Decide which information should be released.
+  (#) Finding a way of expressing precisely the information needed by other
+      modules.
+
+- Design the external interface and use it as a check on the remaining work, but
+  hide the details that are subject to change.
+
+  - A programmer should not possess information that he should not use; this
+    decision itself is part of the design, not the programming.
+
+Examples of What Should Be Abstracted
+-------------------------------------
+
+OS MBR, resident memory, non-resident memory, type of core storage, return
+addresses, registers, Job Control Language, I/O device addresses, character
+codes, etc...
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

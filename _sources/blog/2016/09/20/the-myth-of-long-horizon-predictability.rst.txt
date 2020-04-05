@@ -1,0 +1,89 @@
+#######################################
+The Myth of Long-Horizon Predictability
+#######################################
+
+Motivation(s)
+=============
+
+One of the dominant stylized facts in empirical finance is multivariate stock
+return predictability, regressing on dividend yields, over multiple horizons.
+The key determinants of long-horizon predictability are the extent of
+predictability at short horizons and the persistence of the regressor; higher
+persistence results in a higher fraction of explainable long-horizon returns.
+This interpretation has been criticized for
+
+- Data Snooping
+
+  - Levels of predictability found at short horizons are not surprising, given
+    the number of variables from which researchers can choose.
+
+- Estimator biases on small sample.
+
+  - The predictive variable's persistence and the negative correlation between
+    contemporaneous shocks to returns and the predictive variable needs to be
+    taken into account.
+
+- Asymptotic theory where the horizon increases with the sample size.
+
+  - Long-horizon regressions may no longer be consistent and have limiting
+    distributions that are functionals of Brownian motions.
+
+Proposed Solution(s)
+====================
+
+The authors assert that researchers should be equally impressed by the short-
+and long-horizon evidence since the regressions are almost perfectly correlated.
+Existing measures (e.g. :math:`R^2`) emphasize longer horizon due to the
+sampling error that shows up in regressions with small samples.
+
+To capture the correlations across multiple-horizon estimators, the authors
+propose analytic expressions that relate the correlations across these
+estimators to both the degree of overlap across the horizons and the
+predictive variable's level of persistence.
+
+While a high level of persistence means that it can be dangerous to interpret
+regressions over multiple horizons, the proposed joint Wald tests show that this
+persistence may lead to powerful tests for economies in which predictability
+exists.
+
+Evaluation(s)
+=============
+
+The authors simulate 75 years of annual data under the null hypothesis of no
+predictability with horizons spanning one to five years.  The results exhibited
+the expected increase in the coefficient estimates as a function of the horizon.
+Any sampling error in the data appears in the same manner in every
+multiple-horizon regression when the predictive variable is highly persistent.
+The high degree of correlation across the multi-period estimators implies the
+regressions are essentially redundant, and the estimators are asymptotically
+distributed as multivariate normal with a mean of zero.
+
+Future Direction(s)
+===================
+
+- How to utilize the daily activities of a company to predict the direction
+  of its earnings?
+
+Question(s)
+===========
+
+- Why choose the Wald test over likelihood-ratio?
+
+Analysis
+========
+
+The paper would have been better if the author had explicitly discussed the
+result's trend and significance instead of having the reader interpret the
+figures.  Moreover, it could have been summarized succinctly; nevertheless, the
+derived equations may be a useful future reference.  While the overall work is
+merely presenting a different analysis, it is worthwhile to note:
+
+- When dealing with multiple estimators, look at the individual results as well
+  as the aggregate.
+- Statistical tests should be examined qualitatively and go beyond
+  trendspotting.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

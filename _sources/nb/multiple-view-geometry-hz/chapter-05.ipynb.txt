@@ -1,0 +1,79 @@
+{
+ "cells": [
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "***************************************\n",
+    "Algorithm Evaluation and Error Analysis\n",
+    "***************************************"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "(i)\n",
+    "===\n",
+    "\n",
+    "Suppose that :math:`N` 2D points are measured with independent standard\n",
+    "deviations of :math:`\\sigma` in each coordinate.  The RMS residual error (5.3)\n",
+    "for the best fit line using orthogonal regression is\n",
+    ":math:`\\sigma \\left(1 - 2 / n \\right)^{1 / 2}` because :math:`d = 2` and\n",
+    ":math:`N = n` :cite:`eberly2000least`."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "(ii)\n",
+    "====\n",
+    "\n",
+    "Revisit once chapter 18 is finished.  The answer seems to be along the lines of\n",
+    "*2D homography – error in one image* (5.5) and\n",
+    "*Error in both images* (5.6)."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    ".. rubric:: References\n",
+    "\n",
+    ".. bibliography:: chapter-05.bib"
+   ]
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "celltoolbar": "Raw Cell Format",
+  "kernelspec": {
+   "display_name": "Python [default]",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.5.2"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 1
+}

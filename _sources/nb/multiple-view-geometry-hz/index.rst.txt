@@ -1,0 +1,10 @@
+###############################################################
+Multiple View Geometry in Computer Vision - Hartley & Zisserman
+###############################################################
+
+.. include:: /_templates/toctree-nb-multiple-view-geometry-hz
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

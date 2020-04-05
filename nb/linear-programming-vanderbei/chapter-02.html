@@ -1,0 +1,2552 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>The Simplex Method &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Degeneracy" href="chapter-03.html" />
+    <link rel="prev" title="Introduction" href="chapter-01.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">The Simplex Method</a><ul>
+<li><a class="reference internal" href="#Transformation-to-Standard-Form">Transformation to Standard Form</a></li>
+<li><a class="reference internal" href="#Exercise-2.1">Exercise 2.1</a></li>
+<li><a class="reference internal" href="#Exercise-2.2">Exercise 2.2</a></li>
+<li><a class="reference internal" href="#Exercise-2.3">Exercise 2.3</a></li>
+<li><a class="reference internal" href="#Exercise-2.4">Exercise 2.4</a></li>
+<li><a class="reference internal" href="#Exercise-2.5">Exercise 2.5</a><ul>
+<li><a class="reference internal" href="#Unbounded-Solution">Unbounded Solution</a></li>
+<li><a class="reference internal" href="#Bounded-Solution">Bounded Solution</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-2.6">Exercise 2.6</a><ul>
+<li><a class="reference internal" href="#Route-1">Route 1</a></li>
+<li><a class="reference internal" href="#Route-2">Route 2</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-2.7">Exercise 2.7</a><ul>
+<li><a class="reference internal" href="#Route-1">Route 1</a></li>
+<li><a class="reference internal" href="#Route-2">Route 2</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-2.8">Exercise 2.8</a></li>
+<li><a class="reference internal" href="#Exercise-2.9">Exercise 2.9</a></li>
+<li><a class="reference internal" href="#Exercise-2.10">Exercise 2.10</a></li>
+<li><a class="reference internal" href="#Exercise-2.11">Exercise 2.11</a></li>
+<li><a class="reference internal" href="#Exercise-2.12-and-Exercise-2.13">Exercise 2.12 and Exercise 2.13</a></li>
+<li><a class="reference internal" href="#Exercise-2.14">Exercise 2.14</a></li>
+<li><a class="reference internal" href="#Exercise-2.15">Exercise 2.15</a><ul>
+<li><a class="reference internal" href="#D_{1-\mapsto-0}"><span class="math notranslate nohighlight">\(D_{1 \mapsto 0}\)</span></a></li>
+<li><a class="reference internal" href="#D_{2-\mapsto-0}"><span class="math notranslate nohighlight">\(D_{2 \mapsto 0}\)</span></a></li>
+<li><a class="reference internal" href="#D_{3-\mapsto-0}"><span class="math notranslate nohighlight">\(D_{3 \mapsto 0}\)</span></a></li>
+<li><a class="reference internal" href="#D_{4-\mapsto-2}"><span class="math notranslate nohighlight">\(D_{4 \mapsto 2}\)</span></a></li>
+<li><a class="reference internal" href="#D_{5-\mapsto-2}"><span class="math notranslate nohighlight">\(D_{5 \mapsto 2}\)</span></a></li>
+<li><a class="reference internal" href="#D_{6-\mapsto-3}"><span class="math notranslate nohighlight">\(D_{6 \mapsto 3}\)</span></a></li>
+<li><a class="reference internal" href="#D_{7-\mapsto-4}"><span class="math notranslate nohighlight">\(D_{7 \mapsto 4}\)</span></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-2.16">Exercise 2.16</a></li>
+<li><a class="reference internal" href="#Exercise-2.17">Exercise 2.17</a></li>
+<li><a class="reference internal" href="#Exercise-2.18">Exercise 2.18</a></li>
+<li><a class="reference internal" href="#Exercise-2.19">Exercise 2.19</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="chapter-01.html" title="Previous Chapter: Introduction"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Introduction</span>
+    </a>
+  </li>
+  <li>
+    <a href="chapter-03.html" title="Next Chapter: Degeneracy"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Degeneracy &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="The-Simplex-Method">
+<h1>The Simplex Method<a class="headerlink" href="#The-Simplex-Method" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference external" href="http://www.zweigmedia.com/RealWorld/simplex.html">Simplex Method Tool</a> and the <a class="reference external" href="http://www.princeton.edu/~rvdb/JAVA/pivot/simple.html">Simplex Pivot Tool</a> were useful in
+the exercises.</p>
+<div class="section" id="Transformation-to-Standard-Form">
+<h2>Transformation to Standard Form<a class="headerlink" href="#Transformation-to-Standard-Form" title="Permalink to this headline">¶</a></h2>
+<p><a class="bibtex reference internal" href="#burke407s1" id="id1">[Bur]</a> provides a step-by-step procedure for transforming any
+LP to one in standard form.</p>
+</div>
+<div class="section" id="Exercise-2.1">
+<span id="vanderbei2014linear-ex-2-1"></span><h2>Exercise 2.1<a class="headerlink" href="#Exercise-2.1" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 6 x_1 + 8 x_2 + 5 x_3 + 9 x_4\\
+  \text{subject to} \quad
+    w_1 &amp;= 5 - 2 x_1 - x_2 - x_3 - 3 x_4\\
+    w_2 &amp;= 3 - x_1 - 3 x_2 - x_3 - 2 x_4\\
+    x_i &amp;\geq 0 \quad i = 1, 2, \ldots, 4\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+<p>Initial feasible solution:</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+x_4 = 0, \quad
+w_1 = 5, \quad
+w_2 = 3.\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_4\)</span> as the entering variable and <span class="math notranslate nohighlight">\(w_2\)</span> as the leaving
+variable, based on the pivot rules in the section after (2.6) and (2.7), where</p>
+<div class="math notranslate nohighlight">
+\[x_4 = \min\left\{ w_1, w_2 \right\}_{\geq 0}
+  = \min\left\{ \frac{5}{3}, \frac{3}{2} \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+x_4 = \frac{3}{2}, \quad
+w_1 = \frac{1}{2}, \quad
+w_2 = 0.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 0.5 \left( 27 + 3 x_1 - 11 x_2 + x_3 - 9 w_2 \right)\\
+  \text{subject to} \quad
+    w_1 &amp;= 0.5 \left( 1 - x_1 + 7 x_2 + x_3 + 3 w_2 \right)\\
+    x_4 &amp;= 0.5 \left( 3 - x_1 - 3 x_2 - x_3 - w_2 \right)\\
+    x_i &amp;\geq 0 \quad i = 1, 2, \ldots, 4\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(w_1\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_1 = \min\left\{ w_1, x_4 \right\}_{\geq 0}
+  = \min\left\{ 1, 3 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 1, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+x_4 = 1, \quad
+w_1 = 0, \quad
+w_2 = 0.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 15 - 3 w_1 + 5 x_2 + 2 x_3\\
+  \text{subject to} \quad
+    x_1 &amp;= 1 + 7 x_2 + x_3 - 2 w_1  + 3 w_2\\
+    x_4 &amp;= 1 - 5 x_2 - x_3 + w_1 - 2 w_2\\
+    x_i &amp;\geq 0 \quad i = 1, 2, \ldots, 4\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_2\)</span> and <span class="math notranslate nohighlight">\(x_4\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_2 = \min\left\{ x_4 \right\}_{\geq 0} = \frac{1}{5}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = \frac{12}{5}, \quad
+x_2 = \frac{1}{5}, \quad
+x_3 = 0, \quad
+x_4 = 0, \quad
+w_1 = 0, \quad
+w_2 = 0.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 16 + x_3 - x_4 - 2 w_1 - 2 w_2\\
+  \text{subject to} \quad
+    x_1 &amp;= 0.2 \left( 12 - 2 x_3 - 7 x_4 - 3 w_1 + w_2 \right)\\
+    x_2 &amp;= 0.2 \left( 1 - x_3 - x_4 + w_1 - 2 w_2 \right)\\
+    x_i &amp;\geq 0 \quad i = 1, 2, \ldots, 4\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_3\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_3 = \min\left\{ x_1, x_2 \right\}_{\geq 0}
+  = \min\left\{ 6, 1 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 2, \quad
+x_2 = 0, \quad
+x_3 = 1, \quad
+x_4 = 0, \quad
+w_1 = 0, \quad
+w_2 = 0.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 17 - 5 x_2 - 2 x_4 - w_1 - 4 w_2\\
+  \text{subject to} \quad
+    x_1 &amp;= 2 + 2 x_2 - x_4 - w_1 + w_2\\
+    x_3 &amp;= 1 - 5 x_2 - x_4 + w_1 - 2 w_2\\
+    x_i &amp;\geq 0 \quad i = 1, 2, \ldots, 4\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-2.2">
+<span id="vanderbei2014linear-ex-2-2"></span><h2>Exercise 2.2<a class="headerlink" href="#Exercise-2.2" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 2 x_1 + x_2\\
+  \text{subject to} \quad
+    w_1 &amp;= 4 - 2 x_1 - x_2\\
+    w_2 &amp;= 3 - 2 x_1 - 3 x_2\\
+    w_3 &amp;= 5 - 4 x_1 - x_2\\
+    w_4 &amp;= 1 - x_1 - 5 x_2\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, \ldots, 4
+\end{aligned}\end{split}\]</div>
+<p>Initial feasible solution:</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+w_1 = 4, \quad
+w_2 = 3, \quad
+w_3 = 5, \quad
+w_4 = 1.\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(w_4\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_1 = \min\left\{ w_1, w_2, w_3, w_4 \right\}_{\geq 0}
+  = \min\left\{ 2, \frac{3}{2}, \frac{5}{4}, 1 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 1, \quad
+x_2 = 0, \quad
+w_1 = 2, \quad
+w_2 = 1, \quad
+w_3 = 1, \quad
+w_4 = 0.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 2 - 9 x_2 - 2 w_4\\
+  \text{subject to} \quad
+    x_1 &amp;= 1 - 5 x_2 - w_4\\
+    w_1 &amp;= 2 + 9 x_2 + 2 w_4\\
+    w_2 &amp;= 1 + 7 x_2 + 2 w_4\\
+    w_3 &amp;= 1 + 19 x_2 + 4 w_4\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, \ldots, 4
+\end{aligned}\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-2.3">
+<span id="vanderbei2014linear-ex-2-3"></span><h2>Exercise 2.3<a class="headerlink" href="#Exercise-2.3" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 2 x_1 - 6 x_2\\
+  \text{subject to} \quad
+    w_1 &amp;= -2 + x_1 + x_2 + x_3\\
+    w_2 &amp;= 1 - 2 x_1 + x_2 - x_3\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+<p>Initial infeasible solution:</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+w_1 = -2, \quad
+w_2 = 1.\]</div>
+<p>The auxiliary problem is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    -x_0 &amp;\\
+  \text{subject to} \quad
+    -x_1 - x_2 - x_3 - x_0 &amp;\leq -2\\
+    2 x_1 - x_2 + x_3 - x_0 &amp;\leq 1\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>and its initial infeasible dictionary is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -x_0\\
+  \text{subject to} \quad
+    w_1 &amp;= -2 + x_1 + x_2 + x_3 + x_0\\
+    w_2 &amp;= 1 - 2 x_1 + x_2 - x_3 + x_0\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2, 3\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+<p>Initial infeasible solution for auxiliary problem:</p>
+<div class="math notranslate nohighlight">
+\[x_0 = 0, \quad
+x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+w_1 = -2, \quad
+w_2 = 1.\]</div>
+<p>Pivot the infeasible dictionary with <span class="math notranslate nohighlight">\(x_0\)</span> as the entering variable and
+<span class="math notranslate nohighlight">\(w_1\)</span>, the most infeasible variable, as the leaving variable.  The
+resulting dictionary is then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -2 + x_1 + x_2 + x_3 - w_1\\
+  \text{subject to} \quad
+    x_0 &amp;= 2 - x_1 - x_2 - x_3 + w_1\\
+    w_2 &amp;= 3 - 3 x_1 - 2 x_3 + w_1\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2, 3\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+<p>and its feasible solution is updated to</p>
+<div class="math notranslate nohighlight">
+\[x_0 = 2, \quad
+x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+w_1 = 0, \quad
+w_2 = 3.\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(w_2\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_1 = \min\left\{ x_0, w_2 \right\}_{\geq 0}
+  = \min\left\{ 2, 1 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_0 = 1, \quad
+x_1 = 1, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+w_1 = 0, \quad
+w_2 = 0.\]</div>
+<p>Pivot auxiliary dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= \frac{1}{3} \left( -3 + 3 x_2 + x_3 - 2 w_1 - w_2 \right)\\
+  \text{subject to} \quad
+    x_0 &amp;= \frac{1}{3} \left( 3 - 3 x_2 - x_3 + 2 w_1 + w_2 \right)\\
+    x_1 &amp;= \frac{1}{3} \left( 3 - 2 x_3 + w_1 + w_2 \right)\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2, 3\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_2\)</span> and <span class="math notranslate nohighlight">\(x_0\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_2 = \min\left\{ x_0 \right\}_{\geq 0}
+  = \min\left\{ 1 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_0 = 0, \quad
+x_1 = 1, \quad
+x_2 = 1, \quad
+x_3 = 0, \quad
+w_1 = 0, \quad
+w_2 = 0.\]</div>
+<p>Pivot auxiliary dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -x_0\\
+  \text{subject to} \quad
+    x_1 &amp;= \frac{1}{3} \left( 3 - 2 x_3 + w_1 - w_2 \right)\\
+    x_2 &amp;= \frac{1}{3} \left( 3 - 3 x_0 - x_3 + 2 w_1 + w_2 \right)\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2, 3\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+<p>The dictionary is optimal for the auxiliary problem, so <span class="math notranslate nohighlight">\(x_0\)</span> can be
+dropped and the original objective function can be reintroduced with the basic
+variables substituted appropriately:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -4 + \frac{2}{3} x_3 - \frac{10}{3} w_1 - \frac{8}{3} w_2\\
+  \text{subject to} \quad
+    x_1 &amp;= \frac{1}{3} \left( 3 - 2 x_3 + w_1 - w_2 \right)\\
+    x_2 &amp;= \frac{1}{3} \left( 3 - x_3 + 2 w_1 + w_2 \right)\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+<p>Initial feasible solution:</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 1, \quad
+x_2 = 1, \quad
+x_3 = 0, \quad
+w_1 = 0, \quad
+w_2 = 0.\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_3\)</span> and <span class="math notranslate nohighlight">\(x_1\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_3 = \min\left\{ x_1, x_2 \geq 0 \right\}_{\geq 0}
+  = \min\left\{ \frac{3}{2}, 3 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = \frac{1}{2}, \quad
+x_3 = \frac{3}{2}, \quad
+w_1 = 0, \quad
+w_2 = 0.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -3 - x_1 - 3 w_1 - 3 w_2\\
+  \text{subject to} \quad
+    x_2 &amp;= \frac{1}{2} \left( 1 + x_1 + w_1 + w_2 \right)\\
+    x_3 &amp;= \frac{1}{2} \left( 3 - 3 x_1 + w_1 - w_2 \right)\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-2.4">
+<span id="vanderbei2014linear-ex-2-4"></span><h2>Exercise 2.4<a class="headerlink" href="#Exercise-2.4" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -x_1 - 3 x_2 - x_3\\
+  \text{subject to} \quad
+    w_1 &amp;= -5 - 2 x_1 + 5 x_2 - x_3\\
+    w_2 &amp;= 4 - 2 x_1 + x_2 - 2 x_3\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+<p>Initial infeasible solution:</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+w_1 = -5, \quad
+w_2 = 4.\]</div>
+<p>The auxiliary problem is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    -x_0 &amp;\\
+  \text{subject to} \quad
+    2 x_1 - 5 x_2 + x_3 - x_0 &amp;\leq -5\\
+    2 x_1 - x_2 + 2 x_3 - x_0 &amp;\leq 4\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>and its initial infeasible dictionary is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -x_0\\
+  \text{subject to} \quad
+    w_1 &amp;= -5 - 2 x_1 + 5 x_2 + x_3 + x_0\\
+    w_2 &amp;= 4 - 2 x_1 + x_2 + 2 x_3 + x_0\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2, 3\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+<p>Initial infeasible solution for auxiliary problem:</p>
+<div class="math notranslate nohighlight">
+\[x_0 = 0, \quad
+x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+w_1 = -5, \quad
+w_2 = 4.\]</div>
+<p>Pivot the infeasible dictionary with <span class="math notranslate nohighlight">\(x_0\)</span> as the entering variable and
+<span class="math notranslate nohighlight">\(w_1\)</span>, the most infeasible variable, as the leaving variable.  The
+resulting dictionary is then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -5 - 2 x_1 + 5 x_2 + x_3 - w_1\\
+  \text{subject to} \quad
+    x_0 &amp;= 5 + 2 x_1 - 5 x_2 - x_3 + w_1\\
+    w_2 &amp;= 9 - 4 x_2 + x_3 + w_1\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2, 3\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+<p>and its feasible solution is updated to</p>
+<div class="math notranslate nohighlight">
+\[x_0 = 5, \quad
+x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+w_1 = 0, \quad
+w_2 = 9.\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_2\)</span> and <span class="math notranslate nohighlight">\(x_0\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_2 = \min\left\{ x_0, w_2 \right\}_{\geq 0}
+  = \min\left\{ 1, \frac{9}{4} \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_0 = 0, \quad
+x_1 = 0, \quad
+x_2 = 1, \quad
+x_3 = 0, \quad
+w_1 = 0, \quad
+w_2 = 5.\]</div>
+<p>Pivot auxiliary dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -x_0\\
+  \text{subject to} \quad
+    x_2 &amp;= \frac{1}{5} \left( 5 + 2 x_1 - x_0 - x_3 + w_1 \right)\\
+    w_2 &amp;= \frac{1}{5} \left( 25 - 8 x_1 + 4 x_0 + 9 x_3 + w_1 \right)\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2, 3\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+<p>The dictionary is optimal for the auxiliary problem, so <span class="math notranslate nohighlight">\(x_0\)</span> can be
+dropped and the original objective function can be reintroduced with the basic
+variables substituted appropriately:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= \frac{1}{5} \left( -15 - 8 x_1 - 2 x_3 - 3 w_1 \right)\\
+  \text{subject to} \quad
+    x_2 &amp;= \frac{1}{5} \left( 5 + 2 x_1 - x_3 + w_1 \right)\\
+    w_2 &amp;= \frac{1}{5} \left( 25 - 8 x_1 + 9 x_3 + w_1 \right)\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+<p>Initial feasible solution:</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 1, \quad
+x_3 = 0, \quad
+w_1 = 0, \quad
+w_2 = 5,\]</div>
+<p>which happens to be the optimal solution since all the coefficients in
+<span class="math notranslate nohighlight">\(\zeta\)</span> are negative.</p>
+</div>
+<div class="section" id="Exercise-2.5">
+<h2>Exercise 2.5<a class="headerlink" href="#Exercise-2.5" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= x_1 + 3 x_2\\
+  \text{subject to} \quad
+    w_1 &amp;= -3 + x_1 + x_2\\
+    w_2 &amp;= -1 + x_1 - x_2\\
+    w_3 &amp;= 4 - x_1 - 2 x_2\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Initial infeasible solution:</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+w_1 = -3, \quad
+w_2 = -1, \quad
+w_3 = 4.\]</div>
+<p>The auxiliary problem is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    -x_0 &amp;\\
+  \text{subject to} \quad
+    -x_1 - x_2 - x_0 &amp;\leq -3\\
+    -x_1 + x_2 - x_0 &amp;\leq -1\\
+    x_1 + 2 x_2 - x_0 &amp;\leq 4\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2
+\end{aligned}\end{split}\]</div>
+<p>and its initial infeasible dictionary is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -x_0\\
+  \text{subject to} \quad
+    w_1 &amp;= -3 + x_0 + x_1 + x_2\\
+    w_2 &amp;= -1 + x_0 + x_1 - x_2\\
+    w_3 &amp;= 4 + x_0 - x_1 - 2 x_2\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Initial infeasible solution for auxiliary problem:</p>
+<div class="math notranslate nohighlight">
+\[x_0 = 0, \quad
+x_1 = 0, \quad
+x_2 = 0, \quad
+w_1 = -3, \quad
+w_2 = -1, \quad
+w_3 = 4.\]</div>
+<p>Pivot the infeasible dictionary with <span class="math notranslate nohighlight">\(x_0\)</span> as the entering variable and
+<span class="math notranslate nohighlight">\(w_1\)</span>, the most infeasible variable, as the leaving variable.  The
+resulting dictionary is then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -3 + x_1 + x_2 - w_1\\
+  \text{subject to} \quad
+    x_0 &amp;= 3 - x_1 - x_2 + w_1\\
+    w_2 &amp;= 2 - 2 x_2 + w_1\\
+    w_3 &amp;= 7 - 2 x_1 - 3 x_2 + w_1\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>and its feasible solution is updated to</p>
+<div class="math notranslate nohighlight">
+\[x_0 = 3, \quad
+x_1 = 0, \quad
+x_2 = 0, \quad
+w_1 = 0, \quad
+w_2 = 2, \quad
+w_3 = 7.\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_0\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_1 = \min\left\{ x_0, w_3 \right\}_{\geq 0}
+  = \min\left\{ 3, \frac{7}{2} \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_0 = 0, \quad
+x_1 = 3, \quad
+x_2 = 0, \quad
+w_1 = 0, \quad
+w_2 = 2, \quad
+w_3 = 1.\]</div>
+<p>Pivot auxiliary dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -x_0\\
+  \text{subject to} \quad
+    x_1 &amp;= 3 - x_0 - x_2 + w_1\\
+    w_2 &amp;= 2 - 2 x_2 + w_1\\
+    w_3 &amp;= 1 + 2 x_0 - x_2 - w_1\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>The dictionary is optimal for the auxiliary problem, so <span class="math notranslate nohighlight">\(x_0\)</span> can
+be dropped and the original objective function can be reintroduced with
+the basic variables substituted appropriately:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 3 + 2 x_2 + w_1\\
+  \text{subject to} \quad
+    x_1 &amp;= 3 - x_2 + w_1\\
+    w_2 &amp;= 2 - 2 x_2 + w_1\\
+    w_3 &amp;= 1 - x_2 - w_1\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Initial feasible solution:</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 3, \quad
+x_2 = 0, \quad
+w_1 = 0, \quad
+w_2 = 2, \quad
+w_3 = 1.\]</div>
+<div class="section" id="Unbounded-Solution">
+<h3>Unbounded Solution<a class="headerlink" href="#Unbounded-Solution" title="Permalink to this headline">¶</a></h3>
+<p>Choose <span class="math notranslate nohighlight">\(x_2\)</span> and <span class="math notranslate nohighlight">\(w_2\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_2 = \min\left\{ x_1, w_2, w_3 \right\}_{\geq 0}
+  = \min\left\{ 3, 1, 1 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 2, \quad
+x_2 = 1, \quad
+w_1 = 0, \quad
+w_2 = 0, \quad
+w_3 = 0.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 5 + 2 w_1 - w_2\\
+  \text{subject to} \quad
+    x_1 &amp;= \frac{1}{2} \left( 4 + w_1 + w_2 \right)\\
+    x_2 &amp;= \frac{1}{2} \left( 2 + w_1 - w_2 \right)\\
+    w_3 &amp;= \frac{1}{2} \left( -3 w_1 + w_2 \right)\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Since the entering variable</p>
+<div class="math notranslate nohighlight">
+\[w_1 = \min\left\{ x_1, x_2, w_3 \right\}_{\geq 0}
+  = \min\left\{ -4, -2, 0 \right\},\]</div>
+<p>the problem is unbounded.</p>
+</div>
+<div class="section" id="Bounded-Solution">
+<h3>Bounded Solution<a class="headerlink" href="#Bounded-Solution" title="Permalink to this headline">¶</a></h3>
+<p>Choose <span class="math notranslate nohighlight">\(x_2\)</span> and <span class="math notranslate nohighlight">\(w_3\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_2 = \min\left\{ x_1, w_2, w_3 \right\}_{\geq 0}
+  = \min\left\{ 3, 1, 1 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 2, \quad
+x_2 = 1, \quad
+w_1 = 0, \quad
+w_2 = 0, \quad
+w_3 = 0.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 5 - w_1 - 2 w_3\\
+  \text{subject to} \quad
+    x_1 &amp;= 2 + 2 w_1 + w_3\\
+    x_2 &amp;= 1 - w_1 - w_3\\
+    w_2 &amp;= 3 w_1 + 2 w_3\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-2.6">
+<span id="vanderbei2014linear-ex-2-6"></span><h2>Exercise 2.6<a class="headerlink" href="#Exercise-2.6" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= x_1 + 3 x_2\\
+  \text{subject to} \quad
+    w_1 &amp;= -3 + x_1 + x_2\\
+    w_2 &amp;= -1 + x_1 - x_2\\
+    w_3 &amp;= 2 - x_1 - 2 x_2\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Initial infeasible solution:</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+w_1 = -3, \quad
+w_2 = -1, \quad
+w_3 = 2.\]</div>
+<p>The auxiliary problem is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    -x_0 &amp;\\
+  \text{subject to} \quad
+    -x_1 - x_2 - x_0 &amp;\leq -3\\
+    -x_1 + x_2 - x_0 &amp;\leq -1\\
+    x_1 + 2 x_2 - x_0 &amp;\leq 2\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2
+\end{aligned}\end{split}\]</div>
+<p>and its initial infeasible dictionary is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -x_0\\
+  \text{subject to} \quad
+    w_1 &amp;= -3 + x_0 + x_1 + x_2\\
+    w_2 &amp;= -1 + x_0 + x_1 - x_2\\
+    w_3 &amp;= 2 + x_0 - x_1 - 2 x_2\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Initial infeasible solution for auxiliary problem:</p>
+<div class="math notranslate nohighlight">
+\[x_0 = 0, \quad
+x_1 = 0, \quad
+x_2 = 0, \quad
+w_1 = -3, \quad
+w_2 = -1, \quad
+w_3 = 2.\]</div>
+<p>Pivot the infeasible dictionary with <span class="math notranslate nohighlight">\(x_0\)</span> as the entering variable and
+<span class="math notranslate nohighlight">\(w_1\)</span>, the most infeasible variable, as the leaving variable.  The
+resulting dictionary is then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -3 + x_1 + x_2 - w_1\\
+  \text{subject to} \quad
+    x_0 &amp;= 3 - x_1 - x_2 + w_1\\
+    w_2 &amp;= 2 - 2 x_2 + w_1\\
+    w_3 &amp;= 5 - 2 x_1 - 3 x_2 + w_1\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>and its feasible solution is updated to</p>
+<div class="math notranslate nohighlight">
+\[x_0 = 3, \quad
+x_1 = 0, \quad
+x_2 = 0, \quad
+w_1 = 0, \quad
+w_2 = 2, \quad
+w_3 = 5.\]</div>
+<p>Notice that either <span class="math notranslate nohighlight">\(x_1\)</span> or <span class="math notranslate nohighlight">\(x_2\)</span> can be selected.  As shown
+below, both routes will lead to a negative optimal solution.  Thus, the
+original problem is infeasible.</p>
+<div class="section" id="Route-1">
+<h3>Route 1<a class="headerlink" href="#Route-1" title="Permalink to this headline">¶</a></h3>
+<p>Choose <span class="math notranslate nohighlight">\(x_2\)</span> and <span class="math notranslate nohighlight">\(w_2\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_1 = \min\left\{ x_0, w_2, w_3 \right\}_{\geq 0}
+  = \min\left\{ 3, 1, \frac{5}{3} \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_0 = 2, \quad
+x_1 = 0, \quad
+x_2 = 1, \quad
+w_1 = 0, \quad
+w_2 = 0, \quad
+w_3 = 2.\]</div>
+<p>Pivot auxiliary dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= \frac{1}{2} \left( -4 + 2 x_1 - w_1 - w_2 \right)\\
+  \text{subject to} \quad
+    x_0 &amp;= \frac{1}{2} \left( 4 - 2 x_1 + w_1 + w_2 \right)\\
+    x_2 &amp;= \frac{1}{2} \left( 2 + w_1 + w_2 \right)\\
+    w_3 &amp;= \frac{1}{2} \left( 6 - 4 x_1 + 2 w_2 \right)\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(w_3\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_1 = \min\left\{ x_0, w_3 \right\}_{\geq 0}
+  = \min\left\{ 2, \frac{3}{2} \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_0 = \frac{1}{2}, \quad
+x_1 = \frac{3}{2}, \quad
+x_2 = 1, \quad
+w_1 = 0, \quad
+w_2 = 0, \quad
+w_3 = 0.\]</div>
+<p>Pivot auxiliary dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= \frac{1}{2} \left( -1 - w_1 - w_3 \right)\\
+  \text{subject to} \quad
+    x_0 &amp;= \frac{1}{2} \left( 1 + w_1 + w_3 \right)\\
+    x_1 &amp;= \frac{1}{2} \left( 3 + w_2 - w_3 \right)\\
+    x_2 &amp;= \frac{1}{2} \left( 2 + w_1 - w_2 \right)\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+</div>
+<div class="section" id="Route-2">
+<h3>Route 2<a class="headerlink" href="#Route-2" title="Permalink to this headline">¶</a></h3>
+<p>Choose <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(w_3\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_1 = \min\left\{ x_0, w_3 \right\}_{\geq 0}
+  = \min\left\{ 3, \frac{5}{2} \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_0 = \frac{1}{2}, \quad
+x_1 = \frac{5}{2}, \quad
+x_2 = 0, \quad
+w_1 = 0, \quad
+w_2 = 2, \quad
+w_3 = 0.\]</div>
+<p>Pivot auxiliary dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= \frac{1}{2} \left( -1 - w_1 - w_3 \right)\\
+  \text{subject to} \quad
+    x_0 &amp;= \frac{1}{2} \left( 1 + w_1 + w_3 \right)\\
+    x_1 &amp;= \frac{1}{2} \left( 5 - 2 x_2 + w_1 - w_3 \right)\\
+    w_2 &amp;= \frac{1}{2} \left( 4 - 4 x_2 + 2 w_1 \right)\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-2.7">
+<h2>Exercise 2.7<a class="headerlink" href="#Exercise-2.7" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= x_1 + 3 x_2\\
+  \text{subject to} \quad
+    w_1 &amp;= -3 + x_1 + x_2\\
+    w_2 &amp;= -1 + x_1 - x_2\\
+    w_3 &amp;= 2 + x_1 - 2 x_2\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Initial infeasible solution:</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+w_1 = -3, \quad
+w_2 = -1, \quad
+w_3 = 2.\]</div>
+<p>The auxiliary problem is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    -x_0 &amp;\\
+  \text{subject to} \quad
+    -x_1 - x_2 - x_0 &amp;\leq -3\\
+    -x_1 + x_2 - x_0 &amp;\leq -1\\
+    -x_1 + 2 x_2 - x_0 &amp;\leq 2\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2
+\end{aligned}\end{split}\]</div>
+<p>and its initial infeasible dictionary is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -x_0\\
+  \text{subject to} \quad
+    w_1 &amp;= -3 + x_0 + x_1 + x_2\\
+    w_2 &amp;= -1 + x_0 + x_1 - x_2\\
+    w_3 &amp;= 2 + x_0 + x_1 - 2 x_2\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Initial infeasible solution for auxiliary problem:</p>
+<div class="math notranslate nohighlight">
+\[x_0 = 0, \quad
+x_1 = 0, \quad
+x_2 = 0, \quad
+w_1 = -3, \quad
+w_2 = -1, \quad
+w_3 = 2.\]</div>
+<p>Pivot the infeasible dictionary with <span class="math notranslate nohighlight">\(x_0\)</span> as the entering variable and
+<span class="math notranslate nohighlight">\(w_1\)</span>, the most infeasible variable, as the leaving variable.  The
+resulting dictionary is then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -3 + x_1 + x_2 - w_1\\
+  \text{subject to} \quad
+    x_0 &amp;= 3 - x_1 - x_2 + w_1\\
+    w_2 &amp;= 2 - 2 x_2 + w_1\\
+    w_3 &amp;= 5 - x_2 + w_1\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>and its feasible solution is updated to</p>
+<div class="math notranslate nohighlight">
+\[x_0 = 3, \quad
+x_1 = 0, \quad
+x_2 = 0, \quad
+w_1 = 0, \quad
+w_2 = 2, \quad
+w_3 = 5.\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_0\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_1 = \min\left\{ x_0 \right\}_{\geq 0}
+  = \min\left\{ 3 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_0 = 0, \quad
+x_1 = 3, \quad
+x_2 = 0, \quad
+w_1 = 0, \quad
+w_2 = 2, \quad
+w_3 = 5.\]</div>
+<p>Pivot auxiliary dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -x_0\\
+  \text{subject to} \quad
+    x_1 &amp;= 3 - x_0 - x_2 + w_1\\
+    w_2 &amp;= 2 - 2 x_2 + w_1\\
+    w_3 &amp;= 5 - x_2 + w_1\\
+    x_i &amp;\geq 0 \quad i = 0, 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>The dictionary is optimal for the auxiliary problem, so <span class="math notranslate nohighlight">\(x_0\)</span> can be
+dropped and the original objective function can be reintroduced with the
+basic variables substituted appropriately:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 3 + 2 x_2 + w_1\\
+  \text{subject to} \quad
+    x_1 &amp;= 3 - x_2 + w_1\\
+    w_2 &amp;= 2 - 2 x_2 + w_1\\
+    w_3 &amp;= 1 - x_2 + w_1\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Initial feasible solution:</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 3, \quad
+x_2 = 0, \quad
+w_1 = 0, \quad
+w_2 = 2, \quad
+w_3 = 1.\]</div>
+<p>Notice that as long as <span class="math notranslate nohighlight">\(w_1 \geq 2 x_2\)</span>, the constraints are satisfied.
+As shown below, the original problem is feasible but has an unbounded objective.</p>
+<div class="section" id="Route-1">
+<h3>Route 1<a class="headerlink" href="#Route-1" title="Permalink to this headline">¶</a></h3>
+<p>Choose <span class="math notranslate nohighlight">\(x_2\)</span> and <span class="math notranslate nohighlight">\(w_2\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_2 = \min\left\{ x_1, w_2, w_3 \right\}_{\geq 0}
+  = \min\left\{ 3, 1, 1 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 2, \quad
+x_2 = 1, \quad
+w_1 = 0, \quad
+w_2 = 0, \quad
+w_3 = 0.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 5 + 2 w_1 - w_2\\
+  \text{subject to} \quad
+    x_1 &amp;= \frac{1}{2} \left( 4 + w_1 + w_2 \right)\\
+    x_2 &amp;= \frac{1}{2} \left( 2 + w_1 - w_2 \right)\\
+    w_3 &amp;= \frac{1}{2} \left( w_1 + w_2 \right)\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Since the entering variable</p>
+<div class="math notranslate nohighlight">
+\[w_1 = \min\left\{ x_1, x_2, w_3 \right\}_{\geq 0}
+  = \min\left\{ -4, -2, 0 \right\},\]</div>
+<p>the problem is unbounded.</p>
+</div>
+<div class="section" id="Route-2">
+<h3>Route 2<a class="headerlink" href="#Route-2" title="Permalink to this headline">¶</a></h3>
+<p>Choose <span class="math notranslate nohighlight">\(x_2\)</span> and <span class="math notranslate nohighlight">\(w_3\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_2 = \min\left\{ x_1, w_2, w_3 \right\}_{\geq 0}
+  = \min\left\{ 3, 1, 1 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 2, \quad
+x_2 = 1, \quad
+w_1 = 0, \quad
+w_2 = 0, \quad
+w_3 = 0.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 5 + 3 w_1 - 2 w_3\\
+  \text{subject to} \quad
+    x_1 &amp;= 2 + w_3\\
+    x_2 &amp;= 1 + w_1 - w_3\\
+    w_2 &amp;= -w_1 + 2 w_3\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Since the entering variable</p>
+<div class="math notranslate nohighlight">
+\[w_1 = \min\left\{ x_2, w_2 \right\}_{\geq 0}
+  = \min\left\{ -1, 0 \right\}_{\geq 0},\]</div>
+<p>the problem is unbounded.</p>
+</div>
+</div>
+<div class="section" id="Exercise-2.8">
+<h2>Exercise 2.8<a class="headerlink" href="#Exercise-2.8" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 3 x_1 + 2 x_2\\
+  \text{subject to} \quad
+    w_1 &amp;= 1 - x_1 + 2 x_2\\
+    w_2 &amp;= 2 - x_1 + x_2\\
+    w_3 &amp;= 6 - 2 x_1 + x_2\\
+    w_4 &amp;= 5 - x_1\\
+    w_5 &amp;= 16 - 2 x_1 - x_2\\
+    w_6 &amp;= 12 - x_1 - x_2\\
+    w_7 &amp;= 21 - x_1 - 2 x_2\\
+    w_8 &amp;= 10 - x_2\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, \ldots, 8
+\end{aligned}\end{split}\]</div>
+<p>Initial feasible solution:</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+w_1 = 1, \quad
+w_2 = 2, \quad
+w_3 = 6, \quad
+w_4 = 5, \quad
+w_5 = 16, \quad
+w_6 = 12, \quad
+w_7 = 21, \quad
+w_8 = 10.\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(w_1\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_1 = \min\left\{ w_i \geq 0 \right\}_{i = 1}^7
+  = \min\left\{ 1, 2, 3, 5, 8, 12, 21 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 1, \quad
+x_2 = 0, \quad
+w_1 = 0, \quad
+w_2 = 1, \quad
+w_3 = 4, \quad
+w_4 = 4, \quad
+w_5 = 14, \quad
+w_6 = 11, \quad
+w_7 = 20, \quad
+w_8 = 10.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 3 - 3 w_1 + 8 x_2\\
+  \text{subject to} \quad
+    x_1 &amp;= 1 - w_1 + 2 x_2\\
+    w_2 &amp;= 1 + w_1 - x_2\\
+    w_3 &amp;= 4 + 2 w_1 - 3 x_2\\
+    w_4 &amp;= 4 + w_1 - 2 x_2\\
+    w_5 &amp;= 14 + 2 w_1 - 5 x_2\\
+    w_6 &amp;= 11 + w_1 - 3 x_2\\
+    w_7 &amp;= 20 + w_1 - 4 x_2\\
+    w_8 &amp;= 10 - x_2\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, \ldots, 8
+\end{aligned}\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_2\)</span> and <span class="math notranslate nohighlight">\(w_2\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_2 = \min\left\{ x_1, \left\{ w_i \right\}_{i = 2}^8 \right\}_{\geq 0}
+  = \min\left\{
+      -\frac{1}{2}, 1, \frac{4}{3}, 2, \frac{14}{5}, \frac{11}{3}, 5, 10
+    \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 3, \quad
+x_2 = 1, \quad
+w_1 = 0, \quad
+w_2 = 0, \quad
+w_3 = 1, \quad
+w_4 = 2, \quad
+w_5 = 9, \quad
+w_6 = 8, \quad
+w_7 = 16, \quad
+w_8 = 9.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 3 + 5 w_1 - 8 w_2\\
+  \text{subject to} \quad
+    x_1 &amp;= 3 + w_1 - 2 w_2\\
+    x_2 &amp;= 1 + w_1 - w_2\\
+    w_3 &amp;= 1 - w_1 + 3 w_2\\
+    w_4 &amp;= 2 - w_1 + 2 w_2\\
+    w_5 &amp;= 9 - 3 w_1 + 5 w_2\\
+    w_6 &amp;= 8 - 2 w_1 + 3 w_2\\
+    w_7 &amp;= 16 - 3 w_1 + 4 w_2\\
+    w_8 &amp;= 9 - w_1 + w_2\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, \ldots, 8
+\end{aligned}\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(w_1\)</span> and <span class="math notranslate nohighlight">\(w_3\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[w_1 = \min\left\{ x_1, x_2, \left\{ w_i \right\}_{i = 3}^8 \right\}_{\geq 0}
+  = \min\left\{ -3, -1, 1, 2, 3, 4, \frac{16}{3}, 9 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 4, \quad
+x_2 = 2, \quad
+w_1 = 1, \quad
+w_2 = 0, \quad
+w_3 = 0, \quad
+w_4 = 1, \quad
+w_5 = 6, \quad
+w_6 = 6, \quad
+w_7 = 13, \quad
+w_8 = 8.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 3 - 5 w_3 + 7 w_2\\
+  \text{subject to} \quad
+    x_1 &amp;= 4 - w_3 + w_2\\
+    x_2 &amp;= 2 - w_3 + 2 w_2\\
+    w_1 &amp;= 1 - w_3 + 3 w_2\\
+    w_4 &amp;= 1 + w_3 - w_2\\
+    w_5 &amp;= 6 + 3 w_3 - 4 w_2\\
+    w_6 &amp;= 6 + 2 w_3 - 3 w_2\\
+    w_7 &amp;= 13 + 3 w_3 - 5 w_2\\
+    w_8 &amp;= 8 + w_3 - 2 w_2\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, \ldots, 8
+\end{aligned}\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(w_2\)</span> and <span class="math notranslate nohighlight">\(w_4\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[w_2 = \min\left\{
+        x_1, x_2, w_1, \left\{ w_i \right\}_{i = 4}^8
+      \right\}_{\geq 0}
+  = \min\left\{
+      -4, -1, -\frac{1}{3}, 1, \frac{3}{2}, 2, \frac{13}{5}, 4
+    \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 5, \quad
+x_2 = 4, \quad
+w_1 = 4, \quad
+w_2 = 1, \quad
+w_3 = 0, \quad
+w_4 = 0, \quad
+w_5 = 2, \quad
+w_6 = 3, \quad
+w_7 = 8, \quad
+w_8 = 6.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 23 + 2 w_3 - 7 w_4\\
+  \text{subject to} \quad
+    x_1 &amp;= 5 - w_4\\
+    x_2 &amp;= 4 + w_3 - 2 w_4\\
+    w_1 &amp;= 4 + 2 w_3 - 3 w_4\\
+    w_2 &amp;= 1 + w_3 - w_4\\
+    w_5 &amp;= 2 - w_3 + 4 w_4\\
+    w_6 &amp;= 3 - w_3 + 3 w_4\\
+    w_7 &amp;= 8 - 2 w_3 + 5 w_4\\
+    w_8 &amp;= 6 - w_3 + 2 w_4\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, \ldots, 8
+\end{aligned}\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(w_3\)</span> and <span class="math notranslate nohighlight">\(w_5\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[w_3 = \min\left\{ x_2, w_1, w_2, w_5, w_6, w_7, w_8 \right\}_{\geq 0}
+  = \min\left\{ -4, -2, -1, 2, 3, 4, 6 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 5, \quad
+x_2 = 6, \quad
+w_1 = 8, \quad
+w_2 = 3, \quad
+w_3 = 2, \quad
+w_4 = 0, \quad
+w_5 = 0, \quad
+w_6 = 1, \quad
+w_7 = 4, \quad
+w_8 = 4.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 27 - 2 w_5 + w_4\\
+  \text{subject to} \quad
+    x_1 &amp;= 5 - w_4\\
+    x_2 &amp;= 6 - w_5 + 2 w_4\\
+    w_1 &amp;= 8 - 2 w_5 + 5 w_4\\
+    w_2 &amp;= 3 - w_5 + 3 w_4\\
+    w_3 &amp;= 2 - w_5 + 4 w_4\\
+    w_6 &amp;= 1 + w_5 - w_4\\
+    w_7 &amp;= 4 + 2 w_5 - 3 w_4\\
+    w_8 &amp;= 4 + w_5 - 2 w_4\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, \ldots, 8
+\end{aligned}\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(w_4\)</span> and <span class="math notranslate nohighlight">\(w_6\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[w_4 = \min\left\{ x_1, x_2, w_1, w_2, w_3, w_6, w_7, w_8 \right\}_{\geq 0}
+  = \min\left\{
+      5, -3, -\frac{8}{5}, -1, -\frac{1}{2}, 1, \frac{4}{3}, 2
+    \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 4, \quad
+x_2 = 8, \quad
+w_1 = 13, \quad
+w_2 = 6, \quad
+w_3 = 6, \quad
+w_4 = 1, \quad
+w_5 = 0, \quad
+w_6 = 0, \quad
+w_7 = 1, \quad
+w_8 = 2.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 28 - w_5 - w_6\\
+  \text{subject to} \quad
+    x_1 &amp;= 4 - w_5 + w_6\\
+    x_2 &amp;= 8 + w_5 - 2 w_6\\
+    w_1 &amp;= 13 + 3 w_5 - 5 w_6\\
+    w_2 &amp;= 6 + 2 w_5 - 3 w_6\\
+    w_3 &amp;= 6 + 3 w_5 - 4 w_6\\
+    w_4 &amp;= 1 + w_5 - w_6\\
+    w_7 &amp;= 1 - w_5 + 3 w_6\\
+    w_8 &amp;= 2 - w_5 + 2 w_6\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, \ldots, 8
+\end{aligned}\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-2.9">
+<span id="vanderbei2014linear-ex-2-9"></span><h2>Exercise 2.9<a class="headerlink" href="#Exercise-2.9" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 2 x_1 + 3 x_2 + 4 x_3\\
+  \text{subject to} \quad
+    w_1 &amp;= 5 - 2 x_2 - 3 x_3\\
+    w_2 &amp;= 4 - x_1 - x_2 - 2 x_3\\
+    w_3 &amp;= 7 - x_1 - 2 x_2 - 3 x_3\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Initial feasible solution:</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+w_1 = 5, \quad
+w_2 = 4, \quad
+w_3 = 7.\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_3\)</span> and <span class="math notranslate nohighlight">\(w_1\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_3 = \min\left\{ w_1, w_2, w_3 \right\}_{\geq 0}
+  = \min\left\{ \frac{5}{3}, 2, \frac{7}{3} \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = \frac{5}{3}, \quad
+w_1 = 0, \quad
+w_2 = \frac{2}{3}, \quad
+w_3 = 2.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= \frac{1}{3} \left( 20 + 6 x_1 + x_2 - 4 w_1 \right)\\
+  \text{subject to} \quad
+    x_3 &amp;= \frac{1}{3} \left( 5 - 2 x_2 - w_1 \right)\\
+    w_2 &amp;= \frac{1}{3} \left( 2 - 3 x_1 + x_2 + 2 w_1 \right)\\
+    w_3 &amp;= 2 - x_1 + w_1\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(w_2\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_1 = \min\left\{ w_2, w_3 \right\}_{\geq 0}
+  = \min\left\{ \frac{2}{3}, 2 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = \frac{2}{3}, \quad
+x_2 = 0, \quad
+x_3 = \frac{5}{3}, \quad
+w_1 = 0, \quad
+w_2 = 0, \quad
+w_3 = \frac{4}{3}.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 8 + x_2 - 2 w_2\\
+  \text{subject to} \quad
+    x_1 &amp;= \frac{1}{3} \left( 2 + x_2 + 2 w_1 - 3 w_2 \right)\\
+    x_3 &amp;= \frac{1}{3} \left( 5 - 2 x_2 - w_1 \right)\\
+    w_3 &amp;= \frac{1}{3} \left( 4 - x_2 + w_1 + 3 w_2 \right)\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_2\)</span> and <span class="math notranslate nohighlight">\(x_3\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_2 = \min\left\{ x_1, x_3, w_3 \right\}_{\geq 0}
+  = \min\left\{ -2, \frac{5}{2}, 4 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = \frac{3}{2}, \quad
+x_2 = \frac{5}{2}, \quad
+x_3 = 0, \quad
+w_1 = 0, \quad
+w_2 = 0, \quad
+w_3 = \frac{1}{2}.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= \frac{1}{2} \left( 21 - 3 x_3 - w_1 - 4 w_2 \right)\\
+  \text{subject to} \quad
+    x_1 &amp;= \frac{1}{2} \left( 3 - x_3 + w_1 - w_2 \right)\\
+    x_2 &amp;= \frac{1}{2} \left( 5 - 3 x_3 - w_1 \right)\\
+    w_3 &amp;= \frac{1}{2} \left( 1 + x_3 + w_1 + w_2 \right)\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-2.10">
+<h2>Exercise 2.10<a class="headerlink" href="#Exercise-2.10" title="Permalink to this headline">¶</a></h2>
+<p>Rewriting the LP in standard form yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    6 x_1 + 8 x_2 + 5 x_3 + 9 x_4 &amp;\\
+  \text{subject to} \quad
+    x_1 + x_2 + x_3 + x_4 &amp;\leq 1\\
+    -x_1 - x_2 - x_3 - x_4 &amp;\leq -1\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3, 4.
+\end{aligned}\end{split}\]</div>
+<p>An equivalent representation with slack variables is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 6 x_1 + 8 x_2 + 5 x_3 + 9 x_4\\
+  \text{subject to} \quad
+    w_1 &amp;= 1 - x_1 - x_2 - x_3 - x_4\\
+    w_2 &amp;= 1 + x_1 + x_2 + x_3 + x_4\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3, 4\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+<p>Initial feasible solution:</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+x_4 = 0, \quad
+w_1 = 1, \quad
+w_2 = 1.\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_4\)</span> and <span class="math notranslate nohighlight">\(w_1\)</span> as the entering and leaving variable
+respectively since that’s the only choice.</p>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+x_4 = 1, \quad
+w_1 = 0, \quad
+w_2 = 2.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 9 - 3 x_1 - x_2 - 4 x_3 - 9 w_1\\
+  \text{subject to} \quad
+    x_4 &amp;= 1 - x_1 - x_2 - x_3 - w_1\\
+    w_2 &amp;= 2 - w_1\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3, 4\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-2.11">
+<h2>Exercise 2.11<a class="headerlink" href="#Exercise-2.11" title="Permalink to this headline">¶</a></h2>
+<p>Rewriting the LP in standard form yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  -\text{maximize} \quad
+    -x_1 - 8 x_2 - 9 x_3 - 2 x_4 - 7 x_5 - 3 x_6 &amp;\\
+  \text{subject to} \quad
+    -x_1 - x_2 - x_3 &amp;\leq -1\\
+    -x_1 + x_4 + x_4 &amp;\leq 0\\
+    x_1 - x_4 - x_4 &amp;\leq 0\\
+    -x_2 - x_4 + x_6 &amp;\leq 0\\
+    x_2 + x_4 - x_6 &amp;\leq 0\\
+    x_3 + x_5 + x_6 &amp;\leq 1\\
+    x_i &amp;\geq 0 \quad i = 1, 2, \ldots, 6
+\end{aligned}\end{split}\]</div>
+<p>An equivalent representation with slack variables is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  -\text{maximize} \quad
+    \zeta &amp;= -x_1 - 8 x_2 - 9 x_3 - 2 x_4 - 7 x_5 - 3 x_6\\
+  \text{subject to} \quad
+    w_1 &amp;= -1 + x_1 + x_2 + x_3\\
+    w_2 &amp;= x_1 - x_4 - x_5\\
+    w_3 &amp;= -x_1 + x_4 + x_5\\
+    w_4 &amp;= x_2 + x_4 - x_6\\
+    w_5 &amp;= -x_2 - x_4 + x_6\\
+    w_6 &amp;= 1 - x_3 - x_5 - x_6\\
+    x_i &amp;\geq 0 \quad i = 1, 2, \ldots, 6\\
+    w_i &amp;\geq 0 \quad i = 1, 2, \ldots, 6
+\end{aligned}\end{split}\]</div>
+<p>Initial infeasible solution:</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+x_4 = 0, \quad
+x_5 = 0, \quad
+x_6 = 0, \quad
+w_1 = -1, \quad
+w_2 = 0, \quad
+w_3 = 0, \quad
+w_4 = 0, \quad
+w_5 = 0, \quad
+w_6 = 1.\]</div>
+<p>The auxiliary problem is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    -x_0 &amp;\\
+  \text{subject to} \quad
+    -x_1 - x_2 - x_3 - x_0 &amp;\leq -1\\
+    -x_1 + x_4 + x_4 - x_0 &amp;\leq 0\\
+    x_1 - x_4 - x_4 - x_0 &amp;\leq 0\\
+    -x_2 - x_4 + x_6 - x_0 &amp;\leq 0\\
+    x_2 + x_4 - x_6 - x_0 &amp;\leq 0\\
+    x_3 + x_5 + x_6 - x_0 &amp;\leq 1\\
+    x_i &amp;\geq 0 \quad i = 0, 1, \ldots, 6
+\end{aligned}\end{split}\]</div>
+<p>and its initial infeasible dictionary is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -x_0\\
+  \text{subject to} \quad
+    w_1 &amp;= -1 + x_1 + x_2 + x_3 + x_0\\
+    w_2 &amp;= x_1 - x_4 - x_5 + x_0\\
+    w_3 &amp;= -x_1 + x_4 + x_5 + x_0\\
+    w_4 &amp;= x_2 + x_4 - x_6 + x_0\\
+    w_5 &amp;= -x_2 - x_4 + x_6 + x_0\\
+    w_6 &amp;= 1 - x_3 - x_5 - x_6 + x_0\\
+    x_i &amp;\geq 0 \quad i = 0, 1, \ldots, 6\\
+    w_i &amp;\geq 0 \quad i = 1, 2, \ldots, 6
+\end{aligned}\end{split}\]</div>
+<p>Initial infeasible solution for auxiliary problem:</p>
+<div class="math notranslate nohighlight">
+\[x_0 = 0, \quad
+x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+x_4 = 0, \quad
+x_5 = 0, \quad
+x_6 = 0, \quad
+w_1 = -1, \quad
+w_2 = 0, \quad
+w_3 = 0, \quad
+w_4 = 0, \quad
+w_5 = 0, \quad
+w_6 = 1.\]</div>
+<p>Pivot the infeasible dictionary with <span class="math notranslate nohighlight">\(x_0\)</span> as the entering variable and
+<span class="math notranslate nohighlight">\(w_1\)</span>, the most infeasible variable, as the leaving variable.  The
+resulting dictionary is then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -1 + x_1 + x_2 + x_3 - w_1\\
+  \text{subject to} \quad
+    x_0 &amp;= 1 - x_1 - x_2 - x_3 + w_1\\
+    w_2 &amp;= 1 - x_2 - x_3 - x_4 - x_5 + w_1\\
+    w_3 &amp;= 1 - 2 x_1 - x_2 - x_3 + x_4 + x_5 + w_1\\
+    w_4 &amp;= 1 - x_1 - x_3 + x_4 - x_6 + w_1\\
+    w_5 &amp;= 1 - x_1 - 2 x_2 - x_3 - x_4 + x_6 + w_1\\
+    w_6 &amp;= 2 - x_1 - x_2 - 2 x_3 - x_5 - x_6 + w_1\\
+    x_i &amp;\geq 0 \quad i = 0, 1, \ldots, 6\\
+    w_i &amp;\geq 0 \quad i = 1, 2, \ldots, 6
+\end{aligned}\end{split}\]</div>
+<p>and its feasible solution is updated to</p>
+<div class="math notranslate nohighlight">
+\[x_0 = 1, \quad
+x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+x_4 = 0, \quad
+x_5 = 0, \quad
+x_6 = 0, \quad
+w_1 = 0, \quad
+w_2 = 1, \quad
+w_3 = 1, \quad
+w_4 = 1, \quad
+w_5 = 1, \quad
+w_6 = 2.\]</div>
+<p>Even though <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> are valid choices, selecting
+<span class="math notranslate nohighlight">\(x_3\)</span> will make phase two much easier.  Choose <span class="math notranslate nohighlight">\(x_3\)</span> and
+<span class="math notranslate nohighlight">\(x_0\)</span> as the entering and leaving variable respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_3 = \min\left\{ x_0, w_2, w_3, w_4, w_5, w_6 \right\}_{\geq 0}
+  = \min\left\{ 1, 1, 1, 1, 1, 1 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_0 = 0, \quad
+x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 1, \quad
+x_4 = 0, \quad
+x_5 = 0, \quad
+x_6 = 0, \quad
+w_1 = 0, \quad
+w_2 = 0, \quad
+w_3 = 0, \quad
+w_4 = 0, \quad
+w_5 = 0, \quad
+w_6 = 0.\]</div>
+<p>Pivot auxiliary dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -x_0\\
+  \text{subject to} \quad
+    x_3 &amp;= 1 - x_0 - x_1 - x_2 + w_1\\
+    w_2 &amp;= x_0 + x_1 - x_4 - x_5\\
+    w_3 &amp;= x_0 - x_1 + x_4 + x_5\\
+    w_4 &amp;= x_0 + x_2 + x_4 - x_6\\
+    w_5 &amp;= x_0 - x_2 - x_4 + x_6\\
+    w_6 &amp;= 2 x_0 + x_1 + x_2 - x_5 - x_6 - w_1\\
+    x_i &amp;\geq 0 \quad i = 0, 1, \ldots, 6\\
+    w_i &amp;\geq 0 \quad i = 1, 2, \ldots, 6
+\end{aligned}\end{split}\]</div>
+<p>The dictionary is optimal for the auxiliary problem, so <span class="math notranslate nohighlight">\(x_0\)</span> can
+be dropped and the original objective function can be reintroduced with
+the basic variables substituted appropriately:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  -\text{maximize} \quad
+    \zeta &amp;= -9 + 8 x_1 + x_2 - 2 x_4 - 7 x_5 - 3 x_6 - 9 w_1\\
+  \text{subject to} \quad
+    x_3 &amp;= 1 - x_1 - x_2 + w_1\\
+    w_2 &amp;= x_1 - x_4 - x_5\\
+    w_3 &amp;= -x_1 + x_4 + x_5\\
+    w_4 &amp;= x_2 + x_4 - x_6\\
+    w_5 &amp;= -x_2 - x_4 + x_6\\
+    w_6 &amp;= x_1 + x_2 - x_5 - x_6 - w_1\\
+    x_i &amp;\geq 0 \quad i = 1, 2, \ldots, 6\\
+    w_i &amp;\geq 0 \quad i = 1, 2, \ldots, 6
+\end{aligned}\end{split}\]</div>
+<p>Initial feasible solution:</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 1, \quad
+x_4 = 0, \quad
+x_5 = 0, \quad
+x_6 = 0, \quad
+w_1 = 0, \quad
+w_2 = 0, \quad
+w_3 = 0, \quad
+w_4 = 0, \quad
+w_5 = 0, \quad
+w_6 = 0.\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(w_3\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_1 = \min\left\{ x_3, w_3 \right\}_{\geq 0}
+  = \min\left\{ 1, 0 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 1, \quad
+x_4 = 0, \quad
+x_5 = 0, \quad
+x_6 = 0, \quad
+w_1 = 0, \quad
+w_2 = 0, \quad
+w_3 = 0, \quad
+w_4 = 0, \quad
+w_5 = 0, \quad
+w_6 = 0.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  -\text{maximize} \quad
+    \zeta &amp;= -9 + x_2 + 6 x_4 + x_5 - 3 x_6 - 9 w_1 - 8 w_3\\
+  \text{subject to} \quad
+    x_1 &amp;= x_4 + x_5 - w_3\\
+    x_3 &amp;= 1 - x_2 - x_4 - x_5 + w_1 + w_3\\
+    w_2 &amp;= -w_3\\
+    w_4 &amp;= x_2 + x_4 - x_6\\
+    w_5 &amp;= -x_2 - x_4 + x_6\\
+    w_6 &amp;= x_2 + x_4 - x_6 - w_1 - w_3\\
+    x_i &amp;\geq 0 \quad i = 1, 2, \ldots, 6\\
+    w_i &amp;\geq 0 \quad i = 1, 2, \ldots, 6
+\end{aligned}\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_4\)</span> and <span class="math notranslate nohighlight">\(w_5\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_4 = \min\left\{ x_3, w_5 \right\}_{\geq 0}
+  = \min\left\{ 0 \right\}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 1, \quad
+x_4 = 0, \quad
+x_5 = 0, \quad
+x_6 = 0, \quad
+w_1 = 0, \quad
+w_2 = 0, \quad
+w_3 = 0, \quad
+w_4 = 0.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  -\text{maximize} \quad
+    \zeta &amp;= -9 - 5 x_2 + x_5 + 3 x_6 - 9 w_1 - 8 w_3 - 6 w_5\\
+  \text{subject to} \quad
+    x_1 &amp;= -x_2 + x_6 - w_3\\
+    x_3 &amp;= 1 - x_5 - x_6 + w_1 + w_3 + w_5\\
+    x_4 &amp;= -x_2 + x_6 - w_5\\
+    w_2 &amp;= -w_3\\
+    w_4 &amp;= -w_5\\
+    w_6 &amp;= -w_1 - w_3 - w_5\\
+    x_i &amp;\geq 0 \quad i = 1, 2, \ldots, 6\\
+    w_i &amp;\geq 0 \quad i = 1, 2, \ldots, 6
+\end{aligned}\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_6\)</span> and <span class="math notranslate nohighlight">\(x_3\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_6 = \min\left\{ x_3 \right\}_{\geq 0}
+  = \min\left\{ 1, 0 \right\}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 1, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+x_4 = 1, \quad
+x_5 = 0, \quad
+x_6 = 1, \quad
+w_1 = 0, \quad
+w_2 = 0, \quad
+w_3 = 0, \quad
+w_4 = 0, \quad
+w_5 = 0, \quad
+w_6 = 0.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  -\text{maximize} \quad
+    \zeta &amp;= -6 - 5 x_2 - 3 x_3 - 2 x_5 - 6 w_1 - 5 w_3 - 3 w_5\\
+  \text{subject to} \quad
+    x_1 &amp;= 1 - x_2 - x_3 - x_5 + w_1 + w_5\\
+    x_4 &amp;= 1 - x_2 - x_3 - x_5 + w_1 + w_3\\
+    x_6 &amp;= 1 - x_3 - x_5 + w_1 + w_3 + w_5\\
+    w_2 &amp;= -w_3\\
+    w_4 &amp;= -w_5\\
+    w_6 &amp;= -w_1 - w_3 - w_5\\
+    x_i &amp;\geq 0 \quad i = 1, 2, \ldots, 6\\
+    w_i &amp;\geq 0 \quad i = 1, 2, \ldots, 6
+\end{aligned}\end{split}\]</div>
+<p>Since no other coefficients are positive, the solution is optimal.</p>
+</div>
+<div class="section" id="Exercise-2.12-and-Exercise-2.13">
+<h2>Exercise 2.12 and Exercise 2.13<a class="headerlink" href="#Exercise-2.12-and-Exercise-2.13" title="Permalink to this headline">¶</a></h2>
+<p>The previous exercises were solved using the proposed tool.</p>
+</div>
+<div class="section" id="Exercise-2.14">
+<h2>Exercise 2.14<a class="headerlink" href="#Exercise-2.14" title="Permalink to this headline">¶</a></h2>
+<p>Choose <span class="math notranslate nohighlight">\(x_6\)</span> and <span class="math notranslate nohighlight">\(w_1\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_6 = \min\left\{ w_1, w_2 \right\}_{\geq 0}
+  = \min\left\{ 1, \frac{5}{3} \right\}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 1, \quad
+w_1 = 0, \quad
+w_2 = 2.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 9 + 7 x_1 - 6 w_1\\
+  \text{subject to} \quad
+    x_2 &amp;= 1 + x_1 - w_1\\
+    w_2 &amp;= 2 - 5 x_1 + 3 w_1\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-2.15">
+<span id="vanderbei2014linear-ex-2-15"></span><h2>Exercise 2.15<a class="headerlink" href="#Exercise-2.15" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 4 - w_1 - 2 x_2\\
+  \text{subject to} \quad
+    x_1 &amp;= 3 - 2 x_2\\
+    w_2 &amp;= 1 + w_1 - x_2\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+<p>Suppose the optimal solution for the above dictionary <span class="math notranslate nohighlight">\(D_0\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 3, \quad
+x_2 = 0, \quad
+w_1 = 0, \quad
+w_2 = 1.\]</div>
+<p><a class="reference internal" href="chapter-03.html"><span class="doc">Since pivot operations are reversible</span></a>,
+one can mechanically trace back to original problem where <span class="math notranslate nohighlight">\(w_1\)</span> and
+<span class="math notranslate nohighlight">\(w_2\)</span> are the initial slack variables.  As shown in
+<a class="reference internal" href="#vanderbei2014linear-ex-2-17"><span class="std std-ref">Exercise 2.17</span></a> and
+<a class="reference internal" href="#vanderbei2014linear-ex-2-18"><span class="std std-ref">Exercise 2.18</span></a>, reverse pivots only need to
+examine the variables whose coefficient is negative in the objective function.</p>
+<p>Even though the following dictionaries are still feasible with the proposed
+optimal solution, none of them have <span class="math notranslate nohighlight">\(w_1\)</span> and <span class="math notranslate nohighlight">\(w_2\)</span> as the initial
+slack variables:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(D_{1 \mapsto 0}\)</span> cannot be pivoted to <span class="math notranslate nohighlight">\(D_0\)</span> with one iteration.</p></li>
+<li><p><span class="math notranslate nohighlight">\(D_{6 \mapsto 3} = D_{4 \mapsto 2}\)</span>, but <span class="math notranslate nohighlight">\(D_{4 \mapsto 2}\)</span> cannot
+be pivoted to <span class="math notranslate nohighlight">\(D_{6 \mapsto 3}\)</span> with one iteration.</p></li>
+<li><p><span class="math notranslate nohighlight">\(D_{5 \mapsto 2} = D_{1 \mapsto 0}\)</span>, but <span class="math notranslate nohighlight">\(D_{1 \mapsto 0}\)</span> cannot
+be pivoted to <span class="math notranslate nohighlight">\(D_{5 \mapsto 2}\)</span> with one iteration.</p></li>
+<li><p><span class="math notranslate nohighlight">\(D_{7 \mapsto 4}\)</span> cannot be pivoted to <span class="math notranslate nohighlight">\(D_{4 \mapsto 2}\)</span> with one
+iteration.</p></li>
+</ul>
+<p>If feasibility preservation of intermediate dictionaries are no longer
+necessary, then choose <span class="math notranslate nohighlight">\(w_1\)</span> and <span class="math notranslate nohighlight">\(x_1\)</span> as the entering and leaving
+variable respectively where</p>
+<div class="math notranslate nohighlight">
+\[w_1 = \frac{3 - x_1 - 2 x_2}{0}.\]</div>
+<p>Adopting the convention where <span class="math notranslate nohighlight">\(\frac{0}{0}\)</span> is treated as a zero, the
+corrresponding pivoted dictionary is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 4 - \frac{3 - x_1 - 2 x_2}{0} - 2 x_2\\
+  \text{subject to} \quad
+    w_1 &amp;= \frac{3 - x_1 - 2 x_2}{0}\\
+    w_2 &amp;= 1 + \frac{3 - x_1 - 2 x_2}{0} - x_2\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+<div class="section" id="D_{1-\mapsto-0}">
+<h3><span class="math notranslate nohighlight">\(D_{1 \mapsto 0}\)</span><a class="headerlink" href="#D_{1-\mapsto-0}" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(w_1\)</span> be the previous leaving variable and <span class="math notranslate nohighlight">\(w_2\)</span> be the previous
+entering variable.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 5 - 3 x_2 - w_2\\
+  \text{subject to} \quad
+    x_1 &amp;= 3 - 2 x_2\\
+    w_1 &amp;= -1 + x_2 + w_2\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+<p>No need to continue along this path since the reverse pivot is not reversible.</p>
+</div>
+<div class="section" id="D_{2-\mapsto-0}">
+<h3><span class="math notranslate nohighlight">\(D_{2 \mapsto 0}\)</span><a class="headerlink" href="#D_{2-\mapsto-0}" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(x_2\)</span> be the previous leaving variable and <span class="math notranslate nohighlight">\(w_2\)</span> be the previous
+entering variable.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 2 - 3 w_1 + 2 w_2\\
+  \text{subject to} \quad
+    x_1 &amp;= 1 - 2 w_1 + 2 w_2\\
+    x_2 &amp;= 1 + w_1 - w_2\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+</div>
+<div class="section" id="D_{3-\mapsto-0}">
+<h3><span class="math notranslate nohighlight">\(D_{3 \mapsto 0}\)</span><a class="headerlink" href="#D_{3-\mapsto-0}" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(x_2\)</span> be the previous leaving variable and <span class="math notranslate nohighlight">\(x_1\)</span> be the previous
+entering variable.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 1 + x_1 - w_1\\
+  \text{subject to} \quad
+    x_2 &amp;= \frac{1}{2} (3 - x_1)\\
+    w_2 &amp;= \frac{1}{2} (-1 + x_1 + 2 w_1)\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+</div>
+<div class="section" id="D_{4-\mapsto-2}">
+<h3><span class="math notranslate nohighlight">\(D_{4 \mapsto 2}\)</span><a class="headerlink" href="#D_{4-\mapsto-2}" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(w_1\)</span> be the previous leaving variable and <span class="math notranslate nohighlight">\(x_1\)</span> be the previous
+entering variable.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= \frac{1}{2} (1 + 3 x_1 - 2 w_2)\\
+  \text{subject to} \quad
+    x_2 &amp;= \frac{1}{2} (3 - x_1)\\
+    w_1 &amp;= \frac{1}{2} (1 - x_1 + 2 w_2)\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+</div>
+<div class="section" id="D_{5-\mapsto-2}">
+<h3><span class="math notranslate nohighlight">\(D_{5 \mapsto 2}\)</span><a class="headerlink" href="#D_{5-\mapsto-2}" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(w_1\)</span> be the previous leaving variable and <span class="math notranslate nohighlight">\(x_2\)</span> be the previous
+entering variable.  The resulting dictionary is equal to
+<span class="math notranslate nohighlight">\(D_{1 \mapsto 0}\)</span>.</p>
+</div>
+<div class="section" id="D_{6-\mapsto-3}">
+<h3><span class="math notranslate nohighlight">\(D_{6 \mapsto 3}\)</span><a class="headerlink" href="#D_{6-\mapsto-3}" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(w_1\)</span> be the previous leaving variable and <span class="math notranslate nohighlight">\(w_2\)</span> be the previous
+entering variable.  The resulting dictionary is equal to
+<span class="math notranslate nohighlight">\(D_{4 \mapsto 2}\)</span>.</p>
+</div>
+<div class="section" id="D_{7-\mapsto-4}">
+<h3><span class="math notranslate nohighlight">\(D_{7 \mapsto 4}\)</span><a class="headerlink" href="#D_{7-\mapsto-4}" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(w_2\)</span> be the previous leaving variable and <span class="math notranslate nohighlight">\(w_1\)</span> be the previous
+entering variable.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= \frac{1}{2} (3 + x_1 - 4 w_1)\\
+  \text{subject to} \quad
+    x_2 &amp;= \frac{1}{2} (3 - x_1)\\
+    w_2 &amp;= \frac{1}{2} (-1 + x_1 + 2 w_1)\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+<p>No need to continue along this path since the reverse pivot is not reversible.
+The only choice for a pivot is choosing <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> as the
+entering and leaving variable respectively resulting in</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 3 - x_2 - 2 w_1\\
+  \text{subject to} \quad
+    x_1 &amp;= 3 - 2 x_2\\
+    w_2 &amp;= 1 - x_2 + w_1\\
+    x_i &amp;\geq 0 \quad i = 1, 2\\
+    w_i &amp;\geq 0 \quad i = 1, 2
+\end{aligned}\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-2.16">
+<h2>Exercise 2.16<a class="headerlink" href="#Exercise-2.16" title="Permalink to this headline">¶</a></h2>
+<p>The sequence of basic solutions produced by the simplex method starts at
+<span class="math notranslate nohighlight">\((0, 0)\)</span> and advances counter-clockwise along the perimeter of the
+plot until the vertex <span class="math notranslate nohighlight">\((4, 8)\)</span> is encountered.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">symbols</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">plot_implicit</span><span class="p">,</span> <span class="n">And</span>
+
+<span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x_1 x_2&#39;</span><span class="p">)</span>
+
+<span class="n">c1</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x2</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+<span class="n">c2</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span> <span class="n">x1</span> <span class="o">-</span> <span class="n">x2</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">c3</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span><span class="n">c2</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x1</span> <span class="o">-</span> <span class="n">x2</span> <span class="o">&lt;=</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">c4</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span><span class="n">c3</span><span class="p">,</span> <span class="n">x1</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">c5</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span><span class="n">c4</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span> <span class="o">&lt;=</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">c6</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span><span class="n">c5</span><span class="p">,</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span> <span class="o">&lt;=</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">c7</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span><span class="n">c6</span><span class="p">,</span> <span class="n">x1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x2</span> <span class="o">&lt;=</span> <span class="mi">21</span><span class="p">)</span>
+<span class="n">c8</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span><span class="n">c7</span><span class="p">,</span> <span class="n">x2</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">c9</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span><span class="n">c8</span><span class="p">,</span> <span class="n">x1</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">c10</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span><span class="n">c9</span><span class="p">,</span> <span class="n">x2</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">plot_implicit</span><span class="p">(</span><span class="n">c10</span><span class="p">,</span> <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span>
+              <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Feasible Region&#39;</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;Figure size 640x480 with 1 Axes&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Exercise-2.17">
+<span id="vanderbei2014linear-ex-2-17"></span><h2>Exercise 2.17<a class="headerlink" href="#Exercise-2.17" title="Permalink to this headline">¶</a></h2>
+<p>See Exercise 2.9.</p>
+</div>
+<div class="section" id="Exercise-2.18">
+<span id="vanderbei2014linear-ex-2-18"></span><h2>Exercise 2.18<a class="headerlink" href="#Exercise-2.18" title="Permalink to this headline">¶</a></h2>
+<p>The general linear programming problem with slack variables is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= \sum_{j \in \mathcal{N}} c_j x_j\\
+  \text{subject to} \quad
+    w_i &amp;= b_i - \sum_{j \in \mathcal{N}}^n a_{ij} x_j
+      \quad i \in \mathcal{B}\\
+    x_j &amp;\geq 0 \quad j = 1, 2, \ldots, n\\
+    w_i &amp;\geq 0 \quad i = 1, 2, \ldots, m
+\end{aligned}\end{split}\]</div>
+<p>Without loss of generality, the entering variable <span class="math notranslate nohighlight">\(x_e\)</span> will be chosen
+from <span class="math notranslate nohighlight">\(\{j \in \mathcal{N} \colon c_j &gt; 0 \}\)</span>; consequently, the leaving
+variable <span class="math notranslate nohighlight">\(w_l\)</span> will be chosen from
+<span class="math notranslate nohighlight">\(\{i \in \mathcal{B} \colon a_{ie} &gt; 0 \text{ and } \frac{b_i}{a_{ie}} \text{is minimal}\}\)</span>.</p>
+<p>Pivoting will result in</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x_e &amp;= a_{le}^{-1} \left(
+         b_l - w_l - \sum_{j \in \mathcal{N} \setminus e}^n a_{lj} x_j
+       \right)\\
+\\
+\zeta &amp;= c_e x_e + \sum_{j \in \mathcal{N} \setminus e}^n c_j x_j
+  = \frac{c_e}{a_{le}} b_l - \frac{c_e}{a_{le}} w_l +
+    \sum_{j \in \mathcal{N} \setminus e}^n
+      \left( c_j - \frac{c_e a_{lj}}{a_{le}} \right) x_j\end{split}\]</div>
+<p>where the other constraints are replaced appropriately, but is not essential
+to the conclusion of this proof.</p>
+<p>Since <span class="math notranslate nohighlight">\(-\frac{c_e}{a_{le}}\)</span> must be negative, the nonbasic variable
+<span class="math notranslate nohighlight">\(w_l\)</span> cannot be selected in the next iteration.</p>
+</div>
+<div class="section" id="Exercise-2.19">
+<span id="vanderbei2014linear-ex-2-19"></span><h2>Exercise 2.19<a class="headerlink" href="#Exercise-2.19" title="Permalink to this headline">¶</a></h2>
+<p>The equivalent problem with slack variables is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\text{maximize} \quad
+  \zeta &amp;= \sum_{j = 1}^n p_j x_j\\
+\text{subject to} \quad
+  w_0 &amp;= \beta - \sum_{j = 1}^n q_j x_j\\
+  w_j &amp;= 1 - x_j\\
+  x_j &amp;\geq 0 \quad j = 1, 2, \ldots, n\\
+  w_j &amp;\geq 0 \quad j = 1, 2, \ldots, n\\
+  w_0 &amp;\geq 0
+\end{aligned}\end{split}\]</div>
+<p>where the initial feasible solution is</p>
+<div class="math notranslate nohighlight">
+\[x_j = 0 \qquad \land \qquad w_0 = \beta \qquad \land \qquad w_j = 1.\]</div>
+<p>Suppose <span class="math notranslate nohighlight">\(x_1\)</span> is the first entering variable.  Pivoting requires
+determining</p>
+<div class="math notranslate nohighlight">
+\[x_1 = \min\left\{ w_0, w_1 \right\}_{\geq 0}
+  = \min\left\{ \frac{\beta}{q_1}, 1 \right\}.\]</div>
+<p>In order to make progress and simplify the analysis, assume</p>
+<div class="math notranslate nohighlight">
+\[\beta \geq q_1 + q_2 + \cdots + q_{k - 2} + q_{k - 1}\]</div>
+<p>where <span class="math notranslate nohighlight">\(k \in [0, n]\)</span> is the largest possible index.  This will cause the
+simplex algorithm to swap <span class="math notranslate nohighlight">\(x_j\)</span> and <span class="math notranslate nohighlight">\(w_j\)</span> in each constraint where
+<span class="math notranslate nohighlight">\(1 \leq j &lt; k\)</span> resulting in</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= \sum_{j = 1}^{k - 1} p_j (1 - w_j) + \sum_{j = k}^n p_j x_j\\
+  \text{subject to} \quad
+    w_0 &amp;= \beta - \sum_{j = 1}^{k - 1} q_j (1 - w_j) - \sum_{j = k}^n q_j x_j\\
+    x_j &amp;= 1 - w_j \quad j &lt; k\\
+    w_j &amp;= 1 - x_j \quad j \geq k\\
+    x_j &amp;\geq 0 \quad j = 1, 2, \ldots, n\\
+    w_j &amp;\geq 0 \quad j = 1, 2, \ldots, n\\
+    w_0 &amp;\geq 0
+\end{aligned}\end{split}\]</div>
+<p>Now pivot <span class="math notranslate nohighlight">\(x_k \leftrightarrow w_0\)</span> since</p>
+<div class="math notranslate nohighlight">
+\[x_k = \min\left\{ w_0, w_k \right\}_{\geq 0}
+  = \min\left\{ \frac{\beta - \sum_{j = 1}^{k - 1} q_j}{q_k}, 1 \right\}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x_j &amp;= 1 \quad j &lt; k,\\
+x_k &amp;= \frac{\beta - \sum_{j = 1}^{k - 1} q_j}{q_k},\\
+x_j &amp;= 0 \quad j &gt; k,\\
+w_0 &amp;= 0,\\
+w_j &amp;= 0 \quad j &lt; k,\\
+w_k &amp;= 1 - \frac{\beta - \sum_{j = 1}^{k - 1} q_j}{q_k},\\
+w_j &amp;= 1 \quad j &gt; k.\end{split}\]</div>
+<p>The resulting dictionary is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= \frac{p_k}{q_k} (\beta - w_0) +
+      \sum_{j = 1}^{k - 1} p_j - \frac{p_k}{q_k} q_j +
+        \left( \frac{p_k}{q_k} q_j - p_j \right) w_j +
+      \sum_{j = k + 1}^n \left( p_j - \frac{p_k}{q_k} q_j \right) x_j\\
+  \text{subject to} \quad
+    x_k &amp;= \frac{1}{q_k}
+      \left(
+        \beta - \sum_{j = 1}^{k - 1} q_j (1 - w_j) - w_0 -
+        \sum_{j = k + 1}^n q_j x_j
+      \right)\\
+    x_j &amp;= 1 - w_j \quad j &lt; k\\
+    w_k &amp;= 1 - \frac{1}{q_k}
+      \left(
+        \beta - \sum_{j = 1}^{k - 1} q_j (1 - w_j) - w_0 -
+        \sum_{j = k + 1}^n q_j x_j
+      \right)\\
+    w_j &amp;= 1 - x_j \quad j &gt; k\\
+    x_j &amp;\geq 0 \quad j = 1, 2, \ldots, n\\
+    w_j &amp;\geq 0 \quad j = 1, 2, \ldots, n\\
+    w_0 &amp;\geq 0
+\end{aligned}\end{split}\]</div>
+<p>This dictionary is optimal if all objective coefficients are non-positive
+since that would make the set of entering variables empty.  This is the
+case if the following assumption</p>
+<div class="math notranslate nohighlight">
+\[\frac{p_1}{q_1} &gt; \cdots &gt; \frac{p_{k - 1}}{q_{k - 1}} &gt;
+  \frac{p_k}{q_k} &gt; \frac{p_{k + 1}}{q_{k + 1}} &gt; \cdots &gt; \frac{p_n}{q_n}\]</div>
+<p>holds since that would make <span class="math notranslate nohighlight">\(\frac{p_k}{q_k} q_j - p_j &lt; 0\)</span> for
+<span class="math notranslate nohighlight">\(j &lt; k\)</span> and <span class="math notranslate nohighlight">\(p_j - \frac{p_k}{q_k} q_j &lt; 0\)</span> for <span class="math notranslate nohighlight">\(j &gt; k\)</span>.</p>
+<p>Note that if one applies the book’s proposed assumption, the optimal solution
+is the reverse order.  The derivation would start with <span class="math notranslate nohighlight">\(x_n\)</span> instead of
+<span class="math notranslate nohighlight">\(x_1\)</span> and
+<span class="math notranslate nohighlight">\(\beta \geq q_{k + 1} + q_{k + 2} + \cdots + q_{n - 1} + q_n\)</span> where
+<span class="math notranslate nohighlight">\(k \in [0, n]\)</span> is the smallest possible index.</p>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-nb/linear-programming-vanderbei/chapter-02-0"><dl class="citation">
+<dt class="bibtex label" id="burke407s1"><span class="brackets"><a class="fn-backref" href="#id1">Bur</a></span></dt>
+<dd><p>Jim Burke. Introduction. <span><a class="reference external" href="#"></a></span>https://www.math.washington.edu/ burke/crs/407/notes/section1.pdf. Section 1.5.1 accessed on 2016-11-27.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/nb/linear-programming-vanderbei/chapter-02.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

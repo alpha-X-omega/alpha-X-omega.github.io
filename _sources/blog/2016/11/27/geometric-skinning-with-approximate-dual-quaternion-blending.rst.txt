@@ -1,0 +1,494 @@
+############################################################
+Geometric Skinning with Approximate Dual Quaternion Blending
+############################################################
+
+Motivation(s)
+=============
+
+There are several approachs to skinning of skeletally deformable models.
+Physically based methods simulate the anatomy of the body to obtain a high level
+of realism at high computational cost.  Motion capture devices can capture
+highly accurate dynamic effects, but are limited to existing subjects.  Example
+based techniques offer a level of realism limited only by the number of input
+examples.  However, the production of examples require a lot of memory, storage,
+and animator labour.
+
+The most popular approach linear blend skinning (LBS), or equivalently
+skeleton subspace deformation (SSD), falls under the category of geometric
+methods.  A single input mesh is designed in a reference pose with
+:math:`p` joints: each vertex :math:`\mathbf{v}` is bound to a set of joints
+:math:`\left\{ j_i \in \{1, \ldots, p\} \right\}_{i = 1}^n` with a set of
+corresponding weights :math:`\mathbf{w} = (w_1, \ldots, w_n)` that determines
+the amount of influence.  This technique only requires computing
+
+.. math::
+
+   \mathbf{v}' = \left( \sum_i w_i C_{j_i} \right) \mathbf{v}
+
+where :math:`C_j \in \mathrm{SE}(3)` denotes a rigid transformation, but may
+produce artifacts such as skin collapsing.  The skin collapsing effects
+visualize the fact that the set of orthonormal matrices is not closed under
+addition.
+
+A blending method that avoids such skin-collapsing defects must deliver a rigid
+transformation in all cases.  The blending of matrix logarithms satisfies this
+condition at the cost of sometimes picking a longer trajectory than necessary
+when interpolating rotation, which causes excessive stretching.
+
+Decomposing rigid transformations into (quaternion, translation) pairs resolve
+the previous issues, but it also introduces a dependence on the body-space
+coordinate system.  In practice, blending the pairs rotates the model vertices
+around the origin of the body-space.  Fixing this issue amounts to using SVD
+to minimize the translation of the resulting blended transformation.
+
+Proposed Solution(s)
+====================
+
+The authors propose a closed-form approximation, based on dual quaternions, to a
+theoretically optimal rigid transformation blending method.  Dual quaternion
+linear blending (DLB) always return a valid rigid transformation, is
+coordinate-invariant, interpolates between two rigid transformations along the
+shortest path, and works with existing rigging tools and data formats.
+
+While classical quaternions can represent only rotations whose axes pass through
+the origin, dual quaternions can represent rotations with arbitrary axes with
+the dual portion containing the translation.  Geometrically, a dual quaternion
+defines a screw motion.
+
+Given unit dual quaternions
+:math:`\left\{ \hat{\mathbf{q}}_i \right\}_{i = 1}^n` with convex weights
+:math:`\mathbf{w} = (w_1, \ldots, w_n)`,
+
+.. math::
+
+   DLB(\mathbf{w}; \hat{\mathbf{q}}_1, \ldots, \hat{\mathbf{q}}_n) =
+   \frac{
+     \sum_i w_i \hat{\mathbf{q}}_i
+   }{
+     \left\Vert \sum_i w_i \hat{\mathbf{q}}_i \right\Vert
+   }.
+
+Notice how this formulation is akin to the standard normal interpolation trick.
+The implementation is given in Algorithm 1 whose input dual quaternions have
+been processed by Algorithm 2.
+
+Evaluation(s)
+=============
+
+The authors prove why DLB meets all of the requirements.  They showed that
+previous approaches with rotation-center issues fail the bi-invariance property
+(i.e. coordinate invariance).  DLB does not have this issue because of
+its distributivity property.
+
+In order to quantify DLB's approximation, the authors propose using
+Screw Linear Interpolation (ScLERP) as a baseline.  ScLERP is a generalization
+of Spherical Linear Interpolation (SLERP) to SE(3) and exhibits similar
+characteristics such as constant speed of interpolation, takes the shortest
+path, and is bi-invariant.  Since SLERP is optimal for SO(3), the authors reason
+that ScLERP is an appropriate gold standard for SE(3).
+
+The derivations reveal the difference between DLB and ScLERP can only be in the
+motion along the screw axis.  The error analysis indicate that the angle of
+rotation is upper bounded by :math:`8.15^\circ` and the amount of translation
+does not exceed 15.1%.  Note that this analysis is for interpolating
+:math:`n = 2` transformations.  Generalizing SLERP for :math:`n > 2` leads to
+spherical averages.  To approximate spherical averages, the authors proposed
+Dual Quaternion Iterative Blending (DIB), but the minor visual enhancements did
+not justify three times the computational complexity.  Note that the authors
+opted for visual verification because error analysis and even empirical
+comparisons are non-trivial.
+
+A minor nuisance due to quaternions is the antipodal property.  When converting
+matrices to dual quaternions, one must consistently choose signs so that the
+non-dual quaternions lie in the same hemisphere.  Nevertheless, DLB only 20%
+slower than LBS.
+
+Two outstanding limitations with DLB are flipping artifacts and non-rigid joint
+transformations.  Flipping artifacts occur when joint rotations cover more than
+:math:`180^\circ` because the shortest path interpolation will pick the reverse
+direction.  One solution is to impose more joint constraints.  To extend DLB to
+handle non-rigid joint transformations, the authors propose applying non-rigid
+transformation blending first followed by DLB.
+
+Future Direction(s)
+===================
+
+- How practical is it to impose more constraints (e.g. bones, weights) within
+  the DLB framework to achieve physically-based non-rigid skinning?
+- Is applying non-rigid before rigid transformation better than the reverse?
+
+Question(s)
+===========
+
+- Would plotting the first and second moments of the results from DLB and DIB be
+  useful in determining the quality of the approximation?
+- What artifacts does DIB remove from DLB?
+
+Analysis
+========
+
+DLB can safely replace a LBS pipeline.  Note that this paper supercedes the
+earlier work :cite:`kavan2007skinning`.
+
+The authors should have listed the performance of DLB with antipodality resolved
+in the vertex shader since the number of joints does not usually exceed four.
+
+While DIB is a theoretically satisfying solution, the two-phase approach to
+handle non-rigid transformations is not.  The authors could have explored how to
+modify the mesh topology (e.g. geometry shader) to complement DLB.
+
+The connection to planar dual quaternions and the tutorial on dual quaternions
+are very useful tools to know about, especially if one wants to improve the
+current approximation.  The notes are derived from the paper and serve as an
+implementation guideline.
+
+Notes
+=====
+
+Lemma 1 Background Knowledge
+----------------------------
+
+Recall that any complex number can be expressed as (Euler's formula)
+
+.. math::
+
+   a + bi = r \left( \cos \varphi + i \sin \varphi \right) = r e^{i \varphi}.
+
+Consequently,
+
+.. math::
+
+   (a + bi) (c + di) =
+   r e^{i \varphi} s e^{i \theta} =
+   rs e^{i (\varphi + \theta)}.
+
+Therefore, multiplying two complex numbers is equivalent to multiplying their
+lengths and adding their angles.
+
+Let :math:`t = r e^{i \varphi} \in \mathbb{C}`.  Notice that
+
+.. math::
+
+   i t =
+   e^{i \pi / 2} t =
+   r e^{i (\varphi + \pi / 2)} =
+   r \left( -\sin \varphi + i \cos \varphi \right).
+
+Representing :math:`t` as a vector gives
+
+.. math::
+
+   \DeclareMathOperator{\vect}{vec}
+   \vect{t} =
+   \begin{bmatrix}
+     r \cos \varphi\\
+     r \sin \varphi\\
+     0
+   \end{bmatrix}
+   \quad \text{and} \quad
+   \vect{i t} =
+   \begin{bmatrix}
+     -r \sin \varphi\\
+     r \cos \varphi\\
+     0
+   \end{bmatrix} =
+   \mathbf{e}_3 \times \vect{t}.
+
+Taylor Series of Dual Number
+----------------------------
+
+A dual number :math:`\hat{a} \in \hat{\mathbb{R}}` is similar to a complex
+number: it can be written as :math:`\hat{a} = a_0 + \epsilon a_\epsilon` where
+:math:`a_0` is the non-dual part, :math:`a_\epsilon` is the dual part, and
+:math:`\epsilon` is a dual unit satisfying :math:`\epsilon^2 = 0`.
+
+The Taylor series of :math:`f(\hat{a})` at :math:`a_0` is
+
+.. math::
+
+   f(\hat{a}) &= \sum_{n = 0}^\infty \frac{f^{(n)}(a_0)}{n!} (\hat{a} - a_0)^n\\
+    &= f(a_0) + f'(a_0) a_\epsilon \epsilon +
+       \frac{f''(a_0)}{2!} a_\epsilon^2 \epsilon^2 + \cdots\\
+    &= f(a_0) + f'(a_0) a_\epsilon \epsilon
+       & \quad & \epsilon^2 = 0.
+
+This technique is widely used in :doc:`automatic differentiation </blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey>`.
+
+Quaternion
+----------
+
+Recall that a quaternion :math:`\mathbf{q}` is an extension of the complex
+numbers such that
+
+.. math::
+
+   \mathbf{q} =
+   (w, \mathbf{r}) =
+   (\cos \frac{\theta}{2}, \mathbf{r} \sin \frac{\theta}{2}) =
+   w + xi + yj + zk
+
+where :math:`\mathbf{r}` is the unit rotation axis, :math:`\theta` is the angle,
+
+.. math::
+
+   i^2 = j^2 = k^2 = ijk = -1,
+
+and
+
+.. math::
+
+   ij &= -ji &= k\\
+   jk &= -kj &= i\\
+   ki &= -ik &= j.
+
+The product of two quaternions is
+
+.. math::
+
+   \mathbf{q}_0 \mathbf{q}_1 =
+   (
+     w_0 w_1 - \mathbf{r}_0 \cdot \mathbf{r}_1,
+     w_0 \mathbf{r}_1 + w_1 \mathbf{r}_0 + \mathbf{r}_0 \times \mathbf{r}_1
+   ) \neq
+   \mathbf{q}_1 \mathbf{q}_0.
+
+Given that the conjugate of a quaternion is defined as
+:math:`\mathbf{q}^* = (w, -\mathbf{r})`, the inverse of a quaternion can be
+derived as
+
+.. math::
+
+   \mathbf{q}^* \mathbf{q} =
+   \mathbf{q} \mathbf{q}^* =
+   \mathbf{q} \cdot \mathbf{q} =
+   \left\Vert \mathbf{q} \right\Vert^2
+   \Rightarrow
+   \mathbf{q}^{-1} = \frac{\mathbf{q}^*}{\left\Vert \mathbf{q} \right\Vert^2}.
+
+A unit quaternion must satisfy :math:`\left\Vert \mathbf{q} \right\Vert = 1`.
+Clearly, non-unit quaternions can be normalized as
+
+.. math::
+
+   \mathbf{q}' = \mathbf{q} \left\Vert \mathbf{q} \right\Vert^{-1}.
+
+The quaternion representation of any vector :math:`\mathbf{v}` is
+:math:`(0, \mathbf{v})`.  The rotation of such a vector by a unit quaternion
+:math:`\mathbf{q}` can be computed as (15)
+
+.. math::
+
+   \mathbf{v}' =
+   \mathbf{q} (0, \mathbf{v}) \mathbf{q}^* =
+   (w + \mathbf{r}) (0 + \mathbf{v}) (w - \mathbf{r}) =
+   \mathbf{v} + 2 \mathbf{r} \times
+       \left( \mathbf{r} \times \mathbf{v} + w \mathbf{v} \right).
+
+Note that this derivation makes use of the triple product expansion i.e.
+Lagrange's formula.
+
+Dual Quaternion
+---------------
+
+A dual quaternion :math:`\hat{\mathbf{q}}` can be interpreted as extending
+quaternions to utilize dual numbers such that
+
+.. math::
+
+   \hat{\mathbf{q}} = \mathbf{q}_0 + \epsilon \mathbf{q}_\epsilon.
+
+Note that there are two notions of conjugation for dual quaternions:
+
+.. math::
+
+   \hat{\mathbf{q}}^* = \mathbf{q}_0^* + \epsilon \mathbf{q}_\epsilon^*
+   \quad \text{and} \quad
+   \overline{\hat{\mathbf{q}}} = \mathbf{q}_0 - \epsilon \mathbf{q}_\epsilon.
+
+The former is the quaternion conjugation while the latter is the dual number
+conjugation.  The norm of a dual quaternion is (22)
+
+.. math::
+
+   \begin{aligned}
+     \left\Vert \hat{\mathbf{q}} \right\Vert
+      &= \sqrt{\hat{\mathbf{q}}^* \hat{\mathbf{q}}}\\
+      &= \sqrt{\hat{\mathbf{q}} \hat{\mathbf{q}}^*}\\
+      &= \left\Vert \mathbf{q}_0 \right\Vert +
+         \epsilon \frac{
+           \langle \mathbf{q}_0, \mathbf{q}_\epsilon \rangle
+         }{
+           \left\Vert \mathbf{q}_0 \right\Vert
+         }
+   \end{aligned}
+   \quad \implies \quad
+   \begin{aligned}
+     \frac{1}{\left\Vert \hat{\mathbf{q}} \right\Vert} =
+     \frac{1}{\left\Vert \mathbf{q}_0 \right\Vert} -
+       \epsilon \frac{
+         \langle \mathbf{q}_0, \mathbf{q}_\epsilon \rangle
+       }{
+         \left\Vert \mathbf{q}_0 \right\Vert^3
+       }
+   \end{aligned}.
+
+A unit dual quaternion must satisfy
+:math:`\left\Vert \hat{\mathbf{q}} \right\Vert = 1`.  Consequently,
+:math:`\left\Vert \mathbf{q}_0 \right\Vert = 1` and
+:math:`\langle \mathbf{q}_0, \mathbf{q}_\epsilon \rangle = 0`.  A non-unit dual
+quaternion can be normalized via
+
+.. math::
+
+   \hat{\mathbf{q}}'
+    &= \frac{\hat{\mathbf{q}}}{\left\Vert \hat{\mathbf{q}} \right\Vert}\\
+    &= \frac{\mathbf{q}_0}{\left\Vert \mathbf{q}_0 \right\Vert} +
+       \epsilon \left(
+         \frac{\mathbf{q}_\epsilon}{\left\Vert \mathbf{q}_0 \right\Vert} -
+         \frac{
+           \mathbf{q}_0 \langle \mathbf{q}_0, \mathbf{q}_\epsilon \rangle
+         }{
+           \left\Vert \mathbf{q}_0 \right\Vert^3
+         }
+       \right)\\
+    &= \hat{\mathbf{q}}'_0 + \epsilon \hat{\mathbf{q}}'_\epsilon.
+
+Convert Between SE(3) and Dual Quaternion
+-----------------------------------------
+
+The dual quaternion representation of any vector :math:`\mathbf{v}` is
+:math:`\hat{\mathbf{v}} = 1 + \epsilon (0, \mathbf{v})`.  The transformation of
+any vector by a unit dual quaternion :math:`\hat{\mathbf{q}}` can be computed as
+:math:`\hat{\mathbf{q}} \hat{\mathbf{v}} \overline{\hat{\mathbf{q}}^*}`.
+
+By inspection, a unit dual quaternion represents a pure rotation when the dual
+part :math:`\mathbf{q}_\epsilon = 0`.  A unit dual quaternion can also represent
+a pure translation :math:`\mathbf{t}` when it is defined as
+
+.. math::
+
+   \hat{\mathbf{t}} =
+   (1, \boldsymbol{0}) + \frac{\epsilon}{2} (0, \mathbf{t}) =
+   1 + \frac{\epsilon}{2} (0, \mathbf{t}).
+
+The dual quaternion equivalent of a rigid transformation is
+
+.. math::
+
+   \hat{\mathbf{t}} \hat{\mathbf{q}} \hat{\mathbf{v}}
+       \overline{\hat{\mathbf{q}}^*} \overline{\hat{\mathbf{t}}^*} =
+   \left( \hat{\mathbf{t}} \hat{\mathbf{q}} \right) \hat{\mathbf{v}}
+       \overline{\left( \hat{\mathbf{t}} \hat{\mathbf{q}} \right)^*}
+
+where
+
+.. math::
+
+   \hat{\mathbf{t}} \hat{\mathbf{q}}
+    &= \hat{\mathbf{t}} \mathbf{q}_0
+       & \quad & \text{(25)}\\
+    &= \mathbf{q}_0 + \frac{\epsilon}{2} (0, \mathbf{t}) \mathbf{q}_0\\
+    &= \mathbf{q}_0 +
+       \frac{\epsilon}{2} \left(
+         -\mathbf{t} \cdot \mathbf{r}_0,
+         w_0 \mathbf{t} + \mathbf{t} \times \mathbf{r}_0
+       \right)
+
+shows how to convert a rigid transformation to a unit dual quaternion.
+:cite:`farrell2015r2q,day2015r2q` presents an elegant way to
+`convert between a rotation matrix and a quaternion`_.
+
+.. _convert between a rotation matrix and a quaternion: https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation#Conversion_to_and_from_the_matrix_representation
+
+Observe that the translation component :math:`\mathbf{t}'` of a unit dual
+quaternion :math:`\hat{\mathbf{q}}'` can be extracted as
+
+.. math::
+
+   2 \hat{\mathbf{q}}'_\epsilon {\hat{\mathbf{q}}'_0}^*
+    &= 2 \left(
+         w_\epsilon w_0 - \mathbf{r}_\epsilon \cdot (-\mathbf{r}_0),
+         w_\epsilon (-\mathbf{r}_0) + w_0 \mathbf{r}_\epsilon +
+           \mathbf{r}_\epsilon \times (-\mathbf{r}_0)
+       \right)\\
+    &= 2 (0, w_0 \mathbf{r}_\epsilon - w_\epsilon \mathbf{r}_0 +
+             \mathbf{r}_0 \times \mathbf{r}_\epsilon)\\
+    &= (0, \mathbf{t}').
+
+When the goal is to extract the rotation and translation from a non-unit dual
+quaternion :math:`\hat{\mathbf{q}}` representing a rigid transformation, the
+foregoing observation avoids the normalization procedure and gives
+
+.. math::
+
+   \mathbf{c}_0 = \frac{\mathbf{q}_0}{\left\Vert \mathbf{q}_0 \right\Vert}
+   \quad \text{and} \quad
+   \mathbf{c}_\epsilon =
+       \frac{\mathbf{q}_\epsilon}{\left\Vert \mathbf{q}_0 \right\Vert}
+   \quad \Rightarrow \quad
+   \mathbf{t}' =
+     \frac{
+       2 \left(
+         w_0 \mathbf{r}_\epsilon - w_\epsilon \mathbf{r}_0 +
+         \mathbf{r}_0 \times \mathbf{r}_\epsilon
+       \right)
+     }{\left\Vert \mathbf{q}_0 \right\Vert}.
+
+Rigid Transformation
+--------------------
+
+A rigid transformation :math:`\mathbf{M} \in \text{SE(3)}` is defined as
+
+.. math::
+
+   \mathbf{M} =
+   \begin{bmatrix}
+     \mathbf{R} & \mathbf{t}\\
+     \boldsymbol{0}^\top & 1
+   \end{bmatrix} =
+   \begin{bmatrix}
+     \mathbf{I} & \mathbf{t}\\
+     \boldsymbol{0}^\top & 1
+   \end{bmatrix}
+     \begin{bmatrix}
+       \mathbf{R} & \boldsymbol{0}\\
+       \boldsymbol{0}^\top & 1
+     \end{bmatrix} =
+   \mathbf{T} \hat{\mathbf{R}}
+
+where :math:`\mathbf{R} \in \mathbb{R}^{3 \times 3}` is the orthogonal rotation
+matrix and :math:`\mathbf{t} \in \mathbb{R}^3` is the translation vector.
+
+:cite:`turkowski1990transformations` beautifully explains why a normal vector is
+not just a difference between two points.  To see why rigid transformations work
+on normal vectors without applying the inverse transpose operator, consider a
+normal vector :math:`\mathbf{n} \in \mathbb{R}^3` in homogeneous coordinates.
+
+Observe that the results of
+
+.. math::
+
+   \mathbf{M} \tilde{\mathbf{n}} =
+   \mathbf{T} \hat{\mathbf{R}} \begin{bmatrix} \mathbf{n}\\ 0 \end{bmatrix} =
+   \begin{bmatrix} \mathbf{R} \mathbf{n}\\ 0 \end{bmatrix}
+
+and
+
+.. math::
+
+   \mathbf{M}^{-\top} \tilde{\mathbf{n}} =
+   \begin{bmatrix}
+     \mathbf{I} & \boldsymbol{0}\\ -\mathbf{t}^\top & 1
+   \end{bmatrix} \hat{\mathbf{R}} \begin{bmatrix} \mathbf{n}\\ 0 \end{bmatrix} =
+   \begin{bmatrix}
+     \mathbf{R} \mathbf{n}\\ -\mathbf{t}^\top \mathbf{R} \mathbf{n}
+   \end{bmatrix}
+
+are the same except for the last component.  However, the last component does
+not matter and should be ignored for vectors.  This is also the reason why
+directly applying a view (camera) matrix to normals yields correct results.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

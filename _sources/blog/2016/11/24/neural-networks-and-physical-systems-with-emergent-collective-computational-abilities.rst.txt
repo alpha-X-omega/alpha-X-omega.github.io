@@ -1,0 +1,245 @@
+#####################################################################################
+Neural Networks and Physical Systems with Emergent Collective Computational Abilities
+#####################################################################################
+
+Motivation(s)
+=============
+
+All modeling is based on details.  Current neuroscience theories focus on the
+dynamic electrochemical properties neurons and synapses at the scale of a few
+neurons to analyze elementary biological behavior.  However, in many physical
+systems (e.g. a magnetic system), the nature of collective properties is
+insensitive to the details inserted in the model.  This makes one wonder whether
+analogous collective phenomena in a system of simple interacting neurons have
+useful computational correlates.
+
+Proposed Solution(s)
+====================
+
+The author observed that any physical system whose dynamics in phase space is
+dominated by a substantial number of locally stable states to which it is
+attracted can be regarded as a general content-addressable memory.  The system
+will be useful if any prescribed set of states can be made the stable states of
+the system.
+
+To store a set of states :math:`\left\{ V^s \in \{0, 1\} \right\}_{s = 1}^n`,
+the author defines a complete graph whose weights use the storage prescription
+
+.. math::
+
+   T_{ij} =
+   \sum_s \left( 2 V^s_i - 1 \right) \left( 2 V^s_j - 1 \right) =
+   \sum_s X^s_i X^s_j
+
+with :math:`T_{ii} = 0`.  Notice that these particular weights can be
+interpreted as a form of Hebbian learning.  Unlike previous neural nets that
+emphasize relative timing of action potential spikes, each neuron in this
+network updates asynchronously.
+
+Evaluation(s)
+=============
+
+Monte Carlo calculations were made on systems of :math:`N = 30` and
+:math:`N = 100` neurons; both exhibited qualitative similarities.
+
+The flow in phase space produced by this neural network has the properties
+necessary for a physical content-addressable memory whether or not
+:math:`T_{ij}` is symmetric.  Setting :math:`T_{ij} \neq 0` and
+:math:`T_{ji} = 0` did increase the probability of making errors, but the
+algorithm continued to generate stable minima.  However, asymmetric
+:math:`T_{ij}` can lead to a metastable minimum.
+
+Furthermore, the phase space flow is dominated by attractors which are the
+nominally assigned memories, each of which dominates a substantial region around
+it.  Memories too close to each other are confused and tend to merge.  The flow
+is not entirely deterministic, and the system responds to an ambiguous starting
+state by a statistical choice between the memory states it most resembles.
+
+A serious limitation of this model is its capacity.  About
+:math:`\frac{N}{4 \log N}` states can be simultaneously remembered before
+severe recall error.
+
+Future Direction(s)
+===================
+
+- How to applying Hebbian learning to the hidden units within a single layer to
+  avoid :doc:`co-adaptations of neurons </blog/2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting>`?
+- :doc:`Maxout networks </blog/2016/11/15/maxout-networks>` is capable of
+  learning the desired activation function, but may still encountered the
+  exploding gradient problem.  Would a neuron reset scheme be an appropriate
+  mechanism to simulate cell death and respawn?
+
+Question(s)
+===========
+
+- Is the analysis of the effect of the noise terms equivalent to the derivation
+  of model capacity in :cite:`rsnapp08hn2`?
+- The pseudo-orthogonality condition is not obvious by inspection.
+
+Analysis
+========
+
+The spontaneous emergence of new computational capabilities from the collective
+behavior of large numbers of simple processing elements have been shown to be
+feasible.  While this and asynchronous parallel processing are attractive ideas,
+:cite:`rsnapp08hn` proved that the time till convergence is too long if each
+neuron is sequentially updated.  The idea is interesting and deserves further
+research, but this network model is not practical compared to existing
+techniques that are resilient to failures.
+
+One of the interesting points is the mention of Hebbian learning: neurons that
+fire together wire together.  This particular learning paradigm has been ignored
+with respect to the hidden units in :doc:`multilayer feedforward networks </blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators>`.
+
+Notes
+=====
+
+Ising Model
+-----------
+
+Section 13.2.3 of :cite:`rojas2013neural` states that the Ising model can be
+used to describe systems made of particles capable of adopting one of two
+states.  In the case of ferromagnetic materials, their atoms can be modeled as
+particles of spin up (:math:`s = +1 / 2`) or spin down (:math:`s = -1 / 2`).
+The spin points in the direction of the magnetic field.  All tiny magnets
+interact with each other.  This causes some of the atoms to flip their spin
+until equilibrium is reached and the total magnetization of the material reaches
+a constant level, which is the sum of the individual spins.
+
+The total magnetic field :math:`h_i` sensed by the atom :math:`i` in an ensemble
+of particles is the sum of the fields induced by each atom and the external
+field :math:`h^*` (if present).  Formally,
+
+.. math::
+
+   h_i = \sum_{j \neq i} w_{ij} s_j + h^* s_i
+
+where :math:`w_{ij}` represents the magnitude of the magnetic coupling between
+the atoms labeled :math:`i` and :math:`j`.  The magnetic coupling changes
+according to the distance between atoms and the magnetic permeability of the
+environment.  The potential energy :math:`E` of a certain state
+:math:`(s_1, s_2, \ldots, s_n)` of an Ising material has the form
+
+.. math::
+
+   E = -\frac{1}{2} \mathop{\sum\sum}_{i \neq j} w_{ij} s_i s_j -
+       h^* \sum_i s_i.
+
+In paramagnetic materials, the coupling constants are zero.  In ferromagnetic
+materials, the constants :math:`w_{ij}` are all positive.  At zero temperature,
+both systems behave deterministically.  Notice that this potential energy
+at zero temperature is isomorphic to the energy function of Hopfield networks.
+By inspection, a Hopfield network can be seen as a microscopic model of
+magnetism :cite:`rkrusenn07`:
+
+.. list-table:: Isomorphism between the Hopfield and Ising Models
+   :header-rows: 1
+
+   * - physical
+     - neural
+   * - atom
+     - neuron
+   * - magnetic spin
+     - activation state
+   * - strength of external field
+     - threshold value
+   * - magnetic coupling between atoms
+     - connection weights
+
+Hopfield Network
+----------------
+
+The input to a particular neuron arises from the current leaks of the synapses
+to that neuron.  The synapses in turn are activated by arriving action
+potentials that neurons emit.  Neurons are capable of propagating pulses of
+action potentials—electrochemical activity—when the average potential across
+their membrane is held well above its normal resting value.  The mean rate at
+which action potentials are generated for a typical neuron :math:`i` can be
+modeled as
+
+.. math::
+
+   V_i(t + 1) = \left( 1 + \exp \sum_j T_{ij} V_j(t) \right)^{-1}
+
+where the pre-synaptic sum represents the input signal to the neuron,
+:math:`T_{ij}` is the effectiveness of a synapse, and :math:`V_\cdot` is the
+membrane potential (Volts).
+
+A Hopfield network uses a simpler model of a neuron called the McCulloch-Pitts
+linear threshold unit.  :math:`V_\cdot \in \{0, 1\}` now denotes whether the
+neuron fired or not and is defined as
+
+.. math::
+
+   V_i(t + 1) = H\left( \sum_j T_{ij} V_j(t) \right)
+   \quad \land \quad
+   H(x) = \begin{cases}
+            1 & \text{if}\ x > 0\\
+            0 & \text{otherwise.}
+          \end{cases}
+
+Notice that all neurons are input as well as output neurons i.e. there are no
+hidden units.  To account for the delays in synaptic transmission and in the
+transmission of impulses along axons and dendrites, each neuron asynchronously
+readjusts its state randomly in time but with a mean attempt rate :math:`W`.
+
+The energy function of a Hopfield network is
+
+.. math::
+
+   E\left( \mathbf{V}(t) \right)
+    &= -\frac{1}{2} \mathop{\sum\sum}_{j \neq k} T_{jk} V_j(t) V_k(t) -
+       \frac{1}{2} \sum_j T_{jj} V_j(t)^2\\
+    &= -\frac{1}{2} \sum_{j \neq i} \sum_{k \neq i} T_{jk} V_j(t) V_k(t) -
+       \frac{1}{2} V_i(t) \sum_{l \neq i} (T_{il} + T_{li}) V_l(t) -
+       \frac{1}{2} T_{ii} V_i(t)^2.
+
+Convergence of Hopfield Network
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+By inspection, the change in energy :math:`\Delta E` due to
+:math:`\Delta V_i = V_i(t + 1) - V_i(t)` is
+
+.. math::
+
+   \Delta E &= E(t + 1) - E(t)\\
+    &= \left(
+         -\frac{1}{2} \sum_{l \neq i} (T_{il} + T_{li}) V_i(t + 1) V_l(t) -
+         \frac{1}{2} T_{ii} V_i(t + 1)^2
+       \right) -
+       \left(
+         -\frac{1}{2} \sum_{l \neq i} (T_{il} + T_{li}) V_i(t) V_l(t) -
+         \frac{1}{2} T_{ii} V_i(t)^2
+       \right)\\
+    &= -\frac{1}{2} \Delta V_i \sum_{l \neq i} (T_{il} + T_{li}) V_l(t) -
+       \frac{1}{2} T_{ii} \Delta V_i.
+
+Observe that if :math:`V_i(t + 1) = V_i(t)`, the :math:`\Delta E = 0`.
+
+To show the convergence of the network, assume :math:`T_{ij} = T_{ji}`,
+:math:`T_{ii} = 0`, and only one update occurs at a time.
+
+.. math::
+
+   \Delta E = -\Delta V_i \sum_{j \neq i} T_{ij} V_j(t).
+
+When :math:`\Delta V_i = 1`,
+
+.. math::
+
+   \Delta E = -\sum_{j \neq i} T_{ij} V_j(t) < 0
+
+because :math:`\sum_j T_{ij} V_j(t) > 0`.
+
+When :math:`\Delta V_i = -1`,
+
+.. math::
+
+   \Delta E = \sum_{j \neq i} T_{ij} V_j(t) \leq 0
+
+because :math:`\sum_j T_{ij} V_j(t) \leq 0`.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

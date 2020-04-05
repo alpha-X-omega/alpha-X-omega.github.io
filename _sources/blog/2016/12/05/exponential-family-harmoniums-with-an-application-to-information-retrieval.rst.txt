@@ -1,0 +1,992 @@
+##########################################################################
+Exponential Family Harmoniums with an Application to Information Retrieval
+##########################################################################
+
+Motivation(s)
+=============
+
+Graphical models with latent variables is one way to capture hidden structure in
+the data.  With as few as two layers, many datasets can be modeled accurately
+using directed models such as
+
+- mixture of Gaussians,
+- probabilistic PCA,
+- factor analysis,
+- independent component analysis,
+- sigmoid belief networks,
+- latent trait models, latent Dirichlet allocation a.k.a. multinomial PCA,
+- exponential PCA,
+- probabilistic latent semantic indexing,
+- non-negative matrix factorization, and
+- multiple multiplicative factor.
+
+This family of models dictates marginal independence of the latent variables, so
+(ancestral) sampling becomes trivial at the expense of making the inference of
+the posterior distribution of the latent variables given the observations
+intractable.  Algorithms that need said posterior resort to approximations or
+slow iterative procedures.
+
+The undirected analogue of the aforementioned family of models is the harmonium.
+Inference in these models is very fast because latent variables are
+conditionally independent given the observations.  Furthermore, the product
+structure of harmoniums can model distributions with sharp boundaries, and
+adding a new expert may decrease or increase the variance of the distribution.
+The harmonium's most important disadvantage is the presence of a global
+normalization factor that complicates both the evaluation of probabilities of
+input vectors and learning free parameters from examples.
+
+Proposed Solution(s)
+====================
+
+Harmoniums have only been considered in the context of discrete binary variables
+and more recently in the Gaussian case.  The authors propose exponential
+family harmoniums (EFHs), an extension of bipartite harmoniums into the
+exponential family.  Their goal is to demonstrate that harmoniums can be a
+viable alternative or complementary to directed models.
+
+Evaluation(s)
+=============
+
+The authors propose an EFH for latent semantic indexing.  The precision-recall
+curves indicate that EFH beats LSI, TF-IDF, and LDA.  Its application of
+contrastive divergence enables the model to handle an exponentially large number
+of documents.  EFH allows a principled way to deal with unobserved entries by
+inferring them using the model with mean field calculations; all the other
+methods ignore unobserved entries.  The same model with Gaussian units in both
+hidden and observed layers has been shown to be equivalent to factor analysis.
+
+Future Direction(s)
+===================
+
+- Different learning rules result when the normalization constant is changed,
+  but their structure is very similar.  Are these relationships coincidental or
+  are actually useful?
+
+Question(s)
+===========
+
+- How much would the accuracy improve if the model included higher order
+  interaction terms?
+
+Analysis
+========
+
+EFH provides an elegant framework to impose prior knowledge on each random
+variable.
+
+The only complaint about this paper is its omission of the derivations.  Those
+could be provided as a supplement instead of having the reader rederive
+everything.
+
+Applying the model to existing RBM models reveals the assumptions on the
+interaction term.  This insight enables one to be less arbitrary in designing
+models.  Another interesting result is how an EFH can be interpreted as a
+:doc:`product of experts </blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence>`.
+
+Notes
+=====
+
+General Exponential Families
+----------------------------
+
+Suppose that :math:`X` is a random variable taking values in
+:math:`\mathcal{S}`, and that the distribution of :math:`X` depends on an
+unspecified parameter :math:`\theta` taking values in a parameter space
+:math:`\Theta`.  The distribution of :math:`X` is a :math:`k`-parameter
+exponential family if it can be expressed as
+
+.. math::
+
+   f_\theta(x) =
+   \alpha(\theta) g(x) \exp\left(
+     \sum_{i = 1}^k \beta_i(\theta) h_i(x)
+   \right);
+   \qquad
+   x \in \mathcal{S}, \theta \in \Theta, \alpha(\theta) \geq 0, g(x) \geq 0
+
+where :math:`\alpha` and :math:`\left( \beta_1, \ldots, \beta_k \right)` are
+real-valued functions on :math:`\Theta`, and where :math:`g` and
+:math:`\left( h_1, \ldots, h_k \right)` are real-valued functions on
+:math:`\mathcal{S}`.  Furthermore, :math:`k` is assumed to be the smallest
+possible integer.  The parameters :math:`\{ \beta_i(\theta) \}` are called the
+natural paramaters of the distribution, and the random variables
+:math:`\{ h_i(X) \}` are tagged as the natural statistics of the distribution.
+
+Exponential Family Harmonium
+----------------------------
+
+Let :math:`\mathbf{x} = \left\{ x_i \right\}_{i = 1}^{M_v}` be the set of
+observed random variables and
+:math:`\mathbf{h} = \left\{ h_j \right\}_{j = 1}^{M_h}` be the set of hidden
+(latent) variables.  Both :math:`\mathbf{x}` and :math:`\mathbf{h}` can take on
+values in either the continuous or the discrete domain.  The distribution of
+each random variable is chosen independently from the exponential family as
+
+.. math::
+
+   p_i(x_i; \boldsymbol{\theta}_i)
+    &= \frac{1}{A'_i\left( \boldsymbol{\theta}_i \right)}
+       r_i(x_i) \exp\left[ \sum_{a'} \theta_{ia'} f_{ia'}(x_i) \right]\\
+    &= \frac{1}{A'_i\left( \boldsymbol{\theta}_i \right)}
+       \exp\left[ \sum_a \theta_{ia} f_{ia}(x_i) \right]
+       & \quad & \theta_{ia} = 1 \text{ and } f_{ia}(x_i) = \log r_i(x_i)
+                 \text{ when } a = 0\\
+    &= \exp\left[
+         \sum_a \theta_{ia} f_{ia}(x_i) -
+         A_i\left( \boldsymbol{\theta}_i \right)
+       \right]
+       & \quad & A_i\left( \boldsymbol{\theta}_i \right) =
+                 \log \sum_{x'_i} \exp \sum_a \theta_{ia} f_{ia}(x'_i)
+
+and
+
+.. math::
+
+   p_j(h_j; \boldsymbol{\lambda}_j)
+    &= \frac{1}{B'_j\left( \boldsymbol{\lambda}_j \right)}
+       s_j(h_j) \exp\left[ \sum_{b'} \lambda_{jb'} g_{jb'}(h_j) \right]\\
+    &= \frac{1}{B'_j\left( \boldsymbol{\lambda}_j \right)}
+       \exp\left[ \sum_b \lambda_{jb} g_{jb}(h_j) \right]
+       & \quad & \lambda_{jb} = 1 \text{ and } g_{jb}(h_j) = \log s_j(h_j)
+                 \text{ when } b = 0\\
+    &= \exp\left[
+         \sum_b \lambda_{jb} g_{jb}(h_j) -
+         B_j\left( \boldsymbol{\lambda}_j \right)
+       \right]
+       & \quad & B_j\left( \boldsymbol{\lambda}_j \right) =
+                 \log \sum_{h'_j} \exp \sum_b \lambda_{jb} g_{jb}(h'_j)
+
+where :math:`\left\{ f_{ia}(x_i), g_{jb}(h_j) \right\}` are sufficient
+statistics for the models,
+:math:`\left\{ \boldsymbol{\theta}_i, \boldsymbol{\lambda}_j \right\}` the
+canonical parameters of the models, and
+:math:`\left\{ A_i, B_j \right\}` the log-partition functions.
+
+To model the pairwise interactions between random variables :math:`x_i` and
+:math:`h_j`, the authors introduce a quadratic interaction term to the joint
+distribution
+
+.. math::
+
+   p(\mathbf{x}, \mathbf{h})
+    &= \frac{
+         \exp\left[
+           \sum_{i, a} \theta_{ia} f_{ia}(x_i) +
+           \sum_{j, b} \lambda_{jb} g_{jb}(h_j) +
+           \sum_{i, j, a, b} W_{ia}^{jb} f_{ia}(x_i) g_{jb}(h_j)
+         \right]
+       }{
+         \sum_{\mathbf{x}', \mathbf{h}'} \exp\left[
+           \sum_{i, a} \theta_{ia} f_{ia}(x'_i) +
+           \sum_{j, b} \lambda_{jb} g_{jb}(h'_j) +
+           \sum_{i, j, a, b} W_{ia}^{jb} f_{ia}(x'_i) g_{jb}(h'_j)
+         \right]
+       }\\
+    &= Z^{-1} \exp E(\mathbf{x}, \mathbf{h}; \phi)
+       & \quad & \phi =
+                 \left\{
+                   \boldsymbol{\theta}_i, \boldsymbol{\lambda}_j, \mathbf{W}_i^j
+                 \right\}.
+
+As a consequence of this construction,
+
+.. math::
+
+   p(\mathbf{x} \mid \mathbf{h})
+    &= \frac{
+         p(\mathbf{x}, \mathbf{h})
+       }{
+         \sum_{\mathbf{x}'} p(\mathbf{x}', \mathbf{h})
+       }\\
+    &= \frac{
+         \exp\left[
+           \sum_{i, a} \theta_{ia} f_{ia}(x_i) +
+           \sum_{i, j, a, b} W_{ia}^{jb} f_{ia}(x_i) g_{jb}(h_j)
+         \right]
+       }{
+         \sum_{\mathbf{x}'} \exp\left[
+           \sum_{i, a} \theta_{ia} f_{ia}(x'_i) +
+           \sum_{i, j, a, b} W_{ia}^{jb} f_{ia}(x'_i) g_{jb}(h_j)
+         \right]
+       }
+       & \quad & \text{cancel out } \lambda_{jb}\\
+    &= \frac{
+         \prod_i \exp \sum_a \hat{\theta}_{ia} f_{ia}(x_i)
+       }{
+         \left(
+           \sum_{x'_1} \exp \sum_a \hat{\theta}_{1a} f_{1a}(x'_1)
+         \right)
+         \cdots
+         \left(
+           \sum_{x'_{M_v}}
+             \exp \sum_a \hat{\theta}_{{M_v}a} f_{{M_v}a}(x'_{M_v})
+         \right)
+       }
+       & \quad & \hat{\theta}_{ia} =
+                 \theta_{ia} + \sum_{j, b} W_{ia}^{jb} g_{jb}(h_j)\\
+    &= \prod_{i = 1}^{M_v}
+         \exp\left[
+           \sum_a \hat{\theta}_{ia} f_{ia}(x_i) -
+           A_i\left( \hat{\boldsymbol{\theta}}_i \right)
+         \right]\\
+    &= \prod_i p(x_i \mid \mathbf{h})\\
+    &= \prod_i p_i(x_i; \hat{\boldsymbol{\theta}}_i)
+
+and
+
+.. math::
+
+   p(\mathbf{h} \mid \mathbf{x})
+    &= \frac{
+         p(\mathbf{h}, \mathbf{x})
+       }{
+         \sum_{\mathbf{h}} p(\mathbf{h}, \mathbf{x})
+       }\\
+    &= \frac{
+         \exp\left[
+           \sum_{j, b} \lambda_{jb} g_{jb}(h_j) +
+           \sum_{i, j, a, b} W_{ia}^{jb} f_{ia}(x_i) g_{jb}(h_j)
+         \right]
+       }{
+         \sum_{\mathbf{h}'} \exp\left[
+           \sum_{j, b} \lambda_{jb} g_{jb}(h'_j) +
+           \sum_{i, j, a, b} W_{ia}^{jb} f_{ia}(x_i) g_{jb}(h'_j)
+         \right]
+       }
+       & \quad & \text{cancel out } \theta_{ia}\\
+    &= \frac{
+         \prod_j \exp \sum_b \hat{\lambda}_{jb} g_{jb}(h_j)
+       }{
+         \left(
+           \sum_{h'_1} \exp \sum_b \hat{\lambda}_{1b} g_{1b}(h'_1)
+         \right)
+         \cdots
+         \left(
+           \sum_{h'_{M_h}}
+             \exp \sum_b \hat{\lambda}_{{M_h}b} g_{{M_h}b}(h'_{M_h})
+         \right)
+       }
+       & \quad & \hat{\lambda}_{jb} =
+                 \lambda_{jb} + \sum_{i, a} W_{ia}^{jb} f_{ia}(x_i)\\
+    &= \prod_{j = 1}^{M_h}
+         \exp\left[
+           \sum_b \hat{\lambda}_{jb} g_{jb}(h_j) -
+           B_j\left( \hat{\boldsymbol{\lambda}}_j \right)
+         \right]\\
+    &= \prod_j p(h_j \mid \mathbf{x})\\
+    &= \prod_j p_j(h_j; \hat{\boldsymbol{\lambda}}_j).
+
+The marginal distributions of the observed and latent variables are
+
+.. math::
+
+   p(\mathbf{x})
+    &= \frac{
+         p(\mathbf{h}, \mathbf{x})
+       }{
+         p(\mathbf{h} \mid \mathbf{x})
+       }
+       & \quad & \forall \mathbf{h}\\
+    &= \frac{
+         Z^{-1} \exp E(\mathbf{x}, \mathbf{h}; \phi)
+       }{
+         \prod_{j = 1}^{M_h} \exp\left[
+           \sum_b \hat{\lambda}_{jb} g_{jb}(h_j) -
+           B_j\left( \hat{\boldsymbol{\lambda}}_j \right)
+         \right]
+       }\\
+    &= Z^{-1} \exp\left\{
+         \sum_{i, a} \theta_{ia} f_{ia}(x_i) +
+         \left[
+           \sum_{j, b} \lambda_{jb} g_{jb}(h_j) +
+             \sum_{i, a} W_{ia}^{jb} f_{ia}(x_i) g_{jb}(h_j)
+         \right] +
+         \sum_j
+           B_j\left( \hat{\boldsymbol{\lambda}}_j \right) -
+           \sum_b \hat{\lambda}_{jb} g_{jb}(h_j)
+       \right\}\\
+    &= Z^{-1} \exp\left[
+         \sum_{i, a} \theta_{ia} f_{ia}(x_i) +
+         \sum_j B_j\left( \hat{\boldsymbol{\lambda}}_j \right)
+       \right]
+       & \quad & \text{cancel out } \hat{\lambda}_{jb}
+
+and
+
+.. math::
+
+   p(\mathbf{h})
+    &= \frac{
+         p(\mathbf{x}, \mathbf{h})
+       }{
+         p(\mathbf{x} \mid \mathbf{h})
+       }
+       & \quad & \forall \mathbf{x}\\
+    &= \frac{
+         Z^{-1} \exp E(\mathbf{x}, \mathbf{h}; \phi)
+       }{
+         \prod_{i = 1}^{M_v}
+           \exp\left[
+             \sum_a \hat{\theta}_{ia} f_{ia}(x_i) -
+             A_i\left( \hat{\boldsymbol{\theta}}_i \right)
+           \right]
+       }\\
+    &= Z^{-1} \exp\left\{
+         \sum_{j, b} \lambda_{jb} g_{jb}(h_j) +
+         \left[
+           \sum_{i, a} \theta_{ia} f_{ia}(x_i) +
+             \sum_{j, b} W_{ia}^{jb} f_{ia}(x_i) g_{jb}(h_j)
+         \right] +
+         \sum_i
+           A_i\left( \hat{\boldsymbol{\theta}}_i \right) -
+           \sum_a \hat{\theta}_{ia} f_{ia}(x_i)
+       \right\}\\
+    &= Z^{-1} \exp\left[
+         \sum_{j, b} \lambda_{jb} g_{jb}(h_j) +
+         \sum_i
+           A_i\left( \hat{\boldsymbol{\theta}}_i \right)
+       \right]
+       & \quad & \text{cancel out } \hat{\theta}_{ia}.
+
+Note that
+
+.. math::
+
+   \begin{aligned}
+     Z &= \sum_{\mathbf{x}'}
+            \exp\left[
+              \sum_{i, a} \theta_{ia} f_{ia}(x'_i)
+            \right]
+            \sum_{\mathbf{h}'}
+              \exp\left[
+                \sum_{j, b} \lambda_{jb} g_{jb}(h'_j) +
+                  \sum_{i, a} W_{ia}^{jb} f_{ia}(x'_i) g_{jb}(h'_j)
+              \right]\\
+      &= \sum_{\mathbf{x}'}
+           \exp\left[
+             \sum_{i, a} \theta_{ia} f_{ia}(x'_i)
+           \right]
+           \prod_j \sum_{h'_j} \exp \sum_b \hat{\lambda}_{jb} g_{jb}(h'_j)\\
+      &= \sum_{\mathbf{x}'}
+           \exp\left[
+             \sum_{i, a} \theta_{ia} f_{ia}(x'_i) +
+             \sum_j B_j\left( \hat{\boldsymbol{\lambda}}_j \right)
+           \right]
+   \end{aligned}
+   \quad \iff \quad
+   \begin{aligned}
+     Z &= \sum_{\mathbf{h}'}
+            \exp\left[
+              \sum_{j, b} \lambda_{jb} g_{jb}(h'_j)
+            \right]
+            \sum_{\mathbf{x}'}
+              \exp\left[
+                \sum_{i, a} \theta_{ia} f_{ia}(x'_i) +
+                  \sum_{j, b} W_{ia}^{jb} f_{ia}(x'_i) g_{jb}(h'_j)
+              \right]\\
+      &= \sum_{\mathbf{h}'}
+           \exp\left[
+             \sum_{j, b} \lambda_{jb} g_{jb}(h'_j)
+           \right]
+           \prod_i \sum_{x'_i} \exp \sum_a \hat{\theta}_{ia} f_{ia}(x'_i)\\
+      &= \sum_{\mathbf{h}'}
+           \exp\left[
+             \sum_{j, b} \lambda_{jb} g_{jb}(h'_j) +
+             \sum_i A_i\left( \hat{\boldsymbol{\theta}}_i \right)
+           \right]
+   \end{aligned}
+
+and
+
+.. math::
+
+   \frac{\partial}{\partial \phi} \log Z
+    &= Z^{-1} \sum_{\mathbf{x}', \mathbf{h}'}
+         \exp\left( E' \right)
+         \frac{\partial E'}{\partial \phi}
+    &= \sum_{\mathbf{x}', \mathbf{h}'}
+         p(\mathbf{x}', \mathbf{h}') \frac{\partial E'}{\partial \phi}
+    &= \left\langle
+         \frac{\partial E'}{\partial \phi}
+       \right\rangle_{p(\mathbf{x}', \mathbf{h}')}
+       & \quad & E' = E(\mathbf{x}', \mathbf{h}'; \phi)\\
+    &= Z^{-1} \sum_{\mathbf{x}'}
+         \exp\left( E'_\mathbf{x} \right)
+         \frac{\partial E'_\mathbf{x}}{\partial \phi}
+    &= \sum_{\mathbf{x}'}
+         p(\mathbf{x}') \frac{\partial E'_\mathbf{x}}{\partial \phi}
+    &= \left\langle
+         \frac{\partial E'_\mathbf{x}}{\partial \phi}
+       \right\rangle_{p(\mathbf{x}')}
+       & \quad & E'_\mathbf{x} =
+                 \sum_{i, a} \theta_{ia} f_{ia}(x_i) +
+                 \sum_j B_j\left( \hat{\boldsymbol{\lambda}}_j \right).
+
+The derivation of the learning rules under the maximum likelihood objective
+follows in the same manner as the original :doc:`harmonium </blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory>`.
+The log-likelihood gradient for a single sample is
+
+.. math::
+
+   \frac{\partial}{\partial \phi} \log p(\mathbf{x})
+    &= \frac{\partial}{\partial \phi} \left(
+         \sum_{i, a} \theta_{ia} f_{ia}(x_i) +
+         \sum_j B_j\left( \hat{\boldsymbol{\lambda}}_j \right) -
+         \log Z
+       \right)\\
+    &= \frac{\partial}{\partial \phi} \left(
+         \sum_{i, a} \theta_{ia} f_{ia}(x_i) +
+         \sum_j \log \sum_{h_j} \exp\left[
+           \sum_b \hat{\lambda}_{jb} g_{jb}(h_j)
+         \right]
+       \right) -
+       \left\langle
+         \frac{\partial E'}{\partial \phi}
+       \right\rangle_{p(\mathbf{x}', \mathbf{h}')}\\
+    &= \frac{\partial}{\partial \phi} \left(
+         \sum_{i, a} \theta_{ia} f_{ia}(x_i) +
+         \sum_j \log \sum_{h_j} \exp\left[
+           \sum_b \lambda_{jb} g_{jb}(h_j) +
+             \sum_{i, a} W_{ia}^{jb} f_{ia}(x_i) g_{jb}(h_j)
+         \right]
+       \right) -
+       \left\langle
+         \frac{\partial E'_\mathbf{x}}{\partial \phi}
+       \right\rangle_{p(\mathbf{x}')}.
+
+The learning rules themselves are
+
+.. math::
+
+   \frac{\partial}{\partial \theta_{ia}} \log p(\mathbf{x})
+    &= f_{ia}(x_i) -
+       \left\langle
+         f_{ia}(x'_i)
+       \right\rangle_{p(\mathbf{x}', \mathbf{h}')}\\
+    &= f_{ia}(x_i) -
+       \left\langle
+         f_{ia}(x'_i)
+       \right\rangle_{p(\mathbf{x}')},\\\\\\
+   \frac{\partial}{\partial \lambda_{jb}} \log p(\mathbf{x})
+    &= \frac{
+         \sum_{h_j} \exp\left[
+           \sum_b \lambda_{jb} g_{jb}(h_j) +
+             \sum_{i, a} W_{ia}^{jb} f_{ia}(x_i) g_{jb}(h_j)
+         \right]
+         g_{jb}(h_j)
+       }{
+         \sum_{h_j} \exp\left[
+           \sum_b \lambda_{jb} g_{jb}(h_j) +
+             \sum_{i, a} W_{ia}^{jb} f_{ia}(x_i) g_{jb}(h_j)
+         \right]
+       } -
+       \left\langle
+         \frac{\partial E'}{\partial \lambda_{jb}}
+       \right\rangle_{p(\mathbf{x}', \mathbf{h}')}\\
+    &= \frac{
+         \partial B_j\left( \hat{\boldsymbol{\lambda}}_j \right)
+       }{
+         \partial \lambda_{jb}
+       } -
+       \left\langle
+         g_{jb}(h'_j)
+       \right\rangle_{p(\mathbf{x}', \mathbf{h}')}\\
+    &= \frac{
+         \partial B_j\left( \hat{\boldsymbol{\lambda}}_j \right)
+       }{
+         \partial \lambda_{jb}
+       } -
+       \left\langle
+         \frac{
+           \partial B_j\left( \hat{\boldsymbol{\lambda}}_j \right)
+         }{
+           \partial \lambda_{jb}
+         }
+       \right\rangle_{p(\mathbf{x}')},\\\\\\
+   \frac{\partial}{\partial W_{ia}^{jb}}  \log p(\mathbf{x})
+    &= \frac{
+         \sum_{h_j} \exp\left[
+           \sum_b \lambda_{jb} g_{jb}(h_j) +
+             \sum_{i, a} W_{ia}^{jb} f_{ia}(x_i) g_{jb}(h_j)
+         \right]
+         f_{ia}(x_i) g_{jb}(h_j)
+       }{
+         \sum_{h_j} \exp\left[
+           \sum_b \lambda_{jb} g_{jb}(h_j) +
+             \sum_{i, a} W_{ia}^{jb} f_{ia}(x_i) g_{jb}(h_j)
+         \right]
+       } -
+       \left\langle
+         \frac{\partial E'}{\partial W_{ia}^{jb}}
+       \right\rangle_{p(\mathbf{x}', \mathbf{h}')}\\
+    &= f_{ia}(x_i) \frac{
+         \partial B_j\left( \hat{\boldsymbol{\lambda}}_j \right)
+       }{
+         \partial \lambda_{jb}
+       } -
+       \left\langle
+         f_{ia}(x'_i) g_{jb}(h'_j)
+       \right\rangle_{p(\mathbf{x}', \mathbf{h}')}\\
+    &= f_{ia}(x_i) \frac{
+         \partial B_j\left( \hat{\boldsymbol{\lambda}}_j \right)
+       }{
+         \partial \lambda_{jb}
+       } -
+       \left\langle
+         f_{ia}(x'_i) \frac{
+           \partial B_j\left( \hat{\boldsymbol{\lambda}}_j \right)
+         }{
+           \partial \lambda_{jb}
+         }
+       \right\rangle_{p(\mathbf{x}')}.
+
+Bernoulli-Bernoulli
+-------------------
+
+Recall that a Bernoulli distribution is defined as
+
+.. math::
+
+   \DeclareMathOperator{\BernDist}{Bern}
+   p(x \in \{0, 1\} \mid \lambda)
+    &= \BernDist_x\left[ \lambda \right]\\
+    &= \lambda^x (1 - \lambda)^{(1 - x)}\\
+    &= \exp \log \lambda^x (1 - \lambda)^{(1 - x)}\\
+    &= \exp\left\{
+         x \log \lambda + (1 - x) \log(1 - \lambda)
+       \right\}\\
+    &= \exp\left\{
+         x \log \frac{\lambda}{1 - \lambda} + \log(1 - \lambda)
+       \right\}\\
+    &= \exp\left\{ \eta x + \log\left( 1 + e^\eta \right) \right\}
+       & \quad & \eta = \log \frac{\lambda}{1 - \lambda}.
+
+By inspection, :math:`\lambda = \left( 1 + \exp\{-\eta\} \right)^{-1}`.
+
+An EFH with Bernoulli observed variables and Bernoulli latent variables defines
+
+.. math::
+
+   p(x_i \mid \mathbf{h})
+    &= p_i(x_i; \hat{\boldsymbol{\theta}}_i)\\
+    &= \exp\left[
+         \sum_a \hat{\theta}_{ia} f_{ia}(x_i) -
+         A_i\left( \hat{\boldsymbol{\theta}}_i \right)
+       \right]\\
+    &= \exp\left[
+         \sum_a \hat{\theta_{ia}} x_i -
+         \log \sum_{x'_i} \exp \sum_a \hat{\theta}_{ia} x'_i
+       \right]
+       & \quad & f_{ia}(x_i) = x_i\\
+    &= \exp\left[
+         \sum_a \hat{\theta}_{ia} x_i -
+         \log\left( 1 + \exp \sum_a \hat{\theta}_{ia} \right)
+       \right]
+       & \quad & x'_i \in \{0, 1\}
+
+and
+
+.. math::
+
+   p(h_j \mid \mathbf{x})
+    &= p_j(h_j; \hat{\boldsymbol{\lambda}}_j)\\
+    &= \exp\left[
+         \sum_b \hat{\lambda}_{jb} g_{jb}(h_j) -
+         B_j\left( \hat{\boldsymbol{\lambda}}_j \right)
+       \right]\\
+    &= \exp\left[
+         \sum_b \hat{\lambda}_{jb} h_j -
+         \log \sum_{h'_j} \exp \sum_b \hat{\lambda}_{jb} h'_j
+       \right]
+       & \quad & g_{jb}(h_j) = h_j\\
+    &= \exp\left[
+         \sum_b \hat{\lambda}_{jb} h_j -
+         \log\left( 1 + \exp \sum_b \hat{\lambda}_{jb} \right)
+       \right]
+       & \quad & h'_j \in \{0, 1\}.
+
+Note that this formulation is equivalent to the
+:doc:`Bernoulli-Bernoulli RBM </blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory>`.
+
+Gaussian-Bernoulli
+------------------
+
+Recall that a Gaussian distribution is defined as
+
+.. math::
+
+   \DeclareMathOperator{\NormDist}{Norm}
+   p(x \mid \mu, \sigma)
+    &= \NormDist_{x}\left[ \mu, \sigma^2 \right]\\
+    &= \frac{1}{\sqrt{2 \pi \sigma^2}}
+       \exp\left( -\frac{(x - \mu)^2}{2 \sigma^2} \right)\\
+    &= \exp\left( -\frac{\mu^2}{2 \sigma^2} - \log \sigma \sqrt{2 \pi} \right)
+       \exp\left( \frac{\mu x}{\sigma^2} - \frac{x^2}{2 \sigma^2} \right).
+
+An EFH with Gaussian observed variables and Bernoulli latent variables defines
+
+.. math::
+
+   \theta_{i1} &= -\frac{\mu_i^2}{2 \sigma_i^2} - \log \sigma_i \sqrt{2 \pi},
+     & \qquad &
+     f_{i1} &= 1,
+     & \qquad &
+     W_{i1}^{\cdot \cdot} &= 0;\\
+   \theta_{i2} &= \frac{\mu_i}{\sigma_i^2},
+     & \qquad &
+     f_{i2} &= x_i,
+     & \qquad &
+     W_{i2}^{\cdot \cdot} &\in \mathbb{R};\\
+   \theta_{i3} &= -\frac{1}{2 \sigma_i^2},
+     & \qquad &
+     f_{i3} &= x_i^2,
+     & \qquad &
+     W_{i3}^{\cdot \cdot} &= 0
+
+where
+
+.. math::
+
+   p(x_i \mid \mathbf{h})
+    &= p_i(x_i; \hat{\boldsymbol{\theta}}_i)\\
+    &= \exp\left[
+         \sum_a
+           \left( \theta_{ia} + \sum_{j, b} W_{ia}^{jb} g_{jb}(h_j) \right)
+             f_{ia}(x_i) -
+         A_i\left( \hat{\boldsymbol{\theta}}_i \right)
+       \right]\\
+    &= \frac{1}{\exp A_i\left( \hat{\boldsymbol{\theta}}_i \right)}
+       \exp\left[
+         -\frac{\mu_i^2}{2 \sigma_i^2} - \log \sigma_i \sqrt{2 \pi}
+       \right]
+       \exp\left[
+         \frac{\mu_i x_i}{\sigma_i^2} - \frac{x_i^2}{2 \sigma_i^2} +
+         x_i \sum_{j, b} W_{i2}^{jb} h_j
+       \right]
+       & \quad & g_{jb}(h_j) = h_j\\
+    &= \frac{
+         \exp\left[ \log \sigma_i \sqrt{2 \pi} \right]^{-1}
+       }{
+         \exp A_i\left( \hat{\boldsymbol{\theta}}_i \right)
+       }
+       \exp\left[
+         \frac{x_i \sum_j w_{ij} h_j}{\sigma_i^2} -
+         \frac{\left( x_i - \mu_i \right)^2}{2 \sigma_i^2}
+       \right]
+       & \quad & W_{i2}^{jb} = \frac{w_{ij}}{\sigma_i^2}\\
+    &= \frac{
+         \exp\left[ \log \sigma_i \sqrt{2 \pi} \right]^{-1}
+       }{
+         \exp A_i\left( \hat{\boldsymbol{\theta}}_i \right)
+       }
+       \exp \frac{
+              -\left( x_i - \mu_i - \sum_j w_{ij} h_j \right)^2 +
+              \left( \sum_j w_{ij} h_j \right)^2 +
+              2 \mu_i \sum_j w_{ij} h_j
+            }{2 \sigma_i^2}
+       & \quad & \frac{ax}{\sigma^2} -
+                   \frac{\left( x - b \right)^2}{2 \sigma^2} =
+                 \frac{-\left( x - a - b \right)^2 + a^2 + 2ab}{2 \sigma^2}\\
+    &= \frac{
+         \exp\left[
+           -\log \sigma_i \sqrt{2 \pi} +
+           \left( \sum_j w_{ij} h_j \right)^2 +
+           2 \mu_i \sum_j w_{ij} h_j
+         \right]
+       }{
+         \exp A_i\left( \hat{\boldsymbol{\theta}}_i \right)
+       }
+       \exp \frac{
+              -\left( x_i - \mu_i - \sum_j w_{ij} h_j \right)^2
+            }{2 \sigma_i^2}\\
+    &= \frac{1}{
+         \int
+           \exp -\left( x'_i - \mu_i - \sum_j w_{ij} h_j \right)^2
+                \left( 2 \sigma_i^2 \right)^{-1}
+           dx'_i
+       }
+       \exp \frac{
+              -\left( x_i - \mu_i - \sum_j w_{ij} h_j \right)^2
+            }{2 \sigma_i^2}\\
+    &= \frac{1}{\sigma_i \sqrt{2 \pi}}
+       \exp \frac{
+              -\left(
+                x_i - \mu_i - \sum_j w_{ij} h_j
+              \right)^2
+            }{2 \sigma_i^2}
+       & \quad & \int_{-\infty}^\infty e^{-a (x + b)^2} dx = \sqrt{a^{-1} \pi}\\
+    &= \NormDist_{x_i}\left[ \mu_i + \sum_j w_{ij} h_j, \sigma_i^2 \right]
+
+and
+
+.. math::
+
+   \DeclareMathOperator{\sigmoid}{sigmoid}
+   p(h_j = 1 \mid \mathbf{x})
+    &= p_j(h_j = 1; \hat{\boldsymbol{\lambda}}_j)\\
+    &= \exp\left[
+         \sum_b
+           \left(
+             \lambda_{jb} + \sum_{i, a} W_{ia}^{jb} f_{ia}(x_i)
+           \right) h_j -
+         \log\left( 1 + \exp \sum_b \hat{\lambda}_{jb} \right)
+       \right]\\
+    &= \frac{
+         \exp\left( \lambda_j + \sum_i \frac{w_{ij}}{\sigma_i^2} x_i \right)
+       }{
+         1 + \exp \hat{\lambda}_j
+       }
+       & \quad & \lambda_{jb} = \lambda_j\\
+    &= \sigmoid\left(
+         \lambda_j + \sum_i \frac{w_{ij}}{\sigma_i^2} x_i
+       \right)
+       & \quad & \sigmoid(u) = \frac{1}{1 + \exp(-u)}
+
+By inspection,
+
+.. math::
+
+   p(\mathbf{x}, \mathbf{h})
+    &= Z^{-1}
+       \exp\left[
+         \sum_{i, a} \theta_{ia} f_{ia}(x_i) +
+         \sum_{j, b} \lambda_{jb} g_{jb}(h_j) +
+         \sum_{i, j, a, b} W_{ia}^{jb} f_{ia}(x_i) g_{jb}(h_j)
+       \right]\\
+    &= Z^{-1}
+       \exp\left[
+         \left(
+           \sum_i
+             -\frac{\mu_i^2}{2 \sigma_i^2} - \log \sigma_i \sqrt{2 \pi} +
+             \frac{\mu_i}{\sigma_i^2} x_i -
+             \frac{1}{2 \sigma_i^2} x_i^2
+         \right) +
+         \sum_j \lambda_j h_j +
+         \sum_{i, j} \frac{w_{ij}}{\sigma_i^2} x_i h_j
+       \right]\\
+    &= \frac{\exp -\sum_i \log \sigma_i \sqrt{2 \pi}}{Z^{-1}}
+       \exp\left[
+         \sum_i -\frac{\left( x_i - \mu_i \right)^2}{2 \sigma_i^2} +
+         \sum_j \lambda_j h_j +
+         \sum_{i, j} \frac{w_{ij}}{\sigma_i^2} x_i h_j
+       \right]\\
+    &\approx
+       \exp\left[
+         \sum_i -\frac{\left( x_i - \mu_i \right)^2}{2 \sigma_i^2} +
+         \sum_j \lambda_j h_j +
+         \sum_{i, j} \frac{w_{ij}}{\sigma_i^2} x_i h_j
+       \right].
+
+Bernoulli-Gaussian
+------------------
+An EFH with Bernoulli observed variables and Gaussian latent variables defines
+
+.. math::
+
+   \lambda_{j1} &= -\frac{\mu_j^2}{2 \sigma_j^2} - \log \sigma_j \sqrt{2 \pi},
+     & \qquad &
+     g_{j1} &= 1,
+     & \qquad &
+     W_{\cdot \cdot}^{j1} &= 0;\\
+   \lambda_{j2} &= \frac{\mu_j}{\sigma_j^2},
+     & \qquad &
+     g_{j2} &= h_j,
+     & \qquad &
+     W_{\cdot \cdot}^{j2} &\in \mathbb{R};\\
+   \lambda_{j3} &= -\frac{1}{2 \sigma_j^2},
+     & \qquad &
+     g_{j3} &= h_j^2,
+     & \qquad &
+     W_{\cdot \cdot}^{j3} &= 0
+
+where
+
+.. math::
+
+   p(h_j \mid \mathbf{x})
+    &= p_j(h_j; \hat{\boldsymbol{\lambda}}_j)\\
+    &= \exp\left[
+         \sum_b
+           \left(
+             \lambda_{jb} + \sum_{i, a} W_{ia}^{jb} f_{ia}(x_i)
+           \right) g_{jb}(h_j) -
+         B_j\left( \hat{\boldsymbol{\lambda}}_j \right)
+       \right]\\
+    &= \frac{1}{\exp B_j\left( \hat{\boldsymbol{\lambda}}_j \right)}
+       \exp\left[
+         -\frac{\mu_j^2}{2 \sigma_j^2} - \log \sigma_j \sqrt{2 \pi}
+       \right]
+       \exp\left[
+         \frac{\mu_j h_j}{\sigma_j^2} - \frac{h_j^2}{2 \sigma_j^2} +
+         h_j \sum_{i, a} W_{ia}^{j2} x_i
+       \right]
+       & \quad & f_{ia}(x_i) = x_i\\
+    &= \NormDist_{h_j}\left[ \mu_j + \sum_i w_{ij} x_i, \sigma_j^2 \right]
+       & \quad & W_{ia}^{j2} = \frac{w_{ij}}{\sigma_j^2}
+
+and
+
+.. math::
+
+   p(x_i = 1 \mid \mathbf{h})
+    &= p_i(x_i = 1; \hat{\boldsymbol{\theta}}_i)\\
+    &= \exp\left[
+         \sum_a
+           \left(
+             \theta_{ia} + \sum_{j, b} W_{ia}^{jb} g_{jb}(h_j)
+           \right) x_i -
+         \log\left( 1 + \exp \sum_a \hat{\theta}_{ia} \right)
+       \right]\\
+    &= \frac{
+         \exp\left( \theta_i + \sum_j \frac{w_{ij}}{\sigma_j^2} h_j \right)
+       }{
+         1 + \exp \hat{\theta}_i
+       }
+       & \quad & \theta_{ia} = \theta_i\\
+    &= \sigmoid\left( \theta_i + \sum_j \frac{w_{ij}}{\sigma_j^2} h_j \right).
+
+By inspection,
+
+.. math::
+
+   p(\mathbf{x}, \mathbf{h})
+    &= Z^{-1}
+       \exp\left[
+         \sum_i \theta_i x_i +
+         \left(
+           \sum_j
+             -\frac{\mu_j^2}{2 \sigma_j^2} - \log \sigma_j \sqrt{2 \pi} +
+             \frac{\mu_j}{\sigma_j^2} h_j -
+             \frac{1}{2 \sigma_j^2} h_j^2
+         \right) +
+         \sum_{i, j} \frac{w_{ij}}{\sigma_j^2} x_i h_j
+       \right]\\
+    &\approx
+       \exp\left[
+         \sum_i \theta_i x_i -
+         \sum_j \frac{\left( h_j - \mu_j \right)^2}{2 \sigma_j^2} +
+         \sum_{i, j} \frac{w_{ij}}{\sigma_j^2} x_i h_j
+       \right].
+
+Gaussian-Gaussian
+-----------------
+
+An EFH with Gaussian observed variables and Gaussian latent variables defines
+
+.. math::
+
+   \theta_{i1} &= -\frac{\mu_i^2}{2 \sigma_i^2} - \log \sigma_i \sqrt{2 \pi},
+     & \qquad &
+     f_{i1} &= 1,
+     & \qquad &
+     g_{j1} &= 1,
+     & \qquad &
+     \lambda_{j1} &= -\frac{\mu_j^2}{2 \sigma_j^2} - \log \sigma_j \sqrt{2 \pi},
+     & \qquad &
+     W_{i2}^{j2} &\in \mathbb{R};\\
+   \theta_{i2} &= \frac{\mu_i}{\sigma_i^2},
+     & \qquad &
+     f_{i2} &= x_i,
+     & \qquad &
+     g_{j2} &= h_j,
+     & \qquad &
+     \lambda_{j2} &= \frac{\mu_j}{\sigma_j^2};\\
+   \theta_{i3} &= -\frac{1}{2 \sigma_i^2},
+     & \qquad &
+     f_{i3} &= x_i^2,
+     & \qquad &
+     g_{j3} &= h_j^2,
+     & \qquad &
+     \lambda_{j3} &= -\frac{1}{2 \sigma_j^2},
+     & \qquad &
+     W_{ia}^{jb} &= 0 \quad \forall i \neq 2, j \neq 2
+
+where
+
+.. math::
+
+   p(x_i \mid \mathbf{h})
+    &= p_i(x_i; \hat{\boldsymbol{\theta}}_i)\\
+    &= \exp\left[
+         \sum_a
+           \left( \theta_{ia} + \sum_{j, b} W_{ia}^{jb} g_{jb}(h_j) \right)
+             f_{ia}(x_i) -
+         A_i\left( \hat{\boldsymbol{\theta}}_i \right)
+       \right]\\
+    &= \frac{1}{\exp A_i\left( \hat{\boldsymbol{\theta}}_i \right)}
+       \exp\left[
+         -\frac{\mu_i^2}{2 \sigma_i^2} - \log \sigma_i \sqrt{2 \pi}
+       \right]
+       \exp\left[
+         \frac{\mu_i x_i}{\sigma_i^2} - \frac{x_i^2}{2 \sigma_i^2} +
+         x_i \sum_j W_{i2}^{j2} h_j
+       \right]\\
+    &= \frac{
+         \exp\left[ \log \sigma_i \sqrt{2 \pi} \right]^{-1}
+       }{
+         \exp A_i\left( \hat{\boldsymbol{\theta}}_i \right)
+       }
+       \exp\left[
+         \frac{x_i \sigma_i^2 \sum_j W_{i2}^{j2} h_j}{\sigma_i^2} -
+         \frac{\left( x_i - \mu_i \right)^2}{2 \sigma_i^2}
+       \right]\\
+    &= \NormDist_{x_i}\left[
+         \mu_i + \sigma_i^2 \sum_j W_{i2}^{j2} h_j, \sigma_i^2
+       \right]\\
+    &= \NormDist_{x_i}\left[
+         \mu_i + \sum_j \frac{w_{ij}}{\sigma_j^2} h_j, \sigma_i^2
+       \right]
+       & \quad & W_{i2}^{j2} = \frac{w_{ij}}{\sigma_i^2 \sigma_j^2}\\
+
+and
+
+.. math::
+
+   p(h_j \mid \mathbf{x})
+    &= p_j(h_j; \hat{\boldsymbol{\lambda}}_j)\\
+    &= \exp\left[
+         \sum_b
+           \left(
+             \lambda_{jb} + \sum_{i, a} W_{ia}^{jb} f_{ia}(x_i)
+           \right) g_{jb}(h_j) -
+         B_j\left( \hat{\boldsymbol{\lambda}}_j \right)
+       \right]\\
+    &= \frac{1}{\exp B_j\left( \hat{\boldsymbol{\lambda}}_j \right)}
+       \exp\left[
+         -\frac{\mu_j^2}{2 \sigma_j^2} - \log \sigma_j \sqrt{2 \pi}
+       \right]
+       \exp\left[
+         \frac{\mu_j h_j}{\sigma_j^2} - \frac{h_j^2}{2 \sigma_j^2} +
+         h_j \sum_i W_{i2}^{j2} x_i
+       \right]\\
+    &= \frac{
+         \exp\left[ \log \sigma_j \sqrt{2 \pi} \right]^{-1}
+       }{
+         \exp B_j\left( \hat{\boldsymbol{\lambda}}_j \right)
+       }
+       \exp\left[
+         \frac{h_j \sigma_j^2 \sum_i W_{i2}^{j2} x_i}{\sigma_j^2} -
+         \frac{\left( h_j - \mu_j \right)^2}{2 \sigma_j^2}
+       \right]\\
+    &= \NormDist_{h_j}\left[
+         \mu_j + \sigma_j^2 \sum_i W_{i2}^{j2} x_i, \sigma_j^2
+       \right]\\
+    &= \NormDist_{h_j}\left[
+         \mu_j + \sum_i \frac{w_{ij}}{\sigma_i^2} x_i, \sigma_j^2
+       \right].
+
+By inspection,
+
+.. math::
+
+   p(\mathbf{x}, \mathbf{h}) \approx
+   \exp\left[
+     -\sum_i \frac{\left( x_i - \mu_i \right)^2}{2 \sigma_i^2} -
+     \sum_j \frac{\left( h_j - \mu_j \right)^2}{2 \sigma_j^2} +
+     \sum_{i, j} \frac{w_{ij}}{\sigma_i^2 \sigma_j^2} x_i h_j
+   \right].
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

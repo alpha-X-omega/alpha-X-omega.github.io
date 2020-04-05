@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Set Up Web Development Environment &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="VFIO Tips and Tricks" href="../07/vfio-tips-and-tricks.html" />
+    <link rel="prev" title="Install Graphics and Compute on Linux Mint" href="../09/install-graphics-and-compute-linux-mint.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Set Up Web Development Environment</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../09/install-graphics-and-compute-linux-mint.html" title="Previous Chapter: Install Graphics and Compute on Linux Mint"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Install Graph...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../07/vfio-tips-and-tricks.html" title="Next Chapter: VFIO Tips and Tricks"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">VFIO Tips and Tricks &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="set-up-web-development-environment">
+<h1>Set Up Web Development Environment<a class="headerlink" href="#set-up-web-development-environment" title="Permalink to this headline">¶</a></h1>
+<dl class="simple">
+<dt><a class="reference external" href="https://python-packaging.readthedocs.io/en/latest/everything.html">https://python-packaging.readthedocs.io/en/latest/everything.html</a></dt><dd><p>name=&lt;pip will use this, underscores are replaced by dashes&gt;</p>
+</dd>
+</dl>
+<p><a class="reference external" href="https://hynek.me/articles/sharing-your-labor-of-love-pypi-quick-and-dirty/">https://hynek.me/articles/sharing-your-labor-of-love-pypi-quick-and-dirty/</a>
+<a class="reference external" href="https://packaging.python.org/tutorials/distributing-packages/">https://packaging.python.org/tutorials/distributing-packages/</a></p>
+<blockquote>
+<div><p><a class="reference external" href="https://stackoverflow.com/questions/37972029/regex-to-match-pep440-compliant-version-strings">https://stackoverflow.com/questions/37972029/regex-to-match-pep440-compliant-version-strings</a>
+<a class="reference external" href="https://docs.python.org/3/distutils/setupscript.html#listing-whole-packages">https://docs.python.org/3/distutils/setupscript.html#listing-whole-packages</a>
+<a class="reference external" href="https://docs.python.org/3/distutils/sourcedist.html#commands">https://docs.python.org/3/distutils/sourcedist.html#commands</a>
+Look at numpy git code for layout</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Also ray framework github</dt><dd><p>platanios.org/assets/pdf/eaching/writing_python_libraries.pdf</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="simple">
+<dt>pip and wheel (for binary distribution)</dt><dd><p><a class="reference external" href="https://wheel.readthedocs.io/en/stable/">https://wheel.readthedocs.io/en/stable/</a>
+pip install dist/&lt;either wheel or tar.gz&gt;
+python setup.py sdist bdist_wheel</p>
+</dd>
+</dl>
+<p>python setup.py clean –all
+python setup.py sdist
+python setup.py build
+python setup.py develop
+python -m pytest</p>
+<dl class="simple">
+<dt>python -m pytest –cov-report=html –cov=src/</dt><dd><p>.coveragerc</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>[aliases]
+test=pytest</p>
+<blockquote>
+<div><p>needed because test is defined by default</p>
+</div></blockquote>
+<p>[bdist_wheel]
+universal = 1</p>
+<blockquote>
+<div><p>needed to distribute with wheels</p>
+</div></blockquote>
+<p>cfg: <a class="reference external" href="https://docs.python.org/3.4/library/configparser.html">https://docs.python.org/3.4/library/configparser.html</a></p>
+<dl class="simple">
+<dt><a class="reference external" href="https://docs.pytest.org/en/latest/goodpractices.html">https://docs.pytest.org/en/latest/goodpractices.html</a></dt><dd><dl class="simple">
+<dt><a class="reference external" href="https://agopian.info/presentations/2015_06_djangocon_europe/?full#cover">https://agopian.info/presentations/2015_06_djangocon_europe/?full#cover</a></dt><dd><dl class="simple">
+<dt>supercedes</dt><dd><p><a class="reference external" href="https://docs.python.org/3/library/unittest.html">https://docs.python.org/3/library/unittest.html</a>
+<a class="reference external" href="http://nose.readthedocs.io/en/latest/">http://nose.readthedocs.io/en/latest/</a>
+<a class="reference external" href="http://nose2.readthedocs.io/en/latest/index.html">http://nose2.readthedocs.io/en/latest/index.html</a></p>
+</dd>
+</dl>
+</dd>
+<dt>pytest-cov</dt><dd><p><a class="reference external" href="https://coverage.readthedocs.io/en/coverage-4.4.2/">https://coverage.readthedocs.io/en/coverage-4.4.2/</a>
+<a class="reference external" href="https://pytest-cov.readthedocs.io/en/latest/readme.html">https://pytest-cov.readthedocs.io/en/latest/readme.html</a>
+benefit of distributed testing and coverage</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><a class="reference external" href="https://seasonofcode.com/posts/how-to-add-custom-build-steps-and-commands-to-setuppy.html">https://seasonofcode.com/posts/how-to-add-custom-build-steps-and-commands-to-setuppy.html</a>
+<a class="reference external" href="https://realitix.github.io/python/2016/11/09/python-customize-setup/">https://realitix.github.io/python/2016/11/09/python-customize-setup/</a>
+<a class="reference external" href="https://dankeder.com/posts/adding-custom-commands-to-setup-py/">https://dankeder.com/posts/adding-custom-commands-to-setup-py/</a>
+layout</p>
+<blockquote>
+<div><p><a class="reference external" href="http://pybuilder.github.io/documentation/tutorial.html#Buildingadistribution">http://pybuilder.github.io/documentation/tutorial.html#Buildingadistribution</a></p>
+</div></blockquote>
+<dl>
+<dt>code formatting</dt><dd><p><a class="reference external" href="https://github.com/google/yapf">https://github.com/google/yapf</a>
+<a class="reference external" href="https://github.com/PyCQA/pycodestyle">https://github.com/PyCQA/pycodestyle</a>
+<a class="reference external" href="https://github.com/PyCQA/pydocstyle">https://github.com/PyCQA/pydocstyle</a></p>
+<p>#python -m pytest –cov-report=html –cov=src/
+#yapf –in-place –recursive –style=pep8 –parallel –no-local-style
+#pycodestyle –show-source tests/
+#pydocstyle tests/</p>
+<blockquote>
+<div><p>pydocstyle ignores test files unless specified explicitly</p>
+</div></blockquote>
+</dd>
+<dt>DBC</dt><dd><p><a class="reference external" href="https://github.com/orsinium/deal">https://github.com/orsinium/deal</a></p>
+</dd>
+<dt><a class="reference external" href="http://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_numpy.html">http://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_numpy.html</a></dt><dd><p><a class="reference external" href="http://www.sphinx-doc.org/en/stable/ext/napoleon.html">http://www.sphinx-doc.org/en/stable/ext/napoleon.html</a>
+<a class="reference external" href="http://sphinxcontrib-napoleon.readthedocs.io/en/latest/index.html">http://sphinxcontrib-napoleon.readthedocs.io/en/latest/index.html</a>
+sphinx-apidoc –force –full –separate –output-dir=docs src -H projectx -A alphaXomega –append-syspath –ext-mathjax
+make html</p>
+<blockquote>
+<div><dl class="simple">
+<dt>invoking these two commands may be wrong</dt><dd><p>may need to set up documentation first
+call sphinx-apidoc to generate the files
+and then sphinx-build instead or maybe sphinx-autobuild</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><a class="reference external" href="https://samnicholls.net/2016/06/15/how-to-sphinx-readthedocs/">https://samnicholls.net/2016/06/15/how-to-sphinx-readthedocs/</a>
+<a class="reference external" href="https://www.dlab.ninja/2013/12/documenting-code-with-sphinx.html">https://www.dlab.ninja/2013/12/documenting-code-with-sphinx.html</a></p>
+<p><a class="reference external" href="https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt">https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt</a></p>
+<blockquote>
+<div><p>#extensions = [‘sphinx.ext.autodoc’, ‘sphinx.ext.napoleon’]</p>
+<p>#napoleon_google_docstring = False
+#napoleon_numpy_docstring = True</p>
+<p>#TODO: sed the above into the correct conf.py</p>
+</div></blockquote>
+</dd>
+<dt>CI</dt><dd><p><a class="reference external" href="https://docs.buildbot.net/current/tutorial/">https://docs.buildbot.net/current/tutorial/</a>
+python3 -m venv sandbox
+<a class="reference external" href="https://www.twosixlabs.com/automated-docker-deployment-kubernetes-buildbot/">https://www.twosixlabs.com/automated-docker-deployment-kubernetes-buildbot/</a>
+<a class="reference external" href="http://docs.buildbot.net/current/tutorial/fiveminutes.html">http://docs.buildbot.net/current/tutorial/fiveminutes.html</a></p>
+</dd>
+</dl>
+<p><a class="reference external" href="https://www.slideshare.net/adorepump/plproxy-pgbouncer-pgbalancer">https://www.slideshare.net/adorepump/plproxy-pgbouncer-pgbalancer</a>
+<a class="reference external" href="https://grimoire.ca/mysql/choose-something-else">https://grimoire.ca/mysql/choose-something-else</a></p>
+<p><a class="reference external" href="https://psutil.readthedocs.io/en/latest/">https://psutil.readthedocs.io/en/latest/</a>
+profiling:</p>
+<blockquote>
+<div><dl class="simple">
+<dt><a class="reference external" href="https://docs.python.org/3/library/profile.html">https://docs.python.org/3/library/profile.html</a></dt><dd><dl class="simple">
+<dt>profile/cProfile</dt><dd><p>visualization via <a class="reference external" href="https://github.com/jrfonseca/gprof2dot">https://github.com/jrfonseca/gprof2dot</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><a class="reference external" href="https://github.com/rkern/line_profiler">https://github.com/rkern/line_profiler</a></p>
+<dl>
+<dt><a class="reference external" href="https://eng.uber.com/pyflame/">https://eng.uber.com/pyflame/</a></dt><dd><dl class="simple">
+<dt>reasons: <a class="reference external" href="https://github.com/matrixik/python-multithread-profiling">https://github.com/matrixik/python-multithread-profiling</a></dt><dd><p>pprofile, pyinstrument, vmprof</p>
+</dd>
+</dl>
+</dd>
+<dt><a class="reference external" href="http://yyc.solvcon.net/writing/2015/pymem_survey.html">http://yyc.solvcon.net/writing/2015/pymem_survey.html</a></dt><dd><p><a class="reference external" href="https://github.com/pythonprofilers/memory_profiler">https://github.com/pythonprofilers/memory_profiler</a>
+<a class="reference external" href="https://docs.python.org/3/library/tracemalloc.html">https://docs.python.org/3/library/tracemalloc.html</a>
+<a class="reference external" href="https://docs.python.org/3/library/resource.html">https://docs.python.org/3/library/resource.html</a>
+<a class="reference external" href="https://objgraph.readthedocs.io/en/stable/">https://objgraph.readthedocs.io/en/stable/</a>
+<a class="reference external" href="http://guppy-pe.sourceforge.net/">http://guppy-pe.sourceforge.net/</a></p>
+</dd>
+<dt><a class="reference external" href="https://github.com/fabianp/yep">https://github.com/fabianp/yep</a></dt><dd><p><a class="reference external" href="https://stackoverflow.com/questions/426230/what-is-the-ld-preload-trick">https://stackoverflow.com/questions/426230/what-is-the-ld-preload-trick</a>
+<a class="reference external" href="https://github.com/gperftools/gperftools/wiki">https://github.com/gperftools/gperftools/wiki</a></p>
+</dd>
+<dt><a class="reference external" href="https://github.com/lmacken/pyrasite">https://github.com/lmacken/pyrasite</a></dt><dd><p><a class="reference external" href="https://triqs.ipht.cnrs.fr/1.3/reference/using_the_lib/profiling.html">https://triqs.ipht.cnrs.fr/1.3/reference/using_the_lib/profiling.html</a></p>
+</dd>
+<dt>to eval</dt><dd><p><a class="reference external" href="http://hdrhistogram.github.io/HdrHistogram/">http://hdrhistogram.github.io/HdrHistogram/</a>
+<a class="reference external" href="http://highscalability.com/blog/2015/5/27/a-toolkit-to-measure-basic-system-performance-and-os-jitter.html">http://highscalability.com/blog/2015/5/27/a-toolkit-to-measure-basic-system-performance-and-os-jitter.html</a>
+gatling.io</p>
+<blockquote>
+<div><p><a class="reference external" href="https://stackoverflow.com/questions/47240525/alternative-to-gatling">https://stackoverflow.com/questions/47240525/alternative-to-gatling</a></p>
+</div></blockquote>
+</dd>
+</dl>
+</div></blockquote>
+<dl>
+<dt>C10M</dt><dd><p><a class="reference external" href="https://web.archive.org/web/20161231060358/http://dak1n1.com:80/blog/13-load-balancing-lvs/">https://web.archive.org/web/20161231060358/http://dak1n1.com:80/blog/13-load-balancing-lvs/</a>
+<a class="reference external" href="https://web.archive.org/web/20170202125514/http://dak1n1.com/blog/12-nginx-performance-tuning">https://web.archive.org/web/20170202125514/http://dak1n1.com/blog/12-nginx-performance-tuning</a>
+<a class="reference external" href="https://web.archive.org/web/20161121213846/http://dak1n1.com:80/blog/14-http-load-generate/">https://web.archive.org/web/20161121213846/http://dak1n1.com:80/blog/14-http-load-generate/</a>
+<a class="reference external" href="https://web.archive.org/web/20161124052147/http://dak1n1.com:80/blog/7-performance-tuning-intel-10gbe/">https://web.archive.org/web/20161124052147/http://dak1n1.com:80/blog/7-performance-tuning-intel-10gbe/</a>
+<a class="reference external" href="http://keniallee.blogspot.com/2014/11/testing-c10m-on-host-with-tornado.html">http://keniallee.blogspot.com/2014/11/testing-c10m-on-host-with-tornado.html</a></p>
+</dd>
+<dt>tornado</dt><dd><p>bokeh</p>
+</dd>
+<dt>cffi vs pybind11</dt><dd><p>ctypes and Cython is not that good
+<a class="reference external" href="https://www.paypal-engineering.com/2016/09/22/python-by-the-c-side/">https://www.paypal-engineering.com/2016/09/22/python-by-the-c-side/</a>
+<a class="reference external" href="http://blog.conan.io/2016/04/12/Extending-python-with-C-or-C++-with-pybind11.html">http://blog.conan.io/2016/04/12/Extending-python-with-C-or-C++-with-pybind11.html</a></p>
+</dd>
+<dt>HTML/CSS/JS</dt><dd><p><a class="reference external" href="https://jonbellah.com/articles/separation-of-concerns/">https://jonbellah.com/articles/separation-of-concerns/</a>
+<a class="reference external" href="https://adamwathan.me/css-utility-classes-and-separation-of-concerns/">https://adamwathan.me/css-utility-classes-and-separation-of-concerns/</a></p>
+<dl class="simple">
+<dt><a class="reference external" href="https://philipwalton.com/articles/decoupling-html-css-and-javascript/">https://philipwalton.com/articles/decoupling-html-css-and-javascript/</a></dt><dd><p><a class="reference external" href="https://philipwalton.com/articles/responsive-components-a-solution-to-the-container-queries-problem/">https://philipwalton.com/articles/responsive-components-a-solution-to-the-container-queries-problem/</a>
+<a class="reference external" href="https://philipwalton.com/articles/why-web-developers-need-to-care-about-interactivity/">https://philipwalton.com/articles/why-web-developers-need-to-care-about-interactivity/</a></p>
+</dd>
+</dl>
+<p><a class="reference external" href="http://nicolasgallagher.com/about-html-semantics-front-end-architecture/">http://nicolasgallagher.com/about-html-semantics-front-end-architecture/</a></p>
+<dl class="simple">
+<dt><a class="reference external" href="https://martinfowler.com/bliki/SegregatedDOM.html">https://martinfowler.com/bliki/SegregatedDOM.html</a></dt><dd><p><a class="reference external" href="http://radar.oreilly.com/2014/01/keeping-jquery-in-check.html">http://radar.oreilly.com/2014/01/keeping-jquery-in-check.html</a>
+<a class="reference external" href="https://martinfowler.com/bliki/PresentationDomainDataLayering.html">https://martinfowler.com/bliki/PresentationDomainDataLayering.html</a></p>
+</dd>
+</dl>
+<p><a class="reference external" href="http://getbem.com/introduction/">http://getbem.com/introduction/</a>
+<a class="reference external" href="https://smacss.com/book/categorizing">https://smacss.com/book/categorizing</a>
+<a class="reference external" href="https://github.com/suitcss/suit/tree/master/doc">https://github.com/suitcss/suit/tree/master/doc</a></p>
+<p><a class="reference external" href="https://philipwalton.com/articles/side-effects-in-css/">https://philipwalton.com/articles/side-effects-in-css/</a></p>
+<dl>
+<dt>I personally think it should be done like this:</dt><dd><p>html for overall structure
+take the best practice for CSS for style
+javascript is split between presentation (DOM) and data (everything else)</p>
+<blockquote>
+<div><dl class="simple">
+<dt>if there needs to be glue code, it should be in the presentation layer</dt><dd><p>reasons: DOM-CSS / CSSOM, etc…</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+<dt><a class="reference external" href="https://dev.to/massa142/javascript-is-almost-pythonic-3f8">https://dev.to/massa142/javascript-is-almost-pythonic-3f8</a></dt><dd><dl class="simple">
+<dt>this makes typescript (insert whatever else) unnecessary</dt><dd><p>stick to good pythonic designs
+use linters, formatters that enforce this
+as long as babel gets us access to all the latest goodies, it’s good enough</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><a class="reference external" href="https://www.stevesouders.com/blog/2009/03/10/performance-impact-of-css-selectors/">https://www.stevesouders.com/blog/2009/03/10/performance-impact-of-css-selectors/</a>
+<a class="reference external" href="https://benfrain.com/css-performance-revisited-selectors-bloat-expensive-styles/">https://benfrain.com/css-performance-revisited-selectors-bloat-expensive-styles/</a>
+<a class="reference external" href="https://css-tricks.com/efficiently-rendering-css/">https://css-tricks.com/efficiently-rendering-css/</a>
+<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Talk:CSS/Writing_Efficient_CSS">https://developer.mozilla.org/en-US/docs/Talk:CSS/Writing_Efficient_CSS</a></p>
+<p><a class="reference external" href="https://moduscreate.com/blog/efficient-dom-and-css/">https://moduscreate.com/blog/efficient-dom-and-css/</a>
+<a class="reference external" href="https://korynunn.wordpress.com/2013/03/19/the-dom-isnt-slow-you-are/">https://korynunn.wordpress.com/2013/03/19/the-dom-isnt-slow-you-are/</a>
+<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Author_fast-loading_HTML_pages">https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Author_fast-loading_HTML_pages</a></p>
+<dl class="simple">
+<dt><a class="reference external" href="https://github.com/localstack/localstack">https://github.com/localstack/localstack</a></dt><dd><p>moto, boto3</p>
+</dd>
+</dl>
+<p><a class="reference external" href="https://github.com/serverless/guide">https://github.com/serverless/guide</a></p>
+<blockquote>
+<div><dl>
+<dt><a class="reference external" href="https://en.bem.info/method/key-concepts/">https://en.bem.info/method/key-concepts/</a></dt><dd><blockquote>
+<div><ul class="simple">
+<li><p>Block-Element-Modifier is an intuitive mental model.</p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p>Block
++ A logically and functionally independent page component.</p>
+<blockquote>
+<div><ol class="lowerroman simple">
+<li><p>Equivalent of a component in Web Components.</p></li>
+</ol>
+</div></blockquote>
+<ul class="simple">
+<li><p>Defines a namespace that ensures the dependence of elements on the block.</p></li>
+<li><p>Encapsulates
+(i) Behavior - JavaScript
+(ii) Appearance - CSS
+(iii) Templates - Handlebars
+(iv) Documentation - Markdown</p></li>
+<li><p>Supports
+(i) Nesting structure
+(ii) Arbitrary placement
+(iii) Re-use (e.g. multiple instances of the same block)</p></li>
+</ul>
+</li>
+<li><p>Element
++ A constituent part of a block that cannot be used outside of it.
++ Avoid Nested Elements</p>
+<blockquote>
+<div><ol class="lowerroman simple">
+<li><p>Elements cannot be swapped around, removed, or added without modifying
+the existing code.</p></li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>Modifier
++ An entity that defines the appearance and behavior of a block or an</p>
+<blockquote>
+<div><p>element.</p>
+</div></blockquote>
+</li>
+<li><p>Mix
++ An instance of different BEM entities begin hosted on a single DOM node.
++ Combines the behaviors and styles of several BEM entities while avoiding</p>
+<blockquote>
+<div><p>code duplication.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Create semantically new interface components on the basis of existing
+BEM entities.</p></li>
+</ul>
+</li>
+<li><p>BEM Tree
++ A representation of a web page structure in terms of BEM entities, their</p>
+<blockquote>
+<div><p>states, order, nesting, and auxiliary data.</p>
+</div></blockquote>
+</li>
+</ul>
+</dd>
+<dt><a class="reference external" href="https://en.bem.info/method/naming-convention/">https://en.bem.info/method/naming-convention/</a></dt><dd><ul class="simple">
+<li><p>A reasonable naming style, but the modifier seems redundant.  Would
+using JavaScript literal object notation and nesting be more elegant?
+A compiler can take that and output CSS code instead?</p></li>
+</ul>
+</dd>
+<dt><a class="reference external" href="https://en.bem.info/method/filesystem/">https://en.bem.info/method/filesystem/</a></dt><dd><ul class="simple">
+<li><p>This applies the BEM convention to files; I can’t seem to find a tool
+that purely checks for filename consistency though?  Maybe this
+methodology requires using its provide suite of tools.</p></li>
+</ul>
+</dd>
+</dl>
+<p><a class="reference external" href="https://en.bem.info/method/solved-problems/">https://en.bem.info/method/solved-problems/</a>
+<a class="reference external" href="https://en.bem.info/method/history/">https://en.bem.info/method/history/</a></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>These are simply advertisements for BEM so nothing new with my current
+knowledge base.</p></li>
+</ul>
+</div></blockquote>
+<dl class="simple">
+<dt><a class="reference external" href="https://suitcss.github.io/">https://suitcss.github.io/</a></dt><dd><ul class="simple">
+<li><p>{html-inspector, bem-linter} is exactly what I have been looking for.</p></li>
+</ul>
+</dd>
+<dt><a class="reference external" href="https://github.com/suitcss/suit/blob/master/doc/README.md">https://github.com/suitcss/suit/blob/master/doc/README.md</a></dt><dd><ul class="simple">
+<li><p>Nothing outstanding if you have those tools; don’t bother reading.</p></li>
+</ul>
+</dd>
+<dt><a class="reference external" href="http://blog.millermedeiros.com/solid-css/">http://blog.millermedeiros.com/solid-css/</a></dt><dd><ul class="simple">
+<li><p>I found this in the previous SUIT CSS link; I am disappointed in the
+content.  I think if you follow BEM, your usage will automatically
+have structure.</p></li>
+</ul>
+</dd>
+<dt><a class="reference external" href="https://github.com/unicorn-standard/pacomo">https://github.com/unicorn-standard/pacomo</a></dt><dd><ul class="simple">
+<li><p>Clearly this work isn’t aware of BEM and Stylus.</p></li>
+</ul>
+</dd>
+</dl>
+<p>phantomjs is no longer necessary since chrome will do that for you</p>
+<dl class="simple">
+<dt><a class="reference external" href="http://blog.kewah.com/2015/tools-to-keep-a-consistent-coding-style-in-javascript/">http://blog.kewah.com/2015/tools-to-keep-a-consistent-coding-style-in-javascript/</a></dt><dd><ul class="simple">
+<li><p>Makes a strong argument for ESLint and esformatter.  I am convinced!</p></li>
+</ul>
+</dd>
+<dt>A Field Guide to the Distributed Development Stack</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/odewahn/dds-field-guide">https://github.com/odewahn/dds-field-guide</a></p></li>
+</ul>
+</dd>
+<dt><a class="reference external" href="https://blog.serverdensity.com/server-alerts-a-step-by-step-look-behind-the-scenes/">https://blog.serverdensity.com/server-alerts-a-step-by-step-look-behind-the-scenes/</a></dt><dd><ul class="simple">
+<li><p>This offers a different kind of insight.  I have been too focused on the
+tools and performance in the web server end.  That is important for the
+client side, but we can always add more machines.  Extracting the
+maximum performance on the server is cost-effective, but not when it’s
+harming productivity.  Python is highly productive compared to Node.js!</p></li>
+</ul>
+</dd>
+<dt><a class="reference external" href="http://mrjoes.github.io/2013/06/21/python-realtime.html">http://mrjoes.github.io/2013/06/21/python-realtime.html</a></dt><dd><ul class="simple">
+<li><p>I was originally looking for information about organizing Flask
+projects, but this was a good find.  This helped me realize again that
+productivity is what matters; you can always add more servers,
+specialize your solution to get more performance, etc…</p></li>
+</ul>
+</dd>
+</dl>
+<ul>
+<li><p>Long-polling is essentially keeping the client connection alive.
++ Websockets were invented to resolve this issue.</p></li>
+<li><p>sock.js may be better than socket.io.</p></li>
+<li><p>WSGI is synchronous.
++ coroutines (greenlets), a hard context switching mechanism, enabled</p>
+<blockquote>
+<div><p>asynchronous code to be written in an synchronous fashion.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>gevent uses greenlets to make existing frameworks handle many connections.</p></li>
+</ul>
+</li>
+<li><p>Out-of-process approach to handle real-time applications.
++ Instead of using Gevent to forcibly make WSGI asynchronous, set up a</p>
+<blockquote>
+<div><p>separate server that is solely focused on the real-time portion
+(e.g. redis, ZeroMQ, RabbitMQ, load balancer haproxy,
+reverse caching proxy nginx).</p>
+</div></blockquote>
+</li>
+</ul>
+<dl>
+<dt><a class="reference external" href="http://www.cs.dartmouth.edu/~sergey/cs108/2013/C10M-Defending-the-Internet-at-Scale-Dartmouth-2013.pdf">http://www.cs.dartmouth.edu/~sergey/cs108/2013/C10M-Defending-the-Internet-at-Scale-Dartmouth-2013.pdf</a></dt><dd><ul class="simple">
+<li><p>I didn’t realize C10K was last decade!  This convinced me that I
+should always optimize for productivity and decouple things I will
+optimize into microservices.</p></li>
+</ul>
+</dd>
+<dt><a class="reference external" href="http://sealedabstract.com/rants/why-mobile-web-apps-are-slow/">http://sealedabstract.com/rants/why-mobile-web-apps-are-slow/</a></dt><dd><ul class="simple">
+<li><p>Useful benchmark comparison between desktop ES and mobile ES.  Just read
+the second and third to last sections.</p></li>
+</ul>
+</dd>
+<dt><a class="reference external" href="https://medium.com/&#64;jcse/clearing-up-the-babel-6-ecosystem-c7678a314bf3">https://medium.com/&#64;jcse/clearing-up-the-babel-6-ecosystem-c7678a314bf3</a></dt><dd><ul class="simple">
+<li><p>This is the kind of description I have been searching for.  Points to
+“<a class="reference external" href="https://ponyfoo.com/articles/polyfills-or-ponyfills">https://ponyfoo.com/articles/polyfills-or-ponyfills</a>”, which clearly
+describes the benefits of ponyfills vs polyfills i.e. why babel-runtime
+is preferable to babel-polyfill.</p></li>
+</ul>
+</dd>
+<dt><a class="reference external" href="http://christianalfoni.github.io/javascript/2015/01/01/think-twice-about-classes.html">http://christianalfoni.github.io/javascript/2015/01/01/think-twice-about-classes.html</a></dt><dd><blockquote>
+<div><ul class="simple">
+<li><p>Very good and insightful post.  I almost fell for the ES6 class feature.</p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p>The following are delegations:
++ Object.create(EventEmitter.prototype);
++ Object.create({doSomething: function () {}});</p></li>
+<li><p>Object.assign({}, EventEmitter.prototype, {myMethod: function () {}});
++ Not using delegation; creating new properties for each invocation.</p>
+<p>Looking back (2018), JS is now very similar to python.  Apply pythonic styles to JS and you’re golden</p>
+</li>
+</ul>
+</dd>
+<dt><a class="reference external" href="http://javascriptissexy.com/javascript-prototype-in-plain-detailed-language/">http://javascriptissexy.com/javascript-prototype-in-plain-detailed-language/</a></dt><dd><ul class="simple">
+<li><p>This is a very nice and clear explanation of the prototype chain in
+Javascript.</p></li>
+</ul>
+</dd>
+<dt><a class="reference external" href="https://medium.com/javascript-scene/common-misconceptions-about-inheritance-in-javascript-d5d9bab29b0a">https://medium.com/javascript-scene/common-misconceptions-about-inheritance-in-javascript-d5d9bab29b0a</a></dt><dd><ul class="simple">
+<li><p>Interesting read, but not what I was looking for.</p></li>
+</ul>
+</dd>
+</dl>
+<p><a class="reference external" href="https://github.com/getify/You-Dont-Know-JS/blob/master/this%20&amp;%20object%20prototypes/ch6.md">https://github.com/getify/You-Dont-Know-JS/blob/master/this%20&amp;%20object%20prototypes/ch6.md</a>
+<a class="reference external" href="http://www.datchley.name/understanding-prototypes-delegation-composition/">http://www.datchley.name/understanding-prototypes-delegation-composition/</a>
+<a class="reference external" href="http://mcculloughwebservices.com/2015/06/27/angular-u-classes-prototypes-and-oloo/">http://mcculloughwebservices.com/2015/06/27/angular-u-classes-prototypes-and-oloo/</a></p>
+<blockquote>
+<div><blockquote>
+<div><ul class="simple">
+<li><p>Exactly what I was looking for.  Nicely written and intuitive usage of
+Object.create().  I am onboard for OLOO with Javascript.  I agree that
+one should focus on the delegation and behavior instead of the usual
+cruft that classes require.  The illustrations are also amazing!</p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p>Object.create() to link prototypes.
++ Object.setPrototypeOf() is used to link two separate objects.</p></li>
+<li><p>Use Object.assign() to copy enumerable properties from a variable
+number of objects i.e. mixins.
++ Think of this as instantiating without “new” operator.
++ Object.create() on its own also serves as instantiation.</p></li>
+<li><p>Use Reflection API for type introspection.</p></li>
+<li><p>Don’t use instanceof.</p></li>
+<li><p>Keep the states at the bottom of the prototype chain.
++ The one who delegates should have the state.
++ Method names should be specific and different instead of the polymorphic</p>
+<blockquote>
+<div><p>overriding approach.</p>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<dl class="simple">
+<dt><a class="reference external" href="https://john-dugan.com/object-oriented-javascript-pattern-comparison/">https://john-dugan.com/object-oriented-javascript-pattern-comparison/</a></dt><dd><ul class="simple">
+<li><p>I like the idea of Durable Constructor Pattern.  Looking back, I think
+OLOO is nice, but gives up too much.  However, the mechanisms it
+suggests is applicable to
+<a class="reference external" href="http://christianalfoni.github.io/javascript/2015/01/01/think-twice-about-classes.html">http://christianalfoni.github.io/javascript/2015/01/01/think-twice-about-classes.html</a></p></li>
+</ul>
+</dd>
+</dl>
+<p><a class="reference external" href="https://www.youtube.com/watch?v=bo36MrBfTk4">https://www.youtube.com/watch?v=bo36MrBfTk4</a>
+<a class="reference external" href="https://drive.google.com/file/d/0B9h_EQ82pIpuUi02S1dYNmRfZlk/edit">https://drive.google.com/file/d/0B9h_EQ82pIpuUi02S1dYNmRfZlk/edit</a></p>
+<blockquote>
+<div><blockquote>
+<div><ul class="simple">
+<li><p>Crockford’s latest “Better Parts” for Javascript simplified a lot of
+things.</p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p>Tail calls, Spread/Rest, Module, Let, WeakMap</p></li>
+<li><p>array.forEach, Object.keys(object).forEach</p></li>
+<li><p>New Constructor Pattern
+function constructor(spec) {</p>
+<blockquote>
+<div><dl>
+<dt>let {member} = spec,</dt><dd><p>{other} = other_constructor(spec),
+method = function() {</p>
+<blockquote>
+<div><p>// member, other, method</p>
+</div></blockquote>
+<p>};</p>
+</dd>
+<dt>return Object.freeze({</dt><dd><p>method,
+other,</p>
+</dd>
+</dl>
+<p>};</p>
+</div></blockquote>
+<p>}</p>
+</li>
+</ul>
+</div></blockquote>
+<dl>
+<dt><a class="reference external" href="http://speakingjs.com/es5/ch24.html">http://speakingjs.com/es5/ch24.html</a></dt><dd><ul class="simple">
+<li><p>Good to know unicode and Javascript; much better than previous link.</p></li>
+</ul>
+</dd>
+<dt><a class="reference external" href="https://mathiasbynens.be/notes/es6-unicode-regex">https://mathiasbynens.be/notes/es6-unicode-regex</a></dt><dd><ul class="simple">
+<li><p>Good to know, but I haven’t encountered a need for this yet.</p></li>
+</ul>
+</dd>
+<dt><a class="reference external" href="https://mathiasbynens.be/notes/javascript-unicode">https://mathiasbynens.be/notes/javascript-unicode</a></dt><dd><blockquote>
+<div><ul class="simple">
+<li><p>This is what I have been searching for!</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>ES6 Unicode
++ […string].length
++ […string].reverse().join(‘’)
++ String.fromCodePoint()
++ String.normalize()
++ String.codePointAt()
++ String.at() is in ES7</p></li>
+</ul>
+</dd>
+<dt><a class="reference external" href="http://xabikos.com/javascript%20module%20bundler/javascript%20dependencies%20management/2015/10/03/webpack-aliases-and-relative-paths.html">http://xabikos.com/javascript%20module%20bundler/javascript%20dependencies%20management/2015/10/03/webpack-aliases-and-relative-paths.html</a></dt><dd><ul class="simple">
+<li><p>This is exactly what I have been looking for.</p></li>
+</ul>
+</dd>
+</dl>
+<p><a class="reference external" href="https://paoloseverini.wordpress.com/2016/02/">https://paoloseverini.wordpress.com/2016/02/</a>
+<a class="reference external" href="http://blog.toonormal.com/2012/04/27/nook-and-emscripten-a-technical-look-at-c-gamedev-in-the-browser/">http://blog.toonormal.com/2012/04/27/nook-and-emscripten-a-technical-look-at-c-gamedev-in-the-browser/</a>
+<a class="reference external" href="https://groups.google.com/forum/#!topic/emscripten-discuss/5kiRea2uDVM">https://groups.google.com/forum/#!topic/emscripten-discuss/5kiRea2uDVM</a>
+<a class="reference external" href="http://faantasticcoder.blogspot.com/2013/05/loading-external-image-into-emscripten.html">http://faantasticcoder.blogspot.com/2013/05/loading-external-image-into-emscripten.html</a></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>What I was looking for w.r.t. asm.js</p></li>
+</ul>
+</div></blockquote>
+<dl>
+<dt><a class="reference external" href="http://phoboslab.org/log/2015/11/the-absolute-worst-way-to-read-typed-array-data-with-javascriptcore">http://phoboslab.org/log/2015/11/the-absolute-worst-way-to-read-typed-array-data-with-javascriptcore</a></dt><dd><blockquote>
+<div><ul class="simple">
+<li><p>The first three code blocks explained what I was looking for.</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>getImageData() returns a copy of the pixel data.
++ Typed arrays generate a new view backed by the same data buffer.</p></li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+</dl>
+<p>After downloading <a class="reference external" href="https://nodejs.org/en/download/">Node.js</a>, initialize a new project with</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>npm init
+</pre></div>
+</div>
+<p>The Node Package Manager (<a class="reference external" href="https://docs.npmjs.com/files/folders">npm</a>) has somewhat confusing explanations.  They
+should have mentioned up front a set of minimal commands that covers the common
+case and that a <a class="reference external" href="http://browsenpm.org/package.json">package.json</a> file is needed.</p>
+<p>To use the latest Javascript features, modify <code class="file docutils literal notranslate"><span class="pre">.babelrc</span></code> as listed:</p>
+<div class="code javascript highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;presets&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;es2016&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;stage-2&quot;</span><span class="p">,</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;plugins&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;transform-runtime&quot;</span><span class="p">,</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The initial <code class="file docutils literal notranslate"><span class="pre">package.json</span></code> lacks a <span class="guilabel">devDependencies</span> entry and
+only has a test command in <span class="guilabel">scripts</span>.</p>
+<div class="code javascript highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Knowledge-Graph&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.0.0&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Note Taking&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;main&quot;</span><span class="p">:</span> <span class="s2">&quot;index.js&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;build&quot;</span><span class="p">:</span> <span class="s2">&quot;webpack&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dev&quot;</span><span class="p">:</span> <span class="s2">&quot;webpack-dev-server&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;echo </span><span class="se">\&quot;</span><span class="s2">Error: no test specified</span><span class="se">\&quot;</span><span class="s2"> &amp;&amp; exit 1&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;license&quot;</span><span class="p">:</span> <span class="s2">&quot;ISC&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;devDependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;babel-core&quot;</span><span class="p">:</span> <span class="s2">&quot;^6.7.2&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;babel-eslint&quot;</span><span class="p">:</span> <span class="s2">&quot;^6.0.0-beta.1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;babel-loader&quot;</span><span class="p">:</span> <span class="s2">&quot;^6.2.4&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;babel-plugin-lodash&quot;</span><span class="p">:</span> <span class="s2">&quot;^2.2.1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;babel-plugin-transform-runtime&quot;</span><span class="p">:</span> <span class="s2">&quot;^6.6.0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;babel-preset-es2015&quot;</span><span class="p">:</span> <span class="s2">&quot;^6.6.0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;babel-preset-stage-2&quot;</span><span class="p">:</span> <span class="s2">&quot;^6.5.0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;babel-runtime&quot;</span><span class="p">:</span> <span class="s2">&quot;^6.6.1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;eslint&quot;</span><span class="p">:</span> <span class="s2">&quot;^2.4.0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;eslint-loader&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.3.0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;kefir&quot;</span><span class="p">:</span> <span class="s2">&quot;^3.2.1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;webpack&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.12.14&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;webpack-dev-server&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.14.1&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Notice that the setup so far mentions a lot of dependencies (e.g.
+<strong class="program">babel</strong>, <strong class="program">webpack</strong>).  <span class="guilabel">devDependencies</span> will
+automatically be updated whenever libraries are modified with the
+<code class="code docutils literal notranslate"><span class="pre">--save-dev</span></code> flag.  To install everything, run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>npm install
+</pre></div>
+</div>
+<p>To manually install the libraries, run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>npm install --save-dev webpack@latest webpack-dev-server@latest
+npm install --save-dev babel-core@latest babel-loader@latest babel-preset-es2016@latest babel-preset-stage-2@latest
+npm install --save-dev babel-runtime@latest babel-plugin-transform-runtime@latest
+npm install --save-dev eslint@latest babel-eslint@latest eslint-loader@latest
+npm install --save-dev kefir@latest
+</pre></div>
+</div>
+<p>The following <code class="file docutils literal notranslate"><span class="pre">webpack.config.js</span></code> (or a variation of it) is needed to use
+<strong class="program">webpack</strong> with <strong class="program">babel</strong> and <strong class="program">eslint</strong>.</p>
+<div class="code javascript highlight-default notranslate"><div class="highlight"><pre><span></span>var path = require(&#39;path&#39;);
+var webpack = require(&#39;webpack&#39;);
+
+var clientRoot = path.join(__dirname, &#39;client&#39;);
+var distRoot = path.join(__dirname, &#39;dist&#39;);
+
+var config = {
+  devServer: {
+    contentBase: distRoot
+  },
+  entry: [
+    path.resolve(__dirname, &#39;./client/index.js&#39;)
+  ],
+  module: {
+    preLoaders: [
+      {
+        include: clientRoot,
+        loader: &#39;eslint-loader&#39;,
+        test: /\.js$/
+      }
+    ],
+    loaders: [
+      {
+        include: clientRoot,
+        loader: &#39;babel-loader&#39;,
+        test: /\.js$/
+      }
+    ]
+  },
+  output: {
+    path: distRoot,
+    publicPath: &#39;/&#39;,
+    filename: &#39;bundle.js&#39;
+  },
+  plugins: [
+    new webpack.NoErrorsPlugin()
+  ],
+  resolve: {
+    root: path.resolve(__dirname),
+    extensions: [&#39;&#39;, &#39;.js&#39;],
+    alias: {
+      components: &#39;client/components&#39;,
+      drivers: &#39;client/drivers&#39;,
+      modules: &#39;client/modules&#39;,
+    },
+  }
+};
+
+module.exports = config;
+</pre></div>
+</div>
+<p>Defined in <span class="guilabel">scripts</span> are the commands to build and run a local server:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>npm run build
+npm run dev
+</pre></div>
+</div>
+<p>At the time of writing this, the root directory of the project must contain
+<code class="file docutils literal notranslate"><span class="pre">.babelrc</span></code>, <code class="file docutils literal notranslate"><span class="pre">package.json</span></code>, and <code class="file docutils literal notranslate"><span class="pre">webpack.config.js</span></code>.</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>.
+├── client
+│   ├── component
+│   │   ├── sensors
+│   │   │   ├── image.js
+│   │   │   └── video.js
+│   │   └── video-decoder
+│   │       ├── hevc.js
+│   │       └── h264.js
+│   ├── configuration
+│   ├── connector
+│   ├── index.js
+│   └── module
+│       ├── trie
+│       │   └── ternary-search-tree.js
+│       └── util
+│           ├── byte-order.js
+│           ├── devices.js
+│           ├── units.js
+│           └── viewport.js
+├── dist
+│   └── index.html
+├── package.json
+└── webpack.config.js
+</pre></div>
+</div>
+<p>The proposed file structure was inspired by <a class="bibtex reference internal" href="../../../2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html#fielding2000architectural" id="id1">[Fie00]</a>.</p>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/blog/2013/01/08/set-up-web-development-environment.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

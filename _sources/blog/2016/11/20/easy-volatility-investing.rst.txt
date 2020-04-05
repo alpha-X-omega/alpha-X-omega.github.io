@@ -1,0 +1,258 @@
+#########################
+Easy Volatility Investing
+#########################
+
+Motivation(s)
+=============
+
+There are three known facts about stock market volatility:
+
+#. Stock market volatility, unlike returns, is predictable.
+#. Changes in volatility are negatively correlated with changes in market
+   prices.
+#. Investors will gladly pay a VRP (Volatility Risk Premium) to reduce their
+   exposure to volatility.
+
+The only way to invest in volatility prior to the introduction of ETFs and ETNs
+was through trading options, futures, or variance swaps.  Due to the widespread
+misbelief that profits from the VIX futures markets come from the roll yield,
+existing strategies have mostly ignored the VRP.
+
+Proposed Solution(s)
+====================
+
+The author proposes strategies that exploit the predictability of volatility as
+an asset class consisting of XIV, VXX, ZIV, and VXZ.  Other ETNs such as XVIX
+can be replicated using the proposed four ETNs.  There are ETFs such as SVXY and
+VIXY that offer similar exposure but with less liquidity and shorter trading
+history.
+
+The only differences between the four ETNs are the leverage and term length.
+(XIV, VXX) and (ZIV, VXZ) are paired inverses.  The former covers short term
+(e.g. one to two months) futures positions while the latter invests in medium
+term (e.g. four to seven months) futures positions.  Consequently, (XIV, VXX)
+have higher roll yield, VRP, and volatility than (ZIV, VXZ).  Note that inverse
+pairs are not necessarily inversely proportional due to volatility drag.  For
+example, VXX has a massive loss of value over some period, but XIV may not
+experience a corresponding massive gain in value.
+
+The different strategies are
+
+- Buy and Hold,
+- Momentum,
+- Contango-Backwardation Roll Yield,
+- Volatility Risk Premium, and
+- Hedging.
+
+The obvious mean-reversion strategy has been excluded because it depends on
+external effects (e.g. global financial crisis) rather than the intrinsic
+properties of XIV, and the author was unable to find a profitable mean-reversion
+trading rule based on moving average crossovers that came close to matching
+trend-following rules.
+
+Evaluation(s)
+=============
+
+Throughout the analysis, the author ignores the possibility of inefficiencies in
+the term structure pricing because accounting for that requires outguessing the
+market.  Instead, the author reasons that the VRP is an easier target because
+getting paid to take on some risk is not an inefficiency.
+
+To establish that there is a VRP in the VIX futures market, two nearest VIX
+futures were weighted so that the mean of their settlement days is 30 days.  It
+turns out this 30 day prediction ordinarily overestimates the actual VIX, which
+indicates there is a VRP.
+
+The author used historical prices provided by the CBOE and interpolated missing
+months to create a hypothetical back history of XIV and the other ETNs had they
+existed from 2004 to 2013.  The mean-variance (risk to return) chart of each
+strategy verifies that a combination of the four ETNs can achieve any level of
+risk from below-bond risk of about 3% to returns as high as Apple at about 45%.
+Simply incoporating VRP into an existing portfolio have increased the Sharpe
+ratio and reduced maximum drawdowns.
+
+There are a few caveats with the proposed strategies.  The volatility drag
+cost 10% to 20% per annum and could occasionally rise to 80% per annum.  The
+amplitude of volatility cycles is increasing with time, which means volatility
+drag is increasing as well hence reducing the compounded returns.  When the term
+structure cycles between contango and backwardation, constantly switching
+between XIV and VXX may result in an overall loss.  The correlation between VRP
+and roll yield may disappear when the VIX frequently reverts to its mean.  A
+transition between bull and bear regimes affects all of the strategies, and a
+sudden drawdown will impact each strategy according to their risk.
+
+Future Direction(s)
+===================
+
+- The roll yield and VRP strategies are quite simple, so would a recurrent
+  neural network be able to come up with this rule?
+
+Question(s)
+===========
+
+- Why don't more people make use of VRP instead of index funds?
+
+Analysis
+========
+
+VRP and Roll Yield strategies can exploit market volatility to achieve high
+returns as follows:
+
+- If the 5 day moving average of (VIX - HV10) > 0, go long XIV else go long VXX.
+- If the 10 day moving average of VXV / VIX > 1, go long XIV else go long VXX.
+
+However, one should be cautious of going long `VXX`_.  See `VIX Central`_ for a
+visualization of the VIX term structure.  If more leverage is desired, the
+equivalent of XIV with options is `SVXY`_, albeit with lower volume.
+
+.. _VXX: https://sixfigureinvesting.com/2010/01/how-to-go-long-on-the-vix-index-2/
+.. _VIX Central: http://vixcentral.com/
+.. _SVXY: http://greyenlightenment.com/svxy-strategy-part-2/
+
+The author assumes XIV is a random walk since none of the various statistical
+tests (e.g. variance ratio, Augmented Dickey-Fuller, Phillips-Perron) could
+reject that claim.  This :doc:`overemphasis of statistical significance </blog/2016/09/18/the-standard-error-of-regressions>`
+contradicts the profitability of :doc:`contrarian strategies </blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction>`.
+Another controversial point is the claim that prices grow geometrically, which
+seems to question why one needs :doc:`stop-losses </blog/2016/11/18/when-do-stop-loss-rules-stop-losses>`.
+Nevertheless, the analysis is still reasonable since VIX tends to be
+mean-reverting.
+
+This strategy is no longer feasible since Credit Suisse decided to end its
+volatility security.  However, the VIX term structure is still useful as an
+indicator.
+
+Notes
+=====
+
+The Lure and Intrigue of Volatility
+-----------------------------------
+
+- CBOE's VIX is a measure of the market's expected volatility over the next
+  thirty days.
+
+  - It tends to be mean reverting: extreme values are more likely to be followed
+    by less extreme values.
+  - A simple mean-reversion trading strategy based on moving median crossovers
+    would produce high returns if VIX is tradable.
+
+    - One crossover strategy is to go long when the VIX crosses below the 11-day
+      simple moving median and go short otherwise.
+
+  - It is negatively correlated with changes in the SPX.
+
+- CBOE's VXV measures the market's expected volatility over the next three
+  months.
+
+  - The ratio of VXV / VIX is more important than VXV itself.
+
+- The XIV inversely tracks VIX changes, but it ends up higher than where it
+  started while VIX ends up roughly where it started.
+
+The Volatility Risk Premium
+---------------------------
+
+- SPX options are overpriced and that difference with the true price represents
+  the VRP.
+- VIX overpredicts the SPX's volatility and that delta represents the VRP.
+
+VIX Futures Market
+------------------
+
+- VIX futures can be regarded as a form of prediction on where the VIX will
+  close on the day they expire and are settled.
+- The VIX futures price reflect the market participants' best collective guess
+  as to what the VIX index will be at settlement because the futures market is
+  a zero-sum game.
+- The term structure is a chart displaying the current closing price of VIX
+  futures predictions (i.e. contracts).
+
+  - When the term structure is rising, it is called contango.
+  - When the term structure is falling, it is called backwardation.
+
+- The correlation between the VRPO and VRPF is 0.56.
+
+  - The VIX already has a risk premium built into it, the VRPO.
+  - The VRPF is an additional premium on top of the VRPO.
+
+Roll Yield
+----------
+
+- The roll yield is the difference between the spot VIX and the futures price.
+
+  - It may pay or cost a small amount every day as the two converge.
+
+  - The futures price and the spot VIX (i.e. the quoted VIX) must converge to
+    each other on the settlement day to avoid a risk-free arbitrage opportunity.
+
+- The roll yield is measurable and includes the VRP.
+
+  - The VRP can only be predicted and is only known at settlement date.
+  - If there is no VRP, then there is no profit.
+
+- The roll yield is positive when the term structure is in contango and negative
+  when in backwardation.
+- The average roll yield since 2004 has been 5% per month and can rise to 8%
+  during periods of low market volatility.
+
+XIV Dynamics
+------------
+
+- VIX futures are predictions of the VIX and any VIX predictability is already
+  built into the futures prices.
+- Predicting XIV is not the same as predicting the VIX—it is the same as
+  predicting the predictions of the VIX.
+- According to the autocorrelation of VIX and XIV for lags 1 to 5, using VIX to
+  predict XIV is not a profitable strategy.
+
+  - The VIX is negatively autocorrelated for the first three lags, which means
+    that VIX changes can be predicted 3 days hence; but XIV has no significant
+    autocorrelation.
+
+- Since XIV shorts two futures contracts with different settlement dates, the
+  expected roll yield is a constant maturity contract with a fixed duration of
+  30 days.
+
+Trading Strategies
+------------------
+
+- Buy and Hold XIV
+
+  - The annualized return can reach 31.4% per annum.
+  - The drawdowns can frequently reach 50%.
+
+- Momentum
+
+  - Hold the single ETN that has the best return as measured over the last
+    :math:`k` days; if all measured :math:`k`-day returns are zero, stay out of
+    the market.
+  - The mean-variance chart indicates :math:`k = 83` is a good compromise
+    between return and negative correlation.
+
+- Contango-Backwardation Roll Yield
+
+  - Invest in XIV when the VIX term structure is in contango
+    (VXV :math:`\geq` VIX) and in VXX when the term structure is in
+    backwardation (VXV :math:`<` VIX).
+
+    - The vratio is defined as the ratio of VXV to VIX.
+
+- Volatility Risk Premium
+
+  - Trade XIV if VRP measure :math:`> 0`, otherwise trade VXX.
+  - The mean-variance chart indicates HVOL10S is a good compromise between risk
+    and return.
+
+    - HVOL10 is the current VIX minus the historical volatility calculated over
+      the last 10 days.
+    - To avoid trading whipsaws, apply a 5 day moving average over HVOL10, which
+      results in HVOL10S.
+
+- Hedging
+
+  - BLVDLM is a dynamic hedging strategy aimed at ETN providers.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

@@ -1,0 +1,128 @@
+######################################
+Let's Take the Con Out of Econometrics
+######################################
+
+Motivation(s)
+=============
+
+Econometricians project the image that they are drawing inferences from
+experimental data when they are in fact using nonexperimental data.  Theorists
+in this field have interpreted scientific objectivity to mean that an economist
+must identify exactly the variables in the model, the functional form, and the
+distribution of the errors.  When these assumptions are applied to some data
+set, the resulting inference will be objective and avoids the researcher's
+subjective opinions.  One must remember that an objective inference cannot exist
+because a statistical inference is and must forever remain an opinion.
+
+Proposed Solution(s)
+====================
+
+The author asserts that the fundamental problem of econometrics is how to
+adequately control the whimsical character of inference and sensibly base
+inferences on opinions when facts are unavailable.  One existing solution
+consists of model sensitivity analysis, but the number of variables become
+increasingly unwieldy proportional to the model's complexity.
+
+The author proposes developing a correspondence between regions/sets in the
+assumption space and regions/sets in the inference space.  To mitigate the
+whimsical nature of choosing a particular sampling or prior distribution, the
+author recommends applying the Sherlock Holmes inference after studying
+anomalies of the data; this is the reverse of statistical theory where one needs
+to specify a model and then study the data within that framework.
+
+Evaluation(s)
+=============
+
+Through the use of a set of examples (e.g. randomness, control, degrees of
+freedom, prior), the author reasoned there is only a single distinction between
+experimental and nonexperimental data.  This difference is what the author
+labels as the horizon problem, which is only alleviated when applying the
+Sherlock Holmes inference.  A widely recognized method to systematically study
+the fragility of inference is still lacking.
+
+Future Direction(s)
+===================
+
+- What is a good metric to describe whimsicalness and inference fragility?
+
+Question(s)
+===========
+
+- The results presented in the capital punishment example is quite confusing.
+- Is the horizon problem equivalent to the generalization error?
+
+Analysis
+========
+
+This is a thought provoking paper that changed my view on experimental
+versus nonexperimental inference.  The curriculum I went through have made me
+too comfortable with accepting the hierarchy proposed in the paper.  Putting
+the uninteresting capital punishment example aside, the author should have
+examined whether uniform priors would make inference less whimsical; would that
+trade off the inference's fragility?  The most interesting point was:
+
+- One should collect all the data, study the anomalies, and then theorize
+  within the proposed guidelines.
+
+Notes
+=====
+
+Is Randomization Essential?
+---------------------------
+
+- Randomness allows experimental data to be in the same configuration as
+  nonexperimental data.
+- The former is capable of reducing misspecification (variance) to near zero,
+  which is rarely the case for the latter.
+- When the sampling uncertainty is smaller than the misspecification, it is time
+  to look for other forms of evidence.
+- It is often the case that nonexperimental evidence establishes some belief and
+  then scientists try to verify it with experimental evidence.
+
+Is Control Essential?
+---------------------
+
+- Establishing a control group does not make a nonexperimental inference into an
+  experimental one because as long as all the interrelationships are accounted
+  for, the evidence (albeit weak) is perfectly valid.
+
+Are the Degrees of Freedom Inadequate with Nonexperimental Data?
+----------------------------------------------------------------
+
+- One can always find a set of observations that makes a model perform poorly,
+  regardless of whether the data is experimental or nonexperimental.
+
+Do We Need Prior Information?
+-----------------------------
+
+- Data can reveal the yield at sampled values, but one must resort to subjective
+  prior information when performing any kind of interpolation.
+- The following hierarchy lists what people look for when given the results of
+  an inference: truth > facts > opinions > conventions.
+
+The Horizon Problem: Sherlock Holmes Inference
+----------------------------------------------
+
+- It is a capital mistake to theorize before you have all the evidence since
+  that biases the judgements.
+- The distinction between experimental inference and nonexperimental inference
+  is that the former sensibly admits a conventional horizon in a critical
+  dimension, namely the choice of explanatory variables.
+- Diagnostic tests with explicit alternative hypothesis (e.g. Durbin-Watson)
+  test for first-order autocorrelation; they do not deal with where to terminate
+  the horizon.
+- Diagnostic tests such as goodness-of-fit without alternative hypothesis
+  degenerate into measuring effective sample size.
+
+  - If the sample size is large enough, any maintained hypothesis will be
+    rejected.
+
+- Studying the anomalies of the data is one way to determine the horizon's span.
+
+  - However, it is mistaken to analyze a data set as if the horizon were wide
+    enough.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

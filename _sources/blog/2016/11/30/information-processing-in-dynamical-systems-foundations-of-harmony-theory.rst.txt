@@ -1,0 +1,541 @@
+##########################################################################
+Information Processing in Dynamical Systems: Foundations of Harmony Theory
+##########################################################################
+
+Motivation(s)
+=============
+
+The theory of information processing is a theory in the mathematical sense, not
+the scientific sense.  It provides a set of definitions, axioms, theorems, and
+analytic techniques to understand the mind.  One well-developed part of this
+theory is the theory of computation, which started from mathematical logic.
+
+In a similar manner, the mathematical theory of symbolic computation have been
+proposed for cognitive science.  The strategy of the symbolic paradigm is to
+conceptualize cognitive processing in the intermediate levels as symbol
+manipulation.  The highest cognitive levels are already handled by formal logic,
+and the lowest levels of sensory processing are addressed by natural science.
+
+Proposed Solution(s)
+====================
+
+The author proposes an alternative paradigm for cognitive science, the
+subsymbolic paradigm, that focuses on concepts such as the spread of activation,
+relaxation, and statistical correlation.  The accompanying mathematical
+framework introduced as harmony theory builds upon probability theory and the
+theory of dynamical systems.  Models of higher level processes are derived from
+models of lower level computational processes, while lower level descriptions of
+these models are derived from higher level theoretical descriptions.  The
+processing in the intermediate levels can be viewed as completing an internal
+representation of the external world.
+
+The goal of harmony theory is to complement the existing theory of (symbolic)
+computation by providing a language to describe and study the relation between
+micro- and macro-accounts of cognition.  The purely symbolic approach cannot
+easily generalize existing contexts and knowledge base and to novel combinations
+of contexts (e.g. headache in a restaurant, letter-perception model).
+
+Evaluation(s)
+=============
+
+The author constructs a harmonium, a two layer Boltzmann machine where the
+connections are restricted to go only between the hidden and visible units.
+A Boltzmann machine could also be viewed as a special case of the harmonium
+where knowledge atoms connected to more than two features are forbidden.  The
+goal of the system is the completion task, a general inferential task that
+tries to assign likely values given partial input.
+
+The idealized decision making experiment demonstrates that the system recognized
+which binary state the environment is in.  The system broke the symmetry between
+the equally good answers and entered the ordered phase.  The author validated
+the result through observing the phase transition from high (disordered) to low
+(ordered) temperatures.
+
+Another validation experiment is the electric circuit application.  The system
+successfully detected the physical phenomena such as Ohm's law.  The author in
+this case verified the result through observing the system's specific heat
+because specific heat indicates a phase transition.
+
+Future Direction(s)
+===================
+
+- Could the vanishing gradients be interpreted as cell death and hence be
+  removed from its current hidden layer?
+- Could the exploding gradients be interpreted as a signal for cell division in
+  the current hidden layer?
+- When the accuracy of a system stagnates, what features would be learned by
+  introducing a new hidden layer whose units are fully connected to all the
+  other units with join units but are trained without changing the other units?
+  The goal is to determine how to grow each layer as well as introduce a deeper
+  layer.  A join unit signifies a particular hidden unit wants to join that
+  particular layer.
+- What are the benefits of going beyond binary representations?
+
+Question(s)
+===========
+
+- Why did the author craft input features instead of feeding the system raw
+  measurements of circuit components?
+
+Analysis
+========
+
+Shannon established a link between statistical physics and information theory
+by mapping entropy onto information content.  Harmony theory extends that by
+mapping self-consistency (i.e. harmony) onto energy and stochasticity of
+inference (computational temperature) onto physical temperature.  The result is
+a restricted Boltzmann machine with two fully connected layers.
+
+The paper would be vastly better if the author focused less on jargon
+(e.g. productions).  There were too much repetitious details and the core ideas
+could be summarized more succinctly.  Various terms (e.g. distal environment,
+transducers, and endogeneous features) were introduced only to be discarded
+without futher analysis.  Furthermore, the derivations in the appendix are too
+obscure compared to contemporary notes on RBMs
+:cite:`cmaddisonrbm,makeie4105rbm,aerbmnotes,sohie598rbm`.
+
+Nonetheless, one of the interesting points is that vertically hierarchical
+networks of many layers can be embedded as horizontally hierarchical networks
+within a two-layer harmony network.  A :doc:`similar question </blog/2016/11/10/do-deep-nets-really-need-to-be-deep>`
+has been explored for deep neural networks.  The latest research in deep
+learning emphasize :doc:`depth as a mechanism </blog/2016/11/11/distilling-the-knowledge-in-a-neural-network>`
+to achieve combinatorial representations instead of solving the harder problem
+of how to learn combinatorially with a :doc:`single hidden layer </blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators>`.
+
+Notes
+=====
+
+Schema Theory and Self-Consistency
+----------------------------------
+
+- The mathematics of harmony theory is founded on familiar concepts of cognitive
+  science: inference through activation of schemata.
+- Schemata are knowledge structures that embody our knowledge of objects, words,
+  and other concepts of comparable complexity.
+
+  - The elementary constituents of a schemata are called knowledge atoms.
+
+- At the time of inference, stored knowledge atoms are dynamically assembled
+  into context-sensitive schemata.
+- Schemata are coherent assemblies of knowledge atoms; only these can support
+  inference.
+- The Harmony Principle: the cognitive system is an engine for activating
+  coherent assemblies of atoms and drawing inferences that are consistent with
+  the knowledge represented by the activated atoms.
+
+  - Subassemblies of activated atoms that tend to recur exactly or approximately
+    are the schemata.
+
+- Knowledge atoms are fragments of representations that accumulate experience.
+- Assembly of schemata (activation of atoms) and inference (completing missing
+  parts of the representation) are both achieved by finding maximally
+  self-consistent states of the system that are also consistent with the input.
+- The self-consistency of a possible state of the cognitive system can be
+  assigned a quantitative value by a harmony function :math:`H`.
+- Each schema encodes the statistical relations among a few representational
+  features.  During inference, the probabilistic information in many active
+  schemata are dynamically folded together to find the most probable state of
+  the environment.
+- The relationship between the harmony function :math:`H` and the estimated
+  probabilities takes the form of a Boltzmann distribution where :math:`T`
+  measures the computational temperature, or scale, of the cognitive system.
+
+  - As :math:`T \rightarrow 0`, the estimated probability of all states is zero,
+    except for the ones with maximal harmony.  The uniform probability
+    distribution among these states is called the zero temperature distribution.
+  - The exponential relation between harmony and probability stems from
+    maximizing missing information (a.k.a. maximum entropy) subject to the given
+    information.
+
+Harmony Theory
+--------------
+
+A representational state of the cognitive system is determined by a collection
+of values grouped into a representational vector
+:math:`\mathbf{r} \in \{+1, -1\}^n`.  Each atom :math:`\alpha` is characterized
+by a knowledge vector :math:`\mathbf{k}_\alpha \in \{+1, 0, -1\}^n` that
+specifies what value each representational variable :math:`r_i` should have.
+Associated with each knowledge atom :math:`\alpha` are its activation variable
+:math:`a_\alpha` and strength (frequency of occurrence) :math:`\sigma_\alpha`.
+Over the entire set of atoms, the activation and strength are stacked into their
+respective vectors :math:`\mathbf{a}` and :math:`\boldsymbol{\sigma}`.
+
+The harmony function
+
+.. math::
+
+   H_\mathbf{K}(\mathbf{r}, \mathbf{a}) =
+   \sum_\alpha \sigma_\alpha a_\alpha h_\kappa(\mathbf{r}, \mathbf{k}_\alpha)
+   \quad \text{with} \quad
+   h_{\kappa}(\mathbf{r}, \mathbf{k}_\alpha) =
+   \frac{
+     \mathbf{r} \cdot \mathbf{k}_\alpha
+   }{
+     \left\Vert \mathbf{k}_\alpha \right\Vert_1
+   } - \kappa
+
+must be an extensive quantity i.e. additive under decompositions of the system.
+This means if a network :math:`\{ \mathbf{r}, \mathbf{a} \}` can be partitioned
+into two unconnected networks :math:`\{ \mathbf{r}_1, \mathbf{a}_1 \}` and
+:math:`\{ \mathbf{r}_2, \mathbf{a}_2 \}`,
+
+.. math::
+
+   H(\mathbf{r}, \mathbf{a}) =
+   H(\mathbf{r}_1, \mathbf{a}_1) + H(\mathbf{r}_2, \mathbf{a}_2).
+
+Note that even though :math:`\kappa \in (-1, 1)`, by induction, the perfect
+matching limit :math:`\kappa \rightarrow 1` is lower bounded by
+:math:`\kappa > 1 - \frac{2}{n}`.  The harmony function as defined is invariant
+under the exchange of :math:`+` and :math:`-` at any representational variable.
+This invariance becomes more complicated if one chooses different
+representational values.
+
+Adding the harmonies of the unconnected subnetworks' states should correspond to
+multiplying the probabilities of their states.  This stems from the definition
+of unconnectedness: each subnetwork's set of representational features is
+independent.
+
+Restricted Boltzmann Machine (RBM)
+----------------------------------
+
+Harmony theory depends upon the
+
+Competence Theorem
+  A high, functional-level characterization of the harmonium.
+
+Realizability Theorem
+  An implementation-level description of a kind of completion machine.
+
+Learnability Theorem
+  A method to tune the harmony function from experience.
+
+Unfortunately, the presentation of the details is unnecessarily complicated.
+Recall that a Boltzmann machine is a network of symmetrically coupled stochastic
+binary units.  It contains a set of visible units
+:math:`\mathbf{v} \in \{0, 1\}^{V}` and a set of hidden units
+:math:`\mathbf{h} \in \{0, 1\}^{H}`.  The system's energy is defined as
+
+.. math::
+
+   \DeclareMathOperator{\diag}{diag}
+   E(\mathbf{v}, \mathbf{h}; \theta) =
+   -\frac{1}{2} \mathbf{v}^\top \mathbf{L} \mathbf{v} -
+   \frac{1}{2} \mathbf{h}^\top \mathbf{J} \mathbf{h} -
+   \mathbf{v}^\top \mathbf{W} \mathbf{h} -
+   \mathbf{v}^\top \mathbf{b}^v - \mathbf{h}^\top \mathbf{b}^h
+
+where :math:`\theta = \left\{ \mathbf{W}, \mathbf{L}, \mathbf{J}, \mathbf{b}^v,
+\mathbf{b}^h \right\}` denotes the model parameters.  Observe that
+:math:`\diag(\mathbf{L}) = \diag(\mathbf{J}) = \boldsymbol{0}` because there are
+no self-connections.
+
+A RBM is a Boltzmann machine with a bi-partite graph structure with no
+intra-layer connections i.e. :math:`\mathbf{L} = \boldsymbol{0}` and
+:math:`\mathbf{J} = \boldsymbol{0}`.  The system's energy is reduced to
+
+.. math::
+
+   E(\mathbf{v}, \mathbf{h}; \theta)
+    &= -\mathbf{v}^\top \mathbf{W} \mathbf{h} -
+       \mathbf{v}^\top \mathbf{b}^v -
+       \mathbf{h}^\top \mathbf{b}^h\\
+    &= -\sum_i \sum_j w_{ij} v_i h_j - \sum_i b_i^v v_i - \sum_j b_j^h h_j.
+
+This formulation is known as the Bernoulli-Bernoulli RBM.  The corresponding
+joint distribution of the system is given by
+
+.. math::
+
+   p(\mathbf{v}, \mathbf{h}) =
+   Z^{-1} \exp\left\{ \frac{-E(\mathbf{v}, \mathbf{h}; \theta)}{T} \right\}
+
+where :math:`T` is the temperature at thermal equilibrium and the partition
+function
+
+.. math::
+
+   Z = \sum_{\mathbf{v}'} \sum_{\mathbf{h}'}
+         \exp\left\{ \frac{-E(\mathbf{v}', \mathbf{h}'; \theta)}{T} \right\}.
+
+The marginal distribution over the visible units is
+
+.. math::
+
+   \DeclareMathOperator{\softplus}{softplus}
+   p(\mathbf{v}) &= \sum_{\mathbf{h}} p(\mathbf{v}, \mathbf{h})\\
+    &= Z^{-1} \sum_{\mathbf{h}}
+         \exp\left\{ \frac{-E(\mathbf{v}, \mathbf{h}; \theta)}{T} \right\}\\
+    &= Z^{-1} \exp\left\{ \mathbf{v}^\top \mathbf{b}^v \right\}^{1 / T}
+       \sum_{h_1} \sum_{h_2} \cdots \sum_{h_M} \prod_j
+         \exp\left\{
+           \langle \mathbf{v}, \mathbf{W}_{\cdot j} \rangle h_j + b_j^h h_j
+         \right\}^{1 / T}\\
+    &= Z^{-1} \exp\left\{ \mathbf{v}^\top \mathbf{b}^v \right\}^{1 / T}
+       \left(
+         \sum_{h_1}
+           \exp\left\{
+             \langle \mathbf{v}, \mathbf{W}_{\cdot 1} \rangle h_1 + b_1^h h_1
+           \right\}^{1 / T}
+       \right)
+       \cdots
+       \left(
+         \sum_{h_M}
+           \exp\left\{
+             \langle \mathbf{v}, \mathbf{W}_{\cdot M} \rangle h_M + b_M^h h_M
+           \right\}^{1 / T}
+       \right)\\
+    &= Z^{-1} \exp\left\{ \mathbf{v}^\top \mathbf{b}^v \right\}^{1 / T}
+       \prod_j \sum_{h_j}
+         \exp\left\{
+           \langle \mathbf{v}, \mathbf{W}_{\cdot j} \rangle h_j + b_j^h h_j
+         \right\}^{1 / T}\\
+    &= Z^{-1} \exp\left\{ \mathbf{v}^\top \mathbf{b}^v \right\}^{1 / T}
+       \prod_j 1 +
+         \exp\left\{
+           \langle \mathbf{v}, \mathbf{W}_{\cdot j} \rangle + b_j^h
+         \right\}^{1 / T}\\
+    &= Z^{-1} \exp\left\{
+         T^{-1} \mathbf{v}^\top \mathbf{b}^v +
+         \sum_j \log\left(
+           1 +
+           \exp\left\{
+             \langle \mathbf{v}, \mathbf{W}_{\cdot j} \rangle + b_j^h
+           \right\}^{1 / T}
+         \right)
+       \right\}\\
+    &= Z^{-1} \exp\left\{
+         T^{-1} \mathbf{v}^\top \mathbf{b}^v +
+         \sum_j
+           \softplus\left(
+             \frac{\langle \mathbf{v}, \mathbf{W}_{\cdot j} \rangle + b_j^h}{T}
+           \right)
+       \right\}
+       & \quad & \softplus(x) = \log\left( 1 + e^x \right).
+
+By d-separation, the conditional probability distributions are
+
+.. math::
+
+   p(\mathbf{h} \mid \mathbf{v}) = \prod_j p(h_j \mid \mathbf{v})
+   \quad \text{and} \quad
+   p(\mathbf{v} \mid \mathbf{h}) = \prod_i p(v_i \mid \mathbf{h})
+
+with
+
+.. math::
+
+   \begin{aligned}
+     p(h_j = 1 \mid \mathbf{v})
+      &= p(h_j = 1, \mathbf{v}) / p(\mathbf{v})\\
+      &= \frac{
+           p(h_j = 1, \mathbf{v}) / p(h_j = 0, \mathbf{v})
+         }{
+           1 + p(h_j = 1, \mathbf{v}) / p(h_j = 0, \mathbf{v})
+         }\\
+      &= \frac{
+           \exp\left\{ \sum_i w_{ij} v_i + b_j^h \right\}^{1 / T}
+         }{
+           1 + \exp\left\{ \sum_i w_{ij} v_i + b_j^h \right\}^{1 / T}
+         }\\
+      &= \sigma\left(
+           \frac{\langle \mathbf{v}, \mathbf{W}_{\cdot j} \rangle + b_j^h}{T}
+         \right)
+   \end{aligned}
+   \qquad \qquad
+   \begin{aligned}
+     p(v_i = 1 \mid \mathbf{h})
+      &= p(v_i = 1, \mathbf{h}) / p(\mathbf{h})\\
+      &= \frac{
+           p(v_i = 1, \mathbf{h}) / p(v_i = 0, \mathbf{h})
+         }{
+           1 + p(v_i = 1, \mathbf{h}) / p(v_i = 0, \mathbf{h})
+         }\\
+      &= \frac{
+           \exp\left\{ \sum_j w_{ij} h_j + b_i^v \right\}^{1 / T}
+         }{
+           1 + \exp\left\{ \sum_j w_{ij} h_j + b_i^v \right\}^{1 / T}
+         }\\
+      &= \sigma\left(
+           \frac{\langle \mathbf{W}_{i \cdot}, \mathbf{h} \rangle + b_i^v}{T}
+         \right)
+   \end{aligned}
+
+where :math:`\sigma(u) = \frac{1}{1 + \exp(-u)}`.
+
+The derivation of the learning rule is similar to that of a Boltzmann machine.
+Given independent and identically distributed random samples
+:math:`\mathbf{v}^1, \mathbf{v}^2, \ldots, \mathbf{v}^C \in D \subset \{0, 1\}^{V}`
+from the approximate data distribution
+
+.. math::
+
+   q(\mathbf{v}) =
+   C^{-1} \sum_{c = 1}^C \delta\left( \mathbf{v} - \mathbf{v}^c \right),
+
+a RBM can learn a distribution :math:`p(\mathbf{v})` using :math:`q`.
+One objective to consider is the Kullback-Leiber divergence of :math:`q`
+with respect to :math:`p` because minimizing the relative entropy
+:doc:`is equivalent </blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence>`
+to maximizing the log-likelihood of :math:`p` averaged over the data
+distribution.  Thus the objective of the learning rules is realized as
+
+.. math::
+
+   \max_\theta C^{-1} \sum_{c = 1}^C \log p(\mathbf{v}^c \mid \theta)
+    &= \max_\theta C^{-1} \sum_{c = 1}^C
+         \log \sum_{\mathbf{h}} p(\mathbf{v}^c, \mathbf{h} \mid \theta)\\
+    &= \max_\theta C^{-1} \sum_{c = 1}^C \log
+         Z^{-1}
+         \sum_{\mathbf{h}}
+           \exp\left\{ \frac{-E(\mathbf{v}^c, \mathbf{h}; \theta)}{T} \right\}\\
+    &= \max_\theta C^{-1} \sum_{c = 1}^C
+         \log \sum_{\mathbf{h}}
+           \exp\left\{ \frac{-E(\mathbf{v}^c, \mathbf{h}; \theta)}{T} \right\} -
+         \log Z.
+
+Denote :math:`E(\mathbf{v}^c, \mathbf{h}; \theta) \equiv E^c` and
+:math:`E(\mathbf{v}', \mathbf{h}'; \theta) \equiv E'`.  The log-likelihood
+gradient for a single sample is
+
+.. math::
+
+   \frac{\partial}{\partial \theta} \log p(\mathbf{v}^c \mid \theta)
+    &= \left(
+         \sum_{\mathbf{h}}
+           \exp\left\{ \frac{-E^c}{T} \right\}
+       \right)^{-1}
+         \sum_{\mathbf{h}}
+           \exp\left\{ \frac{-E^c}{T} \right\}
+           \frac{-T^{-1} \partial E^c}{\partial \theta} -
+       Z^{-1} \sum_{\mathbf{v}', \mathbf{h}'}
+                \exp\left\{ \frac{-E'}{T} \right\}
+                \frac{-T^{-1} \partial E'}{\partial \theta}\\
+    &= -T^{-1} \sum_{\mathbf{h}} p(\mathbf{h} \mid \mathbf{v}^c)
+         \frac{\partial E^c}{\partial \theta} +
+       T^{-1} \sum_{\mathbf{v}', \mathbf{h}'} p(\mathbf{v}', \mathbf{h}')
+         \frac{\partial E'}{\partial \theta}\\
+    &= -T^{-1} \left\langle
+         \frac{\partial E^c}{\partial \theta}
+       \right\rangle_{p(\mathbf{h} \mid \mathbf{v}^c)} +
+       T^{-1} \left\langle
+         \frac{\partial E'}{\partial \theta}
+       \right\rangle_{p(\mathbf{v}', \mathbf{h}')}.
+
+The learning rules themselves obey
+
+.. math::
+
+   \Delta \theta \approx
+   \frac{\partial}{\partial \theta} \log p(\mathbf{v}^c \mid \theta)
+
+where
+
+.. math::
+
+   T \frac{\partial}{\partial w_{ij}} \log p(\mathbf{v}^c \mid \theta)
+    &= \left\langle
+         v^c_i h_j
+       \right\rangle_{p(\mathbf{h} \mid \mathbf{v}^c)} -
+       \left\langle
+         v'_i h'_j
+       \right\rangle_{p(\mathbf{v}', \mathbf{h}')}\\
+    &= v^c_i \sum_{h_j} p(h_j \mid \mathbf{v}^c) h_j
+           \sum_{\mathbf{h}_{\setminus j}}
+               p(\mathbf{h}_{\setminus j} \mid \mathbf{v}^c) -
+       \sum_{\mathbf{v}'}  \sum_{h'_j} \sum_{\mathbf{h}'_{\setminus j}}
+           p(\mathbf{v}') p(h'_j \mid \mathbf{v}')
+           p(\mathbf{h}'_{\setminus j} \mid \mathbf{v}') v'_i h'_j\\
+    &= v^c_i p(h_j = 1 \mid \mathbf{v}^c) -
+       \sum_{\mathbf{v}'} p(\mathbf{v}') p(h'_j = 1 \mid \mathbf{v}') v'_i,\\\\
+   T \frac{\partial}{\partial b_i^v} \log p(\mathbf{v}^c \mid \theta)
+    &= \left\langle
+         v^c_i
+       \right\rangle_{p(\mathbf{h} \mid \mathbf{v}^c)} -
+       \left\langle
+         v'_i
+       \right\rangle_{p(\mathbf{v}', \mathbf{h}')}\\
+    &= v^c_i \sum_{\mathbf{h}} p(\mathbf{h} \mid \mathbf{v}^c) -
+       \sum_{\mathbf{v}'} \sum_{\mathbf{h}'}
+           p(\mathbf{v}', \mathbf{h}') v'_i\\
+    &= v^c_i - \sum_{\mathbf{v}'} p(\mathbf{v}') v'_i,\\\\
+   T \frac{\partial}{\partial b_j^h} \log p(\mathbf{v}^c \mid \theta)
+    &= \left\langle
+         h_j
+       \right\rangle_{p(\mathbf{h} \mid \mathbf{v}^c)} -
+       \left\langle
+         h'_j
+       \right\rangle_{p(\mathbf{v}', \mathbf{h}')}\\
+    &= \sum_{h_j} p(h_j \mid \mathbf{v}^c) h_j
+           \sum_{\mathbf{h}_{\setminus j}}
+               p(\mathbf{h}_{\setminus j} \mid \mathbf{v}^c) -
+       \sum_{\mathbf{h}'} \sum_{\mathbf{v}'}
+           p(\mathbf{v}', \mathbf{h}') h'_j\\
+    &= p(h_j = 1 \mid \mathbf{v}^c) -
+       \sum_{\mathbf{h}'} p(\mathbf{h}') h'_j.
+
+Hence the learning rules in vector notation are
+
+.. math::
+
+   T \nabla_{\mathbf{W}} \log p(\mathbf{v}^c \mid \theta)
+    &= \left\langle
+         \mathbf{v}^c \mathbf{h}^\top
+       \right\rangle_{p(\mathbf{h} \mid \mathbf{v}^c)} -
+       \left\langle
+         \mathbf{v}' {\mathbf{h}'}^\top
+       \right\rangle_{p(\mathbf{v}', \mathbf{h}')}
+    &= \mathbf{v}^c \sigma\left(
+         {\mathbf{v}^c}^\top \mathbf{W} + \mathbf{b}^h
+       \right)^\top -
+       \left\langle
+         \mathbf{v}' {\mathbf{h}'}^\top
+       \right\rangle_{p(\mathbf{v}', \mathbf{h}')},\\\\
+   T \nabla_{\mathbf{b}^v} \log p(\mathbf{v}^c \mid \theta)
+    &= \left\langle
+         \mathbf{v}^c
+       \right\rangle_{p(\mathbf{h} \mid \mathbf{v}^c)} -
+       \left\langle
+         \mathbf{v}'
+       \right\rangle_{p(\mathbf{v}', \mathbf{h}')}
+    &= \mathbf{v}^c -
+       \left\langle
+         \mathbf{v}'
+       \right\rangle_{p(\mathbf{v}', \mathbf{h}')},\\\\
+   T \nabla_{\mathbf{b}^h} \log p(\mathbf{v}^c \mid \theta)
+    &= \left\langle
+         \mathbf{h}
+       \right\rangle_{p(\mathbf{h} \mid \mathbf{v}^c)} -
+       \left\langle
+         \mathbf{h}'
+       \right\rangle_{p(\mathbf{v}', \mathbf{h}')}
+    &= \sigma\left(
+         {\mathbf{v}^c}^\top \mathbf{W} + \mathbf{b}^h
+       \right) -
+       \left\langle
+         \mathbf{h}'
+       \right\rangle_{p(\mathbf{v}', \mathbf{h}')}.
+
+Notice that the second term (:math:`E'`) of each learning rule requires the RBM
+to be at thermal equilibrium.  :doc:`One approximation </blog/2016/11/28/a-learning-algorithm-for-boltzmann-machines>`
+is
+
+.. math::
+
+   \left\langle
+     \mathbf{v}' {\mathbf{h}'}^\top
+   \right\rangle_{p(\mathbf{v}', \mathbf{h}')} \approx
+   M^{-1} \sum_{m = 1}^m \mathbf{v}_m^\infty {\mathbf{h}_m^\infty}^\top
+
+where the :math:`M` samples are generated using block Gibbs sampling:
+
+.. math::
+
+   \mathbf{v}_m^0 &\sim q(\mathbf{v})\\
+   \mathbf{h}_m^k &\sim p(\mathbf{h} \mid \mathbf{v}_m^k) \text{ for } k \geq 0\\
+   \mathbf{v}_m^k &\sim p(\mathbf{v} \mid \mathbf{h}_m^{k - 1}) \text{ for } k \geq 1.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

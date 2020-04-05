@@ -1,0 +1,126 @@
+#################################################
+On the Design and Development of Program Families
+#################################################
+
+Motivation(s)
+=============
+
+Traditional programming methods were intended for the development of a single
+program.  Emphasis on the production of correct programs had a side effect of
+encouraging the production of program families.
+
+Proposed Solution(s)
+====================
+
+The author claims that if a designer/programmer pays conscious attention to the
+family rather than a sequence of individual programs, the overall cost of
+development and maintenance of the programs will be reduced.  Stepwise
+refinement (precise representations of the intermediate stage in a program
+design) and module specification (postponement of certain decisions while
+advancing towards a completed program) are two techniques to achieve this goal.
+
+Evaluation(s)
+=============
+
+The two techniques were applied to Dijkstra's Prime program and Wulf's KWIC
+Index program.  The stepwise refinement requires little effort to perform.
+Module specification, on the other hand, could be even more time consuming than
+writing one complete program.
+
+Future Direction(s)
+===================
+
+- How to combine stepwise refinement, module specification, and TLA verification
+  into a tool to replace unit test?
+- How to optimize over the design space using the previous statistics?
+
+Question(s)
+===========
+
+- How were these design decisions generated?
+- The intermediate stages looks similar to documenting a specification?
+
+Analysis
+========
+
+The concept of program families provides one way of describing program structure
+objectively.  This is a very important idea because reality has a lot of
+complexity to deal with.  The stepwise refinement reminds me of a :doc:`tree structure </blog/2014/01/01/notes-on-the-synthesis-of-form>`.
+It is unfortunate that existing tooling does not support such design iterations.
+
+Notes
+=====
+
+Constitution of a Program Family
+--------------------------------
+
+- The common properties among a set of programs is more conspicuous than the
+  special properties of the individual family members.
+- An example is the different versions of an operating system.
+
+Motivation for Interest in Families
+-----------------------------------
+
+- Variations in application demands and hardware configurations.
+- Algorithms are invariably refined experimentally after the system is complete.
+- Maintenance and porting of multiversion programs are expensive.
+
+Classical Method of Producing Program Families
+----------------------------------------------
+
+- Sequential Completion (see Figure 1)
+
+  (1) A particular member of the family is developed completely to the working
+      stage.
+  (#) The next member(s) of the family is (are) developed by modification of
+      these working programs.
+
+- Branching off from an ancestor program's design decision is very difficult.
+
+  - It requires implementing all the features of the previous leaf node.
+
+Stepwise Refinement
+-------------------
+
+- Figure 2 has an intuitive illustration.
+- Focus on incomplete programs but well-developed intermediate stages.
+
+  - Never modify a completed program.
+  - Always begin with one of the intermediate stages and proceed with design
+    decisions.
+
+- Intermediate stages are represented by programs.
+
+  - Complete except for the implementation of certain operators and operand
+    types.
+  - Operators should be thought of as predicate transformers.
+
+    (i) A predicate describes the state of the program variables.
+    (#) Transformers are rules that describe how a predicate after application
+        of the operator can be transformed into a predicate before the operator
+        is executed.
+
+- Developed primarily to assist in the production of correct programs with a
+  side effect in the production of narrow program families.
+
+  - Encourages early decisions about sequencing.
+  - Postponement of sequencing decisions until run time requires the
+    introduction of processes.
+
+Module Specification
+--------------------
+
+- Defining a family.
+
+  - Implementation methods used within the modules.
+  - Variation in the external parameters.
+  - Use of subsets (system functions).
+
+- Developed for the production of broad program families but helps with
+  correctness.
+- Not convenient for expressing sequencing decisions.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

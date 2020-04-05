@@ -1,0 +1,84 @@
+{
+ "cells": [
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "********\n",
+    "Drum Kit\n",
+    "********"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Chaffee - Rhythm and Meter Patterns\n",
+    "    Go through *General Considerations* and *Preliminary Exercises*.\n",
+    "        These will be the warm up of every practice session.\n",
+    "        Always think about this during your stroke.\n",
+    "\n",
+    "Moeller Technique by Jim Chapin video\n",
+    "    Practice it as a warmup at different dynamics.\n",
+    "    Use it from now on.\n",
+    "\n",
+    "Practice the previous two every session, and eventually reducing to every other session, etc...\n",
+    "\n",
+    "Rothman - Basic Drumming\n",
+    "Finish this book.  What you may find helpful is to use a digital metronome that allows you to encode the beats of these book.  It will help with the timing e.g. 1/16 vs 1/8.  Once you can play at 60 BPM of the score, reduce the number of beats to see if you can still do it without the metronome.\n",
+    "\n",
+    "I count in 1/2/3/4/5/6/7/8 Vietnamese because English has seven syllables.\n",
+    "1 e + d is too distracting.  We always chunk it down to the smallest unit anyways, so not necessary.\n",
+    "\n",
+    "Heel-Toe Bass Drum Technique\n",
+    "    Imagine your feet going through a sine wave.\n",
+    "    You start from the ball of your feet, induce the wave via the heel of the feet, followed by the ball hitting again.\n",
+    "    Heel-Toe Bass Drum Technique - Drum Lesson (Drumeo)-xHqkxHaQ-bI\n",
+    "\n",
+    "Morello - Master Studies\n",
+    "Rothman - Mini-monster Book of Rock Drumming\n",
+    "Whaley - Musical Studies for the Intermediate Snare Drummer\n",
+    "\n",
+    "Chaffee - Time Functioning Patterns\n",
+    "\n",
+    "Chaffee - Sticking Patterns\n",
+    "\n",
+    "Chaffee - Technique Patterns\n",
+    "\n",
+    "Chaffee - Rhythm and Meter Patterns\n",
+    "\n",
+    "Chaffee - Linear Time Playing\n",
+    "\n",
+    "If you can work through these books, you have efficient technique.\n",
+    "    Make sure your hands are not tense, and are relaxed at all times.\n",
+    "    Matched grip is preferred."
+   ]
+  }
+ ],
+ "metadata": {
+  "celltoolbar": "Raw Cell Format",
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

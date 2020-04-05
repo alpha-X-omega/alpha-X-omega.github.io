@@ -1,0 +1,12 @@
+########################################################
+Differential Geometry from a Graphics Perspective - NLPH
+########################################################
+
+This is a collection of notes compiled from a variety of references as I was
+learning differential geometry :cite:`nlph2017dgp`.
+
+.. include:: /_templates/toctree-nb-differential-geometry-from-a-graphics-perspective-nlph
+
+.. rubric:: References
+
+.. bibliography:: refs.bib

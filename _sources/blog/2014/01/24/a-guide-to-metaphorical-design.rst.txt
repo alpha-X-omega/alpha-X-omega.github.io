@@ -1,0 +1,126 @@
+##############################
+A Guide to Metaphorical Design
+##############################
+
+Motivation(s)
+=============
+
+Existing research on computers and metaphors emphasize learnability and ease of
+use.  They focused on operational, structural, and pragmatic concepts.
+Operational means how and to what extent metaphors have a measurable effect on
+learning.  Structural conveys formal representations of relations between
+primitives in the source domain and the target domain.  Pragmatic signifies the
+power of metaphor may be attributed to the incompleteness and mismatches between
+the source and the target domains.
+
+Proposed Solution(s)
+====================
+
+The author proposes a systematic guideline to metaphorical design emphasizing
+the pragmatic approach as a particular kind of seeing as governed by previous
+situations and examples.
+
+Evaluation(s)
+=============
+
+The derivation of said guidelines are from empirical analysis of a collection of
+cases such as a small command language, links between documents, automated
+teller machine, production planning, and service at libraries.
+
+Future Direction(s)
+===================
+
+- How to uncover metaphors from code analysis?
+- How to quantify how good a metaphor is?
+- How can the git repo history (and possibly keystroke information) recover the
+  developer's psychological design rationale?
+- How would one go about analyzing the specification to quantify usability?
+
+Question(s)
+===========
+
+- Is there a difference between metaphor and mental model?
+- Is there a connection between design rationale and Parnas' "uses" hierarchy?
+
+Analysis
+========
+
+A systematic view of metaphors can constrain software design to
+useful mental models.  It is one way to design objects that are
+complementary to existing software engineering techniques such as OOD.
+
+On the topic of designing metaphors behind the objects, software techniques
+should be expanded to include the human factors that creates and/or uses the
+software systems :cite:`carroll1994making`.  Functional specifications have been
+the traditional way of describing computer systems despite being frequently
+inconsistent or incomplete with respect to the user's needs and predilections.
+Those specifications are often accompanied by scenario-based design
+representations.  These representations often appear before or even in lieu of
+the formal specifications.  Projecting scenarios in design and tracking its
+change throughout development enables goal orientation and situation evaluation.
+
+Both :cite:`madsen1994guide` and :cite:`carroll1994making` are unnecessarily
+long and can be written more succinctly.
+
+Notes
+=====
+
+Generating Metaphors
+--------------------
+
+- Listen to how users understand their computer systems.
+- Building on already existing metaphors.
+- Use predecessor artifacts (e.g. library card) as metaphors.
+- Make note of metaphors already implicit in the problem description.
+- Look for real-world events exhibiting key aspects.
+
+Evaluating Metaphors
+--------------------
+
+- Choose a metaphor with a rich structure such as concreteness and descriptive
+  vocabulary.
+- Evaluate the applicability of the structure to the problem.
+- Choose a metaphor suitable to the audience.
+- Choose metaphors with well-understood literal meanings and avoid low-level
+  descriptions.
+- Choose metaphors with a conceptual distance between the source and the
+  metaphorical meaning.
+- Have at least one bridging concept.
+- Metaphors do not have to be reflected in the interface.
+
+Developing Metaphors
+--------------------
+
+- Elaborate the triggering concept.
+
+  - Design by symmetry first establishes a symmetry between concepts from two
+    different domains and then extends the symmetry further.
+
+- Look for new meanings for the concept.
+- Restructure the perception of reality.
+- Elaborate assumptions.
+- Tell the metaphor's story by talking about the target domain as if it were the
+  source domain.
+- Identify the unused part of the metaphor.
+- Generate conflicting perspectives to stimulate reflection and critical
+  awareness.
+
+Characteristics of Metaphors in Design
+--------------------------------------
+
+- Physical structure plays an important role.
+- Metaphor is an inherent part of everyday language.
+- Metaphors often originate from everyday experience.
+- Abstract concepts are understood in terms of concrete and familiar things.
+- Metaphors provide detailed and specific design options.
+- Metaphors may provide the basis for justifying design decisions.
+- A metaphor provides the user with a model of the system.
+- Seeing something as something else.
+- Provide a novel view of reality.
+- Shift the focus of attention.
+- Problem setting.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

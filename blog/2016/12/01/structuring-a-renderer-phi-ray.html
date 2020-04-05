@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Structuring a Renderer: \(\varphi\)-Ray &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Information Processing in Dynamical Systems: Foundations of Harmony Theory" href="../../11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html" />
+    <link rel="prev" title="Learning Internal Representations by Error Propagation" href="../02/learning-internal-representations-by-error-propagation.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a><ul>
+<li><a class="reference internal" href="#varphi-ray-design-goals"><span class="math notranslate nohighlight">\(\varphi\)</span>-Ray Design Goals</a></li>
+<li><a class="reference internal" href="#production-renderers">Production Renderers</a><ul>
+<li><a class="reference internal" href="#arnold">Arnold</a></li>
+<li><a class="reference internal" href="#pixar-s-renderman">Pixar’s RenderMan</a></li>
+<li><a class="reference internal" href="#weta-s-manuka">Weta’s Manuka</a><ul>
+<li><a class="reference internal" href="#pantaray">PantaRay</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#disney-s-hyperion">Disney’s Hyperion</a></li>
+<li><a class="reference internal" href="#dreamworks-moonray">DreamWorks’ Moonray</a></li>
+<li><a class="reference internal" href="#mpc">MPC</a></li>
+<li><a class="reference internal" href="#sony-imageworks">Sony Imageworks</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../02/learning-internal-representations-by-error-propagation.html" title="Previous Chapter: Learning Internal Representations by Error Propagation"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Learning Inte...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../../11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html" title="Next Chapter: Information Processing in Dynamical Systems: Foundations of Harmony Theory"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Information P... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="structuring-a-renderer-varphi-ray">
+<h1>Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray<a class="headerlink" href="#structuring-a-renderer-varphi-ray" title="Permalink to this headline">¶</a></h1>
+<table class="docutils align-default" id="id19">
+<caption><span class="caption-number">Table 3 </span><span class="caption-text">Evolution of Render Farms</span><a class="headerlink" href="#id19" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head stub"></th>
+<th class="head"><p>Render Farm</p></th>
+<th class="head"><p>Key Highlights</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><th class="stub"><p>Shrek (2001)</p></th>
+<td><p><a class="reference external" href="https://web.archive.org/web/20080615161400/http://www.flarg.com/Graphics/ShrekRenderfarm.html">836</a> Dual PIII</p></td>
+<td><p><a class="reference external" href="https://web.archive.org/web/20100612210248/http://www.flarg.com/Graphics/ShrekRenderingStatistics.html">Processed one frame per hour</a>.</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Shrek 3 (2007)</p></th>
+<td><p>Mix of 3000+ <a class="reference external" href="https://www.hpe.com/h20195/v2/getpdf.aspx/c04283236.pdf?ver=2">DL145 G2</a> and 1000+ <a class="reference external" href="https://support.hp.com/us-en/document/c00293051">xw9300</a>.</p></td>
+<td><p><a class="reference external" href="http://www.linuxjournal.com/article/9653">20M render hours</a>.</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>Avatar (2009)</p></th>
+<td><p><a class="reference external" href="https://kevinbladeguy.wordpress.com/2010/01/04/the-hit-movie-avatar-processed-on-hp-blade-servers/">2,176</a> <a class="reference external" href="http://www.hp.com/hpinfo/newsroom/press_kits/2008/cloud-infrastructure/ds_bl2x220c.pdf">BL2x220c</a></p></td>
+<td><p>Processed <a class="reference external" href="https://jordanhall.co.uk/general-articles/avatar-film-rendered-with-enormous-ubuntu-server-farm-4701468/">17.28 GB/minute</a>.</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Monsters University (2013)</p></th>
+<td><p>Ranks at least in the top <a class="reference external" href="https://www.top500.org/list/2013/06/?page=1">25</a> supercomputers with 2,000 machines.</p></td>
+<td><p><a class="reference external" href="https://venturebeat.com/2013/04/24/the-making-of-pixars-latest-technological-marvel-monsters-university">29 hours to render a single frame</a>.</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>How to Train Your Dragon 2 (2014)</p></th>
+<td><p><a class="reference external" href="https://psnow.ext.hpe.com/doc/PSN7271227USEN.pdf">BL460c</a> <a class="bibtex reference internal" href="#hpcdreamworks2014" id="id1">[HPa]</a></p></td>
+<td><p><a class="reference external" href="https://venturebeat.com/2014/07/25/dragon-making-main/">90M hours to render 129,600</a> frames processing 398 TB.</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Big Hero 6 (2014)</p></th>
+<td><p>Ranks about <a class="reference external" href="https://www.top500.org/list/2014/06/?page=1">75th</a> compared to other supercomputers.</p></td>
+<td><p>A cloud spread across <a class="reference external" href="https://www.fxguide.com/featured/disneys-new-production-renderer-hyperion-yes-disney">four physical sites</a> that does not use GPUs nor
+FPGAs.</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>The Battle of the Five Armies (2014)</p></th>
+<td><p>400 <a class="reference external" href="https://psnow.ext.hpe.com/doc/PSN7307066USEN.pdf">XL230a</a></p></td>
+<td><p>Renders 50M polygons in the same time as 50K polygons in Avatar, and
+produces 50-100 TB per night <a class="bibtex reference internal" href="#hpcsweta2014" id="id2">[HPb]</a>.</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Coco (2017)</p></th>
+<td><p>No significant changes in render farm.</p></td>
+<td><p>Render <a class="reference external" href="https://www.fxguide.com/featured/rendermans-visuals-for-coco">eight million lights</a> in a single frame within fifty hours.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Existing render farms run a variant of Linux and predominantly focus on
+distributed computing.  In contrast to mainstream production renderers, the
+proposed renderer <span class="math notranslate nohighlight">\(\varphi\)</span>-ray will instead adopt heterogeneous computing
+as one of its core mantra.  This will be facilitated through the actor model
+<a class="bibtex reference internal" href="#heirich1997parallel" id="id6">[HA97]</a>.  One excellent implementation of the actor model
+is <a class="reference external" href="https://actor-framework.org/">CAF</a> <a class="bibtex reference internal" href="#charousset2016revisiting" id="id7">[CHS16]</a>.  CAF also has the added benefit of a
+convenient interface to <a class="reference internal" href="../../../2013/01/09/install-graphics-and-compute-linux-mint.html"><span class="doc">OpenCL (and possibly Vulkan)</span></a>
+<a class="bibtex reference internal" href="#hiesgen2017opencl" id="id8">[HCS17]</a>.  Alternative technologies such as <a class="reference external" href="https://www.open-mpi.org/">OpenMPI</a>,
+<a class="reference external" href="http://www.openmp.org/">OpenMP</a>, and <a class="reference external" href="https://ispc.github.io/">ISPC</a> were rejected to promote
+<a class="reference internal" href="../../../2013/01/22/notes-on-software-design.html"><span class="doc">conceptual integrity</span></a>.  There
+are no fundamental reasons why CAF and OpenCL/Vulkan cannot grow to subsume the
+other technologies.  The elegance and simplicity derived from the Actor model
+takes priority over performance due to Amdahl’s law.</p>
+<dl class="simple">
+<dt>&#64;inproceedings{volkov2010better,</dt><dd><p>title={Better performance at lower occupancy},
+author={Volkov, Vasily},
+booktitle={Proceedings of the GPU technology conference, GTC},
+volume={10},
+pages={16},
+year={2010},
+organization={San Jose, CA}</p>
+</dd>
+</dl>
+<p>}</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://parlab.eecs.berkeley.edu/sites/all/parlab/files/20090827-glew-vector.pdf">https://parlab.eecs.berkeley.edu/sites/all/parlab/files/20090827-glew-vector.pdf</a></dt><dd><p><a class="reference external" href="https://github.com/OpenCL/OpenCLCXXPortingGuidelines/blob/master/OpenCLCToOpenCLCppPortingGuidelines.md">https://github.com/OpenCL/OpenCLCXXPortingGuidelines/blob/master/OpenCLCToOpenCLCppPortingGuidelines.md</a></p>
+</dd>
+<dt>I think numba is the key here</dt><dd><p>it’s all about memory management
+actor model
+scalability beyond a single node
+maximizing performance on a single node is important, but cluster computing is much more important</p>
+</dd>
+</dl>
+<p>Make use of SEDA <a class="bibtex reference internal" href="../../../2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html#welsh2001seda" id="id9">[WCB01]</a>.</p>
+<dl class="simple">
+<dt>&#64;article{volkov2011unrolling,</dt><dd><p>title={Unrolling parallel loops},
+author={Volkov, Vasily},
+year={2011}</p>
+</dd>
+</dl>
+<p>}</p>
+<div class="section" id="varphi-ray-design-goals">
+<h2><span class="math notranslate nohighlight">\(\varphi\)</span>-Ray Design Goals<a class="headerlink" href="#varphi-ray-design-goals" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>[ ] Checkbox item 1.</p>
+<ul>
+<li><p>[ ] sub-item.</p></li>
+<li><p>[ ] another sub-item.</p>
+<ul>
+<li><p>[ ] a sub-sub-item.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>[X] an already filled in checkbox.</p></li>
+</ul>
+<p><a class="reference external" href="https://www.arnoldrenderer.com/research/Arnold_TOG2018.pdf">https://www.arnoldrenderer.com/research/Arnold_TOG2018.pdf</a>
+Kulla Sony Pictures ImageWorks Arnold</p>
+<blockquote>
+<div><p>importance sampling of many lights with adaptive tree splitting</p>
+</div></blockquote>
+<p>Manuka A Batch Shading Architecture for specral patch tracing in movie production
+the design and evolution of hyperion
+renderman: an advanced path architecture</p>
+<p>Pixar sampling paper egsr
+EGSR Zirr 2018 split samples into separate images</p>
+<blockquote>
+<div><p>reweighting fireflysamples for improved mc estimates</p>
+</div></blockquote>
+<p>density based outlier rejection in MC rendering
+blue noise dithered sampling</p>
+<p>disney moana data set
+addrs vorba krivanek 2016
+node-based architecture</p>
+<blockquote>
+<div><p>geometric primitives, shaders, cameras, or lights</p>
+</div></blockquote>
+<dl class="simple">
+<dt>billion polygons with 24GB of memory using lossless and lossy compression</dt><dd><p>render scenes with 30GB of geometry and that reference 1TB or more of texture</p>
+</dd>
+</dl>
+<p>two-level hierarchy of BVH</p>
+<p>python for customization</p>
+<dl class="simple">
+<dt>all light transport computations in spectral</dt><dd><p>only converts to a colour in the frame buffer</p>
+</dd>
+<dt>a spectral power distribution is converted from radiometric quantities to</dt><dd><p>photometric ones by a luminousity weighting function.
+Usually the photopic, daytime brightness function of the CIE is used.
+express radiant power in lumens (ak.a. luminous power) instead of watts.</p>
+</dd>
+</dl>
+<p>light path expressions (Heckbert’s regular expression notation)</p>
+<p>One hundred to ten thousand independent Markov chains are traced in parallel</p>
+<p><span class="bibtex" id="id10">[langlandspbsda]</span>
+&#64;misc{langlandspbsda,</p>
+<blockquote>
+<div><p>title={Physically Based Shader Design in Arnold},
+author={Langlands, Anders},
+howpublished={url{<a class="reference external" href="https://www.solidangle.com/research/physically_based_shader_design_in_arnold.pdf">https://www.solidangle.com/research/physically_based_shader_design_in_arnold.pdf</a>}},
+note={Accessed on 2017-10-12}</p>
+</div></blockquote>
+<dl>
+<dt>}</dt><dd><p>Make a table to compare stack vs uber
+BSDF-stack model with shader template system</p>
+<blockquote>
+<div><p>Flexibilty, minimal interface per BSDF, Rapid Prototyping
+High Maintenance without shader template system
+BSDF stacks are harder to optimize and constrain for energy conservation
+Easy to Break: extremely easy to create completely nonsensical material models, or incredibly inefficient material stacks</p>
+</div></blockquote>
+<p>vs
+Layered Uber-Shader Model</p>
+<blockquote>
+<div><p>Easy to Maintain, High Performance, Robust, Unfiltered Interface, Dependencies, Uncompromising</p>
+</div></blockquote>
+<dl>
+<dt>Arbitrary Output Variables (AOVs)</dt><dd><dl class="simple">
+<dt>Shading: these separate each shading layer into direct and indirect components</dt><dd><p>supported due to legacy reasons</p>
+</dd>
+</dl>
+<p>Light: up to 8 AOVs separating light sources (or groups of light sources) into individual outputs.
+ID: up to 8 color AOVs that can be used for RGB mattes for compositing, or for plugging in arbitrary channels (e.g., noise patterns).
+Data: UVs, depth, facing-ratio passes etc.</p>
+</dd>
+<dt>Rebalancing shading passes (in 2D for compositing) tends to break physical plausibility</dt><dd><dl class="simple">
+<dt>restricting balancing to light groups allows tweaking a render in comp while maintaining physical accuracy</dt><dd><p>lights are assigned to one of eight light groups via a userdefined integer parameter.
+We then track the contribution of each light group to the current traced path
+(multiplying by each BSDF as we go) and output its contribution in a separate AOV.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>The two main functions specifying a bxdf are Evaluate() and Generate(). Evaluate() takes as input
+an array of incident directions and an array of exitant directions, and returns an array of rgb bxdf values
+(each value being the ratio of reflected radiance in the exitant direction over differential irradiance from
+the incident direction) and two arrays of pdf values. Generate() takes as input an array of incident directions
+and generates an array of “random” exitant directions along with two arrays of pdf values for those
+directions.</p>
+<ul class="simple">
+<li><p>One hundred to ten thousand independent Markov chains are traced in parallel
+to keep the noise closer to a Monte Carlo render and reduce the probability of
+a new path popping late in the render.</p></li>
+<li><p>Ray hits on the same material are grouped together into shade groups to allow
+SIMD vectorization.  An additional benefit is texture data locality because
+a surface typically has more than twenty textures.</p></li>
+<li><p>Ray (path) differentials determine the appropriate level of detail for
+multiresolution textures and multiresolution tessellated geometry.</p></li>
+<li><p>Keeps track of the volumes that a ray enters and exits, and integrates over
+all volumes covering a region.</p></li>
+<li><p>Samples emitting volumes as light sources.</p></li>
+</ul>
+<p>take snapshots and resume later on based on time estimates; pre/post-denoised images
+supersample rendering</p>
+<blockquote>
+<div><p>denoising algorithm
+at least 16 - 512 rays per pixel
+use light path expression to increase sampling of specific light/material/path
+render images at double the target resolution but auto adjust other params to fit into same rendering time
+control variates, MIS, defensive importance sampling, RIS</p>
+</div></blockquote>
+<dl class="simple">
+<dt>out-of-core + LoD</dt><dd><p>maybe enable random access?
+compress geometry files for space and I/O bandwidth
+geometry input stream may be procedural
+Each microgrid is a small indexed mesh with up to 256
+vertices forming micropolygons where each micropolygon can have one, two, three
+or four vertices (to represent points, lines, triangles, and quads)</p>
+</dd>
+</dl>
+<p>a fixed number of rays (at least <span class="math notranslate nohighlight">\(2^25\)</span>) in flight
+rays are sorted by direction to ensure coherence and organized into a potentially
+out-of-core batches.
+rays are compressed after sorting.
+Inactive ray batches are streamed to a local SSD until the system is ready to
+sort and trace the next batch.</p>
+<p>two-level quad-BVH for scene traversal.
+The top level uses streaming packet-traversal while the bottom
+reverts to a single-ray traversal.
+A ray packet consists of 64 coherent rays.</p>
+<p>The result of a traversal is a list of hit points, one per ray.  The hit points
+are sorted to maximize coherent access from the texture cache.</p>
+<p>Arnold and RenderMan that can cache 1000 texture files, 100 MB per thread, and
+2710 texture files per layer, Hyperion does not use a persistent texture cache.
+Each time a given surface is shaded, the system requires reopening each texture
+file over the network.</p>
+<p>Given a group of hit points for a particular set of textures, those hit points
+are re-sorted by mesh ID followed by face ID to improve shading context.  The
+shading order matches on-disk order of per-face textures.  Each mesh face is
+touched at most once when shading a ray batch.  The shader inputs and texture
+maps are only accessed once also.  If a shading task has many hit points, it is
+partitioned into sub-tasks to increase parallelism.  The shader also feeds
+secondary rays back into ray sorting to continue ray paths.</p>
+</div>
+<div class="section" id="production-renderers">
+<h2>Production Renderers<a class="headerlink" href="#production-renderers" title="Permalink to this headline">¶</a></h2>
+<p>The following overview is the current state of the art in production renderers
+<a class="bibtex reference internal" href="#fascione2017ptppr" id="id11">[FHF+17]</a><a class="bibtex reference internal" href="#fascione2017pathptpmm" id="id12">[FHPieke+17]</a>.</p>
+<div class="section" id="arnold">
+<h3>Arnold<a class="headerlink" href="#arnold" title="Permalink to this headline">¶</a></h3>
+<p>Arnold uses a programmable, node-based architecture, with different types of
+nodes such as geometric primitives, shaders, cameras, or lights.  Nodes can be
+interconnected in a node network to form complex interactions.  The geometric
+primitives include polygon meshes, hair curves, volumes, procedurally-created
+geometry, and simple quadrics.  These primitives can be instanced any number of
+times.  Without instancing, the system can only store around a billion polygons
+with 24GB of memory using lossless and lossy compression techniques where
+appropriate.  The scene’s geometry is stored in a two-level hierarchy of BVH
+ray acceleration data structures.  This BVH is able to intersect different types
+of primitives (e.g. polygons, hairs, particles) at the leaf level.</p>
+</div>
+<div class="section" id="pixar-s-renderman">
+<h3>Pixar’s RenderMan<a class="headerlink" href="#pixar-s-renderman" title="Permalink to this headline">¶</a></h3>
+<p>RenderMan has several distinguishing features beyond its plug-in architecture.</p>
+<ul class="simple">
+<li><p>One hundred to ten thousand independent Markov chains are traced in parallel
+to keep the noise closer to a Monte Carlo render and reduce the probability of
+a new path popping late in the render.</p></li>
+<li><p>Ray hits on the same material are grouped together into shade groups to allow
+SIMD vectorization.  An additional benefit is texture data locality because
+a surface typically has more than twenty textures.</p></li>
+<li><p>Ray (path) differentials determine the appropriate level of detail for
+multiresolution textures and multiresolution tessellated geometry.</p></li>
+<li><p>Keeps track of the volumes that a ray enters and exits, and integrates over
+all volumes covering a region.</p></li>
+<li><p>Samples emitting volumes as light sources.</p></li>
+</ul>
+</div>
+<div class="section" id="weta-s-manuka">
+<h3>Weta’s Manuka<a class="headerlink" href="#weta-s-manuka" title="Permalink to this headline">¶</a></h3>
+<p>Manuka performs all light transport computations in spectral, and only converts
+to a colour in the frame buffer.  To account for the fact that different colours
+appear to be of different brightness for a human observer, a spectral power
+distribution is converted from radiometric quantities to photometric ones by a
+luminousity weighting function.  Usually the photopic, daytime brightness
+function of the CIE is used.  This allows radiant power to be expressed in
+lumens (a.k.a. luminous power) instead of watts.</p>
+<div class="section" id="pantaray">
+<h4>PantaRay<a class="headerlink" href="#pantaray" title="Permalink to this headline">¶</a></h4>
+<p>This is an older out-of-core, massively parallel ray tracer designed to handle
+scenes that are roughly an order of magnitude bigger than available system
+memory <a class="bibtex reference internal" href="#pantaleoni2010pantaray" id="id13">[PFHA10]</a>.  Complex scenes at the time require
+baking spherical harmonics-encoded directional occlusion and indirect lighting
+information for billions of points with highly varying spatial density.</p>
+<p>The architectural design disallow any form of random access for two reasons:</p>
+<ol class="arabic simple">
+<li><p>Geometry files are typically compressed to save disk space and (potentially)
+achieve higher I/O bandwidth.</p></li>
+<li><p>Input streams could be procedurally generated, but the procedural generation
+function might not allow for individual primitive generation.</p></li>
+</ol>
+<p>Streams consist of microgrids that can represent either geometry stored on disk
+or procedural geometry.  Each microgrid is a small indexed mesh with up to 256
+vertices forming micropolygons where each micropolygon can have one, two, three
+or four vertices (to represent points, lines, triangles, and quads).  Selecting
+which microgrids to process is a tradeoff between I/O and utilization.</p>
+</div>
+</div>
+<div class="section" id="disney-s-hyperion">
+<h3>Disney’s Hyperion<a class="headerlink" href="#disney-s-hyperion" title="Permalink to this headline">¶</a></h3>
+<p>Hyperion adopts a sorted deferred architecture that keeps a fixed number of rays
+(at least <span class="math notranslate nohighlight">\(2^{25}\)</span>) in flight <a class="bibtex reference internal" href="#eisenacher2013sorted" id="id14">[ENSB13]</a>.  These rays
+are sorted by direction to ensure coherence and organized into potentially
+out-of-core batches.  To minimize storage, rays are compressed after sorting.
+Inactive ray batches are streamed to a local SSD until the system is ready to
+sort and trace the next batch.</p>
+<p>Given a sorted ray batch, the system uses a two-level quad-BVH for scene
+traversal.  The top level uses streaming packet-traversal while the bottom
+reverts to a single-ray traversal.  A ray packet consists of 64 coherent rays.
+The result of a traversal is a list of hit points, one per ray.  The hit points
+are sorted to maximize coherent access to the texture cache.  Unlike Arnold and
+RenderMan that can cache 1000 texture files, 100 MB per thread, and 2710 texture
+files per layer, Hyperion does not use a persistent texture cache.  Each time a
+given surface is shaded, the system requires reopening each texture file over
+the network.</p>
+<p>Given a group of hit points for a particular set of textures, those hit points
+are re-sorted by mesh ID followed by face ID to improve shading context.  The
+shading order matches on-disk order of per-face textures.  Each mesh face is
+touched at most once when shading a ray batch.  The shader inputs and texture
+maps are only accessed once also.  If a shading task has many hit points, it is
+partitioned into sub-tasks to increase parallelism.  The shader also feeds
+secondary rays back into ray sorting to continue ray paths.</p>
+</div>
+<div class="section" id="dreamworks-moonray">
+<h3>DreamWorks’ Moonray<a class="headerlink" href="#dreamworks-moonray" title="Permalink to this headline">¶</a></h3>
+<p>Moonray’s goal is to keep all vector lanes full with high data coherency through
+the use of queues <a class="bibtex reference internal" href="#lee2017vectorized" id="id15">[LGXT17]</a>.</p>
+<p>Another key feature
+artist control
+automatic differentiation
+OpenImageIO
+Embree</p>
+<blockquote>
+<div><p>The artist controls the number of surface samples at the hit point. But only for the first non-mirror
+bounce. After the first non-mirror bounce, we use only a single surface sample</p>
+<p>The artist controls the number of light samples taken at a hit point. But as with surface samples, after
+the first non-mirror bounce only (and exactly) one sample per active light is used.</p>
+<p>The artist has control on the amount of path depth recursion. In fact, we further break these controls
+up based on the type of surface we are evaluating (diffuse, glossy, or mirror).</p>
+<dl class="simple">
+<dt>arbitrary output variables</dt><dd><p>For diagnostic purposes, Moonray has introduced a “Material AOV” syntax that is used to extract material properties at a primary ray intersection point:
+For compositing work flows, we make use of light path expressions as defined by the OpenShadingLanguage distribution.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Each queue is responsible for processing the rays or samples in batches.  All
+queues are thread local to avoid thread contention, except for shade queues.
+Shade queues are the only queue type which are shared between threads.  One
+queue is allocated for each individual shader instance in the scene to improve
+shading coherency.</p>
+<p>The primary rays, occlusion rays, and incoherent rays are queued separately to
+improve coherency of ray intersections.</p>
+<p>After sorting the queue entries, they are converted from array-of-structures
+(AOS) format to structure-of-arrays (SOA) format to facilitate this
+separate work element per lane model of execution whilst minimizing
+costly scatter and gather memory access operations.</p>
+<blockquote>
+<div><p>Radiance writes, although implemented via atomics, are still queued
+to minimize thread contention for shared frame buffers.</p>
+</div></blockquote>
+<dl>
+<dt>wavefronts in breadth-first order using multiple queues to track ray state.</dt><dd><p>BFS</p>
+</dd>
+<dt>Data Oriented Design</dt><dd><p>a data oriented approach looks at how the problem can be efficiently mapped to the underlying hardware.
+AOS to AOSOA or SOA depending on use case</p>
+</dd>
+<dt>each thread simply runs in its own loop, pulling batches of primary rays from a shared work queue when its own local queue is empty.</dt><dd><p>To further minimize thread communication, we make heavy use of thread local storage (TLS) objects.</p>
+</dd>
+<dt>32-bit sort key + 32-bit reference</dt><dd><p>radix sort using &lt; only
+inputs are in AOS format; after sorting, transforms them in-place to AOSOA</p>
+<blockquote>
+<div><p>matrix transposition can be done via SIMD unpack, shuffle and permute operations
+prefetching used to minimize scatter/gather operations</p>
+</div></blockquote>
+<p>32-bit reference could be pointing to pre-allocated structures</p>
+</dd>
+<dt>textures are loaded lazily</dt><dd><dl class="simple">
+<dt>OpenImageIO</dt><dd><p>An infrastructure for dealing with different types of image
+file formats in a format-agnostic manner, and various tools
+for manipulating the image data.
+A runtime image caching system which facilitates efficient
+rendering of scenes with larger texture memory footprints
+than could fit in physical memory.
+A runtime texture sampling system which layers on top of
+the image cache.</p>
+</dd>
+</dl>
+<p>implemented thread-local 4-way set-associative cache
+optionally pre-load all texture data
+full UDIM support</p>
+</dd>
+</dl>
+<p>claims sweet spot for incoherent ray queue size is about 1024 entries per thread</p>
+</div>
+<div class="section" id="mpc">
+<h3>MPC<a class="headerlink" href="#mpc" title="Permalink to this headline">¶</a></h3>
+<p>This studio found that a full-quality 10-hour rendered image could be
+perceptually matched by a denoised 5-hour rendered image.  Hence, they developed
+a custom pipeline that emphasizes noise removal, on top of existing renderers
+like Pixar’s RenderMan.  Even though the rendering settings and denoiser are not
+directly transferable to different scene assets, the alternative requires a very
+large ray count for very fine geometry such as fur.  Each frame is the result of
+tracing between 16 to 512 rays per pixel.  The number of samples per pixel is
+determined by the desired clarity in the geometry.  Additional sampling of the
+lights and BxDFs are used to combat noise.  The images were rendered at double
+the target resolution with the appropriate render settings to avoid increasing
+the overall render time.</p>
+<p>There are several importance sampling techniques to reduce the noise.  Consider
+a function <span class="math notranslate nohighlight">\(g\)</span> that is an approximation of <span class="math notranslate nohighlight">\(f\)</span>.  If <span class="math notranslate nohighlight">\(f - g\)</span> is
+approximately constant or analytically integrable, control variates is preferred
+over importance sampling <a class="bibtex reference internal" href="#colbert2010importance" id="id16">[CPFranccois10]</a>.  Conversely, importance
+sampling is desirable when <span class="math notranslate nohighlight">\(f / g\)</span> is approximately constant or can be
+sampled analytically.  These different techniques can be combined using multiple
+importance sampling (MIS), which is optimal for a given set of sampling
+strategies.  When a sampling strategy is inadequate, defensive importance
+sampling (DIS) can be used to reduce the variance.  MIS using the balance
+heuristic can be viewed as a special case of DIS.  A generalization of
+importance sampling that permits unnormalized sampling densities or difficult to
+sample densities is resampled importance sampling.</p>
+</div>
+<div class="section" id="sony-imageworks">
+<h3>Sony Imageworks<a class="headerlink" href="#sony-imageworks" title="Permalink to this headline">¶</a></h3>
+<p>Imageworks focuses on a single-ray architecture.  While packet tracing produced
+impressive speedups for coherent rays, the speedups on incoherent rays were
+offset by much greater code complexity and surprising performance pitfalls when
+bundles became too small.</p>
+<dl class="simple">
+<dt><a class="reference external" href="http://blog.selfshadow.com/publications/s2017-shading-course/drobot/s2017_pbs_multilayered.pdf">http://blog.selfshadow.com/publications/s2017-shading-course/drobot/s2017_pbs_multilayered.pdf</a></dt><dd><p>slide 28 shows the architecture…maybe?</p>
+</dd>
+<dt>&#64;inproceedings{villemin2015art,</dt><dd><p>title={Art and technology at Pixar, from toy story to today},
+author={Villemin, Ryusuke and Hery, Christophe and Konishi, Sonoko and Tejima, Takahito and Villemin, Ryusuke and Yu, David G},
+booktitle={SIGGRAPH Asia 2015 Courses},
+pages={5},
+year={2015},
+organization={ACM}</p>
+</dd>
+</dl>
+<p>}</p>
+<dl>
+<dt>Hydra Rendering Engine: <a class="reference external" href="https://graphics.pixar.com/library/SigAsia2015/paper.pdf">https://graphics.pixar.com/library/SigAsia2015/paper.pdf</a></dt><dd><p>Decouple engine from the scene graph
+Scene Delegate -&gt; Render Index -&gt; Drawing Commands -&gt; GPU Rendering Resources (see Figure 3)</p>
+<blockquote>
+<div><p>Render Index holds light-weight Render Prims
+Render Prims fetch data from a client scenegraph via Client Scene Delegate.</p>
+<blockquote>
+<div><p>They also hold references to GPU resources allocated by a Resource Registry.</p>
+</div></blockquote>
+</div></blockquote>
+<p>Drawing streams are first-class objects and are decoupled from the client scene’s semantics.
+Resource Registry</p>
+<blockquote>
+<div><p>loaded texture images, allocated VBOs, drawing topology, shader programs
+resources are resolved by association with a descriptor</p>
+</div></blockquote>
+<dl>
+<dt>Separation between RenderIndex and resources enables</dt><dd><p>texture images referenced at many points in the scene can resolve to a single loaded texture image
+meshes sharing the same topology can share the same computed topology tables
+a single mesh may be displayed as both a smooth refined surface and an unrefined control hull</p>
+</dd>
+<dt>Drawing Coordinate Table 1</dt><dd><p>(e.g. Draw Dispatch Buffer, gl_VertexID, gl_PrimitiveID, gl_InstanceID, multidraw-indirect, bindless buffers, SSBO, bindless)
+Data de-duplication (topology instancing) share the same offsets
+per-instance frustum culling implemented by shuffling the instance index buffer</p>
+</dd>
+<dt>Shading Interface</dt><dd><p>Primvar Abstraction Figure 5, 6, 7
+Auto-generated accessors/inter-stage-glue-code</p>
+<blockquote>
+<div><p>code generation enables specific code to be embedded into the GLSL shaders</p>
+</div></blockquote>
+<dl class="simple">
+<dt>user focus on writing displacement/surface shaders</dt><dd><p>agnostic about not only instancing and tessellation but also an RenderPrim’s
+handed-ness and display stylings such as backface culling and wireframe drawing
+because they are handled by intrinsic geometric shader code.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>OpenSubDiv</dt><dd><dl class="simple">
+<dt>Interesting Design…..but not relevant atm Table 7/8 API Layer List and Figure 11/13/14</dt><dd><p>Subdivision Core
+Vectorized Topological Representation
+Feature Adaptive Representation
+OpenSubDiv</p>
+</dd>
+</dl>
+</dd>
+<dt>Prman RIS uses OSL</dt><dd><dl>
+<dt>original renderer of a hybrid REYES + ray tracing approach could not achieve optimal results</dt><dd><dl class="simple">
+<dt>shading is decoupled from visibility computation</dt><dd><dl class="simple">
+<dt>this scheme is counter to ray tracing where you have to shade where you hit.</dt><dd><p>radiosity cache: shade a whole grid of points at the first ray hit, and reuse those results for subsequent hits</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>Figure 5</dt><dd><p>the tracing engine will bundle rays, and also hit points, so that multiple rays hitting the same object
+will call the material in batches making vectorization particularly easy
+RixPattern</p>
+<blockquote>
+<div><p>Variable outputs that may be cached automatically
+Listing 1, 2</p>
+</div></blockquote>
+<dl>
+<dt>RixBxdf</dt><dd><p>Only one Bxdf is attached to each object in the scene, but the Bxdf can contain multiple lobes via one sample MIS.
+Connection between object and integrator.</p>
+<blockquote>
+<div><p>EvaluateSample: For a given input, output direction, provide the value and corresponding PDFs.
+GenerateSample: Also needs to be capable of generating a new direction based on the current incoming direction.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Any required data from the shading context are queried via GetBuiltinVar.</dt><dd><p>Listing 3, 4</p>
+</dd>
+</dl>
+</dd>
+<dt>RixLightFilter</dt><dd><p><em>This seems like a bad design</em></p>
+</dd>
+<dt>RixIntegator</dt><dd><p>Figure 15: batch processing of rays at different depths and save out results.
+Figure 16: RtRayGeometry + CustomPayload</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>ISPC</p>
+</dd>
+<dt>&#64;article{djeu2011razor,</dt><dd><p>title={Razor: An architecture for dynamic multiresolution ray tracing},
+author={Djeu, Peter and Hunt, Warren and Wang, Rui and Elhassan, Ikrima and Stoll, Gordon and Mark, William R},
+journal={ACM Transactions on Graphics (TOG)},
+volume={30},
+number={5},
+pages={115},
+year={2011},
+publisher={ACM}</p>
+</dd>
+</dl>
+<p>}</p>
+<dl>
+<dt>this paper brings up some important design decisions: in my view, they essentially implemented all the most complicated</dt><dd><p>methods and made them work….but is it worthwhile when they themselves felt it’s not as compelling a solution?</p>
+</dd>
+<dt>efficient support for</dt><dd><dl>
+<dt>arbitrary dynamic motion: <em>outdated because BVH has a better solution</em>.</dt><dd><dl class="simple">
+<dt>per-frame dynamic and lazy kd-tree build (via partially replicated kd-trees for parallel construction)</dt><dd><p>rebuild all data structures except original scene graph</p>
+</dd>
+</dl>
+<p>close coupling between rendering engine and scene graph</p>
+</dd>
+<dt>automatic multiresolution (!= progressive meshes)</dt><dd><dl class="simple">
+<dt>Ray-directed LoD: each ray independently selects a geometric level of detail, which varies along the ray based on ray and path differentials.</dt><dd><p>possibly use packet ray tracing</p>
+</dd>
+</dl>
+<p>continuous LoD synthesized on-the-fly via adaptive subdivision surfaces</p>
+</dd>
+<dt>decoupling shading computation from visibility hit points</dt><dd><p>run visibility at a higher spatial frequency than most shading computations
+reduce redundant shading computation
+view-independent computation can be cached and interpolated
+view-dependent computation is always performed at hit points
+batch shading computations
+shading occur at vertices like REYES</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>secondary rays can be traced using coarse geometric representations of the scene without harming the image quality</p>
+<dl class="simple">
+<dt>&#64;article{nah2015hart,</dt><dd><p>title={HART: A hybrid architecture for ray tracing animated scenes},
+author={Nah, Jae-Ho and Kim, Jin-Woo and Park, Junho and Lee, Won-Jong and Park, Jeong-Soo and Jung, Seok-Yoon and Park, Woo-Chan and Manocha, Dinesh and Han, Tack-Don},
+journal={IEEE transactions on visualization and computer graphics},
+volume={21},
+number={3},
+pages={389–401},
+year={2015},
+publisher={IEEE}</p>
+</dd>
+</dl>
+<p>}
+asynchronous BVH construction exploits frame-to-frame coherence</p>
+<blockquote>
+<div><p>very bad for rapidly-changing scenes</p>
+</div></blockquote>
+<dl class="simple">
+<dt>&#64;article{wald2014embree,</dt><dd><p>title={Embree: a kernel framework for efficient CPU ray tracing},
+author={Wald, Ingo and Woop, Sven and Benthin, Carsten and Johnson, Gregory S and Ernst, Manfred},
+journal={ACM Transactions on Graphics (TOG)},
+volume={33},
+number={4},
+pages={143},
+year={2014},
+publisher={ACM}</p>
+</dd>
+</dl>
+<p>}
+single ray vectorization is faster than packet tracing for incoherent ray distributions, but is slower for coherent rays</p>
+<blockquote>
+<div><p>BVH branching factor of 4 is good for both
+memory storage order of single-ray vs packet made minimal difference</p>
+</div></blockquote>
+<dl class="simple">
+<dt>1, 4, 8 triangle-ray intersections at a time (e.g. triangleXn): Moller Trumbore</dt><dd><dl class="simple">
+<dt>triangles could store indices, vertex data, or preprocessed edge/normal data</dt><dd><p>first two is for BVH construction
+user-defined geometry types/function pointer callbacks for bounding box, ray-primitive intersection</p>
+</dd>
+</dl>
+</dd>
+<dt>dynamic scenes use two-level BVH with a separate BVH per mesh</dt><dd><p>BVH nodes with a large surface area are iteratively replaced with their children until a threshold is reached</p>
+</dd>
+<dt>maybe three layers</dt><dd><dl class="simple">
+<dt>kernel on top of common infrastructure -&gt; C: data-parallel/ILP/TLP methods, data in, data out</dt><dd><p>templates?
+allows SoA</p>
+</dd>
+<dt>OO API -&gt; C++: system architecture</dt><dd><p>data shuffling AoS to SoA</p>
+</dd>
+<dt>scalability -&gt; python, distributed</dt><dd><p>reflection capabilities</p>
+</dd>
+</dl>
+</dd>
+<dt>&#64;inproceedings{pharr2012ispc,</dt><dd><p>title={ispc: A SPMD compiler for high-performance CPU programming},
+author={Pharr, Matt and Mark, William R},
+booktitle={Innovative Parallel Computing (InPar), 2012},
+pages={1–13},
+year={2012},
+organization={IEEE}</p>
+</dd>
+</dl>
+<p>}</p>
+<p>Although auto-vectorization can
+work well for regular code that lacks conditional operations,
+a number of issues limit the applicability of the technique in
+practice. All optimizations performed by an auto-vectorizer
+must honor the original sequential semantics of the program;
+the auto-vectorizer thus must have visibility into the entire
+loop body, which precludes vectorizing loops that call out
+to externally-defined functions, for example. Complex control
+flow and deeply nested function calls also often inhibit
+auto-vectorization in practice, in part due to heuristics that
+auto-vectorizers must apply to decide when to try to vectorize.
+As a result, auto-vectorization fails to provide good
+performance transparency—it is difficult to know whether
+a particular fragment of code will be successfully vectorized
+by a given compiler and how it will perform.</p>
+<dl class="simple">
+<dt>The group of running program instances is a called a gang a.k.a. a CUDA warp</dt><dd><p>set at compile time; it’s no more than twice the SIMD width of the hardware that it is executing on.</p>
+</dd>
+</dl>
+<p>Maximal convergence means that if two program
+instances follow the same control path, they are guaranteed
+to execute each program statement concurrently. If two program
+instances follow diverging control paths, it is guaranteed
+that they will re-converge at the earliest point in the
+program where they could re-converge.</p>
+<blockquote>
+<div><p>This guarantee is not provided across gangs in different
+threads; in that case, explicit synchronization must be used.</p>
+<p>CUDA/OpenCL requires explicit synchronization among program instances</p>
+</div></blockquote>
+<dl class="simple">
+<dt>hybrid SOA</dt><dd><p>the structure members are widened to be SIMD-wide arrays
+1.25x faster than AoS</p>
+</dd>
+<dt>&#64;article{benthin2012combining,</dt><dd><p>title={Combining single and packet-ray tracing for arbitrary ray distributions on the intel mic architecture},
+author={Benthin, Carsten and Wald, Ingo and Woop, Sven and Ernst, Manfred and Mark, William R},
+journal={IEEE Transactions on Visualization and Computer Graphics},
+volume={18},
+number={9},
+pages={1438–1448},
+year={2012},
+publisher={IEEE}</p>
+</dd>
+</dl>
+<p>}</p>
+<p>One common technique,
+known as packet tracing, shares one traversal stack and
+performs the node/triangle intersection test for all N rays [4].
+All rays are forced to follow the same traversal sequence by
+always descending a subtree if any of the rays wants to traverse
+the subtree, using masks to track which rays are active.</p>
+<blockquote>
+<div><p>Packet
+tracing is particularly efficient on explicit SIMD architectures
+(where the SIMD length is exposed in the instruction set)
+because it does not require scatter/gather operations, and
+because the mix of scalar and vector operation utilizes both
+scalar and vector units. However, performance degrades badly
+once ray divergence becomes significant, eventually reaching
+a state where only very few of the N SIMD lanes are still
+active.</p>
+</div></blockquote>
+<p>An alternative is to use the SIMD unit to trace N independent
+rays. That is, each SIMD lane has its own ray and
+its own traversal stack. This technique is particularly popular
+on today’s GPUs, which have an implicit SIMD architecture
+that is well matched to it [3]. In a single program multiple
+data (SPMD) programming model such as CUDA or OpenCL,
+this even gives the appearance of each SIMD lane running
+its own scalar program. However, SIMD efficiency loss still
+occurs if different SIMD lanes execute different code paths.
+For example, if some rays want to descend further into the
+acceleration structure but others want to perform a ray/triangle</p>
+<dl>
+<dt>proposal</dt><dd><p>One approach is to use a bounding volume
+hierarchy (BVH) with a branching factor and leaf size equal
+to the SIMD width (an MBVH acceleration structure)
+This approach uses N-wide SIMD to perform N
+node or triangle intersection tests in parallel for a single ray
+and does not rely on ray coherence at all. However, this
+approach quickly loses algorithmic efficiency for branching
+factors greater than four and with branching factors of 16 or
+greater is significantly worse than packet tracing if there is
+even a small amount of ray coherence [7].</p>
+<blockquote>
+<div><p>two- or four-wide BVH (i.e. QBVH) is best</p>
+</div></blockquote>
+<p>The key idea is to view the 16-wide
+SIMD hardware not as 16 independent lanes, but rather as
+four lanes of four elements each, and use this to process four
+nodes respectively four primitives in parallel, using 4-wide
+SIMD for each node/primitive intersection test</p>
+<blockquote>
+<div><p>coherent computations is not as efficient as processing 16
+different rays.</p>
+</div></blockquote>
+<dl>
+<dt>hybrid: generate and shade rays in packets,</dt><dd><p>trace them as packets as long as they are coherent, and then,
+on-the-fly, switch to the single-ray scheme when the rays
+diverge.</p>
+</dd>
+<dt>conversion of data between SoA and AoS</dt><dd><p>4 ray-AABB intersections at a time
+4 ray-triangle intersections at a time</p>
+<blockquote>
+<div><p>nodes with less than 4 children need to be padded with empty nodes</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><a href="#id17"><span class="problematic" id="id18">*</span></a>while 16-wide SIMD is cool, GPUs are already 32-wide….</p>
+<dl class="simple">
+<dt>&#64;inproceedings{son2017timeline,</dt><dd><p>title={Timeline scheduling for out-of-core ray batching},
+author={Son, Myungbae and Yoon, Sung-Eui},
+booktitle={Proceedings of High Performance Graphics},
+pages={11},
+year={2017},
+organization={ACM}</p>
+</dd>
+</dl>
+<p>}</p>
+<dl>
+<dt>device connectivity graph (DCG)</dt><dd><p>dynamic tasks: fetch job or data
+timing model that describes the time of executing a job and transferring a data block from one memory device to another</p>
+<blockquote>
+<div><p>captures data locality, varying I/O bandwidths, and data dependency</p>
+</div></blockquote>
+</dd>
+<dt>Greedy Makespan Balancing (GMB) algorithm schedules and distributes jobs from the initial workload</dt><dd><p>maximize utilization, hide data transfer latency
+two types of jobs: compute device or memory channel
+ray batching: schedule blocks whose job granularity is high and fetch job is low</p>
+<blockquote>
+<div><p>minimize makespan: true idle time, fetching time, setup time
+job prediction is 75% accurate and yields 85% overall throughput improvement</p>
+</div></blockquote>
+</dd>
+<dt>image space decomposition</dt><dd><p>limits data locality due to secondary incoherent rays
+natural load balancing, low communication due to duplication of data</p>
+</dd>
+<dt>domain decomposition</dt><dd><p>partition by a set of scene data
+high data locality, but suffers from load imbalance and high communication</p>
+</dd>
+<dt>hybrid</dt><dd><p>process generating samples or the process holding the data domain, by considering various information such as ray types</p>
+</dd>
+<dt>&#64;article{keller2017iray,</dt><dd><p>title={The Iray Light Transport Simulation and Rendering System},
+author={Keller, Alexander and W{“a}chter, Carsten and Raab, Matthias and Seibert, Daniel and van Antwerpen, Dietger and Kornd{“o}rfer, Johann and Kettner, Lutz},
+journal={arXiv preprint arXiv:1705.01263},
+year={2017}</p>
+</dd>
+</dl>
+<p>}</p>
+<dl>
+<dt>Separating material description from implementation via material definition language (MDL)</dt><dd><dl>
+<dt>Four steps</dt><dd><dl class="simple">
+<dt>state setup</dt><dd><p>local intersection information like front-/backside point of intersection to handle reflective/transmissive/self-intersection events
+geometric/interpolated shading normals</p>
+</dd>
+</dl>
+<p>texture coordinate and tangent generation
+compute material inputs e.g. bitmaps, procedural textures, compiled MDL code
+evaluate/sample layered BSDF</p>
+</dd>
+</dl>
+</dd>
+<dt>Figure 2</dt><dd><p>Setup -&gt; Trace Ray -&gt; NEE -&gt; Sample + Evaluate Material -&gt; Accumulate
+Trace Ray -&gt; Matte NEE -&gt; Evaluate Env + Matte -&gt; Accumulate
+Trace Ray -&gt; Evaluate Env + Matte
+Evaluate Env + Matte -&gt; NEE
+Sample + Evaluate Material -&gt; Trace Ray
+NEE</p>
+<blockquote>
+<div><p>Sample Light -&gt; Trace Ray -&gt; Evaluate Transparency -&gt; Trace Ray</p>
+</div></blockquote>
+</dd>
+<dt>geometric light sources</dt><dd><dl class="simple">
+<dt>Goals</dt><dd><p>10K+ light sources
+arbitrary mesh representation
+spatially varying via MDL function</p>
+</dd>
+<dt>Focus on triangles exclusively</dt><dd><p>single flux value per triangle obtained from integrating the intensity function over a triangle’s area in a preprocess.</p>
+</dd>
+</dl>
+</dd>
+<dt>motion blur</dt><dd><p>The scene data for the chosen exposure time of the virtual camera or measurement
+probes is sampled for each iteration, which then works on a single point in time of the
+simulation</p>
+</dd>
+<dt>parallelizing single device Figure 13</dt><dd><dl class="simple">
+<dt>sample state</dt><dd><p>1M samples allocated in GPU memory as SoA</p>
+</dd>
+</dl>
+<p>quasi-monte carlo enables sampling of pixel framebuffer per device efficiently</p>
+</dd>
+</dl>
+<p>Light Path Expressions enable filtering the scene into separate “composites”</p>
+<dl class="simple">
+<dt>Imagine decals as thin layers of virtual geometry that are simulated just as regular thin-walled geometry would be if separated by a very small air gap.</dt><dd><p>Think of it as a BRDF</p>
+</dd>
+<dt>&#64;inproceedings{parker2010optix,</dt><dd><p>title={Optix: a general purpose ray tracing engine},
+author={Parker, Steven G and Bigler, James and Dietrich, Andreas and Friedrich, Heiko and Hoberock, Jared and Luebke, David and McAllister, David and McGuire, Morgan and Morley, Keith and Robison, Austin and others},
+booktitle={ACM Transactions on Graphics (TOG)},
+volume={29},
+number={4},
+pages={66},
+year={2010},
+organization={ACM}</p>
+</dd>
+</dl>
+<p>}</p>
+<p>domain-specific just-in-time compiler that generates custom
+ray tracing kernels by combining user-supplied programs for ray
+generation, material shading, object intersection, and scene traversal.</p>
+<dl>
+<dt>general low-level ray tracing</dt><dd><p>mechanism for ray-geometry interactions
+does not have built-in concepts of lights, shadows, reflectance, etc…</p>
+</dd>
+<dt>a programmable ray tracing pipeline</dt><dd><p>defines an abstract ray tracing execution model as a sequence of user-specified programs</p>
+</dd>
+<dt>recursive single-ray programming model with custom payload</dt><dd><p>engine abstracts ray packets, SIMD, batching, reordering, acceleration structures</p>
+</dd>
+<dt>node graph system</dt><dd><p>engine optimizes for efficiency while still supporting instancing, LoD, nested acceleration structures.</p>
+</dd>
+<dt>call graph</dt><dd><dl>
+<dt>7 types of kernel programs</dt><dd><p>ray generation: fire and forget style
+intersection: ray-geometry tests with arbitrary attributes, also allows access to native format to avoid memcpy
+bounding box: primitive id -&gt; BB
+closest hit: invoked once to do brdf shading at the end of traversal
+any hit: called for every ray-object intersection found, can early terminate (for shadow, ambient occlusion), and ignore intersection (e.g. texture channel lookup)
+miss: called when ray does not hit anything
+exception: mainly for printing diagnostic messages or visualizing the condition
+selector visit: expose coarse-level node graph traversal e.g. LoD, ray differential</p>
+</dd>
+<dt>hierarchy nodes</dt><dd><p>group: 0+ children of any node type, has an associated acceleration structure to provide two-level traversal structure.
+geometry group: leaves of the graph, contains primitive and materials, can have an acceleration structure associated with it.</p>
+<blockquote>
+<div><p>geometry instance: binds a geometry object to a set of material objects
+geometry: list of geometric primitives, each with an associated bounding box program and intersection program that are possibly shared
+material: contains information about shading operations e.g. any hit program, closest hit program.</p>
+</div></blockquote>
+<p>transform: affine transformation of underlying geometry
+selector: 0+ of any node type, single visit program that is executed to select which child.</p>
+</dd>
+</dl>
+</dd>
+<dt>&#64;inproceedings{laine2013megakernels,</dt><dd><p>title={Megakernels considered harmful: Wavefront path tracing on gpus},
+author={Laine, Samuli and Karras, Tero and Aila, Timo},
+booktitle={Proceedings of the 5th High-Performance Graphics Conference},
+pages={137–143},
+year={2013},
+organization={ACM}</p>
+</dd>
+</dl>
+<p>}</p>
+<dl>
+<dt>material evaluator(surface point, outgoing direction towards the camera, light sample direction)</dt><dd><dl class="simple">
+<dt>outputs</dt><dd><p>importance sampled incoming direction
+value of importance sampling pdf
+throughput between incoming/outgoing directions
+throughput between light sample direction and outgoing direction
+probability of producing the lightsample direction when sampling incoming direction (for MIS)
+medium identifier in the incoming direction</p>
+</dd>
+</dl>
+</dd>
+<dt>quasi-monte carlo</dt><dd><dl class="simple">
+<dt>Sobol sequences for the first 32 dimensions</dt><dd><dl class="simple">
+<dt>precomputed and shared between all pixels</dt><dd><p>each pixel scrambles (xor) Sobol to remain uncorrelated</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>33+ uses random numbers generated by hashing together pixel index, path index, and dimension</p>
+</dd>
+<dt>keeps 2^20 paths alive at all times</dt><dd><p>212B per path, stored in GPU global memory
+On each iteration, every path is advanced by one segment, and if a path is terminated, it is regenerated during the same iteration.</p>
+</dd>
+<dt>three stages communicate via queues stored in global memory</dt><dd><dl>
+<dt>logic kernel</dt><dd><dl class="simple">
+<dt>distributes work over all paths</dt><dd><p>advance the path by one segment</p>
+</dd>
+</dl>
+<p>calculating MIS weights for light and extension segments,
+updating throughput of extended path
+accumulating light sample contribution in the path radiance if the shadow ray was not blocked
+determining if path should be terminated
+for a terminated path, accumulating pixel value
+producing a light sample for the next path segment
+determining material at extension ray hit point, and
+placing a material evaluation request for the following stage</p>
+</dd>
+<dt>material</dt><dd><p>may request extension ray or shadow ray
+place results into result buffers at indices corresponding to the requests in the input buffers
+the path state has to record the indices in the ray buffers in order to enable fetching the results in the logic stage</p>
+</dd>
+</dl>
+<p>ray cast</p>
+</dd>
+</dl>
+<p>light sampling and evaluation are not split because no complex light sources were needed</p>
+<dl class="simple">
+<dt>&#64;inproceedings{van2011improving,</dt><dd><p>title={Improving SIMD efficiency for parallel Monte Carlo light transport on the GPU},
+author={Van Antwerpen, Dietger},
+booktitle={Proceedings of the ACM SIGGRAPH Symposium on High Performance Graphics},
+pages={41–50},
+year={2011},
+organization={ACM}</p>
+</dd>
+</dl>
+<p>}
+We propose to combine stream compaction and sample regeneration
+to keep SIMD efficiency high in the face of stochastic
+random walk termination.</p>
+<p>For BDPT and MLT we propose to evaluate all bidirectional
+connections for a sample in parallel in order to balance
+the workload between GPU threads and improve SIMD efficiency.</p>
+<dl class="simple">
+<dt>&#64;inproceedings{afra2016local,</dt><dd><p>title={Local shading coherence extraction for SIMD-efficient path tracing on CPUs.},
+author={{‘A}fra, Attila T and Benthin, Carsten and Wald, Ingo and Munkberg, Jacob},
+booktitle={High Performance Graphics},
+pages={119–128},
+year={2016}</p>
+</dd>
+</dl>
+<p>}</p>
+<dl>
+<dt>a local shading coherence extraction algorithm optimized for modern many-core CPU architectures and vector instruction sets</dt><dd><p>trace small streams of rays on each processor thread
+in a breadth-first fashion and sort the ray hits by material ID before
+evaluating the shaders. In this sorting stage, we group the ray
+paths in each stream into coherent SIMD-sized batches that need to
+be processed with a single shader, avoiding code path divergence.
+The streams are independent from each other and are small enough
+(up to a few thousands rays e.g. at least 2048) to fit into the cache hierarchy of the
+CPU. Also, they are always compact in the sense that no gaps are
+introduced due to terminating paths.</p>
+<p>two ray streams: extension stream for extending paths and shadow stream for direct light sampling</p>
+</dd>
+</dl>
+<p>table 1 describes ray stream layout</p>
+<dl class="simple">
+<dt>&#64;inproceedings{hvl2017pixarmaterials,</dt><dd><p>title={Pixar’s Foundation for Materials},
+author={Hery, Christophe and Villemin, Ryusuke and Ling, Junyi},
+booktitle={ACM SIGGRAPH 2017 Courses},
+pages={7},
+year={2017},
+organization={ACM}</p>
+</dd>
+</dl>
+<p>}</p>
+<p>Lambertian
+Oren-Nayar
+Diffuse BTDF for lampshade model
+Specular Lobe via GGX, Beckmann, Fresnel</p>
+<dl>
+<dt>Sampling on Multi-Lobe BSDFs</dt><dd><ol class="arabic">
+<li><dl class="simple">
+<dt>Compute probabilities for each lobe, then select one according to these probabilities</dt><dd><p>importance estimation phase:  use an approximation of the Fresnel, based only on the incoming direction v</p>
+</dd>
+</dl>
+</li>
+<li><p>Use the chosen lobe to generate a sampling direction and corresponding BSDF value and pdf.</p>
+<p>One-sample MIS: Use the chosen lobe to generate a sampling direction and compute the corresponding values and pdfs for the whole BSDF (all the lobes).</p>
+</li>
+</ol>
+</dd>
+</dl>
+<p>Each material layer’s input and output are standardized such that they can be composited with any other material layer</p>
+<p>One additional note is that we draw distinctions between clearcoat, specular and roughspecular BRDFs. Even
+though fundamentally they are based on the same Beckmann or GGX models that can be set with a variety of
+roughness and Fresnel ranges, we make some conceptual distinction for practical reasons. “Clearcoat” is meant
+to be the dielectric interface at the top of a material. It usually has a very low roughness that is lower than 0.1,
+unless it is moderated with a dusty material on top. e “specular” BXDF usually describes a rougher material.
+Usually it somewhere between 0.1 and 0.4. is can be the top interface of materials such as plastic or simple
+metal, or a sub-layer of a compound material such metal akes in car paint, or the brous layer of varnished
+wood. Some complex materials can require longer tails in their BXDF proles. Although GGX provides us with
+one way to achieve this, sometimes this rougher specular needs to be art-directed. We provide an additional
+roughspecular BRDF for that very purpose.</p>
+<p>energy compensation is a artist parameter</p>
+<dl class="simple">
+<dt>&#64;inproceedings{Fong:2017:PVR:3084873.3084907,</dt><dd><p>author = {Fong, Julian and Wrenninge, Magnus and Kulla, Christopher and Habel, Ralf},
+title = {Production Volume Rendering: SIGGRAPH 2017 Course},
+booktitle = {ACM SIGGRAPH 2017 Courses},
+series = {SIGGRAPH ‘17},
+year = {2017},
+isbn = {978-1-4503-5014-3},
+location = {Los Angeles, California},
+pages = {2:1–2:79},
+articleno = {2},
+numpages = {79},
+url = {<a class="reference external" href="http://doi.acm.org/10.1145/3084873.3084907">http://doi.acm.org/10.1145/3084873.3084907</a>},
+doi = {10.1145/3084873.3084907},
+acmid = {3084907},
+publisher = {ACM},
+address = {New York, NY, USA},</p>
+</dd>
+</dl>
+<p>}</p>
+<p>For every geometric primitive in
+the scene, there is an instance of a Material class bound to that primitive. When a ray hits a geometric
+primitive, the geometric properties of geometry at the hit point are encapsulated into a ShadingContext,
+which includes the position P of the hit point itself, the surface normal N, and the direction opposite to
+the incoming ray V.</p>
+<p>Every Material implements a CreateBSDF method that returns a BSDF object, given a ShadingContext.
+The BSDF object implements both a EvaluateSample method and a GenerateSample method,
+which may use information from the ShadingContext (such as the geometric normal) to decide how to
+do their work. EvaluateSample is used to evaluate the response of the BSDF to a light sample, given
+an incoming light ray with direction sampleDirection and the outgoing ray direction ShadingContext::GetV().
+BSDF::GenerateSample is used to sample the BSDF, and generates an outgoing ray
+direction sampleDirection based on evaluating a BRDF or a BTDF, as well as the associated PDF of
+that ray direction. If the BSDF object implements both a BRDF and a BTDF, it is responsible for randomly
+choosing which of the two to use.</p>
+<p>We assume the light integrator module is responsible for implementing a path tracing algorithm
+with the aid of a RendererServices object, which provides services for tracing a ray against the scene
+database, for sampling lights in the scene, and for creating a ShadingContext given a hit point on a
+piece of geometry.</p>
+<p>extend our Material class to return a Volume object.</p>
+<p>Bear in mind that in this system, a volume integrator does not exist by itself; it is a component of a
+Material controlling only the volumetric integration inside a piece of geometry. The surface properties
+of that geometry are represented by the BSDF returned by the CreateBSDF method of that Material. In
+order to !nish de!ning a Material, we need to de!ne a TrivialBSDF, whose GenerateSample method
+used for creating indirect rays simply continues a ray in the outgoing direction with full weight and PDF.
+The resulting material combining both the TrivialBSDF and the BeersLawVolume now fully de!nes a
+volumetric region with no surface properties which absorbs light.</p>
+<p>a closed piece of geometry with outward facing normals is a valid container for a volume: the volume
+exists everywhere inside the geometry</p>
+<blockquote>
+<div><blockquote>
+<div><p>This assumes that the geometry is watertight when ray traced.</p>
+<p>With this convention, a material that is bound to such a piece of geometry will return a Volume object
+when requested by the light integrator. Materials that return a null Volume are treated by the light
+integrator as a regular surface without a volume.</p>
+</div></blockquote>
+<p>In the case of a surface-only render, the light integrator would normally</p>
+</div></blockquote>
+<p>simply trace this ray against the scene database, create another shading event, and proceed as before.
+However, because our material is volume capable, we instead ask the material to create an instance of a
+Volume. The outgoing ray with direction t
+is now an input to this Volume object, which is responsible
+for computing several outputs related to volume integration, as well as potentially tracing the ray against
+the scene database in order to !nd the end of the volume integration domain.</p>
+<p>utilize the concept of opposite and incident volumes: the opposite volume to an incident ray is the
+volume on the opposite side of the surface, while the incident volume to an incident ray is the volume
+on the same side of the surface.</p>
+<blockquote>
+<div><p>This leads to an implementation where rays that are moving through our system must be aware of
+the Material that they are moving inside. Essentially, our rays must know what volume(s) they are
+inside. When a ray intersects an object, they may enter a new volume, or they may leave a volume. This
+can only occur on a transmit event; on a re”ection event, they can neither enter a volume or leave a
+volume.</p>
+<blockquote>
+<div><p>nested volumes, nested volumes with interior non-volume objects</p>
+<p>In order to accommodate the need for tracking a list of Materials per ray, we can add EnterMaterial
+and ExitMaterial methods to the Ray data structure which add and remove a material from this list.
+We will see in the next section how these methods are used by the light integrator to track which
+volume should be used at an interface boundary</p>
+</div></blockquote>
+<p>incorporate volume rendering into this light integrator loop</p>
+</div></blockquote>
+<p>These transmittance rays are usually treated as a special case by a renderer because they can easily
+outnumber camera and indirect rays, and therefore deserve special optimization.</p>
+<blockquote>
+<div><p>One typical optimization
+performed for transmittance rays is to allow them to intersect geometry in any order, rather
+than in strict sorted depth-!rst order. This out-of-order execution is usually combined with early-out
+optimizations: any opaque object hit by a transmittance ray will immediately cause the ray to terminate.
+Furthermore, the importance of the e#cient direct lighting may mean that in production rendering,
+transmittance rays may be allowed to break some laws of physics. For example, a glass material that
+normally must account for refraction on camera and indirect rays may choose to ignore such e$ects for
+transmittance rays; this optimization allows for much faster convergence when direct lighting objects
+behind glass, and may be visually acceptable if the glass is a thin material.</p>
+</div></blockquote>
+<p>A heterogeneous, absorption-only volume represents the !rst real complexity associated with writing
+a volume integrator. So far, we have not described how texturing or pattern generation works in
+our system. In a typical production renderer, a material would actually be the root node of a shader
+graph, with the inputs to this material being connections to upstream nodes responsible for pattern
+generation or texturing. We now assume in our system that a facility exists whereby the combination of
+a ShadingContext bound to a Material allows for the evaluation of such input nodes. We assume such
+inputs are uniquely identi!ed with an integer index, and that their value can be evaluated (triggering
+the necessary upstream graph evaluation) by invoking the ShadingContext::GetFloatProperty or
+ShadingContext::GetColorProperty methods.</p>
+<blockquote>
+<div><p>while the shading context for a single hit point usually does not need alteration, a
+volume has an additional dimension for integration (along the length of the ray), and a single set of
+values associated with a single hit point will not suffice.</p>
+<p>In order to implement a heterogeneous volume, however,
+we require the ability to alter the ShadingContext to be some other point within the volumetric
+region, and to reevaluate upstream inputs. This requires that the context object have mutability
+in its geometric properties. One approach to such a system is to allow the volume integrator
+to set a position on the ShadingContext using the SetP method, and then have the renderer services
+automatically recompute the properties of the geometric environment as well as all upstream
+inputs with RendererServices::RecomputeShadingContext(). Subsequent calls to the ShadingContext::GetFloatProperty
+or ShadingContext::GetColorProperty methods will now return updated
+values.</p>
+</div></blockquote>
+<dl>
+<dt>Multiple sca!ering</dt><dd><p>Each invocation of the volume integrator (red lines) is responsible only for computing
+the next hit point, the transmi!ance over the interval, and the weight associated with the location; all radiance
+calculations are handled by the lighting integrator (black dashed lines).</p>
+</dd>
+<dt>Overlapping volumes</dt><dd><p>It is useful to establish situations where overlapping volume integration is actually not needed. The
+aforementioned glass object inside smoke is one such case: the glass object is not actually permeable to
+smoke, so in fact the associated volume integrator never needs to worry about any situation where it
+overlaps with another volume. We can enshrine this situation in our system by adding a query method
+to the Material, where it can be interrogated as to whether it can participate in overlapping volume
+integration. If it chooses not to, everything proceeds as described in the system so far.</p>
+<p>It is also important to note that for the case of only calculating the beam transmittance between
+two points (as described in section 3.4), we do not actually need to worry about whether or not two
+volumes overlap. Their individual transmittances can be calculated in isolation and accumulated by
+multiplication without error, even if they overlap each other.</p>
+<blockquote>
+<div><p>in the situation where two volumes do overlap and require overlapping integration</p>
+<blockquote>
+<div><p>choose a single primary volume integrator, which has full access
+to the properties of all other volumes which coexist over the interval, and is responsible for a single
+result which takes into account all properties of the overlapping volumes.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>assume that such overlapping volumes are comprised of particles that do not react to each other</dt><dd><p>decide that the collision event has occurred with a single particle from a single volume</p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+</dd>
+</dl>
+<p>decoupled ray marching</p>
+<p>Note: In this chapter, we are considering deformation motion blur, meaning motion that varies within
+an individual object. Transformation motion blur, by which individual objects are rigidly animated using
+their transformation matrices, can be achieved identically for both geometry and volumes.</p>
+<p>temporal volume method to capture motion blur</p>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-blog/2016/12/01/structuring-a-renderer-phi-ray-0"><dl class="citation">
+<dt class="bibtex label" id="charousset2016revisiting"><span class="brackets"><a class="fn-backref" href="#id7">CHS16</a></span></dt>
+<dd><p>Dominik Charousset, Raphael Hiesgen, and Thomas C Schmidt. Revisiting actor programming in c++. <em>Computer Languages, Systems &amp; Structures</em>, 45:105–131, 2016.</p>
+</dd>
+<dt class="bibtex label" id="colbert2010importance"><span class="brackets"><a class="fn-backref" href="#id16">CPFranccois10</a></span></dt>
+<dd><p>Mark Colbert, Simon Premoze, and Guillaume François. Importance sampling for production rendering. <em>SIGGRAPH 2010 Course Notes</em>, pages 19, 2010.</p>
+</dd>
+<dt class="bibtex label" id="eisenacher2013sorted"><span class="brackets"><a class="fn-backref" href="#id14">ENSB13</a></span></dt>
+<dd><p>Christian Eisenacher, Gregory Nichols, Andrew Selle, and Brent Burley. Sorted deferred shading for production path tracing. In <em>Computer Graphics Forum</em>, volume 32, 125–132. Wiley Online Library, 2013.</p>
+</dd>
+<dt class="bibtex label" id="fascione2017ptppr"><span class="brackets"><a class="fn-backref" href="#id11">FHF+17</a></span></dt>
+<dd><p>Luca Fascione, Johannes Hanika, Marcos Fajardo, Per Christensen, Brent Burley, and Brian Green. Path tracing in production-part 1: production renderers. In <em>ACM SIGGRAPH 2017 Courses</em>, 13. ACM, 2017.</p>
+</dd>
+<dt class="bibtex label" id="fascione2017pathptpmm"><span class="brackets"><a class="fn-backref" href="#id12">FHPieke+17</a></span></dt>
+<dd><p>Luca Fascione, Johannes Hanika, Rob Pieké, Christophe Hery, Ryusuke Villemin, Thorsten-Walther Schmidt, Christopher Kulla, Daniel Heckenberg, and André Mazzone. Path tracing in production-part 2: making movies. In <em>ACM SIGGRAPH 2017 Courses</em>, 15. ACM, 2017.</p>
+</dd>
+<dt class="bibtex label" id="heirich1997parallel"><span class="brackets"><a class="fn-backref" href="#id6">HA97</a></span></dt>
+<dd><p>Alan Heirich and James Arvo. Parallel rendering with an actor model. In <em>Proceedings of the 6th Eurographics Workshop on Programming Paradigms in Graphics</em>, 115–125. 1997.</p>
+</dd>
+<dt class="bibtex label" id="hiesgen2017opencl"><span class="brackets"><a class="fn-backref" href="#id8">HCS17</a></span></dt>
+<dd><p>Raphael Hiesgen, Dominik Charousset, and Thomas C Schmidt. Opencl actors-adding data parallelism to actor-based programming with caf. <em>arXiv preprint arXiv:1709.07781</em>, 2017.</p>
+</dd>
+<dt class="bibtex label" id="hpcdreamworks2014"><span class="brackets"><a class="fn-backref" href="#id1">HPa</a></span></dt>
+<dd><p>HP. Converged infrastructure at dreamworks: helping artists go from dream to screen in close to real time. <span><a class="reference external" href="#"></a></span>http://691d3755c7515ca23f7b-dbfc12bd0c567183709648093997d459.r57.cf1.rackcdn.com/assets/4aa4-2645enw_ci_at_dreamworks_case_study.pdf. Accessed on 2017-10-23.</p>
+</dd>
+<dt class="bibtex label" id="hpcsweta2014"><span class="brackets"><a class="fn-backref" href="#id2">HPb</a></span></dt>
+<dd><p>HP. Weta digital: bringing “the hobbit” to life with hpe compute. <span><a class="reference external" href="#"></a></span>https://cc.cnetcontent.com/vcs/hp-ent/inline-content/TN/8/F/8F8390E2B76346D1D1E4FDD5910ABC99A9682793_source.PDF. Accessed on 2017-10-23.</p>
+</dd>
+<dt class="bibtex label" id="lee2017vectorized"><span class="brackets"><a class="fn-backref" href="#id15">LGXT17</a></span></dt>
+<dd><p>Mark Lee, Brian Green, Feng Xie, and Eric Tabellion. Vectorized production path tracing. <em>Proceedings of High Performance Graphics</em>, 2017.</p>
+</dd>
+<dt class="bibtex label" id="pantaleoni2010pantaray"><span class="brackets"><a class="fn-backref" href="#id13">PFHA10</a></span></dt>
+<dd><p>Jacopo Pantaleoni, Luca Fascione, Martin Hill, and Timo Aila. Pantaray: fast ray-traced occlusion caching of massive scenes. <em>ACM Transactions on Graphics (TOG)</em>, 29(4):37, 2010.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/blog/2016/12/01/structuring-a-renderer-phi-ray.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

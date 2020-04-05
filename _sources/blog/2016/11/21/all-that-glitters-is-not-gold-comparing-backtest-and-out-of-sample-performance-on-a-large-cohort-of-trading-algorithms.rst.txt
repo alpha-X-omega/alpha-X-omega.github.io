@@ -1,0 +1,114 @@
+#######################################################################################################################
+All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms
+#######################################################################################################################
+
+Motivation(s)
+=============
+
+Backtest results are often used as a proxy for the expected future performance
+of a strategy.  Several metrics have been developed to quantify backtest and
+out-of-sample performance.  The most popular and widely critized metric is the
+Sharpe ratio.  Recent works have demonstrated that it is easy to achieve high
+Sharpe ratios during backtesting and yield zero to negative out-of-sample Sharpe
+ratios.
+
+Proposed Solution(s)
+====================
+
+The authors study the relationship between the in-sample (IS) and out-of-sample
+(OSS) performance.
+
+Evaluation(s)
+=============
+
+The authors evaluated 888 unique US equities trading algorithms.  These do not
+include strategies that trade a single stock, have a Sharpe ratio less than -1,
+backtest over less than 500 days in total, invest in the market less than 80% of
+trading days, and have a feature that deviated more than four standard
+deviations from its population mean.
+
+The market data spanned 2010 and 2015 with the last six to twelve months used as
+true OSS performance.  The goal is to predict OSS Sharpe ratio; they achieved
+this with random forest and gradient boosting and verified with 5-fold cross
+validation.  The Bayesian nonlinear regression had similar results to the
+frequentist approach, so only the latter were reported.  The regression was over
+the following set of hand-crafted features:
+
+- Sharpe ratio, information ratio, Calmar ratio,
+- alpha, beta,
+- maximum drawdown, annual returns, volatility,
+- skew, kurtosis, standard deviation of rolling beta with a 6-month window,
+- positions (e.g. median and maximum position concentration,
+  total number of tickers traded),
+- average percentage of daily turnover, percent of winning trades,
+- total number of backtest days, and
+- standard deviation of a 6-month rolling Sharpe ratio over IS/OSS periods.
+
+To measure the performance of the classifier, the authors constructed an
+equal-weighted portfolio of the top 10 algorithms from the hold-out set based on
+their predicted OSS Sharpe Ratio.  The portfolio is compared against 1000 random
+portfolios of hold-out strategies and a portfolio of the 10 highest IS Sharpe
+Ratios.
+
+The experiments demonstrate that backtesting performance of single metrics have
+very weak correlations with their OSS equivalent with some exceptions.  The
+tail-ratio, the ratio between the 95th and 5th percentile of the returns
+distribution, indicates a stronger significant correlation with OOS Sharpe ratio
+than IS Sharpe ratio did.  The annual volatility and maximum drawdown had
+statistically significant correlations between their IS and OOS period.  The IS
+Sharpe ratio can be increased either by increasing mean returns or decreasing
+volatility.  Strategies that increase their Sharpe ratio by taking on excessive
+volatility have worse OOS Sharpe ratio than those that keep volatility low.
+Strategies with less turnover require more backtesting in order to achieve
+consistent results.  The foregoing reaffirms the finding of another study that
+running more backtests will make the algorithm overfit resulting in higher IS
+Sharpe ratio but lower OOS Sharpe ratio and larger shortfall.
+
+Note that the experiments equally weighted all algorithms, regardless of whether
+it was developed by engineers, academics, or quant professionals.  Futhermore,
+these algorithms were trained on a bull market with relatively little
+volatility, but tested on a flat-to-bear market with medium-to-high volatility.
+Thus, the weak correlation between IS and OOS mean returns could be due to a
+shifting market regime.
+
+Future Direction(s)
+===================
+
+- What features would recurrent neural networks pick up if the end goal is to
+  make money instead of predicting the Sharpe ratio?
+
+Question(s)
+===========
+
+- Since optimizing with backtest results leads to poor performance, does that
+  mean neural networks will tend to overfit?
+- Why have the finance industry been so slow to adopt deep learning?
+- Why not learn a measure to replace the Sharpe ratio?
+
+Analysis
+========
+
+Some indicators do have OSS predictive power, but optimizing over them using IS
+backtests will lead to overfitting.
+
+The paper would be more interesting if the authors compared their strategy to
+:doc:`contrarian </blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction>`
+and :doc:`momentum </blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations>`
+ones.
+
+While it is reasonable to justify their claims using
+:doc:`statistical significance </blog/2016/09/18/the-standard-error-of-regressions>`,
+the entire argument would be stronger if the indicators provided actionable
+insights in terms of profits.  It is quite interesting that the finance industry
+still rely on hand-crafted features.  One immediate task to consider is to come
+up with a replacement for the Sharpe ratio since it's so heavily criticized yet
+widely used.
+
+Overall, the paper could have been summarized more succinctly, possibly even
+compressed into slides.  One notable contribution is the open-source Zipline
+trading simulator.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

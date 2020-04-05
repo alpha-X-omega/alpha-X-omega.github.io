@@ -1,0 +1,130 @@
+######################################################################
+SEDA: An Architecture for Well-Conditioned, Scalable Internet Services
+######################################################################
+
+Motivation(s)
+=============
+
+Internet services often experience more than 100x increase in demand at peak
+hours.  The current trends of dynamic content, complex service logic, and cloud
+computing will only exacerbate the system load.  One system design technique to
+handle the increase in demand is replication.  However, it is not practical to
+replicate most services to handle the maximum potential demand.
+
+One solution is to exploit concurrency and be content with graceful degradation:
+as the offered load exceeds capacity, a well-conditioned service maintains high
+throughput with a linear response-time penalty that impacts all clients equally,
+or at least predictably according to some service-specific policy.  Two
+widespread system designs are thread-based and event-driven.  The thread-based
+architecture dispatches a thread-per-request.  Application logic and programming
+becomes trivial at the expense of high context-switch time and memory footprint.
+Furthermore, transparent resource virtualization precludes any kind of resource
+optimization.  To avoid the overuse of threads, one can bound the size of the
+thread pool associated with a service.  Nonetheless, this only trades throughput
+degradation for unfairness (i.e. arbitrarily large waiting times) and masks
+internal performance bottlenecks.
+
+The event-driven alternative decomposes application requests into finite state
+machines that gets processed by an event scheduler.  The excess tasks are
+absorbed into the server's event queue, so throughput remains constant across
+load fluctuations.  The caveat is as the queue accumulates tasks, the latency of
+each task increases linearly.  One solution is to use a set of event queues to
+improve code modularity, robustness, and performance.
+
+Proposed Solution(s)
+====================
+
+The authors propose a new software architecture called staged event-driven
+architecture (SEDA).  SEDA focuses on achieving robust performance on a wide
+range of services subject to huge variations in load, while preserving ease of
+authorship.  It combines threads and event-driven programming models to manage
+massive concurrency, I/O, scheduling, and resource management.  Applications are
+constructed as a network of stages, each with an associated incoming event
+queue.  Exposing event queues to the application enables dynamic resource
+throttling through introspection of the request stream and self-tuning of
+resources.
+
+The fundamental unit of processing within SEDA is the stage, a self-contained
+application component consisting of an event handler, an incoming event queue,
+and a thread pool.  Each stage is managed by a controller that affects
+scheduling and thread allocation.  Stage threads pull a batch of events off of
+the incoming event queue and invokes the application-supplied event handler.
+The event handler processes each batch of events, and dispatches zero or more
+events by enqueuing them on the event queues of other stages.
+
+An important aspect of event queues in SEDA is that an enqueue operation may
+fail because of the controller's policy.  When enqueue operations do fail,
+applications may make use of backpressure (by blocking on a full queue),
+load shedding (by dropping events), send an error to the user, or provide a
+degraded service.
+
+Evaluation(s)
+=============
+
+The authors crafted an implementation of SEDA called Sandstorm, which uses only
+asynchronous file I/O and asynchronous sockets layer for reading, writing, and
+listening.  Operations with similar workloads are grouped into a single stage
+e.g. PageCache, CacheMiss, file I/O, parse, read, write, send.  To demonstrate
+the benefits of SEDA, they designed on top of Sandstorm an HTTP server and a
+packet router for P2P file sharing.
+
+The use of separate controllers for managing thread pools, batching of events,
+and I/O enabled SEDA to beat Apache (thread-based) and Flash (event-driven) in
+terms of throughput, response time, and fairness.  To measure fairness, the
+authors chose the Jain fairness index
+
+.. math::
+
+   f(x) = \frac{\left( \sum_i x_i \right)^2}{N \sum_i x_i^2}
+
+where :math:`x_i` is the number of requests for each of :math:`N` clients.  A
+fairness index of one indicates that the server is equally fair to all clients,
+and smaller values indicate less fairness.  If :math:`k` out of :math:`N`
+clients receive an equal share of service and the other :math:`N - k` clients
+receive no service, the Jain fairness index is equal to :math:`\frac{k}{N}`.  In
+reality, fairness cannot be achieved because SEDA has to adaptively shed load
+when the server detects that it is overloaded.
+
+Future Direction(s)
+===================
+
+- How effective is online learning compared to application specific heuristics?
+- The authors suggested SEDA as a new direction for OS design, but is that more
+  beneficial than implementing an application within an Actor framework
+  :cite:`charousset2016revisiting`?
+
+Question(s)
+===========
+
+- Why was there no mention of the actor model?
+- The structuring of :doc:`REST </blog/2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures>`
+  looks quite similar to SEDA?
+
+Analysis
+========
+
+SEDA's emphasis on explicit event queues, performance measurements, and dynamic
+resource control enables overload protection in busy Internet services.
+
+There are two flaws the current SEDA design has :cite:`welsh2010retrospective`:
+
+1) The microbenchmark SPECweb99 is not reflective of real applications.
+   Nonetheless, it's served its purpose to convey the benefits of SEDA.
+#) The design of separate thread pools leads to poor cache behavior and greatly
+   increases response time.
+
+A better design would view stages as a structuring primitive and decouple stages
+from queues and thread pools.  Most stages should be connected via direct
+function call.  The architect should group multiple stages within a single
+"thread pool domain" where latency is critical.  Only put a separate thread pool
+and queue in front of a group of stages that have long latency or
+nondeterministic runtime (e.g. disk I/O).
+
+One interesting point is that at the end of the day, SEDA needs to fall back on
+load shedding.  Nevertheless, the experiments in SEDA demonstrate that both
+threads and events are complementary in scaling up services.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

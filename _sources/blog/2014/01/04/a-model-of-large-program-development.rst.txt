@@ -1,0 +1,81 @@
+####################################
+A Model of Large Program Development
+####################################
+
+Motivation(s)
+=============
+
+Software are becoming more complex and the holy grail of software engineering is
+a program that is provable.  Current research looks at the details (e.g.
+algorithm, language, testing, correctness proving).
+
+Proposed Solution(s)
+====================
+
+The authors suggest using the scientific method as a way to reveal the nature of
+complex systems, which is in this case the OS/360 development statistics.
+
+Evaluation(s)
+=============
+
+The proposed models focus on Release Sequence Numbers and logging timestamps.
+
+Future Direction(s)
+===================
+
+- Are the proposed statistics the right features to be looking at?
+
+Question(s)
+===========
+
+- How were these models crafted?
+
+Analysis
+========
+
+The complexity of current systems matches those of nature, which leds one to ask
+whether the scientific method can be used to deduce natural laws.
+
+The idea is very nice and the laws match experience.  However, the models are
+arbitrary and not that convincing.  A neat idea is their use of simulation to
+extrapolate how the system would deteriorate things continue as is.
+
+With open source being the latest trend, I would like to see vast data
+collection and simpler models to be crafted.  I do believe who is checking in,
+timestamps, and bug reports are key features in a program's evolution.
+
+Notes
+=====
+
+- Laws of Program Evolution Dynamics
+
+  + Law of Continuing Change
+
+    - A system that is used undergoes continuing change until it is judged more
+      cost effective to freeze and recreate it.
+
+  - Law of Increasing Entropy
+
+    - The entropy of a system (its unstructuredness) increases with time, unless
+      specific work is executed to maintain or reduce it.
+
+  - Law of Statistically Smooth Growth
+
+    - Growth trend measures of global system attributes may appear to be
+      stochastic locally in time and space, but statistically they are
+      cyclically self-regulating with well-defined long-range trends.
+
+- Primitive Model Fault Penetration (Figure 15)
+
+  - A fraction of faults are removed (extracted).
+  - New faults are injected (generated) due to imperfection.
+  - Composition of faults appear as residuals.
+
+- Management Decision Model
+
+  - The available budget bounds the total activity.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

@@ -1,0 +1,102 @@
+#################
+Model Compression
+#################
+
+Motivation(s)
+=============
+
+An ensemble is a collection of models whose predictions are combined by weighted
+averaging or voting.  Some well known ensemble methods are bagging, boosting,
+random forest, Bayesian averaging, and stacking.  Despite their excellent
+empirical performance, they are computationally intensive and requires a lot of
+storage.
+
+A recent work have tried to approximate a small ensemble of classifiers with a
+mimic neural network.  The mimic net obtained good results using a small set of
+synthetic examples generated as follows: for each attribute, a value is selected
+uniformly at random from the multiset of all values for that attribute present
+in the train set.  However, the synthetic data did not provide a significant
+improvement over simply training the neural nets on the original data because
+when the attribute values are generated independently, all conditional structure
+is lost and the pseudo examples are generated from a distribution that is
+usually much broader than the true distribution of the data.
+
+Another approach that successfully generated pseudo data while preserving the
+conditional structure of the domain is Naive Bayes Estimation (NBE).  NBE
+approximates the joint distribution of attributes using the training set.
+Pseudo examples can then be sampled from the joint distribution, which is
+typically modeled as a mixture of Gaussians.  The foregoing works when the true
+joint distribution can be estimated well.
+
+Proposed Solution(s)
+====================
+
+The authors propose the notion of model compression: use a fast and compact
+model to approximate the function learned by a slower, larger, but better
+performing model.  Unlike the true function that is unknown, the function
+learned by a high performing model is available to label large amounts of pseudo
+data.  A fast, compact and expressive model trained on enough pseudo data will
+not overfit and will approximate well the function learned by the high
+performing model.
+
+When unlabeled data is not available, pseudo data needs to be generated.  To
+this end, the authors devised a procedure called MUNGE to sample directly from a
+non-parametric estimate of the joint distribution.  Note that MUNGE requires a
+measure of closest neighbor to be defined; the authors chose Euclidean distance
+for continuous attributes and Hamming distance for nominal attributes.
+
+Evaluation(s)
+=============
+
+The authors evaluated the effectiveness of model compression on eight binary
+classification problems using data from the UCI Repository.  The majority of the
+experimental results demonstrated that mimic neural nets with MUNGE is capable
+of attaining the accuracy of an ensemble model as more training data is used.
+The same mimic net configuration when combined with NBE results in degrading
+performance as the training size increases.  Nevertheless, both mimic nets used
+less than a MB of storage and executed in less than a millisecond.
+
+While the proposed mimic net achieved the expected performance on most of the
+datasets, it failed when the data contains high-arity nominal attributes.  The
+authors hypothesize that the mimic net's expansion of nominal attributes into
+sparsely coded binary inputs may not be suitable for training neural networks.
+Another possible cause they mentioned is that MUNGE is not effective at
+generating pseudo data for this kind of problem.
+
+Future Direction(s)
+===================
+
+- Can synthetic images of random numbers containing a set of desirable image
+  statistics be used to train mimic nets e.g. encode each image into a
+  bit-vector, modify the bits, and take the decoded image as a training example?
+- With high dimensional continuous attributes, how bad is MUNGE's assumption of
+  a normal distribution?
+
+Question(s)
+===========
+
+- Not clear on how to apply MUNGE to images?
+- MUNGE appears to be mutating the attributes randomly, so could that lead to
+  unlikely configurations?
+
+Analysis
+========
+
+Model compression with unlabeled data (or pseudo data generated from MUNGE) is
+an effective way to transfer the accuracy of an ensemble model to a more compact
+and efficient model.  This concept was applied recently to
+:doc:`train a single hidden layer feed forward network </blog/2016/11/10/do-deep-nets-really-need-to-be-deep>`
+and is currently known as :doc:`distillation </blog/2016/11/11/distilling-the-knowledge-in-a-neural-network>`.
+
+Another important contribution is the conceptually simple MUNGE procedure.  The
+authors only provided empirical verification that MUNGE works in 2D, so some
+more theoretical analysis may resolve the problematic dataset.
+
+One interesting claim is that mimic nets will not overfit the pseudo data.
+Since overfitting is no longer an issue, the authors should not even need
+regularization to train a mimic net.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

@@ -1,0 +1,113 @@
+{
+ "cells": [
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "***\n",
+    "Art\n",
+    "***"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Be Mindful\n",
+    "##########\n",
+    "\n",
+    "- Seeing comes first.\n",
+    "- Knowledge comes second.\n",
+    "- When rules and knowledge conflict with seeing, forget the rules and draw what\n",
+    "  you see.\n",
+    "\n",
+    ":cite:`dodson1990keys` should be attempted together with\n",
+    ":cite:`vilppu1997vilppu,nicolaides1941natural,loomis1939fun,bargue2017charles`.\n",
+    "Each of these authors focus on a different facet of drawing.\n",
+    "\n",
+    ":cite:`dodson2006keys` should be attempted after completing the above."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Daily Exercises\n",
+    "###############\n",
+    "\n",
+    "Eventually these exercises will blend together and become second nature.\n",
+    "\n",
+    "Contouring - Drawing Blind\n",
+    "==========================\n",
+    "\n",
+    "Look at an object and draw without looking at your paper.  This exercise trains\n",
+    "hand-eye coordination and accuracy.  Do not erase any mistakes; instead restate\n",
+    "them i.e. draw the more accurate line alongside those mistakes.\n",
+    "\n",
+    "Gesture - Look, Hold, Draw, Repeat\n",
+    "==================================\n",
+    "\n",
+    "Draw from memory by looking at the model and then drawing what you remember.\n",
+    "Never copy the model; analyze it and focus on the action.\n",
+    "\n",
+    "Cast Drawing and Modeling\n",
+    "=========================\n",
+    "\n",
+    "Find a vertical reference line on the model that intersects important\n",
+    "landmark features.  If possible, find a series of non-vertical lines that\n",
+    "bisects the reference line and some landmark features.  These landmarks help\n",
+    "frame the lines, angles, and distances.\n",
+    "\n",
+    "Bound the object of interest by marking the points at the extremes (e.g. convex\n",
+    "polygon, box).  Approximate all curves with a series of straight lines.\n",
+    "Focus on the large forms first and recursively work towards the smaller\n",
+    "details.\n",
+    "\n",
+    "When modeling values, fill in the darkest shadows first.  Then half-tones, and\n",
+    "finally areas in averaged light.\n",
+    "\n",
+    "Apply the sight-size technique to your drawing.  Look at it side-by-side to the\n",
+    "object (at some plane), upside-down, sideways, and in the mirror."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    ".. rubric:: References\n",
+    "\n",
+    ".. bibliography:: refs.bib"
+   ]
+  }
+ ],
+ "metadata": {
+  "celltoolbar": "Raw Cell Format",
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

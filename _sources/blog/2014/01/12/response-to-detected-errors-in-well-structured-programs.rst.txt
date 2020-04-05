@@ -1,0 +1,138 @@
+#######################################################
+Response to Detected Errors in Well-Structured Programs
+#######################################################
+
+Motivation(s)
+=============
+
+Although structured programming greatly reduces errors, there will always be
+runtime errors (e.g. hardware failures, code updates) to deal with.
+
+Proposed Solution(s)
+====================
+
+The author proposes an approach to handle these run-time errors while preserving
+the program's structure.
+
+Evaluation(s)
+=============
+
+There is a worked example illustrating the proposed exception handling
+technique.  The reasoning behind the design of exception handling is much more
+enlightening than the example itself.  The author also provided an analysis of
+the different ways of using and handling exceptions.
+
+Future Direction(s)
+===================
+
+- How to recognize the minimal set of exceptions for a program?
+
+Question(s)
+===========
+
+- It seems this approach is all for applying the idea of modules to exceptions.
+  Is the only kind of exception user and hardware, and anything else should be a
+  bug?
+
+Analysis
+========
+
+Exception handling should be done efficiently and in a way that respects the
+structure of the program.  What stands out the most from this brilliant concept
+is the fact that this meshes nicely with :doc:`module decomposition </blog/2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules>`
+as well as :doc:`ADT </blog/2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications>`
+and :doc:`level hierarchy </blog/2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems>`.
+
+Notes
+=====
+
+Errors in Hierarchically Structured System
+------------------------------------------
+
+Dijkstra's concept of levels requires errors to be handled at levels other than
+that at which they are detected.  Some examples are
+
+- Bad Tape Block < Sequential Access Method < RDBMS
+
+  - Is it an error or intended effect of the overall application
+    (errors of usage).
+
+- Out of Date Directory 
+
+  - At the program level, a simple retry is all that's needed (errors of
+    mechanism).
+
+Effects of Errors on Code Complexity
+------------------------------------
+
+- Place responsibility for the detection of attempts to violate its
+  specifications in the abstract machine, which calls a trap routine upon
+  detection of such an error.
+- Other errors (e.g. failures of the virtual machine) will also be reported by
+  traps.
+
+Non-Maintainable Abstractions
+-----------------------------
+
+- Do not specify a module or level to be an abstraction which errors will
+  frequently deny.
+- Model the errors as a set of abstract errors rather than ignoring them.
+
+Error Types and Direction of Propagation
+----------------------------------------
+
+- Errors do not propagate downward because that would violate the concept of
+  hierarchy levels.
+- Job abortion occurs only at the highest level or when the call mechanism
+  fails.
+- Upon detecting an error in a hierarchically structured piece of software, the
+  error is first reflected and control passed to the level where the error
+  originated.
+- At each level in the propagation, it is either corrected or reflected still
+  higher as an error.
+- The error handling routines must restore the state of the virtual machine used
+  by the level above to one which is consistent with the specifications
+  i.e. a valid state.
+
+Specifying the Error Indications
+--------------------------------
+
+1. Limitations on the values of parameters.
+#. Storage capacity limitations.
+#. Request for undefined information.
+#. Restrictions on the order of operations.
+#. Detection of actions which are likely to be unintentioned.
+#. The set of error conditions should be sufficient to guarantee a valid state
+   after execution.
+#. Several traps may go off upon a single error.
+
+   - There needs to be a priority assigned to the traps so that handling the
+     highest one does not result in more errors.
+
+#. The size of the trap vector is a tradeoff between sophistication of error
+   diagnosis and space-time design complexity.
+
+   - Often similar error conditions are combined while storing the actual error.
+
+#. The state after the trap should be valid, otherwise, let the user know that
+   continuation is impossible.
+
+Redundancy and Efficiency
+-------------------------
+
+There are two ways to deal with redundant checks:
+
+1) Retain upper level checks and eliminate lower level checks.
+
+   - Assumes that no error will be introduced.
+   - Can detect errors before changes are made.
+
+#) Retain the lower level checks and use the trap routines at the intermediate
+   levels to pass the error back up to the point where it occurred.
+
+   - This is preferable unless error propagation becomes difficult.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

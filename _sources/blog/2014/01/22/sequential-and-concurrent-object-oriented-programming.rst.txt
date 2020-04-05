@@ -1,0 +1,115 @@
+#####################################################
+Sequential and Concurrent Object-Oriented Programming
+#####################################################
+
+Motivation(s)
+=============
+
+OOD have been shown to be superior to traditional approaches in sequential
+programming.  Recent efforts have been focused on extending OO to concurrent
+programming.
+
+Proposed Solution(s)
+====================
+
+The author proposes a "separate" language mechanism to declare whether an object
+needs to be processed locally or not.
+
+Evaluation(s)
+=============
+
+The author only presents a description of an approach, not a real system
+implementation.  This approach has the benefits of allowing design by contract.
+
+Future Direction(s)
+===================
+
+- Does the actor model encompass design by contract?
+
+Question(s)
+===========
+
+- If a feature calls executes till completion, how efficient is the hardware
+  usage?
+
+Analysis
+========
+
+A lazy wait, possibly in the form of a future object, can be used to make the
+system more concurrent.  :cite:`meyer1993systematic` contains the implementation
+details of the proposed "separate" mechanism.
+
+The difference between sequential and concurrent computation is that the latter
+has the additional burden of ensuring preconditions such as processor A contains
+the object but processor B wants to operate on said object.
+
+The use of futures is a very clever idea.  While I agree that the semantics of
+executing locally is different from executing on another processor, I think the
+"separate" mechanism is too easy for developers to misuse.
+
+Notes
+=====
+
+Object-Oriented Design
+----------------------
+
+- OOD consists of actions and objects with an implicit assumption of a single
+  processor.
+- Concurrent computation makes OOD's assumption explicit through assigning each
+  object a processor.
+- A feature call is part of the fundamental OO operation.
+
+  - Features (e.g. routines, attributes) are operations (commands or queries)
+    applicable to the instance of a class.
+
+Sequential versus Concurrent Computation
+----------------------------------------
+
+- The difference in precondition semantics for feature calls is the only
+  semantic difference between sequential and concurrent computation.
+- The "separate" declaration language mechanism has the effect of "grabbing" a
+  new processor and assigning it to handle the object.
+
+  - The preconditions of any feature call will have the semantics of a wait
+    condition accomplished via lazy wait and passing around the object as a
+    reference.
+
+- Library mechanisms (e.g. classes) can be implemented to fine-tune specific
+  details (e.g. parallel vs quasi-parallel coroutines, number of cores to use).
+
+Atomicity and Duels
+-------------------
+
+- The "separate" mechanism requires a processor to execute a feature call to
+  completion.
+
+  - To satisfy the contract criterion, no interrupts or express messages can
+    occur.
+
+- The "separate" mechanism allows a processor to cancel the execution of the
+  feature call via raising an exception.
+- Interrupts and express messages can be simulated with a cancel and "restart".
+
+Command-Query Distinction
+-------------------------
+
+- A query returns some information about an object.
+- A command may modify the state of an object.
+
+Referential Transparency
+------------------------
+
+- Substitutivity of equal for equals.
+- Achieved when functions have no side effects.
+
+Coroutines
+----------
+
+- Sequential programs that communicate on an equal basis.
+- Retains the value of its data and location of its active program counter
+  between successive reactivations.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

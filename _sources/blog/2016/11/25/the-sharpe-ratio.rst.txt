@@ -1,0 +1,154 @@
+################
+The Sharpe Ratio
+################
+
+Motivation(s)
+=============
+
+The reward-to-variability ratio is a measure for the performance of mutual
+funds.  Since its introduction, it has gained considerable popularity under a
+different name: the Sharpe Ratio.  To further exacerbate the confusion around
+the current jargon, several studies have generalized the measure under various
+names such as return information ratio.  The return information ratio
+encompasses the ratio of the mean to the standard deviation of the distribution
+of the return on a single investment.  While this statistic may be useful, it
+could lead to wrong decisions because it does not account for the riskless
+rate of interest.
+
+Proposed Solution(s)
+====================
+
+The author proposes unifying these different terms under the Sharpe Ratio and
+examines a broad range of applications.
+
+This study builds on the Markowitz mean-variance paradigm, which assumes that
+the mean and standard deviation of the distribution of one-period return are
+sufficient statistics for evaluating the prospects of an investment portfolio.
+The focus is on the use of the ratio for making decisions in situations where
+the first two moments can be usefully summarized with the ratio.  Correlations
+between historic Sharpe Ratios and unbiased forecasts of the ratio are left for
+other expositions.
+
+Evaluation(s)
+=============
+
+The differential return represents the result of a zero-investment strategy i.e.
+any strategy that involves a zero outlay of money in the present and returns
+either a positive, negative or zero amount in the future.  To compute the return
+for a zero-investment strategy, the payoff is divided by a notional value.  One
+of the benefits of the Sharpe Ratio is its scale independence to the notional
+value.
+
+The author derives that the expected return on assets is directly related to the
+product of the risk position times the Sharpe Ratio of the strategy.  This
+statistic is sufficient for decisions on the optimal risk/return combination
+when
+
+- an investor plans to allocate money between a riskless asset and a single
+  risky fund, or
+- a single fund is to be selected to complement a pre-existing group of risky
+  investments.
+
+The optimal solution for each scenario involves maximizing the Sharpe Ratio of
+the zero-investment strategy.  However, the latter requires that all the
+funds in the set from have similar correlations with the other holdings.
+
+When an investor has a pre-existing set of investments and is considering taking
+positions in one or more independent and uncorrelated zero-investment
+strategies, the Sharpe Ratios of the strategies is proportional to their risk
+levels.
+
+Future Direction(s)
+===================
+
+- :doc:`Contrarian </blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction>`
+  and :doc:`momentum </blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations>`
+  strategies have yielded a modest amount of annual gains.  Would applying the
+  Sharpe Ratio in a similar automated fashion yield equivalent or better
+  results?
+- To account for correlation, would simply clustering the funds according to
+  their :doc:`style factors </blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds>`
+  be appropriate?
+
+Question(s)
+===========
+
+- The author claims that annualizing data that apply to periods other than one
+  year before computing a Sharpe Ratio can provide at least reasonably
+  meaningful comparisons among strategies, even if predictions are initially
+  stated in terms of different measurement periods.  Another claim is that it
+  is usually desirable to measure risks and returns using fairly short (e.g.
+  monthly) periods.  If the Sharpe Ratio is a measure, would plotting this
+  measure over time instead of aggregating the data be useful?
+
+Analysis
+========
+
+The Sharpe Ratio is designed to measure the expected return per unit of risk for
+a zero investment strategy.  The Sharpe Ratio does not cover cases in which only
+one investment return is involved, and it does not account for correlations.
+
+While the derivations of the measure are intuitive and useful, the paper would
+be more interesting if the author reported monthly and annual Sharpe Ratio
+estimates of existing funds (e.g. mutual, hedge, index).  Furthermore, since the
+author mentioned that the Sharpe Ratio has been extended to handle scenarios
+beyond the original design, it seems worthwhile to consider how these measures
+hold up against each other.
+
+Notes
+=====
+
+Ex Ante Sharpe Ratio
+--------------------
+
+Let :math:`R^F` represent the return on fund :math:`F` in the forthcoming period
+and :math:`R^B` the return on a benchmark portfolio or security.  Define the
+differential return as
+
+.. math::
+
+   \tilde{d} = \tilde{R}^F - \tilde{R}^B
+
+where :math:`\tilde{\cdot}` indicates that the exact values may not be known in
+advance.
+
+Let :math:`\bar{d}` be the expected value of :math:`d` and :math:`\sigma_d` be
+the predicted standard deviation of :math:`d`.  The ex ante Sharpe Ratio
+
+.. math::
+
+   S = \frac{\bar{d}}{\sigma_d}
+
+indicates the expected differential return per unit of risk associated with the
+differential return.
+
+Ex Post Sharpe Ratio
+--------------------
+
+Let :math:`R^F_t` be the return on fund :math:`F` in period :math:`t` and
+:math:`R^B_t` the return on a benchmark portfolio or security in period
+:math:`t`,  The differential return in period :math:`t` is
+
+.. math::
+
+   D_t = R^F_t - R^B_t.
+
+The ex post Sharpe Ratio
+
+.. math::
+
+   S_h =
+   \frac{\bar{D}}{\sigma_D} =
+   \frac{
+     T^{-1} \sum_{t = 1}^T D_t
+   }{
+     \sqrt{(T - 1)^{-1} \sum_{t = 1}^T (D_t - \bar{D})^2}
+   }
+
+indicates the historic average differential return per unit of historic
+variability of the differential return.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

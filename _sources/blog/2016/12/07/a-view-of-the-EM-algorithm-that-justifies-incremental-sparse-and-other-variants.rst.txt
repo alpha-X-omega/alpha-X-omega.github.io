@@ -1,0 +1,266 @@
+#################################################################################
+A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants
+#################################################################################
+
+Motivation(s)
+=============
+
+The EM algorithm estimates the parameters of a model iteratively, starting from
+some initial guess :cite:`prince2012computer`.  Typically each iteration
+consists of
+
+- an Expectation (E) step that computes the posterior distribution for each
+  unobserved (hidden) variable using Bayes' rule, and
+- a Maximization (M) step that maximizes the new lower bound found in the E-step
+  with respect to the parameters.
+
+A variation of the M-step is to improve the likelihood, but not necessarily
+maximizing it.  These partial M-step variants are referred to as generalized
+EM (GEM) algorithms, and they have been shown to converge to a local maximum.
+
+A variation of the E-step is to re-estimate the parameters before performing the
+E-step for the next unobserved variable.  However, these variants have not
+received any formal justification.
+
+Proposed Solution(s)
+====================
+
+The authors propose viewing the EM algorithm through the lens of minimizing the
+variational free energy.  This interpretation enables a sparse variant of EM,
+which is useful when the unobserved variable can take on many possible values,
+but only a small set of plausible values have non-negligible probability.  The
+variant essentially freezes the probabilities of the implausible values for many
+iterations and recomputing only the relative probabilities of the plausible
+values.
+
+Evaluation(s)
+=============
+
+The authors proved that the classical interpretation of EM is equivalent to the
+proposed formulation.
+
+To demonstrate that the incremental algorithm can speed up convergence, the
+authors applied it to a mixture of gaussians problem.  Both standard EM and
+incremental EM started from the same distribution for the hidden variables.
+Incremental EM converged in half as many passes, but uses twice as much
+computation due to the M-step.  However, the experiments indicate that the rate
+of convergence of running 10 E-steps for every M-step is virtually
+indistinguishable from the pure incremental algorithm while expending 10% more
+computation than standard EM.
+
+Future Direction(s)
+===================
+
+- Is the randomization of updates in incremental EM optimal?
+
+Question(s)
+===========
+
+- Do the sufficient statistics pop out from the derivations given the selected
+  models (e.g. exponential family)?
+
+Analysis
+========
+
+Incremental EM converges faster than standard EM while still achieving a local
+optimum.
+
+It is amazing how looking at a problem using the variational principle gives
+rise to elegant proofs and algorithms.  The paper would be even better had the
+exposition used modern notations.  Furthermore, the authors should have tried
+to estimate more complicated likelihood functions to verify whether faster
+convergence still holds.
+
+Notes
+=====
+
+Variational Calculus
+--------------------
+
+Variational Calculus is the branch of mathematics concerned with the variational
+problem: find the function(s) for which the value of a certain integral is
+either the largest or the smallest possible :cite:`felippa2017vco`.  That
+integral is technically known as a functional i.e. a function of a function.
+
+A function that is permissible as input to a functional is called admissible.
+Admissible functions are usually chosen to have
+
+- minimal smoothness for which the integration over the problem domain makes
+  sense,
+- a priori satisfied essential boundary conditions, and
+- single valuedness (optional).
+
+Several intuitive derivations of the functional derivative can be found in
+:cite:`broida2009cov`.  The following result makes use of the Dirac Delta
+function:
+
+.. math::
+
+   \frac{\delta f(x)}{\delta f(x')} = \delta(x - x').
+
+Note that the derivative and functional derivative are commutative operators
+i.e.
+
+.. math::
+
+   \frac{\delta}{\delta f(x')} \frac{\partial f(x)}{\partial x} =
+   \frac{\partial}{\partial x} \frac{\delta f(x)}{\delta f(x')}.
+
+Hidden Variables and the EM Algorithm
+-------------------------------------
+
+The EM algorithm is a general-purpose tool for finding the maximum likelihood
+or MAP estimates of model parameters :math:`\boldsymbol{\theta}` through the
+use of hidden variables.  Hidden variables :math:`\mathbf{h}` are not observed,
+but they provide enough information about the observations so that the
+conditional probability
+
+.. math::
+
+   p(\mathbf{x} \mid \boldsymbol{\theta}) =
+   \int p(\mathbf{x}, \mathbf{h} \mid \boldsymbol{\theta}) d\mathbf{h} =
+   \int p(\mathbf{x} \mid \mathbf{h}, \boldsymbol{\theta})
+        p(\mathbf{h}) d\mathbf{h}
+
+is easy to compute.  They are part of the probabilistic mechanism that is
+assumed to have generated the observations :math:`\mathbf{x}`.  This is one
+downside of the EM algorithm: it requires explicit knowledge and computation of
+the hidden variables' posterior distribution
+:math:`p(\mathbf{h} \mid \mathbf{x}, \boldsymbol{\theta})`, which could be
+intractable.  A detailed derivation of the EM algorithm is given in
+:doc:`Chapter 7 </nb/computer-vision-models-learning-and-inference-prince/chapter-07>`
+of :cite:`prince2012computer`.
+
+Importance Sampling to Variational Inference
+--------------------------------------------
+
+Recall that the EM algorithm does not treat :math:`\boldsymbol{\theta}` as
+random variables :cite:`bishop2006pattern`.  Suppose the model parameters
+:math:`\boldsymbol{\theta}` are now hidden random variables and are absorbed
+into :math:`\mathbf{h}`; let :math:`\mathbf{z}` denote these latent variables.
+The inferential tasks of interest are
+
+i) Inference (explaining the data) via computing the posterior distribution
+
+   .. math::
+
+      p(\mathbf{x}) =
+      \int p(\mathbf{x}, \mathbf{z}) d\mathbf{z} =
+      \int p(\mathbf{x} \mid \mathbf{z}) p(\mathbf{z}) d\mathbf{z}.
+
+#) Prediction via computing the predictive distribution
+
+   .. math::
+
+      p(\mathbf{x}^* \mid \mathbf{x})
+       &= \int p(\mathbf{x}^* \mid \mathbf{z}, \mathbf{x})
+               p(\mathbf{z} \mid \mathbf{x}) d\mathbf{z}\\
+       &= \left\langle
+            p(\mathbf{x}^* \mid \mathbf{z}, \mathbf{x})
+          \right\rangle_{p(\mathbf{z} \mid \mathbf{x})}
+          & \quad & p(\mathbf{z} \mid \mathbf{x}) =
+                    \frac{
+                      p(\mathbf{x} \mid \mathbf{z})
+                      p(\mathbf{z})
+                    }{
+                      p(\mathbf{x})
+                    }.
+
+#) Model selection via computing the posterior distribution
+
+   .. math::
+
+      p(\mathcal{M} \mid \mathbf{x}) =
+      \frac{p(\mathbf{x} \mid \mathcal{M}) p(\mathcal{M})}{p(\mathbf{x})}
+      \quad \text{where} \quad
+      p(\mathbf{x} \mid \mathcal{M}) =
+      \int p(\mathbf{x} \mid \mathbf{z}, \mathcal{M})
+           p(\mathbf{z} \mid \mathcal{M}) d\mathbf{z}.
+
+Recall that the relationship between the :doc:`Helmholtz free energy </blog/2016/11/19/a-tutorial-on-helmholtz-machines>`
+and log marginal probability is
+
+.. math::
+
+   \log p(\mathbf{x})
+    &= (1) \log p(\mathbf{x})\\
+    &= \left( \int q(\mathbf{z}) d\mathbf{z} \right) \log p(\mathbf{x})\\
+    &= \int q(\mathbf{z}) \log p(\mathbf{x}) d\mathbf{z}\\
+    &= \int q(\mathbf{z}) \log p(\mathbf{x}, \mathbf{z}) d\mathbf{z} -
+       \int q(\mathbf{z}) \log p(\mathbf{z} \mid \mathbf{x}) d\mathbf{z}
+       & \quad & p(\mathbf{z} \mid \mathbf{x}) =
+                 \frac{p(\mathbf{x}, \mathbf{z})}{p(\mathbf{x})}\\
+    &= \int q(\mathbf{z}) \log p(\mathbf{x}, \mathbf{z}) d\mathbf{z} -
+       \int q(\mathbf{z}) \log p(\mathbf{z} \mid \mathbf{x}) d\mathbf{z} +
+       \int q(\mathbf{z}) \log q(\mathbf{z}) d\mathbf{z} -
+       \int q(\mathbf{z}) \log q(\mathbf{z}) d\mathbf{z}\\
+    &= \int q(\mathbf{z})
+            \log \frac{p(\mathbf{x}, \mathbf{z})}{q(\mathbf{z})} d\mathbf{z} -
+       \int q(\mathbf{z})
+            \log \frac{p(\mathbf{z} \mid \mathbf{x})}{q(\mathbf{z})}
+            d\mathbf{z}\\
+    &= \mathcal{F}(q) + q \parallel p.
+
+Since Kullback–Leibler divergence is non-negative,
+
+.. math::
+
+   q(\mathbf{z}) \parallel p(\mathbf{z} \mid \mathbf{x}) &\geq 0\\
+   \log p(\mathbf{x}) - \mathcal{F}(q) &\geq 0\\
+   \log p(\mathbf{x}) &\geq \mathcal{F}(q).
+
+Thus maximizing the variational lower bound is equivalent to minimizing the
+Kullback–Leibler divergence.  Another way to derive the variational lower bound
+is through importance sampling:
+
+.. math::
+
+   \log p(\mathbf{x})
+    &= \log \int p(\mathbf{x} \mid \mathbf{z}) p(\mathbf{z}) d\mathbf{z}\\
+    &= \log \int
+         p(\mathbf{x} \mid \mathbf{z})
+         \frac{p(\mathbf{z})}{q(\mathbf{z})} q(\mathbf{z}) d\mathbf{z}\\
+    &\geq \int q(\mathbf{z})
+               \log\left(
+                 p(\mathbf{x} \mid \mathbf{z})
+                 \frac{p(\mathbf{z})}{q(\mathbf{z})}
+               \right) d\mathbf{z}
+          & \quad & \text{Jensen's inequality}\\
+    &= \left\langle
+         \log p(\mathbf{x} \mid \mathbf{z})
+       \right\rangle_{q(\mathbf{z})} +
+       q(\mathbf{z}) \parallel p(\mathbf{z})\\
+    &= \mathcal{F}(q).
+
+Note that the maximum lower bound occurs when :math:`q(\mathbf{z})` equals the
+posterior distribution :math:`p(\mathbf{z} \mid \mathbf{x})`.  However, as
+mentioned earlier, the true posterior distribution could be intractable.  The
+simplest solution is perform Monte Carlo integration:
+
+.. math::
+
+   p(\mathbf{x}) =
+   \frac{1}{S} \sum_s
+       w^{(s)} \mathop{p}\left( \mathbf{x} \mid \mathbf{z}^{(s)} \right)
+   \quad \text{where} \quad
+   w^{(s)} = \frac{p(\mathbf{z})}{q(\mathbf{z})}
+   \text{ and }
+   z^{(s)} \sim q(\mathbf{z}).
+
+In order to make progress, one must settle for a good approximation using
+tractable distributions.  A typical approach is to use a parametric distribution
+:math:`q(\mathbf{z} \mid \boldsymbol{\omega})` governed by a set of parameters
+:math:`\boldsymbol{\omega}`.  An alternative way is to partition the elements in
+:math:`\mathbf{z}` into disjoint groups such that
+
+.. math::
+
+   q(\mathbf{z}) = \prod_{i = 1}^M q_i(\mathbf{z}_i).
+
+Note that the components :math:`q_i(\mathbf{z}_i)` should not be expected to
+resemble the true marginals.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

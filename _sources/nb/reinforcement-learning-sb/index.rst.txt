@@ -1,0 +1,10 @@
+########################################################
+Reinforcement Learning: An Introduction - Sutton & Barto
+########################################################
+
+.. include:: /_templates/toctree-nb-reinforcement-learning-sb
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

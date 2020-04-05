@@ -1,0 +1,111 @@
+################################################################
+Design Patterns: Abstraction and Reuse of Object-Oriented Design
+################################################################
+
+Motivation(s)
+=============
+
+A design method comprises a set of syntactic notations and a set of rules that
+govern how and when to use each notation.  Studies of expert programmers
+revealed that there exist idiomatic class and object structures that help make
+designs more flexible, reusable, and elegant.
+
+Proposed Solution(s)
+====================
+
+The authors propose design patterns, a mechanism for expressing design
+structures.
+
+Evaluation(s)
+=============
+
+The authors applied design patterns to design and construct several systems
+(e.g. ET++SwapsManager, QOCA).
+
+Future Direction(s)
+===================
+
+- How would one recommend design patterns based on simulated dataflow or
+  descriptive use-case specific words?
+
+Question(s)
+===========
+
+- The Design Pattern Template (see Figure 1 and the appendix) is terrific, but
+  during development, what are the top design patterns people remember?
+  Is there an implicit bias towards some patterns?
+
+Analysis
+========
+
+Design patterns is another complementary systematic mechanism that can be used
+to constrain the vast software design space.  The catalog of commonly used
+design patterns is very useful.  The most interesting point is that the proposed
+design patterns do not form a complete system of patterns.  Hence they do not
+strictly define a pattern language.  Design patterns achieve flexibility and
+variability by introducing additional levels of indirection.
+
+Notes
+=====
+
+Design Pattern
+--------------
+
+- An abstract description of a class or object collaboration and its structure.
+- The issue in system design addressed by the abstract structure.
+- The consequences of applying the abstract structure to a system's
+  architecture.
+
+Design Pattern Space
+--------------------
+
+See Table 1 or :cite:`gamma1995design` for more details.
+
+- Jurisdiction is the domain over which a pattern applies.
+
+  A. Class: static semantics.
+  #. Object: relationships between peer objects.
+  #. Compound: recursive object structures.
+
+- Characterization reflects what a pattern does.
+
+  A. Creational: process of object creation.
+  #. Structural: composition of classes or objects.
+  #. Behavioral: characterizes the ways in which classes or objects interact and
+     distribute responsibility.
+
+- Class Jurisdiction
+
+  A. Class Creational: defer some part of object creation to subclasses.
+  #. Class Structural: use inheritance to compose protocols or code.
+  #. Class Behavioral: capture how classes cooperate with their subclasses to
+     fulfill their semantics.
+
+- Object Jurisdiction
+
+  A. Object Creational: abstracts how sets of objects are created.
+  #. Object Structural: describe ways to assemble objects to realize new
+     functionality.
+  #. Object Behavioral: describe how a group of peer objects cooperate to
+     perform a task that no single object can carry out by itself.
+
+- Compound Jurisdiction
+
+  A. Compound Creational: creation of recursive object structures.
+  #. Compound Structural: capture techniques for structuring recursive object
+     structures.
+  #. Compound Behavioral: deal with behavior in recursive structures.
+
+Benefits of Design Patterns
+---------------------------
+
+- Common vocabulary improved communication and transfer of knowledge.
+- Used as part of class names as a hint about the class' purpose.
+- Micro-architecture aspect made reusability trivial.
+- Pattern recognition reduced library learning curve.
+- Provides a target for class refactorings.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

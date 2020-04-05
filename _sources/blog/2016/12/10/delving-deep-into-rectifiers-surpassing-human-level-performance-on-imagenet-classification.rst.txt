@@ -1,0 +1,505 @@
+###########################################################################################
+Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification
+###########################################################################################
+
+Motivation(s)
+=============
+
+Improvements in visual recognition performance are mainly due to advances in
+building more powerful models and designing effective strategies against
+overfitting.  Among these advances, the Rectifier Linear Unit (ReLU) have been
+shown to expedit convergence of the training procedure towards better solutions.
+Despite its widespread use, theoretical guidelines for training them have rarely
+focused on the properties of the rectifiers.  Unlike traditional sigmoid-like
+units, ReLu is an asymmetric function.  Hence the distributions of responses can
+be asymmetric even if the inputs/weights are subject to symmetric distributions.
+
+Proposed Solution(s)
+====================
+
+The authors propose an activation function that adaptively learns the parameters
+of the rectifiers.  They call it Parametric Rectifier Linear Unit (PReLu):
+
+.. math::
+
+   f(y_i) =
+   \max(0, y_i) + a_i \min(0, y_i) =
+   \begin{cases}
+     y_i & \text{if } y_i > 0\\
+     a_i y_i & \text{otherwise}
+   \end{cases}.
+
+Here :math:`y_i` is the input of the nonlinear activation :math:`f` on the
+:math:`i\text{th}` channel, and :math:`a_i` is a learnable parameter controlling
+the slope of the negative part.
+
+PReLU introduces :math:`C` extra parameters at each layer where :math:`C` is the
+total number of channels.  If the coefficient is shared across channels, each
+layer only needs a single extra parameter.
+
+The gradient of :math:`a_i` for one layer is
+
+.. math::
+
+   \frac{\partial \mathcal{E}}{\partial a_i} =
+   \sum_{y_i} \frac{\partial \mathcal{E}}{\partial f(y_i)}
+              \frac{\partial f(y_i)}{\partial a_i}
+
+where :math:`\mathcal{E}` represents the objective function,
+:math:`\frac{\partial \mathcal{E}}{\partial f(y_i)}` is the gradient propagated
+from the deeper layer, and the gradient of the activation function is given by
+
+.. math::
+
+   \frac{\partial f(y_i)}{\partial a_i} =
+   \begin{cases}
+     0 & \text{if } y_i > 0\\
+     y_i & \text{otherwise}
+   \end{cases}.
+
+For the channel-shared variant, the gradient of :math:`a` is
+
+.. math::
+
+   \frac{\partial \mathcal{E}}{\partial a} =
+   \sum_i \sum_{y_i} \frac{\partial \mathcal{E}}{\partial f(y_i)}
+                     \frac{\partial f(y_i)}{\partial a}.
+
+In order to train very deep networks, the authors proposed an initialization
+method that does not assume the activations are linear.  The previous
+initialization method :cite:`glorot2010understanding` completely stalls the
+learning in extremely deep models because its heuristics did not handle the
+activation function's nonlinearity.
+
+Evaluation(s)
+=============
+
+The authors analyzed the effects of applying ReLu/PReLU by computing the FIM.
+However, their analysis only holds for a two-layer MLP whose elements have
+independent zero-mean Gaussian distributions.  The claim for faster convergence
+in general was verified empirically.  To verify that the slope :math:`a` in
+PReLU can offset the positive mean of ReLU, they looked at the mean response of
+each layer.
+
+Initial experiments reveal that the learned coefficients rarely have a magnitude
+larger than :math:`1`, so the authors chose to initialize :math:`a_i = 0.25`.
+The momentum method is used to update :math:`a_i` without weight decay
+(:math:`l_2` regularization) because weight decay tends to push :math:`a_i`
+towards zero resulting in a bias towards ReLU.  The results demonstrate that
+PReLu consistently outperforms ReLU by 1%.  However, the channel-shared variant
+had similar accuracy compared to the channel-wise version.
+
+The authors present a variation of VGG that surpassed human level recognition on
+the 1000-class ImageNet 2012 dataset.  Instead of initializing a deeper model
+using a shallower one, they directly trained a deep model end-to-end using the
+principled initialization method to handle the diminishing gradient of deeper
+models.  Their deep and wide model did not need to use batch normalization.
+
+One outstanding issue is their model still makes mistakes in cases that are not
+difficult for humans, especially for those requiring contextual understanding or
+high-level knowledge.
+
+Future Direction(s)
+===================
+
+- Since the deeper conv layers of the channel-wise version have overall smaller
+  coefficients, is there a network configuration with ReLU that can match
+  PReLU's performance?
+- What are some indicators of when to increase depth over width?
+- Given the quantity of how much batch normalization slows down training and
+  inference, how much of that can be spent on making a network deeper and
+  wider?
+- For the ReLUs that have died off, would relearning them at some random weight
+  lead to a better model while keeping the converged weights fixed?
+- How do the mean and variance of each layer compare between greedy layer-wise
+  training and end-to-end training?
+- Would relearning the layers with poorly initialized weights yield
+  improvements?
+
+Question(s)
+===========
+
+- Why didn't they reproduce the original VGG and use that as a baseline?
+
+Analysis
+========
+
+The blueprint of the initialization method that enables end-to-end training of
+deep models is more valuable than PReLU because there is no proof that PReLU
+is the most optimal activation function, which means custom initialization
+methods are needed per activation function.
+
+The paper would be more interesting if the authors explored whether their
+initialization method would matter in greedy layer-wise training.  They claimed
+their end-to-end training may help improve accuracy, but did not back it up with
+solid evidence.
+
+The analysis of how PReLU may affect training is largely based on
+:cite:`raiko2012deep`.  :cite:`raiko2012deep` used linear transformations to
+push non-diagonal terms of the FIM closer to zero so that a natural gradient is
+obtained.  The intuition behind this is to make the nonlinear mapping as
+separate as possible from the linear mapping, which is modelled using shortcut
+connection weights.  A later work :cite:`vatanen2013pushing` proposed adding a
+unit variance transformation in order to push the FIM closer to a unit matrix
+(apart from its scale).  Unfortunately, the additional constraint of unit
+variance did not do much for the added complexity.
+
+PReLU supercedes Leaky ReLU (LReLU) because it is more general and supported by
+theoretical analysis instead of just empirical results
+:cite:`maas2013rectifier`.  The goal of both rectifiers are the same: avoid zero
+gradients.  However, the experiments indicate LReLU has negligible impact on
+accuracy compared with ReLU.  Regardless, the benefits of PReLU over ReLU should
+not be overemphasized when the improvements were barely noticeable at the cost
+of one additional parameter.
+
+Two interesting properties ReLUs exhibit are translation equivariance and
+intensity equivariance, provided the units have zero biases and are noise-free.
+Attaining equivariance enables the hidden representation to vary in the same way
+as the image.  For an empirical analysis and motivation of the original Noisy
+Rectified Linear Unit, see :cite:`nair2010rectified`.
+
+As an aside, :cite:`glorot2011deep` empirically verifies the sparsity induced by
+ReLUs and presents the results grandiloquently.  It can be summarized succinctly
+as neuroscience studies on brain energy expense suggest that neurons encode
+information in a sparse and distributed way, estimating the percentage of
+neurons active at the same time to be between 1% and 4%.
+
+Since the Xavier initialization method has been displaced, the only useful
+information from the original paper :cite:`glorot2010understanding` are the
+experimental results on activations and gradients across layers and training
+iterations, all of which are summarized in the figures.  Lastly, compared to
+:cite:`he2015delving`, its analysis of variance propagation is just not as
+concise and lucid.
+
+Notes
+=====
+
+Natural Gradient
+----------------
+
+The stochastic gradient method is most useful for parameter estimation when the
+cost functions
+
+(i) have a single optimum, and
+(#) the gradients are isotropic in magnitude with respect to any direction
+    away from this optimum.
+
+However, in many cases where the parameter space has a Riemannian metric
+structure, the ordinary gradient does not give the steepest direction of a
+target function.  In such a case (e.g. multilayer perceptron), the steepest
+direction is given by the natural (contravariant) gradient
+:cite:`amari1998whyng`.  :cite:`amari1998ngl` shows that the natural gradient
+update may be preferable to Newton's method, which is invariant only to affine
+coordinate transformations, when inverting the Fisher Information Matrix (FIM)
+is acceptable.
+
+Fisher Information Matrix
+-------------------------
+
+The FIM is defined as
+
+.. math::
+
+   \newcommand{\E}[1]{\operatorname{E}\left[#1\right]}
+   \newcommand{\Cov}[1]{\operatorname{Cov}\left(#1\right)}
+   \mathcal{I}(\theta) =
+   \E{\nabla l(\theta) \otimes \nabla^\top l(\theta)} =
+   \Cov{\nabla l(\theta)} =
+   -\E{\nabla \nabla^\top l(\theta)}
+
+where :math:`l(\theta) = \log p(X; \theta)` is the log-likelihood function
+:cite:`zhengficrb,wittmannfimb`.  FIM also naturally arises when taking a
+second-order Taylor approximation of the Kullback-Leibler divergence
+:cite:`abbeel2009cs287arng`:
+
+.. math::
+
+   p(X; \theta) \parallel p(X; \theta + \delta \theta)
+    &= \sum_x p(x; \theta) \log p(x; \theta) -
+              p(x; \theta) \log p(x; \theta + \delta \theta)\\
+    &\approx
+       \sum_x p(x; \theta) \log p(x; \theta) -
+              p(x; \theta) \left(
+                \log p(x; \theta) +
+                \nabla \log p(x; \theta) \cdot \delta \theta +
+                \frac{1}{2} (\delta \theta)^\top
+                            \nabla \nabla^\top \log p(x; \theta)
+                            (\delta \theta)
+              \right)
+       & \quad & \text{Taylor expansion of }
+                 \log p(x; \theta + \delta \theta) \text{ at } \theta\\
+    &= -\sum_x p(x; \theta) \left(
+                 \frac{\nabla p(x; \theta) \cdot \delta \theta}{p(x; \theta)}
+               \right) +
+               p(x; \theta) \frac{1}{2} (\delta \theta)^\top \nabla
+                 \frac{\nabla^\top p(x; \theta)}{p(x; \theta)} (\delta \theta)\\
+    &= -\left( \nabla \sum_x p(x; \theta) \right)^\top \delta \theta -
+       \frac{1}{2} (\delta \theta)^\top
+         \left(
+           \sum_x p(x; \theta)
+                  \frac{
+                    p(x; \theta) \nabla \nabla^\top p(x; \theta) -
+                    \nabla p(x; \theta) \nabla^\top p(x; \theta)
+                  }{
+                    p(x; \theta) p(x; \theta)
+                  }
+         \right) (\delta \theta)
+       & \quad & \text{Quotient rule in vector notation}\\
+    &= -\left( \nabla 1 \right)^\top \delta \theta -
+       \frac{1}{2} (\delta \theta)^\top
+         \left(
+           \nabla \nabla^\top \sum_x p(x; \theta)
+         \right) (\delta \theta) +
+       \frac{1}{2} (\delta \theta)^\top
+         \left(
+           \sum_x p(x; \theta)
+                  \frac{\nabla p(x; \theta)}{p(x; \theta)}
+                  \frac{\nabla^\top p(x; \theta)}{p(x; \theta)}
+         \right) (\delta \theta)\\
+    &= -\frac{1}{2} (\delta \theta)^\top
+         \left(
+           \nabla \nabla^\top 1
+         \right) (\delta \theta) +
+       \frac{1}{2} (\delta \theta)^\top
+         \left(
+           \sum_x p(x; \theta)
+                  \nabla \log p(x; \theta) \otimes \nabla^\top \log p(x; \theta)
+         \right) (\delta \theta)\\
+    &= \frac{1}{2} (\delta \theta)^\top
+         \left(
+           \sum_x p(x; \theta)
+                  \nabla l(\theta) \otimes \nabla^\top l(\theta)
+         \right) (\delta \theta)\\
+    &= \frac{1}{2} (\delta \theta)^\top \mathcal{I}(\theta) \delta \theta.
+
+Forward Propagation of Variance
+-------------------------------
+
+For the purposes of examining the variance of the responses in each layer,
+suppose the response for a layer :math:`l` is given by
+
+.. math::
+
+   \mathbf{y}_l = \mathbf{W}_l \mathbf{x}_l + \mathbf{b}_l.
+
+For a convolutional layer, :math:`\mathbf{x} \in \mathbb{R}^{k^2 c \times 1}`
+represents co-located :math:`k \times k` pixels in :math:`c` input channels.
+:math:`k` is the spatial filter size of the layer.  Given :math:`n = k^2 c` is
+the number of connections of a response, :math:`\mathbf{W}` is a
+:math:`d \times n` where :math:`d` is the number of filters and each row of
+:math:`\mathbf{W}` represents the weights of a filter.  :math:`\mathbf{b}` is a
+vector of biases, and :math:`\mathbf{y}` is the response at a pixel of the
+output map.  In general, :math:`c_l = d_{l - 1}` and
+:math:`\mathbf{x}_l = f(\mathbf{y}_{l - 1})` where :math:`f` is the activation
+function.
+
+The following variance properties are implicitly used in the authors'
+derivations.  Let :math:`X, Y` denote random variables that are independent and
+identically distributed (i.i.d.) and :math:`a` be any scalar value.
+
+.. math::
+
+   \newcommand{\Var}[1]{\operatorname{Var}\left[#1\right]}
+   \Var{X} &= \Cov{X, X}
+            = \E{\left( X - \E{X} \right)^2}
+            = \E{X^2} - \E{X}^2\\
+   \Var{X + a} &= \Var{X}\\
+   \Var{aX} &= \Var{X}\\
+   \Var{\sum_i a_i X_i}
+    &= \sum_{i, j} a_i a_j \Cov{X_i, X_j}
+     = \sum_i a_i^2 \Var{X_i} + \sum_{i \neq j} a_i a_j \Cov{X_i, X_j}\\
+   \Var{XY} &= \E{X}^2 \Var{Y} + \E{Y}^2 \Var{X} + \Var{X} \Var{Y}
+             = \E{X^2} \E{Y^2} - \E{X}^2 \E{Y}^2
+
+Let the elements in :math:`\mathbf{W}_l` and :math:`\mathbf{x}_l` be i.i.d., and
+:math:`\mathbf{W}_l` and :math:`\mathbf{x}_l` are independent of each other.
+Let :math:`y_l, w_l, x_l` represent the random variables of each element in
+:math:`\mathbf{y}_l`, :math:`\mathbf{W}_l`, and :math:`\mathbf{x}_l`
+respectively.  Together these assumptions give (8)
+
+.. math::
+
+   \Var{y_l} = n_l \Var{w_l x_l},
+
+which reduces to (9)
+
+.. math::
+
+   \Var{y_l} = n_l \Var{w_l} \E{x_l^2}
+
+when :math:`w_l` have zero mean.  Recall that
+
+.. math::
+
+   \newcommand{\Pr}[1]{\operatorname{Pr}\left(#1\right)}
+   \Var{x_l}
+    &= \E{x_l^2} - \E{x_l}^2\\
+    &= \E{f(y_{l - 1})^2} - \E{f(y_{l - 1})}^2
+       & \quad & \text{ReLU activation function}\\
+    &= \Var{\max(0, y_{l - 1})}\\
+    &\leq \Var{y_{l - 1}}
+          & \quad & \text{see proof in the last section.}
+
+This upper bound is not tight, so the corresponding recurrence relation would
+reduce or magnify the magnitudes of input signals exponentially.  To make this
+bound more reasonable, the authors assume :math:`y_{l - 1}` has zero mean and a
+symmetric distribution around zero.  Consequently,
+
+.. math::
+
+   \Var{y_L} &= n_L \Var{w_L} \E{x_L^2}\\
+    &= \frac{1}{2} n_L \Var{w_L} \Var{y_{L - 1}}
+       & \quad & \E{x_L^2} = \frac{1}{2} \Var{y_{L - 1}}\\
+    &= \Var{y_1} \prod_{i = 2}^L \frac{1}{2} n_l \Var{w_l}.
+
+The authors chose to enforce the statistical properties of :math:`y_{l - 1}` by
+initializing each layer to satisfy
+
+.. math::
+
+   \frac{1}{2} n_l \Var{w_l} = 1
+   \quad \text{and} \quad
+   \boldsymbol{b}_l = 0.
+
+Carrying out the same analysis for PReLU yields
+
+.. math::
+
+   \frac{1}{2} \left( 1 + a^2 \right) n_l \Var{w_l} = 1.
+
+Backward Propagation of Variance
+--------------------------------
+
+An alternative initialization can be derived by examining the backpropagation
+signals.  Recall that
+
+.. math::
+
+   \frac{\partial \varepsilon}{\partial y_{l, i}} =
+   \frac{\partial f(y_{l, i})}{\partial y_{l, i}}
+     \frac{\partial \varepsilon}{\partial f(y_{l, i})} =
+   f'(y_{l, i}) \frac{\partial \varepsilon}{\partial x_{l + 1, i}}
+   \implies
+   \frac{\partial \varepsilon}{\partial \mathbf{y}_l} =
+   f'(\mathbf{y}_l) \circ
+     \frac{\partial \varepsilon}{\partial \mathbf{x}_{l + 1}}
+     
+
+and
+
+.. math::
+
+   \frac{\partial \varepsilon}{\partial x_{l + 1, j}} =
+   \sum_{i = 1}^{\hat{n}_{l + 1}}
+     \frac{\partial y_{l + 1, i}}{\partial x_{l + 1, j}}
+     \frac{\partial \varepsilon}{\partial y_{l + 1, i}} =
+   \sum_{i = 1}
+     W_{l + 1, (i, j)} \frac{\partial \varepsilon}{\partial y_{l + 1, i}}
+   \implies
+   \frac{\partial \varepsilon}{\partial \mathbf{x}_{l + 1}} =
+   \hat{\mathbf{W}}_{l + 1}
+     \frac{\partial \varepsilon}{\partial \mathbf{y}_{l + 1}}.
+
+Denote the gradients as
+:math:`\Delta \mathbf{x} = \frac{\partial \varepsilon}{\partial \mathbf{x}}` and
+:math:`\Delta \mathbf{y} = \frac{\partial \varepsilon}{\partial \mathbf{y}}`.
+Here :math:`\hat{n} = k^2 d`, and :math:`\Delta \mathbf{y}` represents
+:math:`k \times k` pixels in :math:`d` channels.  :math:`\hat{\mathbf{W}}` is a
+:math:`c \times \hat{n}` matrix.  :math:`\Delta \mathbf{x}` is a
+:math:`c \times 1` vector representing the gradient at a pixel of this layer.
+
+The authors assume :math:`w_l` and :math:`\Delta y_l` are independent of each
+other, :math:`w_l` is initialized by a symmetric distribution around zero, and
+:math:`f'(y_l)` and :math:`\Delta x_{l + 1}` are independent of each other.
+As a result,
+
+.. math::
+
+   \begin{aligned}
+     \E{\Delta x_l}
+      &= \hat{n}_l \E{w_l \Delta y_l}\\
+      &= \hat{n}_l \E{w_l} \E{\Delta y_l}\\
+      &= 0
+   \end{aligned}
+   \qquad \text{and} \qquad
+   \begin{aligned}
+     \E{\Delta y_l}
+      &= \E{f'(y_l) \Delta x_{l + 1}}\\
+      &= \E{f'(y_l)} \E{\Delta x_{l + 1}}\\
+      &= \frac{1}{2} \E{\Delta x_{l + 1}}.
+   \end{aligned}
+
+Together these observations yield (13)
+
+.. math::
+
+   \Var{\Delta x_l}
+    &= \hat{n}_l \Var{w_l \Delta y_l}\\
+    &= \hat{n}_l \Var{w_l} \Var{\Delta y_l}\\
+    &= \frac{1}{2} \hat{n}_l \Var{w_l} \Var{\Delta x_{l + 1}}
+
+where the last equivalence relation is realized through
+
+.. math::
+
+   \Var{\Delta y_l}
+    &= \E{\left( \Delta y_l \right)^2} - \E{\Delta y_l}^2\\
+    &= \E{\left( f'(y_l) \Delta x_{l + 1} \right)^2}\\
+    &= \frac{1}{2} \E{\left( \Delta x_{l + 1} \right)^2}\\
+    &= \frac{1}{2} \Var{\Delta x_{l + 1}}.
+
+The rest of the derivation is analogous to the forward case.
+
+Variance of :math:`\min(a, W)`
+------------------------------
+
+Applying the basic properties of variance beforehand simplifies the derivation
+by removing the extraneous constant :math:`a`:
+
+.. math::
+
+   \Var{\min(W, a)}
+    &= \Var{\min(W, a) - a}\\
+    &= \Var{\min(W - a, 0)}\\
+    &= \Var{\max(a - W, 0)}\\
+    &= \Var{\max(Y, 0)}
+       & \quad & Y = a - W.
+
+In order to derive a recurrence relation for the variance of the network, let
+:math:`Z_+ = f(Y) = \max(0, Y)` be a non-negative random variable and
+:math:`Z_- = f(Y) = \min(0, Y)` be a non-positive random variable.
+
+.. math::
+
+   \Var{Y} &= \E{Y^2} - \E{Y}^2\\
+    &= \E{Z_-^2} + \E{Z_+^2} - \left( \E{Z_-} + \E{Z_+} \right)^2\\
+    &= \Var{Z_-} - 2 \E{Z_-} \E{Z_+} + \Var{Z_+}
+
+where
+
+.. math::
+
+   \begin{aligned}
+     \E{Y} &= \int_{\mathbb{R}} y \Pr{y} dy\\
+      &= \int_{-\infty}^0 y \Pr{y} dy + \int_0^\infty y \Pr{y} dy\\
+      &= \E{Z_-} + \E{Z_+}
+   \end{aligned}
+   \qquad \text{and} \qquad
+   \begin{aligned}
+     \E{Y^2} &= \int_{\mathbb{R}} y^2 \Pr{y} dy\\
+      &= \int_{-\infty}^0 y^2 \Pr{y} dy + \int_0^\infty y^2 \Pr{y} dy\\
+      &= \E{Z_-^2} + \E{Z_+^2}.
+   \end{aligned}
+
+By inspection, :math:`\E{Z_-} \leq 0` and :math:`\E{Z_+} \geq 0`.  Assuming
+:math:`\Var{Y}` exists (i.e. finite), the non-negative variance property gives
+
+.. math::
+
+   \Var{Y} = \Var{Z_+} + \Var{Z_-} - 2 \E{Z_-} \E{Z_+} &\geq 0\\
+   \Var{Y} &\geq \Var{Z_+}.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

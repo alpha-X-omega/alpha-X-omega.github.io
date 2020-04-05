@@ -1,0 +1,208 @@
+#################################################
+A Rational Design Process: How and Why to Fake It
+#################################################
+
+Motivation(s)
+=============
+
+Current research on programming methods and structured programming attempt to
+refine the current irrational software design process into a rational one.
+
+Proposed Solution(s)
+====================
+
+The author reasons that the software design process will never become rational,
+but producing documentation that gives the appearance of applying a rational
+software design process is still beneficial.
+
+Evaluation(s)
+=============
+
+The author proposes maintaining a set of design documents and faking it where
+needed.  This idea was only reasoned about specifically comparing it to the
+development of a proof for a mathematical theorem.  Only one experiment
+(A-7E aircraft) was previously conducted, which is still used nine years later.
+While the documents would definitely benefit everyone in the long term, the
+amount of time spent to produce it is debatable.
+
+Future Direction(s)
+===================
+
+- Would applying Monte Carlo tree search (or reinforcement learning) over the
+  space of software design yield any fruitful results?
+- Human bias in thinking leads one to explore paths others overlook, so why
+  can't a machine perform said exploration?
+- Would an evolving wiki over time suffix for said documentation?
+- Would a graph-based with version control exceed a design document or be
+  overkill and useless?  The timeline ability would enable one to probe previous
+  designs as well as study the latest one.
+
+Question(s)
+===========
+
+- Isn't knowing all the modules impossible?
+- Shouldn't the uses hierarchy be constructed as an expanding graph instead?
+- How many real systems have followed this rational approach?
+
+Analysis
+========
+
+The design documentations should be finalized before coding and should not be
+written as an afterthought.  Unfortunately, the reality of software is not like
+that even with faking it.
+
+After the fact, the design documents are tremendously useful.  However, the
+drafting of said documents seems to be just as difficult as making the system
+itself?
+
+One thing that stood out is that the computer should be able to figure out and
+create the majority of these documents.  Once a project is complete, often one
+is not allotted time to perform such a detailed process.
+
+One unconvincing proposal is the use of special brackets to avoid inconsistent
+terminology; why not separate documentation from code?
+
+Besides contributing a rational design process, the paper explored
+the practicality, current flaws, and future outlooks on documentation.
+
+Notes
+=====
+
+Software Design Process Will Always Be An Idealization
+------------------------------------------------------
+
+(1) People do not know and are unable to express what they want.
+(#) Many details become known during implementation, so backtracking is
+    required but often people want to minimize lost work.
+(#) There are too many relevant facts to keep in one's mind even with the
+    separation of concerns strategy.
+(#) As requirements change over time, the previous design decisions may be
+    invalidated.
+(#) There will always be human errors.
+(#) There will be designer bias based on past experience.
+(#) Software reuse may conflict with the rational design.
+
+A Description of a Rational Idealized Process is Useful Nonetheless
+-------------------------------------------------------------------
+
+The most useful form of a process description will be in terms of work products
+such as product focus, criteria, personnel, and information.
+
+(1) Serves as a guide to the designer.
+(#) Having a criterion to minimize is better than total freedom.
+(#) A standard process enables communication and transfer of code between
+    people.
+(#) Enables estimation of progress.
+(#) Enables management to review the project.
+
+A Rational Design Process
+-------------------------
+
+(1) Establish and document requirements.
+
+    - Record the desired behavior of system.
+
+      i) Avoids accidental design decisions, duplication, and inconsistency.
+      #) Enables estimation of time and resources.
+      #) Guards against the costs of personnel turnover.
+      #) Constrains test plan and future changes.
+
+    - Acceptance criteria for an ideal requirements document:
+
+      i) Every statement should be valid for all acceptable products; none
+         should depend on implementation decisions.
+      #) If the product satisfies every statement, it should be acceptable.
+      #) The information that is not available when development must begin
+         should be explicitly indicated.
+      #) The product should be organized as a reference document rather than an
+         introductory narrative about the system.
+
+    - Software developers draft the document, get it reviewed, and eventually
+      approved by the user representatives.
+    - The document can be thought of as a set of mathematical functions
+      described in tabular form where each table specifies the value of a single
+      output as a function of external state variables.
+    - The document should be organized using separation of concerns:
+
+      i) Machine specification (e.g. JVM, virtual machine).
+      #) Input/Output Interface Specification
+      #) Output value specification (e.g. state, history).
+      #) Timing constraints for each output.
+      #) Accuracy constraints for each output.
+      #) Components that are likely to change.
+      #) Undesired event handling.
+
+(#) Design and document the module structure i.e. module guide.
+
+    - Note that a module guide defines responsibilities, but does not provide
+      enough information to permit independent implementation.
+
+(#) Design and document the module interfaces.
+
+    - Each module has a specification that provides a blackbox picture.
+    - Written by a small team through a negotiation process between
+      implementors, users, and reviewers.
+    - Specification should include:
+
+      i) Access programs: a list of programs to be made invokable by the
+         programs of other modules.
+      #) Parameters for access programs.
+      #) Externally visible effects of the access programs.
+      #) Timing and accuracy constraints where necessary.
+      #) Definition of undesired events.
+
+(#) Design and document the Uses Hierarchy.
+
+    - A binary matrix where the entry in position (A, B) is true if and only if
+      the correctness of program A depends on the presence of a correct program
+      B in the system.
+
+      - Need to know all the modules and their access programs.
+
+    - Must allow the subsets specified in the requirements document.
+
+(#) Design and document the module internal structures.
+
+    - If a module is further divided into submodules, the design document is a
+      module guide i.e. go and continue from step (2).
+
+      - This should recurse until each work assignment is small enough to afford
+        rewriting from scratch.
+
+    - Internal structures include data structures, output values, undesired
+      event checking, and verification.
+    - Pseudocode written by someone other than the final coder is necessary when
+      one is unable to code in a high level language.
+
+(#) Write the actual program code while avoiding redundant comments.
+(#) Maintainence
+
+    - If a change invalidates a design document, all subsequent design documents
+      must be faked to look as if the change had been the original design.
+    - If two or more versions are being maintained, the system should be
+      redesigned so that the differences are confined to small modules.
+
+The Role of Documentation
+-------------------------
+
+- Problems with Existing Documentation
+
+  i) Poor organization due to writing style (e.g. stream of consciousness,
+     stream of execution).
+  #) Boring long-winded prose.
+  #) Confusing and inconsistent terminology i.e. failure to provide precise
+     definitions.
+  #) Myopia: afterthought documentation is only useful for people who already
+     know the system well.
+
+- The rational software design process avoids the previously mentioned issues
+  with documentation.
+
+  - Poor organization requires structuring the document using separation of
+    concerns: each aspect of the system is described in exactly one section and
+    nothing else is described in that section.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

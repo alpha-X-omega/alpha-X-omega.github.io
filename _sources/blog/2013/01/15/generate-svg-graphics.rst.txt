@@ -1,0 +1,51 @@
+#####################
+Generate SVG Graphics
+#####################
+
+There are three popular approaches to synthesizing technical drawings:
+`asymptote`_, `TikZ/PGF`_, and `PSTricks`_.  None of them are perfect; each has
+its own strengths and weaknesses.  :program:`asymptote` is known for its 2D
+and 3D capabilities while the other two has better integration with `LaTex`_.
+However, 3D support can be added through packages like `tikz-3dplot`_,
+`pst-3dplot, and pst-solides3d`_.  The following will focus on
+:program:`asymptote` due to the author's background in computer graphics.
+
+.. _asymptote: http://asymptote.sourceforge.net/
+.. _TikZ/PGF: https://www.ctan.org/pkg/pgf?lang=en
+.. _PSTricks: https://www.ctan.org/pkg/pstricks-base
+.. _LaTex: http://www.latex-project.org/get/
+.. _tikz-3dplot: https://www.ctan.org/topic/pgf-tikz
+.. _pst-3dplot, and pst-solides3d: https://www.ctan.org/topic/pstricks
+
+Asymptote makes use of font styles in the :program:`TeX Live` packages and
+outputs Encapsulated PostScript (eps).  In order to convert these files into
+Scalable Vector Graphics (svg), one can use :program:`epstopdf` followed by
+:program:`pdf2svg`.  Although the `documentation`_ is sparse, there are lots of
+accompanying examples: `tutorial`_, `piprime`_, `marris`_, and `gallery`_.
+
+.. code:: bash
+
+   sudo apt-get install asymptote
+   sudo apt-get install texlive texlive-pictures texlive-latex-extra
+   sudo apt-get install texlive-font-utils #solely for epstopdf
+   sudo apt-get install pdf2svg
+
+.. _documentation: http://asymptote.sourceforge.net/asymptote.pdf
+.. _tutorial: http://math.uchicago.edu/~cstaats/Charles_Staats_III/Notes_and_papers_files/asymptote_tutorial.pdf
+.. _piprime: http://www.piprime.fr/asymptote/
+.. _marris: http://asy.marris.fr/asymptote/
+.. _gallery: http://asymptote.sourceforge.net/gallery/
+
+The following examples are attempts at trying to use :program:`TikZ/PGF` before
+switching to :program:`asymptote`.
+
+.. _grid:
+.. figure:: grid.svg
+   :align: center
+
+   Grid [:download:`asy <grid.asy>`] [:download:`tikz <grid.tikz>`]
+
+- Cylindrical Coordinates [:download:`asy </blog/2016/10/30/cylindrical-coordinates.asy>`]
+  [:download:`tikz <cylindrical-coordinates.tikz>`]
+- Spherical Coordinates [:download:`asy </blog/2016/10/30/spherical-coordinates.asy>`]
+  [:download:`tikz <spherical-coordinates.tikz>`]

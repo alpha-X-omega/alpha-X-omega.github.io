@@ -1,0 +1,271 @@
+#############################################################
+Optimal Step Nonrigid ICP Algorithms for Surface Registration
+#############################################################
+
+Motivation(s)
+=============
+
+Morphable models is a powerful tool for modeling 3D face shape and deformations.
+One way to construct a morphable model is through surface registration.
+Registering two surfaces means finding a mapping between a template surface and
+a target surface that describes the position of semantically corresponding
+points.  For noiseless and complete data, a correct registration should be
+one-to-one.  In practice, the surfaces contain large missing regions and
+artifacts resulting from the acquisition process.
+
+Researchers recently proposed a mapping that assigns an affine transformation
+per vertex.  To constrain the extra degrees of freedom, they impose a stiffness
+term that forces neighboring vertices to undergo similar transformations.
+However, they assume that the missing regions can be closed by interpolating
+between the borders.
+
+Proposed Solution(s)
+====================
+
+Instead of using a black-box optimizer with ICP, the authors propose finding an
+optimal deformation for a given correspondence.  The affine mapping is
+regularized with a localised stiffness term to overcome the numerical
+instabilities.  This leads to a better registration that is robust against bad
+initialization and handles incomplete surfaces very well.
+
+Evaluation(s)
+=============
+
+Given synthetic data of an embossed cube without landmarks, the proposed N-ICP
+is able to converge to a better result than the previous method that used
+L-BFGS-B.  When operating on roughly cleaned facial scans of 24 subjects of
+different gender adults, four landmarks per ear were used to determine the
+overall shape.  Additional landmarks at the eyes and at the mouth are used for
+the initial rigid alignment of the two surfaces.
+
+If all vertices have correspondences and no reliability weighting is used, the
+residual in an optimal step ICP algorithm will always decrease.  When handling
+missing data by ignoring the contribution of vertices without correspondence to
+the distance term, this is no longer true.  While the template aligns itself
+with the target, new correspondences are found and reliability weights are
+increased.  Accordingly, the residual may increase even though the
+correspondence improves.
+
+Addressing robustness by setting the distance contribution for vertices without
+correspondences to some arbitrary large value would not improve the situation,
+as this would push the template completely onto the scanned data.  Furthermore,
+the hole-filling capabilities of the method would be lost because hole-filling
+assigns a weight of zero to vertices without correspondence, completely relying
+on its neighbors for correctness.
+
+The proposed optimization scheme is robust against the foregoing effect.  The
+authors proved that their least-squares formulation is well-posed.  An
+additional benefit is the smooth infillings of missing data using the template
+stiffness term.
+
+Future Direction(s)
+===================
+
+- How accurate do the weights need to be for fast convergence e.g. less than
+  three iterations?
+- What are the convergence properties of an uncleaned mesh?
+
+Question(s)
+===========
+
+- How accepted is the proposed quality measure of surface normal deviation?
+- What value was :math:`\beta` assigned?
+
+Analysis
+========
+
+Locally affine regularization replaces the black-box optimizers of nonrigid ICP
+with a system of linear equations.
+
+Instead of presenting how the different meshes behave in terms of convergence
+to the best possible quality, the authors proposed a questionable quality
+measure.  Wouldn't the generalization capability of a convex model built with
+the registered faces introduce additional error terms?
+
+Nevertheless, the closed-form optimization that ignores the increase in residual
+error is quite clever.  Unfortunately, the quality of the registration still
+needs to be verified visually.  Another elegant feature of this framework is
+hole filling via regularization.
+
+Notes
+=====
+
+The authors call the proposed algorithm non-rigid optimal step ICP (N-ICP).  The
+template :math:`\mathcal{S} = (\mathcal{V}, \mathcal{E})` is given as a set of
+:math:`n` vertices :math:`\mathcal{V}` and a set of :math:`m` edges
+:math:`\mathcal{E}`.  The target surface :math:`\mathcal{T}` can be given in any
+representation that supports closest point query.
+
+The proposed parameterization of the mapping is one affine transformation matrix
+:math:`\mathbf{X}_i \in \mathbb{R}^{3 \times 4}` per template vertex.  The
+unknowns are stacked in a matrix
+
+.. math::
+
+   \mathbf{X} =
+   \begin{bmatrix} \mathbf{X}_1 & \cdots & \mathbf{X}_n \end{bmatrix}^\top \in
+   \mathbb{R}^{4n \times 3}.
+
+The novelty of N-ICP lies in assuming the preliminary point correspondences are
+fixed such that the cost function
+
+.. math::
+
+   E(\mathbf{X})
+    &= E_d(\mathbf{X}) + \alpha E_s(\mathbf{X}) + \beta E_l(\mathbf{X})\\
+    &= \left\Vert
+         \begin{bmatrix}
+           \alpha \mathbf{M} \otimes \mathbf{G}\\
+           \mathbf{W} \mathbf{D}\\
+           \beta \mathbf{D}_L
+         \end{bmatrix} \mathbf{X} -
+         \begin{bmatrix}
+           \boldsymbol{0}\\ \mathbf{W} \mathbf{U}\\ \mathbf{U}_L
+         \end{bmatrix}
+       \right\Vert_F^2\\
+    &= \left\Vert \mathbf{A} \mathbf{X} - \mathbf{B} \right\Vert_F^2
+
+can be solved directly and exactly.  Here the stiffness weight :math:`\alpha`
+influences the flexibility of the template, while the landmark weight
+:math:`\beta` is used to fade out the importance of the potentially noisy
+landmarks towards the end of the registration process.  It is accurate to say
+that N-ICP is rigid ICP with a different cost function.  After registration
+:math:`\mathcal{V}(\mathbf{X})` is projected onto the target surface along the
+normals of the deformed template to give the final correspondences.
+
+The stiffness weight is lowered when the norm of the difference of the parameter
+vectors from two successive iterations is smaller than some threshold.  Since
+starting with an excessively high alpha cannot decrease the quality of the
+results, :cite:`hasler2009statistical` defined
+
+.. math::
+
+   \alpha &= k_0 \exp -\lambda t\\
+   \beta &= k_\beta \alpha\\
+   \lambda &= t_\max^{-1} \ln \frac{k_0}{k_\infty}
+
+where :math:`t_\max = 1500`, :math:`k_0 = 3000`, :math:`k_\infty = 0.01`, and
+:math:`k_\beta = 2`.
+
+Distance Term
+-------------
+
+Assuming fixed correspondences :math:`(\mathbf{v}_i, \mathbf{u}_i)` where
+:math:`\mathbf{v}_i` is in homogeneous coordinates, the original distance term
+
+.. math::
+
+   \DeclareMathOperator{\dist}{dist}
+   E_d(\mathbf{X}) =
+   \sum_{\mathbf{v}_i \in \mathcal{V}}
+     w_i \dist^2(\mathcal{T}, \mathbf{X}_i \mathbf{v}_i)
+
+is reduced to
+
+.. math::
+
+   \DeclareMathOperator{\diag}{diag}
+   \bar{E}_d(\mathbf{X})
+    &= \sum_{\mathbf{v}_i \in \mathcal{V}}
+         w_i \left\Vert
+           \mathbf{X}_i \mathbf{v}_i - \mathbf{u}_i
+         \right\Vert_2^2\\
+    &= \left\Vert
+         \left( \mathbf{W} \otimes \mathbf{I}_3 \right)
+         \left(
+           \begin{bmatrix}
+             \mathbf{X}_1\\ & \ddots\\ & & \mathbf{X}_n
+           \end{bmatrix}
+             \begin{bmatrix}
+               \mathbf{v}_1\\ \vdots\\ \mathbf{v}_n
+             \end{bmatrix} -
+           \begin{bmatrix}
+             \mathbf{u}_1\\ \vdots\\ \mathbf{u}_n
+           \end{bmatrix}
+         \right)
+       \right\Vert_2^2\\
+    &= \left\Vert
+         \mathbf{W} \left( \mathbf{D} \mathbf{X} - \mathbf{U} \right)
+       \right\Vert_F^2
+
+where :math:`\mathbf{W} = \diag(w_1, \ldots, w_n)`, :math:`\mathbf{U} =
+\begin{bmatrix} \mathbf{u}_1 & \cdots & \mathbf{u}_n \end{bmatrix}^\top`, and
+
+.. math::
+
+   \mathbf{D} =
+   \begin{bmatrix}
+     \mathbf{v}_1^\top\\
+      & \mathbf{v}_2^\top\\
+      & & \ddots\\
+      & & &     \mathbf{v}_n^\top
+   \end{bmatrix}.
+
+The weight :math:`w_i` is set to one unless vertex :math:`\mathbf{v}_i` has
+
+- no corresponding vertex :math:`\mathbf{u}_i`,
+- :math:`\mathbf{u}_i` lies on a border of the target mesh,
+- the angle between the normals cross some fixed threshold, or
+- the line segment between the correspondence intersects the deformed template.
+
+Stiffness Term
+--------------
+
+The stiffness term penalises differences between the transformations assigned to
+neighboring vertices as
+
+.. math::
+
+   E_s(\mathbf{X}) =
+   \sum_{(i, j) \in \mathcal{E}}
+     \left\Vert (\mathbf{X}_i - \mathbf{X}_j) \mathbf{G} \right\Vert_F^2
+
+where :math:`\mathbf{G} = \diag(1, 1, 1, \gamma)`.  Here :math:`\gamma` can be
+used to weight differences in the rotational and skew part of the deformation
+against the translational part of the deformation.  In the experiments, the data
+was scaled to the unit cube and :math:`\gamma = 1`.
+
+To rewrite in matrix notation, define :math:`\mathbf{M}` to be the node-arc
+incidence matrix of :math:`\mathcal{S}`.  Each column represents a vertex, and
+each row denotes an edge.  More concretely, if edge :math:`r` connects vertices
+:math:`(i, j)`, :math:`\mathbf{M}_{ri} = -1` and :math:`\mathbf{M}_{rj} = 1` are
+the only non-zero entries of :math:`\mathbf{M}`.  Therefore,
+
+.. math::
+
+   E_s(\mathbf{X}) =
+   \left\Vert (\mathbf{M} \otimes \mathbf{G}) \mathbf{X} \right\Vert_F^2.
+
+This regularization term tries to make changes in the transformation matrices
+over the mesh as similar as possible as.  It does not take into account
+irregular sampling of the mesh, and thus may exhibit some artifacts.
+:cite:`hasler2009statistical` confines the second order differences of the
+transformation matrices by applying a Laplacian constraint with cotangent edge
+weights on the original template mesh configuration.  In other words, redefine
+:math:`\mathbf{G}_{ij} = w_{ij} \mathbf{I}_4` so that changes in the
+transformation matrices are as smooth as possible.
+
+Landmark Term
+-------------
+
+Given a set of landmarks :math:`\mathcal{L} =
+\left\{ (\mathbf{v}_{i_1}, \mathbf{l}_1), \ldots,
+(\mathbf{v}_{i_l}, \mathbf{l}_l) \right\}` mapping template vertices onto
+arbitrary locations on the target surface,
+
+.. math::
+
+   E_l(\mathbf{X}) =
+   \sum_{(\mathbf{v}_i, \mathbf{l}) \in \mathcal{L}}
+     \left\Vert \mathbf{X}_i \mathbf{v}_i - \mathbf{l} \right\Vert_2^2 =
+   \left\Vert \mathbf{D}_L \mathbf{X} - \mathbf{U}_L \right\Vert_F^2
+
+where :math:`\mathbf{U}_L =
+\begin{bmatrix} \mathbf{l}_1 & \cdots & \mathbf{l}_l \end{bmatrix}^\top` and
+:math:`\mathbf{D}_L` are rows of :math:`\mathbf{D}` that correspond to the
+landmark vertices.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Degeneracy &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Efficiency of the Simplex Method" href="chapter-04.html" />
+    <link rel="prev" title="The Simplex Method" href="chapter-02.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Degeneracy</a><ul>
+<li><a class="reference internal" href="#Fundamental-Theorem-of-Linear-Programming">Fundamental Theorem of Linear Programming</a></li>
+<li><a class="reference internal" href="#Proof-of-Bland's-Rule">Proof of Bland’s Rule</a><ul>
+<li><a class="reference internal" href="#The-objective-value-never-decreases-during-the-simplex-method.">The objective value never decreases during the simplex method.</a></li>
+<li><a class="reference internal" href="#If-the-simplex-method-fails-to-terminate,-then-it-must-cycle.">If the simplex method fails to terminate, then it must cycle.</a></li>
+<li><a class="reference internal" href="#The-simplex-algorithms-can-only-cycle-in-the-presence-of-degeneracy.">The simplex algorithms can only cycle in the presence of degeneracy.</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-3.1">Exercise 3.1</a></li>
+<li><a class="reference internal" href="#Exercise-3.2">Exercise 3.2</a></li>
+<li><a class="reference internal" href="#Exercise-3.3">Exercise 3.3</a></li>
+<li><a class="reference internal" href="#Exercise-3.4">Exercise 3.4</a></li>
+<li><a class="reference internal" href="#Exercise-3.5">Exercise 3.5</a></li>
+<li><a class="reference internal" href="#Exercise-3.6">Exercise 3.6</a></li>
+<li><a class="reference internal" href="#Exercise-3.7">Exercise 3.7</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+<li><a class="reference internal" href="#(c)">(c)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="chapter-02.html" title="Previous Chapter: The Simplex Method"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; The Simplex Method</span>
+    </a>
+  </li>
+  <li>
+    <a href="chapter-04.html" title="Next Chapter: Efficiency of the Simplex Method"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Efficiency of... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Degeneracy">
+<h1>Degeneracy<a class="headerlink" href="#Degeneracy" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference external" href="http://www.princeton.edu/~rvdb/JAVA/pivot/simple.html">Simplex Pivot Tool</a> is useful for the first exercise.</p>
+<div class="section" id="Fundamental-Theorem-of-Linear-Programming">
+<h2>Fundamental Theorem of Linear Programming<a class="headerlink" href="#Fundamental-Theorem-of-Linear-Programming" title="Permalink to this headline">¶</a></h2>
+<p>For an arbitrary linear program in standard form, the following statements are
+true:</p>
+<ol class="arabic simple">
+<li><p>If there is no optimal solution, then the problem is either infeasible or
+unbounded.</p></li>
+<li><p>If a feasible solution exists, then a basic feasible solution exists.</p></li>
+<li><p>If an optimal solution exists, then a basic optimal solution exists.</p></li>
+</ol>
+</div>
+<div class="section" id="Proof-of-Bland's-Rule">
+<h2>Proof of Bland’s Rule<a class="headerlink" href="#Proof-of-Bland's-Rule" title="Permalink to this headline">¶</a></h2>
+<p>Bland’s rule is essentially a Smallest-Subscript Rule i.e. if more than one
+entering variable or leaving variable can be chosen, always choose the variable
+with the smallest subscript.  Notice that this is very similar to the
+Largest-Coefficient Largest-Subscript Rule.  The only difference besides the
+subscript selection is that the entering variable no longer needs to have the
+largest positive coefficient.</p>
+<p>The proof in this chapter and <a class="bibtex reference internal" href="#burke407s2" id="id1">[Burb]</a> lacked some essential
+observations that are covered in <a class="bibtex reference internal" href="#halcsci5654" id="id2">[Gab]</a>.  The following
+derivations provide the necessary details to understand the proof in
+<a class="bibtex reference internal" href="#burke407s3" id="id3">[Bura]</a>.</p>
+<div class="section" id="The-objective-value-never-decreases-during-the-simplex-method.">
+<h3>The objective value never decreases during the simplex method.<a class="headerlink" href="#The-objective-value-never-decreases-during-the-simplex-method." title="Permalink to this headline">¶</a></h3>
+<p>A dictionary is defined as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\zeta &amp;= \nu + \sum_{j \in \mathcal{N}} c_j x_j\\
+x_i &amp;= b_i - \sum_{j \in \mathcal{N}} a_{ij} x_j
+       &amp;\quad&amp; i \in \mathcal{B}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathcal{B}\)</span> and <span class="math notranslate nohighlight">\(\mathcal{N}\)</span> are the basic and nonbasic
+integer sets satisfying</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\mathcal{B}\)</span> contains <span class="math notranslate nohighlight">\(m\)</span> elements,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{B} \cap \mathcal{N} = \emptyset\)</span>,</p></li>
+<li><p>and <span class="math notranslate nohighlight">\(\mathcal{B} \cup \mathcal{N} = \{1, \ldots, n + m\}\)</span>.</p></li>
+</ol>
+<p>A dictionary is said to be feasible if
+<span class="math notranslate nohighlight">\(0 \leq b_i \forall i \in \mathcal{N}\)</span>.  If a dictionary is feasible, then
+a basic feasible solution (BFS) exists for the LP such as
+<span class="math notranslate nohighlight">\(x_i = b_i\)</span> and <span class="math notranslate nohighlight">\(x_j = 0\)</span>.</p>
+<p>Assume the simplex method is operating with a deterministic pivot rule such as
+the</p>
+<dl>
+<dt>Largest-Coefficient Largest-Subscript Rule</dt><dd><p><em>Choice of Entering Variable</em>: Choose <span class="math notranslate nohighlight">\(x_{e}\)</span> so that <span class="math notranslate nohighlight">\(e\)</span> is
+largest among the variables <span class="math notranslate nohighlight">\(x_{j \in \mathcal{N}}\)</span> such that
+<span class="math notranslate nohighlight">\(\hat{c}_j = \max \{ \hat{c}_k \colon k \in \mathcal{N} \}\)</span>.</p>
+<p><em>Choice of Leaving Variable</em>: Choose <span class="math notranslate nohighlight">\(x_{l}\)</span> so that <span class="math notranslate nohighlight">\(l\)</span> is
+largest among the variables <span class="math notranslate nohighlight">\(x_{i \in \mathcal{B}}\)</span> such that
+<span class="math notranslate nohighlight">\(\frac{\hat{b}_i}{\hat{a}_{ie}} = \min \left\{
+\frac{\hat{b}_k}{\hat{a}_{ke}} \colon k \in \mathcal{B}, \hat{a}_{ke} &gt; 0
+\right\}\)</span>.</p>
+</dd>
+</dl>
+<p>The pivot step will construct a dictionary for the new basis as follows:</p>
+<ol class="arabic">
+<li><p>Solve for <span class="math notranslate nohighlight">\(x_e\)</span> in the equation for <span class="math notranslate nohighlight">\(x_l\)</span></p>
+<div class="math notranslate nohighlight">
+\[x_e = \frac{b_l}{a_{le}} -
+  \sum_{j \in \mathcal{N}'} \frac{a_{lj}}{a_{le}} x_j\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathcal{N}' = N \cup \{ l \} \setminus \{ e \}\)</span> and
+<span class="math notranslate nohighlight">\(a_{ll} = 1\)</span>.</p>
+</li>
+<li><p>Substitute <span class="math notranslate nohighlight">\(x_e\)</span> in the rest of the dictionary:</p>
+<div class="math notranslate nohighlight" id="equation-p2">
+<span class="eqno">(4)<a class="headerlink" href="#equation-p2" title="Permalink to this equation">¶</a></span>\[\begin{split}\zeta &amp;= \nu + c_e x_e + \sum_{j \in \mathcal{N}'} c_j x_j\\
+ &amp;= \nu + c_e \frac{b_l}{a_{le}} + \sum_{j \in \mathcal{N}'}
+    \left( c_j - c_e \frac{a_{lj}}{a_{le}} \right) x_j\\
+\\
+x_i &amp;= b_i - a_{ie} x_e - \sum_{j \in \mathcal{N}'} a_{ij} x_j
+       &amp; \quad &amp; i \in \mathcal{B}\\
+ &amp;= b_i - a_{ie} \frac{b_l}{a_{le}} + \sum_{j \in \mathcal{N}'}
+    \left( a_{ie} \frac{a_{lj}}{a_{le}} - a_{ij} \right) x_j\end{split}\]</div>
+</li>
+</ol>
+<p>Since the pivots are reversible equality-preserving transformations, each
+dictionary constructed by the algorithm is still feasible due to the minimum
+ratio test.  The test is not applicable when the set of leaving variables is
+empty, but the LP is unbounded in that case.</p>
+<p>Observe that only the basic variables, <span class="math notranslate nohighlight">\(\zeta\)</span>, <span class="math notranslate nohighlight">\(x_e\)</span>, and
+<span class="math notranslate nohighlight">\(x_l\)</span> changed.  Since <span class="math notranslate nohighlight">\(c_e &gt; 0\)</span>, <span class="math notranslate nohighlight">\(a_{le} &gt; 0\)</span>, and
+<span class="math notranslate nohighlight">\(b_l \geq 0\)</span>, the new objective value cannot decrease; it can stay
+constant if <span class="math notranslate nohighlight">\(b_l = 0\)</span>.  Once the set of entering variables becomes
+empty, the current basis is a local optimum because each variable in a
+feasible solution needs to be nonnegative. Since LPs are convex, a local
+optimum is the global optimum.</p>
+</div>
+<div class="section" id="If-the-simplex-method-fails-to-terminate,-then-it-must-cycle.">
+<h3>If the simplex method fails to terminate, then it must cycle.<a class="headerlink" href="#If-the-simplex-method-fails-to-terminate,-then-it-must-cycle." title="Permalink to this headline">¶</a></h3>
+<p>Since pivot operations are reversible, the <span class="math notranslate nohighlight">\(n + m \choose m\)</span> unique
+dictionaries must have identical solution sets.  It must also be the case that
+each basis is associated with a unique dictionary.  To see this, let</p>
+<div class="math notranslate nohighlight" id="equation-d1">
+<span class="eqno">(5)<a class="headerlink" href="#equation-d1" title="Permalink to this equation">¶</a></span>\[\begin{split}\zeta &amp;= \tilde{\nu} + \sum_{j \in \mathcal{N}} \tilde{c}_j x_j\\
+x_i &amp;= \tilde{b}_i - \sum_{j \in \mathcal{N}} \tilde{a}_{ij} x_j
+       &amp;\quad&amp; i \in \mathcal{B}\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight" id="equation-d2">
+<span class="eqno">(6)<a class="headerlink" href="#equation-d2" title="Permalink to this equation">¶</a></span>\[\begin{split}\zeta &amp;= \hat{\nu} + \sum_{j \in \mathcal{N}} \hat{c}_j x_j\\
+x_i &amp;= \hat{b}_i - \sum_{j \in \mathcal{N}} \hat{a}_{ij} x_j
+       &amp;\quad&amp; i \in \mathcal{B}\end{split}\]</div>
+<p>be two dictionaries associated with the same basis <span class="math notranslate nohighlight">\(\mathcal{B}\)</span>.  Let
+<span class="math notranslate nohighlight">\(j^{*} \in \mathcal{N}\)</span> and consider the solution obtained by setting
+<span class="math notranslate nohighlight">\(x_{j^{*}} = t\)</span> and <span class="math notranslate nohighlight">\(x_{j \in \mathcal{N} \setminus j^{*}} = 0\)</span>.
+Since <a class="reference internal" href="#equation-d1">(5)</a> and <a class="reference internal" href="#equation-d2">(6)</a> have identical solution sets,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\tilde{\nu} + \tilde{c}_{j^{*}} t
+ &amp;= \zeta &amp;= \hat{\nu} + \hat{c}_{j^{*}} t\\
+\tilde{b}_i - \tilde{a}_{ij^{*}} t &amp;= x_i &amp;= \hat{b}_i - \hat{a}_{ij^{*}} t
+     &amp;\quad&amp; \forall i \in \mathcal{B}.\end{split}\]</div>
+<p>Notice that as long as the value <span class="math notranslate nohighlight">\(t\)</span> takes on does not violate the
+constraints, the resulting solution is feasible.  Setting <span class="math notranslate nohighlight">\(t = 0\)</span> reveals
+<span class="math notranslate nohighlight">\(\tilde{\nu} = \hat{\nu}\)</span> and
+<span class="math notranslate nohighlight">\(\tilde{b}_i = \hat{b}_i \forall i \in \mathcal{B}\)</span>.  Consequently,
+setting <span class="math notranslate nohighlight">\(t\)</span> to any positive value restricts
+<span class="math notranslate nohighlight">\(\tilde{c}_{ij^{*}} = \hat{c}_{ij^{*}}\)</span> and
+<span class="math notranslate nohighlight">\(\tilde{a}_{ij^{*}} = \hat{a}_{ij^{*}}  \forall i \in \mathcal{B}\)</span>.
+Repeating this argument for all <span class="math notranslate nohighlight">\(j \in \mathcal{N}\)</span> demonstrates that
+<a class="reference internal" href="#equation-d1">(5)</a> and <a class="reference internal" href="#equation-d2">(6)</a> are identical dictionaries; thus, each basis gives rise to
+a unique dictionary.</p>
+<p>Since there are a finite number of unique bases, the simplex method cannot
+deterministically pivot indefinitely unless there exists a repeating sequence of
+dictionaries i.e. a cycle.</p>
+</div>
+<div class="section" id="The-simplex-algorithms-can-only-cycle-in-the-presence-of-degeneracy.">
+<h3>The simplex algorithms can only cycle in the presence of degeneracy.<a class="headerlink" href="#The-simplex-algorithms-can-only-cycle-in-the-presence-of-degeneracy." title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(D_1, D_2, \ldots, D_N\)</span> denote the cycle of dictionaries in question
+with the corresponding <span class="math notranslate nohighlight">\(\zeta_1, \zeta_2, \ldots, \zeta_N\)</span>.  By the
+definition of a cycle, <span class="math notranslate nohighlight">\(\zeta_1 = \zeta_{N + 1}\)</span>.  Since the pivoting rule
+seeks to maximize the objective function in a nondecreasing manner,</p>
+<div class="math notranslate nohighlight">
+\[\zeta_1 \leq \zeta_2 \leq \cdots \leq \zeta_N \leq \zeta_{N + 1} = \zeta_1.\]</div>
+<p>Therefore, <span class="math notranslate nohighlight">\(\zeta_i = \zeta_j\)</span> for <span class="math notranslate nohighlight">\(1 \leq i &lt; j \leq N\)</span>.
+Consequently, <span class="math notranslate nohighlight">\(b_l = 0\)</span>, <span class="math notranslate nohighlight">\(x_l = 0\)</span>, and <span class="math notranslate nohighlight">\(x_e = 0\)</span>.  Thus,
+each of the pivots taking <span class="math notranslate nohighlight">\(D_i\)</span> to <span class="math notranslate nohighlight">\(D_j\)</span> is necessarily degenerate
+for <span class="math notranslate nohighlight">\(1 \leq i &lt; j \leq N\)</span>, and each of the dictionaries
+<span class="math notranslate nohighlight">\(D_1, D_2, \ldots, D_N\)</span> must be degenerate.</p>
+<p>Notice that the previous degeneracy conditions can be defined more explicitly as</p>
+<ul class="simple">
+<li><p>A dictionary is degenerate if one or more of the basic variables is set to
+zero.</p></li>
+<li><p>A pivot is degenerate if one of the ratios in the calculation of the leaving
+variable is <span class="math notranslate nohighlight">\(+\infty\)</span> i.e. if the numerator is positive and the
+denominator vanishes.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="Exercise-3.1">
+<h2>Exercise 3.1<a class="headerlink" href="#Exercise-3.1" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 10 x_1 - 57 x_2 - 9 x_3 - 24 x_4\\
+  \text{subject to} \quad
+    w_1 &amp;= \epsilon_1 - 0.5 x_1 + 5.5 x_2 + 2.5 x_3 - 9 x_4\\
+    w_2 &amp;= \epsilon_2 - 0.5 x_1 + 1.5 x_2 + 0.5 x_3 - x_4\\
+    w_3 &amp;= 1 + \epsilon_3 - x_1\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3, 4\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Initial feasible solution:</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+x_4 = 0, \quad
+w_1 = \epsilon_1, \quad
+w_2 = \epsilon_2, \quad
+w_3 = 1 + \epsilon_3.\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(w_2\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_1 =
+\min\left\{ w_i \geq 0 \right\}_{i = 1}^3 =
+\min\left\{ 2 \epsilon_1, 2 \epsilon_2, 1 + \epsilon_3 \right\}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 2 \epsilon_2, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+x_4 = 0, \quad
+w_1 = \epsilon_1 - \epsilon_2, \quad
+w_2 = 0, \quad
+w_3 = 1 + \epsilon_3 - 2 \epsilon_2.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 20 \epsilon_2 - 20 w_2 - 87 x_2 + x_3 - 44 x_4\\
+  \text{subject to} \quad
+    x_1 &amp;= 2 \epsilon_2 - 2 w_2 - 3 x_2 + x_3 - 2 x_4\\
+    w_1 &amp;= \epsilon_1 - \epsilon_2 + w_2 - 4 x_2 + 2 x_3 - 8 x_4\\
+    w_3 &amp;= 1 - 2 \epsilon_2 + \epsilon_3 + 2 w_2 + 3 x_2 - x_3 + 2 x_4\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3, 4\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_3\)</span> and <span class="math notranslate nohighlight">\(w_3\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_3 = \min\left\{
+        -2 \epsilon_2,
+        \frac{\epsilon_2 - \epsilon_1}{2},
+        1 - 2 \epsilon_2 + \epsilon_3
+      \right\}_{\geq 0}
+  = \min\left\{ \frac{2}{3}, 2 \right\}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 1 + \epsilon_3, \quad
+x_2 = 0, \quad
+x_3 = 1 - 2 \epsilon_2 + \epsilon_3, \quad
+x_4 = 0
+w_1 = 2 + \epsilon_1 - 5 \epsilon_2 + 2 \epsilon_3, \quad
+w_2 = 0, \quad
+w_3 = 0.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 1 + 18 \epsilon_2 + \epsilon_3 - 18 w_2 - 84 x_2 - w_3 - 42 x_4\\
+  \text{subject to} \quad
+    x_1 &amp;= 1 + \epsilon_3 - w_3\\
+    x_3 &amp;= 1 - \epsilon_2 + \epsilon_3 + 2 w_2 + 3 x_2 - w_3 + 2 x_4\\
+    w_1 &amp;= 2 + \epsilon_1 - 5 \epsilon_2 + 2 \epsilon_3 +
+      5 w_2 + 2 x_2 - 2 w_3 - 4 x_4\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3, 4\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>The last dictionary is optimal, so dropping the perturbations results in</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 1 - 18 w_2 - 84 x_2 - w_3 - 42 x_4\\
+  \text{subject to} \quad
+    x_1 &amp;= 1 - w_3\\
+    x_3 &amp;= 1 + 2 w_2 + 3 x_2 - w_3 + 2 x_4\\
+    w_1 &amp;= 2 + 5 w_2 + 2 x_2 - 2 w_3 - 4 x_4\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3, 4\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-3.2">
+<h2>Exercise 3.2<a class="headerlink" href="#Exercise-3.2" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 10 x_1 - 57 x_2 - 9 x_3 - 24 x_4\\
+  \text{subject to} \quad
+    w_1 &amp;= -0.5 x_1 + 5.5 x_2 + 2.5 x_3 - 9 x_4\\
+    w_2 &amp;= -0.5 x_1 + 1.5 x_2 + 0.5 x_3 - x_4\\
+    w_3 &amp;= 1 - x_1\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3, 4\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Initial feasible solution:</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+x_4 = 0, \quad
+w_1 = 0, \quad
+w_2 = 0, \quad
+w_3 = 1.\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(w_1\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_1 = \min\left\{ w_1, w_2, w_3 \right\}_{\geq 0}
+  = \min\left\{ 0, 0, 1 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+x_4 = 0, \quad
+w_1 = 0, \quad
+w_2 = 0, \quad
+w_3 = 1.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -20 w_1 + 53 x_2 + 43 x_3 - 204 x_4\\
+  \text{subject to} \quad
+    x_1 &amp;= -2 w_1 + 11 x_2 + 5 x_3 - 18 x_4\\
+    w_2 &amp;= w_1 - 4 x_2 - 2 x_3 + 8 x_4\\
+    w_3 &amp;= 1 + 2 w_1 - 11 x_2 - 5 x_3 + 18 x_4\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3, 4\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_2\)</span> and <span class="math notranslate nohighlight">\(w_2\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_2 = \min\left\{ x_1, w_2, w_3 \right\}_{\geq 0}
+  = \min\left\{ -11, 0, \frac{1}{11} \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+x_4 = 0, \quad
+w_1 = 0, \quad
+w_2 = 0, \quad
+w_3 = 1.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= \frac{1}{4} \left( -27 w_1 - 53 w_2 + 58 x_3 - 392 x_4 \right)\\
+  \text{subject to} \quad
+    x_1 &amp;= \frac{1}{4} \left( 3 w_1 - 11 w_2 - 2 x_3 + 16 x_4 \right)\\
+    x_2 &amp;= \frac{1}{4} \left( w_1 - w_2 - 2 x_3 + 8 x_4 \right)\\
+    w_3 &amp;= \frac{1}{4} \left( 4 - 3 w_1 + 11 w_2 + 2 x_3 - 16 x_4 \right)\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3, 4\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_3\)</span> and <span class="math notranslate nohighlight">\(x_1\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_3 = \min\left\{ x_1, x_2, w_3 \right\}_{\geq 0}
+  = \min\left\{ 0, 0, -2 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+x_4 = 0, \quad
+w_1 = 0, \quad
+w_2 = 0, \quad
+w_3 = 1.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 15 w_1 - 93 w_2 - 29 x_1 + 18 x_4\\
+  \text{subject to} \quad
+    x_2 &amp;= \frac{1}{2} \left( -w_1 + 5 w_2 + 2 x_1 - 4 x_4 \right)\\
+    x_3 &amp;= \frac{1}{2} \left( 3 w_1 - 11 w_2 - 4 x_1 + 16 x_4 \right)\\
+    w_3 &amp;= 1 - x_1\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3, 4\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_4\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_4 = \min\left\{ x_2, x_3 \right\}_{\geq 0}
+  = \min\left\{ 0, 0 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+x_4 = 0, \quad
+w_1 = 0, \quad
+w_2 = 0, \quad
+w_3 = 1.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= \frac{1}{2} \left( 21 w_1 - 141 w_2 - 40 x_1 - 18 x_2 \right)\\
+  \text{subject to} \quad
+    x_3 &amp;= \frac{1}{2} \left( -w_1 + 9 w_2 + 4 x_1 - 8 x_2 \right)\\
+    x_4 &amp;= \frac{1}{4} \left( -w_1 + 5 w_2 + 2 x_1 - 2 x_2 \right)\\
+    w_3 &amp;= 1 - x_1\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3, 4\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(w_1\)</span> and <span class="math notranslate nohighlight">\(x_3\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[w_1 = \min\left\{ x_3, x_4 \right\}_{\geq 0}
+  = \min\left\{ 0, 0 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+x_4 = 0, \quad
+w_1 = 0, \quad
+w_2 = 0, \quad
+w_3 = 1.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= -21 w_3 + 24 w_2 + 22 x_1 - 93 x_2\\
+  \text{subject to} \quad
+    w_1 &amp;= -2 x_3 + 9 w_2 + 4 x_1 - 8 x_2\\
+    x_4 &amp;= \frac{1}{2} \left( x_3 - 2 w_2 - x_1 + 3 x_2 \right)\\
+    w_3 &amp;= 1 - x_1\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3, 4\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_4\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_1 = \min\left\{ x_4, w_1, w_3 \right\}_{\geq 0}
+  = \min\left\{ 0, 0, 1 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 0, \quad
+x_2 = 0, \quad
+x_3 = 0, \quad
+x_4 = 0, \quad
+w_1 = 0, \quad
+w_2 = 0, \quad
+w_3 = 1.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= x_3 - 20 w_2 - 44 x_4 - 27 x_2\\
+  \text{subject to} \quad
+    w_1 &amp;= 2 x_3 + w_2 - 8 x_4 + 4 x_2\\
+    x_1 &amp;= x_3 - 2 w_2 - 2 x_4 + 3 x_2\\
+    w_3 &amp;= 1 - x_3 + 2 w_2 + 2 x_4 - 3 x_2\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3, 4\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+<p>Choose <span class="math notranslate nohighlight">\(x_3\)</span> and <span class="math notranslate nohighlight">\(w_3\)</span> as the entering and leaving variable
+respectively where</p>
+<div class="math notranslate nohighlight">
+\[x_3 = \min\left\{ x_1, w_1, w_3 \right\}_{\geq 0}
+  = \min\left\{ 0, 0, 1 \right\}_{\geq 0}.\]</div>
+<p>Update the current dictionary’s feasible solution to</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 1, \quad
+x_2 = 0, \quad
+x_3 = 1, \quad
+x_4 = 0, \quad
+w_1 = 2, \quad
+w_2 = 0, \quad
+w_3 = 0.\]</div>
+<p>Pivot dictionary to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= 1 - w_3 - 18 w_2 - 42 x_4 - 30 x_2\\
+  \text{subject to} \quad
+    w_1 &amp;= 2 - 2 w_3 + 5 w_2 - 4 x_4 - 2 x_2\\
+    x_1 &amp;= 1 - w_3\\
+    x_3 &amp;= 1 - w_3 + 2 w_2 + 2 x_4 - 3 x_2\\
+    x_i &amp;\geq 0 \quad i = 1, 2, 3, 4\\
+    w_i &amp;\geq 0 \quad i = 1, 2, 3
+\end{aligned}\end{split}\]</div>
+</div>
+<div class="section" id="Exercise-3.3">
+<h2>Exercise 3.3<a class="headerlink" href="#Exercise-3.3" title="Permalink to this headline">¶</a></h2>
+<p>The previous exercises already gave enough practice.</p>
+</div>
+<div class="section" id="Exercise-3.4">
+<h2>Exercise 3.4<a class="headerlink" href="#Exercise-3.4" title="Permalink to this headline">¶</a></h2>
+<p>Rewriting the standard form LP with slack variables yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  \text{maximize} \quad
+    \zeta &amp;= \sum_{j \in \mathcal{N}} c_j x_j\\
+  \text{subject to} \quad
+    x_i &amp;= -\sum_{j \in \mathcal{N}} a_{ij} x_j
+        \quad i \in \mathcal{B}.
+\end{aligned}\end{split}\]</div>
+<p>If all <span class="math notranslate nohighlight">\(c_j \leq 0\)</span> (i.e. the set of entering variables is empty), the
+BFS is optimal.  Suppose there exists some <span class="math notranslate nohighlight">\(x_{e \in \mathcal{N}}\)</span> such
+that <span class="math notranslate nohighlight">\(c_e &gt; 0\)</span>.</p>
+<p>If all <span class="math notranslate nohighlight">\(a_{ie} \leq 0\)</span> (i.e. the set of leaving variables is empty),
+<span class="math notranslate nohighlight">\(x_e\)</span> can be chosen to be arbitrarily large without violating the
+constraints, which makes the problem feasible but unbounded.  Further suppose
+there exists some <span class="math notranslate nohighlight">\(x_{l \in \mathcal{B}}\)</span> such that <span class="math notranslate nohighlight">\(a_{le} &gt; 0\)</span>.</p>
+<p>Pivoting according to Bland’s rule would set</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x_e &amp;= \frac{b_l}{a_{le}} -
+       \sum_{j \in \mathcal{N}'} \frac{a_{lj}}{a_{le}} x_j =
+-\sum_{j \in \mathcal{N}'} a_{ej}' x_j
+&amp;\qquad&amp; a_{ej}' = \frac{a_{lj}}{a_{le}}
+\\
+\zeta &amp;= c_e x_e + \sum_{j \in \mathcal{N} \setminus e} c_j x_j =
+c_e \frac{b_l}{a_{le}} + \sum_{j \in \mathcal{N}'}
+  \left( c_j - c_e \frac{a_{lj}}{a_{le}} \right) x_j =
+\sum_{j \in \mathcal{N}'} c_j' x_j
+&amp;\qquad&amp; c_j' = c_j - c_e \frac{a_{lj}}{a_{le}}
+\\
+x_i &amp;= b_i - a_{ie} x_e - \sum_{j \in \mathcal{N} \setminus e} a_{ij} x_j =
+b_i - a_{ie} \frac{b_l}{a_{le}} + \sum_{j \in \mathcal{N}'}
+  \left( a_{ie} \frac{a_{lj}}{a_{le}} - a_{ij} \right) x_j =
+-\sum_{j \in \mathcal{N}'} a_{ij}' x_j
+&amp;\qquad&amp; a_{ij}' = a_{ij} - a_{ie} \frac{a_{lj}}{a_{le}}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathcal{N}' = N \cup \{ l \} \setminus \{ e \}\)</span> and
+<span class="math notranslate nohighlight">\(a_{ll} = 1\)</span>.  From inspection, the initial BFS is optimal when
+subsequent pivots and dictionaries are degenerate.</p>
+<p>Suppose the pivots and dictionaries are nondegenerate.  There must exist a
+pivot that serves as the transition from degenerate to nondegenerate.  Let
+<span class="math notranslate nohighlight">\(x_e\)</span> and <span class="math notranslate nohighlight">\(x_l\)</span> respectively denote the entering and leaving
+variable for that pivot.  Recall that a nondegenerate pivot means
+<span class="math notranslate nohighlight">\(\zeta_t &lt; \zeta_{t + 1}\)</span> and a nondegenerate dictionary requires
+<span class="math notranslate nohighlight">\(x_i &gt; 0\)</span> for all <span class="math notranslate nohighlight">\(i \in \mathcal{B}\)</span>.  This means
+<span class="math notranslate nohighlight">\(c_e x_e &gt; 0\)</span> and <span class="math notranslate nohighlight">\(-a_{ie} x_e &gt; 0\)</span>.  As a consequence of
+<span class="math notranslate nohighlight">\(c_e &gt; 0\)</span>, <span class="math notranslate nohighlight">\(x_e &gt; 0\)</span> and <span class="math notranslate nohighlight">\(a_{ie} &lt; 0\)</span>.  Since all the nonbasic
+variables had a value of zero on iteration <span class="math notranslate nohighlight">\(t\)</span> and the simplex algorithm
+will assign <span class="math notranslate nohighlight">\(x_l = 0\)</span> on iteration <span class="math notranslate nohighlight">\(t + 1\)</span>, <span class="math notranslate nohighlight">\(x_e = 0\)</span>.
+Thus, the subsequent pivots and dictionaries are necessarily degenerate.</p>
+</div>
+<div class="section" id="Exercise-3.5">
+<h2>Exercise 3.5<a class="headerlink" href="#Exercise-3.5" title="Permalink to this headline">¶</a></h2>
+<p>Graphing the feasible region shows that the LP is unbounded.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">symbols</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">plot_implicit</span><span class="p">,</span> <span class="n">And</span>
+
+<span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x_1 x_2&#39;</span><span class="p">)</span>
+
+<span class="n">c1</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x1</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="mi">5</span>
+<span class="n">c2</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span> <span class="n">x1</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">plot_implicit</span><span class="p">(</span><span class="n">c2</span><span class="p">,</span> <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+              <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Feasible Region&#39;</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;Figure size 640x480 with 1 Axes&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Exercise-3.6">
+<h2>Exercise 3.6<a class="headerlink" href="#Exercise-3.6" title="Permalink to this headline">¶</a></h2>
+<p>Remember that the pivot step changes only the basic variables, <span class="math notranslate nohighlight">\(\zeta\)</span>,
+<span class="math notranslate nohighlight">\(x_e\)</span>, and <span class="math notranslate nohighlight">\(x_l\)</span>.  Since the non-basic variables still take on the
+value of zero and <span class="math notranslate nohighlight">\(\zeta\)</span> is irrelevant for this proof, <a class="reference internal" href="#equation-p2">(4)</a>
+simplifies to</p>
+<div class="math notranslate nohighlight">
+\[x_i = b_i − a_{ie} \frac{b_l}{a_{le}}.\]</div>
+<p>When <span class="math notranslate nohighlight">\(a_{ie} \leq 0\)</span>, <span class="math notranslate nohighlight">\(x_i \geq b_i \geq 0\)</span>.  Assuming the
+initial dictionary is nondegenerate, <span class="math notranslate nohighlight">\(x_i \geq b_i &gt; 0\)</span>.</p>
+<p>When <span class="math notranslate nohighlight">\(a_{ie} &gt; 0\)</span>, the minimum ratio test requires</p>
+<div class="math notranslate nohighlight">
+\[\frac{b_i}{a_{ie}} \geq \frac{b_l}{a_{le}}
+\rightarrow
+b_i \geq a_{ie} \frac{b_l}{a_{le}}.\]</div>
+<p>Assuming there is never a tie for the choice of leaving variable,
+<span class="math notranslate nohighlight">\(b_i &gt; a_{ie} \frac{b_l}{a_{le}}\)</span>.  Therefore, a pivot step gives a
+nondegenerate dictionary if it starts with a nondegenerate dictionary and
+has no tie for leaving variable.  Since the simplex method can only cycle
+in the presence of degeneracy, this LP cannot have a cycle.</p>
+</div>
+<div class="section" id="Exercise-3.7">
+<h2>Exercise 3.7<a class="headerlink" href="#Exercise-3.7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\left\{ (x_2, x_6), (x_2, x_4), (x_5, x_4), (x_5, x_1) \right\}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\left\{ (x_5, x_4), (x_5, x_1) \right\}\]</div>
+</div>
+<div class="section" id="(c)">
+<h3>(c)<a class="headerlink" href="#(c)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[(x_2, x_4)\]</div>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-nb/linear-programming-vanderbei/chapter-03-0"><dl class="citation">
+<dt class="bibtex label" id="burke407s3"><span class="brackets"><a class="fn-backref" href="#id3">Bura</a></span></dt>
+<dd><p>Jim Burke. Does the simplex algorithm work? <span><a class="reference external" href="#"></a></span>https://www.math.washington.edu/ burke/crs/407/notes/section3.pdf. Section 3.1 accessed on 2016-11-01.</p>
+</dd>
+<dt class="bibtex label" id="burke407s2"><span class="brackets"><a class="fn-backref" href="#id1">Burb</a></span></dt>
+<dd><p>Jim Burke. Solving lps: the simplex algorithm of george dantzig. <span><a class="reference external" href="#"></a></span>https://www.math.washington.edu/ burke/crs/407/notes/section2.pdf. Section 2.3 accessed on 2016-11-01.</p>
+</dd>
+<dt class="bibtex label" id="halcsci5654"><span class="brackets"><a class="fn-backref" href="#id2">Gab</a></span></dt>
+<dd><p>Hal Gabow. Csci 5654: linear programming notes. <span><a class="reference external" href="#"></a></span>https://www.cs.colorado.edu/ hal/565notes.pdf. Page 31 accessed on 2016-11-01.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/nb/linear-programming-vanderbei/chapter-03.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

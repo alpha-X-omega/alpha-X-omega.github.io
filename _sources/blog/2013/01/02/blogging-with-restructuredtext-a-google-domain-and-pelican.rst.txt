@@ -1,0 +1,125 @@
+############################################################
+Blogging with RestructuredText, a Google Domain, and Pelican
+############################################################
+
+Purchase a domain from `Google`_.
+
+.. _Google: https://domains.google.com/registrar
+
+`Installing`_ and `using`_ Pelican is very straightforward.  Only
+:file:`pelicanconf.py` is needed as a configuration file:
+
+.. include:: pelicanconf.py
+   :code: python
+
+.. _Installing: http://docs.getpelican.com/en/latest/install.html
+.. _using: http://docs.getpelican.com/en/latest/publish.html
+
+Changing the default theme consists of cloning the `desired repository`_ and
+setting the `THEME`_ variable to the corresponding path.  Prefer `themes`_ that
+support `Google Custom Search Engine`_ for easier navigation.
+
+.. _desired repository: https://github.com/getpelican/pelican-themes
+.. _THEME: http://docs.getpelican.com/en/3.6.3/settings.html#themes
+.. _themes: https://github.com/yuex/pelican-chameleon
+.. _Google Custom Search Engine: https://cse.google.com/cse/
+
+Google App Engine
+=================
+
+After completing the `Before you begin`_ section, `add the custom domain`_ and
+take note of the resource records.  Go to the Google Domains site and select the
+:guilabel:`Configure DNS` tab.  Under :guilabel:`Custom resource records`,
+`add each of the records`_.  Finally enable SSL by turning on
+`Google-managed security`_.
+
+.. _Before you begin: https://cloud.google.com/appengine/docs/python/quickstart
+.. _add the custom domain: https://cloud.google.com/appengine/docs/python/console/using-custom-domains-and-ssl
+.. _add each of the records: https://support.google.com/domains/answer/3290350
+.. _Google-managed security: https://cloudplatform.googleblog.com/2017/09/introducing-managed-SSL-for-Google-App-Engine.html
+
+Create an :file:`app.yaml` configuration file in the root directory of the
+application with the following content:
+
+.. include:: app.yaml
+   :code: yaml
+
+The **secure: always** forces the app to `always serve https`_.
+
+.. _always serve https: https://cloud.google.com/appengine/docs/standard/python/config/appref
+
+Assuming a project layout consisting of
+
+.. include:: blog-layout.txt
+   :code: bash
+
+the following commands will generate the blog and upload it to GAE:
+
+.. code:: bash
+
+   pelican content
+   gcloud app deploy gae/app.yaml --stop-previous-version
+
+GAE at the moment does not expose an automatic way of deleting older app
+versions.  Use the following commands to manually remove older versions:
+
+.. code:: bash
+
+   gcloud app versions list
+   gcloud app versions delete <VERSION from list>...
+
+Log Keeping with Mercurial
+==========================
+
+In an ideal world, a memex system would serve as a blog.  Until that time
+comes, `Mercurial`_ is one of the most pleasant alternatives.  When using it
+locally, create a configuration file :file:`~/.hgrc` with the following content:
+
+.. include:: _hgrc
+   :code: text
+
+The last line is to enable file compression when using Mercurial with
+`Bitbucket`_ over `SSH`_.
+
+.. _Mercurial: https://www.mercurial-scm.org/guide#log_keeping
+.. _Bitbucket: https://bitbucket.org/
+.. _SSH: https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html
+
+Blogger (i.e. for those who do not own a web domain)
+====================================================
+
+Go to the :guilabel:`Configure website` tab and select the :guilabel:`Create`
+action next to the Blogger platform.  The :guilabel:`Address` field during the
+creation of the blog should be the purchased domain name.  After creating the
+blog, go to :guilabel:`Settings` and edit the :guilabel:`Blog Address` to enable
+redirection from the non-www domain URL to the www domain URL.
+
+Each post can be compiled and added manually to Blogger via
+
+.. code:: bash
+
+   tail -n+<first_line_to_print> <file> | rst2html.py | xclip -selection clipboard
+
+Notice that :program:`tail` is needed because Pelican requires each post to have
+a title, but Blogger has its own mechanism for titles.  The output from
+:file:`rst2html.py` is the appropriate content to post to Blogger.
+
+The :guilabel:`Navbar Configuration` layout includes a non-removable
+:guilabel:`Next Blog` link, which is quite confusing to the end user.  The
+easiest solution is to remove it, but that requires giving up the search
+functionality.
+
+The ideal search replacement is Google's **Search Box** gadget, powered by
+`CSE`_.  This solution requires submitting an index request via the
+`Google Search Console`_.
+
+.. _CSE: https://cse.google.com/cse
+.. _Google Search Console: https://www.google.com/webmasters/tools
+
+Another solution is to add a :guilabel:`HTML/JavaScript` gadget that defines
+such a search box:
+
+.. include:: search-gadget.html
+   :code: html
+
+Note that the CSS style is purely for aesthetic reasons.

@@ -1,0 +1,84 @@
+#####################
+Dendritic Computation
+#####################
+
+Motivation(s)
+=============
+
+Many artificial neuronal networks assume an individual neuron sums up the
+synaptic input and decides whether to initiate an action potential via comparing
+the sum against a (nonlinear) threshold.  This model ignores the recent findings
+on how the linear and nonlinear mechanisms in the dendritic tree could serve
+as computational building blocks.
+
+Proposed Solution(s)
+====================
+
+The authors review recent works showing neuronal dendrites may be essential for
+the computations performed by the neuron and the network.
+
+Evaluation(s)
+=============
+
+The authors list promising results such as
+
+- directional selectivity in visual neurons of flies,
+- coincidence detection in auditory neurons of chicks,
+- temporal integration over long timescales in oculomotor system of goldfishes,
+- image processing (e.g. convolution) in dendrites of flies,
+- lobula giant movement detector of locusts, and
+- forward masking in omega neurons of crickets.
+
+Note that these are still just experiments and only serves as a guide for future
+research.
+
+Future Direction(s)
+===================
+
+- Would duplicating the weights in a neural network but force the duplicate to
+  decay in a manner similar to reinforcement learning be beneficial?
+- If the topology of a neural network undergoes remodelling
+  (e.g. pruning, expansion, clustering, Hebbian theory) during back propagation,
+  would the error improve?
+
+Question(s)
+===========
+
+- What are some experiments that involve stimulating a living person's brain?
+
+Analysis
+========
+
+Deep learning with nonlinear activation functions and hidden layers is using the
+most basic approximation of neurons: each neuron receives hundreds to thousands
+of input spike trains, yet it has only one axon for signaling a single output.
+Although the experimental findings are promising, the subjects are still
+non-human or dead brain cell samples.  Nevertheless, the results provide
+valuable insights into the brain such as the dendritic mechanism that
+backpropagates action potentials.
+
+Notes
+=====
+
+Computations in Passive Dendrites
+---------------------------------
+
+- Nonlinear interaction between excitation and shunting inhibition on small
+  dendritic branches can implement logical operations.
+- A high-frequency fluctuating current injected in the dendritic pipette will
+  evoke high-frequency and large-amplitude local voltage responses, but the
+  response recorded by the somatic pipette will be attenuated and smoothed
+  (low pass filtered).
+- Excitatory inputs to the same branch tend to sum sublinearly, whereas inputs
+  on different branches sum linearly.
+
+  - In neurons with active dendrites, clusters of inputs that are synchronously
+    active on the same branch can evoke a local dendritic spike.
+
+- Coincidence detection in pyramidal neurons is tuned by their dendritic
+  branching pattern.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

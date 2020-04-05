@@ -1,0 +1,122 @@
+##############################
+Notes on the Synthesis of Form
+##############################
+
+What is Design?
+===============
+
+- A diagram for forces whose field we do not understand.
+- Expect to see the process of achieving good fit between two entities as a
+  negative process of neutralizing the incongruities, or irritants, or forces,
+  which cause misfit.
+- There is no intrinsic way of reducing the list of requirements to a few.
+  Otherwise, we would be in possession of a field description of the context,
+  which would trivialize the problem of creating fit i.e it's no longer a
+  problem of design.
+
+Task of Design
+==============
+
+- The purpose is not to create form which meets certain conditions, but to
+  create such an order in the ensemble that all the binary misfit variables take
+  the value 0.
+- The part of the ensemble that we have control is taken to be the form.
+- It is only through form that we can create order in the ensemble.
+
+Unselfconscious vs Selfconscious
+================================
+
+- A culture is unselfconscious if its form-making is learned informally through
+  imitation and correction.
+- A culture is selfconscious if its form-making is taught academically according
+  to explicit rules.
+- No complex adaptive system will succeed in adapting in a reasonable amount of
+  time unless the adaptation can proceed subsystem by subsystem with
+  each subsystem being relatively independent of the others.
+- Form-builders in unselfconscious cultures respond to small changes in a way
+  that allows the subsystems of the misfit system to work independently, but
+  since the selfconscious response to change cannot take place subsystem by
+  subsystem, its forms are arbitrary.
+- The directness of the response to misfit ensures that each failure is
+  corrected as soon as it occurs, and thereby restricts the change to one
+  subsystem at a time.
+- The tradition of resisting needless change holds steady all the variables not
+  in the relevant subsystem, and prevents those minor disturbances outside the
+  subsystem from taking hold.
+
+Concepts
+========
+
+- Every concept can be defined and understood in two complementary ways.
+- Define a concept in extension when all the elements of the class it refers to
+  are specified.
+- Define a concept in intension when trying to explain its meaning analytically
+  in terms of other concepts at the same level.
+- The arbitrariness of the existing verbal concepts is not their only
+  disadvantage, for once they are invented, we lose the ability to modify them.
+
+Conditions to Solve a Problem by Selection
+==========================================
+
+- It must be possible to generate a wide enough range of possible alternative
+  solutions symbolically.
+- It must be possible to express all the criteria of the solution in terms of
+  the same symbolism.
+
+Constructive Diagram
+====================
+
+- A form diagram is a description of formal characteristics.
+- A requirement diagram summarizes a set of functional properties or constraints
+  i.e. a notation for the problem.
+
+Misfit
+======
+
+- A misfit is defined to be any state of affairs in the ensemble which derives
+  from the interaction between form and context and stresses the ensemble.
+
+  A. Actual World: C1 (Context) <--> F1 (Form)
+  #. Mental Picture: C1 -> C2 <--> F2 -> F1
+  #. Formal picture of mental picture: C1 -> C2 -> C3 <--> F3 -> F2 -> F1
+
+Elements of the Ensemble
+========================
+
+- Properties of the elements of the ensemble.
+
+  #. They must be chosen to be of equal space.
+  #. They must be chosen to be as independent of one another as is reasonably
+     possible.
+  #. They must be chosen to be as small in scope as possible i.e. as specific
+     and detailed and numerous as possible.
+
+- Two variables in the ensemble interact if and only if the designer can find
+  some reason (or conceptual model) which makes sense to him and tells him why
+  they should do so.
+
+Component
+=========
+
+- Every component has a two-fold nature: it is first a unit,
+  and second a pattern.
+- A unit makes an entity distinct from its surrounding.
+- A pattern specifies the arrangement of its own component units.
+
+Decomposition Algorithm
+=======================
+
+Let misfit be represented by a binary stochastic variable equal to 1.  Let each
+variable be associated with a probability :math:`p` of taking on the value of
+:math:`0`. Denote the relationships between each variable as :math:`-1, 0, 1`
+for negative, zero, and positive influence.
+
+Partition the set of variables to minimize the information transfer between
+subsystems.  The resulting two groups represent acceptable misfits (0) and
+misfits (1).  Recursively partition over the subsystems until one system
+emerges.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Models for Visual Words &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Creativity - NLPH" href="../creativity-nlph/index.html" />
+    <link rel="prev" title="Temporal Models" href="chapter-19.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/22/notes-on-software-design.html">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blog/2013/01/01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Models for Visual Words</a><ul>
+<li><a class="reference internal" href="#Exercise-20.1">Exercise 20.1</a></li>
+<li><a class="reference internal" href="#Exercise-20.2">Exercise 20.2</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-20.3">Exercise 20.3</a><ul>
+<li><a class="reference internal" href="#(a)">(a)</a></li>
+<li><a class="reference internal" href="#(b)">(b)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Exercise-20.4">Exercise 20.4</a></li>
+<li><a class="reference internal" href="#Exercise-20.5">Exercise 20.5</a></li>
+<li><a class="reference internal" href="#Exercise-20.6">Exercise 20.6</a></li>
+<li><a class="reference internal" href="#Exercise-20.7">Exercise 20.7</a></li>
+<li><a class="reference internal" href="#Exercise-20.8">Exercise 20.8</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="chapter-19.html" title="Previous Chapter: Temporal Models"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Temporal Models</span>
+    </a>
+  </li>
+  <li>
+    <a href="../creativity-nlph/index.html" title="Next Chapter: Creativity - NLPH"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Creativity - NLPH &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="Models-for-Visual-Words">
+<h1>Models for Visual Words<a class="headerlink" href="#Models-for-Visual-Words" title="Permalink to this headline">¶</a></h1>
+<p>Latent Dirichlet allocation is a density model for the data in a corpus.  It
+does not involve a “world” term that we wish to infer.</p>
+<div class="section" id="Exercise-20.1">
+<h2>Exercise 20.1<a class="headerlink" href="#Exercise-20.1" title="Permalink to this headline">¶</a></h2>
+<p>Section 9.9 and 9.10 describe discriminative approaches that handle multi-class
+problems.  The data is then defined as normalized word frequencies
+<span class="math notranslate nohighlight">\(\mathbf{x} = [T_1, T_2, \ldots, T_K] / \sum_k T_k\)</span>.</p>
+</div>
+<div class="section" id="Exercise-20.2">
+<h2>Exercise 20.2<a class="headerlink" href="#Exercise-20.2" title="Permalink to this headline">¶</a></h2>
+<p>The following description is the generative process for the plate notation in
+Figure 20.6.</p>
+<p>For each image indexed by <span class="math notranslate nohighlight">\(i \in \{1, \ldots, I\}\)</span> in a corpus:</p>
+<ol class="arabic simple">
+<li><p>Choose <span class="math notranslate nohighlight">\(\DeclareMathOperator{\PoissonDist}
+J_i \sim \PoissonDist(\xi)\)</span>.</p></li>
+<li><p>Choose a <span class="math notranslate nohighlight">\(M\)</span>-dimensional part probability vector
+<span class="math notranslate nohighlight">\(\boldsymbol{\pi}_i\)</span> from the distribution
+<span class="math notranslate nohighlight">\(\DeclareMathOperator{\DirDist}{Dir}
+Pr(\boldsymbol{\pi}_i) = \DirDist_{\boldsymbol{\pi}_i}[\boldsymbol{\alpha}]\)</span>.</p></li>
+<li><p>For each visual word indexed by <span class="math notranslate nohighlight">\(j \in \{1, \ldots, J_i\}\)</span> in image
+<span class="math notranslate nohighlight">\(i\)</span>:</p>
+<ol class="upperalpha simple">
+<li><p>Choose a part <span class="math notranslate nohighlight">\(p_{ij} \in \{1, \ldots, M\}\)</span> from the distribution
+<span class="math notranslate nohighlight">\(\DeclareMathOperator{\CatDist}{Cat}
+Pr(p_{ij}) = \CatDist_{p_{ij}}[\boldsymbol{\pi}_i]\)</span>.</p></li>
+<li><p>Choose a visual word <span class="math notranslate nohighlight">\(f_{ij} \in \{1, \ldots, K\}\)</span> from the
+distribution
+<span class="math notranslate nohighlight">\(Pr(f_{ij} \mid p_{ij}) =
+\CatDist_{f_{ij}}[\boldsymbol{\lambda}_{p_{ij}}]\)</span> where
+<span class="math notranslate nohighlight">\(Pr(\boldsymbol{\lambda}_m) =
+\DirDist_{\boldsymbol{\lambda}_m}[\boldsymbol{\beta}]\)</span>.</p></li>
+</ol>
+</li>
+</ol>
+<p>The joint distribution for this generative process’ graphical model is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Pr(\boldsymbol{\pi}, \boldsymbol{\lambda}, \mathbf{p}, \mathbf{f} \mid
+   \boldsymbol{\alpha}, \boldsymbol{\beta})
+ &amp;= Pr(\boldsymbol{\lambda} \mid \boldsymbol{\beta})
+    Pr(\boldsymbol{\pi} \mid \boldsymbol{\alpha})
+    Pr(\mathbf{p} \mid \boldsymbol{\pi})
+    Pr(\mathbf{f} \mid \mathbf{p}, \boldsymbol{\lambda})
+    &amp; \quad &amp; \text{(10.3)}\\
+ &amp;= \prod_{m = 1}^M Pr(\boldsymbol{\lambda}_m \mid \boldsymbol{\beta})
+    \cdot
+    \prod_{i = 1}^I Pr(\boldsymbol{\pi}_i \mid \boldsymbol{\alpha})
+    \cdot
+    \prod_{i = 1}^I \prod_{j = 1}^{J_i} Pr(p_{ij} \mid \boldsymbol{\pi}_i)
+    \cdot
+    \prod_{i = 1}^I \prod_{j = 1}^{J_i}
+      Pr(f_{ij} \mid \boldsymbol{\lambda}_{p_{ij}})
+    &amp; \quad &amp; \text{d-Separation from generative process}\\
+ &amp;= \prod_{m = 1}^M Pr(\boldsymbol{\lambda}_m \mid \boldsymbol{\beta}) \cdot
+    \prod_{i = 1}^I Pr(\boldsymbol{\pi}_i \mid \boldsymbol{\alpha})
+      \prod_{j = 1}^{J_i}
+        Pr(p_{ij} \mid \boldsymbol{\pi}_i)
+        Pr(f_{ij} \mid \boldsymbol{\lambda}_{p_{ij}})\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{p} = \{ p_{ij} \}_{i = 1, j = 1}^{I, J_i}\)</span> and
+<span class="math notranslate nohighlight">\(\mathbf{f} = \{ f_{ij} \}_{i = 1, j = 1}^{I, J_i}\)</span> are the hidden part
+labels and observed visual word labels respectively.  This joint distribution is
+also known as the complete-data likelihood of an image.</p>
+<p>When the part and visual word labels are known, the Bayesian approach (or
+another technique like ML and MAP) can be applied to fit the parameters
+<span class="math notranslate nohighlight">\(\boldsymbol{\theta} =
+\left\{
+\{ \boldsymbol{\pi}_i \}_{i = 1}^I,
+\{ \boldsymbol{\lambda}_m \}_{m = 1}^M
+\right\}\)</span> to the data.  The Bayesian approach requires calculating a posterior
+over the parameters as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Pr(\boldsymbol{\theta} \mid
+   \mathbf{p}, \mathbf{f}, \boldsymbol{\alpha}, \boldsymbol{\beta})
+ &amp;= \frac{
+      Pr(\boldsymbol{\pi}, \boldsymbol{\lambda}, \mathbf{p}, \mathbf{f} \mid
+         \boldsymbol{\alpha}, \boldsymbol{\beta})
+    }{
+      Pr(\mathbf{p}, \mathbf{f} \mid \boldsymbol{\alpha}, \boldsymbol{\beta})
+    }\\
+ &amp;= \frac{
+      Pr(\boldsymbol{\lambda} \mid \boldsymbol{\beta})
+      Pr(\boldsymbol{\pi} \mid \boldsymbol{\alpha})
+      Pr(\mathbf{p} \mid \boldsymbol{\pi})
+      Pr(\mathbf{f} \mid \mathbf{p}, \boldsymbol{\lambda})
+    }{
+      Pr(\mathbf{f} \mid \mathbf{p}, \boldsymbol{\alpha}, \boldsymbol{\beta})
+      Pr(\mathbf{p} \mid \boldsymbol{\alpha}, \boldsymbol{\beta})
+    }\\
+ &amp;= \frac{
+      Pr(\boldsymbol{\lambda} \mid \boldsymbol{\beta})
+      Pr(\mathbf{f} \mid \mathbf{p}, \boldsymbol{\lambda})
+      Pr(\boldsymbol{\pi} \mid \boldsymbol{\alpha})
+      Pr(\mathbf{p} \mid \boldsymbol{\pi})
+    }{
+      \left(
+        \int Pr(\boldsymbol{\lambda}, \mathbf{f} \mid
+                \mathbf{p}, \boldsymbol{\alpha}, \boldsymbol{\beta})
+             d\boldsymbol{\lambda}
+        \right)
+        \left(
+          \prod_{i = 1}^I
+            \int Pr(\boldsymbol{\pi}_i, \mathbf{p}_{i \cdot} \mid
+                    \boldsymbol{\alpha}, \boldsymbol{\beta})
+                 d\boldsymbol{\pi}_i
+        \right)
+    }
+    &amp; \quad &amp; \text{marginalization and independence from generative process}\\
+ &amp;= \frac{
+      \prod_{m = 1}^M Pr(\boldsymbol{\lambda}_m \mid \boldsymbol{\beta})
+      \cdot
+      \prod_{i = 1}^I \prod_{j = 1}^{J_i}
+        Pr(f_{ij} \mid \boldsymbol{\lambda}_{p_{ij}}) \cdot
+      \prod_{i = 1}^I Pr(\boldsymbol{\pi}_i \mid \boldsymbol{\alpha})
+        \prod_{j = 1}^{J_i} Pr(p_{ij} \mid \boldsymbol{\pi}_i)
+    }{
+      \left(
+        \int
+          \prod_{m = 1}^M Pr(\boldsymbol{\lambda}_m \mid \boldsymbol{\beta})
+          \cdot
+          \prod_{i = 1}^I \prod_{j = 1}^{J_i}
+            Pr(f_{ij} \mid \boldsymbol{\lambda}_{p_{ij}})
+          d\boldsymbol{\lambda}
+        \right)
+        \left(
+          \prod_{i = 1}^I
+            \int Pr(\boldsymbol{\pi}_i \mid \boldsymbol{\alpha})
+                 \prod_{j = 1}^{J_i}
+                   Pr(\mathbf{p}_{i \cdot} \mid \boldsymbol{\pi}_i)
+                 d\boldsymbol{\pi}_i
+        \right)
+    }
+    &amp; \quad &amp; \text{d-Separation from generative process}\\
+ &amp;= \prod_{m = 1}^M
+      \DirDist_{\boldsymbol{\lambda}_m}\left[
+        \beta + F_{m1}, \ldots, \beta + F_{mK}
+      \right]
+    \cdot
+    \prod_{i = 1}^I
+      \DirDist_{\boldsymbol{\pi}_i}\left[
+        \alpha + P_{i1}, \ldots, \alpha + P_{iM}
+      \right]
+    &amp; \quad &amp; \text{Exercise 20.3 (a) and (b)}\end{split}\]</div>
+<p>See <a class="reference internal" href="#prince2012computer-ex-20-3"><span class="std std-ref">Exercise 20.3</span></a> for more details.</p>
+<p>The predictive density (probability that a new data point
+<span class="math notranslate nohighlight">\(\{p^*, f^*\}\)</span> belongs to the same model) is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; Pr(p^*, f^* \mid
+     \mathbf{p}, \mathbf{f}, \boldsymbol{\alpha}, \boldsymbol{\beta})\\
+ &amp;= \int Pr(p^*, f^* \mid \boldsymbol{\theta})
+         Pr(\boldsymbol{\theta} \mid
+            \mathbf{p}, \mathbf{f}, \boldsymbol{\alpha}, \boldsymbol{\beta})
+         d\boldsymbol{\theta}\\
+ &amp;= \int Pr(f^* \mid \boldsymbol{\lambda}_{p^*})
+         Pr(p^* \mid \boldsymbol{\pi}_*)
+         Pr(\boldsymbol{\theta} \mid
+            \mathbf{p}, \mathbf{f}, \boldsymbol{\alpha}, \boldsymbol{\beta})
+         d\boldsymbol{\theta}
+    &amp; \quad &amp; \text{d-Separation from generative process}\\
+ &amp;= \int \CatDist_{f^*}[\boldsymbol{\lambda}_{p*}]
+         \CatDist_{p^*}[\boldsymbol{\pi}_*]
+         \cdot
+         \prod_{m = 1}^M
+           \DirDist_{\boldsymbol{\lambda}_m}\left[
+             \beta + F_{m1}, \ldots, \beta + F_{mK}
+           \right]
+         \cdot
+         \prod_{i = 1}^I
+           \DirDist_{\boldsymbol{\pi}_i}\left[
+             \alpha + P_{i1}, \ldots, \alpha + P_{iM}
+           \right]
+         d\boldsymbol{\lambda} d\boldsymbol{\pi}
+    &amp; \quad &amp; \text{(20.5)}\\
+ &amp;= \frac{\beta + F_{mk}}{K \beta + \sum_{k = 1}^K F_{mk}}
+    \frac{\alpha + P_{im}}{M \alpha + \sum_{m = 1}^M P_{im}}
+    &amp; \quad &amp; \text{(a), (b), and }
+              \Gamma[1 + n] = n \Gamma[n] \text{ for } n &gt; 0.\end{split}\]</div>
+<p><a class="bibtex reference internal" href="#tu2014dirichlet" id="id1">[Tu14]</a><a class="bibtex reference internal" href="#griffiths2002gibbs" id="id2">[Gri02]</a><a class="bibtex reference internal" href="#gregor2005parameter" id="id3">[Gre05]</a> are helpful
+resources in proving these relations.</p>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; \prod_{m = 1}^M
+    \DirDist_{\boldsymbol{\lambda}_m}\left[
+      \beta + F_{m1}, \ldots, \beta + F_{mK}
+    \right]
+  \cdot
+  \CatDist_{f^*}[\boldsymbol{\lambda}_{p^*}]\\
+ &amp;= \left(
+      \prod_{m = 1}^M
+        \frac{
+          \Gamma\left[ K \beta + \sum_{k = 1}^K F_{mk} \right]
+        }{
+          \prod_{k = 1}^K \Gamma\left[ \beta + F_{mk} \right]
+        }
+        \prod_{k = 1}^K \boldsymbol{\lambda}_{mk}^{\beta - 1 + F_{mk}}
+    \right)
+    \cdot
+    \prod_{k = 1}^K \boldsymbol{\lambda}_{p^* k}^{\delta[f^* - k]}
+    &amp; \quad &amp; \text{(3.9), (3.8)}\\
+ &amp;= \left(
+      \prod_{m = 1}^M
+        \frac{
+          \Gamma\left[ K \beta + \sum_{k = 1}^K F_{mk} \right]
+        }{
+          \prod_{k = 1}^K \Gamma\left[ \beta + F_{mk} \right]
+        }
+        \prod_{k = 1}^K \boldsymbol{\lambda}_{mk}^{\beta - 1 + F_{mk}}
+    \right)
+    \cdot
+    \prod_{m = 1}^M
+      \prod_{k = 1}^K \boldsymbol{\lambda}_{mk}^{\tilde{F}_{mk}}
+    &amp; \quad &amp; \tilde{F}_{mk} =
+              \delta\left[ f^* - k \right] \delta\left[ p^* - m \right]\\
+ &amp;= \prod_{m = 1}^M
+      \frac{
+        \Gamma\left[ K \beta + \sum_{k = 1}^K F_{mk} \right]
+      }{
+        \prod_{k = 1}^K \Gamma\left[ \beta + F_{mk} \right]
+      }
+      \prod_{k = 1}^K
+        \boldsymbol{\lambda}_{mk}^{\beta - 1 + F_{mk} + \tilde{F}_{mk}}\\
+ &amp;= \prod_{m = 1}^M
+      \frac{
+        \Gamma\left[ K \beta + \sum_{k = 1}^K F_{mk} \right]
+      }{
+        \prod_{k = 1}^K \Gamma\left[ \beta + F_{mk} \right]
+      }
+      \frac{
+        \prod_{k = 1}^K \Gamma\left[ \beta + F_{mk} + \tilde{F}_{mk} \right]
+      }{
+        \Gamma\left[ K \beta + \sum_{k = 1}^K F_{mk} + \tilde{F}_{mk} \right]
+      }
+      \DirDist_{\boldsymbol{\lambda}_m}\left[
+        \beta + F_{m1} + \tilde{F}_{m1},
+        \ldots,
+        \beta + F_{mK} + \tilde{F}_{mK}
+      \right]\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; \prod_{i = 1}^I \DirDist_{\boldsymbol{\pi}_i}\left[
+    \alpha + P_{i1}, \ldots, \alpha + P_{iM}
+  \right]
+  \cdot
+  \CatDist_{p^*}[\boldsymbol{\pi}_*]\\
+ &amp;= \left(
+      \prod_{i = 1}^I
+        \frac{
+          \Gamma\left[ M \alpha + \sum_{m = 1}^M P_{im} \right]
+        }{
+          \prod_{m = 1}^M \Gamma\left[ \alpha + P_{im} \right]
+        }
+        \prod_{m = 1}^M \boldsymbol{\pi}_{im}^{\alpha - 1 + P_{im}}
+    \right)
+    \cdot
+    \prod_{m = 1}^M \boldsymbol{\pi}_{*m}^{\delta\left[ p^* - m \right]}
+    &amp; \quad &amp; \text{(3.9), (3.8)}\\
+ &amp;= \left(
+      \prod_{i = 1}^I
+        \frac{
+          \Gamma\left[ M \alpha + \sum_{m = 1}^M P_{im} \right]
+        }{
+          \prod_{m = 1}^M \Gamma\left[ \alpha + P_{im} \right]
+        }
+        \prod_{m = 1}^M \boldsymbol{\pi}_{im}^{\alpha - 1 + P_{im}}
+    \right)
+    \cdot
+    \prod_{i = 1}^I \prod_{m = 1}^M \boldsymbol{\pi}_{im}^{\tilde{P}_{im}}
+    &amp; \quad &amp; \tilde{P}_{im} =
+              \delta\left[ p^* - m \right] \delta\left[ * - i \right]\\
+ &amp;= \prod_{i = 1}^I
+      \frac{
+        \Gamma\left[ M \alpha + \sum_{m = 1}^M P_{im} \right]
+      }{
+        \prod_{m = 1}^M \Gamma\left[ \alpha + P_{im} \right]
+      }
+      \prod_{m = 1}^M
+        \boldsymbol{\pi}_{im}^{\alpha - 1 + P_{im} + \tilde{P}_{im}}\\
+ &amp;= \prod_{i = 1}^I
+      \frac{
+        \Gamma\left[ M \alpha + \sum_{m = 1}^M P_{im} \right]
+      }{
+        \prod_{m = 1}^M \Gamma\left[ \alpha + P_{im} \right]
+      }
+      \frac{
+        \prod_{m = 1}^M \Gamma\left[ \alpha + P_{im} + \tilde{P}_{im} \right]
+      }{
+        \Gamma\left[
+          M \alpha + \sum_{m = 1}^M P_{im} + \tilde{P}_{im}
+        \right]
+      }
+      \DirDist_{\boldsymbol{\pi}_i}\left[
+        \alpha + P_{i1} + \tilde{P}_{i1},
+        \ldots,
+        \alpha + P_{iM} + \tilde{P}_{iM}
+      \right]\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-20.3">
+<span id="prince2012computer-ex-20-3"></span><h2>Exercise 20.3<a class="headerlink" href="#Exercise-20.3" title="Permalink to this headline">¶</a></h2>
+<p>The following is based on the derivations in
+<a class="reference internal" href="chapter-03.html#prince2012computer-ex-3-10"><span class="std std-ref">Exercise 3.10</span></a>.</p>
+<p>The likelihood term in LDA is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; \int \prod_{m = 1}^M Pr(\boldsymbol{\lambda}_m \mid \boldsymbol{\beta})
+       \cdot
+       \prod_{i = 1}^I
+         \prod_{j = 1}^{J_i} Pr(f_{ij} \mid \boldsymbol{\lambda}_{p_{ij}})
+       d\boldsymbol{\lambda}_{1 \ldots M}
+  &amp; \quad &amp; \text{(20.10)}\\
+ &amp;= \left( \frac{\Gamma\left[K \beta\right]}{\Gamma[\beta]^K} \right)^M
+    \prod_{m = 1}^M
+      \frac{
+        \prod_{k = 1}^K \Gamma\left[ \beta + F_{mk} \right]
+      }{
+        \Gamma\left[ K \beta + \sum_{k = 1}^K F_{mk} \right]
+      }
+    \cdot
+    \int \prod_{m = 1}^M
+      \DirDist_{\boldsymbol{\lambda}_m}\left[
+        \beta + F_{m1}, \ldots, \beta + F_{mK}
+      \right]
+      d\boldsymbol{\lambda}_{1 \ldots M}
+    &amp; \quad &amp; \text{(a)}\\
+ &amp;= \left( \frac{\Gamma\left[K \beta\right]}{\Gamma[\beta]^K} \right)^M
+    \prod_{m = 1}^M
+      \frac{
+        \prod_{k = 1}^K \Gamma[\beta + F_{mk}]
+      }{
+        \Gamma\left[ K \beta + \sum_{k = 1}^K F_{mk} \right]
+      }.\end{split}\]</div>
+<p>The prior term in LDA is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; \prod_{i = 1}^I \int Pr(\boldsymbol{\pi}_i \mid \boldsymbol{\alpha})
+  \prod_{j = 1}^{J_i}
+    Pr(p_{ij} \mid \boldsymbol{\pi}_i) d\boldsymbol{\pi}_{i}
+  &amp; \quad &amp; \text{(20.11)}\\
+ &amp;= \prod_{i = 1}^I
+      \frac{\Gamma[M \alpha]}{\Gamma[\alpha]^M}
+      \frac{
+        \prod_{m = 1}^M \Gamma\left[ \alpha + P_{im} \right]
+      }{
+        \Gamma\left[ M \alpha + \sum_{m = 1}^M P_{im} \right]
+      }
+      \int \DirDist_{\boldsymbol{\pi}_i}\left[
+             \alpha + P_{i1}, \ldots, \alpha + P_{iM}
+           \right]
+           d\boldsymbol{\pi}_i
+    &amp; \quad &amp; \text{(b)}\\
+ &amp;= \left( \frac{\Gamma[M \alpha]}{\Gamma[\alpha]^M} \right)^I
+    \prod_{i = 1}^I
+      \frac{
+        \prod_{m = 1}^M \Gamma\left[ \alpha + P_{im} \right]
+      }{
+        \Gamma\left[ M \alpha + \sum_{m = 1}^M P_{im} \right]
+      }.\end{split}\]</div>
+<div class="section" id="(a)">
+<h3>(a)<a class="headerlink" href="#(a)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\prod_{m = 1}^M Pr(\boldsymbol{\lambda}_m \mid \boldsymbol{\beta})
+\cdot
+\prod_{i = 1}^I \prod_{j = 1}^{J_i}
+  Pr(f_{ij} \mid \boldsymbol{\lambda}_{p_{ij}})
+ &amp;= \prod_{m = 1}^M \DirDist_{\boldsymbol{\lambda}_m}[\boldsymbol{\beta}]
+    \cdot
+    \prod_{i = 1}^I \prod_{j = 1}^{J_i}
+      \CatDist_{f_{ij}}[\boldsymbol{\lambda}_{p_{ij}}]
+    &amp; \quad &amp; \text{(20.5), (20.7)}\\
+ &amp;= \left(
+      \prod_{m = 1}^M
+        \frac{
+          \Gamma\left[ \sum_{k = 1}^K \boldsymbol{\beta}_k \right]
+        }{
+          \prod_{k = 1}^K \Gamma\left[ \boldsymbol{\beta}_k \right]
+        }
+        \prod_{k = 1}^K \boldsymbol{\lambda}_{mk}^{\boldsymbol{\beta}_k - 1}
+    \right)
+    \cdot
+    \prod_{i = 1}^I \prod_{j = 1}^{J_i} \prod_{k = 1}^K
+      \boldsymbol{\lambda}_{p_{ij} k}^{\delta\left[ f_{ij} - k \right]}
+    &amp; \quad &amp; \text{(3.9), (3.8)}\\
+ &amp;= \left(
+      \prod_{m = 1}^M
+        \frac{\Gamma\left[K \beta\right]}{\Gamma[\beta]^K}
+        \prod_{k = 1}^K \boldsymbol{\lambda}_{mk}^{\beta - 1}
+    \right)
+    \cdot
+    \prod_{m = 1}^M \prod_{k = 1}^K \boldsymbol{\lambda}_{mk}^{F_{mk}}
+    &amp; \quad &amp; F_{mk} =
+              \sum_{i = 1}^I \sum_{j = 1}^{J_i}
+                \delta\left[ f_{ij} - k \right]
+                \delta\left[ p_{ij} - m \right]\\
+ &amp;= \prod_{m = 1}^M
+      \frac{\Gamma\left[K \beta\right]}{\Gamma[\beta]^K}
+      \prod_{k = 1}^K \boldsymbol{\lambda}_{mk}^{\beta - 1 + F_{mk}}\\
+ &amp;= \prod_{m = 1}^M
+      \frac{\Gamma\left[K \beta\right]}{\Gamma[\beta]^K}
+      \frac{
+        \prod_{k = 1}^K \Gamma[\beta + F_{mk}]
+      }{
+        \Gamma\left[ K \beta + \sum_{k = 1}^K F_{mk} \right]
+      }
+      \DirDist_{\boldsymbol{\lambda}_m}\left[
+        \beta + F_{m1}, \ldots, \beta + F_{mK}
+      \right]\end{split}\]</div>
+</div>
+<div class="section" id="(b)">
+<h3>(b)<a class="headerlink" href="#(b)" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\prod_{i = 1}^I Pr(\boldsymbol{\pi}_i \mid \boldsymbol{\alpha})
+  \prod_{j = 1}^{J_i} Pr(p_{ij} \mid \boldsymbol{\pi}_i)
+ &amp;= \prod_{i = 1}^I \DirDist_{\boldsymbol{\pi}_i}[\boldsymbol{\alpha}]
+      \prod_{j = 1}^{J_i} \CatDist_{p_{ij}}[\boldsymbol{\pi}_i]
+    &amp; \quad &amp; \text{(20.5), (20.7)}\\
+ &amp;= \prod_{i = 1}^I \left(
+      \frac{
+        \Gamma\left[ \sum_{m = 1}^M \boldsymbol{\alpha}_m \right]
+      }{
+        \prod_{m = 1}^M \Gamma\left[ \boldsymbol{\alpha}_m \right]
+      }
+        \prod_{m = 1}^M \boldsymbol{\pi}_{im}^{\boldsymbol{\alpha}_m - 1}
+      \cdot
+      \prod_{j = 1}^{J_i} \prod_{m = 1}^M
+        \boldsymbol{\pi}_{im}^{\delta\left[ p_{ij} - m \right]}
+    \right)
+    &amp; \quad &amp; \text{(3.9), (3.8)}\\
+ &amp;= \prod_{i = 1}^I \left(
+      \frac{\Gamma[M \alpha]}{\Gamma[\alpha]^M}
+        \prod_{m = 1}^M \boldsymbol{\pi}_{im}^{\alpha - 1}
+      \cdot
+      \prod_{m = 1}^M \boldsymbol{\pi}_{im}^{P_{im}}
+    \right)
+    &amp; \quad &amp; P_{im} = \sum_{j = 1}^{J_i} \delta[p_{ij} - m]\\
+ &amp;= \prod_{i = 1}^I
+      \frac{\Gamma\left[M \alpha \right]}{\Gamma[\alpha]^M}
+      \prod_{m = 1}^M \boldsymbol{\pi}_{im}^{\alpha - 1 + P_{im}}\\
+ &amp;= \prod_{i = 1}^I
+      \frac{\Gamma[M \alpha]}{\Gamma[\alpha]^M}
+      \frac{
+        \prod_{m = 1}^M \Gamma\left[ \alpha + P_{im} \right]
+      }{
+        \Gamma\left[ M \alpha + \sum_{m = 1}^M P_{im} \right]
+      }
+      \DirDist_{\boldsymbol{\pi}_i}\left[
+        \alpha + P_{i1}, \ldots, \alpha + P_{iM}
+      \right]\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="Exercise-20.4">
+<h2>Exercise 20.4<a class="headerlink" href="#Exercise-20.4" title="Permalink to this headline">¶</a></h2>
+<p>Adapting LDA to the single author topic model in <a class="bibtex reference internal" href="#fei2005bayesian" id="id6">[FFP05]</a>
+(Figure 3) results in the following generative process.</p>
+<p>Each image has only one object.
+For each image indexed by <span class="math notranslate nohighlight">\(i \in \{1, \ldots, I\}\)</span> in a corpus:</p>
+<ol class="arabic simple">
+<li><p>Choose an object <span class="math notranslate nohighlight">\(w_i \in \{1, \ldots, N\}\)</span> from the distribution
+<span class="math notranslate nohighlight">\(Pr(w_i) = \CatDist_{w_i}[\boldsymbol{\nu}]\)</span>.</p></li>
+<li><p>Choose a <span class="math notranslate nohighlight">\(M\)</span>-dimensional part probability vector
+<span class="math notranslate nohighlight">\(\boldsymbol{\pi}_n\)</span> from the distribution
+<span class="math notranslate nohighlight">\(Pr(\boldsymbol{\pi}_n \mid w_i, \boldsymbol{\alpha}) =
+\DirDist_{\boldsymbol{\pi}_n}[\boldsymbol{\alpha}_{w_i}]\)</span> where
+<span class="math notranslate nohighlight">\(\DeclareMathOperator{\GammaDist}{Gamma}
+Pr(\boldsymbol{\alpha}_{w_i}) =
+\GammaDist_{\boldsymbol{\alpha}_{w_i}}[\kappa, \theta]\)</span>.</p></li>
+<li><p>Choose <span class="math notranslate nohighlight">\(J_i \sim \PoissonDist(\xi)\)</span>.</p></li>
+<li><p>For each visual word indexed by <span class="math notranslate nohighlight">\(j \in \{1, \ldots, J_i\}\)</span>
+in image <span class="math notranslate nohighlight">\(i\)</span>:</p>
+<ol class="upperalpha simple">
+<li><p>Choose a part <span class="math notranslate nohighlight">\(p_{ij} \in \{1, \ldots, M\}\)</span> from the distribution
+<span class="math notranslate nohighlight">\(Pr(p_{ij} \mid \boldsymbol{\pi}_n) =
+\CatDist_{p_{ij}}[\boldsymbol{\pi}_n]\)</span>.</p></li>
+<li><p>Choose a visual word <span class="math notranslate nohighlight">\(f_{ij} \in \{1, \ldots, K\}\)</span> from the
+distribution
+<span class="math notranslate nohighlight">\(Pr(f_{ij} \mid p_{ij}, \boldsymbol{\lambda}) =
+\CatDist_{f_{ij}}[\boldsymbol{\lambda}_{p_{ij}}]\)</span> where
+<span class="math notranslate nohighlight">\(Pr(\boldsymbol{\lambda}_m) =
+\DirDist_{\boldsymbol{\lambda}_m}[\boldsymbol{\beta}]\)</span>.</p></li>
+</ol>
+</li>
+</ol>
+</div>
+<div class="section" id="Exercise-20.5">
+<span id="prince2012computer-ex-20-5"></span><h2>Exercise 20.5<a class="headerlink" href="#Exercise-20.5" title="Permalink to this headline">¶</a></h2>
+<p>See Figure 1 of <a class="bibtex reference internal" href="#rosen2004author" id="id7">[RZGSS04]</a>.</p>
+<p>The Author-Topic model observes the words and the set of authors per document;
+the other nodes are hidden.  The generative process randomly selects an author
+and uses that author’s (fixed) topic distribution as part of the word
+generation.</p>
+</div>
+<div class="section" id="Exercise-20.6">
+<h2>Exercise 20.6<a class="headerlink" href="#Exercise-20.6" title="Permalink to this headline">¶</a></h2>
+<p>Notice that the parts in the constellation model (Figure 20.10) induces a
+spatial distribution over its associated words.</p>
+<p>Taking the graphical model of <a class="reference internal" href="#prince2012computer-ex-20-5"><span class="std std-ref">Exercise 20.5</span></a>
+as a template, the adjacent visual words can be encouraged to take the same part
+labels via adding a feature position indexed by the selected topic <span class="math notranslate nohighlight">\(z\)</span>.
+In short, add another node with <span class="math notranslate nohighlight">\(z\)</span> as its parent.</p>
+<p>The Gibbs sampling procedure will include an additional 2D normal distribution
+similar to (20.27).</p>
+</div>
+<div class="section" id="Exercise-20.7">
+<h2>Exercise 20.7<a class="headerlink" href="#Exercise-20.7" title="Permalink to this headline">¶</a></h2>
+<p>The graphical model can be constructed from the following generative process.</p>
+<p>For each image indexed by <span class="math notranslate nohighlight">\(i \in \{1, \ldots, I\}\)</span> in a corpus:</p>
+<ol class="arabic simple">
+<li><p>Choose a scene <span class="math notranslate nohighlight">\(s_i \in \{1, \ldots, C\}\)</span> from the distribution
+<span class="math notranslate nohighlight">\(Pr(s_i) = \CatDist_{s_i}[\boldsymbol{\nu}]\)</span>.</p></li>
+<li><p>Choose <span class="math notranslate nohighlight">\(J_i \sim \PoissonDist(\xi)\)</span>.</p></li>
+<li><p>For each visual word indexed by <span class="math notranslate nohighlight">\(j \in \{1, \ldots, J_i\}\)</span> in image
+<span class="math notranslate nohighlight">\(i\)</span>:</p>
+<ol class="arabic simple">
+<li><p>Choose an object <span class="math notranslate nohighlight">\(w_{ij} \in \{1, \ldots, L\}\)</span> from the distribution
+<span class="math notranslate nohighlight">\(Pr(w_{ij} \mid s_i = c) =
+\CatDist_{w_{ij}}[\boldsymbol{\phi}_c]\)</span>.</p></li>
+<li><p>Choose a part <span class="math notranslate nohighlight">\(p_{ij} \in \{1, \ldots, M\}\)</span> from the distribution
+<span class="math notranslate nohighlight">\(Pr(p_{ij} \mid w_{ij} = n) =
+\CatDist_{p_{ij}}[\boldsymbol{\pi}_{w_n}]\)</span>.</p></li>
+<li><p>Choose a visual word <span class="math notranslate nohighlight">\(f_{ij} \in \{1, \ldots, K\}\)</span> from the
+distribution
+<span class="math notranslate nohighlight">\(Pr(f_{ij} \mid p_{ij} = m) =
+\CatDist_{f_{ij}}[\boldsymbol{\lambda}_m]\)</span>.</p></li>
+<li><p>Choose a feature position <span class="math notranslate nohighlight">\(\mathbf{x}_{ij}\)</span> from the distribution
+<span class="math notranslate nohighlight">\(\DeclareMathOperator{\NormDist}{Norm}
+Pr(\mathbf{x}_{ij} \mid p_{ij} = m, w_{ij} = n) =
+\NormDist_{\mathbf{x}_{ij}}\left[
+\boldsymbol{\mu}_n^{(w)} + \boldsymbol{\mu}_m^{(p)},
+\boldsymbol{\Sigma}_n^{(w)} + \boldsymbol{\Sigma}_m^{(p)}
+\right]\)</span>.</p></li>
+</ol>
+</li>
+</ol>
+<p><span class="math notranslate nohighlight">\(\{ s_i \}_{i = 1}^I, \{ f_{ij} \}_{i = 1, j = 1}^{I, J_i},
+\{ x_{ij} \}_{i = 1, j = 1}^{I, J_i}\)</span> are observable (manifest) variables.</p>
+<p><span class="math notranslate nohighlight">\(\{ w_{ij} \}_{i = 1, j = 1}^{I, J_i},
+\{ p_{ij} \}_{i = 1, j = 1}^{I, J_i}\)</span> are unobservable (latent) variables.</p>
+<p>The rest are parameters to be estimated with fixed hyperparameters.</p>
+</div>
+<div class="section" id="Exercise-20.8">
+<h2>Exercise 20.8<a class="headerlink" href="#Exercise-20.8" title="Permalink to this headline">¶</a></h2>
+<p>Slides 2 to 9 of <a class="bibtex reference internal" href="#lauritzen2007lvmfa" id="id8">[Lau]</a> classifies latent variable models as</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 38%" />
+<col style="width: 35%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td></td>
+<td colspan="2"><p>Manifest variable</p></td>
+</tr>
+<tr class="row-even"><td><p>Latent variable</p></td>
+<td><p>Metrical</p></td>
+<td><p>Categorical</p></td>
+</tr>
+<tr class="row-odd"><td><p>Metrical</p></td>
+<td><p>Factor analysis</p></td>
+<td><p>Latent trait analysis</p></td>
+</tr>
+<tr class="row-even"><td><p>Categorical</p></td>
+<td><p>Latent profile analysis</p></td>
+<td><p>Latent class analysis</p></td>
+</tr>
+</tbody>
+</table>
+<p>Discrete factor analysis is another name for latent trait analysis.  Categorical
+variables can be either ordinal or nominal, and metrical variables can either be
+discrete or continuous.</p>
+<p>See <a class="bibtex reference internal" href="#bartholomew1980factor" id="id9">[Bar80]</a> for more details.</p>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-nb/computer-vision-models-learning-and-inference-prince/chapter-20-0"><dl class="citation">
+<dt class="bibtex label" id="bartholomew1980factor"><span class="brackets"><a class="fn-backref" href="#id9">Bar80</a></span></dt>
+<dd><p>David J Bartholomew. Factor analysis for categorical data. <em>Journal of the Royal Statistical Society. Series B (Methodological)</em>, pages 293–321, 1980.</p>
+</dd>
+<dt class="bibtex label" id="fei2005bayesian"><span class="brackets"><a class="fn-backref" href="#id6">FFP05</a></span></dt>
+<dd><p>Li Fei-Fei and Pietro Perona. A bayesian hierarchical model for learning natural scene categories. In <em>Computer Vision and Pattern Recognition, 2005. CVPR 2005. IEEE Computer Society Conference on</em>, volume 2, 524–531. IEEE, 2005.</p>
+</dd>
+<dt class="bibtex label" id="gregor2005parameter"><span class="brackets"><a class="fn-backref" href="#id3">Gre05</a></span></dt>
+<dd><p>Heinrich Gregor. Parameter estimation for text analysis. <em>Technical report</em>, 2005.</p>
+</dd>
+<dt class="bibtex label" id="griffiths2002gibbs"><span class="brackets"><a class="fn-backref" href="#id2">Gri02</a></span></dt>
+<dd><p>Tom Griffiths. Gibbs sampling in the generative model of latent dirichlet allocation. <em>unpublished book</em>, 2002.</p>
+</dd>
+<dt class="bibtex label" id="lauritzen2007lvmfa"><span class="brackets"><a class="fn-backref" href="#id8">Lau</a></span></dt>
+<dd><p>Steffen Lauritzen. Latent variable models and factor analysis. <span><a class="reference external" href="#"></a></span>http://www.stats.ox.ac.uk/ steffen/teaching/fsmHT07/fsm607c.pdf. Accessed on 2017-08-03.</p>
+</dd>
+<dt class="bibtex label" id="rosen2004author"><span class="brackets"><a class="fn-backref" href="#id7">RZGSS04</a></span></dt>
+<dd><p>Michal Rosen-Zvi, Thomas Griffiths, Mark Steyvers, and Padhraic Smyth. The author-topic model for authors and documents. In <em>Proceedings of the 20th conference on Uncertainty in artificial intelligence</em>, 487–494. AUAI Press, 2004.</p>
+</dd>
+<dt class="bibtex label" id="tu2014dirichlet"><span class="brackets"><a class="fn-backref" href="#id1">Tu14</a></span></dt>
+<dd><p>Stephen Tu. The dirichlet-multinomial and dirichlet-categorical models for bayesian inference. <em>Computer Science Division, UC Berkeley</em>, 2014.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/nb/computer-vision-models-learning-and-inference-prince/chapter-20.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+#########################
+Stat Labs - Nolan & Speed
+#########################
+
+.. include:: /_templates/toctree-nb-stat-labs-ns
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

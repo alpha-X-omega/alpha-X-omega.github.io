@@ -1,0 +1,1478 @@
+{
+ "cells": [
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "**********************************\n",
+    "Nonlinear Problems in One Variable\n",
+    "**********************************\n",
+    "\n",
+    "What Is Not Possible\n",
+    "====================\n",
+    "\n",
+    "Solvers can only return an approximate answer or signal that no solution was\n",
+    "found in the allotted time."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 1\n",
+    "=========="
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "def Newtons_Method(f, f_prime, x_c):\n",
+    "    return x_c - f(x_c) / f_prime(x_c)\n",
+    "\n",
+    "f = lambda x: x**4 - 12 * x**3 + 47 * x**2 - 60 * x\n",
+    "f_prime = lambda x: 4 * x**3 - 36 * x**2 + 94 * x - 60"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "x_c = 2\n",
+    "for i in range(5):\n",
+    "    x = Newtons_Method(f, f_prime, x_c)\n",
+    "    print('Iteration {0}: {1}'.format(i, x))\n",
+    "    x_c = x"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "x_c = 1\n",
+    "for i in range(12):\n",
+    "    x = Newtons_Method(f, f_prime, x_c)\n",
+    "    print('Iteration {0}: {1}'.format(i, x))\n",
+    "    x_c = x"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 2\n",
+    "==========\n",
+    "\n",
+    "On CDC machines, the base is 2 and the mantissa has 48 bits.  The machine is\n",
+    "accurate up to :math:`\\log 2^{48} \\sim \\log 10^{14.4} \\approx 14` decimal\n",
+    "digits.\n",
+    "\n",
+    "Given :math:`x_k = 1 + 0.9^k`, :math:`x_k \\rightarrow 1` implies\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   2^{-48} &= 0.9^k\\\\\n",
+    "   -48 \\log{2} &= k \\log{0.9}\\\\\n",
+    "   \\frac{-48 \\log{2}}{\\log{0.9}} &= k \\sim 315.78\n",
+    "\n",
+    "Evidently, it will take :math:`\\lceil k \\rceil` iterations to converge to\n",
+    ":math:`1` on a CDC machine.  The convergence rate is given by\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\lvert x_{k + 1} - x_* \\rvert &\\leq c \\lvert x_k - x_* \\rvert\\\\\n",
+    "   \\left| \\frac{0.9^{k + 1}}{0.9^{k}} \\right| &\\leq c\\\\\n",
+    "   0.9 \\leq c,\n",
+    "\n",
+    "which shows that :math:`q`-linear convergence with constant 0.9 is not\n",
+    "satisfactory for general computational algorithms."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 3\n",
+    "==========\n",
+    "\n",
+    "The sequence :math:`x_k = 1 + 1 / k!` converges :math:`q`-superlinearly to one\n",
+    "because\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\left| \\frac{\\frac{1}{(k + 1)!}}{\\frac{1}{k!}} \\right| &\\leq c\\\\\n",
+    "   \\left| \\frac{1}{k + 1} \\right| &\\leq c."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "import matplotlib.pyplot as plt\n",
+    "import numpy\n",
+    "\n",
+    "f = lambda x: 1 + 1 / numpy.math.factorial(x)\n",
+    "x_star = 1\n",
+    "\n",
+    "C = []\n",
+    "for i in range(1, 20):\n",
+    "    x_k = f(i - 1)\n",
+    "    x_kp1 = f(i)\n",
+    "\n",
+    "    C.append(abs(x_kp1 - x_star) / abs(x_k - x_star))\n",
+    "plt.plot(C)\n",
+    "plt.xlabel(r'Iteration $k$')\n",
+    "plt.ylabel('Convergence Rate')\n",
+    "plt.title(r'$1 + 1 / k! \\rightarrow 1$')\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 4\n",
+    "==========\n",
+    "\n",
+    "See :cite:`potra1989onq` for details."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 5\n",
+    "==========\n",
+    "\n",
+    "Given :math:`\\left\\{ x_k \\right\\}` has :math:`q`-order at least :math:`p` and\n",
+    ":math:`e_k = |x_k - x_*|`, let :math:`b_k = |x_{k - 1} - x_*|`.  By definition\n",
+    "of :math:`q`-order at least :math:`p`, :math:`\\left\\{ b_k \\right\\}` converges to\n",
+    "zero where :math:`e_k \\leq b_k` and\n",
+    ":math:`\\left| x_k - x_* \\right| \\leq c \\left| x_{k - 1} - x_* \\right|^p` holds.\n",
+    "\n",
+    "Applying L'Hopital's rule to the following indeterminate form\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\lim_{k \\to \\infty} \\frac{b_k}{e_k} =\n",
+    "   \\lim_{k \\to \\infty}\n",
+    "     \\frac{\\left| x_{k - 1} - x_* \\right|}{\\left| x_k - x_* \\right|} =\n",
+    "   1 < \\infty\n",
+    "\n",
+    "demonstrates convergence to a finite value."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 6\n",
+    "==========\n",
+    "\n",
+    "See :cite:`gay1979some` for details."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 7\n",
+    "==========\n",
+    "\n",
+    "To reuse the framework of Newton's method covered so far, we need to formulate a\n",
+    "local model around :math:`f(x) = 1 / a` such that we can solve for the root of\n",
+    "the model.\n",
+    "\n",
+    "Defining :math:`f(x) = a x - 1` is perfectly valid and does not use any division\n",
+    "operators.  Unfortunately, this model still requires a division by :math:`f` and\n",
+    ":math:`f'` for Newton's method.  To avoid those divisions, the model should be\n",
+    "written as :math:`f(x) = 1 / x - a` with :math:`f'(x) = -1 / x^2`.\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   f(x) - f(x_c) &= \\int_{x_c}^x f'(z) dz\\\\\n",
+    "   f(x) - f(x_c) &\\simeq f'(x_c) (x - x_c) & \\quad & \\text{Taylor expansion}\\\\\n",
+    "   x &= x_c + \\frac{f(x) - f(x_c)}{f'(x_c)}\\\\\n",
+    "   x_* &= x_c - \\frac{f(x_c)}{f'(x_c)}\\\\\n",
+    "   x_* &= x_c - \\frac{1 / x_c - a}{-1 / x_c^2}\\\\\n",
+    "   x_* &= x_c + x_c - a x_c^2\\\\\n",
+    "   x_* &= x_c (2 - a x_c)\n",
+    "\n",
+    "The absolute error\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\left| x_k - x_* \\right|\n",
+    "    &\\leq \\left| x_{k - 1} (2 - a x_{k - 1}) - \\frac{1}{a} \\right|\\\\\n",
+    "    &\\leq \\left| -a x_{k - 1}^2 + 2 x_{k - 1} - \\frac{1}{a} \\right|\\\\\n",
+    "    &\\leq \\left| a x_{k - 1}^2 - 2 x_{k - 1} + \\frac{1}{a} \\right|\\\\\n",
+    "    &\\leq |a|\n",
+    "        \\left|\n",
+    "          x_{k - 1}^2 - \\frac{2}{a} x_{k - 1} + \\frac{1}{a^2}\n",
+    "        \\right|\\\\\n",
+    "    &\\leq |a| \\left| x_{k - 1} - \\frac{1}{a} \\right|^2\n",
+    "\n",
+    "indicates the convergence rate is :math:`q`-quadratic."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "import matplotlib.pyplot as plt\n",
+    "\n",
+    "a = 9\n",
+    "f = lambda x_c: x_c * (2 - a * x_c)\n",
+    "x_star = 1 / a\n",
+    "x_c = round(1 / a, 1)\n",
+    "C = [x_c]\n",
+    "for i in range(3):\n",
+    "    x_k = f(x_c)\n",
+    "    x_c = x_k\n",
+    "\n",
+    "    C.append(abs(x_k - x_star))\n",
+    "plt.plot(C)\n",
+    "plt.xlabel(r'Iteration $k$')\n",
+    "plt.ylabel('Absolute Error')\n",
+    "plt.title(\"Division via Newton's Method\")\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 8\n",
+    "==========\n",
+    "\n",
+    "Define :math:`D = \\left| x_0 - z_0 \\right|` as the length of the interval around\n",
+    ":math:`x_*`.  The bisection method would stop once :math:`D \\approx 0`.  Since\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\left|x_{k + 1} - x_*\\right| \\leq\n",
+    "   D_{k + 1} \\leq\n",
+    "   c \\left|x_k - x_*\\right|\n",
+    "   \\leq c D_k\n",
+    "\n",
+    "and\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   D_{k + 1} &\\leq c D_k\\\\\n",
+    "   \\frac{1}{2} &\\leq c,\n",
+    "\n",
+    "the bisection method's convergence rate is q-linear.  Note that the bisection\n",
+    "method does not extend naturally to higher dimensions."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "f = lambda x: 1 / x - 5\n",
+    "x_k, z_k = 0.1, 1\n",
+    "for i in range(12):\n",
+    "    x_n = (x_k + z_k) / 2\n",
+    "    if f(x_k) * f(x_n) < 0:\n",
+    "        z_n = x_k\n",
+    "    else:\n",
+    "        z_n = z_k\n",
+    "    x_k, z_k = x_n, z_n\n",
+    "    print(x_n)"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    ".. _dennis1996numerical-ex-2.9:\n",
+    "\n",
+    "Exercise 9\n",
+    "==========\n",
+    "\n",
+    "The following analysis are based on Theorem 2.4.3."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "import matplotlib.pyplot as plt\n",
+    "import numpy\n",
+    "\n",
+    "class HybridQuasiNewton:\n",
+    "    def __init__(self, tau=None, typx=None):\n",
+    "        self._kEpsilon = numpy.finfo(float).eps\n",
+    "        self._kRootEpsilon = numpy.sqrt(self._kEpsilon)\n",
+    "\n",
+    "        #parameters to solver\n",
+    "        self._tau = tau\n",
+    "        if tau is None:\n",
+    "            self._tau = (self._kRootEpsilon,) * 2\n",
+    "\n",
+    "        self._typx = typx\n",
+    "        if typx is None:\n",
+    "            self._typx = (1,)\n",
+    "\n",
+    "        self._secant_state = None\n",
+    "\n",
+    "    def evaluate_fdnewton(self, f, x_c):\n",
+    "        #finite forward-difference\n",
+    "        h_c = self._kRootEpsilon * max(abs(x_c), self._typx[0])\n",
+    "        f_xc = f(x_c)\n",
+    "        a_c = (f(x_c + h_c) - f_xc) / h_c\n",
+    "        x_k = x_c - f_xc / a_c\n",
+    "\n",
+    "        x_n = self._backtracking_strategy(f, x_c, x_k)\n",
+    "\n",
+    "        return self._stop(f, x_c, x_n), x_n\n",
+    "\n",
+    "    def evaluate_newton(self, f, f_prime, x_c):\n",
+    "        x_k = x_c - f(x_c) / f_prime(x_c)\n",
+    "\n",
+    "        x_n = self._backtracking_strategy(f, x_c, x_k)\n",
+    "\n",
+    "        return self._stop(f, x_c, x_n), x_n\n",
+    "\n",
+    "    def evaluate_secant(self, f, x_c):\n",
+    "        if self._secant_state is None:\n",
+    "            #secant method uses previous iteration's results\n",
+    "            h_c = self._kRootEpsilon * max(abs(x_c), self._typx[0])\n",
+    "            #compute finite central-difference\n",
+    "            a_c = (f(x_c + h_c) - f(x_c - h_c)) / (2 * h_c)\n",
+    "            f_xc = f(x_c)\n",
+    "            x_k = x_c - f_xc / a_c\n",
+    "            self._secant_state = (x_c, f_xc)\n",
+    "        else:\n",
+    "            x_m, f_xm = self._secant_state\n",
+    "            f_xc = f(x_c)\n",
+    "            a_c = (f_xm - f_xc) / (x_m - x_c)\n",
+    "            x_k = x_c - f_xc / a_c\n",
+    "            self._secant_state = (x_c, f_xc)\n",
+    "\n",
+    "        x_n = self._backtracking_strategy(f, x_c, x_k)\n",
+    "\n",
+    "        converged = self._stop(f, x_c, x_n)\n",
+    "        if converged:\n",
+    "            self._secant_state = None\n",
+    "\n",
+    "        return converged, x_n\n",
+    "\n",
+    "    def _backtracking_strategy(self, f, x_c, x_n):\n",
+    "        while abs(f(x_n)) >= abs(f(x_c)):\n",
+    "            x_n = (x_c + x_n) / 2\n",
+    "        return x_n\n",
+    "\n",
+    "    def _stop(self, f, x_c, x_n):\n",
+    "        return abs(f(x_n)) < self._tau[0] or\\\n",
+    "            abs(x_n - x_c) / max(abs(x_n), self._typx[0]) < self._tau[1]\n",
+    "\n",
+    "def plot_convergent_sequence(solver, x_0, x_star):\n",
+    "    x_c = x_0\n",
+    "    seq = [abs(x_c - x_star)]\n",
+    "    converged = False\n",
+    "    k = 0\n",
+    "    while not converged:\n",
+    "        converged, x_n = solver(x_c)\n",
+    "        x_c = x_n\n",
+    "        seq.append(abs(x_c - x_star))\n",
+    "        k += 1\n",
+    "\n",
+    "    _ = r'$x_0 = {0:.3f}, {1} = {2:.3f}, x_* = {3:.3f}$'\n",
+    "    _ = _.format(x_0, 'x_{' + str(k) + '}', x_c, x_star)\n",
+    "    p = plt.plot(range(len(seq)), seq,\n",
+    "                 label=_)\n",
+    "    plt.legend()\n",
+    "    plt.xlabel(r'Iteration $k$')\n",
+    "    plt.ylabel('Absolute Error')\n",
+    "    plt.title('Convergence Rate')\n",
+    "    plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "hqn = HybridQuasiNewton()\n",
+    "f = lambda x: x**2 - 1\n",
+    "f_prime = lambda x: 2 * x\n",
+    "x_0 = 2\n",
+    "\n",
+    "METHODS = [\"Newton's Method\",\n",
+    "           \"Finite-Difference\",\n",
+    "           'Secant Method']\n",
+    "STR_FMT = '{0!s:16}\\t{1!s:16}\\t{2!s:16}'\n",
+    "print(STR_FMT.format(*METHODS))\n",
+    "\n",
+    "x_n = [x_0, ] * 3\n",
+    "converged = [False, ] * 3\n",
+    "\n",
+    "while False in converged:\n",
+    "    converged[0], x_n[0] = hqn.evaluate_newton(f, f_prime, x_n[0])\n",
+    "    converged[1], x_n[1] = hqn.evaluate_fdnewton(f, x_n[1])\n",
+    "    converged[2], x_n[2] = hqn.evaluate_secant(f, x_n[2])\n",
+    "    print(STR_FMT.format(*x_n))"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "(a)\n",
+    "---\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   f(x) &= \\sin{(x)} - \\cos{(2 x)}\\\\\n",
+    "   f'(x) &= \\cos{(x)} - (-2 \\sin{(2 x)}) = \\cos{(x)} + 2 \\sin{(2 x)}\n",
+    "\n",
+    "Newton's method will converge :math:`q`-quadratically given :math:`x_0 = 1`\n",
+    "because :math:`x_* \\in [0, 1]` and within that range, :math:`\\exists \\rho > 0`\n",
+    "such that :math:`\\left| f'(x) \\right| > \\rho`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "hqn = HybridQuasiNewton()\n",
+    "f = lambda x: numpy.sin(x) - numpy.cos(2 * x)\n",
+    "x_0 = 1\n",
+    "x_star = 0.523598775598\n",
+    "\n",
+    "solver = lambda x: hqn.evaluate_secant(f, x)\n",
+    "plot_convergent_sequence(solver, x_0, x_star)"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "(b)\n",
+    "---\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   f(x) &= x^3 - 7 x^2 + 11 x - 5\\\\\n",
+    "   f'(x) &= 3 x^2 - 14 x + 11\n",
+    "\n",
+    "Newton's method will converge :math:`q`-quadratically to :math:`x_* = 5` when\n",
+    ":math:`x_0 = 7`.  When :math:`x_0 = 2`, it will converge :math:`q`-linearly to\n",
+    ":math:`x_* = 1` because :math:`f'(x_* = 1) = 0` i.e. the multiple roots at\n",
+    ":math:`x_*` violate the :math:`\\rho > 0` condition."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "hqn = HybridQuasiNewton()\n",
+    "f = lambda x: x**3 - 7 * x**2 + 11 * x - 5\n",
+    "x_0 = 2\n",
+    "x_star = 1.00004066672\n",
+    "\n",
+    "solver = lambda x: hqn.evaluate_secant(f, x)\n",
+    "plot_convergent_sequence(solver, x_0, x_star)\n",
+    "\n",
+    "x_0 = 7\n",
+    "x_star = 5\n",
+    "plot_convergent_sequence(solver, x_0, x_star)"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "(c)\n",
+    "---\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   f(x) &= \\sin{(x)} - \\cos{(x)}\\\\\n",
+    "   f'(x) &= \\cos{(x)} + \\sin{(x)}\n",
+    "\n",
+    "Newton's method will converge :math:`q`-quadratically when :math:`x_0 = 1`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "hqn = HybridQuasiNewton()\n",
+    "f = lambda x: numpy.sin(x) - numpy.cos(x)\n",
+    "x_0 = 1\n",
+    "x_star = 0.78539816335\n",
+    "\n",
+    "solver = lambda x: hqn.evaluate_secant(f, x)\n",
+    "plot_convergent_sequence(solver, x_0, x_star)"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "(d)\n",
+    "---\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   f(x) &= x^4 - 12 x^3 + 47 x^2 - 60 x - 24\\\\\n",
+    "   f'(x) &= 4 x^3 - 36 x^2 + 94 x - 60\n",
+    "\n",
+    "Both :math:`x_0 = 0` and :math:`x_0 = 2` will achieve :math:`q`-quadratic\n",
+    "convergence with Newton's method.  However, :math:`x_0 = 2`'s convergence is\n",
+    "slower than :math:`x_0 = 0`'s because there are two zero crossings for\n",
+    ":math:`f'(x)` on the way to :math:`x_*`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "hqn = HybridQuasiNewton()\n",
+    "f = lambda x: x**4 - 12 * x**3 + 47 * x**2 - 60 * x - 24\n",
+    "x_0 = 0\n",
+    "x_star = -0.315551843713\n",
+    "\n",
+    "solver = lambda x: hqn.evaluate_secant(f, x)\n",
+    "plot_convergent_sequence(solver, x_0, x_star)\n",
+    "\n",
+    "x_0 = 2\n",
+    "x_star = 5.81115950152\n",
+    "plot_convergent_sequence(solver, x_0, x_star)"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 10\n",
+    "===========\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   x_+ &= x_c - \\frac{\\arctan{(x_c)}}{(1 + x_c^2)^{-1}}\\\\\n",
+    "    &= x_c - \\arctan{(x_c)}(1 + x_c^2)\n",
+    "\n",
+    "This formulation of Newton's method will cycle when :math:`x_+ = -x_c` such that\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   -x_c &= x_c - \\arctan{(x_c)}(1 + x_c^2)\\\\\n",
+    "   0 &= 2 x_c - (1 + x_c^2) \\arctan{(x_c)}.\n",
+    "\n",
+    "However, since Newton's method was paired with backtracking, it will not cycle."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "hqn = HybridQuasiNewton()\n",
+    "f = lambda x: 2 * x - (1 + x * x) * numpy.math.atan(x)\n",
+    "x_0 = -1.5\n",
+    "x_star = -1.39174520382\n",
+    "\n",
+    "solver = lambda x: hqn.evaluate_secant(f, x)\n",
+    "plot_convergent_sequence(solver, x_0, x_star)\n",
+    "\n",
+    "x_0 = 0.0001\n",
+    "x_star = 0\n",
+    "plot_convergent_sequence(solver, x_0, x_star)\n",
+    "\n",
+    "x_0 = 1.5\n",
+    "x_star = 1.39174520382\n",
+    "plot_convergent_sequence(solver, x_0, x_star)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "hqn = HybridQuasiNewton()\n",
+    "f = lambda x: numpy.math.atan(x)\n",
+    "x_0 = 1.39174520382\n",
+    "x_star = 0\n",
+    "\n",
+    "solver = lambda x: hqn.evaluate_secant(f, x)\n",
+    "plot_convergent_sequence(solver, x_0, x_star)"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 11\n",
+    "===========\n",
+    "\n",
+    "To minimize a one variable :math:`f(x)`, a quadratic model of :math:`f(x)`\n",
+    "around :math:`x_c` is created and the critical point of the model is\n",
+    "subsequently solved for.\n",
+    "\n",
+    "One such quadratic model is the second-order Taylor series\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   f(x) \\approx f(x_c) + f'(x_c) (x - x_c) + \\frac{1}{2}f''(x_c) (x - x_c)^2\n",
+    "\n",
+    "such that\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   0 &= \\frac{\\partial f}{\\partial x}\\\\\n",
+    "     &= f'(x_c) + f''(x_c) (x - x_c)\\\\\n",
+    "   x &= x_c - \\frac{f'(x_c)}{f''(x_c)}."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "import numpy\n",
+    "\n",
+    "class NewtonQuadraticSolver1D:\n",
+    "    def __init__(self, tau=None, typx=None):\n",
+    "        self._kEpsilon = numpy.finfo(float).eps\n",
+    "        self._kRootEpsilon = numpy.sqrt(self._kEpsilon)\n",
+    "\n",
+    "        #parameters to solver\n",
+    "        self._tau = tau\n",
+    "        if tau is None:\n",
+    "            self._tau = (self._kRootEpsilon,) * 2\n",
+    "\n",
+    "        self._typx = typx\n",
+    "        if typx is None:\n",
+    "            self._typx = (1,)\n",
+    "\n",
+    "    def evaluate_newton(self, f, f_p1, f_p2, x_c):\n",
+    "        denom = f_p2(x_c)\n",
+    "        if denom > 0:\n",
+    "            x_k = x_c - f_p1(x_c) / denom\n",
+    "        else:\n",
+    "            x_k = x_c + f_p1(x_c) / denom\n",
+    "\n",
+    "        x_n = self._backtracking_strategy(f, x_c, x_k)\n",
+    "\n",
+    "        return self._stop(f, f_p1, x_c, x_n), x_n\n",
+    "\n",
+    "    def _backtracking_strategy(self, f, x_c, x_n):\n",
+    "        while f(x_n) >= f(x_c):\n",
+    "            x_n = (x_c + x_n) / 2\n",
+    "        return x_n\n",
+    "\n",
+    "    def _stop(self, f, f_prime, x_c, x_n):\n",
+    "        return abs(f_prime(x_n) * x_n / f(x_n)) < self._tau[0] or\\\n",
+    "            abs(x_n - x_c) / max(abs(x_n), self._typx[0]) < self._tau[1]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "nqs1d = NewtonQuadraticSolver1D()\n",
+    "f = lambda x: x**4 + x**3\n",
+    "f_p1 = lambda x: 4 * x**3 + 3 * x**2\n",
+    "f_p2 = lambda x: 12 * x**2 + 6 * x\n",
+    "x_star = -0.75\n",
+    "x_0 = -0.1\n",
+    "\n",
+    "solver = lambda x: nqs1d.evaluate_newton(f, f_p1, f_p2, x)\n",
+    "plot_convergent_sequence(solver, x_0, x_star)"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 12\n",
+    "===========\n",
+    "\n",
+    "According to theorem 2.4.3, :math:`f(x) = x^2` and :math:`f(x) = x^3` converges\n",
+    "q-linearly while :math:`f(x) = x + x^3` and :math:`f(x) = x + x^4` have\n",
+    "q-quadratic convergence rate because :math:`f'(x_* = 0)` must have a non-zero\n",
+    "lower bound for Newton's method to converge quadratically."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "hqn = HybridQuasiNewton()\n",
+    "f = lambda x: x**2\n",
+    "f_p1 = lambda x: 2 * x\n",
+    "x_star = 0\n",
+    "x_0 = 2\n",
+    "\n",
+    "solver = lambda x: hqn.evaluate_newton(f, f_p1, x)\n",
+    "plot_convergent_sequence(solver, x_0, x_star)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "hqn = HybridQuasiNewton()\n",
+    "f = lambda x: x**3\n",
+    "f_p1 = lambda x: 3 * x**2\n",
+    "x_star = 0\n",
+    "x_0 = 2\n",
+    "\n",
+    "solver = lambda x: hqn.evaluate_newton(f, f_p1, x)\n",
+    "plot_convergent_sequence(solver, x_0, x_star)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "hqn = HybridQuasiNewton()\n",
+    "f = lambda x: x + x**3\n",
+    "f_prime = lambda x: 1 + 3 * x**2\n",
+    "x_star = 0\n",
+    "x_0 = 2\n",
+    "\n",
+    "solver = lambda x: hqn.evaluate_newton(f, f_prime, x)\n",
+    "plot_convergent_sequence(solver, x_0, x_star)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "hqn = HybridQuasiNewton()\n",
+    "f = lambda x: x + x**4\n",
+    "f_prime = lambda x: 1 + 4 * x**3\n",
+    "x_star = 0\n",
+    "x_0 = 2\n",
+    "\n",
+    "solver = lambda x: hqn.evaluate_newton(f, f_prime, x)\n",
+    "plot_convergent_sequence(solver, x_0, x_star)"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 13\n",
+    "===========\n",
+    "\n",
+    "Assume :math:`f(x)` has :math:`n` continuous derivatives on an interval about\n",
+    ":math:`x = x_*`.  :math:`f` has a root (a.k.a. a zero) of multiplicity :math:`m`\n",
+    "at :math:`x_*` if and only if\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   f(x_*) = f'(x_*) = \\ldots = f^{(m - 1)}(x_*) = 0\n",
+    "   \\quad \\text{and} \\quad\n",
+    "   f^{(m)}(x_*) \\neq 0.\n",
+    "\n",
+    "The foregoing implies :math:`f` can be factorized as\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   f(x) = \\left( x - x_* \\right)^m q(x)\n",
+    "\n",
+    "where :math:`\\lim_{x \\to x_*} q(x) \\neq 0`.  Define\n",
+    ":math:`e_{k + 1} = x_{k + 1} - x_*` and :math:`e_k = x_k - x_*`.  Newton's\n",
+    "method converges :math:`q`-linearly to :math:`x_*` because\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   x_{k + 1} - x_* &= x_k - x_* - \\frac{f(x_k)}{f'(x_k)}\\\\\n",
+    "    &= x_k - x_* -\n",
+    "       \\frac{(x_k - x_*)^m q(x_k)}{\n",
+    "         m (x_k - x_*)^{m - 1} q(x_k) + (x_k - x_*)^m q'(x_k)\n",
+    "       }\\\\\n",
+    "    &= x_k - x_* - \\frac{(x_k - x_*) q(x_k)}{m q(x_k)  + (x_k - x_*) q'(x_k)}\\\\\n",
+    "   \\frac{x_{k + 1} - x_*}{x_k - x_*}\n",
+    "    &= 1 - \\frac{q(x_k)}{m q(x_k)  + (x_k - x_*) q'(x_k)}\\\\\n",
+    "    &= \\frac{m q(x_k) +\n",
+    "       (x_k - x_*) q'(x_k) - q(x_k)}{m q(x_k)  + (x_k - x_*) q'(x_k)}\\\\\n",
+    "    &= \\frac{\n",
+    "         m - 1  + (x_k - x_*) \\frac{q'(x_k)}{q(x_k)}\n",
+    "       }{\n",
+    "         m + (x_k - x_*) \\frac{q'(x_k)}{q(x_k)}\n",
+    "       }\\\\\n",
+    "   \\lim_{k \\to \\infty} \\frac{e_{k + 1}}{e_k} &= \\frac{m - 1}{m}."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 14\n",
+    "===========\n",
+    "\n",
+    "Assume :math:`f` has :math:`n + 1` continuous derivatives on an interval about\n",
+    ":math:`x = x_*` and satisfies\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   f'(x_*) &\\neq 0,\\\\\n",
+    "   f(x_*) &= f''(x_*) = \\ldots = f^{(n)}(x_*) = 0,\\\\\n",
+    "   f^{(n + 1)}(x_*) &\\neq 0.\n",
+    "\n",
+    "By inspection, :math:`f` can be factorized as\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   f(x) = (x - x_*)^{(n + 1)} q(x) + a (x - x_*)\n",
+    "\n",
+    "where :math:`a \\in \\mathbb{R} \\setminus \\left\\{ (x - x_*) \\right\\}` and\n",
+    ":math:`\\lim_{x \\to x_*} q(x) \\neq 0`.  Newton's method converges\n",
+    ":math:`q`-cubicly to :math:`x_*` because\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   x_{k + 1} - x_* &= x_k - x_* - \\frac{f(x_k)}{f'(x_k)}\\\\\n",
+    "    &= x_k - x_* -\n",
+    "       \\frac{\n",
+    "         (x_k - x_*)^{(n + 1)} q(x_k) + a (x_k - x_*)\n",
+    "       }{\n",
+    "         (n + 1) (x_k - x_*)^{(n)} q(x_k) + (x_k - x_*)^{(n + 1)} q'(x_k) + a\n",
+    "       }\\\\\n",
+    "    &= \\frac{\n",
+    "         (n + 1) (x_k - x_*)^{(n + 1)} q(x_k) + (x_k - x_*)^{(n + 2)} q'(x_k) +\n",
+    "         a (x_k - x_*) - (x_k - x_*)^{(n + 1)} q(x_k) - a (x_k - x_*)\n",
+    "       }{\n",
+    "         (n + 1) (x_k - x_*)^{(n)} q(x_k) + (x_k - x_*)^{(n + 1)} q'(x_k) + a\n",
+    "       }\\\\\n",
+    "    &= \\frac{\n",
+    "         n (x_k - x_*)^{(n + 1)} q(x_k) + (x_k - x_*)^{(n + 2)} q'(x_k)\n",
+    "       }{\n",
+    "         (n + 1) (x_k - x_*)^{(n)} q(x_k) + (x_k - x_*)^{(n + 1)} q'(x_k) + a\n",
+    "       }\\\\\n",
+    "    &= \\frac{\n",
+    "         n (x_k - x_*)^{(n + 1)} + (x_k - x_*)^{(n + 2)} \\frac{q'(x_k)}{q(x_k)}\n",
+    "       }{\n",
+    "         (n + 1) (x_k - x_*)^{(n)} +\n",
+    "         (x_k - x_*)^{(n + 1)} \\frac{q'(x_k)}{q(x_k)} +\n",
+    "         \\frac{a}{q(x_k)}\n",
+    "       }\\\\\n",
+    "   \\left| x_{k + 1} - x_* \\right|\n",
+    "    &= \\left\\vert\n",
+    "         \\frac{\n",
+    "           n (x_k - x_*)^{(n + 1)} +\n",
+    "           (x_k - x_*)^{(n + 2)} \\frac{q'(x_k)}{q(x_k)}\n",
+    "         }{\n",
+    "           (n + 1) (x_k - x_*)^{(n)} +\n",
+    "           (x_k - x_*)^{(n + 1)} \\frac{q'(x_k)}{q(x_k)} + \\frac{a}{q(x_k)}\n",
+    "         }\n",
+    "       \\right\\vert\\\\\n",
+    "    &= \\frac{1}{\\rho}\n",
+    "       \\left\\vert\n",
+    "         n (x_k - x_*)^{(n + 1)} + (x_k - x_*)^{(n + 2)} \\frac{q'(x_k)}{q(x_k)}\n",
+    "       \\right\\vert\\\\\n",
+    "    &\\leq \\frac{\\gamma}{\\rho} \\left\\vert x_k - x_* \\right\\vert^{(n + 1)}\n",
+    "\n",
+    "where :math:`\\rho, \\gamma > 0`."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 15\n",
+    "===========\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   0 &\\approx M(x)\\\\\n",
+    "    &= f(x_c) + f'(x_c) (x - x_c) + \\frac{1}{2} f''(x_c) (x - x_c)^2\\\\\n",
+    "    &= \\frac{f(x_c)}{f''(x_c)} +\n",
+    "       \\frac{f'(x_c)}{f''(x_c)} (x - x_c) +\n",
+    "       \\frac{1}{2} (x - x_c)^2\\\\\n",
+    "    &= \\frac{f(x_c)}{f''(x_c)} + \\frac{f'(x_c)}{f''(x_c)} x -\n",
+    "       \\frac{f'(x_c)}{f''(x_c)} x_c +\n",
+    "       \\frac{1}{2} x^2 - x x_c + \\frac{1}{2} x_c^2\\\\\n",
+    "    &= \\frac{1}{2} x^2 +\n",
+    "       \\left( \\frac{f'(x_c)}{f''(x_c)} - x_c \\right) x +\n",
+    "       \\frac{1}{2} x_c^2 -\n",
+    "       \\frac{f'(x_c)}{f''(x_c)} x_c +\n",
+    "       \\frac{f(x_c)}{f''(x_c)}\\\\\n",
+    "    &= a x^2 + b x + c\n",
+    "\n",
+    "An exact solution to the foregoing quadratic equation is\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   x &= \\frac{-b \\pm \\sqrt{b^2 - 4 a c}}{2 a}\\\\\n",
+    "    &= -\\left(\\frac{f'(x_c)}{f''(x_c)} - x_c \\right) \\pm\n",
+    "       \\sqrt{\\left(\\frac{f'(x_c)}{f''(x_c)} - x_c \\right)^2 - 2 c}\\\\\n",
+    "    &= x_c - \\frac{f'(x_c)}{f''(x_c)} \\pm\n",
+    "       \\sqrt{\n",
+    "         \\left(\\frac{f'(x_c)}{f''(x_c)} \\right)^2 -\n",
+    "         2 \\frac{f'(x_c)}{f''(x_c)} x_c +\n",
+    "         x_c^2 - x_c^2 +\n",
+    "         2 \\frac{f'(x_c)}{f''(x_c)} x_c - 2 \\frac{f(x_c)}{f''(x_c)}\n",
+    "       }\\\\\n",
+    "    &= x_c - \\frac{f'(x_c)}{f''(x_c)} \\pm\n",
+    "       \\sqrt{\n",
+    "         \\left( \\frac{f'(x_c)}{f''(x_c)} \\right)^2 - 2 \\frac{f(x_c)}{f''(x_c)}\n",
+    "       }\\\\\n",
+    "  &= x_c - \\frac{f'(x_c) \\pm \\sqrt{f'(x_c)^2 - 2 f(x_c) f''(x_c)}}{f''(x_c)}.\n",
+    "\n",
+    "There are two (possibly three) major issues with this approach.  The first is\n",
+    "loss of significance due to the square root operation.  The second is when\n",
+    ":math:`f'(x_c)^2 \\gg 2 f(x_c) f''(x_c)` or\n",
+    ":math:`f'(x_c)^2 \\sim 2 f(x_c) f''(x_c)`.  Lastly, :math:`x_k` can be complex\n",
+    "even if all the previous iterates were real.\n",
+    "\n",
+    "A quadratic model is appropriate when the affine model is not satisfactory\n",
+    "with respect to the desired criteria.  It turns out this is equivalent to\n",
+    "Halley's irrational method :cite:`acklamhm`."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 16\n",
+    "===========\n",
+    "\n",
+    "Assume :math:`f \\in C^1(D)`, :math:`x_c \\in D`, :math:`f(x_c) \\neq 0`,\n",
+    ":math:`f'(x_c) \\neq 0`, and :math:`\\mathrm{d} = -f(x_c) / f'(x_c)`.\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   f(x_c + \\lambda \\mathrm{d}) - f(x_c)\n",
+    "    &= \\int_0^\\lambda \\mathrm{d} f'(x_c + \\alpha \\mathrm{d}) d\\alpha\\\\\n",
+    "    &= \\int_0^\\lambda\n",
+    "         \\frac{-f(x_c)}{f'(x_c)} f'(x_c + \\alpha \\mathrm{d}) d\\alpha\\\\\n",
+    "   1 - \\frac{f(x_c + \\lambda \\mathrm{d})}{f(x_c)}\n",
+    "    &= \\int_0^\\lambda \\frac{f'(x_c + \\alpha \\mathrm{d})}{f'(x_c)} d\\alpha\\\\\n",
+    "    &> 0.\n",
+    "\n",
+    "Choose :math:`t` such that :math:`f'(x_c + \\lambda d) f'(x_c) > 0` for all\n",
+    ":math:`\\lambda \\in (0, t)`.\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   1 &> \\frac{f(x_c + \\lambda \\mathrm{d})}{f(x_c)}\\\\\n",
+    "   \\frac{\n",
+    "     \\left\\vert f(x_c) \\right\\vert\n",
+    "   }{\n",
+    "     \\left\\vert f(x_c + \\lambda \\mathrm{d}) \\right\\vert\n",
+    "   }\n",
+    "    &> \\frac{\n",
+    "         \\text{sgn}\\left(\n",
+    "           f(x_c + \\lambda \\mathrm{d})\n",
+    "         \\right)\n",
+    "       }{\n",
+    "         \\text{sgn}\\left(\n",
+    "           f(x_c)\n",
+    "         \\right)\n",
+    "       }\\\\\n",
+    "   \\left\\vert f(x_c) \\right\\vert\n",
+    "    &> \\left\\vert f(x_c + \\lambda \\mathrm{d}) \\right\\vert\n",
+    "       \\text{sgn}\\left( f(x_c + \\lambda \\mathrm{d}) f(x_c) \\right).\n",
+    "\n",
+    "This illustrates that once the minimizing point :math:`x_*` is almost reached\n",
+    "using the suggested :math:`\\mathrm{d}` step size, the optimization can stop.\n",
+    "However, this only works when the region has the same sign."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 17\n",
+    "===========\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\frac{\n",
+    "     \\left| x_+ - x_c \\right|\n",
+    "   }{\n",
+    "     \\max \\left\\{ \\left| x_+ \\right|, \\left| x_c \\right| \\right\\}\n",
+    "   } < 10^{-7}\n",
+    "\n",
+    "will not be satisfied for :math:`f(x) = x^2` because the relative error is\n",
+    "constant (either 0.5 or 1.0) at each time step.\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\frac{\n",
+    "     \\left| x_+ - x_c \\right|\n",
+    "   }{\n",
+    "     \\max \\left\\{ \\left| x_+ \\right|, \\text{typ}x \\right\\}\n",
+    "   } < 10^{-7}\n",
+    "\n",
+    "will be satisfied with an appropriately selected :math:`\\text{typ}x`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "f = lambda x: x**2\n",
+    "f_prime = lambda x: 2 * x\n",
+    "x_star = 0\n",
+    "x_c = 1\n",
+    "\n",
+    "METHODS = ['Absolute Error',\n",
+    "           'Current Value',\n",
+    "           'Relative Error',\n",
+    "           'Satisfy Condition']\n",
+    "STR_FMT = '{0!s:16}\\t{1!s:16}\\t{2!s:16}\\t{3!s:16}'\n",
+    "print(STR_FMT.format(*METHODS))\n",
+    "\n",
+    "typx = 1\n",
+    "SC = []\n",
+    "X_i = [x_c]\n",
+    "for i in range(0, 20):\n",
+    "    x_k = Newtons_Method(f, f_prime, x_c)\n",
+    "    x_c = x_k\n",
+    "\n",
+    "    X_i.append(x_k)\n",
+    "    top = abs(X_i[i + 1] - X_i[i])\n",
+    "    bot = max(abs(X_i[i + 1]), abs(typx))\n",
+    "    print(STR_FMT.format(abs(x_k - x_star), f(x_k), top / bot,\n",
+    "                         (f(x_k) < 10e-5, top / bot < 10e-7)))"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 18\n",
+    "===========\n",
+    "\n",
+    "Choose :math:`\\widehat{D} \\subset D` such that\n",
+    ":math:`\\left| f'(x) \\right| \\leq \\alpha` for all\n",
+    ":math:`x \\in \\widehat{D}` where :math:`\\alpha > 0`.\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   f(x) - f(x_*) &= \\int_{x_*}^x f'(z) dz\\\\\n",
+    "   \\left\\vert f(x) \\right\\vert\n",
+    "    &= \\left\\vert \\int_{x_*}^x f'(z) dz \\right\\vert\\\\\n",
+    "    &\\leq \\left\\vert \\int_{x_*}^x \\alpha dz \\right\\vert\\\\\n",
+    "    &= \\alpha \\left\\vert \\left. z \\right|_{x_*}^x \\right\\vert\\\\\n",
+    "    &= \\alpha \\left\\vert x - x_* \\right\\vert."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 19\n",
+    "===========\n",
+    "\n",
+    "The following is one way of deriving the forward finite difference formula for\n",
+    "first order derivative of :math:`f` using Taylor expansion at :math:`x`:\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   f(x + h) &\\approx f(x) + h f'(x)\\\\\n",
+    "   f'(x) &\\approx \\frac{f(x + h) - f(x)}{h}.\n",
+    "\n",
+    "Invoking Corollary 2.6.2 and the derivations in\n",
+    ":ref:`Exercise 20 <dennis1996numerical-ex-2.20>` gives\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\left| \\frac{f(x_c + h_c) - f(x_c)}{h_c} - f'(x_c) \\right|\n",
+    "    &\\leq \\left|\n",
+    "            \\frac{\n",
+    "              f(x_c + h_c) + \\eta |f(x_c + h_c)| - f(x_c) - \\eta |f(x_c)|\n",
+    "            }{h_c} - f'(x_c)\n",
+    "          \\right|\\\\\n",
+    "    &\\leq \\left|\n",
+    "            \\frac{\n",
+    "              f(x_c + h_c) - f(x_c)}{h_c} - f'(x_c) +\n",
+    "              \\eta \\frac{|f(x_c + h_c)| - |f(x_c)|\n",
+    "            }{h_c}\n",
+    "          \\right|\\\\\n",
+    "    &\\leq \\left| \\frac{f(x_c + h_c) - f(x_c)}{h_c} - f'(x_c) \\right| +\n",
+    "          \\left| \\eta \\frac{|f(x_c + h_c)| + |f(x_c)|}{h_c} \\right|\\\\\n",
+    "    &\\leq \\frac{\\gamma \\left| h_c \\right|}{2} +\n",
+    "          \\eta \\frac{|f(x_c + h_c)| + |f(x_c)|}{|h_c|}.\n",
+    "\n",
+    "Assuming :math:`f(x_c + h_c) \\cong f(x_c)`,\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   0 &\\leq \\frac{\\gamma \\left| h_c \\right|}{2} +\n",
+    "           \\eta \\frac{|f(x_c + h_c)| + |f(x_c)|}{|h_c|}\\\\\n",
+    "   0 &\\cong \\frac{\\gamma}{2} h_c^2 + 2 \\eta |f(x_c)|\\\\\n",
+    "   h_c &\\approx \\pm \\sqrt{\\frac{- 4 \\eta |f(x_c)|}{\\gamma}}\\\\\n",
+    "    &\\approx \\pm 2i \\sqrt{\\frac{\\eta |f(x_c)|}{\\gamma}}.\n",
+    "\n",
+    "Note that if :math:`|f'(x)| \\ll |f(x)|`, then the finite difference is going\n",
+    "to evaluate to zero before ever reaching :math:`f'(x)`'s vicinity because\n",
+    ":math:`\\text{fl}(f(x + h)) = \\text{fl}(f(x))`."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    ".. _dennis1996numerical-ex-2.20:\n",
+    "\n",
+    "Exercise 20\n",
+    "===========\n",
+    "\n",
+    "A couple useful facts to recall are\n",
+    "\n",
+    "- :math:`f'' \\in \\text{Lip}_\\gamma(D)` implies :math:`f''` is continuously\n",
+    "  differentiable, which means :math:`f'''` exists and is itself a continous\n",
+    "  function.\n",
+    "- Any function can be written as :math:`f(z) \\approx T_n(z) + R_n(z)` where\n",
+    "  :math:`T_n(z)` is the :math:`n`-th degree Taylor polynomial of :math:`f` at\n",
+    "  :math:`x` and\n",
+    "\n",
+    "  .. math::\n",
+    "\n",
+    "     R_n(z) = \\frac{1}{n!} \\int_x^z (z - t)^n f^{(n + 1)}(t) dt\n",
+    "\n",
+    "  is the remainder of the series.\n",
+    "- Weighted Mean Value Theorem for Integrals.\n",
+    "\n",
+    "  - If :math:`f` and :math:`g` are continuous on :math:`[a, b]` and :math:`g`\n",
+    "    does not change sign in :math:`[a, b]`, then there exists\n",
+    "    :math:`c \\in [a, b]` such that\n",
+    "\n",
+    "    .. math::\n",
+    "\n",
+    "       \\int_a^b f(x) g(x) dx = f(c) \\int_a^b g(x) dx.\n",
+    "\n",
+    "Observe that when :math:`n = 2` and :math:`(z - t)^n` does not change sign in\n",
+    "the interval :math:`[x, z]`,\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\left| f(z) - T_n \\right| &\\leq \\left| R_n(z) \\right|\\\\\n",
+    "    &= \\left| \\frac{1}{n!} \\int_x^z (z - t)^n f^{(n + 1)}(t) dt \\right|\\\\\n",
+    "    &= \\frac{\\gamma}{n!} \\left| \\int_x^z (z - t)^n dt \\right|\\\\\n",
+    "    &= \\frac{\\gamma}{n!} \\left|\n",
+    "         \\left. -\\frac{(z - t)^{n + 1}}{n + 1} \\right|_x^z\n",
+    "       \\right|\\\\\n",
+    "    &= \\frac{\\gamma}{(n + 1)!} \\left| z - x \\right|^{n + 1}\\\\\n",
+    "    &= \\frac{\\gamma}{6} \\left| z - x \\right|^{3}.\n",
+    "\n",
+    "A more rigorous proof would involve the Squeeze Theorem bounding\n",
+    ":math:`R_n(z)` as :math:`x \\to z` from the left and right side.\n",
+    "\n",
+    "The following is one way of deriving the central difference formula for second\n",
+    "order derivative of :math:`f` using Taylor expansion at :math:`x`:\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   f(x + h) &\\approx f(x) + h f'(x) + \\frac{h^2}{2}f''(x)\\\\\n",
+    "   f(x - h) &\\approx f(x) - h f'(x) + \\frac{h^2}{2}f''(x)\\\\\n",
+    "   f(x + h) + f(x - h) &\\approx 2 f(x) + h^2 f''(x)\\\\\n",
+    "   f''(x) &\\approx \\frac{f(x + h) - 2 f(x) + f(x - h)}{h^2}.\n",
+    "\n",
+    "The following illustrates that the central difference formula has a tighter\n",
+    "upper bound via invoking the previous derivations with :math:`z = x_c + h_c` and\n",
+    ":math:`x = x_c`.\n",
+    "\n",
+    ".. math::\n",
+    "\n",
+    "   \\left| f(x_c + h_c) - f(x_c) - h_c f'(x_c) - \\frac{h_c^2}{2} f''(x_c) \\right|\n",
+    "    &\\leq \\frac{\\gamma}{6} \\left| h_c \\right|^3\\\\\n",
+    "   \\left|\n",
+    "     f(x_c + h_c) - f(x_c) - h_c f'(x_c) -\n",
+    "     \\frac{h_c^2}{2}\n",
+    "       \\left( \\frac{f(x_c + h_c) - 2 f(x_c) + f(x_c - h_c)}{h_c^2} \\right)\n",
+    "   \\right|\n",
+    "    &\\leq \\frac{\\gamma}{6} \\left| h_c \\right|^3\\\\\n",
+    "   \\left|\n",
+    "     f(x_c + h_c) - f(x_c) - h_c f'(x_c) - \\frac{1}{2} f(x_c + h_c) +\n",
+    "     f(x_c) - \\frac{1}{2} f(x_c - h_c)\n",
+    "   \\right|\n",
+    "    &\\leq \\frac{\\gamma}{6} \\left| h_c \\right|^3\\\\\n",
+    "   \\left| \\frac{f(x_c + h_c) - f(x_c - h_c)}{2} - h_c f'(x_c) \\right|\n",
+    "    &\\leq \\frac{\\gamma}{6} \\left| h_c \\right|^3\\\\\n",
+    "   \\left| \\frac{f(x_c + h_c) - f(x_c - h_c)}{2 h_c} - f'(x_c) \\right|\n",
+    "    &\\leq \\frac{\\gamma}{6} \\left| h_c \\right|^2\\\\\n",
+    "   \\left| a_c - f'(x_c) \\right| &\\leq \\frac{\\gamma}{6} \\left| h_c \\right|^2."
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "Exercise 21\n",
+    "===========\n",
+    "\n",
+    "As demonstrated in :ref:`Exercise 9 <dennis1996numerical-ex-2.9>`, one approach\n",
+    "is to compute the central finite difference for :math:`f''(x)` using\n",
+    ":math:`f'(x)` and then apply the secant approximation to the forward finite\n",
+    "difference for subsequent iterations."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "import numpy\n",
+    "\n",
+    "class SecantQuadraticSolver1D:\n",
+    "    def __init__(self, tau=None, typx=None):\n",
+    "        self._kEpsilon = numpy.finfo(float).eps\n",
+    "        self._kRootEpsilon = numpy.sqrt(self._kEpsilon)\n",
+    "\n",
+    "        #parameters to solver\n",
+    "        self._tau = tau\n",
+    "        if tau is None:\n",
+    "            self._tau = (self._kRootEpsilon,) * 2\n",
+    "\n",
+    "        self._typx = typx\n",
+    "        if typx is None:\n",
+    "            self._typx = (1,)\n",
+    "\n",
+    "        self._secant_state = None\n",
+    "\n",
+    "    def evaluate_cfd(self, f, f_p1, x_c):\n",
+    "        h_c = self._kRootEpsilon * max(abs(x_c), self._typx[0])\n",
+    "        denom = (f_p1(x_c + h_c) - f_p1(x_c - h_c)) / (2 * h_c)\n",
+    "        if denom > 0:\n",
+    "            x_k = x_c - f_p1(x_c) / denom\n",
+    "        else:\n",
+    "            x_k = x_c + f_p1(x_c) / denom\n",
+    "\n",
+    "        x_n = self._backtracking_strategy(f, x_c, x_k)\n",
+    "\n",
+    "        return self._stop(f, f_p1, x_c, x_n), x_n\n",
+    "\n",
+    "    def evaluate(self, f, fp, x_c):\n",
+    "        if self._secant_state is None:\n",
+    "            #first iteration, so no previous results to use\n",
+    "            h_c = self._kRootEpsilon * max(abs(x_c), self._typx[0])\n",
+    "            #compute central finite difference\n",
+    "            a_c = (fp(x_c + h_c) - fp(x_c - h_c)) / (2 * h_c)\n",
+    "\n",
+    "            #evaluate local model\n",
+    "            fp_xc = fp(x_c)\n",
+    "            if a_c > 0:\n",
+    "                x_k = x_c - fp_xc / a_c\n",
+    "            else:\n",
+    "                x_k = x_c + fp_xc / a_c\n",
+    "\n",
+    "            self._secant_state = (x_c, fp_xc)\n",
+    "        else:\n",
+    "            #define h_c = x_previous - x_current\n",
+    "            x_, fp_x_ = self._secant_state\n",
+    "\n",
+    "            #evaluate model with secant approximation\n",
+    "            fp_xc = fp(x_c)\n",
+    "            a_c = (fp_x_ - fp_xc) / (x_ - x_c)\n",
+    "            if a_c > 0:\n",
+    "                x_k = x_c - fp_xc / a_c\n",
+    "            else:\n",
+    "                x_k = x_c + fp_xc / a_c\n",
+    "\n",
+    "            self._secant_state = (x_c, fp_xc)\n",
+    "\n",
+    "        x_n = self._backtracking_strategy(f, x_c, x_k)\n",
+    "\n",
+    "        return self._stop(f, fp, x_c, x_n), x_k\n",
+    "\n",
+    "    def _backtracking_strategy(self, f, x_c, x_n):\n",
+    "        f_xc = f(x_c)\n",
+    "        while f(x_n) >= f_xc:\n",
+    "            x_n = (x_c + x_n) / 2\n",
+    "        return x_n\n",
+    "\n",
+    "    def _stop(self, f, f_prime, x_c, x_n):\n",
+    "        return abs(f_prime(x_n) * x_n / f(x_n)) < self._tau[0] or\\\n",
+    "            abs(x_n - x_c) / max(abs(x_n), self._typx[0]) < self._tau[1]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "f = lambda x: x**4 + x**3\n",
+    "f_p1 = lambda x: 4 * x**3 + 3 * x**2\n",
+    "x_star = -0.75\n",
+    "x_0 = -0.1\n",
+    "\n",
+    "sqs1d = SecantQuadraticSolver1D()\n",
+    "solver = lambda x: sqs1d.evaluate(f, f_p1, x)\n",
+    "plot_convergent_sequence(solver, x_0, x_star)"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    ".. rubric:: References\n",
+    "\n",
+    ".. bibliography:: chapter-02.bib"
+   ]
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "celltoolbar": "Raw Cell Format",
+  "kernelspec": {
+   "display_name": "Python [default]",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.5.2"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}

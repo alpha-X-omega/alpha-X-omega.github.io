@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Notes on Software Design &#8212; All Things Phi</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/my-styles.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="shortcut icon" href="../../../../_static/phi.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Notes on Scraping Together a Heterogeneous System" href="../21/notes-on-scraping-together-a-heterogeneous-system.html" />
+    <link rel="prev" title="Trading Cryptocurrencies" href="../23/trading-cryptocurrencies.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          All Things Phi</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Archive <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/20/mask-r-cnn.html">Mask R-CNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/19/rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation.html">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/18/watertight-ray-triangle-intersection.html">Watertight Ray/Triangle Intersection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/17/understanding-deep-learning-requires-rethinking-generalization.html">Understanding Deep Learning Requires Rethinking Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/16/accurate-large-minibatch-sgd-training-imagenet-in-1-hour.html">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/15/on-large-batch-training-for-deep-learning-generalization-gap-and-sharp-minima.html">On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/14/layer-normalization.html">Layer Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/13/batch-normalization-accelerating-deep-network-training-by-reducing-internal-covariate-shift.html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/12/deep-residual-learning-for-image-recognition.html">Deep Residual Learning for Image Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/11/optimal-step-nonrigid-icp-algorithms-for-surface-registration.html">Optimal Step Nonrigid ICP Algorithms for Surface Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/10/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification.html">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/09/least-squares-estimation-of-transformation-parameters-between-two-point-patterns.html">Least-Squares Estimation of Transformation Parameters Between Two Point Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/08/a-fast-learning-algorithm-for-deep-belief-nets.html">A Fast Learning Algorithm for Deep Belief Nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/07/a-view-of-the-EM-algorithm-that-justifies-incremental-sparse-and-other-variants.html">A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/06/one-weird-trick-for-parallelizing-convolutional-neural-networks.html">One Weird Trick for Parallelizing Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/05/exponential-family-harmoniums-with-an-application-to-information-retrieval.html">Exponential Family Harmoniums with an Application to Information Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/04/pose-space-deformation-a-unified-approach-to-shape-interpolation-and-skeleton-driven-deformation.html">Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-Driven Deformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/02/learning-internal-representations-by-error-propagation.html">Learning Internal Representations by Error Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/12/01/structuring-a-renderer-phi-ray.html">Structuring a Renderer: <span class="math notranslate nohighlight">\(\varphi\)</span>-Ray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/30/information-processing-in-dynamical-systems-foundations-of-harmony-theory.html">Information Processing in Dynamical Systems: Foundations of Harmony Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/29/an-introduction-to-the-conjugate-gradient-method-without-the-agonizing-pain.html">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/28/a-learning-algorithm-for-boltzmann-machines.html">A Learning Algorithm for Boltzmann Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/27/geometric-skinning-with-approximate-dual-quaternion-blending.html">Geometric Skinning with Approximate Dual Quaternion Blending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/26/the-perceptron-a-probabilistic-model-for-information-storage-and-organization-in-the-brain.html">The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/25/the-sharpe-ratio.html">The Sharpe Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/24/neural-networks-and-physical-systems-with-emergent-collective-computational-abilities.html">Neural Networks and Physical Systems with Emergent Collective Computational Abilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/23/training-products-of-experts-by-minimizing-contrastive-divergence.html">Training Products of Experts by Minimizing Contrastive Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/22/market-timing-with-candlestick-technical-analysis.html">Market Timing with Candlestick Technical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/21/all-that-glitters-is-not-gold-comparing-backtest-and-out-of-sample-performance-on-a-large-cohort-of-trading-algorithms.html">All that Glitters is Not Gold: Comparing Backtest and Out-of-Sample Performance on a Large Cohort of Trading Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/20/easy-volatility-investing.html">Easy Volatility Investing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/19/a-tutorial-on-helmholtz-machines.html">A Tutorial on Helmholtz Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/18/when-do-stop-loss-rules-stop-losses.html">When Do Stop-Loss Rules Stop Losses?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/17/a-simple-implicit-measure-of-the-effective-bid-ask-spread-in-an-efficient-market.html">A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/16/asset-prices-and-trading-volume-under-fixed-transactions-costs.html">Asset Prices and Trading Volume Under Fixed Transactions Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/15/maxout-networks.html">Maxout Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/14/dropout-a-simple-way-to-prevent-neural-networks-from-overfitting.html">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/13/dropout-training-as-adaptive-regularization.html">Dropout Training as Adaptive Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/12/model-compression.html">Model Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/11/distilling-the-knowledge-in-a-neural-network.html">Distilling the Knowledge in a Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/10/do-deep-nets-really-need-to-be-deep.html">Do Deep Nets Really Need to be Deep?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/09/efficient-backprop.html">Efficient Backprop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/08/stochastic-gradient-descent-tricks.html">Stochastic Gradient Descent Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/07/automatic-differentiation-in-machine-learning-a-survey.html">Automatic Differentiation in Machine Learning: A Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/06/econometric-models-of-limit-order-executions.html">Econometric Models of Limit-Order Executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/05/multilayer-feedforward-networks-are-universal-approximators.html">Multilayer Feedforward Networks are Universal Approximators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/04/dendritic-computation.html">Dendritic Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/03/understanding-order-flow.html">Understanding Order Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/02/optimal-control-of-execution-costs.html">Optimal Control of Execution Costs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/11/01/risks-and-portfolio-decisions-involving-hedge-funds.html">Risks and Portfolio Decisions Involving Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/30/coordinate-systems.html">Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/28/hedge-funds-the-living-and-the-dead.html">Hedge Funds: The Living and the Dead</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/24/do-hedge-funds-have-enough-capital-a-value-at-risk-approach.html">Do Hedge Funds Have Enough Capital?  A Value-at-Risk Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/23/characterizing-computer-performance-with-a-single-number.html">Characterizing Computer Performance with a Single Number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/22/how-to-not-lie-with-statistics-the-correct-way-to-summarize-benchmark-results.html">How Not to Lie with Statistics: The Correct Way to Summarize Benchmark Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/19/an-econometric-analysis-of-serial-correlation-and-illiquidity-in-hedge-fund-returns.html">An Econometric Analysis of Serial Correlation and Illiquidity in Hedge-Fund Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/13/empirical-characteristics-of-dynamic-trading-strategies-the-case-of-hedge-funds.html">Empirical Characteristics of Dynamic Trading Strategies: The Case of Hedge Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/06/orange-juice-and-weath.html">Orange Juice and Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/04/the-adaptive-markets-hypothesis-market-efficiency-from-an-evolutionary-perspective.html">The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/10/02/do-asset-prices-reflect-fundamentals-freshly-squeezed-evidence-from-the-oj-market.html">Do Asset Prices Reflect Fundamentals?  Freshly Squeezed Evidence from the OJ Market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/30/neuroeconomics-how-neuroscience-can-inform-economics.html">Neuroeconomics: How Neuroscience Can Inform Economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/28/drawing-inferences-from-statistics-based-on-multiyear-asset-returns.html">Drawing Inferences from Statistics based on Multiyear Asset Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/26/when-are-contrarian-profits-due-to-stock-market-overreaction.html">When are Contrarian Profits Due to Stock Market Overreaction?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/24/profitability-of-momentum-strategies-an-evaluation-of-alternative-explanations.html">Profitability of Momentum Strategies: An Evaluation of Alternative Explanations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/22/the-restrictions-on-predictability-implied-by-rational-asset-pricing.html">The Restrictions on Predictability Implied by Rational Asset Pricing Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/20/the-myth-of-long-horizon-predictability.html">The Myth of Long-Horizon Predictability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/18/the-standard-error-of-regressions.html">The Standard Error of Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/16/lets-take-the-con-out-of-econometrics.html">Let’s Take the Con Out of Econometrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/14/role-of-models-in-statistical-analysis.html">Role of Models in Statistical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/09/12/the-experimental-generation-of-interpersonal-closeness-a-procedure-and-some-preliminary-findings.html">The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/08/02/notes-on-tensorflow.html">Notes on TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/08/01/tensorflow-tensorboard-and-docker.html">TensorFlow, TensorBoard, and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/13/review-and-analysis-of-solutions-of-the-three-point-perspective-pose-estimation-problem.html">Review and Analysis of Solutions of the Three Point Perspective Pose Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/12/variational-learning-for-switching-state-space-models.html">Variational Learning for Switching State-Space Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/11/bayesian-face-recognition.html">Bayesian Face Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/10/robust-generative-subspace-modeling-the-subspace-t-distribution.html">Robust Generative Subspace Modeling: The Subspace <span class="math notranslate nohighlight">\(t\)</span> Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/09/robust-subspace-mixture-models-using-t-distributions.html">Robust Subspace Mixture Models using <span class="math notranslate nohighlight">\(t\)</span>-distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/08/robust-mixture-modelling-using-the-t-distribution.html">Robust Mixture Modelling using the <span class="math notranslate nohighlight">\(t\)</span>-distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/07/mixtures-of-probabilistic-principal-component-analyzers.html">Mixtures of Probabilistic Principal Component Analysers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/06/the-em-algorithm-for-mixtures-of-factor-analyzers.html">The EM Algorithm for Mixtures of Factor Analyzers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/05/3d-live-real-time-captured-content-for-mixed-reality.html">3D Live: Real Time Captured Content for Mixed Reality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/04/high-accuracy-stereo-depth-maps-using-structured-light.html">High-Accuracy Stereo Depth Maps Using Structured Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/03/simple-accurate-and-robust-projector-camera-calibration.html">Simple, Accurate, and Robust Projector-Camera Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/02/multiresolution-gray-scale-and-rotation-invariant-texture-classification-with-local-binary-patterns.html">Multiresolution Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2016/01/01/generative-or-discriminative-getting-the-best-of-both-worlds.html">Generative or Discriminative?  Getting the Best of Both Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/02/01/seda-an-architecture-for-well-conditioned,-scalable-internet-services.html">SEDA: An Architecture for Well-Conditioned, Scalable Internet Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/26/reconciling-environment-integration-and-component-independence.html">Reconciling Environment Integration and Component Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html">Design Patterns: Abstraction and Reuse of Object-Oriented Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/24/a-guide-to-metaphorical-design.html">A Guide to Metaphorical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/23/a-spiral-model-of-software-development-and-enhancement.html">A Spiral Model of Software Development and Enhancement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/22/sequential-and-concurrent-object-oriented-programming.html">Sequential and Concurrent Object-Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/21/software-aging.html">Software Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/20/applying-design-by-contract.html">Applying “Design by Contract”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/19/predicate-logic-for-software-engineering.html">Predicate Logic for Software Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/18/active-design-reviews-principles-and-practices.html">Active Design Reviews: Principles and Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html">A Rational Design Process: How and Why to Fake It</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/16/the-modular-structure-of-complex-systems.html">The Modular Structure of Complex Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/15/abstract-types-defined-as-classes-of-variables.html">Abstract Types Defined as Classes of Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html">Use of Abstract Interfaces in the Development of Software for Embedded Computer Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/13/the-influence-of-software-structure-on-reliability.html">The Influence of Software Structure on Reliability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/12/response-to-detected-errors-in-well-structured-programs.html">Response to Detected Errors in Well-Structured Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html">The Use of Abstract Data Types to Simplify Program Modifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html">Use of the Concept of Transparency in the Design of Hierarchically Structured Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/09/designing-software-for-ease-of-extension-and-contraction.html">Designing Software for Ease of Extension and Contraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/08/on-the-design-and-development-of-program-families.html">On the Design and Development of Program Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html">On the Criteria to be Used in Decomposing Systems into Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/06/a-technique-for-software-module-specification-with-examples.html">A Technique for Software Module Specification with Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/05/information-distribution-aspects-of-design-methodology.html">Information Distribution Aspects of Design Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/04/a-model-of-large-program-development.html">A Model of Large Program Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html">Architectural Styles and the Design of Network-based Software Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/02/design-of-design.html">Design of Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2014/01/01/notes-on-the-synthesis-of-form.html">Notes on the Synthesis of Form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../26/blogging-with-docker.html">Blogging with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../25/typical-mercurial-usage.html">Typical Mercurial Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../24/profiling-on-linux.html">Profiling on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../23/trading-cryptocurrencies.html">Trading Cryptocurrencies</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Notes on Software Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../21/notes-on-scraping-together-a-heterogeneous-system.html">Notes on Scraping Together a Heterogeneous System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20/transfer-media-files-to-mobile-device-via-vlc.html">Transfer Media Files to Mobile Device via VLC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../19/style-lessons-in-clarity-and-grace.html">Style: Lessons in Clarity and Grace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../18/the-science-of-scientific-writing.html">The Science of Scientific Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../17/collection-of-notes-on-research.html">Collection of Notes on Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../16/typical-ffmpeg-usage.html">Typical FFmpeg Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../15/generate-svg-graphics.html">Generate SVG Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../14/blogging-with-restructuredtext-a-google-domain-and-sphinx.html">Blogging with RestructuredText, a Google Domain, and Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../13/set-up-android-development-environment.html">Set Up Android Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../12/svegan-lifestyle.html">Svegan Lifestyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11/set-up-system-programming-environment.html">Set Up System Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10/the-rise-and-fall-of-react-flux-redux-and-cycle.html">The Rise and Fall of React, Flux, Redux, and Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09/install-graphics-and-compute-linux-mint.html">Install Graphics and Compute on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08/set-up-web-development-environment.html">Set Up Web Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07/vfio-tips-and-tricks.html">VFIO Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06/options-trading.html">Options Trading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05/assimp-mesh-loader.html">Assimp Mesh Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04/set-up-data-analysis-environment.html">Set Up Data Analysis Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03/install-nvidia-drivers-on-linux-mint.html">Install Nvidia Drivers on Linux Mint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02/blogging-with-restructuredtext-a-google-domain-and-pelican.html">Blogging with RestructuredText, a Google Domain, and Pelican</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/linux-mint-installation.html">Linux Mint Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/an-invitation-to-3d-vision-msks/index.html">An Invitation to 3-D Vision - Ma, Soatto, Kosecka, and Sastry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/complete-musician-laitz/index.html">The Complete Musician: An Integrated Approach to Tonal Theory, Analysis, and Listening - Laitz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-science-theory-for-the-information-age-hk/index.html">Computer Science Theory for the Information Age - Hopcroft &amp; Kannan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/computer-vision-models-learning-and-inference-prince/index.html">Computer Vision: Models, Learning, and Inference - Prince</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/creativity-nlph/index.html">Creativity - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/differential-geometry-from-a-graphics-perspective-nlph/index.html">Differential Geometry from a Graphics Perspective - NLPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/fundamentals-of-electric-circuits-as/index.html">Fundamentals of Electric Circuits - Alexander &amp; Sadiku</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/linear-programming-vanderbei/index.html">Linear Programming - Vanderbei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/multiple-view-geometry-hz/index.html">Multiple View Geometry in Computer Vision - Hartley &amp; Zisserman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/numerical-methods-for-unconstrained-optimization-and-nonlinear-equations-ds/index.html">Numerical Methods for Unconstrained Optimization and Nonlinear Equations - Dennis &amp; Schnabel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/pattern-recognition-and-machine-learning-bishop/index.html">Pattern Recognition and Machine Learning - Bishop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/reinforcement-learning-sb/index.html">Reinforcement Learning: An Introduction - Sutton &amp; Barto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nb/stat-labs-ns/index.html">Stat Labs - Nolan &amp; Speed</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Notes on Software Design</a><ul>
+<li><a class="reference internal" href="#conceptual-integrity">Conceptual Integrity</a></li>
+<li><a class="reference internal" href="#rational-design-process">Rational Design Process</a></li>
+<li><a class="reference internal" href="#system-decomposition">System Decomposition</a></li>
+<li><a class="reference internal" href="#software-architectures-and-design-patterns">Software Architectures and Design Patterns</a></li>
+<li><a class="reference internal" href="#solid">SOLID</a><ul>
+<li><a class="reference internal" href="#single-responsibility-principle">Single Responsibility Principle</a></li>
+<li><a class="reference internal" href="#open-closed-principle">Open-Closed Principle</a></li>
+<li><a class="reference internal" href="#liskov-substitution-principle">Liskov Substitution Principle</a></li>
+<li><a class="reference internal" href="#interface-segregation-principle">Interface Segregation Principle</a></li>
+<li><a class="reference internal" href="#dependency-inversion-principle">Dependency Inversion Principle</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#package-principles">Package Principles</a><ul>
+<li><a class="reference internal" href="#reuse-release-equivalence-principle">Reuse/Release Equivalence Principle</a></li>
+<li><a class="reference internal" href="#common-reuse-principle">Common Reuse Principle</a></li>
+<li><a class="reference internal" href="#common-closure-principle">Common Closure Principle</a></li>
+<li><a class="reference internal" href="#acyclic-dependencies-principle">Acyclic Dependencies Principle</a></li>
+<li><a class="reference internal" href="#stable-dependencies-principle">Stable Dependencies Principle</a></li>
+<li><a class="reference internal" href="#stable-abstractions-principle">Stable Abstractions Principle</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#law-of-demeter">Law of Demeter</a></li>
+<li><a class="reference internal" href="#object-oriented-design">Object-Oriented Design</a><ul>
+<li><a class="reference internal" href="#connections-to-programming-language-design">Connections to Programming Language Design</a></li>
+<li><a class="reference internal" href="#pseudo-classes-and-quasi-classes">Pseudo-Classes and Quasi-Classes</a></li>
+<li><a class="reference internal" href="#quasi-primitives">Quasi-Primitives</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../23/trading-cryptocurrencies.html" title="Previous Chapter: Trading Cryptocurrencies"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Trading Crypt...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../21/notes-on-scraping-together-a-heterogeneous-system.html" title="Next Chapter: Notes on Scraping Together a Heterogeneous System"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Notes on Scra... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="notes-on-software-design">
+<h1>Notes on Software Design<a class="headerlink" href="#notes-on-software-design" title="Permalink to this headline">¶</a></h1>
+<p><a class="bibtex reference internal" href="../../../2014/01/01/notes-on-the-synthesis-of-form.html#alexander1964notes" id="id1">[Ale64]</a> is a timeless way of approaching design, and should
+be read by everyone who needs to design anything.  One key concept to always
+keep in mind is: use patterns as a guideline and not as constraints.</p>
+<p><a class="bibtex reference internal" href="#brooks1995mythical" id="id2">[BJ95]</a> is another timeless resource focused on software
+design, but the only chapters worth reading are</p>
+<ul class="simple">
+<li><p><em>No Silver Bullet</em> (Chapters 16 and 17),</p></li>
+<li><p><em>Propositions of The Mythical Man-Month: True or False?</em> (Chapter 18), and</p></li>
+<li><p><em>The Mythical Man-Month: After 20 Years</em> (Chapter 19).</p></li>
+</ul>
+<p>The other chapters have become unnecessary details given today’s widespread
+curriculum.  For a discussion of different design processes, read the sequel
+<a class="bibtex reference internal" href="../../../2014/01/02/design-of-design.html#brooks2010design" id="id3">[BJ10]</a>.</p>
+<p>Software is still hard to create and software engineering frequently experience
+a cyclical crisis <a class="bibtex reference internal" href="#gibbs1994software" id="id4">[Gib94]</a>.  The main culprit causing schedule
+delays and unexpected costs is poor design.  Even though design should come
+before any coding, hard deadlines with constantly changing requirements make it
+infeasible <a class="bibtex reference internal" href="#parnas1996software" id="id5">[Par96]</a>.  No matter how good the language is, poor
+design will lead to bad software.  Furthermore, people want useful tools that
+are compatible with their existing work environment, and engineers tend to focus
+on ignorant originality and creativity.  Furthermore, not everyone holds
+themselves to high standards of software engineering
+<a class="bibtex reference internal" href="#leveson1993investigation" id="id6">[LT93]</a>.</p>
+<div class="section" id="conceptual-integrity">
+<h2>Conceptual Integrity<a class="headerlink" href="#conceptual-integrity" title="Permalink to this headline">¶</a></h2>
+<p>Despite all the research in software design, the industry still uses the
+rational model process because of its logical simplicity, and that builders and
+clients need contracts <a class="bibtex reference internal" href="#cusumano1997microsoft" id="id7">[CS97]</a>.  One feasible software
+process is a modified version of the spiral model <a class="bibtex reference internal" href="../../../2014/01/23/a-spiral-model-of-software-development-and-enhancement.html#boehm1988spiral" id="id8">[Boe88]</a>.
+Imagine punctuating the spiral with explicit contracting points, augmented with
+clear specification of what can be contracted, with what certainties, and with
+what explicit distribution of risk <a class="bibtex reference internal" href="../../../2014/01/02/design-of-design.html#brooks2010design" id="id9">[BJ10]</a>.  The key takeaway
+is to allow the possibility of reexamining the original design and possibly
+going back to the origin.</p>
+<p>The proposed design process enables one to enforce conceptual integrity and deal
+with software complexity via the scientific method <a class="bibtex reference internal" href="../../../2014/01/04/a-model-of-large-program-development.html#belady1976model" id="id10">[BL76]</a>.  The
+properties of conceptual integrity are</p>
+<ul class="simple">
+<li><p>coherence,</p></li>
+<li><p>consistency,</p></li>
+<li><p>uniformity of style,</p></li>
+<li><p>orthogonality,</p></li>
+<li><p>propriety, and</p></li>
+<li><p>generality.</p></li>
+</ul>
+<p>When a design violates these criteria, consider imposing a new proper design on
+top of the old <a class="bibtex reference internal" href="#perez2013s" id="id11">[PDRJ13]</a>.  This enables a smooth eventual transition to
+a better interface.  Once the overall system design is in place, assess whether
+it is feasible to leverage open source <a class="bibtex reference internal" href="#raymond2004cathedral" id="id12">[Ray00]</a>.</p>
+<p>As an aside, avoid extreme programming <a class="bibtex reference internal" href="#cusumano2007extreme" id="id13">[Cus07]</a> and
+aspect-oriented programming <a class="bibtex reference internal" href="#kiczales1997aspect" id="id14">[KLM+97]</a><a class="bibtex reference internal" href="#sullivan2010modular" id="id15">[SGR+10]</a>.
+Compared to simpler techniques, neither have been shown to drastically improve
+the overall system design and may even be detrimental
+<a class="bibtex reference internal" href="#dijkstra1968letters" id="id16">[Dij68]</a><a class="bibtex reference internal" href="#keefer2003extreme" id="id17">[KA03]</a><a class="bibtex reference internal" href="#constantinides2004aop" id="id18">[CSS04]</a>.</p>
+</div>
+<div class="section" id="rational-design-process">
+<h2>Rational Design Process<a class="headerlink" href="#rational-design-process" title="Permalink to this headline">¶</a></h2>
+<p>The software design process will always be an idealization.  Nonetheless,
+producing documentation that gives the appearance of applying such a process is
+still beneficial even if one has to fake it <a class="bibtex reference internal" href="../../../2014/01/17/a-rational-design-process-how-and-why-to-fake-it.html#parnas1986rational" id="id19">[PC86]</a>.  One way
+to achieve this is through separation of concerns using <a class="reference external" href="http://www.sphinx-doc.org/en/stable/">sphinx-doc</a>: each
+aspect of the system is described in exactly one section and nothing else is
+described in that section.</p>
+<p>The documentation must include the design rationale at the time and continue to
+track it as changes are introduced <a class="bibtex reference internal" href="../../../2014/01/24/a-guide-to-metaphorical-design.html#madsen1994guide" id="id20">[Mad94]</a>.  When combined with
+effective design reviews <a class="bibtex reference internal" href="../../../2014/01/18/active-design-reviews-principles-and-practices.html#parnas1985active" id="id21">[PW85]</a>, software aging can be slowed
+down <a class="bibtex reference internal" href="../../../2014/01/21/software-aging.html#parnas1994software" id="id22">[Par94]</a>.  However, even if one designs for change,
+combating software aging requires refactoring, retroactive documentation,
+retroactive incremental modularization, occasionally scrapping sections of code,
+and eventually restructuring the entire system.</p>
+<p>Documentation itself should be viewed as a way to constrain the design
+<a class="bibtex reference internal" href="../../../2014/01/16/the-modular-structure-of-complex-systems.html#parnas1985modular" id="id23">[PCW85]</a>.  It is important to focus on describing secrets in
+addition to interfaces and roles.  Primary secrets are design decisions while
+secondary secrets are implementation decisions.  Together these secrets inform
+you which module(s) will require a change.  However, it is not always possible
+to confine information to a single module.  One solution is to label modules as
+restricted or hidden as needed in the documentation.  There is also a danger in
+keeping secrets that has to do with performance <a class="bibtex reference internal" href="#lampson1983hints" id="id24">[Lam83]</a>.  One
+way to improve performance is to increase the number of assumptions that one
+part of a system makes about another.  The additional assumptions often allow
+less work to be done, sometimes a lot less.</p>
+<p>Lastly, the documentation should be written in a way that enables automatic
+system integrity checks <a class="bibtex reference internal" href="../../../2014/01/19/predicate-logic-for-software-engineering.html#parnas1993predicate" id="id25">[Par93]</a>.  Since the code is
+self-documenting, the documentation should cover the set of possible values,
+initial values, parameters, and effects such as state changes, errors, traps,
+assertions, and machine checkable comments <a class="bibtex reference internal" href="#lamport2002specifying" id="id26">[Lam02]</a>.  Note
+that undefined is considered a special value instead of an unpredictable value.
+The documentation should also distinguish functions that provide redundant
+versus essential information <a class="bibtex reference internal" href="../../../2014/01/06/a-technique-for-software-module-specification-with-examples.html#parnas1972technique" id="id27">[Par72]</a>.  The former are
+convenient mapping functions whose value is completely predictable from the
+current values of other functions.  The latter provide information which cannot
+be determined without calling that function unless the user manually maintains
+duplicate information.</p>
+</div>
+<div class="section" id="system-decomposition">
+<h2>System Decomposition<a class="headerlink" href="#system-decomposition" title="Permalink to this headline">¶</a></h2>
+<p>Do not let the programmer make any decisions: the API should make it obvious
+there is only one way to do a task <a class="bibtex reference internal" href="../../../2014/01/05/information-distribution-aspects-of-design-methodology.html#parnas1971information" id="id28">[Par71]</a>.  Early design
+decisions should be those that are least likely to change followed by those that
+are most general.  However, software should be designed to be flexible not
+general because generalizations are generally wrong and do not make it easy to
+adapt to a new situation <a class="bibtex reference internal" href="#lampson1983hints" id="id29">[Lam83]</a>.  Furthermore, a specialized
+implementation of a recurring good idea may be much more effective than a
+general one.</p>
+<p>The connections between modules should make as few assumptions as possible.  The
+only assumptions that appear between module interfaces are those that are
+considered unlikely to change.  One way to do this is to limit information
+distribution: each module should only know the minimal design information
+required to accomplish its task.</p>
+<p>A system should never be decomposed according to the dataflow charts
+<a class="bibtex reference internal" href="../../../2014/01/07/on-the-criteria-to-be-used-in-decomposing-systems-into-modules.html#parnas1972criteria" id="id30">[Par72]</a> because</p>
+<ul class="simple">
+<li><p>changing one module results in changing all of them,</p></li>
+<li><p>interface between modules are complex, and</p></li>
+<li><p>understanding the system requires understanding all the modules
+simultaneously.</p></li>
+</ul>
+<p>Instead, it should be focused on minimizing the amount of information
+distribution.  A module is associated with responsibility rather than
+subprogram.  It is characterized by its knowledge of a design decision which it
+hides from all others.  Modules do not correspond to steps in the processing.
+They may have a partial ordering between each other, which consists of either
+“uses” or “depends upon”.  The relation A uses B is less strict than A depends
+upon B: the latter requires the presence of a correct implementation of B.</p>
+<p>The “depends upon” relation enables different levels of dependencies.  Level
+zero is a set of independent programs <a class="bibtex reference internal" href="../../../2014/01/09/designing-software-for-ease-of-extension-and-contraction.html#parnas1979designing" id="id31">[Par79]</a>.  Level
+<span class="math notranslate nohighlight">\(i &gt; 0\)</span> is the set of all programs that depends on at least one program on
+level <span class="math notranslate nohighlight">\(i - 1\)</span> and no program at a level higher than <span class="math notranslate nohighlight">\(i - 1\)</span>.  As one
+goes higher in the levels, one can lose capabilities due to consumption of
+resources, but the resulting programs are simpler due to the reuse of the lower
+levels programs.  Thus, to avoid duplicate programs, a program should be
+implemented at the lowest level in which the features that are useful for its
+implementation are available.</p>
+<p>When there is a simple interface that can describe strategies that will satisfy
+a significant fraction of clients, but it is impractical to accommodate all
+important strategies in that interface, then the interfaces should be layered
+<a class="bibtex reference internal" href="#kiczales1996beyond" id="id32">[Kic96]</a><a class="bibtex reference internal" href="#kiczales1997open" id="id33">[KLL+97]</a>.  However, the simple interface
+should be geared towards being fast and efficient instead of general or powerful
+because the client can further customize the implementation through callbacks,
+dispatching, or polymorphism <a class="bibtex reference internal" href="#lampson1983hints" id="id34">[Lam83]</a>.  In other words, the
+primary interface provides the functionalities, and the meta-interface allows
+fine-grained tuning of the implementation underlying the primary interface.  The
+criteria to be used in allowing one program to depend on another could be:</p>
+<ul class="simple">
+<li><p>A is essentially simpler than B.</p></li>
+<li><p>B is not substantially more complex because it does not depend on A.</p></li>
+<li><p>There is a useful subset containing B and not A.</p></li>
+<li><p>There is no conceivably useful subset containing A but not B.</p></li>
+<li><p>When two programs could obviously benefit from using each other, slice one of
+the programs B into B1 and B2 where A is allowed to depend on B2 and B1 is
+allowed to depend on A.  This sandwiching technique could be applied
+recursively.</p></li>
+</ul>
+<p>The proposed hierarchical structure allows the system to be functional and
+useful when higher level services are cut off.  One way to objectively describe
+this structure is through stepwise refinement of program families
+<a class="bibtex reference internal" href="../../../2014/01/08/on-the-design-and-development-of-program-families.html#parnas1976design" id="id35">[Par76]</a>.  More often than not, the common properties among a
+set of programs is more conspicuous than the special properties of the
+individual family members.  This approach is different from
+<a class="reference external" href="https://semver.org/">semantic versioning</a>.  When designing software families, it is helpful to
+imagine writing new general instructions for a virtual machine (VM) to handle
+new data types and transformations <a class="bibtex reference internal" href="../../../2014/01/10/use-of-the-concept-of-transparency-in-the-design-of-hierarchically-structured-systems.html#parnas1975use" id="id36">[PS75]</a>.  The VM is an
+abstraction over the base machine (e.g. hardware, software stack) or the current
+VM.  The goal is to identify the minimal subset that might be useful, and then
+search for a set of minimal incremental instructions to add to the system.</p>
+</div>
+<div class="section" id="software-architectures-and-design-patterns">
+<h2>Software Architectures and Design Patterns<a class="headerlink" href="#software-architectures-and-design-patterns" title="Permalink to this headline">¶</a></h2>
+<p>Software design techniques help build the system while specialization of
+software architecture gives form to the system.  Architectural design patterns
+must always be specialized to the problem domain to achieve efficiency
+<a class="bibtex reference internal" href="#garlan2006introduction" id="id37">[GS06]</a>.  A recent overview of different network-based
+architectural styles in terms of components, connectors, data, and
+configurations is given in <a class="bibtex reference internal" href="../../../2014/01/03/architectural-styles-and-the-design-of-network-based-software-architectures.html#fielding2000architectural" id="id38">[Fie00]</a>.  When these
+different architectures are applied to a module, the resulting design pattern
+can be regarded as a micro-architecture <a class="bibtex reference internal" href="../../../2014/01/25/design-patterns-abstraction-and-reuse-of-object-oriented-design.html#gamma1993design" id="id39">[GHJV93]</a>.  For example,
+the mediator pattern is very useful when the separation of components and
+relationships are violated <a class="bibtex reference internal" href="../../../2014/01/26/reconciling-environment-integration-and-component-independence.html#sullivan1990reconciling" id="id40">[SN90]</a>.</p>
+<p>The basic unit of modularity (a.k.a. module) is an abstract data type (ADT)
+<a class="bibtex reference internal" href="../../../2014/01/11/the-use-of-abstract-data-types-to-simplify-program-modifications.html#linden1976use" id="id41">[Lin76]</a><a class="bibtex reference internal" href="../../../2014/01/15/abstract-types-defined-as-classes-of-variables.html#parnas1976abstract" id="id42">[PSW76]</a>.  An ADT is a set of operations grouped
+around common data structures.  It can be viewed as providing an abstract
+machine for the execution of a program.  Abstract interfaces increase separation
+of concerns and leads to simpler yet more elegant software designs through
+minimizing the number of components that deals with the real world details
+<a class="bibtex reference internal" href="../../../2014/01/14/use-of-abstract-interfaces-in-the-development-of-software-for-embedded-computer-systems.html#parnas1977use" id="id43">[Par77]</a>.  All the modifications can be seen as tailoring the
+abstract machine to a particular algorithm.</p>
+<p>When a change violates a module’s specification in the abstract machine, an
+exception should be raised to handle the error <a class="bibtex reference internal" href="../../../2014/01/12/response-to-detected-errors-in-well-structured-programs.html#parnas1972response" id="id44">[Par72]</a>.
+Exception handling must respect the structure of the system and restore the
+state of the VM used by the level above to one which is consistent with the
+specifications <a class="bibtex reference internal" href="../../../2014/01/13/the-influence-of-software-structure-on-reliability.html#parnas1975influence" id="id45">[Par75]</a>.  It should handle normal and worst
+cases separately because the normal case must be fast while the worst case must
+make some progress <a class="bibtex reference internal" href="#lampson1983hints" id="id46">[Lam83]</a>.  Ideally, the system should be
+designed to have zero or minimal exceptions.  One way to towards a reliable
+and maintainable system is through design by contract: each module needs to
+explicitly state its preconditions, postconditions, invariants, and check
+instructions instead of relying on defensive programming
+<a class="bibtex reference internal" href="../../../2014/01/20/applying-design-by-contract.html#meyer1992applying" id="id47">[Mey92]</a><a class="bibtex reference internal" href="#plosch1997design" id="id48">[Plo97]</a>.</p>
+<p>Even though the focus of design up to this point has been on sequential
+computation, the prescribed guidelines apply equally to concurrent systems
+<a class="bibtex reference internal" href="../../../2014/01/22/sequential-and-concurrent-object-oriented-programming.html#meyer1990sequential" id="id49">[Mey90]</a>.  There are, however, some additional concepts to
+keep in mind.  When reasoning about concurrency, coroutines and futures are
+helpful abstractions to use.  Furthermore, the system’s design will be simpler
+when the designer is mindful of command-query separation, referentially
+transparent expressions, and declarative operations.</p>
+</div>
+<div class="section" id="solid">
+<h2>SOLID<a class="headerlink" href="#solid" title="Permalink to this headline">¶</a></h2>
+<p>All programming is maintenance programming <a class="bibtex reference internal" href="#thomas2010orthogonality" id="id50">[TH10]</a>.  A
+system’s knowledge goes beyond code (e.g. database schemas, test plans, build
+system, documentation).  Every piece of system knowledge should have one
+authoritative, unambiguous representation.  Every piece of knowledge should have
+a single representation.  Entities that are not related conceptually should not
+be related in the system.  Duplication and volatility can be handled by code
+generators.  This <em>Don’t Repeat Yourself</em> (DRY) principle tries to
+minimize coupling, or maximize orthogonality.</p>
+<p>It may be surprising to hear that objects, classes, and inheritance are not
+orthogonal, whereas objects, types, delegation, and abstraction are orthogonal
+<a class="bibtex reference internal" href="#wegner1987dimensions" id="id51">[Weg87]</a>.  This is the reason why actor model programming
+languages support objects, abstraction, and concurrency, but not classes,
+inheritance, nor strong typing.  On a related note, JavaScript’s prototype
+mechanism models knowledge acquisition more closely than the class mechanism for
+human cognitive processes.  Although once there are many instances that share a
+common structure, a class can be defined to group them.</p>
+<div class="section" id="single-responsibility-principle">
+<h3>Single Responsibility Principle<a class="headerlink" href="#single-responsibility-principle" title="Permalink to this headline">¶</a></h3>
+<p>The single responsibility principle (SRP) is the hardest to get right
+<a class="bibtex reference internal" href="#martin1996srp" id="id52">[Mar96c]</a>.  Each responsibility is an axis of change.  There should
+never be more than one reason for a class to change.  Otherwise, the
+responsibilities will be implicitly coupled.</p>
+<p>Inheritance and interfaces can be used to separate responsibilities (see Figure
+9-2 and 9-3).  However, an implementation class that implements both interfaces
+results in undesirable coupling.  Nevertheless, the concepts have been decoupled
+as far as the rest of the application is concerned.</p>
+</div>
+<div class="section" id="open-closed-principle">
+<h3>Open-Closed Principle<a class="headerlink" href="#open-closed-principle" title="Permalink to this headline">¶</a></h3>
+<p>The open-closed principle (OCP) states that software entities (e.g. classes,
+modules, functions) that are maintainable and reusable should be open for
+extension, but closed for modification <a class="bibtex reference internal" href="#martin1996open" id="id53">[Mar96g]</a>.</p>
+<p>The key to enforcing OCP is abstraction and polymorphism.  For example, make all
+member variables private.  No function that depends upon a variable can be
+closed with respect to that variable.  Any other class including subclasses are
+closed against changes to member variables.  In rare cases where OCP is not
+violated, the proscription of public and protected variables depends upon style
+more than substance.  In even rarer cases where RTTI and global variables do not
+violate OCP, then convenience be worth the style violation.</p>
+<p>When closure is not complete, the next best thing is strategic closure:</p>
+<ul class="simple">
+<li><p>use abstraction to gain explicit closure (e.g. ordering abstraction), or</p></li>
+<li><p>use a data-driven approach to achieve closure (e.g. specify ordering in base
+class using a table).</p></li>
+</ul>
+</div>
+<div class="section" id="liskov-substitution-principle">
+<h3>Liskov Substitution Principle<a class="headerlink" href="#liskov-substitution-principle" title="Permalink to this headline">¶</a></h3>
+<p>The Liskov substitution principle (LSP) asserts that functions that use pointers
+or references to base classes must be able to use objects of derived classes
+without knowing it <a class="bibtex reference internal" href="#martin2005liskov" id="id54">[Mar96e]</a>.  It is a characteristic of modules
+that obey OCP.</p>
+<p>When considering whether a particular design is appropriate or not, one must
+view it in terms of the assumptions made by the users of that design.  Validity
+is not an intrinsic property, i.e., a model viewed in isolation cannot be
+meaningfully validated.  The validity of a model can only be expressed in terms
+of its clients.  An example violation of LSP is RTTI.</p>
+<p>LSP makes clear that in object-oriented design (OOD), the ISA relationship
+pertains to extrinsic public behavior.  Recall the typical a square ISA
+rectangle.  The usual ISA relationship can lead to subtle yet significant
+problems.  After the creation of Rectangle, Square is created as a subclass of
+Rectangle.  To satisfy LSP, the base class needs to be modified, violating OCP.
+Even if that was acceptable, the assumptions of a rectangle are different from a
+square.</p>
+<p>LSP emphasizes type hierarchy (composition) and discourages implementation
+hierarchy (inheritance) <a class="bibtex reference internal" href="#liskov1988keynote" id="id55">[Lis88]</a>.  Recall that the goal of
+abstraction in programming is to separate behavior from implementation.
+Specification of procedures, abstract data types, and encapsulation lead to
+program locality.  The implementation hierarchy does not offer anything new to
+data abstraction.</p>
+<p>The type hierarchy, on the other hand, offers several benefits.  The first
+immediate benefit is the grouping of types based on their behavior.  Subtypes
+and supertypes are concepts while subclasses and superclasses are linguistic
+implementation details.</p>
+<p>The second benefit is incremental design (see Figure 4-1).  A cyclic graph
+records the progress of design in terms of procedures, data abstractions, and
+subtypes.  Each design decision can be represented as new subtypes instead of
+modifying the original type.  Having recorded such design decisions localizes
+the effects of specification changes limiting the spread of errors.  The final
+design could still be a single type, possibly the last subtype invented.</p>
+<p>Lastly, the type hierarchy can handle related types, abstractions that are
+variants of the same general idea.  There are two ways in which these related
+types arise.  The designer can define the relationships a program contains up
+front, or the relationship is not recognized until after several related types
+exist.  In the former, the type hierarchy can directly model the relationships
+via supertypes and subtypes.  Unfortunately, the type hierarchy is bad for the
+latter scenario because introducing a supertype requires changes in classes
+implementing the subtypes to reflect the hierarchy.  Consequently, the latter
+can make use of the grouping approach: allow the polymorphic module to use any
+type that supplies the needed operations as arguments.</p>
+</div>
+<div class="section" id="interface-segregation-principle">
+<h3>Interface Segregation Principle<a class="headerlink" href="#interface-segregation-principle" title="Permalink to this headline">¶</a></h3>
+<p>The interface segregation principle (ISP) states that clients should not be
+forced to depend upon interfaces that they do not use
+<a class="bibtex reference internal" href="#martin1996interface" id="id56">[Mar96f]</a>.  Separate clients mean separate interfaces because
+a change in an interface forces its clients to change, and a change in a client
+can force its interface to change.</p>
+<p>An example is the use of globals in a restricted manner to improve ease of
+access.  A developer might combine all of those globals into a single class,
+which includes all the separate interface header files into one file.  This
+violates ISP and effectively undoes all the segregation.</p>
+<p>Another example is Polyad versus Monad.  A function <span class="math notranslate nohighlight">\(g\)</span> needs access to
+interfaces A and B, which currently refers to the same object.  Should those
+interfaces be grouped into one or passed to <span class="math notranslate nohighlight">\(g\)</span> as separate parameters?
+One should go for the polyad approach because the object may be different in the
+future, and by grouping into one interface, ISP is violated.</p>
+<p>The foregoing issues are symptoms of interface pollution syndrome: an interface
+is forced to incorporate another interface solely for the benefit of one of its
+subclasses.  When the interfaces must remain together, consider using delegation
+or multiple inheritance.  Delegation is an object form of the adapter pattern:
+the adapter can translate one interface into another interface.  Multiple
+inheritance is preferred unless the adapter provides different translations at
+different times.</p>
+</div>
+<div class="section" id="dependency-inversion-principle">
+<h3>Dependency Inversion Principle<a class="headerlink" href="#dependency-inversion-principle" title="Permalink to this headline">¶</a></h3>
+<p>The dependency inversion principle (DIP) is the generalization of OCP and LSP:
+the higher level modules should use an abstract interface to access the lower
+level functionalities <a class="bibtex reference internal" href="#martindependency" id="id57">[Mar96d]</a>.  Directly reusing the lower
+level modules will result in bad designs because dependency is transitive (see
+figures 3 and 4).</p>
+<p>Bad designs often exhibit rigidity, fragility, and immobility.  When a design is
+rigid, it is hard to make any changes because every change affects too many
+other parts of the system.  When a change breaks unexpected parts of the system,
+the design is too fragile.  A design is immobile when the system is too tightly
+coupled with the application, and hence preventing reuse in another application.</p>
+<p>Lastly, abstractions should not depend upon details, but details should depend
+upon abstractions.  However, high level modules should contain the policy
+decisions, i.e., truths that do not vary when the details are changed.</p>
+</div>
+</div>
+<div class="section" id="package-principles">
+<h2>Package Principles<a class="headerlink" href="#package-principles" title="Permalink to this headline">¶</a></h2>
+<p>SOLID is a set of principles that govern the micro-structure of OOD.  While that
+may work for small solo projects, large applications with a team of engineers
+require principles that can deal with its macro-structure.
+<a class="bibtex reference internal" href="#martinppg" id="id58">[Mar96a]</a><a class="bibtex reference internal" href="#martinpps" id="id59">[Mar96b]</a> proposes a set of principles which govern the
+creation, interrelationship, dependencies, and use of packages.  Note that the
+package structure cannot be designed from the top down.  A package structure is
+a map of how to build the application, and it gets mapped as the system classes
+accumulate.  This approach is along the lines of the bidirectional design
+decomposition algorithm that tries to minimize the information transfer between
+subsystems in <a class="bibtex reference internal" href="../../../2014/01/01/notes-on-the-synthesis-of-form.html#alexander1964notes" id="id60">[Ale64]</a>.</p>
+<p>In order to measure the goodness of a package structure, the following
+definitions will be useful.  A dependency upon some entity with low volatility,
+and its goodness is inversely proportional to its volatility.  Stability is a
+measure of the difficulty in changing a module.  Classes which do not depend
+upon anything else are called independent.  Classes that are heavily depended
+upon are labeled as responsible.  The most stable classes are both independent
+and responsible.  One plausible metric for a package is the distance from the
+main sequence</p>
+<div class="math notranslate nohighlight">
+\[D = \left\vert A + I - 1\right\vert\]</div>
+<p>where</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(A\)</span> is the fraction of abstract classes in a package,</p></li>
+<li><p><span class="math notranslate nohighlight">\(I = \frac{C_e}{C_a + C_e}\)</span> is the instability of a package,</p></li>
+<li><p><span class="math notranslate nohighlight">\(C_e\)</span> is the efferent couplings, the number of classes inside this
+package that depend upon classes outside this package, and</p></li>
+<li><p><span class="math notranslate nohighlight">\(C_a\)</span> is the afferent couplings, the number of classes outside this
+package that depend upon classes within this package.</p></li>
+</ul>
+<div class="section" id="reuse-release-equivalence-principle">
+<h3>Reuse/Release Equivalence Principle<a class="headerlink" href="#reuse-release-equivalence-principle" title="Permalink to this headline">¶</a></h3>
+<p>The granule of reuse is the granule of release.  Only components that are
+released through a tracking system can be effectively reused.  This granule is
+the package.</p>
+<p>Code reuse is defined as code that requires minimal knowledge and maintenance.</p>
+<ul class="simple">
+<li><p>One only needs the public header files and documentation.</p></li>
+<li><p>Code update only requires linking to static or dynamic library.</p></li>
+<li><p>After the library updates are rolled out, the old version is still usable.</p></li>
+</ul>
+</div>
+<div class="section" id="common-reuse-principle">
+<h3>Common Reuse Principle<a class="headerlink" href="#common-reuse-principle" title="Permalink to this headline">¶</a></h3>
+<p>The classes in a package are reused together.  If one of the classes in a
+package is reused, all of them are reused.  Notice how this promotes localized
+volatility.</p>
+</div>
+<div class="section" id="common-closure-principle">
+<h3>Common Closure Principle<a class="headerlink" href="#common-closure-principle" title="Permalink to this headline">¶</a></h3>
+<p>The classes in a package should be closed together against the same kind of
+changes.  A change that affects a package affects all the classes in that
+package.  Think of this as amplifying OCP by grouping together classes which
+cannot be closed against certain types of changes into the same package.</p>
+</div>
+<div class="section" id="acyclic-dependencies-principle">
+<h3>Acyclic Dependencies Principle<a class="headerlink" href="#acyclic-dependencies-principle" title="Permalink to this headline">¶</a></h3>
+<p>The dependency structure between packages must be a DAG.  If there is a cycle,
+one can apply DIP, or create a new package containing the classes that the back
+edge’s source and destination depends on.  This implies package structure is not
+stable in the presence of changing requirements.</p>
+</div>
+<div class="section" id="stable-dependencies-principle">
+<h3>Stable Dependencies Principle<a class="headerlink" href="#stable-dependencies-principle" title="Permalink to this headline">¶</a></h3>
+<p>The dependencies between packages in a design should be in the direction of the
+stability of the packages.  A package should only depend upon packages that are
+more stable than itself.</p>
+</div>
+<div class="section" id="stable-abstractions-principle">
+<h3>Stable Abstractions Principle<a class="headerlink" href="#stable-abstractions-principle" title="Permalink to this headline">¶</a></h3>
+<p>Packages that are maximally stable should be maximally abstract, i.e., contain
+abstract classes.  The abstraction of a package should be in proportion to its
+stability.  Consequently, unstable packages should be concrete.</p>
+</div>
+</div>
+<div class="section" id="law-of-demeter">
+<h2>Law of Demeter<a class="headerlink" href="#law-of-demeter" title="Permalink to this headline">¶</a></h2>
+<p>The Law of Demeter (LoD) states that each module should only talk to its
+immediate friends <a class="bibtex reference internal" href="#lieberherr1989assuring" id="id61">[LH89]</a>.  It can be ignored when a
+method is supposed to be treated as a black box, run-time efficiency is
+important, or the concept of usage is well-defined and well-understood.</p>
+<p>In essence, LoD can be thought of as minimizing method chaining through two
+techniques: lifting and pushing.  Lifting moves a method up in the class
+hierarchy, and pushing moves a method further down the class hierarchy.</p>
+<p>Consider the following method that violates LoD.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">C</span><span class="o">::</span><span class="n">M</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// T is the class of the object returned by m1.</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">m1</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">m2</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><em>T</em> is a part class of <em>C</em> if <em>C</em> uses <em>T</em> as one of its instance variables or
+if <em>T</em> is a part class of an instance variable of <em>C</em>.  When <em>T</em> is a part class
+of <em>C</em>, then either lifting or pushing works.  However, when <em>C</em> is a part class
+of <em>T</em>, then only pushing works.  The foregoing analysis is typically carried
+out using a dependency graph representation of method calls.</p>
+</div>
+<div class="section" id="object-oriented-design">
+<h2>Object-Oriented Design<a class="headerlink" href="#object-oriented-design" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>The key in making great and growable systems is much more to design how its
+modules communicate rather than what their internal properties and behaviors
+should be.  Think of the internet - to live, it (a) has to allow many
+different kinds of ideas and realizations that are beyond any single
+standard and (b) to allow varying degrees of safe interoperability between
+these ideas.</p>
+<p>If you focus on just messaging - and realize that a good metasystem can
+late bind the various 2nd level architectures used in objects - then much
+of the language-, UI-, and OS based discussions on this thread are really
+quite moot.</p>
+<p>I think I recall also pointing out that it is vitally important not just to
+have a complete metasystem, but to have fences that help guard the crossing
+of metaboundaries.  One of the simplest of these was one of the motivations
+for my original excursions in the late sixties: the realization that
+assignments are a metalevel change from functions, and therefore should not
+be dealt with at the same level - this was one of the motivations to
+encapsulate these kinds of state changes, and not let them be done willy
+nilly.  I would say that a system that allowed other metathings to be done
+in the ordinary course of programming (like changing what inheritance
+means, or what is an instance) is a bad design.  (I believe that systems
+should allow these things, but the design should be such that there are
+clear fences that have to be crossed when serious extensions are made.)</p>
+<p class="attribution">—<a class="reference external" href="http://wiki.c2.com/?AlanKayOnMessaging">Alan Kay On Messaging</a></p>
+</div></blockquote>
+<blockquote>
+<div><p>OOP to me means only messaging, local retention and protection and hiding of
+state-process, and extreme late-binding of all things.</p>
+<p class="attribution">—<a class="reference external" href="http://www.purl.org/stefan_ram/pub/doc_kay_oop_en">Alan Kay on the Meaning of Object-Oriented Programming</a></p>
+</div></blockquote>
+<p>Here late binding is defined as polymorphic call—or any other binding
+operation—that are not resolved until runtime.  As for messaging, think of the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Actor_model">actor model</a> i.e. view objects as non-data.  The assignment operator “&lt;-” is
+just another message token.  This enables the disappearing of data using only
+methods and objects.</p>
+<p>The concept of allowing data to be abstracted by objects and procedures is known
+as dataless programming <a class="bibtex reference internal" href="#balzer1967dataless" id="id62">[Bal67]</a>.  All data and function
+references are expressed in a single canonical form so that changing the data
+representation does not effect the program’s source statements.  Only the
+internal processing associated with the data or function references are
+affected.  Hence, the data representation can be specified after the program is
+written, and the programmer can focus on the logical processing required without
+regard to either the representation of data or the method of accessing and
+updating.</p>
+<div class="section" id="connections-to-programming-language-design">
+<h3>Connections to Programming Language Design<a class="headerlink" href="#connections-to-programming-language-design" title="Permalink to this headline">¶</a></h3>
+<p>Software design is akin to programming language design <a class="bibtex reference internal" href="#hoare1973hints" id="id63">[Hoa73]</a>.</p>
+<p>Some language designers have replaced the objective of simplicity by that of
+modularity, by which they mean that a programmer who cannot understand the whole
+language can get by with a limited understanding of only part of it.  Another
+replacement of simplicity as an objective has been orthogonality of design.  The
+principles of modularity, or orthogonality, insofar as they contribute to
+overall simplicity, are an excellent means to an end; but as a substitute for
+simplicity they are very questionable.</p>
+<p>Software should be as efficient as possible, and leave it up to the user of the
+software to be inefficient.  It should be optimized for human readability and
+cognition.  Wide interfaces and cumbersome parameter lists are always
+inappropriate.  Another feature that is typically misused is method overloading
+<a class="bibtex reference internal" href="#meyer2000principles" id="id64">[Mey00]</a>.</p>
+<p>Overloading destroys the fundamental simplicity of the object-oriented model
+where the class represents a mapping from operation names to operations.  With
+overloading, any number of operations may be associated with an operation name
+for a given class.  This makes it impossible to reason about programs and
+programming models.  Furthermore, static overloading leads to more confusion and
+complex semantic rules when used in conjunction with polymorphism and dynamic
+binding.</p>
+<p>For more guidelines, see <a class="bibtex reference internal" href="#meyers2014effective" id="id65">[Mey14]</a><a class="bibtex reference internal" href="#reddy2011api" id="id66">[Red11]</a><a class="bibtex reference internal" href="#meyers2005effective" id="id67">[Mey05]</a><a class="bibtex reference internal" href="#sutter2004c" id="id68">[SA04]</a><a class="bibtex reference internal" href="#meyers2001effective" id="id69">[Mey01]</a>.
+Once the big design questions are resolved, one can then allocate some time on
+the tiny inconsequential details such as
+<a class="reference internal" href="../11/set-up-system-programming-environment.html"><span class="doc">coding style</span></a>.
+The details will remain immaterial as long as the designer is consistent (e.g.
+prefer underscore to camel case <a class="bibtex reference internal" href="#sharif2010eye" id="id70">[SM10]</a>) and applies the
+scientific method to decision making.</p>
+</div>
+<div class="section" id="pseudo-classes-and-quasi-classes">
+<h3>Pseudo-Classes and Quasi-Classes<a class="headerlink" href="#pseudo-classes-and-quasi-classes" title="Permalink to this headline">¶</a></h3>
+<p>Pseudo-classes are entities that should have been designed as packaging
+artifices or namespaces for collections of non-object-oriented functions
+<a class="bibtex reference internal" href="#weisert2002pseudo" id="id71">[Wei02]</a>.  Some examples are Java’s <em>Math</em> and <em>System</em>
+classes.  It makes no sense to instantiate an object of <em>Math</em>, or to derive
+another class from <em>System</em>.</p>
+<p>Quasi-classes are a lot worse than a well-designed procedural program, and they
+habitually exhibit <a class="bibtex reference internal" href="#weisert1998pcqcoop" id="id72">[Weid]</a>:</p>
+<ol class="arabic simple">
+<li><p>For nearly every member data item there’s a corresponding accessor function
+to get it, such that:</p>
+<ol class="loweralpha simple">
+<li><p>The function takes no parameters.</p></li>
+<li><p>The returned value is the member data item.</p></li>
+<li><p>The returned value has same type and other attributes as the member data
+item.</p></li>
+</ol>
+</li>
+<li><p>For almost every member data item there’s a corresponding function to “set”
+it, such that:</p>
+<ol class="loweralpha simple">
+<li><p>The function takes a single parameter.</p></li>
+<li><p>That parameter has the same type and other attributes as the member data
+item.</p></li>
+<li><p>The function stores the parameter into the member data item.  The return
+type is void.</p></li>
+</ol>
+</li>
+<li><p>A lack of essential operators and other methods forces user programs to
+manipulate the object through the get and set accessor functions.</p></li>
+</ol>
+<p>Both of these phenomena undermine the object-oriented paradigm by violating
+encapsulation and information distribution.  The solution is quite simple and
+comes from mathematics: function names are typically nouns that stand for the
+returned value <a class="bibtex reference internal" href="#weisert2012noget" id="id73">[Weih]</a>.  Unless there’s a compelling need to
+modify one private member data item without reinitializing the whole object,
+avoid public set operators or write accessors for private member data.  Instead,
+provide constructors that initialize the whole object with consistent data
+values <a class="bibtex reference internal" href="#weisert2014sdoc" id="id74">[Weig]</a>.  The constructor should represent the most
+common representation among the user community.  Only a small number of programs
+are expected to know (or find out) the constructor specifications.  If an object
+cannot be immutable, make the necessary changes to it only through disciplined
+member functions that preserve consistency and validity.</p>
+<p>Another inexcusable design that leads to inconsistency is the use of mixed units
+for data representation <a class="bibtex reference internal" href="#weisert2010nomix" id="id75">[Weic]</a>.  Never try to support multiple
+alternative representations of the same value, and be suspicious of character
+string representations of numeric or discrete data.  Likewise, never derive
+subclasses based solely on different internal representations, where the rule
+for converting one representation to another is fixed.  Polymorphic function
+invocation is intended to simplify doing different things to an object depending
+on its type, not doing identical things to objects that are distinguished only
+by their internal representation <a class="bibtex reference internal" href="#weisert2009somor" id="id76">[Weie]</a>.</p>
+</div>
+<div class="section" id="quasi-primitives">
+<h3>Quasi-Primitives<a class="headerlink" href="#quasi-primitives" title="Permalink to this headline">¶</a></h3>
+<p>There are three very different categories of data items <a class="bibtex reference internal" href="#weisert1999dit" id="id77">[Weib]</a>:</p>
+<dl class="simple">
+<dt>elementary</dt><dd><p>Data items that cannot (meaningfully) be decomposed into other component data
+items.  Elementary items are further divided into numeric, discrete, logical,
+and text.</p>
+</dd>
+<dt>composite</dt><dd><p>Data items made up of a fixed sequence of subordinate (elementary or
+composite) data items.  Most application-domain entities and records fall in
+this category.</p>
+</dd>
+<dt>container</dt><dd><p>Data items used to store, often temporarily, other data items.  The structures
+of the Standard Template Library fall in this category, as do files.</p>
+</dd>
+</dl>
+<p>Techniques and patterns for a class in one category are irrelevant and
+inappropriate for a class in another category.  For instance, composite data
+items that represent principal objects of the application domain are called
+entities <a class="bibtex reference internal" href="#weisert2002ent" id="id78">[Weia]</a>.  Said entity could have an external name
+(not-necessarily unique), and an internal code or identifier (unique for the
+type).</p>
+<p>The different data items can also be partitioned into object categories
+<a class="bibtex reference internal" href="#weisert2014tgod" id="id79">[Weif]</a>:</p>
+<dl class="simple">
+<dt>application domain</dt><dd><p>Objects representing data items that are stored, processed, or maintained by
+application systems.</p>
+</dd>
+<dt>programming control</dt><dd><p>Objects that help to implement internal algorithms or flow-control structures.</p>
+</dd>
+</dl>
+<p>The former includes elementary and composite data items, whereas the latter
+consists of container data items.  The direct use of language primitives
+(e.g. <em>double</em>, <em>string</em>) in place of application-domain data items results in
+quasi-primitives.  These fill roughly the same role in application programs as
+the built-in primitive data types.  However, on their own they rarely yield bona
+fide objects with controlled behavior.</p>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-blog/2013/01/22/notes-on-software-design-0"><dl class="citation">
+<dt class="bibtex label" id="balzer1967dataless"><span class="brackets"><a class="fn-backref" href="#id62">Bal67</a></span></dt>
+<dd><p>Robert M Balzer. Dataless programming. In <em>Proceedings of the November 14-16, 1967, fall joint computer conference</em>, 535–544. ACM, 1967.</p>
+</dd>
+<dt class="bibtex label" id="brooks1995mythical"><span class="brackets"><a class="fn-backref" href="#id2">BJ95</a></span></dt>
+<dd><p>Frederick P Brooks Jr. <em>The Mythical Man-Month: Essays on Software Engineering, Anniversary Edition, 2/E</em>. Pearson Education India, 1995.</p>
+</dd>
+<dt class="bibtex label" id="constantinides2004aop"><span class="brackets"><a class="fn-backref" href="#id18">CSS04</a></span></dt>
+<dd><p>Constantinos Constantinides, Therapon Skotiniotis, and Maximilian Stoerzer. Aop considered harmful. In <em>1st European Interactive Workshop on Aspect Systems (EIWAS)</em>. 2004.</p>
+</dd>
+<dt class="bibtex label" id="cusumano2007extreme"><span class="brackets"><a class="fn-backref" href="#id13">Cus07</a></span></dt>
+<dd><p>Michael A Cusumano. Extreme programming compared with microsoft-style iterative development. <em>Communications of the ACM</em>, 50(10):15–18, 2007.</p>
+</dd>
+<dt class="bibtex label" id="cusumano1997microsoft"><span class="brackets"><a class="fn-backref" href="#id7">CS97</a></span></dt>
+<dd><p>Michael A Cusumano and Richard W Selby. How microsoft builds software. <em>Communications of the ACM</em>, 40(6):53–61, 1997.</p>
+</dd>
+<dt class="bibtex label" id="dijkstra1968letters"><span class="brackets"><a class="fn-backref" href="#id16">Dij68</a></span></dt>
+<dd><p>Edsger W Dijkstra. Letters to the editor: go to statement considered harmful. <em>Communications of the ACM</em>, 11(3):147–148, 1968.</p>
+</dd>
+<dt class="bibtex label" id="garlan2006introduction"><span class="brackets"><a class="fn-backref" href="#id37">GS06</a></span></dt>
+<dd><p>David Garlan and Mary Shaw. An introduction to software architecture, 1994. <em>Carnegie Mellon University</em>, 2006.</p>
+</dd>
+<dt class="bibtex label" id="gibbs1994software"><span class="brackets"><a class="fn-backref" href="#id4">Gib94</a></span></dt>
+<dd><p>W Wayt Gibbs. Software’s chronic crisis. <em>Scientific American</em>, 271(3):72–81, 1994.</p>
+</dd>
+<dt class="bibtex label" id="hoare1973hints"><span class="brackets"><a class="fn-backref" href="#id63">Hoa73</a></span></dt>
+<dd><p>CA Hoare. Hints on programming language design. Technical Report, STANFORD UNIV CA DEPT OF COMPUTER SCIENCE, 1973.</p>
+</dd>
+<dt class="bibtex label" id="keefer2003extreme"><span class="brackets"><a class="fn-backref" href="#id17">KA03</a></span></dt>
+<dd><p>Gerold Keefer and Approval Authority. Extreme programming considered harmful for reliable software development 2.0. <em>AVOCA GmbH</em>, 2003.</p>
+</dd>
+<dt class="bibtex label" id="kiczales1996beyond"><span class="brackets"><a class="fn-backref" href="#id32">Kic96</a></span></dt>
+<dd><p>Gregor Kiczales. Beyond the black box: open implementation. <em>IEEE software</em>, 13(1):8–11, 1996.</p>
+</dd>
+<dt class="bibtex label" id="kiczales1997open"><span class="brackets"><a class="fn-backref" href="#id33">KLL+97</a></span></dt>
+<dd><p>Gregor Kiczales, John Lamping, Christina Videira Lopes, Chris Maeda, Anurag Mendhekar, and Gail Murphy. Open implementation design guidelines. In <em>Proceedings of the 19th international conference on Software engineering</em>, 481–490. ACM, 1997.</p>
+</dd>
+<dt class="bibtex label" id="kiczales1997aspect"><span class="brackets"><a class="fn-backref" href="#id14">KLM+97</a></span></dt>
+<dd><p>Gregor Kiczales, John Lamping, Anurag Mendhekar, Chris Maeda, Cristina Lopes, Jean-Marc Loingtier, and John Irwin. Aspect-oriented programming. <em>ECOOP‘97—Object-oriented programming</em>, pages 220–242, 1997.</p>
+</dd>
+<dt class="bibtex label" id="lamport2002specifying"><span class="brackets"><a class="fn-backref" href="#id26">Lam02</a></span></dt>
+<dd><p>Leslie Lamport. <em>Specifying systems: the TLA+ language and tools for hardware and software engineers</em>. Addison-Wesley Longman Publishing Co., Inc., 2002.</p>
+</dd>
+<dt class="bibtex label" id="lampson1983hints"><span class="brackets">Lam83</span><span class="fn-backref">(<a href="#id24">1</a>,<a href="#id29">2</a>,<a href="#id34">3</a>,<a href="#id46">4</a>)</span></dt>
+<dd><p>Butler W Lampson. Hints for computer system design. In <em>ACM SIGOPS Operating Systems Review</em>, volume 17, 33–48. ACM, 1983.</p>
+</dd>
+<dt class="bibtex label" id="leveson1993investigation"><span class="brackets"><a class="fn-backref" href="#id6">LT93</a></span></dt>
+<dd><p>Nancy G Leveson and Clark S Turner. An investigation of the therac-25 accidents. <em>Computer</em>, 26(7):18–41, 1993.</p>
+</dd>
+<dt class="bibtex label" id="lieberherr1989assuring"><span class="brackets"><a class="fn-backref" href="#id61">LH89</a></span></dt>
+<dd><p>Karl J. Lieberherr and Ian M. Holland. Assuring good style for object-oriented programs. <em>IEEE software</em>, 6(5):38–48, 1989.</p>
+</dd>
+<dt class="bibtex label" id="liskov1988keynote"><span class="brackets"><a class="fn-backref" href="#id55">Lis88</a></span></dt>
+<dd><p>Barbara Liskov. Keynote address-data abstraction and hierarchy. <em>ACM Sigplan Notices</em>, 23(5):17–34, 1988.</p>
+</dd>
+<dt class="bibtex label" id="martinppg"><span class="brackets"><a class="fn-backref" href="#id58">Mar96a</a></span></dt>
+<dd><p>Robert C Martin. Package principles: granularity. 1996.</p>
+</dd>
+<dt class="bibtex label" id="martinpps"><span class="brackets"><a class="fn-backref" href="#id59">Mar96b</a></span></dt>
+<dd><p>Robert C Martin. Package principles: stability. 1996.</p>
+</dd>
+<dt class="bibtex label" id="martin1996srp"><span class="brackets"><a class="fn-backref" href="#id52">Mar96c</a></span></dt>
+<dd><p>Robert C Martin. Srp: the single responsibility principle. 1996.</p>
+</dd>
+<dt class="bibtex label" id="martindependency"><span class="brackets"><a class="fn-backref" href="#id57">Mar96d</a></span></dt>
+<dd><p>Robert C Martin. The dependency inversion principle. 1996.</p>
+</dd>
+<dt class="bibtex label" id="martin2005liskov"><span class="brackets"><a class="fn-backref" href="#id54">Mar96e</a></span></dt>
+<dd><p>Robert C Martin. The liskov substitution principle. 1996.</p>
+</dd>
+<dt class="bibtex label" id="martin1996interface"><span class="brackets"><a class="fn-backref" href="#id56">Mar96f</a></span></dt>
+<dd><p>Robert C Martin. The interface segregation principle: one of the many principles of ood. <em>C PLUS PLUS REPORT</em>, 8:30–36, 1996.</p>
+</dd>
+<dt class="bibtex label" id="martin1996open"><span class="brackets"><a class="fn-backref" href="#id53">Mar96g</a></span></dt>
+<dd><p>Robert C Martin. The open-closed principle. <em>More C++ gems</em>, 19(96):9, 1996.</p>
+</dd>
+<dt class="bibtex label" id="meyer2000principles"><span class="brackets"><a class="fn-backref" href="#id64">Mey00</a></span></dt>
+<dd><p>Bertrand Meyer. Principles of language design and evolution. In <em>Proceedings of the 1999 Oxford-Microsoft Symposium in Honour of Sir Tony Hoare</em>, 229–246. 2000.</p>
+</dd>
+<dt class="bibtex label" id="meyers2001effective"><span class="brackets"><a class="fn-backref" href="#id69">Mey01</a></span></dt>
+<dd><p>Scott Meyers. <em>Effective STL: 50 specific ways to improve your use of the standard template library</em>. Pearson Education, 2001.</p>
+</dd>
+<dt class="bibtex label" id="meyers2005effective"><span class="brackets"><a class="fn-backref" href="#id67">Mey05</a></span></dt>
+<dd><p>Scott Meyers. <em>Effective C++: 55 specific ways to improve your programs and designs</em>. Pearson Education, 2005.</p>
+</dd>
+<dt class="bibtex label" id="meyers2014effective"><span class="brackets"><a class="fn-backref" href="#id65">Mey14</a></span></dt>
+<dd><p>Scott Meyers. <em>Effective modern C++: 42 specific ways to improve your use of C++ 11 and C++ 14</em>. ” O’Reilly Media, Inc.”, 2014.</p>
+</dd>
+<dt class="bibtex label" id="parnas1996software"><span class="brackets"><a class="fn-backref" href="#id5">Par96</a></span></dt>
+<dd><p>David Lorge Parnas. Why software jewels are rare. <em>Computer</em>, 29(2):57–60, 1996.</p>
+</dd>
+<dt class="bibtex label" id="perez2013s"><span class="brackets"><a class="fn-backref" href="#id11">PDRJ13</a></span></dt>
+<dd><p>Santiago Perez De Rosso and Daniel Jackson. What’s wrong with git?: a conceptual design analysis. In <em>Proceedings of the 2013 ACM international symposium on New ideas, new paradigms, and reflections on programming &amp; software</em>, 37–52. ACM, 2013.</p>
+</dd>
+<dt class="bibtex label" id="plosch1997design"><span class="brackets"><a class="fn-backref" href="#id48">Plo97</a></span></dt>
+<dd><p>Reinhold Plosch. Design by contract for python. In <em>Software Engineering Conference, 1997. Asia Pacific… and International Computer Science Conference 1997. APSEC‘97 and ICSC‘97. Proceedings</em>, 213–219. IEEE, 1997.</p>
+</dd>
+<dt class="bibtex label" id="raymond2004cathedral"><span class="brackets"><a class="fn-backref" href="#id12">Ray00</a></span></dt>
+<dd><p>Eric S Raymond. The cathedral and the bazaar. 2000.</p>
+</dd>
+<dt class="bibtex label" id="reddy2011api"><span class="brackets"><a class="fn-backref" href="#id66">Red11</a></span></dt>
+<dd><p>Martin Reddy. <em>API Design for C++</em>. Elsevier, 2011.</p>
+</dd>
+<dt class="bibtex label" id="sharif2010eye"><span class="brackets"><a class="fn-backref" href="#id70">SM10</a></span></dt>
+<dd><p>Bonita Sharif and Jonathan I Maletic. An eye tracking study on camelcase and under_score identifier styles. In <em>Program Comprehension (ICPC), 2010 IEEE 18th International Conference on</em>, 196–205. IEEE, 2010.</p>
+</dd>
+<dt class="bibtex label" id="sullivan2010modular"><span class="brackets"><a class="fn-backref" href="#id15">SGR+10</a></span></dt>
+<dd><p>Kevin Sullivan, William G Griswold, Hridesh Rajan, Yuanyuan Song, Yuanfang Cai, Macneil Shonle, and Nishit Tewari. Modular aspect-oriented design with xpis. <em>ACM Transactions on Software Engineering and Methodology (TOSEM)</em>, 20(2):5, 2010.</p>
+</dd>
+<dt class="bibtex label" id="sutter2004c"><span class="brackets"><a class="fn-backref" href="#id68">SA04</a></span></dt>
+<dd><p>Herb Sutter and Andrei Alexandrescu. <em>C++ coding standards: 101 rules, guidelines, and best practices</em>. Pearson Education, 2004.</p>
+</dd>
+<dt class="bibtex label" id="thomas2010orthogonality"><span class="brackets"><a class="fn-backref" href="#id50">TH10</a></span></dt>
+<dd><p>Dave Thomas and A Hunt. Orthogonality and the dry principle. 2010.</p>
+</dd>
+<dt class="bibtex label" id="wegner1987dimensions"><span class="brackets"><a class="fn-backref" href="#id51">Weg87</a></span></dt>
+<dd><p>Peter Wegner. <em>Dimensions of object-based language design</em>. Volume 22. ACM, 1987.</p>
+</dd>
+<dt class="bibtex label" id="weisert2002ent"><span class="brackets"><a class="fn-backref" href="#id78">Weia</a></span></dt>
+<dd><p>Conrad Weisert. Conventions for related entity types, identifier types, and name types. <span><a class="reference external" href="#"></a></span>http://www.idinews.com/namecode.html. Accessed on 2017-11-10.</p>
+</dd>
+<dt class="bibtex label" id="weisert1999dit"><span class="brackets"><a class="fn-backref" href="#id77">Weib</a></span></dt>
+<dd><p>Conrad Weisert. Data item taxonomy and object-oriented class definition. <span><a class="reference external" href="#"></a></span>http://www.idinews.com/taxonomy.html. Accessed on 2017-11-10.</p>
+</dd>
+<dt class="bibtex label" id="weisert2010nomix"><span class="brackets"><a class="fn-backref" href="#id75">Weic</a></span></dt>
+<dd><p>Conrad Weisert. Never provide write accessors with mixed units. <span><a class="reference external" href="#"></a></span>http://www.idinews.com/peeves/mixedUnit.html. Accessed on 2017-11-10.</p>
+</dd>
+<dt class="bibtex label" id="weisert1998pcqcoop"><span class="brackets"><a class="fn-backref" href="#id72">Weid</a></span></dt>
+<dd><p>Conrad Weisert. Pseudo-classes and quasi-classes confuse object-oriented programming. <span><a class="reference external" href="#"></a></span>http://www.idinews.com/quasiClass.pdf. Accessed on 2017-11-10.</p>
+</dd>
+<dt class="bibtex label" id="weisert2009somor"><span class="brackets"><a class="fn-backref" href="#id76">Weie</a></span></dt>
+<dd><p>Conrad Weisert. Stamp out multiple object representations. <span><a class="reference external" href="#"></a></span>http://www.idinews.com/peeves/multiRep.html. Accessed on 2017-11-10.</p>
+</dd>
+<dt class="bibtex label" id="weisert2014tgod"><span class="brackets"><a class="fn-backref" href="#id79">Weif</a></span></dt>
+<dd><p>Conrad Weisert. The great object divide. <span><a class="reference external" href="#"></a></span>http://www.idinews.com/greatDivide.html. Accessed on 2017-11-10.</p>
+</dd>
+<dt class="bibtex label" id="weisert2014sdoc"><span class="brackets"><a class="fn-backref" href="#id74">Weig</a></span></dt>
+<dd><p>Conrad Weisert. The strange demise of object constructors. <span><a class="reference external" href="#"></a></span>http://www.idinews.com/noMoreConstructors.html. Accessed on 2017-11-10.</p>
+</dd>
+<dt class="bibtex label" id="weisert2012noget"><span class="brackets"><a class="fn-backref" href="#id73">Weih</a></span></dt>
+<dd><p>Conrad Weisert. You can get some of the data all of the time… <span><a class="reference external" href="#"></a></span>http://www.idinews.com/peeves/noGet.html. Accessed on 2017-11-10.</p>
+</dd>
+<dt class="bibtex label" id="weisert2002pseudo"><span class="brackets"><a class="fn-backref" href="#id71">Wei02</a></span></dt>
+<dd><p>Conrad Weisert. Pseudo object-oriented programming considered harmful. <em>ACM SIGPLAN Notices</em>, 37(4):31–31, 2002.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/blog/2013/01/22/notes-on-software-design.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013-2020, alphaXomega.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,282 @@
+##################
+Coordinate Systems
+##################
+
+Hemispherical coordinates are essentially spherical coordinates restricted to
+the non-negative half-space defined by a differential surface's normal.
+
+.. _hemispherical coordinates:
+.. figure:: hemispherical-coordinates.svg
+   :align: center
+
+   :math:`\phi \in [0, 2 \pi]` represents the azimuth and is measured typically
+   from the :math:`X` axis; :math:`\theta \in [0, \pi / 2]` gives the elevation
+   and starts from the normal vector :math:`N_x` at a surface point :math:`x`.
+
+Notice that :numref:`hemispherical coordinates` depicts :math:`(\theta, \phi)`
+in a right-handed coordinate system where counterclockwise rotations are
+positive.
+
+.. table::
+   :class: borderless
+
+   +------------------------------------+------------------------------------+
+   |.. _left handedness:                |.. _right handedness:               |
+   |.. figure:: left-handedness.svg     |.. figure:: right-handedness.svg    |
+   |   :align: center                   |   :align: center                   |
+   |                                    |                                    |
+   |   |left handedness|                |   |right handedness|               |
+   +------------------------------------+------------------------------------+
+
+.. |left handedness| replace:: Left-handed Coordinate System
+.. |right handedness| replace:: Right-handed Coordinate System
+
+In terms of mapping :math:`Y \rightarrow Z`, :math:`Z \rightarrow X`, and
+:math:`X \rightarrow Y`, the two coordinate systems are equivalent, so the
+important thing is being consistent with the coordinate system at hand.
+:numref:`left handedness` is assumed in some software packages (e.g.
+RenderMan) while :numref:`right handedness` is favored by graphics APIs (e.g.
+OpenGL, Vulkan).  Before delving into coordinate system transformations, it will
+be helpful to have some examples to work with.
+
+Cylindrical Coordinates
+=======================
+
+.. _cylindrical coordinates:
+.. figure:: cylindrical-coordinates.svg
+   :align: center
+
+   Adapted from :cite:`lamarcc`.
+
+:numref:`cylindrical coordinates` is an extension of polar coordinates into
+three dimensions.  The Cartesian coordinates of cylindrical coordinates are
+defined as
+
+.. math::
+   :label: cy2c
+
+   x_c &= r \cos \phi\\
+   y_c &= y\\
+   z_c &= r \sin \phi.
+
+Notice that :math:`\phi` will start from the :math:`X`-axis and sweep towards
+the :math:`Z`-axis by convention of polar coordinates.  The inverse
+transformation is then
+
+.. math::
+
+   x_c^2 + z_c^2 &= r^2 (\cos^2 \phi + \sin^2 \phi) = r^2\\
+   \frac{z_c}{x_c} &= \tan \phi\\
+   y_c &= y.
+
+Spherical Coordinates
+=====================
+
+.. _spherical coordinates:
+.. figure:: spherical-coordinates.svg
+   :align: center
+
+   Adapted from :cite:`lamarsc`.
+
+One intuitive way to think about :numref:`spherical coordinates` is to relate it
+to :numref:`cylindrical coordinates` since they share the azimuthal angle
+:math:`\phi`.  The cylindrical coordinates of spherical coordinates are defined
+as
+
+.. math::
+   :label: s2cy
+
+   r &= \rho \sin \theta\\
+   y &= \rho \cos \theta.
+
+Substituting :eq:`s2cy` into :eq:`cy2c` yields
+
+.. math::
+   :label: s2c
+
+   x_c &= r \cos \phi = \rho \sin \theta \cos \phi\\
+   y_c &= y = \rho \cos \theta\\
+   z_c &= r \sin \phi = \rho \sin \theta \sin \phi.
+
+The inverse transformation from Cartesian to spherical coordinates is then
+
+.. math::
+
+   x_c^2 + z_c^2 + y_c^2
+    &= \rho^2 \sin^2 \theta (\cos^2 \phi + \sin^2 \phi) + \rho^2 \cos^2 \theta
+     = \rho^2 (\cos^2 \theta + \sin^2 \theta) = \rho^2\\
+   \frac{z_c}{x_c} &= \tan \phi\\
+   \frac{\sqrt{x_c^2 + z_c^2}}{y_c} &= \tan \theta.
+
+Change of Coordinates
+=====================
+
+A `vector space`_ over a `field`_ :math:`F` is a set :math:`V` together with
+the operations of addition and multiplication that adheres to eight `axioms`_.
+The elements of :math:`V` and :math:`F` are commonly called vectors and scalars
+respectively.  A set
+:math:`\beta = \{ \mathbf{b}_1, \mathbf{b}_2, \ldots, \mathbf{b}_n \} \subset V`
+is a `basis`_ if it satisfies the following properties:
+
+  Linear Independence
+    For all :math:`x_1, x_2, \ldots, x_n \in F`, if
+    :math:`x_1 \mathbf{b}_1 + x_2 \mathbf{b}_2 + \cdots + x_n \mathbf{b}_n = \boldsymbol{0}`,
+    then :math:`x_1 = x_2 = \cdots = x_n = 0`.
+
+  Linear Span
+    The coordinates of a vector :math:`\mathbf{v} \in V` are those coefficients
+    :math:`c_1, c_2, \ldots, c_n \in F` which uniquely express
+    :math:`\mathbf{v} = c_1 \mathbf{b}_1 + c_2 \mathbf{b}_2 + \cdots + c_n \mathbf{b}_n`.
+
+.. _vector space: https://en.wikipedia.org/wiki/Vector_space#Definition
+.. _field: https://en.wikipedia.org/wiki/Field_(mathematics)
+.. _axioms: https://en.wikipedia.org/wiki/Axiom
+.. _basis: https://en.wikipedia.org/wiki/Basis_(linear_algebra)
+
+Suppose :math:`\beta` is a basis of :math:`V`.  The dimension of :math:`V`,
+denoted as :math:`\text{dim}_F(V)`, is the cardinality of :math:`\beta` and
+represents the maximum number of linearly independent vectors, which in this
+case is :math:`n`.  In an :math:`n`-dimensional vector space, any set of
+:math:`n` linearly independent vectors form a basis for the space.
+
+:cite:`joycem130coc` denotes the column vector of these coordinates as
+
+.. math::
+
+   [\mathbf{v}]_\beta =
+       \begin{bmatrix} c_1 & c_2 & \cdots & c_n \end{bmatrix}^\top.
+
+Let :math:`\gamma = \{ \mathbf{g}_1, \mathbf{g}_2, \ldots, \mathbf{g}_n \}`
+denote another basis of :math:`V`.  Observe that
+
+.. math::
+
+   [\mathbf{v}]_\gamma =
+   [c_1 \mathbf{b}_1 + c_2 \mathbf{b}_2 + \cdots + c_n \mathbf{b}_n]_\gamma =
+   c_1 [\mathbf{b}_1]_\gamma + c_2 [\mathbf{b}_2]_\gamma + \cdots +
+     c_n [\mathbf{b}_n]_\gamma =
+   \begin{bmatrix}
+     [\mathbf{b}_1]_\gamma & [\mathbf{b}_2]_\gamma & \cdots &
+       [\mathbf{b}_n]_\gamma
+   \end{bmatrix}
+     \begin{bmatrix} c_1\\ c_2\\ \vdots \\ c_n \end{bmatrix} =
+   P_{\gamma \leftarrow \beta} [\mathbf{v}]_\beta
+
+where :math:`P_{\gamma \leftarrow \beta}` represents the transition matrix
+whose columns are coordinates of :math:`\mathbf{b}_{1 \leq j \leq n}` in basis
+:math:`\gamma` :cite:`andreimm2310tm`.  Therefore, the transition matrix
+:math:`P_{\gamma \leftarrow \beta}` converts from :math:`\beta`-coordinates to
+:math:`\gamma`-coordinates.
+
+To find the coordinates of :math:`\mathbf{b}_j` in
+basis :math:`\gamma`, one needs to express :math:`\mathbf{b}_j` as a linear
+combination of the :math:`\gamma`-basis vectors i.e. solve the linear system
+
+.. math::
+
+   \mathbf{b}_j =
+   \begin{bmatrix}
+     \mathbf{g}_1 & \mathbf{g}_2 & \cdots & \mathbf{g}_n
+   \end{bmatrix} \mathbf{x} =
+   x_1 \mathbf{g}_1 + x_2 \mathbf{g}_2 + \cdots + x_n \mathbf{g}_n
+
+:cite:`burkem407m308rev`.  The solution set to each system can be computed
+via reducing the associated augmented matrix
+:math:`\begin{bmatrix} \mathbf{g}_1 & \mathbf{g}_2 & \cdots & \mathbf{g}_n & \mid & \mathbf{b}_j \end{bmatrix}`
+to echelon form, which can be accomplished through Gaussian-Jordan elimination
+:cite:`burkem407lablocks`.  Notice that when
+:math:`\mathbf{b}_j = \boldsymbol{0}`, solving for the linear system is
+equivalent to testing for linear independence.  Since both the
+:math:`\gamma`-basis and :math:`\beta`-basis vectors are fixed i.e. not varying,
+one can compute the solution set for all the systems simultaneously by producing
+the reduced echelon form of
+
+.. math::
+
+   \begin{bmatrix}
+     \mathbf{g}_1 & \mathbf{g}_2 & \cdots & \mathbf{g}_n & \mid &
+     \mathbf{b}_1 & \mid & \mathbf{b}_2 & \mid & \cdots & \mid & \mathbf{b}_n
+   \end{bmatrix}.
+
+When the :math:`\beta`-basis vectors are varying, reframing the problem as
+
+.. math::
+
+   \begin{bmatrix}
+     \mathbf{g}_1 & \mathbf{g}_2 & \cdots & \mathbf{g}_n
+   \end{bmatrix}
+   \begin{bmatrix}
+     \mathbf{x}_1 & \mathbf{x}_2 & \cdots & \mathbf{x}_n
+   \end{bmatrix} =
+   \begin{bmatrix}
+     \mathbf{b}_1 & \mathbf{b}_2 & \cdots & \mathbf{b}_n
+   \end{bmatrix}.
+
+and applying LU factorization instead of Gaussian-Jordan elimination results in
+less computation.  Evidently, when :math:`\gamma = \beta`, the transition matrix
+must be the identity matrix to satisfy
+:math:`[\mathbf{v}]_\beta = P_{\beta \leftarrow \beta} [\mathbf{v}]_\beta`.
+
+Let :math:`\epsilon = \{ \mathbf{e}_1, \mathbf{e}_2, \ldots, \mathbf{e}_n \}`
+denote the standard basis.  When :math:`\gamma = \epsilon`, the augmented matrix
+is already in reduced echelon form.  Hence the transition matrix
+
+.. math::
+
+   P_{\epsilon \leftarrow \beta} =
+   \begin{bmatrix}
+     \mathbf{b}_1 & \mathbf{b}_2 & \cdots & \mathbf{b}_n
+   \end{bmatrix}.
+
+Since the transition matrices :math:`P_{\epsilon \leftarrow \gamma}`
+and :math:`P_{\epsilon \leftarrow \beta}` have linearly independent columns,
+
+.. math::
+
+   P_{\gamma \leftarrow \beta} =
+   P_{\gamma \leftarrow \epsilon} P_{\epsilon \leftarrow \beta} =
+   (P_{\epsilon \leftarrow \gamma})^{-1} P_{\epsilon \leftarrow \beta}.
+
+Applying Change of Coordinates
+==============================
+
+Some derivations define cylindrical coordinates :eq:`cy2c` and spherical
+coordinates :eq:`s2c` as
+
+.. math::
+
+   x_c &= r \cos \phi\\
+   y_c &= r \sin \phi\\
+   z_c &= z,
+
+and
+
+.. math::
+
+   x &= r \sin \theta \cos \phi\\
+   y &= r \sin \theta \sin \phi\\
+   z &= r \cos \theta
+
+respectively, which is essentially defining
+
+.. math::
+
+   P_{\epsilon \leftarrow \beta} =
+   \begin{bmatrix}
+     \mathbf{e}_1 & \mathbf{e}_3 & \mathbf{e}_2
+   \end{bmatrix}.
+
+Likewise, :numref:`left handedness` can be converted to
+:numref:`right handedness` by using the transition matrix
+
+.. math::
+
+   P_{\epsilon \leftarrow \gamma} =
+   \begin{bmatrix}
+     \mathbf{e}_1 & \mathbf{e}_2 & -\mathbf{e}_3
+   \end{bmatrix}.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:

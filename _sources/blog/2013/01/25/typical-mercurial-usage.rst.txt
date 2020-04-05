@@ -1,0 +1,161 @@
+#######################
+Typical Mercurial Usage
+#######################
+
+Unlike `git`_, `hg`_ workflow maintains three trees in the local repository: Working Directory -> Index -> Head.
+
+.. _git: https://git-scm.com/
+.. _hg: https://www.mercurial-scm.org/
+
+Create a New Repository
+=======================
+
+.. code:: bash
+
+   hg init
+
+Checkout a Repository
+=====================
+
+.. code:: bash
+
+   hg clone /path/to/local/repository
+   hg clone username@host:/path/to/remote/repository
+
+Propose Changes
+===============
+
+.. code:: bash
+
+   hg add <directory | file>
+
+This will add the changes to the Index.
+
+Commit Changes
+==============
+
+.. code:: bash
+
+   hg commit [-m message]
+
+This will commit the changes to the Head, but not to the remote repository yet.
+
+Push Changes
+============
+
+.. code:: bash
+
+   hg push [-b branch_name]
+
+The changes in Head will be sent to the remote repository, whose default branch is *master*.
+
+Branch Workflow
+===============
+
+Create and Switch to a New Branch
+---------------------------------
+
+.. code:: bash
+
+   hg branch <name_of_feature>
+   hg commit -m "Start <name_of_feature> branch."
+
+Switch Back to Default
+----------------------
+
+.. code:: bash
+
+   hg update default
+
+Close the Branch
+----------------
+
+.. code:: bash
+
+   hg update <name_of_feature>
+   hg commit -m "Close <name_of_feature>." --close-branch
+
+A branch is not available to others unless it is pushed to the desired remote repository.
+
+Update and Merge Workflow
+=========================
+
+Examine Current Differences
+---------------------------
+
+.. code:: bash
+
+   hg diff -r <source_branch>:<target_branch>
+
+Update Local Repository to the Latest Commit
+--------------------------------------------
+
+.. code:: bash
+
+   hg pull
+
+Merge Another Branch into Active Branch if Necessary
+----------------------------------------------------
+
+.. code:: bash
+
+   hg merge [branch]
+
+After this step, one typically performs a commit and push.
+
+Optional Tagging for Software Releases
+--------------------------------------
+
+.. code:: bash
+
+   hg tag -r <changeset_id> <semantic_versioning>
+
+The version number should have `semantic meaning`_.
+
+.. _semantic meaning: https://semver.org/
+
+Examine Repository History
+==========================
+
+.. code:: bash
+
+   hg log [-l limit_to_last_n_entries] [-u username]
+   hg glog [-l limit_to_last_n_entries] [-u username]
+
+Miscellanea
+===========
+
+Amending the Latest Changeset
+-----------------------------
+
+.. code:: bash
+
+   hg commit --amend
+
+Replace All Changes in Working Directory with the Latest Content in Head
+------------------------------------------------------------------------
+
+.. code:: bash
+
+   hg update -C
+
+Clear All and Start from the Server Commit
+------------------------------------------
+
+.. code:: bash
+
+   hg revert -r <changeset_id> <directory | file>
+
+Generate Metadata and Diff for a Changeset All at Once
+------------------------------------------------------
+
+.. code:: bash
+
+   hg log --patch --rev tip
+
+Generate Patch for a Commit
+---------------------------
+
+.. code:: bash
+
+   hg export -o /path/to/local/file -r <changeset_id>

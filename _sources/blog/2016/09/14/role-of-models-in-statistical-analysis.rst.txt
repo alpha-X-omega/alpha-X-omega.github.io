@@ -1,0 +1,170 @@
+######################################
+Role of Models in Statistical Analysis
+######################################
+
+Motivation(s)
+=============
+
+The theory of statistics start from three premises:
+
+(i) that observations on response variables corresponds to random variables;
+(ii) that there is a given family of possible probability distributions for
+     these random variables, the true distribution being an unknown member of
+     that family;
+(iii) that the objective of the analysis is connected with some aspect of the
+      unknown true distribution.
+
+Possibly due to this overformalization, there has been an increased emphasis on
+methods of analysis in which probability considerations play no explicit role.
+
+Proposed Solution(s)
+====================
+
+In order to show the benefits of combining confirmatory analysis and exploratory
+data analysis, three broad roles for probability models have been identified to
+describe haphazard variability arising in the real world.
+
+Evaluation(s)
+=============
+
+The examples mentioned in the paper demonstrated that the proposed
+classification reasonably grouped the models.  The authors admitted that this
+exposition merely serves to clarify what to do in particular applications.
+
+Future Direction(s)
+===================
+
+- Map the evolution of machine learning jargon throughout the field's history.
+
+Question(s)
+===========
+
+- By randomization theory, did the author mean I.I.D
+  (independent and identically distributed)?
+- Substantive models sound quite similar to generative models?
+
+Analysis
+========
+
+This paper may have been good during its time, but nowadays probabilistic
+methods are widely used.  However, the idea of establishing a taxonomy is still
+a good idea.  Given such a classification, one can follow an established path
+to first gain insight before delving further into the details.  The following
+stood out the most while reading this paper:
+
+- Use synthetic data to study how a method works.
+- Random variables enable abstraction of nuisance model parameters.
+- Nonlinear chaotic processes may be able to explain random variations.
+
+Notes
+=====
+
+Substantive Models
+------------------
+
+- Connect directly with subject-matter considerations.
+
+- Directly Substantive
+
+  - Explains what is observed in terms of processes (mechanisms), usually via
+    quantities that are not directly observed and some theoretical notions as to
+    how the system under study works.
+  - Examples
+
+    - Cancer studies assume a Poisson process.
+    - Rainfall assumes a Poisson clumping.
+    - Epidemics use empirical fitting derived from the transmission models of
+      epidemic theory.
+
+- Substantive Hypothesis of Dependence and Independence
+
+  - There is no detailed knowledge of processes underlying the generation of
+    the data; there are only hypotheses about dependencies.
+  - Example
+
+    - For a population, given age, weight, and gender, blood pressure is
+      conditionally independent of certain measures of personality
+      characteristics.
+
+- Retrospective Discovery of Substantive Issues
+
+  - Unexplained regularities are detected by more empirical methods.
+  - Example
+
+    - Binary responses can be a linear function of an explanatory variable.
+    - Stochastic models for time series.
+
+Empirical Models
+----------------
+
+- Represents dependencies (often assumed to be smooth) in an idealized form
+  that is not based on any specific subject-matter.  
+
+- Estimation of Effects and Their Precision
+
+  - Estimate unknown parameters of interest via confidence intervals.
+
+- Correction of Deficiencies in Data
+
+  - Examples
+
+    - Attenuation in regression.
+    - Explanatory variables are measured with error.
+    - Imputation of missing values in complex data.
+    - Adjust for unusual sampling methods. 
+
+Quasi-Deterministic Models of Randomization Theory
+--------------------------------------------------
+
+- Assumes the observation obtained on a particular experimental unit depends
+  only on the treatment applied to that unit, and is the sum of a constant
+  characteristic of the unit and a constant characteristic of the treatment.
+
+- Randomization Full Null Hypothesis
+
+  - On any unit, the observation is the same regardless of the treatment.
+
+Indirect Models
+---------------
+
+- Calibration of Methods of Analysis
+
+  - Data of "known" structure are used to study "unknown" methods of analysis.
+  - Example
+
+    - Apply different clustering methods to homogeneous samples from
+      multivariate normal distribution.
+
+- Development of Automatic Data Reduction
+
+  - A model can be used to suggest a method of data reduction that can then in
+    some sense be tested directly.
+  - Example
+
+    - HMM in speech technology.
+
+Discussion
+----------
+
+- Substantive models require the ability to simulate the data.
+- The failures of a model needs to be quantified in some reasonable manner.
+- The model should be amended as necessary when given more data so as to change
+
+  (a) only secondary features of the model while still obeying the definition of
+      the parameters of primary interest;
+  (b) the quantitative but not the qualitative aspects of primary importance;
+  (c) and the whole focus of primary concern.
+
+- Unless intra-variations are important, the model should focus only on the
+  inter-variations of the data of direct concern.
+- Qualitatively meaningful model parameters are essential to unravel complicated
+  problems and improve prediction.
+- Random variables is one way to abstract away large number of nuisance
+  parameters thus simplifying learning algorithms.
+- It is possible that superficially random variation can be explained by a
+  nonlinear chaotic process.
+
+.. rubric:: References
+
+.. bibliography:: refs.bib
+   :all:
